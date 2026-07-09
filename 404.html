@@ -7,9 +7,11 @@
 <title>Page not found — The Village Investment</title>
 <script>
   // Single-page-app deep-link support on static hosting (rafgraph pattern).
-  // pathSegmentsToKeep = 0 for domain-root deploys; set to 1 for /repo/ project pages.
+  // pathSegmentsToKeep = 0 for domain-root deploys; 1 for /repo/ project pages.
+  // This repo deploys as a GitHub Pages PROJECT page (belalatiah-hub.github.io/Thevillagw/),
+  // so seg = 1. If you move to a custom-domain root, set it back to 0.
   (function(l){
-    var seg = 0;
+    var seg = 1;
     l.replace(
       l.protocol + '//' + l.host +
       l.pathname.split('/').slice(0, 1 + seg).join('/') + '/?/' +
