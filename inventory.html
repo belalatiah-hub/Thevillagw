@@ -149,11 +149,12 @@
 
 <header class="top">
   <div class="wrap top-in">
-    <div class="brand">
+    <a class="brand" href="index.html" title="الموقع الرئيسي">
       <div class="logo">V</div>
       <div>The Village<small>المخزون العقاري — بيع أولي من المطور</small></div>
-    </div>
+    </a>
     <div class="top-spacer"></div>
+    <a class="btn btn-ghost" href="index.html" style="text-decoration:none">‹ الموقع الرئيسي</a>
     <span class="badge-primary">بيع أولي — من المطور مباشرة</span>
   </div>
   <div class="wrap">
@@ -403,6 +404,25 @@ PROJECTS.forEach(p=>{
   });
 });
 
+/* ============================================================================
+   اللوجو الرسمي للمطور (drop-in) — لإظهار لوجو الشركة الرسمي بدلاً من الرمز التصميمي:
+   • احصل على ملف اللوجو الرسمي من المطور نفسه (PNG/SVG شفاف).
+   • ضعه في مجلد assets/logos/ داخل المشروع، ثم اكتب مساره هنا، أو الصق Data-URI.
+   • مثال:  marakez:'assets/logos/marakez.svg'
+   • أي مطور بدون ملف رسمي هنا يظهر بالرمز التصميمي بألوان العلامة (احتياطي آمن).
+   ============================================================================ */
+const LOGO_FILES = {
+  // marakez:   'assets/logos/marakez.svg',
+  // sodic:     'assets/logos/sodic.svg',
+  // starlight: 'assets/logos/starlight.svg',
+  // hassan:    'assets/logos/hassan-allam.svg',
+  // tatweer:   'assets/logos/tatweer-misr.svg',
+  // palm:      'assets/logos/palm-hills.svg'
+};
+const devLogo = id => LOGO_FILES[id]
+  ? `<img src="${LOGO_FILES[id]}" alt="لوجو ${(devById(id)||{}).name||''}" style="max-height:100%;max-width:100%;object-fit:contain" onerror="this.replaceWith(Object.assign(document.createElement('span'),{innerHTML:LOGOS['${id}']||''}).firstChild)">`
+  : (LOGOS[id]||'');
+
 /* ---- helpers ---- */
 const devById  = id => DEVELOPERS.find(d=>d.id===id);
 const areaById = id => AREAS.find(a=>a.id===id);
@@ -444,7 +464,7 @@ function renderDevelopers(){
   el('count').innerHTML='<span>'+list.length+'</span> مطور';
   view.className=''; view.innerHTML='<div class="grid dev">'+list.map(d=>`
     <div class="dcard" onclick="scopeDev('${d.id}')">
-      <div class="dmono">${LOGOS[d.id]||''}</div>
+      <div class="dmono">${devLogo(d.id)}</div>
       <div>
         <h3>${d.name}</h3>
         <div class="meta">${projCountByDev(d.id)} مشروع · ${d.en}</div>
