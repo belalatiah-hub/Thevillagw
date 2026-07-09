@@ -1,23 +1,35 @@
-# Launch blockers — owner input required before public production
+# Launch blockers & owner inputs
 
-This build is deliberately honest: it ships nothing as a *verified commercial
-fact*. The items below are recorded per the V2.1 contract and must be supplied
-and approved by the brand owner before a public launch.
+Status of the items that need the brand owner before a full public launch.
 
-| # | Blocker | Why it blocks launch | What the site does today |
-|---|---------|----------------------|--------------------------|
-| 1 | **Verified contact channels** (phone, WhatsApp, email, address, hours) | Publishing placeholder contacts is forbidden; buyers must reach a real destination | Phone/WhatsApp/email CTAs are hidden; contact page shows an honest "pending verification" notice. Set `CONFIG.phone/whatsapp/email` to reveal them |
-| 2 | **Live, source-backed inventory** (projects, prices, payment plans, delivery, availability) | Prices/plans change constantly and must be confirmed with the developer | All figures are labelled *illustrative — confirm with an advisor*; counts are derived from on-page data, never claimed as "all inventory" |
-| 3 | **CRM / lead endpoint** | A lead must be durably accepted before showing success | Form validates then shows an honest "not connected" notice + copyable details. Set `CONFIG.LEAD_ENDPOINT` to deliver leads |
-| 4 | **Brand approval** | Final logo/color/type sign-off is the owner's decision | Identity derived from the master logo (teal/bone). Recorded as provisional in the footer |
-| 5 | **Legal review** (privacy, terms, disclaimers, any ownership/tax/residency guidance) | Regulated content needs a named reviewer | Privacy/Terms are clearly marked "pending legal review"; no investment-return or guarantee claims are made |
-| 6 | **Verified corporate identity** (legal entity, registration, brokerage authorization) | Required for trust + structured data | Organization schema omits unverified NAP; no fabricated identity claims |
-| 7 | **Developer relationships** (any "official/authorized partner" claim) | Must be documented and approved | The site states developer names as public facts only; it claims no partnership |
-| 8 | **Real photography / renders / plans with usage rights** | Republishing protected media without rights is forbidden | Uses original brand-tinted monogram tiles instead of unlicensed imagery |
-| 9 | **Production HTTP headers** (HSTS, X-Frame-Options/frame-ancestors, etc.) | Some directives only work as response headers, not meta | Documented in the deploy runbook section of README; app-level CSP is in `<meta>` |
+## Resolved (owner-provided)
+- **Contact phone** — `+20 101 600 0201` (also WhatsApp). Live on the site.
+- **Contact email** — `info@thevillageinvestment.com`. Live on the site.
+- **Lead delivery** — by request, **no CRM**: the enquiry form and the assistant
+  hand off directly to **WhatsApp / email** (a real destination), no fake success.
 
-## Static-hosting limitation (documented, not hidden)
-On static hosts (GitHub Pages/Netlify/Vercel) a genuinely unknown deep path
-cannot return a *true* HTTP 404 for every case; the app renders a real, branded,
-`noindex` 404 view and the sitemap lists only valid canonical URLs. For strict
-HTTP-status control, front the site with a server/CDN rewrite (see README).
+## Still pending owner input
+| # | Item | Why it matters | What the site does today |
+|---|------|----------------|--------------------------|
+| 1 | **Live, source-backed inventory** (prices, plans, delivery, availability, real units) | Figures change constantly and must be confirmed with the developer | Every price/plan/unit is labelled *illustrative — confirm with an advisor*; counts derived from on-page data |
+| 2 | **Official developer logos** | The real logos are trademarked; I can't reproduce third-party marks without the files/rights | Each developer shows an original colored monogram mark as a placeholder; drop official SVG/PNGs in when licensed |
+| 3 | **Real project & unit photography** | Real photos are copyrighted; can't be used without rights | Every project/unit shows an original on-brand SVG illustration (clearly not a photo) |
+| 4 | **Social profile URLs** (Facebook, Instagram, LinkedIn, TikTok) | Icons are in the footer; links activate only with real URLs | Set `CONFIG.social.{facebook,instagram,linkedin,tiktok}` — icons become live links |
+| 5 | **Brand approval** | Final logo/color/type sign-off is the owner's | Identity derived from the master logo; recorded provisional |
+| 6 | **Legal review** (privacy, terms, any ownership/tax/residency claims) | Regulated content needs a named reviewer | Privacy/Terms marked "pending legal review"; no return/guarantee claims |
+| 7 | **Verified corporate identity** (legal entity, registration, brokerage authorization, office address) | Trust + structured data | Org schema carries verified phone/email only; no fabricated NAP |
+
+## Notes
+- **Assistant**: the in-site chat is a deterministic assistant grounded only in
+  this site's real content (projects, developers, areas, units, payment info). It
+  is not an LLM — a real AI would need a backend + the AI-governance controls in
+  the V2.1 contract. When it can't answer it hands off to WhatsApp or the client
+  registration form. This is the contract's approved "guided finder" path.
+- **`CONFIG`** (top of the script in `index.html`) is the single place to set
+  `phone`, `whatsapp`, `email`, `social`, and an optional `LEAD_ENDPOINT` if you
+  later decide to POST leads to a backend/CRM.
+
+## Static-hosting note
+Deep-link refreshes work via `404.html` (`pathSegmentsToKeep=1` for the
+`/Thevillagw/` project page). For strict per-URL HTTP status codes, front the
+site with a server/CDN rewrite.
