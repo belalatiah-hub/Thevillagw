@@ -33,12 +33,15 @@ A) Netlify:  drag this folder onto https://app.netlify.com/drop
 B) Vercel:   import the folder at https://vercel.com/new (preset "Other")
 C) GitHub Pages: push to a repo → Settings → Pages → deploy from branch → /(root)
 
-DEEP LINKS ON A PROJECT SUBPATH (e.g. user.github.io/thevillagw/)
-  Deep links work at a domain root out of the box. If you deploy under a
-  sub-path, set pathSegmentsToKeep = 1 in TWO places:
-    • 404.html  (the `var seg = 0;` line)
-    • index.html (the BASE detector: `var seg = 0;`)
-  At a custom domain root, leave both at 0.
+OPENING / HOSTING
+  • Double-click index.html to preview locally — it auto-detects that it is
+    running from a file:// path and uses hash routing so it just works.
+  • Served over http(s) it uses clean History-API routes (/en/… /ar/…).
+  • index.html auto-detects its base URL, so it works at a domain root OR in a
+    sub-directory with no edits.
+  • DEEP LINKS ON A PROJECT SUBPATH (e.g. user.github.io/thevillagw/): only
+    404.html needs a one-line tweak — set `var seg = 0;` to `1` so it rebuilds
+    deep links correctly. At a custom domain root, leave it at 0.
 
 ------------------------------------------------------------------
 GO-LIVE CONFIG (edit the CONFIG object near the top of index.html's script)
