@@ -75,7 +75,8 @@
   /* Developer card */
   .dcard{ background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:18px; display:flex; align-items:center; gap:16px; box-shadow:var(--shadow); cursor:pointer; transition:transform .12s ease; }
   .dcard:hover{ transform:translateY(-2px); }
-  .dmono{ width:70px; height:70px; border-radius:14px; display:grid; place-items:center; color:#fff; font-weight:900; font-size:1.1rem; flex:0 0 auto; text-align:center; line-height:1.1; padding:6px; }
+  .dmono{ width:132px; height:66px; border-radius:12px; display:grid; place-items:center; background:#fff; border:1px solid var(--line); flex:0 0 auto; padding:8px; }
+  .dmono svg{ display:block; max-height:100%; }
   .dcard h3{ margin:0 0 3px; font-size:1.12rem; }
   .dcard .meta{ color:var(--muted); font-size:.86rem; }
   .tocheck{ display:inline-block; background:#FFF4E5; color:#9A6400; border:1px solid #FFE0B2; font-size:.7rem; font-weight:700; border-radius:999px; padding:2px 8px; margin-top:5px; }
@@ -179,7 +180,7 @@
   </div>
 
   <div class="disclaimer">
-    ⓘ أسماء المطورين والمشروعات والمناطق بيانات عامة معروفة. الأسعار والمساحات والأقساط أرقام <b>استرشادية للعرض</b> و«تؤكد مع المطور» عند الحجز. المطور «برجون ادير» <b>قيد التأكيد</b> لحين تزويدنا بالاسم واللوجو والمشروعات الرسمية.
+    ⓘ أسماء المطورين والمشروعات والمناطق بيانات عامة معروفة، واللوجوهات نُسخ تصميمية أصلية بألوان كل علامة (تُستبدل باللوجو الرسمي في الإنتاج). الأسعار والمساحات والأقساط أرقام <b>استرشادية للعرض</b> و«تؤكد مع المطور» عند الحجز.
   </div>
 
   <div id="crumb"></div>
@@ -284,14 +285,23 @@ const AREAS = [
 ];
 
 const DEVELOPERS = [
-  { id:'marakez',  name:'مراكز',        en:'MARAKEZ',                mono:'مراكز',  color:'#1B3A6B' },
-  { id:'sodic',    name:'سوديك',        en:'SODIC',                  mono:'SODIC',  color:'#111111' },
-  { id:'starlight',name:'ستار لايت',    en:'Starlight Developments', mono:'ستار\nلايت', color:'#B8860B' },
-  { id:'hassan',   name:'حسن علام',     en:'Hassan Allam Properties',mono:'حسن\nعلام',  color:'#0E7C5A' },
-  { id:'tatweer',  name:'تطوير مصر',    en:'Tatweer Misr',           mono:'تطوير\nمصر', color:'#14808A' },
-  { id:'palm',     name:'بالم هيلز',    en:'Palm Hills Developments',mono:'PALM\nHILLS', color:'#A01C3B' },
-  { id:'bergon',   name:'برجون ادير',   en:'—',                      mono:'؟',      color:'#5B6472', tbc:true }
+  { id:'marakez',  name:'مراكز',        en:'MARAKEZ',                color:'#1B3A6B' },
+  { id:'sodic',    name:'سوديك',        en:'SODIC',                  color:'#111111' },
+  { id:'starlight',name:'ستار لايت',    en:'Starlight Developments', color:'#B8860B' },
+  { id:'hassan',   name:'حسن علام',     en:'Hassan Allam Properties',color:'#0E7C5A' },
+  { id:'tatweer',  name:'تطوير مصر',    en:'Tatweer Misr',           color:'#14808A' },
+  { id:'palm',     name:'بالم هيلز',    en:'Palm Hills Developments',color:'#A01C3B' }
 ];
+
+/* لوجوهات SVG أصلية بألوان كل علامة (بديل نظيف وقانوني — يُستبدل باللوجو الرسمي في الإنتاج) */
+const LOGOS = {
+  marakez:`<svg viewBox="0 0 140 64" width="100%"><g fill="#1B3A6B"><rect x="50" y="16" width="6" height="12" rx="1"/><rect x="60" y="11" width="6" height="17" rx="1"/><rect x="70" y="6" width="6" height="22" rx="1"/><rect x="80" y="13" width="6" height="15" rx="1"/></g><text x="70" y="48" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="700" font-size="13" letter-spacing="2.5" fill="#1B3A6B">MARAKEZ</text></svg>`,
+  sodic:`<svg viewBox="0 0 140 64" width="100%"><rect x="30" y="25" width="12" height="12" rx="2" fill="#111"/><text x="80" y="39" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="800" font-size="21" letter-spacing="2" fill="#111">SODIC</text></svg>`,
+  starlight:`<svg viewBox="0 0 140 64" width="100%"><path d="M70 8 l3.6 7.3 8 1.2 -5.8 5.6 1.4 8 -7.2 -3.8 -7.2 3.8 1.4 -8 -5.8 -5.6 8 -1.2z" fill="#B8860B"/><text x="70" y="50" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="700" font-size="12.5" letter-spacing="2.5" fill="#B8860B">STARLIGHT</text></svg>`,
+  hassan:`<svg viewBox="0 0 140 64" width="100%"><text x="70" y="30" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-weight="700" font-size="16" letter-spacing="1" fill="#0E7C5A">HASSAN</text><text x="70" y="49" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-weight="700" font-size="16" letter-spacing="3" fill="#0E7C5A">ALLAM</text></svg>`,
+  tatweer:`<svg viewBox="0 0 140 64" width="100%"><g fill="none" stroke="#14808A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M54 27 L70 11 L86 27"/><path d="M62 27 L70 19 L78 27"/></g><text x="70" y="47" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="700" font-size="12" letter-spacing="1.5" fill="#14808A">TATWEER MISR</text></svg>`,
+  palm:`<svg viewBox="0 0 140 64" width="100%"><rect x="63" y="5" width="14" height="14" rx="2" transform="rotate(45 70 12)" fill="#A01C3B"/><text x="70" y="42" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-weight="700" font-size="15" letter-spacing="1" fill="#A01C3B">PALM HILLS</text><text x="70" y="54" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="600" font-size="7.5" letter-spacing="3" fill="#A01C3B">DEVELOPMENTS</text></svg>`
+};
 
 /* helper to build a unit */
 function u(type,beds,baths,bua,priceM,dp,years,fin,delivery){
@@ -337,9 +347,6 @@ const PROJECTS = [
   { id:'aria', name:'أريا', dev:'starlight', area:'mostakbal', status:'متاح',
     types:['apt','town'], delivery:'2026',
     units:[ u('apt',2,2,150,9.6,10,8,'semi','2026'), u('town',3,4,225,17.5,10,8,'semi','2027') ] },
-  { id:'starplaza', name:'ستار لايت بلازا (قيد التأكيد)', dev:'starlight', area:'capital', status:'قريباً', tbc:true,
-    types:['retail','office'], delivery:'2027',
-    units:[ u('retail',0,1,45,6.5,15,6,'none','2027'), u('office',0,1,75,7.8,15,6,'none','2027') ] },
 
   /* ---------------- حسن علام / Hassan Allam ---------------- */
   { id:'haptown', name:'هاب تاون', dev:'hassan', area:'mostakbal', status:'قيد التنفيذ',
@@ -385,14 +392,6 @@ const PROJECTS = [
   { id:'woodville', name:'وودفيل', dev:'palm', area:'october', status:'متاح',
     types:['town','apt'], delivery:'2025',
     units:[ u('apt',2,2,150,10.5,10,7,'full','2025'), u('town',3,4,225,19,10,7,'full','2025') ] },
-
-  /* ---------------- برجون ادير (قيد التأكيد) ---------------- */
-  { id:'bergon1', name:'مشروع برجون ادير (قيد التأكيد)', dev:'bergon', area:'capital', status:'قيد التأكيد', tbc:true,
-    types:['apt'], delivery:'—',
-    units:[ u('apt',2,2,130,0,10,8,'semi','—') ] },
-  { id:'bergon2', name:'مشروع برجون ادير 2 (قيد التأكيد)', dev:'bergon', area:'newcairo', status:'قيد التأكيد', tbc:true,
-    types:['town'], delivery:'—',
-    units:[ u('town',3,4,220,0,10,8,'semi','—') ] }
 ];
 
 /* ---- derive flat units list with references ---- */
@@ -445,11 +444,10 @@ function renderDevelopers(){
   el('count').innerHTML='<span>'+list.length+'</span> مطور';
   view.className=''; view.innerHTML='<div class="grid dev">'+list.map(d=>`
     <div class="dcard" onclick="scopeDev('${d.id}')">
-      <div class="dmono" style="background:${d.color}; white-space:pre-line">${d.mono}</div>
+      <div class="dmono">${LOGOS[d.id]||''}</div>
       <div>
         <h3>${d.name}</h3>
         <div class="meta">${projCountByDev(d.id)} مشروع · ${d.en}</div>
-        ${d.tbc?'<span class="tocheck">قيد التأكيد</span>':''}
       </div>
     </div>`).join('')+'</div>';
 }
