@@ -70,7 +70,9 @@
     "description": "Real-estate marketing and brokerage for primary-sale property in Egypt.",
     "areaServed": "Egypt",
     "knowsLanguage": ["en", "ar"],
-    "url": "https://www.thevillageinvestment.com/en/"
+    "url": "https://www.thevillageinvestment.com/en/",
+    "telephone": "+201016000201",
+    "email": "info@thevillageinvestment.com"
   }
   </script>
   <script type="application/ld+json" id="ld-page">{}</script>
@@ -416,6 +418,74 @@
   .band-teal{background:var(--teal-900);color:var(--bone)}
   .band-teal h2{color:var(--bone)}
   .band-teal .lead{color:#cfe0e5}
+
+  /* ---- Illustration covers (original SVG art, not photos) ---- */
+  .card__media .artsvg,.detail-media .artsvg{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .card__media .tags,.detail-media .tags{position:absolute;inset-block-end:10px;inset-inline-start:10px;display:flex;gap:6px;flex-wrap:wrap;z-index:2}
+  .card__media .tags .chip,.detail-media .tags .chip{background:rgba(7,61,82,.82);color:var(--bone);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+  .card__devmark{position:absolute;inset-block-start:10px;inset-inline-start:10px;z-index:2;box-shadow:0 2px 8px rgba(5,36,48,.4);border:1.5px solid rgba(243,239,230,.55)}
+  /* ---- Unit-type cards ---- */
+  .unit-card{background:var(--paper);border:1px solid var(--line-2);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;transition:var(--t)}
+  .unit-card:hover{border-color:var(--teal-600);box-shadow:var(--shadow-sm);transform:translateY(-1px)}
+  .unit-media{background:#e7f0f3;padding:12px;display:grid;place-items:center}
+  .unit-media .unitsvg{width:100%;max-width:160px;height:auto}
+  .unit-body{padding:12px 14px}
+  .unit-body h4{font-size:1rem}
+  .unit-body p{font-size:.78rem;color:var(--ink-3);margin-top:3px}
+  /* ---- Contact quick actions ---- */
+  .btn--wa{background:#1f8f4e;color:#fff}
+  .btn--wa:hover{background:#187a40;transform:translateY(-1px);box-shadow:var(--shadow-md)}
+  .btn--wa svg{fill:none}
+  /* ---- Unit specs + type icons ---- */
+  .spec-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:2px}
+  .spec{display:inline-flex;align-items:center;gap:5px;font-size:.86rem;color:var(--ink-2)}
+  .spec svg{width:17px;height:17px;color:var(--teal-600);flex:none}
+  .spec b{color:var(--ink);font-weight:700}
+  .spec-lbl{color:var(--ink-3);font-size:.76rem}
+  .chip svg.chip-ico{width:13px;height:13px;color:currentColor}
+  .type-row{display:flex;gap:10px;flex-wrap:wrap}
+  .type-chip{display:inline-flex;flex-direction:column;align-items:center;gap:7px;min-width:82px;padding:14px 10px;border:1px solid var(--line-2);border-radius:var(--r);background:var(--paper);text-align:center;transition:var(--t)}
+  .type-chip:hover{border-color:var(--teal-600);box-shadow:var(--shadow-sm)}
+  .type-chip svg{width:28px;height:28px;color:var(--teal-700)}
+  .type-chip span{font-size:.82rem;font-weight:600}
+  /* ---- Social ---- */
+  .social{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+  .social a,.social span{display:grid;place-items:center;width:38px;height:38px;border-radius:10px;background:rgba(243,239,230,.1);color:#cfe0e5;transition:var(--t)}
+  .social a:hover{background:var(--teal-600);color:#fff;transform:translateY(-2px)}
+  .social svg{width:19px;height:19px}
+  .social .off{opacity:.4;cursor:default}
+  /* ---- Guided assistant (chat) ---- */
+  .chat-fab{position:fixed;inset-block-end:20px;inset-inline-end:20px;z-index:95;height:52px;padding:0 18px;border-radius:var(--r-pill);border:none;background:var(--teal-800);color:var(--bone);display:inline-flex;align-items:center;gap:8px;font-weight:600;box-shadow:var(--shadow-lg);transition:var(--t)}
+  .chat-fab:hover{background:var(--teal-700);transform:translateY(-2px)}
+  .chat-fab svg{width:22px;height:22px}
+  @media(max-width:640px){.chat-fab{inset-block-end:84px;padding:0;width:52px;justify-content:center}.chat-fab .lbl{display:none}}
+  .chat-panel{position:fixed;inset-block-end:20px;inset-inline-end:20px;z-index:120;width:min(94vw,380px);height:min(74vh,580px);background:var(--bone-2);border-radius:var(--r-lg);box-shadow:var(--shadow-lg);display:none;flex-direction:column;overflow:hidden;border:1px solid var(--line-2)}
+  .chat-panel.open{display:flex}
+  @media(max-width:640px){.chat-panel{inset:auto 8px calc(8px + env(safe-area-inset-bottom)) 8px;width:auto;height:82vh;border-radius:var(--r-lg)}}
+  .chat-head{background:linear-gradient(150deg,var(--teal-800),var(--teal-900));color:var(--bone);padding:13px 15px;display:flex;align-items:center;gap:10px}
+  .chat-head .av{width:34px;height:34px;border-radius:50%;background:rgba(243,239,230,.16);display:grid;place-items:center;flex:none}
+  .chat-head .av svg{width:19px;height:19px}
+  .chat-head h3{color:var(--bone);font-size:1rem;line-height:1.1}
+  .chat-head p{font-size:.72rem;color:#bcd0d6}
+  .chat-head .x{margin-inline-start:auto;background:none;border:none;color:var(--bone);width:32px;height:32px;border-radius:8px;flex:none}
+  .chat-head .x:hover{background:rgba(243,239,230,.15)}
+  .chat-body{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
+  .msg{max-width:88%;padding:10px 13px;border-radius:14px;font-size:.9rem;line-height:1.5}
+  .msg.bot{background:var(--paper);border:1px solid var(--line-2);align-self:flex-start;border-end-start-radius:4px}
+  .msg.user{background:var(--teal-700);color:var(--bone);align-self:flex-end;border-end-end-radius:4px}
+  .msg a{color:var(--teal-700);text-decoration:underline;font-weight:600}
+  .msg.user a{color:#bfe3ef}
+  .msg .unit-mini{display:block;border:1px solid var(--line-2);border-radius:10px;padding:8px 10px;margin-top:6px;background:var(--bone-2);color:var(--ink)}
+  .chat-chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 10px}
+  .chat-chips button{background:var(--teal-050);color:var(--teal-700);border:1px solid #bfdae3;border-radius:var(--r-pill);padding:6px 12px;font-size:.8rem;font-weight:600}
+  .chat-chips button:hover{background:var(--teal-600);color:#fff}
+  .chat-input{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line-2);background:var(--paper)}
+  .chat-input input{flex:1;min-width:0;padding:10px 14px;border:1.5px solid var(--line-cool);border-radius:var(--r-pill);font:inherit;background:var(--bone-2)}
+  .chat-input input:focus{border-color:var(--teal-600);outline:none}
+  .chat-input button{width:44px;height:44px;border-radius:50%;border:none;background:var(--teal-800);color:var(--bone);display:grid;place-items:center;flex:none}
+  .chat-input button:hover{background:var(--teal-700)}
+  .chat-input button svg{width:18px;height:18px}
+  html[dir=rtl] .chat-input button svg{transform:scaleX(-1)}
   </style>
 </head>
 
@@ -432,6 +502,9 @@
       <nav class="nav-links" id="primary-nav" aria-label="Primary"></nav>
       <div class="nav-actions">
         <button class="btn btn--sm lang-btn icon-btn" id="lang-toggle" style="width:auto;padding:0 14px" aria-label="Switch language">ع</button>
+        <a class="btn btn--wa btn--sm" id="wa-header" href="#" target="_blank" rel="noopener" aria-label="WhatsApp" style="display:none">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 0 1-11.9 7L4 20l1.1-4A8 8 0 1 1 20 12z"/><path d="M9 9c0 4 2 6 6 6"/></svg>
+        </a>
         <a class="btn btn--primary btn--sm" href="/en/contact/" data-link data-i18n="cta_talk">Talk to an advisor</a>
         <button class="icon-btn burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round"/></svg>
@@ -467,6 +540,9 @@
           <img class="flogo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARYAAABYCAYAAAAwaNjnAAAe0ElEQVR42u2deZxcVZXHv7V0ZyGEJCQBkrAvBhBBEEFFVILLyBIQRVBUEFBExRnccMZxVMYPIyKgAUW2AR0ZEBxBEBAQnBllFZgAoiyyEzAsgQSydFdXzR/nHOvU7VdV772q6nQn93w+79PdVa/fes/v/s56C8uWLGItlKJuFf17BvBl4Fngu/rdEFGiRMkl5bUQUAoKGlVgE+Ao4OPALGBLoKZblChRIrC0lJKCRVX/3h44FvgIsK5+dgbwqO4b2UqUKBFYWgJK1QHFbsBngIOBfv1sUL8/XdlMZCtRokRgGSYF6j4SA5S9gc8B+7r9zBzqA34G/CWylShRIrAkAUoJccgOKbgcoICyZwAoRd3X/C0nR7YSJUoElmaAUgEmAIcAnwZ20X2qChol3QxgSsAvgXsiW4kSJQILNEZ4KsA04KPAMcBrEgAlCZAAvu1+jxIlyloKLB5QAGYjIeOj9XdjI+ZrSRJjKzcBNzP28lYKwc/qCJwnhuGjrLHAUnBKtA3wKeBjwNQAUEopFeak4O+8ikdOpUtzrf74NcfCspxzpM4TJcqYAxabNXcCjkP8KBP0uwqN/pNWYmzlDuCGnGzF+2lafZZGiSs5nsV4YLJuK4Gnenie9ZBcnzTniRJlTAFLUZVjS+A26jkoBih57uPb1P0vaU2JQgAeBWAisCL4rN0sbyC5PrCX+3wcsI5+P0UVe5Iq93qIH2m6/pys390FvJHkqJZ9NgN4ewAYE5ucZ0pwnnX1u1uBPYjRsyhrGLBUgPcrqKxUJcx6/VU91v3A5TTWC6VlTCD5MB9W9jQZWIpEli4CrnDXXG1xP0PAdkgOTSdSavPchoDX9fg8UaKMSWAxBX2fKndfTr9ITZXtO6pw5ZRsxUBiGvDvwP7B97OAuUhG79XA4cBzbcClGauptAG3QnAvtZT3nfc8VeolEVGirDHAYso5F9i5g9nT2MqjwCU0RpbSmD+TgF8Db1ClLLit5rb3AtcDbwOWNTEdDGzuA97t9pkOnK9srNYGPKspwNXO83/BeTYEztP33+48NWI4PsoaDCzz9XorOa+7qv93uvpEyinNIItEna2gMuB8PCH4oN/vCJwKHEly4p0BzUvAde7zyXQ37G3neTE4z4zIQKL0WmlHuww5M4ics6fR+b8CF2RgK+bYfQtwqAJRf5v/6dNjH46ExIdaPGcLA/fpzyk9YgfhedaLQz/KaAKW0gjTYvMhzEXS82s5zSAzXc5AHK1pfQZ2rweQLWfE/B/vafOca9SLJYfoXZLeSJ0nSpTMwGKUvrYarm8+2Wt5TJmMZawAzsrAVrwpsXFOQN0+DrEoEVha0+ghnYFn0xg16KWY8/GgDGZQzTEUy3F5EGns9DzZ8jAKzheSR/riEIsSgSVZsWyGPxa4Rn/mNUmyXpuPBrU7p1H8AnXH7NVICHhH51vJU1fzaA6mVgMej0MsSgSW4aaP1Yx8HzhT/z4GiSoM0Vvnb9H5N5qZQcZOfEuEp5CIzK7APsClSEJdnlwMA6EbaF3U2AyQbwhMqihR1mpgKasirwdcBXyWegOlacCX6H1+g7GP9yeYQdWAnRSA/0WqnHcEPo/kbkxD6oq2ygmElvtyJ3Cj/j7Y5n+szOB3jM3K6ShRegIsZkZso8q6D/XcEQu/HoNkm1Z7xFosGrQD8HrqUZYhd84S8AJwDtIhbk8k6etFJFX+JOBepOHTk7TPgm3HQD6NJLz1KbjUEtjToD6nFc5kjBJlrZNyE1CZB/ynmjw+Ic38LZOALwDHk62IL6t/5QD9exVSKGc+lruBHwOX0Vhx+24kKW0/3R8korSqA5+QAdmfkRqhi4GNAkAx06cPWIzUEd3bIZhFiTLmGYtv73gUcK3zo5Sb+F6OVtbSC1+LmQ7767HHA8uRQrq/Q6p5T1dQmQ58Eql6vhb4AJISX0GKDa8mW4i5GbiUgP9Bsm8XKAvyJtrTwA/1+xt6BLhRoowZxlJ0PouTgBOoO22btXSsBKylm8BijtrdkaS4B4GfKlN40O23A7Iu0IcV4AwArGanDJzmGFelw+syAF2kfpuvqO9mHeBVpMv/K8E9RImy1gJLFenNcYHO9qZAaSJGRyNLki7qIu03v8Q0pDvcZcpW7Lxm7uxLPb3et6I00+VJpI1BoYtKXnXneRVY2OS5RFCJstYDy5bAT4A3kb7AL2Qt/9BF6m9M6Wr32UwkOvRx6p33IblznBUbLlBA6gZbCYFviOTq5ggoUaKo0t2EpKxnrRq22fko4JQusJZwXSCQBkUfBT5E3WFq5k4x4Xotn+UFJEJUoLf1NzHqE6XXEloPY2ICKypbIYefxEeIvkr+vBYDCEt2s+K9nyN9aT+voBKGmgtN/CAF4Fwk7DzSDYoK7vrKUSdyPTd7dq22EvXVGkbb9be65qxFvGYFVNzWrWBJu2vu6BmXgX8FPghsQfa8FLvxw5HVBB9LyVrspsxJXEWiO4eo/2SnNuZOMwZRUt/HAvKn73v2lIW9VCOLyTyoC+7917rwrqqMXCSu6MZwnuLcMsNXQ0iauDdFmoZNRfKk7kQioJ0+90qGay46va6mvbkVwNeQyEs1x4UOIeHgLyOJc8WM5s4O6js5FNgghbnTTCw0/lMk9NtJZCZvV/tJSIRqcx0QFyNtGmID6voAtTHj3814ffcbIQ3GpyEBhUlu3AwgUbeXkGLSxcCz+nelyTl6IaVgQrTrnw3MQfyBk5Em5DaWlgJLdFw+gfQFqgR6aMcrOMA9Efh79xxMzkGWvqml1Nmk9cwLOkY312ufigRDavpM/6rX+rhefzXh/pufcNmSRbbj7YhjdCjHbF1TgNpOLyZkLeHLLiL5KJ9AWjmWA1OmmAMIDAxeh4Sl8zAWu+7NgXcG5p39nKgDyTrcT1GlmKUvaKZ7fpuQLuvXvp8NPIQsa5KmNaWVG7whJXj5+3sASehrdx4bD7cAb84Jkn5gg5SKvEln4jciAYTpSOg+yzt/QQf+QuD3SKb4Q8G9dpNl+TH1Gh3De+mYm51yElwKPIKsenAt4uNc6gDGWPq5yt4JQMgm5w8ieV3tJtBiAArzgAORFRe2RnK+WsmzSELqNchyxI8H1kqtFbAM6QP6TQ5gMRuwX2foQ91JiwG6zdAH0szcyWszm+P5UqSaOS9bsQjSIUjmcV6pqkm2rc5SazOw+HfxeiRFYT713KNQXlFFG9BBP4XG9aMKLSafVQouJyN9h7sFLv4e3oHkbr2L5G6Cy4HfAn9Cil83VODZtcmxn9Sx9kN1JaAM/jy9n77gXgf1en6KBDZaRT1L7v19HPiMXgtNrvt53XeDJiD5CvBfSHLq3QnPpkGR7MQ3IiHe96YEF5/v0q9235XO6eNp144KJh/UGT2vudNKYWpI9/1uOPQqTe631mI289fRjXtaE8QG3SZK6z8c+EOGVHGeU3r/a53NX1YFGqeT0e7APyP1a37C8v6tgu6/t25fVoDpNFnR/n8WknB5cDBOCs6/txA4DPhjwnHmAxc6s8YAfWOkqPcYJCfsPPV7Vh2b8L5P07mZ7jitrvvNCgS7Bnpn+zyl57tezZ+SmkgHI6kk/e75TqIepf0B8C9qNg17xoVlSxZ5WvNaZAGsZglyNXeTpkz/rQ/8ymB2KCtIfQKJ8pQ6NHfazag3qPnSaci7pjb+VsFnFyK9Ydo5uG3ArFCqubYyFhts+yutnxGwUzvvfUiy4xNtjrcNUrE+PgDzpPFp5z8QWT+qUwb7ViTZck4wIfqlWIaUkd3nnms4WZ2AZLf71I4ajaUzL6ifCX0mGyjA2HsY1HNfpsw6vDdvdn4eWZjP/JrFAJQXK2g/1uT+5ynZKNO4WJ9d6wNIEuttIXMqBuzjXiQDN1zIyyeFmclyldLBtyOLdNkL3UAdTnfp5/u4G6s5RtNN2xd9gHTIWHxX+9t1u01/LosEJPMs/34dAzPceCo7cCqoyfgE9TBnIdiMET+ofpRWvjMfIaoB3yR/4qaN2b2RFQ7mOOUsBYpWUNC7zym/DxHbuP8lwxuWWesP0zEDlX9DIrW7KgOy/+lzE2k43j2oLEDyywoODIrBNZ+noDLeAaUdY5y6Ri5zxywEfqDXqI9ovpswGoDFz7RfVyUqOv+Jj+Zcoo6f/ZQ+4eznBfpwT0OiPVVnQpTpft6B3ewd+hC61fvE7tdi/GnXhY5SHzebIYu7hTMygfNvdyRnybM6v06Tj5YsbEP//bHRMbi9YxhZ7sFWkLxCFW+oiXlr17KQ5i1bTQ8eV5bQbDlc31d6P2XO9yrj/42y4GUKCD9hePTL/v9M9acMkpw6Yc/it9R7DFWDZ25k44oWbG5I2fWlyur+5kIpBjdfUup+mvvOQtLnqwf/EJ050Ad+APAr4A96M9NJl8zWDVAxYPlOjsHTjrmEXe1juDibv+vTapNXWoCyMeP3AV+keeGrvZOXMjrQUQc6ZOv+Z2P7IiQKmMbn+ESLMeLZ2TMpfCNVBURr/v6UMqe5al4fpY5dnzdlpsg3kF5AgySvGFpzIP4EzSM7BugPuuM3Y6Z9SjhsvapisYlD9hR1qK1Qx88u6nw1T/Bstd/uBH6hvpRiD82dUOHtHP1qplxOb3MXomQDfNQfkwbszbSZH/x/kizNYdZmXUPJFPsoVe5KSrb6bArANR9KO9ZlCvs+YDdnglgOTLGJ2bYPkpM2SPvgwXJ1kreTFxXEml2znXsjpCVsFSiUm7yMZep0ex542H2/K3CEeozXD7zMvYyEeDptL/kWZHXCS539HlnF6JFxGfZN6xAezDl2sgJjEQmLZylTeTnlfisyXHcNaQ1ya8AGqwnPbioSWaultBJWumuptXhuKxRYWr1PM4sOU2vnrnIL2naro4T76IN+l7tg72XulVTdgzKT7HIkynBj1N1RawoNIR33dmlj3ngT/I5gBmxlpvTaP7SVspU0pR12Ta+0AbKCm7TTAJ75a3Z3gNeKMXxRWUPeJYi7MfmD9Co6vNzipopIWPJXSKgPByi9LLLzeQkGWk8C/4GEfB9IoK2RqYwesXfxXfXH9ZGcAGmZ0n2qbKfSWX1XN8Sub3Makzyz/G9aUzENyIFEWSfopBoyO6v52UD9Ku1APIlplGnuTK5l0HM7777A9GIbpvCkOsyqSCYk9Ca64wdawflobkfyYHYE/tGBykQkMhVrcEafmDLejSRSrQjGTM0N3D71OcxHEuNWN7CYTKB3BaVZj9nKX2nKfIj6kqoZdNNKIioMD4/7z54n/XLEVXWRvLvcZsdViHf/9h4ylNDcGUDi/WerueMRfg6SvXus7vN7ut/IKUp33mkJqWW5H2njuTeSLep7BF+NJIw9SmOiVyEwByyhrjhC1/8C3U3izON7MpfESy38MgbCB2TwB9k+6yJh64EUIDshw3svAPPKbShbCQkjX4SkY2etI8pi7ixC6h8uZHhK9G5IVOogJLZfQRLi0lZ3Rhl5sbFyn46dqUhqfz8SkXjC+Rv6HRh507YWmA+vjAAggmQ/L1dmnFZhaym/Xyel6WT6cb97NkMJDGEqUneXFQjHI/VDeUzFVuZbAdi1nOJhFIB/QtKjx9PZQmVJ0Z27EGfspUq7cIi6LxL22ysYsOcj4b3YtHr0g4sNtiW6JclAwqBfT7fJ1Ev698joz8gzPotISPd3SIlIO7+FAcaklNc2IYMSF5Civ6TjmpN8K6RQM49epp2Uixn326Kc4sRlJGPwe0pp83idQ3NnEHEKn42kJvsw4pY6w31UfzexKFRNr6UQ9XbMmEVhKrifPLZBIjDbIclfc5BEqykKKqUWvoVeiI2r05AoaFqfyMyUSjw1BQCZn+px2udobRCYn2lNrCVI/tkrdN9XWUgDEDbrnKzUaSbpvOVJ5s6zSIn4BcA9wcvcU82dAx36D7mBZMe5SulhZCtjQ+w9GaBsi6y0MA/YmebtE0wG1WRaqrP9BvR2eV8z4a5VH9HB1LNYW8lmLa7JFHc89WLMdqy+DwndvtpkrBcCoMoKDBW1FgZ68RDLKRGuqE6kryN9I6oZzZ2F6ij6mdJMk2nqeDoSydQM2Ukp4UGeGnV1TEjBzbTjVEGPQGpKygmmkPU2+RNSMX+7+joWUe/RchRSjzZEb3M1bOI8WhnVTi3AxcblTjSPJNk+GzmGUWzB7PuQ1PxfpphAKx28n3VobP0wosDiH/S5SJRoe4Y7cqvOdLJMvKvV3LkuQMZtkYzCw5B+FJ7hJGXwGmu6DVmNMC60PvpBxZTsA0jfju0DZfDrQPUj1cFfRQpbB1qwiZEQY0RLlV1dgSSqJbX8MPN8NwWOZ/R+vML3I5muOytohLoTFmp+FfhWG1AxIHghox+EBJ1dbcBirKWCNND5VRNzp4jUGF2MVLbeHZxrnrKT/amH3fzLKrUZrKc4X02MBo1uUJmIFNF9JAAFP3GYgt2EOOqXB+Oy5t53ZYT9ajbJLdZxe7oyGBjesnRIZ/8zkA6KITCu1OdxQvC/4WT8GNJy5IoUTMWAYBEjG4pP45/KRCdtEFyNOFznBSh7n4LJxXqz3rl0EOkWG2v1gh9UahiLDUe/+TNRfRR7NDFr/WS1TMFnuc7mgwn0vsjqSYQ0s2Q5kqh5AdKS4LUJ9z2IFA3erIB6p7oP1lMz6TiktcggjX1PzM3wIySFYgnp/If2PB5R98KGPfY9pZ1QMgOLP8CX1PFTRprsnqM/V7r9dkK6S3Xafd+vbDhATIgb7cBSVX/aHoHvJGmiKiv7fZp6tDCNMo2EmJk2iESn3oM0NZtK8xYC6OR5TgKzMfF+mvsQv+OF1DvopQ1KGJNbjuSa7TMCvqd21zNBr6mY9SLMbLlbGcifkSpjk/H6Ao5EOph32o7SQmiLSW5sE2X0iCnEPkh29GALUPFya4ZZdt0RvpeJwGeRfrSb6XeDCgjP0NgfZoKyk6kKRJOpN8JeoQDwHNIt4A7EV/gHGiOf1Yzj257bZWpKZmEr43V7uUMfi7HJDZHcn3WA58s5kamgZo/JHKRe4WMBTUxr7rRjK+fqA4hsZfSKDczPkb4PC0gKQi2DMowUqLxBx7iN52t0HN4amPpJMlGBpqzgYi0KXk3Yt5wDUAj8VpcraE0nfeHkONIn67UDlgpSZrOFfnZdJ7SpjHTzPkFty2kdmDutqN6rSEfw0VKgFqW5CbQ+9cZExZRANDHDOWb0+D4s2riHAskkJNR9DFJuEu6b1J2tquxkeQvgKrh9Kx3qSFkn3QVIj992S7AWnEk2pUvm4kyke6Q5oxcUOxhI1i3uKAWVQbrbjtLMp4tJ1+k+yuoTG0ebqAmQxYk4NyVzrVEPWRdyXFva/WYi5SWT9LzHKaiUg3FtLMNvfiXDIo3rUfsO+VX3jIpuK+TUkyKS3/UY6SKm9v2sHM8zBMkq0iJjil7H9cAdeYHFTJRHkDoi6H41qFHSmL4/dmQ82dYDRn0ytBjgpnDT1Twh4zibxfC8k1KL2fcr1CMsLyG+vX4a145qtXh90elINQCddpuBTTnD5Oz76X7SscdaCmDZluYNwNtJv5KJI5B8NHO8f40OgcCQ8gy1ObuZW2Js5VqkS3l02o4N/8rSDAPVzI7tlRVUnPnsldbe/RcQ5+0g2doDvM2NS+/PKCQw8MmqJJY/sy5SajKg5w0ZSiVh853exiEO3ZlIn+jNVZnnup+2zUYcn7XgOKWU+lJGElG/TntfpN37W8jed8be0YC6QM6hvmLj9xCHdKkbPpClSJbgmV0EFrvxUzqkat24hkKHx/BbLcU+nZwnVPSROo/PqXhaWUIaB66xhNN0oJ7VZL/PIc3bLa8kjallE92eSFGr+Uhs8fbb3Dvxy31MdyZNH5Ks9hMk+rnE3Wu/mksWCVpf/9cWtV9XgWKiAowBZbOaoxV6/MdVOX+NLPmxkuFNspLEioO/gfg+j6B5GYK9l730Wl9qA0beGjH2dSzwfeolG7cgaSgloGorIXaqOH1IUeHWdJ4FaEzoDiSNerQ4be9QKp5lJcTNkFB5WpmpdnKWlRD/QPN1gZvJHAWBLCsh3qwzXDOxgfkdZRdpCvfCZ3YzkgT5Fz3eXCSMaomVq5Aw72ak6w3k7+03qkDvUEV4ExI2NqWpIBX1F5C9xWOv5CEk4/cHTt9qbfTRwPp84HCnO8Um7/Us4FPB/xeCceb173UKXgdQz1P6I5IwaysIVDtNpjHWsgpZW/eSLoFAQZ1Rqyt9fzzDe1z057iHWe5lrWR4P5I+neFswGyYg0306/+ZDCBLNoT7THPn2SinTe3Psyq4H5sQTkIKDjfJAC42ebyZxmJULw/rLPwQkpw5i/YtPPyznBeAzSHqH/QAMjlBeWsM72zXjhm2YryFFqYkNEZVt1ZLYD+kzeeSNuDiS2yOQJLuvuYYjW9+b3p1jLKqkxUgklwOUxSIP4Jk0Vtjrn4kC/9DSLj7bwGWThmLp1Y1pZe76IDKg/i+D8V2ziE0UhmXNuvuj2RD+llxQsZ7qiEhR8vluQEpyPNJg29UyuvXw56YEVyGlB3Ztf5OB2LR+Sf2oL62tg2uiRmfTXieG3WQ+UxRG1g7I+HamTQWHBbaPK8hdyxzmC7XWfVE6glpOyAZuxuTbrUIy6C1+rQzgeP1f6vuvR8G/HgUMRbzB/UhbVj3pnHVwnaWRBXpKfNd6vk41WC8eVNwIVI6s1j/nq4TxFzq2fMmryIlCN9yx6t6ReqWP8I86jeQbU2ZJFnd6fuT6DzGD42LZc1O+H5CF85TDp73nNV4HlPIu5D2CGer87QZrQ4pfNmNyZeRdPfTkf47OGW/V5nNOUimtwe/sIu9hXrHqf/nBGTFhyTG8FiHPqhuiwHmgJqh30CKgNMUKBrbv05N5SORzgTbMnxp5VX63HfWrZUsRVJATkWa2xeS3BXdYize/vsUkshUzfmCqgosSxn5LvyGutsiC5pnWf6hHQt7GGly5R1xc5SydqN4zM7zGPXyBzvPpuo/6OZ5/oL0Qk56R37gH4qUf+xOvYFXM3leQelKdZo+GdD2WvCeUBr+WeqJeUnyJ3Xe/kjPkdQ/tqam0CPUkz1HC8AYUAyoefQU6fO6SgEL3Fv9I29FMmXTmPiLkbYW1yCtMtvWNXUTWCAuxxFlOEh7hrO9DuYZSNRkQP0GixR4Hw78QyWaN0wPIyWv1dl2Uz32UgWme5ThVNoog32+gPqC6n2j6HmaP+l4JIqWhc0XGN7DqIg4wbdUc2eGMuwy9eVXn1agfTjwp7V6Lz0Blm6ZV6t7EfY0K+DlmXWG1vDzNJsxs6ymUHSglHVGbjcuW40ro/TTlDVtTH0N5NHAXMw5fpX6APO0Zg3DxnnMslTvpRcl1mtCkWBthO5jTTtPM4WwgdnKf1GjMQs1z/FbtXuspHhGBTWV3qvm2GZNjkeb+2j3Oy0YmL+WUgLwbeXYR1YLIYxwpclryvVeykSJMjJSHYHjV7twjCKS37IbUtRnBbZF0pWtdJPd1AIQAEnGm0BypXQev01vKH8PTKEoUdYk/9CewM+RfKMK0oNofcTRO5H6cqQr9edy9R2tVOUfUH/PKv1umf7+sv58Rfdbpfutp36ivZBQcQgwzylrWR3BjRH1h0SJsiaJZwcfQspKpupnlyBJYusqqExW4BhAcnwqCijdMDu/jWQdX4RE08w8qjAG6uYisESJ0ggq5r84EemWD3Wn7/f072W6/TUF8/HmUTszyacDmKP2VGSVA+vI9yL1Xi+jNgJbjGMpSpQGfRhC1s76KvUK5hKSx3EnjU7oYvB36AwNWydU2mxDwe8lpL+JB6VHSV/1HIElSpTVLBa+/SZSPxOWpdxEPf3dHJ++j0q4dUN8Nzg75i0p2U8ElihRRgmo7I4U0yYVNz68GsyyAvUOe6arV492MygCS5QojfLFQLG99I/wtRjzOciB381IoeCoXwk0AkuUKHUl3aaFXmw1gtdTdgzqndQrxE9k9S5KFoElSpSMZgdILkkzHdmLkWk6ZsvJTkSWG7FO/JchrVrzpPJHYIkSZTWIOWkXMryuycyO7YAD9bteFScaUxkH/AIp2iwh/p1PMoZWqojAEiVK3RF6Dsn9ZY2pnEFjZ7xumSQlx1RmIc2/LOv2CWRV0RcTrisCS5Qoo1gsZ+RWJAnOWhLUAj3ZCGlktpOCS82BQhaQsQLDsjv/EPVF5a051l3IetEPs3patEZgiRKlQ7Hud8cjbUmNkRjAmBmytSr/N5EewAYKNcc+yk02vwqiJcMVkH68VyA1SZvq9z9AmjE9yhjxqzQgZyxCjBKlgUmYuXGcgoe1F624780n8wKybvKVyCoOaZVpfaRL4TuQ/sR+lYWbkOjPTW7yH3MrgEZgiRJlOLiYT2VzZK2cQ2jsGVyjXrtjskzZxaNI57Wl1CuQJyEFixsiPpotFFxMBpDetGchTcJheDvOCCxRoqwB4s2PWcB8ZRe7IKsPdCqLkdqj65Fs2gccsI36BLgILFGi5Be/hIrJTMR5+3okHLwlsjTGFGUwExyrWUF9hcNnlM3cj/ThvYfG6uikc41Z+X/fICsHmZwAZQAAAABJRU5ErkJggg==" width="278" height="88" alt="The Village" />
           <p class="disc" id="foot-tag"></p>
           <p class="disc" id="foot-blocker" style="margin-top:14px"></p>
+          <div id="foot-contact" style="margin-top:14px"></div>
+          <h4 data-i18n="social_h" style="margin-top:18px">Follow us</h4>
+          <div class="social" id="foot-social"></div>
         </div>
         <div><h4 data-i18n="f_explore">Explore</h4><div id="foot-explore"></div></div>
         <div><h4 data-i18n="f_company">Company</h4><div id="foot-company"></div></div>
@@ -481,7 +557,10 @@
 
   <!-- ============================ MOBILE ACTION BAR ============================ -->
   <div class="mobile-bar" id="mobile-bar">
-    <a class="btn btn--ghost" href="/en/projects/" data-link style="flex:1" data-i18n="nav_projects">Projects</a>
+    <a class="btn btn--wa" id="wa-mobile" href="#" target="_blank" rel="noopener" style="flex:1">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 0 1-11.9 7L4 20l1.1-4A8 8 0 1 1 20 12z"/><path d="M9 9c0 4 2 6 6 6"/></svg>
+      <span data-i18n="whatsapp">WhatsApp</span>
+    </a>
     <a class="btn btn--primary" href="/en/contact/" data-link style="flex:1" data-i18n="cta_talk">Talk to an advisor</a>
   </div>
 
@@ -536,8 +615,9 @@
     s.setAttribute('stroke','currentColor'); s.setAttribute('stroke-width','1.9');
     s.setAttribute('stroke-linecap','round'); s.setAttribute('stroke-linejoin','round');
     s.setAttribute('aria-hidden','true');
-    var p = document.createElementNS('http://www.w3.org/2000/svg','path');
-    p.setAttribute('d', path); s.appendChild(p); return s;
+    var arr = Array.isArray(path) ? path : [path];
+    arr.forEach(function(d){ var p = document.createElementNS('http://www.w3.org/2000/svg','path'); p.setAttribute('d', d); s.appendChild(p); });
+    return s;
   }
   var ICON = {
     pin:'M12 21s-7-5.7-7-11a7 7 0 0 1 14 0c0 5.3-7 11-7 11z M12 10a2 2 0 1 0 0-.01',
@@ -555,7 +635,30 @@
     globe:'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z M3 12h18 M12 3c3 3.5 3 14.5 0 18 M12 3c-3 3.5-3 14.5 0 18',
     spark:'M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z',
     key:'M14 7a3 3 0 1 1-3 3 M13 9l-9 9v3h3l1-1h2v-2h2l2-2 M14.5 8.5',
-    ban:'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z M5.6 5.6l12.8 12.8'
+    ban:'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z M5.6 5.6l12.8 12.8',
+    phone:'M6.6 3.5 4 4.2C3 4.5 2.6 5.6 3 6.6a17 17 0 0 0 14.4 14.4c1 .4 2.1 0 2.4-1l.7-2.6-4.6-2-1.6 2A13 13 0 0 1 8.6 9.1l2-1.6-2-4z',
+    wa:'M20 12a8 8 0 0 1-11.9 7L4 20l1.1-4A8 8 0 1 1 20 12z M9 9c0 4 2 6 6 6',
+    send:'M22 2 11 13 M22 2 15 22l-4-9-9-4z',
+    /* spec icons */
+    bed:['M3 18v-6h13a4 4 0 0 1 4 4v2','M3 12V8h7a3 3 0 0 1 3 3v1','M3 18h18','M20 18v2M4 18v2'],
+    bath:['M4 12h16v3a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4z','M6 12V6a2 2 0 0 1 3.9-.6','M3 12h18','M7 19l-1 2M18 19l1 2'],
+    area:['M4 9V4h5','M20 15v5h-5','M4 4l6 6','M20 20l-6-6'],
+    /* property-type icons */
+    ty_apartment:['M6 21V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v17','M9 7h2M9 11h2M9 15h2','M3 21h18'],
+    ty_villa:['M3 11l9-7 9 7','M5 10v10h14V10','M10 20v-6h4v6'],
+    ty_townhouse:['M4 21V8l4-3 4 3v13','M12 21V10l4-3 4 3v11','M3 21h18'],
+    ty_twinhouse:['M2 21V9l5-4 5 4v12','M12 21V9l5-4 5 4v12','M1 21h22'],
+    ty_duplex:['M5 21V7l7-4 7 4v14','M5 13h14','M3 21h18'],
+    ty_penthouse:['M5 21v-8l7-4 7 4v8','M9 21v-5h6v5','M3 21h18'],
+    ty_studio:['M4 5h16v14H4z','M4 12h16M12 5v7'],
+    ty_chalet:['M3 12l9-7 9 7','M6 10v9h12v-9','M10 19v-5h4v5','M18 4v3'],
+    ty_cabin:['M4 12l8-6 8 6','M6 11v8h12v-8','M6 15h12'],
+    ty_office:['M4 21V4h10v17','M14 9h6v12','M7 8h2M7 12h2M7 16h2','M3 21h18'],
+    /* social icons */
+    facebook:['M14 4h-2a4 4 0 0 0-4 4v3H5v4h3v6h4v-6h3l1-4h-4V8a1 1 0 0 1 1-1h2z'],
+    instagram:['M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4z','M12 8.2a3.8 3.8 0 1 0 0 7.6 3.8 3.8 0 0 0 0-7.6z','M17.4 6.6h.01'],
+    linkedin:['M4.5 4.5h15a0 0 0 0 1 0 0v15a0 0 0 0 1 0 0h-15a0 0 0 0 1 0 0v-15a0 0 0 0 1 0 0z','M8 10v7','M8 7v.01','M12 17v-4a2 2 0 0 1 4 0v4','M12 12v5'],
+    tiktok:['M14 4v10a4 4 0 1 1-4-4','M14 4c.5 2.5 2.5 4.3 5 4.5']
   };
   function ic(name, cls){ var s = svg(ICON[name]); if(cls) s.setAttribute('class',cls); return s; }
   var $ = function(s, r){ return (r||document).querySelector(s); };
@@ -566,11 +669,12 @@
      Fill these (and LEAD_ENDPOINT) at go-live; the UI adapts automatically.
      ================================================================== */
   var CONFIG = {
-    phone: "",          // e.g. "+20 10 0000 0000" — leave empty until verified
-    whatsapp: "",       // digits only, e.g. "2010..." — leave empty until verified
-    email: "",          // verified business inbox — leave empty until verified
-    social: {},         // { instagram:"", facebook:"", linkedin:"" }
-    LEAD_ENDPOINT: "",  // POST endpoint (CRM/Formspree). Empty => honest "not connected" notice.
+    phone: "+201016000201",                 // verified business line (owner-provided)
+    phoneDisplay: "+20 101 600 0201",
+    whatsapp: "201016000201",               // same number, WhatsApp
+    email: "info@thevillageinvestment.com", // verified business inbox
+    social: { facebook:"", instagram:"", linkedin:"", tiktok:"" }, // add your profile URLs to activate the links
+    LEAD_ENDPOINT: "",                       // no CRM by request — the form hands off to WhatsApp/email
     origin: "https://www.thevillageinvestment.com"
   };
 
@@ -590,6 +694,12 @@
       f_primary:"Primary-sale property only · New launches & developer-direct units",
       illustrative:"Illustrative figure — confirm current price & availability with an advisor",
       illustrative_short:"Illustrative — confirm with advisor",
+      call:"Call", whatsapp:"WhatsApp", email_label:"Email",
+      send_wa:"Send on WhatsApp", send_email:"Send by email",
+      unit_types_h:"Unit types", unit_types_p:"Unit types available in this project. Layouts are illustrative — confirm current availability and prices with an advisor.",
+      art_note:"Images are original brand illustrations, not photographs of the actual project. Real photography can replace them once supplied with usage rights.",
+      devmark_note:"Developer marks are original placeholders. Official developer logos can be added once provided with usage rights.",
+      lead_handoff:"Your enquiry is ready. Send it to an advisor on WhatsApp, or by email.",
       derived:"Count derived from projects shown on this site — not full live inventory",
       dp:"Down payment", years:"Installments", delivery:"Delivery", finishing:"Finishing",
       status:"Status", area:"Area", developer:"Developer", type:"Type", price:"Price from", units:"Unit types",
@@ -633,7 +743,20 @@
       readmin:"min read", legal_priv:"Privacy notice", legal_terms:"Terms of use",
       brand_note:"Identity derived from The Village master logo. Approved brand sign-off pending.",
       foot_blocker:"Launch note: verified contacts, live inventory, CRM lead delivery and legal review are pending owner input.",
-      choose_lang:"العربية", metric_installments:"yr plan"
+      choose_lang:"العربية", metric_installments:"yr plan",
+      nav_units:"Units", avail_units:"Available units",
+      home_units_h:"Featured units", home_units_p:"Illustrative sample units across our projects — bedrooms, area and price are examples to confirm with an advisor.",
+      units_h:"Units", units_p:"Browse sample units by type. Figures are illustrative — confirm current availability and prices with an advisor.",
+      filter_type:"Type", all_types:"All types",
+      social_h:"Follow us",
+      chat_open:"Ask us", chat_title:"Village Assistant", chat_sub:"Answers from this site",
+      chat_hello:"Hi! I’m the Village assistant. Ask me about our projects, developers, areas, payment plans, or say “talk to an advisor”.",
+      chat_ph:"Type your question…",
+      chat_c1:"New launches", chat_c2:"Payment plans", chat_c3:"Browse areas", chat_c4:"Talk to an advisor",
+      chat_noanswer:"I don’t have a verified answer to that from the site. Would you like to leave your details so an advisor can help?",
+      chat_leave:"Leave your details", chat_send_wa:"Ask on WhatsApp",
+      chat_found:"Here’s what I found:", chat_none:"I couldn’t find a matching project for that. Try an area or developer name, or leave your details.",
+      reg_h:"Register your details", reg_p:"Leave your details and an advisor will contact you. Your information is used only to respond to your enquiry."
     },
     ar: {
       invest:"للاستثمار العقاري", skip:"تخطَّ إلى المحتوى",
@@ -647,6 +770,12 @@
       f_primary:"بيع أولي فقط · إطلاقات جديدة ووحدات من المطوّر مباشرة",
       illustrative:"رقم تقديري — تأكّد من السعر والإتاحة الحالية مع المستشار",
       illustrative_short:"تقديري — تأكّد مع المستشار",
+      call:"اتصال", whatsapp:"واتساب", email_label:"البريد",
+      send_wa:"أرسل عبر واتساب", send_email:"أرسل عبر البريد",
+      unit_types_h:"أنواع الوحدات", unit_types_p:"أنواع الوحدات المتاحة في هذا المشروع. التصاميم استرشادية — أكّد الإتاحة والأسعار الحالية مع المستشار.",
+      art_note:"الصور رسوم أصلية للعلامة وليست صوراً فوتوغرافية للمشروع الفعلي. يمكن استبدالها بتصوير حقيقي عند توفيره بحقوق الاستخدام.",
+      devmark_note:"علامات المطوّرين عناصر أصلية مؤقتة. يمكن إضافة الشعارات الرسمية للمطوّرين عند توفيرها بحقوق الاستخدام.",
+      lead_handoff:"استفسارك جاهز. أرسله إلى مستشار عبر واتساب أو البريد.",
       derived:"العدد محسوب من المشروعات المعروضة على الموقع — وليس كامل المعروض الفعلي",
       dp:"الدفعة المقدمة", years:"التقسيط", delivery:"التسليم", finishing:"التشطيب",
       status:"الحالة", area:"المنطقة", developer:"المطوّر", type:"النوع", price:"يبدأ من", units:"أنواع الوحدات",
@@ -690,7 +819,20 @@
       readmin:"دقائق قراءة", legal_priv:"إشعار الخصوصية", legal_terms:"شروط الاستخدام",
       brand_note:"الهوية مستمدة من شعار The Village الرئيسي. اعتماد الهوية النهائي قيد الانتظار.",
       foot_blocker:"ملاحظة إطلاق: بيانات التواصل الموثّقة والمعروض الحيّ وتسليم الطلبات للـCRM والمراجعة القانونية قيد إدخال صاحب الموقع.",
-      choose_lang:"English", metric_installments:"سنوات تقسيط"
+      choose_lang:"English", metric_installments:"سنوات تقسيط",
+      nav_units:"الوحدات", avail_units:"وحدات متاحة",
+      home_units_h:"وحدات مميّزة", home_units_p:"وحدات نموذجية استرشادية عبر مشروعاتنا — الغرف والمساحة والسعر أمثلة للتأكيد مع المستشار.",
+      units_h:"الوحدات", units_p:"تصفّح وحدات نموذجية حسب النوع. الأرقام استرشادية — أكّد الإتاحة والأسعار الحالية مع المستشار.",
+      filter_type:"النوع", all_types:"كل الأنواع",
+      social_h:"تابعنا",
+      chat_open:"اسألنا", chat_title:"مساعد The Village", chat_sub:"إجابات من محتوى الموقع",
+      chat_hello:"أهلاً! أنا مساعد The Village. اسألني عن مشروعاتنا أو المطوّرين أو المناطق أو خطط السداد، أو قل «تحدّث إلى مستشار».",
+      chat_ph:"اكتب سؤالك…",
+      chat_c1:"إطلاقات جديدة", chat_c2:"خطط السداد", chat_c3:"تصفّح المناطق", chat_c4:"تحدّث إلى مستشار",
+      chat_noanswer:"لا أملك إجابة مؤكّدة لذلك من الموقع. هل تحب ترك بياناتك ليتواصل معك مستشار؟",
+      chat_leave:"سجّل بياناتك", chat_send_wa:"اسأل عبر واتساب",
+      chat_found:"إليك ما وجدته:", chat_none:"لم أجد مشروعاً مطابقاً. جرّب اسم منطقة أو مطوّر، أو اترك بياناتك.",
+      reg_h:"سجّل بياناتك", reg_p:"اترك بياناتك وسيتواصل معك مستشار. تُستخدم بياناتك فقط للردّ على استفسارك."
     }
   };
 
@@ -712,18 +854,18 @@
   ];
 
   var DEVELOPERS = [
-    {key:'sodic', name:{en:'SODIC',ar:'سوديك'}, since:1996, areas:{en:'New Cairo · Sheikh Zayed · North Coast',ar:'القاهرة الجديدة · الشيخ زايد · الساحل الشمالي'}, tagline:{en:'Design-led living, East & West Cairo',ar:'حياة بتصميم مميّز شرق وغرب القاهرة'}, desc:{en:'A long-standing developer active across East and West Cairo with a strong reputation for design quality and on-time delivery.',ar:'مطوّر عريق نشط في شرق وغرب القاهرة بسمعة قوية في جودة التصميم والتسليم في المواعيد.'}},
-    {key:'palmhills', name:{en:'Palm Hills Developments',ar:'بالم هيلز'}, since:2005, areas:{en:'New Cairo · Sheikh Zayed · North Coast',ar:'القاهرة الجديدة · الشيخ زايد · الساحل الشمالي'}, tagline:{en:'Large-scale communities & coast',ar:'مجتمعات كبرى ووجهات ساحلية'}, desc:{en:'One of Egypt’s largest developers, building integrated residential communities and North Coast destinations.',ar:'من أكبر المطوّرين في مصر، يبني مجتمعات سكنية متكاملة ووجهات على الساحل الشمالي.'}},
-    {key:'mountainview', name:{en:'Mountain View',ar:'ماونتن فيو'}, since:2005, areas:{en:'New Cairo · 6th of October · North Coast',ar:'القاهرة الجديدة · ٦ أكتوبر · الساحل الشمالي'}, tagline:{en:'Themed, connected communities',ar:'مجتمعات بأفكار متصلة'}, desc:{en:'Known for concept-driven communities and amenity-rich master plans across Cairo and the coast.',ar:'معروف بمجتمعات قائمة على أفكار مميّزة ومخططات غنية بالمرافق في القاهرة والساحل.'}},
-    {key:'ora', name:{en:'ORA Developers',ar:'أورا'}, since:2016, areas:{en:'New Cairo · Sheikh Zayed · North Coast',ar:'القاهرة الجديدة · الشيخ زايد · الساحل الشمالي'}, tagline:{en:'Premium, design-led destinations',ar:'وجهات راقية بتصميم مميّز'}, desc:{en:'A premium developer creating high-design lifestyle destinations with strong architecture and amenities.',ar:'مطوّر راقٍ يبتكر وجهات لايف ستايل عالية التصميم بعمارة ومرافق قوية.'}},
-    {key:'tatweer', name:{en:'Tatweer Misr',ar:'تطوير مصر'}, since:2014, areas:{en:'Mostakbal City · North Coast · Ain Sokhna',ar:'مدينة المستقبل · الساحل الشمالي · العين السخنة'}, tagline:{en:'Value communities & coastal resorts',ar:'مجتمعات اقتصادية ومنتجعات ساحلية'}, desc:{en:'A developer focused on integrated communities and coastal resorts with a value orientation.',ar:'مطوّر يركّز على المجتمعات المتكاملة والمنتجعات الساحلية بتوجّه اقتصادي.'}},
-    {key:'misritalia', name:{en:'Misr Italia Properties',ar:'مصر إيطاليا'}, since:1996, areas:{en:'New Administrative Capital · North Coast',ar:'العاصمة الإدارية · الساحل الشمالي'}, tagline:{en:'Biophilic, tech-enabled communities',ar:'مجتمعات خضراء بتقنيات حديثة'}, desc:{en:'A developer associated with green, technology-enabled communities, active in the New Capital and on the coast.',ar:'مطوّر مرتبط بمجتمعات خضراء مزوّدة بالتقنيات، نشط في العاصمة الإدارية والساحل.'}},
-    {key:'marakez', name:{en:'Marakez',ar:'مراكز'}, since:2014, areas:{en:'New Cairo · 6th of October',ar:'القاهرة الجديدة · ٦ أكتوبر'}, tagline:{en:'Mixed-use, retail-led districts',ar:'أحياء متعددة الاستخدامات'}, desc:{en:'A retail-led developer creating walkable mixed-use districts that combine residences, offices and destination retail.',ar:'مطوّر رائد في التجزئة ينشئ أحياءً متعددة الاستخدامات تجمع السكن والمكاتب والتجزئة.'}},
-    {key:'lmd', name:{en:'LMD',ar:'إل إم دي'}, since:2013, areas:{en:'New Cairo · North Coast',ar:'القاهرة الجديدة · الساحل الشمالي'}, tagline:{en:'Design-forward communities',ar:'مجتمعات بتصميم متقدّم'}, desc:{en:'A developer known for design-forward, art-infused communities and walkable urban districts.',ar:'مطوّر معروف بمجتمعات بتصميم متقدّم وطابع فني وأحياء حضرية.'}},
-    {key:'hydepark', name:{en:'Hyde Park Developments',ar:'هايد بارك'}, since:2011, areas:{en:'New Cairo · North Coast',ar:'القاهرة الجديدة · الساحل الشمالي'}, tagline:{en:'Central-park living in East Cairo',ar:'حياة حول حديقة مركزية بشرق القاهرة'}, desc:{en:'A developer building large park-centred communities in East Cairo and coastal projects.',ar:'مطوّر يبني مجتمعات كبيرة حول حدائق مركزية بشرق القاهرة ومشروعات ساحلية.'}},
-    {key:'marasem', name:{en:'Al Marasem Development',ar:'المراسم'}, since:2002, areas:{en:'Fifth Settlement · New Cairo',ar:'التجمع الخامس · القاهرة الجديدة'}, tagline:{en:'Prime Fifth Settlement communities',ar:'مجتمعات مميّزة بالتجمع الخامس'}, desc:{en:'A developer with a prime footprint in the Fifth Settlement and a background in construction and hospitality.',ar:'مطوّر بحضور مميّز في التجمع الخامس وخلفية في الإنشاءات والضيافة.'}},
-    {key:'tmg', name:{en:'Talaat Moustafa Group',ar:'مجموعة طلعت مصطفى'}, since:1975, areas:{en:'New Cairo · New Capital · North Coast',ar:'القاهرة الجديدة · العاصمة الإدارية · الساحل الشمالي'}, tagline:{en:'Egypt’s largest master communities',ar:'أكبر المجتمعات العمرانية في مصر'}, desc:{en:'One of Egypt’s largest developers, associated with very large master-planned cities and mixed-use destinations.',ar:'من أكبر المطوّرين في مصر، مرتبط بمدن ضخمة مخطّطة ووجهات متعددة الاستخدامات.'}},
-    {key:'emaar', name:{en:'Emaar Misr',ar:'إعمار مصر'}, since:2005, areas:{en:'New Cairo · Sheikh Zayed · North Coast',ar:'القاهرة الجديدة · الشيخ زايد · الساحل الشمالي'}, tagline:{en:'Integrated lifestyle destinations',ar:'وجهات لايف ستايل متكاملة'}, desc:{en:'The Egyptian arm of a major regional developer, known for integrated lifestyle destinations.',ar:'الذراع المصرية لمطوّر إقليمي كبير، معروف بوجهات لايف ستايل متكاملة.'}}
+    {key:'sodic', c1:'#0d6e7d', name:{en:'SODIC',ar:'سوديك'}, since:1996, areas:{en:'New Cairo · Sheikh Zayed · North Coast',ar:'القاهرة الجديدة · الشيخ زايد · الساحل الشمالي'}, tagline:{en:'Design-led living, East & West Cairo',ar:'حياة بتصميم مميّز شرق وغرب القاهرة'}, desc:{en:'A long-standing developer active across East and West Cairo with a strong reputation for design quality and on-time delivery.',ar:'مطوّر عريق نشط في شرق وغرب القاهرة بسمعة قوية في جودة التصميم والتسليم في المواعيد.'}},
+    {key:'palmhills', c1:'#1e7a5a', name:{en:'Palm Hills Developments',ar:'بالم هيلز'}, since:2005, areas:{en:'New Cairo · Sheikh Zayed · North Coast',ar:'القاهرة الجديدة · الشيخ زايد · الساحل الشمالي'}, tagline:{en:'Large-scale communities & coast',ar:'مجتمعات كبرى ووجهات ساحلية'}, desc:{en:'One of Egypt’s largest developers, building integrated residential communities and North Coast destinations.',ar:'من أكبر المطوّرين في مصر، يبني مجتمعات سكنية متكاملة ووجهات على الساحل الشمالي.'}},
+    {key:'mountainview', c1:'#2b6ca8', name:{en:'Mountain View',ar:'ماونتن فيو'}, since:2005, areas:{en:'New Cairo · 6th of October · North Coast',ar:'القاهرة الجديدة · ٦ أكتوبر · الساحل الشمالي'}, tagline:{en:'Themed, connected communities',ar:'مجتمعات بأفكار متصلة'}, desc:{en:'Known for concept-driven communities and amenity-rich master plans across Cairo and the coast.',ar:'معروف بمجتمعات قائمة على أفكار مميّزة ومخططات غنية بالمرافق في القاهرة والساحل.'}},
+    {key:'ora', c1:'#6d52a3', name:{en:'ORA Developers',ar:'أورا'}, since:2016, areas:{en:'New Cairo · Sheikh Zayed · North Coast',ar:'القاهرة الجديدة · الشيخ زايد · الساحل الشمالي'}, tagline:{en:'Premium, design-led destinations',ar:'وجهات راقية بتصميم مميّز'}, desc:{en:'A premium developer creating high-design lifestyle destinations with strong architecture and amenities.',ar:'مطوّر راقٍ يبتكر وجهات لايف ستايل عالية التصميم بعمارة ومرافق قوية.'}},
+    {key:'tatweer', c1:'#b0692c', name:{en:'Tatweer Misr',ar:'تطوير مصر'}, since:2014, areas:{en:'Mostakbal City · North Coast · Ain Sokhna',ar:'مدينة المستقبل · الساحل الشمالي · العين السخنة'}, tagline:{en:'Value communities & coastal resorts',ar:'مجتمعات اقتصادية ومنتجعات ساحلية'}, desc:{en:'A developer focused on integrated communities and coastal resorts with a value orientation.',ar:'مطوّر يركّز على المجتمعات المتكاملة والمنتجعات الساحلية بتوجّه اقتصادي.'}},
+    {key:'misritalia', c1:'#2f8f6a', name:{en:'Misr Italia Properties',ar:'مصر إيطاليا'}, since:1996, areas:{en:'New Administrative Capital · North Coast',ar:'العاصمة الإدارية · الساحل الشمالي'}, tagline:{en:'Biophilic, tech-enabled communities',ar:'مجتمعات خضراء بتقنيات حديثة'}, desc:{en:'A developer associated with green, technology-enabled communities, active in the New Capital and on the coast.',ar:'مطوّر مرتبط بمجتمعات خضراء مزوّدة بالتقنيات، نشط في العاصمة الإدارية والساحل.'}},
+    {key:'marakez', c1:'#b0473f', name:{en:'Marakez',ar:'مراكز'}, since:2014, areas:{en:'New Cairo · 6th of October',ar:'القاهرة الجديدة · ٦ أكتوبر'}, tagline:{en:'Mixed-use, retail-led districts',ar:'أحياء متعددة الاستخدامات'}, desc:{en:'A retail-led developer creating walkable mixed-use districts that combine residences, offices and destination retail.',ar:'مطوّر رائد في التجزئة ينشئ أحياءً متعددة الاستخدامات تجمع السكن والمكاتب والتجزئة.'}},
+    {key:'lmd', c1:'#3a5a8c', name:{en:'LMD',ar:'إل إم دي'}, since:2013, areas:{en:'New Cairo · North Coast',ar:'القاهرة الجديدة · الساحل الشمالي'}, tagline:{en:'Design-forward communities',ar:'مجتمعات بتصميم متقدّم'}, desc:{en:'A developer known for design-forward, art-infused communities and walkable urban districts.',ar:'مطوّر معروف بمجتمعات بتصميم متقدّم وطابع فني وأحياء حضرية.'}},
+    {key:'hydepark', c1:'#3f7d3a', name:{en:'Hyde Park Developments',ar:'هايد بارك'}, since:2011, areas:{en:'New Cairo · North Coast',ar:'القاهرة الجديدة · الساحل الشمالي'}, tagline:{en:'Central-park living in East Cairo',ar:'حياة حول حديقة مركزية بشرق القاهرة'}, desc:{en:'A developer building large park-centred communities in East Cairo and coastal projects.',ar:'مطوّر يبني مجتمعات كبيرة حول حدائق مركزية بشرق القاهرة ومشروعات ساحلية.'}},
+    {key:'marasem', c1:'#8a6d33', name:{en:'Al Marasem Development',ar:'المراسم'}, since:2002, areas:{en:'Fifth Settlement · New Cairo',ar:'التجمع الخامس · القاهرة الجديدة'}, tagline:{en:'Prime Fifth Settlement communities',ar:'مجتمعات مميّزة بالتجمع الخامس'}, desc:{en:'A developer with a prime footprint in the Fifth Settlement and a background in construction and hospitality.',ar:'مطوّر بحضور مميّز في التجمع الخامس وخلفية في الإنشاءات والضيافة.'}},
+    {key:'qataridiar', c1:'#26305f', name:{en:'Qatari Diar',ar:'الديار القطرية'}, since:2005, areas:{en:'New Administrative Capital · North Coast',ar:'العاصمة الإدارية · الساحل الشمالي'}, tagline:{en:'Large mixed-use destinations',ar:'وجهات كبرى متعددة الاستخدامات'}, desc:{en:'A major regional developer associated with large mixed-use destinations, active in Egypt through flagship projects.',ar:'مطوّر إقليمي كبير مرتبط بوجهات ضخمة متعددة الاستخدامات، ونشط في مصر عبر مشروعات كبرى.'}},
+    {key:'orascom', c1:'#a9812f', name:{en:'Orascom Development',ar:'أوراسكوم للتطوير'}, since:1994, areas:{en:'6th of October · North Coast · Red Sea',ar:'٦ أكتوبر · الساحل الشمالي · البحر الأحمر'}, tagline:{en:'Integrated towns & resorts',ar:'مدن ومنتجعات متكاملة'}, desc:{en:'A developer known for fully integrated towns and resort destinations across Egypt and the coast.',ar:'مطوّر معروف بالمدن المتكاملة والوجهات السياحية في مصر والساحل.'}}
   ];
 
   var PROJECTS = [
@@ -744,6 +886,30 @@
     {slug:'aeon', name:'Aeon', name_ar:'إيون', dev:'marakez', area:'october', status:'launch', price:6000000, dp:10, years:8, delivery:'2028', finishing:{en:'Semi-finished',ar:'نصف تشطيب'}, types:{en:'Apartment',ar:'شقق'}, tags:{en:['6th of October','Mixed-use'],ar:['٦ أكتوبر','متعدد الاستخدامات']}, blurb:{en:'A mixed-use launch in 6th of October pairing homes with retail and offices.',ar:'إطلاق متعدد الاستخدامات ب٦ أكتوبر يجمع السكن مع التجزئة والمكاتب.'}},
     {slug:'il-monte-galala', name:'Il Monte Galala', name_ar:'إل مونتي جلالة', dev:'tatweer', area:'sokhna', status:'primary', price:6500000, dp:10, years:8, delivery:'2027', finishing:{en:'Fully finished',ar:'تشطيب كامل'}, types:{en:'Chalet · Cabin · Villa',ar:'شاليه · كابين · فيلا'}, tags:{en:['Ain Sokhna','Sea view'],ar:['العين السخنة','إطلالة بحر']}, blurb:{en:'A terraced mountain-and-sea resort in Ain Sokhna by Tatweer Misr.',ar:'منتجع جبلي بحري متدرّج بالعين السخنة من تطوير مصر.'}}
   ];
+
+  /* Representative UNITS — illustrative sample inventory (always badged).
+     beds/baths/area/price are examples to confirm with an advisor. */
+  var UNITS = [
+    {id:'V-A305',  project:'villette',            type:'Apartment', beds:3, baths:3, area:185, price:9200000},
+    {id:'SE-T12',  project:'sodic-east',          type:'Townhouse', beds:4, baths:4, area:240, price:12500000},
+    {id:'HB-C08',  project:'hacienda-bay',        type:'Chalet',    beds:2, baths:2, area:120, price:7500000},
+    {id:'BF-A21',  project:'bloomfields',         type:'Apartment', beds:2, baths:2, area:132, price:5400000},
+    {id:'MV-D14',  project:'mountain-view-icity', type:'Duplex',    beds:4, baths:3, area:210, price:11800000},
+    {id:'ZE-L02',  project:'zed-east',            type:'Loft',      beds:1, baths:1, area:88,  price:6900000},
+    {id:'FS-A18',  project:'fifth-square',        type:'Apartment', beds:3, baths:2, area:160, price:7200000},
+    {id:'IB-V05',  project:'il-bosco-city',       type:'Villa',     beds:4, baths:4, area:265, price:14500000},
+    {id:'D5-A22',  project:'district-5',          type:'Apartment', beds:2, baths:2, area:140, price:7000000},
+    {id:'IM-C10',  project:'il-monte-galala',     type:'Chalet',    beds:2, baths:2, area:110, price:6500000},
+    {id:'TS-A07',  project:'three-sixty',         type:'Apartment', beds:3, baths:3, area:175, price:8900000},
+    {id:'HP-P03',  project:'hyde-park-new-cairo', type:'Penthouse', beds:3, baths:3, area:220, price:12900000}
+  ];
+  var TYPE_META = {
+    'Apartment':{ar:'شقة', icon:'ty_apartment'}, 'Villa':{ar:'فيلا', icon:'ty_villa'},
+    'Townhouse':{ar:'تاون هاوس', icon:'ty_townhouse'}, 'Twin house':{ar:'توين هاوس', icon:'ty_twinhouse'},
+    'Duplex':{ar:'دوبلكس', icon:'ty_duplex'}, 'Penthouse':{ar:'بنتهاوس', icon:'ty_penthouse'},
+    'Studio':{ar:'استوديو', icon:'ty_studio'}, 'Loft':{ar:'لوفت', icon:'ty_studio'},
+    'Chalet':{ar:'شاليه', icon:'ty_chalet'}, 'Cabin':{ar:'كابين', icon:'ty_cabin'}, 'Office':{ar:'مكتب', icon:'ty_office'}
+  };
 
   var RESEARCH = [
     {slug:'primary-vs-resale', cat:{en:'Buyer guide',ar:'دليل المشتري'}, read:6, title:{en:'Primary sale vs resale in Egypt — what actually changes',ar:'البيع الأولي مقابل إعادة البيع في مصر — ما الذي يتغيّر فعلاً'}, excerpt:{en:'Why buying developer-direct affects price, plan and paperwork.',ar:'لماذا يؤثّر الشراء من المطوّر مباشرة على السعر والخطة والأوراق.'}, body:{en:['Primary sale means buying a unit directly from the developer — typically a new launch or off-plan unit — while resale means buying from a current owner. The distinction changes three things buyers care about most: price, payment plan and paperwork.','On price, primary units are usually released at launch pricing with longer installment plans (often several years) but a delivery date in the future. Resale units may cost more per metre because they are ready, but usually require a much larger cash amount up front.','On paperwork, a primary purchase is a contract with the developer and follows the developer’s reservation, contracting and delivery milestones. The Village works only in primary sale, so an advisor can confirm the current developer price list, plan and availability before you commit.'],ar:['البيع الأولي يعني شراء الوحدة مباشرة من المطوّر — عادةً إطلاق جديد أو وحدة على الخريطة — بينما إعادة البيع تكون من مالك حالي. هذا الفرق يغيّر ثلاثة أمور تهمّ المشتري: السعر وخطة السداد والأوراق.','في السعر، تُطرح الوحدات الأولية بأسعار إطلاق مع خطط تقسيط أطول (سنوات غالباً) لكن بتاريخ تسليم مستقبلي. أمّا وحدات إعادة البيع فقد تكون أعلى للمتر لأنها جاهزة، لكنها تتطلّب مبلغاً نقدياً أكبر مقدماً.','في الأوراق، الشراء الأولي عقد مع المطوّر ويتبع مراحل الحجز والتعاقد والتسليم. تعمل The Village في البيع الأولي فقط، لذا يؤكّد المستشار قائمة أسعار المطوّر الحالية والخطة والإتاحة قبل أي التزام.']}},
@@ -824,6 +990,121 @@
   };
 
   /* ==================================================================
+     ILLUSTRATION ENGINE — original, on-brand SVG art (no photos, no
+     third-party logos). Every project & unit type gets a unique,
+     deterministic, decorative cover. Clearly illustrative, not a claim
+     of real photography.
+     ================================================================== */
+  function sEl(t,a){ var e=document.createElementNS('http://www.w3.org/2000/svg',t); if(a) for(var k in a) e.setAttribute(k,a[k]);
+    for(var i=2;i<arguments.length;i++){ if(arguments[i]) e.appendChild(arguments[i]); } return e; }
+  var ART_ID=0;
+  function hashN(s){ var n=5381; s=String(s); for(var i=0;i<s.length;i++) n=((n<<5)+n+s.charCodeAt(i))>>>0; return n; }
+  function rng(seed){ return function(){ seed=(seed*1664525+1013904223)>>>0; return seed/4294967296; }; }
+  function areaCat(k){ return (k==='sahel'||k==='sokhna')?'coast':(k==='capital')?'capital':'urban'; }
+  function shade(hex,f){ hex=(hex||'#0d6e7d').replace('#',''); if(hex.length===3) hex=hex.replace(/(.)/g,'$1$1');
+    var n=parseInt(hex,16), r=(n>>16)&255, g=(n>>8)&255, b=n&255, t=f<0?0:255, a=Math.abs(f);
+    r=Math.round(r+(t-r)*a); g=Math.round(g+(t-g)*a); b=Math.round(b+(t-b)*a);
+    return '#'+((1<<24)+(r<<16)+(g<<8)+b).toString(16).slice(1); }
+
+  function winGrid(svg, bx, by, bw, bh, rand){
+    for(var y=by+7; y<by+bh-6; y+=13){ for(var x=bx+5; x<bx+bw-5; x+=11){
+      if(rand()<0.62) svg.appendChild(sEl('rect',{x:x,y:y,width:'5',height:'7',rx:'1',fill:'#F3EFE6',opacity:(0.28+rand()*0.5).toFixed(2)})); } } }
+  function palm(x,y){ var g=sEl('g',{opacity:'0.92'});
+    g.appendChild(sEl('path',{d:'M'+x+' '+y+' q 3 -20 0 -34', stroke:'#093a4c','stroke-width':'3', fill:'none'}));
+    for(var f=0; f<5; f++){ var a=(-150+f*30)*Math.PI/180, ex=x+Math.cos(a)*24, ey=(y-34)+Math.sin(a)*15;
+      g.appendChild(sEl('path',{d:'M'+x+' '+(y-34)+' Q '+((x+ex)/2)+' '+((y-34+ey)/2-7)+' '+ex+' '+ey, stroke:'#1e7a5a','stroke-width':'3', fill:'none'})); }
+    return g; }
+  function tree(x,y){ return sEl('g',{opacity:'0.95'},
+    sEl('rect',{x:x-2,y:y-13,width:'4',height:'15',fill:'#093a4c'}),
+    sEl('circle',{cx:x,cy:y-19,r:'12',fill:'#1e7a5a'}),
+    sEl('circle',{cx:x-7,cy:y-13,r:'8',fill:'#20855f'}),
+    sEl('circle',{cx:x+7,cy:y-13,r:'8',fill:'#20855f'})); }
+
+  function projectArt(p){
+    var cat=areaCat(p.area), dev=devByKey(p.dev)||{}, accent=dev.c1||'#1a7ba0';
+    var rand=rng(hashN(p.slug)), id=(ART_ID++);
+    var svg=sEl('svg',{viewBox:'0 0 400 250', class:'artsvg', preserveAspectRatio:'xMidYMid slice', role:'img', 'aria-label':(lang==='ar'?p.name_ar:p.name)});
+    var defs=sEl('defs'), g=sEl('linearGradient',{id:'sk'+id,x1:'0',y1:'0',x2:'0',y2:'1'});
+    g.appendChild(sEl('stop',{offset:'0','stop-color':cat==='coast'?'#0c5f76':'#0a4a61'}));
+    g.appendChild(sEl('stop',{offset:'1','stop-color':'#05303f'}));
+    defs.appendChild(g); svg.appendChild(defs);
+    svg.appendChild(sEl('rect',{x:'0',y:'0',width:'400',height:'250',fill:'url(#sk'+id+')'}));
+    var sx=290+rand()*70, sy=44+rand()*26;
+    svg.appendChild(sEl('circle',{cx:sx,cy:sy,r:'44',fill:accent,opacity:'0.16'}));
+    svg.appendChild(sEl('circle',{cx:sx,cy:sy,r:'28',fill:accent,opacity:'0.92'}));
+    var i,bx,bw,bh,by;
+    if(cat==='coast'){
+      svg.appendChild(sEl('rect',{x:'0',y:'172',width:'400',height:'78',fill:'#0e6f86',opacity:'0.5'}));
+      for(i=0;i<3;i++) svg.appendChild(sEl('path',{d:'M0 '+(192+i*15)+' q 50 -8 100 0 t 100 0 t 100 0 t 100 0', stroke:'#bfe3ef', fill:'none','stroke-width':'2', opacity:(0.22-i*0.05).toFixed(2)}));
+      for(i=0;i<4;i++){ bx=34+i*92+rand()*8; bw=56; by=150;
+        svg.appendChild(sEl('rect',{x:bx,y:by,width:bw,height:'24',fill:'#F3EFE6',opacity:'0.94'}));
+        svg.appendChild(sEl('path',{d:'M'+(bx-6)+' '+by+' L'+(bx+bw/2)+' '+(by-19)+' L'+(bx+bw+6)+' '+by+' Z',fill:shade(accent,-0.08)}));
+        svg.appendChild(sEl('rect',{x:bx+bw/2-5,y:by+8,width:'10',height:'16',fill:shade(accent,-0.2)})); }
+      for(i=0;i<3;i++) svg.appendChild(palm(72+i*128,150));
+    } else if(cat==='capital'){
+      for(i=0;i<6;i++){ bw=32+rand()*12; bx=18+i*63; bh=95+rand()*105; by=250-bh;
+        svg.appendChild(sEl('rect',{x:bx,y:by,width:bw,height:bh,rx:'2',fill:i%2?shade(accent,-0.18):'#0f5a70',opacity:'0.96'}));
+        svg.appendChild(sEl('rect',{x:bx+bw/2-2,y:by-12,width:'4',height:'12',fill:accent}));
+        winGrid(svg,bx,by,bw,bh,rand); }
+    } else {
+      for(i=0;i<5;i++){ bw=46+rand()*16; bx=16+i*76; bh=62+rand()*72; by=250-bh;
+        svg.appendChild(sEl('rect',{x:bx,y:by,width:bw,height:bh,rx:'3',fill:i%2?'#0f5a70':shade(accent,-0.14),opacity:'0.96'}));
+        winGrid(svg,bx,by,bw,bh,rand); }
+      for(i=0;i<4;i++) svg.appendChild(tree(52+i*98,236));
+    }
+    svg.appendChild(sEl('rect',{x:'0',y:'238',width:'400',height:'12',fill:'#052430'}));
+    return svg;
+  }
+
+  function unitArt(name){
+    var n=String(name||'').toLowerCase();
+    var svg=sEl('svg',{viewBox:'0 0 120 90', class:'unitsvg', preserveAspectRatio:'xMidYMid meet','aria-hidden':'true'});
+    svg.appendChild(sEl('rect',{x:'0',y:'0',width:'120',height:'90',rx:'10',fill:'#e7f0f3'}));
+    var teal='#0d6270';
+    function grid(x0,y0,x1,y1){ for(var y=y0;y<y1-6;y+=10) for(var x=x0;x<x1-6;x+=10) svg.appendChild(sEl('rect',{x:x,y:y,width:'5',height:'6',rx:'1',fill:'#F3EFE6',opacity:'0.9'})); }
+    if(/villa|twin|town/.test(n)){
+      svg.appendChild(sEl('rect',{x:'20',y:'70',width:'80',height:'6',fill:'#cfe0e5'}));
+      svg.appendChild(sEl('rect',{x:'34',y:'44',width:'52',height:'30',fill:teal}));
+      svg.appendChild(sEl('path',{d:'M28 44 L60 24 L92 44 Z',fill:'#115F7D'}));
+      svg.appendChild(sEl('rect',{x:'54',y:'54',width:'13',height:'20',fill:'#F3EFE6'}));
+      svg.appendChild(sEl('circle',{cx:'104',cy:'66',r:'7',fill:'#20855f'}));
+    } else if(/chalet|cabin/.test(n)){
+      svg.appendChild(sEl('circle',{cx:'98',cy:'22',r:'9',fill:'#f0b429'}));
+      svg.appendChild(sEl('rect',{x:'36',y:'42',width:'48',height:'26',fill:teal}));
+      svg.appendChild(sEl('path',{d:'M30 42 L60 26 L90 42 Z',fill:'#115F7D'}));
+      svg.appendChild(sEl('rect',{x:'0',y:'72',width:'120',height:'18',fill:'#0e6f86',opacity:'0.5'}));
+      svg.appendChild(palmSm(20,72));
+    } else if(/duplex|penthouse|loft/.test(n)){
+      svg.appendChild(sEl('rect',{x:'36',y:'24',width:'48',height:'52',fill:teal}));
+      svg.appendChild(sEl('rect',{x:'36',y:'49',width:'48',height:'3',fill:'#e7f0f3'}));
+      grid(42,30,80,74);
+    } else {
+      svg.appendChild(sEl('rect',{x:'42',y:'18',width:'36',height:'58',rx:'3',fill:teal}));
+      grid(48,24,74,72);
+      svg.appendChild(sEl('rect',{x:'56',y:'66',width:'8',height:'10',fill:'#F3EFE6'}));
+    }
+    svg.appendChild(sEl('rect',{x:'0',y:'76',width:'120',height:'4',fill:'#cfe0e5'}));
+    return svg;
+  }
+  function palmSm(x,y){ return sEl('g',{opacity:'0.9'},
+    sEl('path',{d:'M'+x+' '+y+' q 2 -12 0 -20',stroke:'#093a4c','stroke-width':'2',fill:'none'}),
+    sEl('circle',{cx:x,cy:y-20,r:'6',fill:'#1e7a5a'})); }
+
+  // Developer identity badge — original monogram mark (placeholder for an
+  // official logo), tinted with the developer's colour.
+  function devBadge(dev, px){
+    px=px||44; var c=(dev&&dev.c1)?dev.c1:'#0d6e7d';
+    return h('div',{class:'dev-logo', 'aria-hidden':'true',
+      style:'width:'+px+'px;height:'+px+'px;border-radius:'+Math.round(px*0.26)+'px;font-size:'+Math.round(px*0.4)+'px;background:linear-gradient(150deg,'+c+','+shade(c,-0.5)+')'},
+      initials(L(dev.name)));
+  }
+  function waLink(text){ return CONFIG.whatsapp ? ('https://wa.me/'+CONFIG.whatsapp+(text?('?text='+encodeURIComponent(text)):'')) : ''; }
+  function typeMeta(t){ return TYPE_META[t] || {ar:t, icon:'ty_apartment'}; }
+  function typeIcon(t, cls){ return ic(typeMeta(t).icon, cls); }
+  function typeLabel(t){ return lang==='ar' ? typeMeta(t).ar : t; }
+  function unitsIn(slug){ return UNITS.filter(function(u){ return u.project===slug; }); }
+
+  /* ==================================================================
      STATE + LOOKUPS
      ================================================================== */
   var lang = document.documentElement.getAttribute('data-lang') || 'en';
@@ -875,6 +1156,7 @@
       case 'home': return b;
       case 'projects': return b+'projects/';
       case 'project': return b+'projects/'+params.slug+'/';
+      case 'units': return b+'units/';
       case 'launches': return b+'new-launches/';
       case 'developers': return b+'developers/';
       case 'developer': return b+'developers/'+params.slug+'/';
@@ -904,6 +1186,7 @@
     var params = {}, name;
     if(seg.length===0) name='home';
     else if(seg[0]==='projects') { name = seg[1]?'project':'projects'; if(seg[1]) params.slug=seg[1]; }
+    else if(seg[0]==='units') name='units';
     else if(seg[0]==='new-launches') name='launches';
     else if(seg[0]==='developers'){ name = seg[1]?'developer':'developers'; if(seg[1]) params.slug=seg[1]; }
     else if(seg[0]==='areas'){ name = seg[1]?'area':'areas'; if(seg[1]) params.slug=seg[1]; }
@@ -979,7 +1262,9 @@
   function projectCard(p){
     var dev = devByKey(p.dev), area = areaByKey(p.area);
     var card = h('article',{class:'card'});
-    var media = mediaBox(p.name,'card__media', [statusLabel(p.status)]);
+    var media = h('div',{class:'card__media'}, projectArt(p),
+      h('div',{class:'tags'}, h('span',{class:'chip'}, statusLabel(p.status))));
+    var mark = devBadge(dev,34); mark.classList.add('card__devmark'); media.appendChild(mark);
     media.appendChild(saveBtn(p.slug));
     var link = h('a',{href:U(buildPath('project',{slug:p.slug})), 'aria-label':(lang==='ar'?p.name_ar:p.name)});
     link.appendChild(media); card.appendChild(link);
@@ -1013,6 +1298,32 @@
     store('tv_compare', compare);
   }
 
+  /* Unit card — image + type/compound eyebrow + specs (beds/baths/area icons) + price */
+  function spec(icon, val, label){ return h('span',{class:'spec'}, ic(icon), h('b',null, num(val)), h('span',{class:'spec-lbl'}, label)); }
+  function unitWaMsg(u){ var p=projBySlug(u.project); return (lang==='ar'?'مهتم بوحدة: ':'Interested in unit: ')+typeLabel(u.type)+' — '+(lang==='ar'?p.name_ar:p.name)+' ('+u.id+')'; }
+  function unitCard(u){
+    var p=projBySlug(u.project), area=areaByKey(p.area), dev=devByKey(p.dev);
+    var href=U(buildPath('project',{slug:p.slug}));
+    var card=h('article',{class:'card'});
+    var media=h('div',{class:'card__media'}, projectArt(p),
+      h('div',{class:'tags'}, h('span',{class:'chip'}, typeIcon(u.type,'chip-ico'), typeLabel(u.type))));
+    var mark=devBadge(dev,34); mark.classList.add('card__devmark'); media.appendChild(mark);
+    media.appendChild(saveBtn(p.slug));
+    var link=h('a',{href:href,'aria-label':typeLabel(u.type)+' — '+(lang==='ar'?p.name_ar:p.name)}); link.appendChild(media); card.appendChild(link);
+    card.appendChild(h('div',{class:'card__body'},
+      h('div',{class:'card__dev'}, typeLabel(u.type)+' · '+(lang==='ar'?p.name_ar:p.name)),
+      h('h3',null, h('a',{href:href}, typeLabel(u.type))),
+      h('div',{class:'card__facts',style:'gap:4px 10px'}, h('span',null, ic('pin'), ' ', L(area.name))),
+      h('div',{class:'spec-row'}, spec('bed',u.beds, lang==='ar'?'غرف':'beds'), spec('bath',u.baths, lang==='ar'?'حمام':'baths'), spec('area',u.area,'m²')),
+      h('div',{class:'card__price'}, money(u.price)),
+      provBadge(),
+      h('div',{class:'card__foot'},
+        h('a',{class:'btn btn--primary btn--sm', href:href}, t('cta_details')),
+        CONFIG.whatsapp ? h('a',{class:'btn btn--wa btn--sm', href:waLink(unitWaMsg(u)), target:'_blank', rel:'noopener'}, ic('wa'), t('whatsapp')) : null)
+    ));
+    return card;
+  }
+
   function areaTile(a){
     var ps = projInArea(a.key), from = areaFrom(a.key);
     var tile = h('a',{class:'tile', href:U(buildPath('area',{slug:a.key})), style:'background:'+['linear-gradient(160deg,var(--teal-700),var(--teal-900))','linear-gradient(160deg,var(--teal-600),var(--teal-800))','linear-gradient(160deg,var(--teal-800),var(--teal-900))'][gradIdx(a.key)]});
@@ -1027,7 +1338,7 @@
   function devCard(d){
     var ps = projByDev(d.key);
     return h('a',{class:'dev-card', href:U(buildPath('developer',{slug:d.key}))},
-      h('div',{class:'dev-logo','aria-hidden':'true'}, initials(L(d.name))),
+      devBadge(d,52),
       h('div',{class:'meta'},
         h('h3',null, L(d.name)),
         h('p',null, L(d.tagline)),
@@ -1090,6 +1401,9 @@
     // featured
     node.appendChild(listSection('', t('home_feat_h'), t('home_feat_p'), feat.map(projectCard),
       {label:t('cta_all'), path:buildPath('projects')}, 'band'));
+    // featured units
+    node.appendChild(listSection('', t('home_units_h'), t('home_units_p'), UNITS.slice(0,3).map(unitCard),
+      {label:t('cta_all'), path:buildPath('units')}));
     // areas
     node.appendChild(listSection('', t('home_area_h'), t('home_area_p'),
       AREAS.slice(0,6).map(areaTile), {label:t('cta_all'), path:buildPath('areas')}, null, 'grid--3'));
@@ -1137,6 +1451,99 @@
   function areaOptions(sel){ return [opt('',t('any'))].concat(AREAS.map(function(a){return opt(a.key,L(a.name),sel===a.key);})); }
   function devOptions(sel){ return [opt('',t('any'))].concat(DEVELOPERS.map(function(d){return opt(d.key,L(d.name),sel===d.key);})); }
   function statusOptions(sel){ return [opt('',t('any')),opt('launch',t('launch'),sel==='launch'),opt('primary',t('primary'),sel==='primary'),opt('ready',t('ready'),sel==='ready')]; }
+
+  /* ==================================================================
+     GUIDED SITE ASSISTANT
+     A deterministic assistant grounded ONLY in this site's real content
+     (projects, developers, areas, units, payment info, FAQs). It never
+     invents facts; when it can't answer it hands off to WhatsApp or the
+     client registration form. (A real LLM would need a backend + the AI
+     governance in the contract; this is the approved guided fallback.)
+     ================================================================== */
+  var chatEls = null;
+  function chatBuild(){
+    if(chatEls) return;
+    var fab=h('button',{class:'chat-fab', type:'button','aria-label':t('chat_open')},
+      svg(ICON.chat), h('span',{class:'lbl'}, t('chat_open')));
+    var panel=h('aside',{class:'chat-panel', role:'dialog','aria-label':t('chat_title'),'aria-hidden':'true'});
+    var titleEl=h('h3',null,t('chat_title')), subEl=h('p',null,t('chat_sub'));
+    var closeB=h('button',{class:'x', type:'button','aria-label':'Close'}, svg('M6 6l12 12M18 6L6 18'));
+    var head=h('div',{class:'chat-head'}, h('div',{class:'av'}, svg(ICON.spark)), h('div',null, titleEl, subEl), closeB);
+    var body=h('div',{class:'chat-body'});
+    var chips=h('div',{class:'chat-chips'});
+    var input=h('input',{type:'text','aria-label':t('chat_ph'), placeholder:t('chat_ph'), autocomplete:'off'});
+    var sendB=h('button',{type:'submit','aria-label':'Send'}, svg(ICON.send));
+    var form=h('form',{class:'chat-input'}, input, sendB);
+    panel.appendChild(head); panel.appendChild(body); panel.appendChild(chips); panel.appendChild(form);
+    document.body.appendChild(fab); document.body.appendChild(panel);
+    chatEls={fab:fab, fabLbl:fab.querySelector('.lbl'), panel:panel, title:titleEl, sub:subEl, body:body, chips:chips, input:input};
+    fab.addEventListener('click', chatOpen);
+    closeB.addEventListener('click', chatClose);
+    form.addEventListener('submit', function(e){ e.preventDefault(); chatUserSend(input.value); });
+    panel.addEventListener('click', function(e){ if(e.target.closest('a')) chatClose(); });
+    document.addEventListener('keydown', function(e){ if(e.key==='Escape' && panel.classList.contains('open')) chatClose(); });
+    chatRefresh();
+  }
+  function chatOpen(){ if(!chatEls) return; chatEls.panel.classList.add('open'); chatEls.panel.setAttribute('aria-hidden','false'); chatEls.fab.style.display='none'; chatRefresh(); setTimeout(function(){ chatEls.input.focus(); },50); }
+  function chatClose(){ if(!chatEls) return; chatEls.panel.classList.remove('open'); chatEls.panel.setAttribute('aria-hidden','true'); chatEls.fab.style.display=''; }
+  function chatRefresh(){
+    if(!chatEls) return;
+    chatEls.fabLbl.textContent=t('chat_open'); chatEls.title.textContent=t('chat_title');
+    chatEls.sub.textContent=t('chat_sub'); chatEls.input.setAttribute('placeholder', t('chat_ph'));
+    clear(chatEls.chips);
+    ['chat_c1','chat_c2','chat_c3','chat_c4'].forEach(function(k){
+      var b=h('button',{type:'button'}, t(k)); b.addEventListener('click', function(){ chatUserSend(t(k)); }); chatEls.chips.appendChild(b); });
+    if(!chatEls.body.children.length) chatPush(chatMsg(t('chat_hello')));
+  }
+  function chatPush(node){ chatEls.body.appendChild(node); chatEls.body.scrollTop=chatEls.body.scrollHeight; }
+  function chatMsg(){ var m=h('div',{class:'msg bot'}); for(var i=0;i<arguments.length;i++){ if(arguments[i]!=null && arguments[i]!==false) append(m, arguments[i]); } return m; }
+  function chatLink(label, path){ return h('a',{href:U(path)}, label); }
+  function chatList(title, items){
+    var box=chatMsg(title);
+    if(!items.length){ box.appendChild(document.createTextNode(' '+t('chat_none'))); return box; }
+    var ul=h('div',{style:'margin-top:6px;display:flex;flex-direction:column;gap:5px'});
+    items.slice(0,6).forEach(function(it){ ul.appendChild(h('a',{class:'unit-mini', href:U(it.href)}, it.label)); });
+    box.appendChild(ul); return box;
+  }
+  function chatActions(intro){
+    var box=chatMsg(intro);
+    var row=h('div',{style:'display:flex;gap:6px;flex-wrap:wrap;margin-top:9px'});
+    row.appendChild(h('a',{class:'btn btn--primary btn--sm', href:U(buildPath('contact'))}, t('chat_leave')));
+    if(CONFIG.whatsapp) row.appendChild(h('a',{class:'btn btn--wa btn--sm', href:waLink(lang==='ar'?'مرحباً، أرغب في التحدث إلى مستشار':'Hello, I would like to talk to an advisor'), target:'_blank', rel:'noopener'}, svg(ICON.wa), t('chat_send_wa')));
+    if(CONFIG.phone) row.appendChild(h('a',{class:'btn btn--ghost btn--sm', href:'tel:'+CONFIG.phone}, svg(ICON.phone), CONFIG.phoneDisplay||CONFIG.phone));
+    box.appendChild(row); return box;
+  }
+  function chatUserSend(text){
+    text=(text||'').trim(); if(!text || !chatEls) return;
+    chatPush(h('div',{class:'msg user'}, text));
+    chatEls.input.value='';
+    chatPush(chatRespond(text) || chatActions(t('chat_noanswer')));
+  }
+  function chatRespond(raw){
+    var q=raw.trim(), ql=q.toLowerCase();
+    if(/(advisor|agent|human|call|phone|whatsapp|contact|register|مستشار|اتصال|تواصل|واتساب|واتس|كلم|سجل|بيانات)/.test(ql)) return chatActions(lang==='ar'?'يسعدنا مساعدتك مباشرة:':'Happy to help you directly:');
+    if(/(payment|install|plan|deposit|قسط|تقسيط|سداد|دفعة|مقدم)/.test(ql))
+      return chatMsg((lang==='ar'
+        ? 'توفّر The Village خطط سداد مرنة تصل حتى 10 سنوات على وحدات مختارة، ويختلف المقدم والمدة حسب المشروع والمطوّر. '
+        : 'The Village offers flexible payment plans up to 10 years on selected units; the down payment and duration vary by project and developer. '),
+        chatLink(t('nav_faqs'), buildPath('faqs')));
+    var area=AREAS.filter(function(a){ return ql.indexOf(a.name.en.toLowerCase())>-1 || q.indexOf(a.name.ar)>-1; })[0];
+    if(area) return chatList(t('chat_found'), projInArea(area.key).map(function(p){ return {label:(lang==='ar'?p.name_ar:p.name), href:buildPath('project',{slug:p.slug})}; }));
+    var dev=DEVELOPERS.filter(function(d){ return ql.indexOf(d.name.en.toLowerCase())>-1 || q.indexOf(d.name.ar)>-1; })[0];
+    if(dev) return chatList(t('chat_found'), projByDev(dev.key).map(function(p){ return {label:(lang==='ar'?p.name_ar:p.name), href:buildPath('project',{slug:p.slug})}; }));
+    var proj=PROJECTS.filter(function(p){ return ql.indexOf(p.name.toLowerCase())>-1 || q.indexOf(p.name_ar)>-1; })[0];
+    if(proj) return chatList(t('chat_found'), [{label:(lang==='ar'?proj.name_ar:proj.name)+' · '+t('from')+' '+money(proj.price), href:buildPath('project',{slug:proj.slug})}]);
+    var tk=Object.keys(TYPE_META).filter(function(k){ return ql.indexOf(k.toLowerCase())>-1 || q.indexOf(TYPE_META[k].ar)>-1; })[0];
+    if(tk) return chatList(t('chat_found'), UNITS.filter(function(u){return u.type===tk;}).map(function(u){ var p=projBySlug(u.project); return {label:typeLabel(u.type)+' — '+(lang==='ar'?p.name_ar:p.name)+' · '+money(u.price), href:buildPath('project',{slug:p.slug})}; }));
+    if(/(launch|new launch|newly|إطلاق|اطلاق|جديد)/.test(ql)) return chatList(t('chat_found'), PROJECTS.filter(function(p){return p.status==='launch';}).map(function(p){ return {label:(lang==='ar'?p.name_ar:p.name), href:buildPath('project',{slug:p.slug})}; }));
+    var m=(ql.replace(/[,\s]/g,'').match(/(\d{5,})/)||[])[1];
+    if(m){ var b=parseInt(m,10); var under=PROJECTS.filter(function(p){return p.price<=b;}); if(under.length) return chatList(lang==='ar'?'مشروعات ضمن ميزانيتك:':'Projects within your budget:', under.map(function(p){ return {label:(lang==='ar'?p.name_ar:p.name)+' · '+t('from')+' '+money(p.price), href:buildPath('project',{slug:p.slug})}; })); }
+    if(/(who|about|company|من نحن|من انتم|عنكم|شركة)/.test(ql)) return chatMsg(ABOUT[lang][0]+' ', chatLink(t('nav_about'), buildPath('about')));
+    if(/(area|location|where|مناطق|منطقة|مكان|فين|وين)/.test(ql)) return chatList(t('chat_found'), AREAS.map(function(a){ return {label:L(a.name), href:buildPath('area',{slug:a.key})}; }));
+    if(/(unit|units|apartment|villa|وحدات|وحدة|شقق|شقة)/.test(ql)) return chatList(t('chat_found'), UNITS.slice(0,6).map(function(u){ var p=projBySlug(u.project); return {label:typeLabel(u.type)+' — '+(lang==='ar'?p.name_ar:p.name)+' · '+money(u.price), href:buildPath('project',{slug:p.slug})}; }));
+    if(/(developer|مطور|مطوّر|مطورين)/.test(ql)) return chatList(t('chat_found'), DEVELOPERS.map(function(d){ return {label:L(d.name), href:buildPath('developer',{slug:d.key})}; }));
+    return chatActions(t('chat_noanswer'));
+  }
 
   /* ---- Projects list (also serves /new-launches/) ---- */
   V.projects = function(preset){
@@ -1234,7 +1641,8 @@
     var top = h('section',{class:'section--tight'});
     var wrap = h('div',{class:'wrap'});
     wrap.appendChild(crumbNode([{label:'Home',path:buildPath('home')},{label:t('nav_projects'),path:buildPath('projects')},{label:nm}]));
-    var media = mediaBox(p.name,'detail-media',[statusLabel(p.status)]);
+    var media = h('div',{class:'detail-media'}, projectArt(p),
+      h('div',{class:'tags'}, h('span',{class:'chip'}, statusLabel(p.status))));
     var facts = h('table',{class:'fact-table'});
     [[t('developer'),L(dev.name)],[t('area'),L(area.name)],[t('status'),statusLabel(p.status)],
      [t('units'),L(p.types)],[t('finishing'),L(p.finishing)],[t('delivery'), p.delivery==='Ready'?t('ready'):p.delivery]]
@@ -1265,6 +1673,21 @@
       aside));
     top.appendChild(wrap); node.appendChild(top);
 
+    // unit types (clear icons) + available units (image + specs)
+    var typesEn=(p.types.en||'').split(' · ');
+    var utsec=h('section',{class:'section--tight band'}), utw=h('div',{class:'wrap'});
+    utw.appendChild(sectionHead('', t('unit_types_h'), t('unit_types_p')));
+    var trow=h('div',{class:'type-row'});
+    typesEn.forEach(function(te){ trow.appendChild(h('div',{class:'type-chip'}, typeIcon(te), h('span',null, typeLabel(te)))); });
+    utw.appendChild(trow);
+    var us=unitsIn(p.slug);
+    if(us.length){
+      utw.appendChild(h('h3',{style:'font-size:1.25rem;margin:28px 0 10px'}, t('avail_units')));
+      utw.appendChild(h('div',{class:'grid grid--3'}, us.map(unitCard)));
+    }
+    utw.appendChild(h('p',{class:'muted',style:'font-size:.78rem;margin-top:16px'}, t('art_note')));
+    utsec.appendChild(utw); node.appendChild(utsec);
+
     // related
     var rel = projInArea(p.area).filter(function(x){return x.slug!==p.slug;}).slice(0,3);
     if(rel.length) node.appendChild(listSection('', t('related'), '', rel.map(projectCard), null, 'band'));
@@ -1273,12 +1696,40 @@
       indexable:true, crumbs:[{label:'Home',path:buildPath('home')},{label:t('nav_projects'),path:buildPath('projects')},{label:nm}]};
   };
 
+  /* ---- Units catalog (type-icon filter + spec cards) ---- */
+  V.units = function(){
+    var qs=new URLSearchParams(CUR.search), ft=qs.get('type')||'';
+    var list=UNITS.filter(function(u){ return !ft || u.type===ft; });
+    var types=[]; UNITS.forEach(function(u){ if(types.indexOf(u.type)<0) types.push(u.type); });
+    var node=h('div',null);
+    node.appendChild(sectionWrap(
+      crumbNode([{label:'Home',path:buildPath('home')},{label:t('nav_units')}]),
+      sectionHead(t('hero_kicker'), t('units_h'), t('units_p'))));
+    var sec=h('section',{style:'padding-bottom:clamp(40px,7vw,80px)'}), w=h('div',{class:'wrap'});
+    var trow=h('div',{class:'type-row',style:'margin-bottom:20px'});
+    var all=h('button',{class:'type-chip',type:'button',style:ft?'':'border-color:var(--teal-600);color:var(--teal-700)'}, ic('build'), h('span',null,t('all_types')));
+    all.addEventListener('click',function(){ navigateTo(buildPath('units')); }); trow.appendChild(all);
+    types.forEach(function(ty){
+      var b=h('button',{class:'type-chip',type:'button',style:ft===ty?'border-color:var(--teal-600)':''}, typeIcon(ty), h('span',null,typeLabel(ty)));
+      b.addEventListener('click',function(){ navigateTo(buildPath('units')+'?type='+encodeURIComponent(ty)); }); trow.appendChild(b);
+    });
+    w.appendChild(trow);
+    w.appendChild(h('div',{class:'result-bar'}, h('span',{class:'count','aria-live':'polite'}, num(list.length)+' '+t('results'))));
+    w.appendChild(h('div',{class:'grid grid--3'}, list.map(unitCard)));
+    w.appendChild(h('p',{class:'muted',style:'font-size:.78rem;margin-top:16px'}, t('art_note')));
+    sec.appendChild(w); node.appendChild(sec);
+    return {node:node, title:t('units_h')+' · The Village Investment', desc:t('units_p'), indexable:true,
+      crumbs:[{label:'Home',path:buildPath('home')},{label:t('nav_units')}]};
+  };
+
   /* ---- Developers list + detail ---- */
   V.developers = function(){
     var node=h('div',null);
     node.appendChild(sectionWrap(crumbNode([{label:'Home',path:buildPath('home')},{label:t('nav_developers')}]),
       sectionHead(t('hero_kicker'), t('home_dev_h'), t('home_dev_p'))));
-    node.appendChild(h('section',{style:'padding-bottom:clamp(40px,7vw,80px)'}, h('div',{class:'wrap'}, h('div',{class:'grid grid--2'}, DEVELOPERS.map(devCard)))));
+    node.appendChild(h('section',{style:'padding-bottom:clamp(40px,7vw,80px)'}, h('div',{class:'wrap'},
+      h('div',{class:'grid grid--2'}, DEVELOPERS.map(devCard)),
+      h('p',{class:'muted',style:'font-size:.78rem;margin-top:20px'}, t('devmark_note')))));
     return {node:node, title:t('nav_developers')+' · The Village Investment', desc:t('home_dev_p'), indexable:true,
       crumbs:[{label:'Home',path:buildPath('home')},{label:t('nav_developers')}]};
   };
@@ -1288,7 +1739,7 @@
       crumbNode([{label:'Home',path:buildPath('home')},{label:t('nav_developers'),path:buildPath('developers')},{label:L(d.name)}]),
       h('div',{class:'detail-hero'},
         h('div',null,
-          h('div',{class:'dev-logo','aria-hidden':'true', style:'width:64px;height:64px;font-size:1.3rem'}, initials(L(d.name))),
+          devBadge(d,64),
           h('h1',{style:'font-size:clamp(1.8rem,4vw,2.6rem);margin-top:16px'}, L(d.name)),
           h('p',{class:'lead', style:'margin-top:10px'}, L(d.tagline)),
           h('p',{class:'muted', style:'margin-top:14px;max-width:60ch'}, L(d.desc)),
@@ -1464,8 +1915,8 @@
     w.appendChild(sectionHead('', t('contact_h'), t('contact_p')));
     // gated contact channels (no placeholders)
     var channels=h('div',{style:'display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px'});
-    if(CONFIG.phone) channels.appendChild(h('a',{class:'btn btn--ghost', href:'tel:'+CONFIG.phone.replace(/\s/g,'')}, ic('chat'), CONFIG.phone));
-    if(CONFIG.whatsapp) channels.appendChild(h('a',{class:'btn btn--ghost', href:'https://wa.me/'+CONFIG.whatsapp, target:'_blank', rel:'noopener'}, 'WhatsApp'));
+    if(CONFIG.phone) channels.appendChild(h('a',{class:'btn btn--ghost', href:'tel:'+CONFIG.phone}, ic('phone'), CONFIG.phoneDisplay||CONFIG.phone));
+    if(CONFIG.whatsapp) channels.appendChild(h('a',{class:'btn btn--wa', href:waLink(lang==='ar'?'مرحباً، أرغب في الاستفسار عن عقارات The Village':'Hello, I would like to enquire about The Village properties'), target:'_blank', rel:'noopener'}, ic('wa'), t('whatsapp')));
     if(CONFIG.email) channels.appendChild(h('a',{class:'btn btn--ghost', href:'mailto:'+CONFIG.email}, ic('doc'), CONFIG.email));
     if(channels.childNodes.length) w.appendChild(channels);
     else w.appendChild(h('div',{class:'notice notice--warn', style:'margin-bottom:18px'}, ic('info'), h('div',null,t('contact_blocked'))));
@@ -1534,11 +1985,21 @@
     if(ok===true){ box.appendChild(ic('check')); box.appendChild(h('div',null, lang==='ar'?'تم استلام طلبك بنجاح. سيتواصل معك مستشار قريباً.':'Your request was received. An advisor will be in touch shortly.')); form.reset(); }
     else if(ok===false){ box.appendChild(ic('info')); box.appendChild(h('div',null, lang==='ar'?'تعذّر إرسال الطلب الآن. برجاء المحاولة لاحقاً — لم نعرض رسالة نجاح زائفة.':'We could not send your request right now. Please try again later — we won’t show a fake success message.')); }
     else {
-      var txt=(details.name+' · '+details.phone+(details.email?(' · '+details.email):'')+' · '+details.area+(details.message?(' · '+details.message):''));
-      box.appendChild(ic('info'));
-      var d=h('div',null, h('div',null,t('lead_not_connected')),
-        h('button',{class:'btn btn--ghost btn--sm', type:'button', style:'margin-top:10px', onclick:function(){ copy(txt); }}, ic('doc'), t('lead_copy')));
-      box.appendChild(d);
+      // No CRM (by request): hand the enquiry to the real WhatsApp / email channels.
+      var loc=lang==='ar';
+      var msg=(loc?'استفسار من موقع The Village':'Enquiry via The Village website')
+        +'\n'+(loc?'الاسم':'Name')+': '+details.name
+        +'\n'+(loc?'الهاتف':'Phone')+': '+details.phone
+        +(details.email?('\n'+(loc?'البريد':'Email')+': '+details.email):'')
+        +(details.area?('\n'+(loc?'المنطقة':'Area')+': '+details.area):'')
+        +(details.message?('\n'+(loc?'الطلب':'Message')+': '+details.message):'');
+      box.className='notice notice--ok'; box.style.marginTop='16px';
+      box.appendChild(ic('check'));
+      var row=h('div',{style:'display:flex;gap:8px;flex-wrap:wrap;margin-top:10px'});
+      if(CONFIG.whatsapp) row.appendChild(h('a',{class:'btn btn--wa btn--sm', href:waLink(msg), target:'_blank', rel:'noopener'}, ic('wa'), t('send_wa')));
+      if(CONFIG.email) row.appendChild(h('a',{class:'btn btn--ghost btn--sm', href:'mailto:'+CONFIG.email+'?subject='+encodeURIComponent(loc?'استفسار عقاري':'Property enquiry')+'&body='+encodeURIComponent(msg)}, ic('doc'), t('send_email')));
+      row.appendChild(h('button',{class:'btn btn--ghost btn--sm', type:'button', onclick:function(){ copy(msg); }}, ic('doc'), t('lead_copy')));
+      box.appendChild(h('div',null, h('div',null, t('lead_handoff')), row));
     }
     form.appendChild(box); box.scrollIntoView({behavior:'smooth',block:'center'});
   }
@@ -1582,6 +2043,7 @@
     switch(r.name){
       case 'home': return V.home();
       case 'projects': return V.projects(null);
+      case 'units': return V.units();
       case 'launches': return V.projects('launch');
       case 'project': return V.project(r.params.slug);
       case 'developers': return V.developers();
@@ -1611,10 +2073,11 @@
       var a=h('a',{href:U(buildPath(it[0]))}, t(it[1])); if(group===it[0]) a.setAttribute('aria-current','page'); pn.appendChild(a);
       var a2=h('a',{href:U(buildPath(it[0]))}, t(it[1])); if(group===it[0]) a2.setAttribute('aria-current','page'); dn.appendChild(a2);
     });
+    dn.appendChild(h('a',{href:U(buildPath('units'))}, t('nav_units')));
     dn.appendChild(h('a',{href:U(buildPath('faqs'))}, t('nav_faqs')));
     dn.appendChild(h('a',{href:U(buildPath('compare'))}, t('nav_compare')+ (compare.length?(' ('+num(compare.length)+')'):'')));
     // footer columns
-    fill('foot-explore',[['projects','nav_projects'],['launches','nav_launches'],['areas','nav_areas'],['developers','nav_developers'],['compare','nav_compare']]);
+    fill('foot-explore',[['projects','nav_projects'],['units','nav_units'],['launches','nav_launches'],['areas','nav_areas'],['developers','nav_developers'],['compare','nav_compare']]);
     fill('foot-company',[['about','nav_about'],['insights','nav_insights'],['faqs','nav_faqs'],['contact','nav_contact']]);
     fill('foot-legal',[['privacy','legal_priv'],['terms','legal_terms']]);
     document.getElementById('foot-tag').textContent=t('brand_note');
@@ -1626,7 +2089,28 @@
     setHref(document.querySelector('header .brand'), buildPath('home'));
     setHref(document.querySelector('.nav-actions a.btn--primary'), buildPath('contact'));
     setHref(document.querySelector('#drawer a.btn--primary'), buildPath('contact'));
-    var mb=document.querySelectorAll('#mobile-bar a'); if(mb[0]) setHref(mb[0],buildPath('projects')); if(mb[1]) setHref(mb[1],buildPath('contact'));
+    var mbContact=document.querySelector('#mobile-bar a.btn--primary'); if(mbContact) mbContact.setAttribute('href', U(buildPath('contact')));
+    // WhatsApp quick actions
+    var waMsg = lang==='ar' ? 'مرحباً، أرغب في الاستفسار عن عقارات The Village' : 'Hello, I would like to enquire about The Village properties';
+    var waH=document.getElementById('wa-header'), waM=document.getElementById('wa-mobile');
+    if(CONFIG.whatsapp){ if(waH){ waH.setAttribute('href', waLink(waMsg)); waH.style.display=''; } if(waM){ waM.setAttribute('href', waLink(waMsg)); waM.style.display=''; } }
+    else { if(waH) waH.style.display='none'; if(waM) waM.style.display='none'; }
+    renderSocial();
+    if(chatEls) chatRefresh();
+  }
+  function renderSocial(){
+    var fc=document.getElementById('foot-contact');
+    if(fc){ clear(fc);
+      if(CONFIG.phone) fc.appendChild(h('a',{href:'tel:'+CONFIG.phone}, CONFIG.phoneDisplay||CONFIG.phone));
+      if(CONFIG.email) fc.appendChild(h('a',{href:'mailto:'+CONFIG.email}, CONFIG.email)); }
+    var host=document.getElementById('foot-social'); if(!host) return; clear(host);
+    var nets=[['facebook','Facebook'],['instagram','Instagram'],['linkedin','LinkedIn'],['tiktok','TikTok']];
+    nets.forEach(function(n){
+      var url=CONFIG.social && CONFIG.social[n[0]];
+      var el = url ? h('a',{href:url, target:'_blank', rel:'noopener','aria-label':n[1]}, ic(n[0]))
+                   : h('span',{class:'off','aria-label':n[1]+' — '+(lang==='ar'?'قيد الإضافة':'link pending'), title:n[1]}, ic(n[0]));
+      host.appendChild(el);
+    });
   }
   function fill(id, arr){ var c=document.getElementById(id); if(!c) return; clear(c); arr.forEach(function(it){ c.appendChild(h('a',{href:U(buildPath(it[0]))}, t(it[1]))); }); }
   function clear(n){ while(n && n.firstChild) n.removeChild(n.firstChild); }
@@ -1745,6 +2229,7 @@
      BOOT
      ================================================================== */
   route();
+  chatBuild();
   </script>
 </body>
 </html>

@@ -29,6 +29,20 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/projects/"/>
   </url>
   <url>
+    <loc>https://www.thevillageinvestment.com/en/units/</loc>
+    <lastmod>2026-07-09</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/units/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/units/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/units/"/>
+  </url>
+  <url>
+    <loc>https://www.thevillageinvestment.com/ar/units/</loc>
+    <lastmod>2026-07-09</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/units/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/units/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/units/"/>
+  </url>
+  <url>
     <loc>https://www.thevillageinvestment.com/en/new-launches/</loc>
     <lastmod>2026-07-09</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/new-launches/"/>
@@ -519,32 +533,32 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/developers/marasem/"/>
   </url>
   <url>
-    <loc>https://www.thevillageinvestment.com/en/developers/tmg/</loc>
+    <loc>https://www.thevillageinvestment.com/en/developers/qataridiar/</loc>
     <lastmod>2026-07-09</lastmod>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/developers/tmg/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/developers/tmg/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/developers/tmg/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/developers/qataridiar/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/developers/qataridiar/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/developers/qataridiar/"/>
   </url>
   <url>
-    <loc>https://www.thevillageinvestment.com/ar/developers/tmg/</loc>
+    <loc>https://www.thevillageinvestment.com/ar/developers/qataridiar/</loc>
     <lastmod>2026-07-09</lastmod>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/developers/tmg/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/developers/tmg/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/developers/tmg/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/developers/qataridiar/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/developers/qataridiar/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/developers/qataridiar/"/>
   </url>
   <url>
-    <loc>https://www.thevillageinvestment.com/en/developers/emaar/</loc>
+    <loc>https://www.thevillageinvestment.com/en/developers/orascom/</loc>
     <lastmod>2026-07-09</lastmod>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/developers/emaar/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/developers/emaar/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/developers/emaar/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/developers/orascom/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/developers/orascom/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/developers/orascom/"/>
   </url>
   <url>
-    <loc>https://www.thevillageinvestment.com/ar/developers/emaar/</loc>
+    <loc>https://www.thevillageinvestment.com/ar/developers/orascom/</loc>
     <lastmod>2026-07-09</lastmod>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/developers/emaar/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/developers/emaar/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/developers/emaar/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/developers/orascom/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/developers/orascom/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/developers/orascom/"/>
   </url>
   <url>
     <loc>https://www.thevillageinvestment.com/en/areas/newcairo/</loc>
