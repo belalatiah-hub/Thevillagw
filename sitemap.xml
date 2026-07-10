@@ -770,4 +770,18 @@
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/projects/june-north-coast/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/projects/june-north-coast/"/>
   </url>
+  <url>
+    <loc>https://www.thevillageinvestment.com/en/areas/raselhekma/</loc>
+    <lastmod>2026-07-10</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/areas/raselhekma/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/areas/raselhekma/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/areas/raselhekma/"/>
+  </url>
+  <url>
+    <loc>https://www.thevillageinvestment.com/ar/areas/raselhekma/</loc>
+    <lastmod>2026-07-10</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/areas/raselhekma/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/areas/raselhekma/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/areas/raselhekma/"/>
+  </url>
 </urlset>
