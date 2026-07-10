@@ -7,6 +7,8 @@ Status of the items that need the brand owner before a full public launch.
 - **Contact email** — `info@thevillageinvestment.com`. Live on the site.
 - **Lead delivery** — by request, **no CRM**: the enquiry form and the assistant
   hand off directly to **WhatsApp / email** (a real destination), no fake success.
+- **Social profiles** — Facebook, Instagram, LinkedIn and TikTok URLs are live in
+  the footer and in the Organization `sameAs` structured data.
 
 ## Still pending owner input
 | # | Item | Why it matters | What the site does today |
@@ -14,7 +16,6 @@ Status of the items that need the brand owner before a full public launch.
 | 1 | **Live, source-backed inventory** (prices, plans, delivery, availability, real units) | Figures change constantly and must be confirmed with the developer | Every price/plan/unit is labelled *illustrative — confirm with an advisor*; counts derived from on-page data |
 | 2 | **Official developer logos** | The real logos are trademarked; I can't reproduce third-party marks without the files/rights | Each developer shows an original colored monogram mark as a placeholder; drop official SVG/PNGs in when licensed |
 | 3 | **Real project & unit photography** | Real photos are copyrighted; can't be used without rights | Every project/unit shows an original on-brand SVG illustration (clearly not a photo) |
-| 4 | **Social profile URLs** (Facebook, Instagram, LinkedIn, TikTok) | Icons are in the footer; links activate only with real URLs | Set `CONFIG.social.{facebook,instagram,linkedin,tiktok}` — icons become live links |
 | 5 | **Brand approval** | Final logo/color/type sign-off is the owner's | Identity derived from the master logo; recorded provisional |
 | 6 | **Legal review** (privacy, terms, any ownership/tax/residency claims) | Regulated content needs a named reviewer | Privacy/Terms marked "pending legal review"; no return/guarantee claims |
 | 7 | **Verified corporate identity** (legal entity, registration, brokerage authorization, office address) | Trust + structured data | Org schema carries verified phone/email only; no fabricated NAP |
