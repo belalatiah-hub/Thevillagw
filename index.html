@@ -470,6 +470,24 @@
   .chat-fab:hover{background:var(--teal-700);transform:translateY(-2px)}
   .chat-fab svg{width:22px;height:22px}
   @media(max-width:640px){.chat-fab{inset-block-end:84px;padding:0;width:52px;justify-content:center}.chat-fab .lbl{display:none}}
+  /* ---- Floating contact rail (phone / email / WhatsApp) + 30s nudge ---- */
+  .contact-rail{position:fixed;inset-inline-end:0;top:50%;transform:translateY(-50%);z-index:92;display:flex;flex-direction:column;gap:3px}
+  .cr-btn{width:44px;height:44px;display:grid;place-items:center;background:var(--teal-700);color:var(--bone);box-shadow:0 5px 16px rgba(7,61,82,.30);transition:background var(--t),width var(--t)}
+  .cr-btn svg{width:21px;height:21px}
+  .cr-btn:first-child{border-start-start-radius:13px}
+  .cr-btn:last-child{border-end-start-radius:13px}
+  .cr-btn:hover,.cr-btn:focus-visible{background:var(--teal-800);width:50px;outline:none}
+  .cr-btn--wa{background:#1f8f4e}
+  .cr-btn--wa:hover,.cr-btn--wa:focus-visible{background:#187a40}
+  .rail-nudge{position:fixed;inset-inline-end:56px;top:50%;transform:translateY(-50%) translateX(14px);z-index:91;display:flex;align-items:center;gap:9px;max-width:min(74vw,258px);padding:10px 12px;background:var(--paper);color:var(--ink);border:1px solid var(--line-2);border-radius:14px;box-shadow:0 12px 34px rgba(7,61,82,.24);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .3s,transform .3s,visibility .3s;text-decoration:none;font-size:.85rem;font-weight:600;line-height:1.3}
+  .rail-nudge.show{opacity:1;visibility:visible;transform:translateY(-50%) translateX(0);pointer-events:auto}
+  .rail-nudge__ic{width:30px;height:30px;border-radius:50%;background:#1f8f4e;color:#fff;display:grid;place-items:center;flex:none}
+  .rail-nudge__ic svg{width:17px;height:17px}
+  .rail-nudge__t{flex:1}
+  .rail-nudge__x{flex:none;border:none;background:transparent;color:var(--ink-3);font-size:1.15rem;line-height:1;cursor:pointer;padding:0 2px}
+  .rail-nudge__x:hover{color:var(--ink)}
+  @media(prefers-reduced-motion:reduce){.rail-nudge{transition:opacity .2s}.rail-nudge.show{transform:translateY(-50%)}.cr-btn{transition:background var(--t)}.cr-btn:hover,.cr-btn:focus-visible{width:44px}}
+  @media(max-width:640px){.cr-btn{width:40px;height:40px}.cr-btn svg{width:19px;height:19px}.rail-nudge{inset-inline-end:50px;font-size:.8rem}}
   .chat-panel{position:fixed;inset-block-end:20px;inset-inline-end:20px;z-index:120;width:min(94vw,380px);height:min(74vh,580px);background:var(--bone-2);border-radius:var(--r-lg);box-shadow:var(--shadow-lg);display:none;flex-direction:column;overflow:hidden;border:1px solid var(--line-2)}
   .chat-panel.open{display:flex}
   @media(max-width:640px){.chat-panel{inset:auto 8px calc(8px + env(safe-area-inset-bottom)) 8px;width:auto;height:82vh;border-radius:var(--r-lg)}}
@@ -2160,6 +2178,65 @@
   }
 
   /* ==================================================================
+     FLOATING CONTACT RAIL + periodic direct-contact nudge
+     A sticky phone / email / WhatsApp rail on the trailing edge, plus a
+     WhatsApp callout that surfaces every 30s (dismissible, and paused while
+     the chat/search/drawer is open or a form field is focused). Uses only
+     the real, verified CONFIG channels.
+     ================================================================== */
+  var railEls=null, railNudge={el:null, dismissed:false, timer:null, hideT:null};
+  function railWaMsg(){ return lang==='ar'?'مرحباً، أرغب في الاستفسار عن عقارات The Village':'Hello, I would like to enquire about The Village properties'; }
+  function nudgeText(){ return lang==='ar'?'محتاج مساعدة؟ كلّم مستشار الآن':'Need help? Talk to an advisor'; }
+  function contactRailBuild(){
+    if(railEls) return;
+    var rail=h('div',{class:'contact-rail', id:'contact-rail', role:'group'});
+    var phoneB = CONFIG.phone ? h('a',{class:'cr-btn'}, ic('phone')) : null;
+    var emailB = CONFIG.email ? h('a',{class:'cr-btn'}, ic('mail')) : null;
+    var waB    = CONFIG.whatsapp ? h('a',{class:'cr-btn cr-btn--wa', target:'_blank', rel:'noopener'}, ic('wa')) : null;
+    [phoneB,emailB,waB].forEach(function(b){ if(b) rail.appendChild(b); });
+    if(!rail.childNodes.length) return;
+    document.body.appendChild(rail);
+    railEls={rail:rail, phone:phoneB, email:emailB, wa:waB};
+    contactNudgeInit();
+    railRefresh();
+  }
+  function contactNudgeInit(){
+    if(!CONFIG.whatsapp || railNudge.el) return;
+    var link=h('a',{class:'rail-nudge', target:'_blank', rel:'noopener', 'aria-hidden':'true', tabindex:'-1'},
+      h('span',{class:'rail-nudge__ic'}, ic('wa')), h('span',{class:'rail-nudge__t'}, nudgeText()));
+    var x=h('button',{class:'rail-nudge__x', type:'button', 'aria-label':t('a_close')}, '×');
+    link.appendChild(x);
+    x.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); railNudge.dismissed=true; railNudgeHide(); track('contact_nudge_dismissed'); });
+    link.addEventListener('click', function(){ track('contact_nudge_click'); });
+    document.body.appendChild(link);
+    railNudge.el=link;
+    railNudge.timer=setInterval(railNudgeMaybe, 30000);   // every 30s, per request
+  }
+  function railNudgeMaybe(){
+    if(railNudge.dismissed || !railNudge.el) return;
+    if(document.querySelector('.chat-panel.open, .pal-back.open, .drawer.open')) return;   // don't interrupt an open surface
+    var ae=document.activeElement; if(ae && /^(INPUT|TEXTAREA|SELECT)$/.test(ae.tagName||'')) return;  // don't interrupt form entry
+    railNudgeShow();
+  }
+  function railNudgeShow(){
+    var n=railNudge.el; if(!n) return;
+    n.classList.add('show'); n.setAttribute('aria-hidden','false'); n.setAttribute('tabindex','0');
+    track('contact_nudge_shown');
+    clearTimeout(railNudge.hideT); railNudge.hideT=setTimeout(railNudgeHide, 6500);
+  }
+  function railNudgeHide(){ var n=railNudge.el; if(!n) return; n.classList.remove('show'); n.setAttribute('aria-hidden','true'); n.setAttribute('tabindex','-1'); }
+  function railRefresh(){
+    if(!railEls) return;
+    railEls.rail.setAttribute('aria-label', lang==='ar'?'قنوات التواصل':'Contact channels');
+    if(railEls.phone){ railEls.phone.setAttribute('href','tel:'+CONFIG.phone); railEls.phone.setAttribute('aria-label', t('call')+' '+(CONFIG.phoneDisplay||CONFIG.phone)); }
+    if(railEls.email){ railEls.email.setAttribute('href','mailto:'+CONFIG.email+'?subject='+encodeURIComponent(lang==='ar'?'استفسار عقاري':'Property enquiry')); railEls.email.setAttribute('aria-label', t('email_label')); }
+    if(railEls.wa){ railEls.wa.setAttribute('href', waLink(railWaMsg())); railEls.wa.setAttribute('aria-label', t('whatsapp')); }
+    if(railNudge.el){ var tEl=railNudge.el.querySelector('.rail-nudge__t'); if(tEl) tEl.textContent=nudgeText();
+      railNudge.el.setAttribute('href', waLink(lang==='ar'?'مرحباً، أحتاج مساعدة مستشار':'Hello, I need help from an advisor'));
+      var x=railNudge.el.querySelector('.rail-nudge__x'); if(x) x.setAttribute('aria-label', t('a_close')); }
+  }
+
+  /* ==================================================================
      GLOBAL SEARCH (spec §33) — one shared index + ranking, command
      palette (Cmd/Ctrl+K), header entry, and a /search route.
      Arabic-aware normalization; grouped results; keyboard operable.
@@ -3131,6 +3208,7 @@
     updateChrome(r); setHead(r, view);
     closeDrawer();
     if(view.announce){ var sr=document.getElementById('sr-live'); if(sr) sr.textContent=view.announce; }   // persistent live region (survives view swap)
+    if(typeof railRefresh==='function') railRefresh();   // keep the contact rail/nudge localized
     if(pendingFocusId){ var fe=document.getElementById(pendingFocusId); pendingFocusId=null; if(fe){ try{ fe.focus({preventScroll:true}); }catch(e){ fe.focus(); } return; } }
     if(!opts.keep){ window.scrollTo(0,0); try{ main.focus({preventScroll:true}); }catch(e){ main.focus(); } }
   }
@@ -3220,6 +3298,7 @@
   route();
   chatBuild();
   searchInit();
+  contactRailBuild();
   </script>
 </body>
 </html>
