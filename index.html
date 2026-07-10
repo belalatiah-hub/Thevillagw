@@ -64,7 +64,14 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet" />
+  <!-- PERF-01 · Fonts load non-render-blocking (preload + media-swap) with a robust
+       on-brand fallback stack, so first paint never waits on the webfont CSS.
+       display=swap avoids invisible text; the media containers reserve space so the
+       fallback→webfont swap does not shift layout (no new CLS). -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Tajawal:wght@400;500;700&display=swap" />
+  <link id="font-css" rel="stylesheet" media="print" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Tajawal:wght@400;500;700&display=swap" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Tajawal:wght@400;500;700&display=swap" /></noscript>
+  <script>(function(){var l=document.getElementById('font-css');if(!l)return;function go(){l.media='all';}if(l.sheet){go();}else{l.addEventListener('load',go);setTimeout(go,3000);}})();</script>
 
   <!-- Organization identity. NOTE: contact points intentionally omitted until
        verified; adding fabricated NAP data is forbidden by the contract. -->
@@ -109,9 +116,9 @@
     --r-sm:8px; --r:14px; --r-lg:20px; --r-xl:28px; --r-pill:999px;
     --pad:clamp(16px,4vw,28px);
     --maxw:1200px;
-    --sans:"Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-    --serif:"Fraunces",Georgia,"Times New Roman",serif;
-    --arab:"Tajawal",system-ui,sans-serif;
+    --sans:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --serif:"Fraunces",Georgia,"Iowan Old Style","Times New Roman",serif;
+    --arab:"Tajawal","Segoe UI",Tahoma,Arial,system-ui,sans-serif;
     --t:200ms cubic-bezier(.2,.6,.2,1);
     --header-h:68px;
   }
