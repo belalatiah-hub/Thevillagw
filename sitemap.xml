@@ -742,4 +742,32 @@
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/developers/modon/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/developers/modon/"/>
   </url>
+  <url>
+    <loc>https://www.thevillageinvestment.com/en/projects/caesar-north-coast/</loc>
+    <lastmod>2026-07-10</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/projects/caesar-north-coast/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/projects/caesar-north-coast/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/projects/caesar-north-coast/"/>
+  </url>
+  <url>
+    <loc>https://www.thevillageinvestment.com/ar/projects/caesar-north-coast/</loc>
+    <lastmod>2026-07-10</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/projects/caesar-north-coast/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/projects/caesar-north-coast/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/projects/caesar-north-coast/"/>
+  </url>
+  <url>
+    <loc>https://www.thevillageinvestment.com/en/projects/june-north-coast/</loc>
+    <lastmod>2026-07-10</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/projects/june-north-coast/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/projects/june-north-coast/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/projects/june-north-coast/"/>
+  </url>
+  <url>
+    <loc>https://www.thevillageinvestment.com/ar/projects/june-north-coast/</loc>
+    <lastmod>2026-07-10</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/projects/june-north-coast/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/projects/june-north-coast/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/projects/june-north-coast/"/>
+  </url>
 </urlset>
