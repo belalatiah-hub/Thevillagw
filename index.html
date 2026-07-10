@@ -581,6 +581,28 @@
   .ss-x{border:0;background:transparent;color:var(--ink-3);cursor:pointer;font-size:1.05rem;line-height:1;width:24px;height:24px;border-radius:50%;display:grid;place-items:center}
   .ss-x:hover{background:var(--line-cool);color:var(--ink)}
   html[dir="rtl"] .ss-chip{padding:3px 12px 3px 4px}
+  /* availability badges (RE-04) */
+  .avail-b{display:inline-flex;align-items:center;gap:5px;font-size:.68rem;font-weight:700;letter-spacing:.02em;padding:2px 9px;border-radius:var(--r-pill);white-space:nowrap;line-height:1.6}
+  .avail-b::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;flex:0 0 auto}
+  .avail-b--ok{background:#e7f3ec;color:#2f7d54}
+  .avail-b--lim{background:#fbf0da;color:#9a6614}
+  .avail-b--res{background:#f2edf0;color:#7a5568}
+  .avail-b--tbc{background:var(--bone-2);color:var(--ink-3)}
+  .avail-summary{display:flex;align-items:center;gap:8px;font-size:.82rem;color:var(--ink-2);background:var(--bone-2);border:1px solid var(--line-cool);border-radius:var(--r-md);padding:9px 12px;margin-bottom:14px}
+  .avail-summary svg{width:15px;height:15px;color:var(--teal-600);flex:0 0 auto}
+  /* delivery timeline (RE-03) */
+  .timeline-wrap{margin-top:28px}
+  .tl-h{font-size:1.3rem;margin-bottom:16px}
+  .timeline{display:flex;align-items:flex-start;gap:0}
+  .tl-node{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;flex:0 0 auto;width:96px}
+  .tl-dot{width:16px;height:16px;border-radius:50%;border:2px solid var(--line-cool);background:var(--paper);position:relative}
+  .tl-done .tl-dot{border-color:var(--teal-600);background:var(--teal-600)}
+  .tl-active .tl-dot{border-color:var(--teal-600);box-shadow:0 0 0 4px rgba(17,95,125,.18)}
+  .tl-lbl{font-size:.76rem;font-weight:600;color:var(--ink-2);line-height:1.3}
+  .tl-active .tl-lbl{color:var(--teal-800)}
+  .tl-bar{flex:1;height:2px;background:var(--line-cool);margin-top:7px;min-width:20px}
+  .tl-bar--done{background:var(--teal-600)}
+  @media (max-width:560px){ .tl-node{width:70px} .tl-lbl{font-size:.68rem} }
   /* ---- Recommendation engine (Exact / Balanced / Flexible) ---- */
   .mode-seg{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:16px}
   .mode-seg__lbl{font-size:.8rem;font-weight:700;color:var(--ink-3);margin-inline-end:2px}
@@ -984,6 +1006,8 @@
       calc_note:"Indicative estimate only — confirm the developer's current plan with an advisor.",
       afford_h:"What can I afford?", afford_monthly:"Monthly budget (EGP)", afford_apply:"Show homes in my budget", afford_upto:"You could consider homes up to",
       save_search:"Save search", saved_searches:"Saved searches", get_alerts:"Alerts on new launches", search_saved:"Search saved — get a WhatsApp alert when new matches launch", rm_search:"Remove saved search",
+      avail_available:"Available", avail_limited:"Limited", avail_reserved:"Reserved", avail_tbc:"To confirm",
+      timeline_h:"Delivery timeline", tl_launched:"Launched", tl_construction:"Under construction", tl_delivery:"Delivery", tl_ready:"Ready to move", avail_asof:"as of",
       print_sheet:"Print / Save as PDF", fs_generated:"Generated", fs_title:"Project factsheet", data_conf:"Data confidence",
       conf_illustrative:"Illustrative", verified:"Verified", to_confirm:"To confirm",
       nav_investors:"Investors", investors_h:"GCC & overseas buyers",
@@ -1085,6 +1109,8 @@
       calc_note:"تقدير استرشادي فقط — أكّد خطة المطوّر الحالية مع المستشار.",
       afford_h:"ما الذي يناسب ميزانيتي؟", afford_monthly:"القسط الشهري (ج.م)", afford_apply:"اعرض ما يناسب ميزانيتي", afford_upto:"يمكنك النظر في وحدات حتى",
       save_search:"احفظ البحث", saved_searches:"عمليات بحث محفوظة", get_alerts:"تنبيهات عند الإطلاقات الجديدة", search_saved:"تم حفظ البحث — ستصلك رسالة واتساب عند توفّر وحدات جديدة مطابقة", rm_search:"إزالة البحث المحفوظ",
+      avail_available:"متاحة", avail_limited:"محدودة", avail_reserved:"محجوزة", avail_tbc:"قيد التأكيد",
+      timeline_h:"الجدول الزمني للتسليم", tl_launched:"أُطلق", tl_construction:"قيد الإنشاء", tl_delivery:"التسليم", tl_ready:"جاهزة للاستلام", avail_asof:"حتى",
       print_sheet:"طباعة / حفظ PDF", fs_generated:"تاريخ الإصدار", fs_title:"ملف المشروع", data_conf:"موثوقية البيانات",
       conf_illustrative:"استرشادي", verified:"موثّق", to_confirm:"قيد التأكيد",
       nav_investors:"المستثمرون", investors_h:"مشترو الخليج والخارج",
@@ -1979,6 +2005,37 @@
   /* Unit card — image + type/compound eyebrow + specs (beds/baths/area icons) + price */
   function spec(icon, val, label){ return h('span',{class:'spec'}, ic(icon), h('b',null, (val==null?'—':num(val))), h('span',{class:'spec-lbl'}, label)); }
   function unitWaMsg(u){ var p=projBySlug(u.project); return (lang==='ar'?'مهتم بوحدة: ':'Interested in unit: ')+typeLabel(u.type)+' — '+(lang==='ar'?p.name_ar:p.name)+' ('+u.id+')'; }
+  // RE-04 · honest availability signal (from the units' avail field; badged illustrative + as-of date)
+  var AVAIL_MAP={available:['avail-b--ok','avail_available'],limited:['avail-b--lim','avail_limited'],reserved:['avail-b--res','avail_reserved'],'to-confirm':['avail-b--tbc','avail_tbc']};
+  function availBadge(u){ var m=AVAIL_MAP[u.avail]||AVAIL_MAP['to-confirm']; return h('span',{class:'avail-b '+m[0]}, t(m[1])); }
+  function availSummary(units){
+    var c={available:0,limited:0,reserved:0}; units.forEach(function(u){ if(c[u.avail]!=null) c[u.avail]++; });
+    var parts=[];
+    if(c.available) parts.push(num(c.available)+' '+t('avail_available'));
+    if(c.limited)   parts.push(num(c.limited)+' '+t('avail_limited'));
+    if(c.reserved)  parts.push(num(c.reserved)+' '+t('avail_reserved'));
+    if(!parts.length) return null;
+    var d=new Date().toLocaleDateString(lang==='ar'?'ar-EG':'en-GB');
+    return h('div',{class:'avail-summary'}, ic('info'), h('span',null, parts.join(' · ')+' · '+t('avail_asof')+' '+d+' — '+t('conf_illustrative')));
+  }
+  // RE-03 · delivery timeline (launch → construction → delivery), derived honestly from status + delivery year
+  function deliveryTimeline(p){
+    var ready=(p.status==='ready'||p.delivery==='Ready');
+    var yr=(p.delivery && p.delivery!=='Ready')?p.delivery:null;
+    var stages = ready
+      ? [{l:t('tl_launched'),done:true},{l:t('tl_construction'),done:true},{l:t('tl_ready'),done:true,active:true}]
+      : [{l:t('tl_launched'),done:true,active:(p.status==='launch')},
+         {l:t('tl_construction'),done:false,active:(p.status!=='launch')},
+         {l:t('tl_delivery')+(yr?(' '+yr):''),done:false}];
+    var row=h('div',{class:'timeline'});
+    stages.forEach(function(s,i){
+      if(i>0) row.appendChild(h('div',{class:'tl-bar'+(stages[i-1].done?' tl-bar--done':'')}));
+      row.appendChild(h('div',{class:'tl-node'+(s.done?' tl-done':'')+(s.active?' tl-active':'')},
+        h('span',{class:'tl-dot'}), h('span',{class:'tl-lbl'}, s.l)));
+    });
+    return h('div',{class:'timeline-wrap'}, h('h2',{class:'tl-h'}, t('timeline_h')), row);
+  }
+
   function unitCard(u){
     var p=projBySlug(u.project), area=areaByKey(p.area), dev=devByKey(p.dev);
     var href=U(buildPath('unit',{id:u.id}));
@@ -1992,7 +2049,7 @@
     card.appendChild(h('div',{class:'card__body'},
       h('div',{class:'card__dev'}, tl+' · '+(lang==='ar'?p.name_ar:p.name)),
       h('h3',null, h('a',{href:href}, tl)),
-      h('div',{class:'card__facts',style:'gap:4px 10px'}, h('span',null, ic('pin'), ' ', L(area.name))),
+      h('div',{class:'card__facts',style:'gap:4px 10px'}, h('span',null, ic('pin'), ' ', L(area.name)), availBadge(u)),
       h('div',{class:'spec-row'}, spec('bed',u.beds, lang==='ar'?'غرف':'beds'), spec('bath',u.baths, lang==='ar'?'حمام':'baths'), spec('area',u.area,'m²')),
       h('div',{class:'card__price'}, money(u.price)),
       provBadge(),
@@ -2700,7 +2757,7 @@
         h('h2',{style:'font-size:1.3rem;margin-top:28px;margin-bottom:10px'}, t('overview')),
         h('p',{class:'muted', style:'max-width:60ch'}, L(p.blurb)),
         h('h2',{style:'font-size:1.3rem;margin-top:28px;margin-bottom:12px'}, t('facts')),
-        facts),
+        facts, deliveryTimeline(p)),
       h('div',null, aside, (p.price!=null ? paymentCalc(p) : h('div',{class:'aside-card',style:'margin-top:16px'},
         h('div',{class:'muted',style:'font-weight:700;font-size:.85rem'}, t('pay_calc')),
         h('div',{class:'notice notice--info',style:'margin-top:8px'}, ic('info'), h('div',null, t('price_tbc'))))))));
@@ -2717,6 +2774,7 @@
     var us=unitsIn(p.slug);
     if(us.length){
       utw.appendChild(h('h3',{style:'font-size:1.25rem;margin:28px 0 10px'}, t('avail_units')));
+      var asum=availSummary(us); if(asum) utw.appendChild(asum);
       utw.appendChild(h('div',{class:'grid grid--3'}, us.map(unitCard)));
     }
     utw.appendChild(h('p',{class:'muted',style:'font-size:.78rem;margin-top:16px'}, t('art_note')));
@@ -2761,6 +2819,7 @@
       h('div',{class:'muted',style:'font-size:.8rem;font-weight:700'}, t('price')),
       h('div',{class:'price-lg'}, money(u.price)),
       provBadge(),
+      h('div',{style:'margin-top:10px'}, availBadge(u)),
       h('div',{class:'spec-row',style:'margin-top:12px'},
         spec('bed',u.beds, lang==='ar'?'غرف':'beds'), spec('bath',u.baths, lang==='ar'?'حمام':'baths'), spec('area',u.area,'m²')),
       h('div',{class:'card__foot',style:'margin-top:16px;flex-wrap:wrap'},
