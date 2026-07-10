@@ -872,6 +872,7 @@
       filter_floor:"Preferred floor", avoid_ground:"Avoid ground floor", filter_years:"Installment period", years_any:"Any length", years_min_n:"At least {n} years",
       reco_mode:"Match", reco_balanced_note:"Balanced view: your closest matches, ranked — a few criteria may be relaxed. Each card shows what it matches.", reco_flexible_note:"Flexible view: a wider ranked shortlist to explore — verify the details that matter with an advisor.",
       reco_zero_h:"No exact match", reco_few_h:"Only a few exact matches", reco_relax_p:"Loosen one preference to see more (extra units shown):", reco_see_near:"See nearest matches",
+      price_tbc:"Price & payment plan are being confirmed — talk to an advisor for the developer’s current terms.",
       launch_status:"Launch status", availability:"Availability", beds:"Bedrooms",
       sort_delivery:"Earliest delivery", sort_newest:"Newest launch",
       nav_search:"Search", search_ph:"Search projects, units, developers, areas, guides…",
@@ -968,6 +969,7 @@
       filter_floor:"الدور المفضّل", avoid_ground:"تجنّب الدور الأرضي", filter_years:"مدة التقسيط", years_any:"أي مدة", years_min_n:"{n} سنوات على الأقل",
       reco_mode:"المطابقة", reco_balanced_note:"عرض متوازن: أقرب النتائج مرتّبة حسب المطابقة — قد تُخفَّف بعض المعايير. كل بطاقة توضّح ما يطابقه.", reco_flexible_note:"عرض مرن: قائمة أوسع مرتّبة للاستكشاف — تأكّد من التفاصيل المهمة مع المستشار.",
       reco_zero_h:"لا توجد مطابقة تامة", reco_few_h:"مطابقات تامة قليلة فقط", reco_relax_p:"خفِّف أحد التفضيلات لرؤية المزيد (الوحدات الإضافية):", reco_see_near:"اعرض أقرب النتائج",
+      price_tbc:"يجري تأكيد السعر وخطة السداد — تواصل مع مستشار لمعرفة شروط المطوّر الحالية.",
       launch_status:"حالة الإطلاق", availability:"الإتاحة", beds:"غرف النوم",
       sort_delivery:"الأقرب تسليماً", sort_newest:"الأحدث إطلاقاً",
       nav_search:"بحث", search_ph:"ابحث في المشروعات والوحدات والمطوّرين والمناطق والأدلة…",
@@ -1008,12 +1010,13 @@
     {key:'ora', c1:'#6d52a3', name:{en:'ORA Developers',ar:'أورا'}, since:2016, areas:{en:'New Cairo · Sheikh Zayed · North Coast',ar:'القاهرة الجديدة · الشيخ زايد · الساحل الشمالي'}, tagline:{en:'Premium, design-led destinations',ar:'وجهات راقية بتصميم مميّز'}, desc:{en:'A premium developer creating high-design lifestyle destinations with strong architecture and amenities.',ar:'مطوّر راقٍ يبتكر وجهات لايف ستايل عالية التصميم بعمارة ومرافق قوية.'}},
     {key:'tatweer', c1:'#b0692c', name:{en:'Tatweer Misr',ar:'تطوير مصر'}, since:2014, areas:{en:'Mostakbal City · North Coast · Ain Sokhna',ar:'مدينة المستقبل · الساحل الشمالي · العين السخنة'}, tagline:{en:'Value communities & coastal resorts',ar:'مجتمعات اقتصادية ومنتجعات ساحلية'}, desc:{en:'A developer focused on integrated communities and coastal resorts with a value orientation.',ar:'مطوّر يركّز على المجتمعات المتكاملة والمنتجعات الساحلية بتوجّه اقتصادي.'}},
     {key:'misritalia', c1:'#2f8f6a', name:{en:'Misr Italia Properties',ar:'مصر إيطاليا'}, since:1996, areas:{en:'New Administrative Capital · North Coast',ar:'العاصمة الإدارية · الساحل الشمالي'}, tagline:{en:'Biophilic, tech-enabled communities',ar:'مجتمعات خضراء بتقنيات حديثة'}, desc:{en:'A developer associated with green, technology-enabled communities, active in the New Capital and on the coast.',ar:'مطوّر مرتبط بمجتمعات خضراء مزوّدة بالتقنيات، نشط في العاصمة الإدارية والساحل.'}},
-    {key:'marakez', c1:'#b0473f', name:{en:'Marakez',ar:'مراكز'}, since:2014, areas:{en:'New Cairo · 6th of October',ar:'القاهرة الجديدة · ٦ أكتوبر'}, tagline:{en:'Mixed-use, retail-led districts',ar:'أحياء متعددة الاستخدامات'}, desc:{en:'A retail-led developer creating walkable mixed-use districts that combine residences, offices and destination retail.',ar:'مطوّر رائد في التجزئة ينشئ أحياءً متعددة الاستخدامات تجمع السكن والمكاتب والتجزئة.'}},
+    {key:'marakez', c1:'#b0473f', name:{en:'Marakez',ar:'مراكز'}, since:2014, areas:{en:'New Cairo · 6th of October · North Coast',ar:'القاهرة الجديدة · ٦ أكتوبر · الساحل الشمالي'}, tagline:{en:'Mixed-use, retail-led districts',ar:'أحياء متعددة الاستخدامات'}, desc:{en:'A retail-led developer creating walkable mixed-use districts that combine residences, offices and destination retail.',ar:'مطوّر رائد في التجزئة ينشئ أحياءً متعددة الاستخدامات تجمع السكن والمكاتب والتجزئة.'}},
     {key:'lmd', c1:'#3a5a8c', name:{en:'LMD',ar:'إل إم دي'}, since:2013, areas:{en:'New Cairo · North Coast',ar:'القاهرة الجديدة · الساحل الشمالي'}, tagline:{en:'Design-forward communities',ar:'مجتمعات بتصميم متقدّم'}, desc:{en:'A developer known for design-forward, art-infused communities and walkable urban districts.',ar:'مطوّر معروف بمجتمعات بتصميم متقدّم وطابع فني وأحياء حضرية.'}},
     {key:'hydepark', c1:'#3f7d3a', name:{en:'Hyde Park Developments',ar:'هايد بارك'}, since:2011, areas:{en:'New Cairo · North Coast',ar:'القاهرة الجديدة · الساحل الشمالي'}, tagline:{en:'Central-park living in East Cairo',ar:'حياة حول حديقة مركزية بشرق القاهرة'}, desc:{en:'A developer building large park-centred communities in East Cairo and coastal projects.',ar:'مطوّر يبني مجتمعات كبيرة حول حدائق مركزية بشرق القاهرة ومشروعات ساحلية.'}},
     {key:'marasem', c1:'#8a6d33', name:{en:'Al Marasem Development',ar:'المراسم'}, since:2002, areas:{en:'Fifth Settlement · New Cairo',ar:'التجمع الخامس · القاهرة الجديدة'}, tagline:{en:'Prime Fifth Settlement communities',ar:'مجتمعات مميّزة بالتجمع الخامس'}, desc:{en:'A developer with a prime footprint in the Fifth Settlement and a background in construction and hospitality.',ar:'مطوّر بحضور مميّز في التجمع الخامس وخلفية في الإنشاءات والضيافة.'}},
     {key:'qataridiar', c1:'#26305f', name:{en:'Qatari Diar',ar:'الديار القطرية'}, since:2005, areas:{en:'New Administrative Capital · North Coast',ar:'العاصمة الإدارية · الساحل الشمالي'}, tagline:{en:'Large mixed-use destinations',ar:'وجهات كبرى متعددة الاستخدامات'}, desc:{en:'A major regional developer associated with large mixed-use destinations, active in Egypt through flagship projects.',ar:'مطوّر إقليمي كبير مرتبط بوجهات ضخمة متعددة الاستخدامات، ونشط في مصر عبر مشروعات كبرى.'}},
-    {key:'orascom', c1:'#a9812f', name:{en:'Orascom Development',ar:'أوراسكوم للتطوير'}, since:1994, areas:{en:'6th of October · North Coast · Red Sea',ar:'٦ أكتوبر · الساحل الشمالي · البحر الأحمر'}, tagline:{en:'Integrated towns & resorts',ar:'مدن ومنتجعات متكاملة'}, desc:{en:'A developer known for fully integrated towns and resort destinations across Egypt and the coast.',ar:'مطوّر معروف بالمدن المتكاملة والوجهات السياحية في مصر والساحل.'}}
+    {key:'orascom', c1:'#a9812f', name:{en:'Orascom Development',ar:'أوراسكوم للتطوير'}, since:1994, areas:{en:'6th of October · North Coast · Red Sea',ar:'٦ أكتوبر · الساحل الشمالي · البحر الأحمر'}, tagline:{en:'Integrated towns & resorts',ar:'مدن ومنتجعات متكاملة'}, desc:{en:'A developer known for fully integrated towns and resort destinations across Egypt and the coast.',ar:'مطوّر معروف بالمدن المتكاملة والوجهات السياحية في مصر والساحل.'}},
+    {key:'modon', c1:'#0f7b8c', name:{en:'Modon',ar:'مدن'}, since:2005, areas:{en:'Ras El Hekma · North Coast',ar:'رأس الحكمة · الساحل الشمالي'}, tagline:{en:'Master-planned coastal destinations',ar:'وجهات ساحلية بمخططات متكاملة'}, desc:{en:'A regional developer building large master-planned coastal destinations, active in Egypt on the Ras El Hekma North Coast.',ar:'مطوّر إقليمي يبني وجهات ساحلية كبرى بمخططات متكاملة، ونشط في مصر بمنطقة رأس الحكمة على الساحل الشمالي.'}}
   ];
 
   var PROJECTS = [
@@ -1032,7 +1035,11 @@
     {slug:'fifth-square', name:'Fifth Square', name_ar:'فيفث سكوير', dev:'marasem', area:'fifthsettlement', status:'primary', price:6200000, dp:10, years:8, delivery:'2027', finishing:{en:'Semi-finished',ar:'نصف تشطيب'}, types:{en:'Apartment · Duplex · Villa',ar:'شقة · دوبلكس · فيلا'}, tags:{en:['Fifth Settlement','Prime'],ar:['التجمع الخامس','موقع مميّز']}, blurb:{en:'A prime Fifth Settlement community with developer-direct primary units and long plans.',ar:'مجتمع مميّز بالتجمع الخامس مع وحدات أولية من المطوّر مباشرة وخطط طويلة.'}},
     {slug:'cairo-gate', name:'Cairo Gate', name_ar:'كايرو جيت', dev:'palmhills', area:'zayed', status:'launch', price:11500000, dp:10, years:8, delivery:'2027', finishing:{en:'Semi-finished',ar:'نصف تشطيب'}, types:{en:'Apartment · Townhouse',ar:'شقة · تاون هاوس'}, tags:{en:['Sheikh Zayed','Gateway'],ar:['الشيخ زايد','بوابة']}, blurb:{en:'A gateway West Cairo launch by Palm Hills on the Cairo–Alexandria corridor.',ar:'إطلاق مميّز بغرب القاهرة من بالم هيلز على محور القاهرة–الإسكندرية.'}},
     {slug:'aeon', name:'Aeon', name_ar:'إيون', dev:'marakez', area:'october', status:'launch', price:6000000, dp:10, years:8, delivery:'2028', finishing:{en:'Semi-finished',ar:'نصف تشطيب'}, types:{en:'Apartment',ar:'شقق'}, tags:{en:['6th of October','Mixed-use'],ar:['٦ أكتوبر','متعدد الاستخدامات']}, blurb:{en:'A mixed-use launch in 6th of October pairing homes with retail and offices.',ar:'إطلاق متعدد الاستخدامات ب٦ أكتوبر يجمع السكن مع التجزئة والمكاتب.'}},
-    {slug:'il-monte-galala', name:'Il Monte Galala', name_ar:'إل مونتي جلالة', dev:'tatweer', area:'sokhna', status:'primary', price:6500000, dp:10, years:8, delivery:'2027', finishing:{en:'Fully finished',ar:'تشطيب كامل'}, types:{en:'Chalet · Cabin · Villa',ar:'شاليه · كابين · فيلا'}, tags:{en:['Ain Sokhna','Sea view'],ar:['العين السخنة','إطلالة بحر']}, blurb:{en:'A terraced mountain-and-sea resort in Ain Sokhna by Tatweer Misr.',ar:'منتجع جبلي بحري متدرّج بالعين السخنة من تطوير مصر.'}}
+    {slug:'il-monte-galala', name:'Il Monte Galala', name_ar:'إل مونتي جلالة', dev:'tatweer', area:'sokhna', status:'primary', price:6500000, dp:10, years:8, delivery:'2027', finishing:{en:'Fully finished',ar:'تشطيب كامل'}, types:{en:'Chalet · Cabin · Villa',ar:'شاليه · كابين · فيلا'}, tags:{en:['Ain Sokhna','Sea view'],ar:['العين السخنة','إطلالة بحر']}, blurb:{en:'A terraced mountain-and-sea resort in Ain Sokhna by Tatweer Misr.',ar:'منتجع جبلي بحري متدرّج بالعين السخنة من تطوير مصر.'}},
+    /* --- The Village's own listed projects (Ras El Hekma, North Coast). Prices, payment plans, delivery and unit mix are TO CONFIRM — placeholders left null until the owner supplies the exact figures. --- */
+    {slug:'ogami-north-coast', name:'Ogami', name_ar:'أوجامي', dev:'sodic', area:'sahel', status:'launch', price:null, dp:null, years:null, delivery:'', finishing:{en:'Fully finished',ar:'تشطيب كامل'}, types:{en:'Chalet · Twin house · Villa',ar:'شاليه · توين هاوس · فيلا'}, tags:{en:['Ras El Hekma','Beachfront'],ar:['رأس الحكمة','على البحر']}, blurb:{en:'SODIC’s Ras El Hekma resort on the North Coast — developer-direct primary coastal units. Current prices, payment plans and unit mix are being confirmed with the developer.',ar:'منتجع سوديك برأس الحكمة على الساحل الشمالي — وحدات ساحلية أولية من المطوّر مباشرة. يجري تأكيد الأسعار وخطط السداد ومزيج الوحدات الحالي مع المطوّر.'}},
+    {slug:'ramla-ras-el-hekma', name:'Ramla', name_ar:'رملة', dev:'marakez', area:'sahel', status:'launch', price:null, dp:null, years:null, delivery:'', finishing:{en:'Fully finished',ar:'تشطيب كامل'}, types:{en:'Chalet · Villa',ar:'شاليه · فيلا'}, tags:{en:['Ras El Hekma','Beachfront'],ar:['رأس الحكمة','على البحر']}, blurb:{en:'Marakez’s Ramla coastal destination on the Ras El Hekma North Coast — developer-direct primary units. Prices, payment plan and unit details are being confirmed with the developer.',ar:'وجهة رملة الساحلية من مراكز برأس الحكمة على الساحل الشمالي — وحدات أولية من المطوّر مباشرة. يجري تأكيد الأسعار وخطة السداد وتفاصيل الوحدات مع المطوّر.'}},
+    {slug:'modon-ras-el-hekma', name:'Modon Ras El Hekma', name_ar:'مدن رأس الحكمة', dev:'modon', area:'sahel', status:'launch', price:null, dp:null, years:null, delivery:'', finishing:{en:'Fully finished',ar:'تشطيب كامل'}, types:{en:'Chalet · Twin house · Villa',ar:'شاليه · توين هاوس · فيلا'}, tags:{en:['Ras El Hekma','Master-planned'],ar:['رأس الحكمة','مخطط متكامل']}, blurb:{en:'Modon’s master-planned Ras El Hekma destination on the North Coast — developer-direct primary coastal units. Current prices, plans and availability are being confirmed with the developer.',ar:'وجهة مدن المخطّطة برأس الحكمة على الساحل الشمالي — وحدات ساحلية أولية من المطوّر مباشرة. يجري تأكيد الأسعار والخطط والإتاحة الحالية مع المطوّر.'}}
   ];
 
   /* Representative UNITS — illustrative sample inventory (always badged).
@@ -1074,7 +1081,16 @@
     {id:'IM-BG2',  project:'il-monte-galala',     type:'Bungalow',         beds:3, baths:2, area:150, price:8200000,  avail:'available'},
     {id:'HP-V6B',  project:'hyde-park-new-cairo', type:'Villa',            beds:6, baths:6, area:420, price:32000000, avail:'available'},
     {id:'D5-A0T',  project:'district-5',          type:'Apartment',        beds:null, baths:2, area:130, price:6600000, avail:'to-confirm'},
-    {id:'AE-AO3',  project:'aeon',                type:'Administrative Office', beds:0, baths:1, area:110, price:9200000, avail:'available', floor:'middle'}
+    {id:'AE-AO3',  project:'aeon',                type:'Administrative Office', beds:0, baths:1, area:110, price:9200000, avail:'available', floor:'middle'},
+    /* The Village's own listings — unit specs & prices TO CONFIRM (owner to supply). */
+    {id:'OG-CH1',  project:'ogami-north-coast',  type:'Chalet',           beds:null, baths:null, area:null, price:null, avail:'to-confirm'},
+    {id:'OG-TW1',  project:'ogami-north-coast',  type:'Twin house',       beds:null, baths:null, area:null, price:null, avail:'to-confirm'},
+    {id:'OG-VL1',  project:'ogami-north-coast',  type:'Standalone Villa', beds:null, baths:null, area:null, price:null, avail:'to-confirm'},
+    {id:'RM-CH1',  project:'ramla-ras-el-hekma', type:'Chalet',           beds:null, baths:null, area:null, price:null, avail:'to-confirm'},
+    {id:'RM-VL1',  project:'ramla-ras-el-hekma', type:'Villa',            beds:null, baths:null, area:null, price:null, avail:'to-confirm'},
+    {id:'MD-CH1',  project:'modon-ras-el-hekma', type:'Chalet',           beds:null, baths:null, area:null, price:null, avail:'to-confirm'},
+    {id:'MD-TW1',  project:'modon-ras-el-hekma', type:'Twin house',       beds:null, baths:null, area:null, price:null, avail:'to-confirm'},
+    {id:'MD-VL1',  project:'modon-ras-el-hekma', type:'Standalone Villa', beds:null, baths:null, area:null, price:null, avail:'to-confirm'}
   ];
   // Floor / internal-level enrichment (illustrative). Units without a floor
   // remain "floor to confirm" and never pass a strict floor filter.
@@ -1318,7 +1334,7 @@
     sheet.appendChild(h('div',{style:'color:#333;margin-bottom:8px'}, L(dev.name)+' · '+L(area.name)+' · '+statusLabel(p.status)));
     var tbl=h('table',{class:'ps-table'});
     [[t('price'), money(p.price)+' — '+t('conf_illustrative')],[t('units'),L(p.types)],[t('dp'),p.dp?num(p.dp)+'%':'—'],
-     [t('years'),p.years?num(p.years):'—'],[t('delivery'),p.delivery==='Ready'?t('ready'):p.delivery],[t('finishing'),L(p.finishing)]]
+     [t('years'),p.years?num(p.years):'—'],[t('delivery'),p.delivery==='Ready'?t('ready'):(p.delivery||t('to_confirm'))],[t('finishing'),L(p.finishing)]]
       .forEach(function(r){ tbl.appendChild(h('tr',null,h('th',null,r[0]),h('td',null,r[1]))); });
     sheet.appendChild(tbl);
     sheet.appendChild(h('div',null, L(p.blurb)));
@@ -1826,7 +1842,7 @@
   }
 
   /* Unit card — image + type/compound eyebrow + specs (beds/baths/area icons) + price */
-  function spec(icon, val, label){ return h('span',{class:'spec'}, ic(icon), h('b',null, num(val)), h('span',{class:'spec-lbl'}, label)); }
+  function spec(icon, val, label){ return h('span',{class:'spec'}, ic(icon), h('b',null, (val==null?'—':num(val))), h('span',{class:'spec-lbl'}, label)); }
   function unitWaMsg(u){ var p=projBySlug(u.project); return (lang==='ar'?'مهتم بوحدة: ':'Interested in unit: ')+typeLabel(u.type)+' — '+(lang==='ar'?p.name_ar:p.name)+' ('+u.id+')'; }
   function unitCard(u){
     var p=projBySlug(u.project), area=areaByKey(p.area), dev=devByKey(p.dev);
@@ -2389,7 +2405,7 @@
       h('div',{class:'tags'}, h('span',{class:'chip'}, statusLabel(p.status))));
     var facts = h('table',{class:'fact-table'});
     [[t('developer'),L(dev.name)],[t('area'),L(area.name)],[t('status'),statusLabel(p.status)],
-     [t('units'),L(p.types)],[t('finishing'),L(p.finishing)],[t('delivery'), p.delivery==='Ready'?t('ready'):p.delivery]]
+     [t('units'),L(p.types)],[t('finishing'),L(p.finishing)],[t('delivery'), p.delivery==='Ready'?t('ready'):(p.delivery||t('to_confirm'))]]
      .forEach(function(r){ facts.appendChild(h('tr',null,h('th',{scope:'row'},r[0]),h('td',null,r[1]))); });
     if(p.dp) facts.appendChild(h('tr',null,h('th',{scope:'row'},t('dp')),h('td',null,num(p.dp)+'%')));
     if(p.years) facts.appendChild(h('tr',null,h('th',{scope:'row'},t('years')),h('td',null,num(p.years)+' '+(lang==='ar'?'سنوات':'yrs'))));
@@ -2416,7 +2432,9 @@
         h('p',{class:'muted', style:'max-width:60ch'}, L(p.blurb)),
         h('h2',{style:'font-size:1.3rem;margin-top:28px;margin-bottom:12px'}, t('facts')),
         facts),
-      h('div',null, aside, paymentCalc(p))));
+      h('div',null, aside, (p.price!=null ? paymentCalc(p) : h('div',{class:'aside-card',style:'margin-top:16px'},
+        h('div',{class:'muted',style:'font-weight:700;font-size:.85rem'}, t('pay_calc')),
+        h('div',{class:'notice notice--info',style:'margin-top:8px'}, ic('info'), h('div',null, t('price_tbc'))))))));
     top.appendChild(wrap); node.appendChild(top);
     track('project_viewed', {project:p.slug});
 
@@ -2739,7 +2757,7 @@
         {k:t('price'), f:function(p){return money(p.price);}, num:function(p){return p.price;}},
         {k:t('dp'), f:function(p){return p.dp?num(p.dp)+'%':'—';}},
         {k:t('years'), f:function(p){return p.years?num(p.years):'—';}},
-        {k:t('delivery'), f:function(p){return p.delivery==='Ready'?t('ready'):p.delivery;}},
+        {k:t('delivery'), f:function(p){return p.delivery==='Ready'?t('ready'):(p.delivery||t('to_confirm'));}},
         {k:t('finishing'), f:function(p){return L(p.finishing);}},
         {k:t('units'), f:function(p){return L(p.types);}}
       ];
