@@ -3248,8 +3248,16 @@
   function setAttr(id,attr,val){ var e=document.getElementById(id); if(e) e.setAttribute(attr,val); }
   function setLD(obj){ var s=document.getElementById('ld-page'); if(s) s.textContent=JSON.stringify(obj); }
 
+  function routeKey(r){ return r ? (r.name+'|'+JSON.stringify(r.params||{})) : ''; }
   function render(r, opts){
-    opts=opts||{}; currentRoute=r; lang=r.lang||lang;
+    opts=opts||{};
+    // Distinguish an IN-PLACE update (filters, sort, search, favourites, compare, language — same logical
+    // page, only query/state changed) from a real page NAVIGATION. In-place updates must preserve the user's
+    // exact scroll position (never jump to top); navigations start at the top. This is independent of how the
+    // `keep` flag threads through History vs the file:// hashchange path, so it is always correct.
+    var samePage = opts.keep===true || (currentRoute!=null && routeKey(currentRoute)===routeKey(r));
+    var keepY = window.pageYOffset || (document.documentElement && document.documentElement.scrollTop) || 0;
+    currentRoute=r; lang=r.lang||lang;
     var de=document.documentElement;
     de.setAttribute('lang',lang); de.setAttribute('dir', lang==='ar'?'rtl':'ltr'); de.setAttribute('data-lang',lang);
     document.querySelector('meta[name="theme-color"]').setAttribute('content', r.name==='home'?'#073D52':'#faf7f0');
@@ -3259,8 +3267,13 @@
     closeDrawer();
     if(view.announce){ var sr=document.getElementById('sr-live'); if(sr) sr.textContent=view.announce; }   // persistent live region (survives view swap)
     if(typeof railRefresh==='function') railRefresh();   // keep the contact rail/nudge localized
-    if(pendingFocusId){ var fe=document.getElementById(pendingFocusId); pendingFocusId=null; if(fe){ try{ fe.focus({preventScroll:true}); }catch(e){ fe.focus(); } return; } }
-    if(!opts.keep){ window.scrollTo(0,0); try{ main.focus({preventScroll:true}); }catch(e){ main.focus(); } }
+    if(pendingFocusId){ var fe=document.getElementById(pendingFocusId); pendingFocusId=null; if(fe){ try{ fe.focus({preventScroll:true}); }catch(e){ fe.focus(); } } }
+    if(samePage){
+      try{ window.scrollTo(0, keepY); }catch(e){}          // seamless: hold the viewport exactly where the user was
+    } else {
+      try{ window.scrollTo(0, 0); }catch(e){}
+      try{ main.focus({preventScroll:true}); }catch(e){ try{ main.focus(); }catch(_){} }
+    }
   }
 
   function readLoc(){
