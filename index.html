@@ -835,7 +835,7 @@
       filter_area:"Area", filter_dev:"Developer", filter_status:"Status", filter_price:"Max price", filter_sort:"Sort",
       any:"Any", sort_feat:"Featured", sort_price_a:"Price: low to high", sort_price_d:"Price: high to low",
       hero_kicker:"Primary-sale real estate · Egypt",
-      hero_h1a:"Buy new-launch & developer-direct property in ", hero_h1b:"Egypt",
+      hero_h1a:"Start your property investment ", hero_h1b:"the right way",
       hero_p:"The Village is a real-estate marketing and brokerage company. We help you compare new launches, developers and areas across New Cairo, Fifth Settlement, the New Administrative Capital and the coast — with honest advisory from your first question to unit handover.",
       hero_s1:"Areas covered", hero_s2:"Developers tracked", hero_s3:"Curated projects",
       find_h:"Find your primary unit", find_p:"Filter the curated selection, then talk to an advisor for live availability.",
@@ -933,7 +933,7 @@
       filter_area:"المنطقة", filter_dev:"المطوّر", filter_status:"الحالة", filter_price:"أقصى سعر", filter_sort:"الترتيب",
       any:"الكل", sort_feat:"مميّز", sort_price_a:"السعر: من الأقل للأعلى", sort_price_d:"السعر: من الأعلى للأقل",
       hero_kicker:"عقارات البيع الأولي · مصر",
-      hero_h1a:"اشترِ وحدتك من الإطلاقات الجديدة ومن المطوّر مباشرة في ", hero_h1b:"مصر",
+      hero_h1a:"ابدأ استثمارك العقاري ", hero_h1b:"بالطريقة الصحيحة",
       hero_p:"The Village شركة تسويق ووساطة عقارية تساعدك على مقارنة الإطلاقات الجديدة والمطوّرين والمناطق في القاهرة الجديدة والتجمع الخامس والعاصمة الإدارية والساحل — باستشارة صادقة من أول سؤال حتى استلام وحدتك.",
       hero_s1:"مناطق نغطّيها", hero_s2:"مطوّرون نتابعهم", hero_s3:"مشروعات مختارة",
       find_h:"اعثر على وحدتك الأولية", find_p:"صفِّ الاختيارات ثم تحدّث إلى مستشار لمعرفة الإتاحة الحالية.",
@@ -2206,11 +2206,12 @@
       h('span',{class:'rail-nudge__ic'}, ic('wa')), h('span',{class:'rail-nudge__t'}, nudgeText()));
     var x=h('button',{class:'rail-nudge__x', type:'button', 'aria-label':t('a_close')}, '×');
     link.appendChild(x);
-    x.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); railNudge.dismissed=true; railNudgeHide(); track('contact_nudge_dismissed'); });
+    x.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); railNudge.dismissed=true; clearTimeout(railNudge.timer); clearInterval(railNudge.timer); railNudgeHide(); track('contact_nudge_dismissed'); });
     link.addEventListener('click', function(){ track('contact_nudge_click'); });
     document.body.appendChild(link);
     railNudge.el=link;
-    railNudge.timer=setInterval(railNudgeMaybe, 30000);   // every 30s, per request
+    // first nudge after 30s, then repeat every 60s
+    railNudge.timer=setTimeout(function(){ railNudgeMaybe(); railNudge.timer=setInterval(railNudgeMaybe, 60000); }, 30000);
   }
   function railNudgeMaybe(){
     if(railNudge.dismissed || !railNudge.el) return;
