@@ -486,6 +486,27 @@
   .chat-input button:hover{background:var(--teal-700)}
   .chat-input button svg{width:18px;height:18px}
   html[dir=rtl] .chat-input button svg{transform:scaleX(-1)}
+  /* ---- Relational Unit Finder ---- */
+  .finder{display:grid;grid-template-columns:296px 1fr;gap:24px;align-items:start}
+  @media(max-width:900px){.finder{grid-template-columns:1fr}}
+  .finder-panel{background:var(--paper);border:1px solid var(--line-2);border-radius:var(--r-lg);padding:18px 18px 6px;position:sticky;top:calc(var(--header-h) + 12px);max-height:calc(100vh - var(--header-h) - 28px);overflow:auto}
+  @media(max-width:900px){.finder-panel{position:static;max-height:none}}
+  .facet-group{padding:13px 0;border-bottom:1px solid var(--line-2)}
+  .facet-group:last-child{border-bottom:none}
+  .facet-group h4{font-size:.74rem;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);margin-bottom:10px;font-family:var(--sans);font-weight:700}
+  .facet-row{display:flex;flex-wrap:wrap;gap:7px}
+  .fchip{display:inline-flex;align-items:center;gap:5px;padding:7px 11px;border:1.5px solid var(--line-cool);border-radius:var(--r-pill);background:var(--bone-2);font-size:.82rem;font-weight:600;color:var(--ink-2);transition:var(--t);min-height:36px}
+  .fchip svg{width:15px;height:15px}
+  .fchip small{color:var(--ink-3);font-weight:600;font-size:.72rem}
+  .fchip:hover{border-color:var(--teal-600)}
+  .fchip.on{background:var(--teal-800);color:var(--bone);border-color:var(--teal-800)}
+  .fchip.on small{color:#bcd0d6}
+  .budget-inputs{display:flex;gap:8px;margin-top:8px}
+  .budget-inputs input{width:100%;min-width:0;padding:9px 10px;border:1.5px solid var(--line-cool);border-radius:var(--r-sm);font:inherit;background:var(--bone-2)}
+  .toggle-line{display:flex;align-items:center;gap:8px;font-size:.82rem;color:var(--ink-2);margin-top:10px;cursor:pointer}
+  .results-head{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:16px}
+  .results-head .rc{font-weight:700}
+  .results-head select{min-height:42px;padding:8px 12px;border:1.5px solid var(--line-cool);border-radius:var(--r-sm);background:var(--paper);font:inherit}
   </style>
 </head>
 
@@ -756,7 +777,12 @@
       chat_noanswer:"I don’t have a verified answer to that from the site. Would you like to leave your details so an advisor can help?",
       chat_leave:"Leave your details", chat_send_wa:"Ask on WhatsApp",
       chat_found:"Here’s what I found:", chat_none:"I couldn’t find a matching project for that. Try an area or developer name, or leave your details.",
-      reg_h:"Register your details", reg_p:"Leave your details and an advisor will contact you. Your information is used only to respond to your enquiry."
+      reg_h:"Register your details", reg_p:"Leave your details and an advisor will contact you. Your information is used only to respond to your enquiry.",
+      finder_h:"Find your primary unit", finder_p:"One relational finder across verified primary-sale inventory — every result matches all your selected filters at once. Figures are illustrative; confirm with an advisor.",
+      finder_none:"No units match all your filters together. Remove a filter, widen your budget, or talk to an advisor.",
+      filter_budget:"Budget (total price)", min_price:"Min EGP", max_price:"Max EGP", inc_tbc:"Include units with price to confirm",
+      launch_status:"Launch status", availability:"Availability", beds:"Bedrooms",
+      sort_delivery:"Earliest delivery", sort_newest:"Newest launch"
     },
     ar: {
       invest:"للاستثمار العقاري", skip:"تخطَّ إلى المحتوى",
@@ -832,7 +858,12 @@
       chat_noanswer:"لا أملك إجابة مؤكّدة لذلك من الموقع. هل تحب ترك بياناتك ليتواصل معك مستشار؟",
       chat_leave:"سجّل بياناتك", chat_send_wa:"اسأل عبر واتساب",
       chat_found:"إليك ما وجدته:", chat_none:"لم أجد مشروعاً مطابقاً. جرّب اسم منطقة أو مطوّر، أو اترك بياناتك.",
-      reg_h:"سجّل بياناتك", reg_p:"اترك بياناتك وسيتواصل معك مستشار. تُستخدم بياناتك فقط للردّ على استفسارك."
+      reg_h:"سجّل بياناتك", reg_p:"اترك بياناتك وسيتواصل معك مستشار. تُستخدم بياناتك فقط للردّ على استفسارك.",
+      finder_h:"اعثر على وحدتك الأولية", finder_p:"محرّك بحث علائقي واحد عبر معروض البيع الأولي — كل نتيجة تطابق جميع الفلاتر المختارة معاً. الأرقام استرشادية؛ أكّد مع المستشار.",
+      finder_none:"لا توجد وحدات تطابق كل الفلاتر معاً. أزِل فلتراً أو وسّع الميزانية أو تحدّث إلى مستشار.",
+      filter_budget:"الميزانية (السعر الكلي)", min_price:"أدنى ج.م", max_price:"أقصى ج.م", inc_tbc:"تضمين وحدات سعرها قيد التأكيد",
+      launch_status:"حالة الإطلاق", availability:"الإتاحة", beds:"غرف النوم",
+      sort_delivery:"الأقرب تسليماً", sort_newest:"الأحدث إطلاقاً"
     }
   };
 
@@ -888,27 +919,46 @@
   ];
 
   /* Representative UNITS — illustrative sample inventory (always badged).
-     beds/baths/area/price are examples to confirm with an advisor. */
+     beds/baths/area/price/avail are examples to confirm with an advisor.
+     avail: available | limited | to-confirm | reserved | sold  (last two hidden by default). */
   var UNITS = [
-    {id:'V-A305',  project:'villette',            type:'Apartment', beds:3, baths:3, area:185, price:9200000},
-    {id:'SE-T12',  project:'sodic-east',          type:'Townhouse', beds:4, baths:4, area:240, price:12500000},
-    {id:'HB-C08',  project:'hacienda-bay',        type:'Chalet',    beds:2, baths:2, area:120, price:7500000},
-    {id:'BF-A21',  project:'bloomfields',         type:'Apartment', beds:2, baths:2, area:132, price:5400000},
-    {id:'MV-D14',  project:'mountain-view-icity', type:'Duplex',    beds:4, baths:3, area:210, price:11800000},
-    {id:'ZE-L02',  project:'zed-east',            type:'Loft',      beds:1, baths:1, area:88,  price:6900000},
-    {id:'FS-A18',  project:'fifth-square',        type:'Apartment', beds:3, baths:2, area:160, price:7200000},
-    {id:'IB-V05',  project:'il-bosco-city',       type:'Villa',     beds:4, baths:4, area:265, price:14500000},
-    {id:'D5-A22',  project:'district-5',          type:'Apartment', beds:2, baths:2, area:140, price:7000000},
-    {id:'IM-C10',  project:'il-monte-galala',     type:'Chalet',    beds:2, baths:2, area:110, price:6500000},
-    {id:'TS-A07',  project:'three-sixty',         type:'Apartment', beds:3, baths:3, area:175, price:8900000},
-    {id:'HP-P03',  project:'hyde-park-new-cairo', type:'Penthouse', beds:3, baths:3, area:220, price:12900000}
+    {id:'V-A305',  project:'villette',            type:'Apartment',        beds:3, baths:3, area:185, price:9200000,  avail:'available'},
+    {id:'V-TH22',  project:'villette',            type:'Townhouse',        beds:4, baths:4, area:230, price:13500000, avail:'limited'},
+    {id:'SE-T12',  project:'sodic-east',          type:'Townhouse',        beds:4, baths:4, area:240, price:12500000, avail:'available'},
+    {id:'SE-A44',  project:'sodic-east',          type:'Apartment',        beds:2, baths:2, area:135, price:6800000,  avail:'available'},
+    {id:'ET-D07',  project:'eastown',             type:'Duplex',           beds:3, baths:3, area:200, price:9800000,  avail:'to-confirm'},
+    {id:'ET-A12',  project:'eastown',             type:'Apartment',        beds:2, baths:2, area:150, price:7400000,  avail:'available'},
+    {id:'AL-V03',  project:'allegria',            type:'Standalone Villa', beds:5, baths:5, area:420, price:38000000, avail:'limited'},
+    {id:'AL-TW6',  project:'allegria',            type:'Twin house',       beds:4, baths:4, area:300, price:24000000, avail:'available'},
+    {id:'HB-C08',  project:'hacienda-bay',        type:'Chalet',           beds:2, baths:2, area:120, price:7500000,  avail:'available'},
+    {id:'HB-V19',  project:'hacienda-bay',        type:'Villa',            beds:4, baths:4, area:260, price:19500000, avail:'available'},
+    {id:'BF-A21',  project:'bloomfields',         type:'Apartment',        beds:2, baths:2, area:132, price:5400000,  avail:'available'},
+    {id:'BF-A09',  project:'bloomfields',         type:'Apartment',        beds:1, baths:1, area:95,  price:3900000,  avail:'available'},
+    {id:'MV-D14',  project:'mountain-view-icity', type:'Duplex',           beds:4, baths:3, area:210, price:11800000, avail:'available'},
+    {id:'ZE-L02',  project:'zed-east',            type:'Loft',             beds:1, baths:1, area:88,  price:6900000,  avail:'available'},
+    {id:'ZE-P08',  project:'zed-east',            type:'Penthouse',        beds:3, baths:3, area:245, price:16800000, avail:'limited'},
+    {id:'FS-A18',  project:'fifth-square',        type:'Apartment',        beds:3, baths:2, area:160, price:7200000,  avail:'available'},
+    {id:'IB-V05',  project:'il-bosco-city',       type:'Villa',            beds:4, baths:4, area:265, price:14500000, avail:'available'},
+    {id:'IB-S02',  project:'il-bosco-city',       type:'Studio',           beds:0, baths:1, area:55,  price:3200000,  avail:'available'},
+    {id:'D5-A22',  project:'district-5',          type:'Apartment',        beds:2, baths:2, area:140, price:7000000,  avail:'available'},
+    {id:'D5-O11',  project:'district-5',          type:'Office',           beds:0, baths:1, area:90,  price:8100000,  avail:'to-confirm'},
+    {id:'TS-A07',  project:'three-sixty',         type:'Apartment',        beds:3, baths:3, area:175, price:8900000,  avail:'available'},
+    {id:'HP-P03',  project:'hyde-park-new-cairo', type:'Penthouse',        beds:3, baths:3, area:220, price:12900000, avail:'available'},
+    {id:'HP-V15',  project:'hyde-park-new-cairo', type:'Villa',            beds:5, baths:5, area:340, price:27500000, avail:'reserved'},
+    {id:'CG-A05',  project:'cairo-gate',          type:'Apartment',        beds:3, baths:2, area:168, price:9600000,  avail:'available'},
+    {id:'AE-S01',  project:'aeon',                type:'Studio',           beds:0, baths:1, area:52,  price:3100000,  avail:'available'},
+    {id:'AE-CL2',  project:'aeon',                type:'Clinic',           beds:0, baths:1, area:70,  price:6400000,  avail:'available'},
+    {id:'IM-C10',  project:'il-monte-galala',     type:'Chalet',           beds:2, baths:2, area:110, price:6500000,  avail:'available'},
+    {id:'IM-CB4',  project:'il-monte-galala',     type:'Cabin',            beds:1, baths:1, area:70,  price:4200000,  avail:'limited'}
   ];
   var TYPE_META = {
     'Apartment':{ar:'شقة', icon:'ty_apartment'}, 'Villa':{ar:'فيلا', icon:'ty_villa'},
+    'Standalone Villa':{ar:'فيلا مستقلة', icon:'ty_villa'},
     'Townhouse':{ar:'تاون هاوس', icon:'ty_townhouse'}, 'Twin house':{ar:'توين هاوس', icon:'ty_twinhouse'},
     'Duplex':{ar:'دوبلكس', icon:'ty_duplex'}, 'Penthouse':{ar:'بنتهاوس', icon:'ty_penthouse'},
     'Studio':{ar:'استوديو', icon:'ty_studio'}, 'Loft':{ar:'لوفت', icon:'ty_studio'},
-    'Chalet':{ar:'شاليه', icon:'ty_chalet'}, 'Cabin':{ar:'كابين', icon:'ty_cabin'}, 'Office':{ar:'مكتب', icon:'ty_office'}
+    'Chalet':{ar:'شاليه', icon:'ty_chalet'}, 'Cabin':{ar:'كابين', icon:'ty_cabin'},
+    'Office':{ar:'مكتب', icon:'ty_office'}, 'Clinic':{ar:'عيادة', icon:'ty_office'}, 'Retail':{ar:'محل تجاري', icon:'ty_office'}
   };
 
   var RESEARCH = [
@@ -1103,6 +1153,160 @@
   function typeIcon(t, cls){ return ic(typeMeta(t).icon, cls); }
   function typeLabel(t){ return lang==='ar' ? typeMeta(t).ar : t; }
   function unitsIn(slug){ return UNITS.filter(function(u){ return u.project===slug; }); }
+
+  /* ==================================================================
+     RELATIONAL INVENTORY FILTER ENGINE  (spec §42)
+     One relational decision engine over the canonical dataset.
+     AND across filter groups; OR within a multi-select group.
+     Budget filters ACTUAL unit prices, not project starting prices.
+     ================================================================== */
+  var TYPES = [
+    {c:'apartment', en:'Apartment', ar:'شقة', icon:'ty_apartment', al:['flat','apartment','شقة','شقه']},
+    {c:'studio', en:'Studio', ar:'استوديو', icon:'ty_studio', al:['studio','استوديو']},
+    {c:'duplex', en:'Duplex', ar:'دوبلكس', icon:'ty_duplex', al:['duplex','دوبلكس']},
+    {c:'penthouse', en:'Penthouse', ar:'بنتهاوس', icon:'ty_penthouse', al:['penthouse','بنتهاوس']},
+    {c:'loft', en:'Loft', ar:'لوفت', icon:'ty_studio', al:['loft','لوفت']},
+    {c:'villa', en:'Villa', ar:'فيلا', icon:'ty_villa', al:['villa','فيلا']},
+    {c:'standalone-villa', en:'Standalone Villa', ar:'فيلا مستقلة', icon:'ty_villa', al:['standalone villa','stand-alone villa','فيلا مستقلة']},
+    {c:'townhouse', en:'Townhouse', ar:'تاون هاوس', icon:'ty_townhouse', al:['townhouse','town house','town home','تاون هاوس']},
+    {c:'twin-house', en:'Twin House', ar:'توين هاوس', icon:'ty_twinhouse', al:['twin house','twinhouse','توين هاوس']},
+    {c:'chalet', en:'Chalet', ar:'شاليه', icon:'ty_chalet', al:['chalet','شاليه']},
+    {c:'cabin', en:'Cabin', ar:'كابين', icon:'ty_cabin', al:['cabin','كابين']},
+    {c:'office', en:'Office', ar:'مكتب', icon:'ty_office', al:['office','admin office','administrative office','مكتب']},
+    {c:'clinic', en:'Clinic', ar:'عيادة', icon:'ty_office', al:['clinic','عيادة']},
+    {c:'retail-unit', en:'Retail', ar:'محل تجاري', icon:'ty_office', al:['retail','shop','retail unit','محل','تجاري']}
+  ];
+  var TYPE_BY_CANON={}, TYPE_BY_ALIAS={};
+  TYPES.forEach(function(t){ TYPE_BY_CANON[t.c]=t; TYPE_BY_ALIAS[t.en.toLowerCase()]=t.c; t.al.forEach(function(a){ TYPE_BY_ALIAS[a.toLowerCase()]=t.c; }); });
+  function normalizeUnitType(src){ if(!src) return 'other'; return TYPE_BY_ALIAS[String(src).toLowerCase().trim()] || 'other'; }
+  function unitCanon(u){ return normalizeUnitType(u.type); }
+  function typeLabelC(c){ var t=TYPE_BY_CANON[c]; return t ? (lang==='ar'?t.ar:t.en) : c; }
+  function typeIconC(c){ var t=TYPE_BY_CANON[c]; return ic(t?t.icon:'ty_apartment'); }
+
+  function deliveryBucket(p){
+    if(!p) return 'to-confirm';
+    if(p.delivery==='Ready' || p.status==='ready') return 'ready';
+    var y=parseInt(p.delivery,10); if(!y) return 'to-confirm';
+    var d=y-2026;
+    return d<=1?'within-1-year':d<=2?'within-2-years':d<=4?'within-3-4-years':'later';
+  }
+  function launchStatusOf(p){ return p.status==='launch' ? 'newly-launched' : 'available'; }
+  function unitAvail(u){ return u.avail || 'available'; }
+  function unitDp(u){ var p=projBySlug(u.project); return (u.price!=null && p && p.dp) ? Math.round(u.price*p.dp/100) : null; }
+
+  function defaultFilter(){ return {areas:[],devs:[],projects:[],types:[],beds:[],minPrice:null,maxPrice:null,maxDp:null,launch:[],avail:[],delivery:[],sort:'recommended',includeUnverified:false}; }
+  var FILTER = defaultFilter();
+
+  // Match a unit against the filter; `ignore` skips one group (for facet counts).
+  function matchUnit(u, f, ignore){
+    var p=projBySlug(u.project); if(!p) return false;               // primary sale only (all our data is)
+    if(ignore!=='area'   && f.areas.length    && f.areas.indexOf(p.area)<0) return false;
+    if(ignore!=='dev'    && f.devs.length     && f.devs.indexOf(p.dev)<0) return false;
+    if(ignore!=='project'&& f.projects.length && f.projects.indexOf(p.slug)<0) return false;
+    if(ignore!=='type'   && f.types.length    && f.types.indexOf(unitCanon(u))<0) return false;
+    if(ignore!=='beds'   && f.beds.length     && f.beds.indexOf(u.beds)<0) return false;
+    if(ignore!=='price'){
+      if(u.price==null){ if(!f.includeUnverified && (f.minPrice!=null||f.maxPrice!=null)) return false; }
+      else { if(f.minPrice!=null && u.price<f.minPrice) return false; if(f.maxPrice!=null && u.price>f.maxPrice) return false; }
+    }
+    if(ignore!=='dp' && f.maxDp!=null){ var dp=unitDp(u); if(dp==null || dp>f.maxDp) return false; }
+    if(ignore!=='launch' && f.launch.length && f.launch.indexOf(launchStatusOf(p))<0) return false;
+    if(ignore!=='avail'){ var av=unitAvail(u);
+      if(f.avail.length){ if(f.avail.indexOf(av)<0) return false; }
+      else if(av==='reserved'||av==='sold') return false;           // default excludes reserved/sold
+    }
+    if(ignore!=='delivery' && f.delivery.length && f.delivery.indexOf(deliveryBucket(p))<0) return false;
+    return true;
+  }
+  function filterUnits(f){ return UNITS.filter(function(u){ return matchUnit(u,f); }); }
+  function filteredProjects(f){
+    var us=filterUnits(f), by={};
+    us.forEach(function(u){ (by[u.project]=by[u.project]||[]).push(u); });
+    return Object.keys(by).map(function(slug){ var ps=by[slug].map(function(u){return u.price;}).filter(function(x){return x!=null;});
+      return {project:projBySlug(slug), units:by[slug], fromPrice: ps.length?Math.min.apply(null,ps):null}; });
+  }
+  // Facet counts for a group, honouring every OTHER active group.
+  function facet(group, valueOf){
+    var base=UNITS.filter(function(u){ return matchUnit(u, FILTER, group); }), m={};
+    base.forEach(function(u){ var v=valueOf(u); (Array.isArray(v)?v:[v]).forEach(function(x){ if(x!=null&&x!=='') m[x]=(m[x]||0)+1; }); });
+    return m;
+  }
+  function areaFacets(){ return facet('area', function(u){ return projBySlug(u.project).area; }); }
+  function devFacets(){ return facet('dev', function(u){ return projBySlug(u.project).dev; }); }
+  function projFacets(){ return facet('project', function(u){ return u.project; }); }
+  function typeFacets(){ return facet('type', function(u){ return unitCanon(u); }); }
+  function bedFacets(){ return facet('beds', function(u){ return u.beds; }); }
+  function launchFacets(){ return facet('launch', function(u){ return launchStatusOf(projBySlug(u.project)); }); }
+  function availFacets(){ return facet('avail', function(u){ return unitAvail(u); }); }
+  function deliveryFacets(){ return facet('delivery', function(u){ return deliveryBucket(projBySlug(u.project)); }); }
+
+  // Reconcile invalid selections, respecting the Area -> Developer -> Project
+  // hierarchy: a lower-level selection is dropped when it conflicts with a
+  // higher-level one (never drop the area because of a developer/project).
+  function reconcileFilter(){
+    var f=FILTER, changed=false;
+    function anyUnit(pred, clear){ var f2=Object.assign({}, f); clear.forEach(function(k){ f2[k]=[]; });
+      return UNITS.some(function(u){ return pred(u) && matchUnit(u, f2); }); }
+    function keep(list, pred, clear){ var out=list.filter(function(v){ return anyUnit(function(u){ return pred(u,v); }, clear); });
+      if(out.length!==list.length) changed=true; return out; }
+    f.areas    = keep(f.areas,    function(u,a){ return projBySlug(u.project).area===a; }, ['areas','devs','projects']);
+    f.devs     = keep(f.devs,     function(u,d){ return projBySlug(u.project).dev===d;  }, ['devs','projects']);
+    f.projects = keep(f.projects, function(u,s){ return u.project===s; },                 ['projects']);
+    f.types    = keep(f.types,    function(u,c){ return unitCanon(u)===c; },               ['types']);
+    return changed;
+  }
+
+  function sortUnits(list){
+    var s=FILTER.sort, l=list.slice();
+    var delOrder={'ready':0,'within-1-year':1,'within-2-years':2,'within-3-4-years':3,'later':4,'to-confirm':5};
+    if(s==='price-asc') l.sort(function(a,b){ return (a.price==null?1e15:a.price)-(b.price==null?1e15:b.price); });
+    else if(s==='price-desc') l.sort(function(a,b){ return (b.price||0)-(a.price||0); });
+    else if(s==='earliest-delivery') l.sort(function(a,b){ return delOrder[deliveryBucket(projBySlug(a.project))]-delOrder[deliveryBucket(projBySlug(b.project))]; });
+    else if(s==='newest') l.sort(function(a,b){ return (projBySlug(b.project).status==='launch'?1:0)-(projBySlug(a.project).status==='launch'?1:0); });
+    return l;
+  }
+
+  // URL contract (shareable, restorable)
+  function filterToQuery(f){
+    var q=[];
+    if(f.areas.length) q.push('areas='+f.areas.join(','));
+    if(f.devs.length) q.push('developers='+f.devs.join(','));
+    if(f.projects.length) q.push('projects='+f.projects.join(','));
+    if(f.types.length) q.push('types='+f.types.join(','));
+    if(f.beds.length) q.push('beds='+f.beds.join(','));
+    if(f.minPrice!=null) q.push('minPrice='+f.minPrice);
+    if(f.maxPrice!=null) q.push('maxPrice='+f.maxPrice);
+    if(f.maxDp!=null) q.push('maxDp='+f.maxDp);
+    if(f.launch.length) q.push('launch='+f.launch.join(','));
+    if(f.avail.length) q.push('availability='+f.avail.join(','));
+    if(f.delivery.length) q.push('delivery='+f.delivery.join(','));
+    if(f.includeUnverified) q.push('incTbc=1');
+    if(f.sort && f.sort!=='recommended') q.push('sort='+f.sort);
+    return q.join('&');
+  }
+  function filterFromQuery(search){
+    var p=new URLSearchParams(search||''), f=defaultFilter();
+    function arr(k){ var v=p.get(k); return v?v.split(',').filter(Boolean):[]; }
+    f.areas=arr('areas'); f.devs=arr('developers'); f.projects=arr('projects'); f.types=arr('types');
+    f.beds=arr('beds').map(Number).filter(function(n){return !isNaN(n);});
+    f.launch=arr('launch'); f.avail=arr('availability'); f.delivery=arr('delivery');
+    if(p.get('minPrice')) f.minPrice=+p.get('minPrice');
+    if(p.get('maxPrice')) f.maxPrice=+p.get('maxPrice');
+    if(p.get('maxDp')) f.maxDp=+p.get('maxDp');
+    if(p.get('incTbc')) f.includeUnverified=true;
+    if(p.get('sort')) f.sort=p.get('sort');
+    return f;
+  }
+  var BUDGET_PRESETS=[[null,3000000],[3000000,5000000],[5000000,8000000],[8000000,12000000],[12000000,20000000],[20000000,null]];
+  var AVAIL_LABELS={'available':{en:'Available',ar:'متاحة'},'limited':{en:'Limited',ar:'محدودة'},'to-confirm':{en:'To confirm',ar:'قيد التأكيد'},'reserved':{en:'Reserved',ar:'محجوزة'},'sold':{en:'Sold',ar:'مباعة'}};
+  var LAUNCH_LABELS={'newly-launched':{en:'Newly launched',ar:'إطلاق جديد'},'available':{en:'Available',ar:'متاح'}};
+  var DELIVERY_LABELS={'ready':{en:'Ready to move',ar:'استلام فوري'},'within-1-year':{en:'Within 1 year',ar:'خلال سنة'},'within-2-years':{en:'Within 2 years',ar:'خلال سنتين'},'within-3-4-years':{en:'3–4 years',ar:'٣–٤ سنوات'},'later':{en:'Later',ar:'لاحقاً'},'to-confirm':{en:'To confirm',ar:'قيد التأكيد'}};
+
+  function moneyM(n){ if(n==null) return '—'; var m=Math.round(n/100000)/10; var s=(m%1===0)?String(Math.round(m)):String(m);
+    return lang==='ar' ? (s.replace(/\d/g,function(d){return '٠١٢٣٤٥٦٧٨٩'.charAt(+d);})+' م') : (s+'M'); }
+  // navigate (updates URL + re-renders) — navigateTo/buildPath are hoisted from later parts
+  function finderApply(){ var q=filterToQuery(FILTER); navigateTo(buildPath('units')+(q?('?'+q):''), true); }
+  function finderToggle(group, v){ var a=FILTER[group], i=a.indexOf(v); if(i>-1) a.splice(i,1); else a.push(v); reconcileFilter(); finderApply(); }
 
   /* ==================================================================
      STATE + LOOKUPS
@@ -1364,20 +1568,24 @@
     var node = h('div',null);
     // hero
     var hero = h('section',{class:'hero'});
+    var typeOpts = [opt('',t('all_types'))].concat(TYPES.map(function(tp){ return opt(tp.c, typeLabelC(tp.c)); }));
+    var budgetOpts = [opt('',t('any'))].concat(BUDGET_PRESETS.map(function(pr,i){
+      return opt(i, pr[0]==null?(lang==='ar'?'أقل من ٣ م':'Under 3M'):pr[1]==null?(lang==='ar'?'٢٠ م+':'20M+'):moneyM(pr[0])+'–'+moneyM(pr[1])); }));
     var searchCard = h('form',{class:'search-card', role:'search'},
       h('h2',null, t('find_h')),
       h('p',{class:'muted'}, t('find_p')),
       field('select','f-area', t('filter_area'), areaOptions()),
       h('div',{class:'field-row'},
-        field('select','f-dev', t('filter_dev'), devOptions()),
-        field('select','f-status', t('filter_status'), statusOptions())),
+        field('select','f-type', t('filter_type'), typeOpts),
+        field('select','f-budget', t('filter_budget'), budgetOpts)),
       h('button',{class:'btn btn--primary btn--block', type:'submit'}, ic('search'), t('cta_explore')));
     searchCard.addEventListener('submit', function(e){
       e.preventDefault();
       var q = [];
-      var a=$('#f-area',searchCard).value, d=$('#f-dev',searchCard).value, s=$('#f-status',searchCard).value;
-      if(a) q.push('area='+a); if(d) q.push('dev='+d); if(s) q.push('status='+s);
-      navigateTo(buildPath('projects') + (q.length?('?'+q.join('&')):''));
+      var a=$('#f-area',searchCard).value, ty=$('#f-type',searchCard).value, bi=$('#f-budget',searchCard).value;
+      if(a) q.push('areas='+a); if(ty) q.push('types='+ty);
+      if(bi!==''){ var pr=BUDGET_PRESETS[+bi]; if(pr[0]!=null) q.push('minPrice='+pr[0]); if(pr[1]!=null) q.push('maxPrice='+pr[1]); }
+      navigateTo(buildPath('units') + (q.length?('?'+q.join('&')):''));
     });
     hero.appendChild(h('div',{class:'wrap'},
       h('div',{class:'hero-grid'},
@@ -1696,31 +1904,111 @@
       indexable:true, crumbs:[{label:'Home',path:buildPath('home')},{label:t('nav_projects'),path:buildPath('projects')},{label:nm}]};
   };
 
-  /* ---- Units catalog (type-icon filter + spec cards) ---- */
+  /* ---- Relational Unit Finder (§42) ---- */
+  function facetChips(group, opts){
+    var row=h('div',{class:'facet-row'});
+    opts.forEach(function(o){
+      var active=FILTER[group].indexOf(o.v)>-1;
+      if(!o.count && !active) return;                    // hide zero-match unless selected
+      var b=h('button',{class:'fchip'+(active?' on':''), type:'button','aria-pressed':active?'true':'false'},
+        o.icon||null, h('span',null,o.label), h('small',null,'('+num(o.count||0)+')'));
+      b.addEventListener('click', function(){ finderToggle(group, o.v); });
+      row.appendChild(b);
+    });
+    if(!row.childNodes.length) row.appendChild(h('span',{class:'muted',style:'font-size:.8rem'}, '—'));
+    return row;
+  }
+  function fgroup(title, node){ return h('div',{class:'facet-group'}, h('h4',null,title), node); }
+
   V.units = function(){
-    var qs=new URLSearchParams(CUR.search), ft=qs.get('type')||'';
-    var list=UNITS.filter(function(u){ return !ft || u.type===ft; });
-    var types=[]; UNITS.forEach(function(u){ if(types.indexOf(u.type)<0) types.push(u.type); });
+    FILTER = filterFromQuery(CUR.search); reconcileFilter();
+    var af=areaFacets(), df=devFacets(), pf=projFacets(), tf=typeFacets(), bf=bedFacets(), lf=launchFacets(), avf=availFacets(), delf=deliveryFacets();
+    var list=sortUnits(filterUnits(FILTER)), projs=filteredProjects(FILTER);
     var node=h('div',null);
     node.appendChild(sectionWrap(
       crumbNode([{label:'Home',path:buildPath('home')},{label:t('nav_units')}]),
-      sectionHead(t('hero_kicker'), t('units_h'), t('units_p'))));
-    var sec=h('section',{style:'padding-bottom:clamp(40px,7vw,80px)'}), w=h('div',{class:'wrap'});
-    var trow=h('div',{class:'type-row',style:'margin-bottom:20px'});
-    var all=h('button',{class:'type-chip',type:'button',style:ft?'':'border-color:var(--teal-600);color:var(--teal-700)'}, ic('build'), h('span',null,t('all_types')));
-    all.addEventListener('click',function(){ navigateTo(buildPath('units')); }); trow.appendChild(all);
-    types.forEach(function(ty){
-      var b=h('button',{class:'type-chip',type:'button',style:ft===ty?'border-color:var(--teal-600)':''}, typeIcon(ty), h('span',null,typeLabel(ty)));
-      b.addEventListener('click',function(){ navigateTo(buildPath('units')+'?type='+encodeURIComponent(ty)); }); trow.appendChild(b);
+      sectionHead(t('hero_kicker'), t('finder_h'), t('finder_p'))));
+
+    // ---- filter panel ----
+    var panel=h('div',{class:'finder-panel'});
+    panel.appendChild(fgroup(t('filter_area'), facetChips('areas', AREAS.map(function(a){return {v:a.key,label:L(a.name),count:af[a.key]||0};}))));
+    panel.appendChild(fgroup(t('filter_dev'), facetChips('devs', DEVELOPERS.map(function(d){return {v:d.key,label:L(d.name),count:df[d.key]||0};}))));
+    panel.appendChild(fgroup(t('nav_projects'), facetChips('projects', PROJECTS.map(function(p){return {v:p.slug,label:(lang==='ar'?p.name_ar:p.name),count:pf[p.slug]||0};}))));
+    panel.appendChild(fgroup(t('filter_type'), facetChips('types', TYPES.map(function(tp){return {v:tp.c,label:typeLabelC(tp.c),icon:typeIconC(tp.c),count:tf[tp.c]||0};}))));
+    panel.appendChild(fgroup(t('beds'), facetChips('beds', [0,1,2,3,4,5].map(function(n){return {v:n,label:n===0?(lang==='ar'?'استوديو':'Studio'):num(n)+(lang==='ar'?' غرف':'BR'),count:bf[n]||0};}))));
+    // budget
+    var bwrap=h('div',null);
+    var brow=h('div',{class:'facet-row'});
+    BUDGET_PRESETS.forEach(function(pr){
+      var on=FILTER.minPrice===pr[0] && FILTER.maxPrice===pr[1];
+      var lab = pr[0]==null ? (lang==='ar'?'أقل من ٣ م':'Under 3M') : pr[1]==null ? (lang==='ar'?'٢٠ م+':'20M+') : (moneyM(pr[0])+'–'+moneyM(pr[1]));
+      var b=h('button',{class:'fchip'+(on?' on':''), type:'button'}, lab);
+      b.addEventListener('click', function(){ if(on){FILTER.minPrice=null;FILTER.maxPrice=null;} else {FILTER.minPrice=pr[0];FILTER.maxPrice=pr[1];} finderApply(); });
+      brow.appendChild(b);
     });
-    w.appendChild(trow);
-    w.appendChild(h('div',{class:'result-bar'}, h('span',{class:'count','aria-live':'polite'}, num(list.length)+' '+t('results'))));
-    w.appendChild(h('div',{class:'grid grid--3'}, list.map(unitCard)));
-    w.appendChild(h('p',{class:'muted',style:'font-size:.78rem;margin-top:16px'}, t('art_note')));
-    sec.appendChild(w); node.appendChild(sec);
-    return {node:node, title:t('units_h')+' · The Village Investment', desc:t('units_p'), indexable:true,
+    bwrap.appendChild(brow);
+    var minI=h('input',{type:'number',inputmode:'numeric',placeholder:t('min_price'),value:FILTER.minPrice!=null?FILTER.minPrice:'','aria-label':t('min_price')});
+    var maxI=h('input',{type:'number',inputmode:'numeric',placeholder:t('max_price'),value:FILTER.maxPrice!=null?FILTER.maxPrice:'','aria-label':t('max_price')});
+    function commitBudget(){ FILTER.minPrice=minI.value?+minI.value:null; FILTER.maxPrice=maxI.value?+maxI.value:null; finderApply(); }
+    minI.addEventListener('change', commitBudget); maxI.addEventListener('change', commitBudget);
+    bwrap.appendChild(h('div',{class:'budget-inputs'}, minI, maxI));
+    var tbc=h('input',{type:'checkbox', id:'inc-tbc', style:'width:18px;height:18px'}); if(FILTER.includeUnverified) tbc.checked=true;
+    tbc.addEventListener('change', function(){ FILTER.includeUnverified=tbc.checked; finderApply(); });
+    bwrap.appendChild(h('label',{class:'toggle-line', for:'inc-tbc'}, tbc, t('inc_tbc')));
+    panel.appendChild(fgroup(t('filter_budget'), bwrap));
+    // statuses
+    panel.appendChild(fgroup(t('launch_status'), facetChips('launch', ['newly-launched','available'].map(function(s){return {v:s,label:(lang==='ar'?LAUNCH_LABELS[s].ar:LAUNCH_LABELS[s].en),count:lf[s]||0};}))));
+    panel.appendChild(fgroup(t('availability'), facetChips('avail', ['available','limited','to-confirm'].map(function(s){return {v:s,label:(lang==='ar'?AVAIL_LABELS[s].ar:AVAIL_LABELS[s].en),count:avf[s]||0};}))));
+    panel.appendChild(fgroup(t('delivery'), facetChips('delivery', ['ready','within-1-year','within-2-years','within-3-4-years','later','to-confirm'].map(function(s){return {v:s,label:(lang==='ar'?DELIVERY_LABELS[s].ar:DELIVERY_LABELS[s].en),count:delf[s]||0};}))));
+
+    // ---- results ----
+    var results=h('div',null);
+    var rhead=h('div',{class:'results-head'});
+    rhead.appendChild(h('div',{class:'rc','aria-live':'polite'}, num(list.length)+' '+(lang==='ar'?'وحدة':'units')+' · '+num(projs.length)+' '+(lang==='ar'?'مشروع':'projects')));
+    var sortSel=h('select',{'aria-label':t('filter_sort')},
+      [['recommended','sort_feat'],['price-asc','sort_price_a'],['price-desc','sort_price_d'],['earliest-delivery','sort_delivery'],['newest','sort_newest']]
+        .map(function(o){ return h('option', FILTER.sort===o[0]?{value:o[0],selected:true}:{value:o[0]}, t(o[1])); }));
+    sortSel.addEventListener('change', function(){ FILTER.sort=sortSel.value; finderApply(); });
+    rhead.appendChild(sortSel);
+    results.appendChild(rhead);
+    // active chips
+    var active=activeFilterChips();
+    if(active.length){
+      var af2=h('div',{class:'active-filters',style:'margin-bottom:16px'});
+      active.forEach(function(a){ af2.appendChild(a); });
+      af2.appendChild(h('button',{class:'btn btn--ghost btn--sm', type:'button', onclick:function(){ FILTER=defaultFilter(); finderApply(); }}, t('cta_reset')));
+      results.appendChild(af2);
+    }
+    if(list.length) results.appendChild(h('div',{class:'grid grid--2'}, list.map(unitCard)));
+    else results.appendChild(h('div',{class:'state'}, ic('search'), h('h3',null,t('noresults')), h('p',null,t('finder_none')),
+      h('div',{style:'display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px'},
+        h('button',{class:'btn btn--primary', type:'button', onclick:function(){ FILTER=defaultFilter(); finderApply(); }}, t('cta_reset')),
+        h('a',{class:'btn btn--ghost', href:U(buildPath('contact'))}, t('cta_talk')))));
+    results.appendChild(h('p',{class:'muted',style:'font-size:.78rem;margin-top:16px'}, t('art_note')));
+
+    var sec=h('section',{style:'padding-bottom:clamp(40px,7vw,80px)'});
+    sec.appendChild(h('div',{class:'wrap'}, h('div',{class:'finder'}, panel, results)));
+    node.appendChild(sec);
+    return {node:node, title:t('finder_h')+' · The Village Investment', desc:t('finder_p'), indexable:true,
       crumbs:[{label:'Home',path:buildPath('home')},{label:t('nav_units')}]};
   };
+  function activeFilterChips(){
+    var out=[];
+    function push(group, v, label){ var tag=h('span',{class:'filter-tag'}, label, h('button',{type:'button','aria-label':t('cta_reset')+': '+label},'×'));
+      tag.querySelector('button').addEventListener('click', function(){ finderToggle(group, v); }); out.push(tag); }
+    FILTER.areas.forEach(function(v){ push('areas', v, L(areaByKey(v).name)); });
+    FILTER.devs.forEach(function(v){ push('devs', v, L(devByKey(v).name)); });
+    FILTER.projects.forEach(function(v){ var p=projBySlug(v); push('projects', v, lang==='ar'?p.name_ar:p.name); });
+    FILTER.types.forEach(function(v){ push('types', v, typeLabelC(v)); });
+    FILTER.beds.forEach(function(v){ push('beds', v, v===0?(lang==='ar'?'استوديو':'Studio'):num(v)+(lang==='ar'?' غرف':'BR')); });
+    FILTER.launch.forEach(function(v){ push('launch', v, lang==='ar'?LAUNCH_LABELS[v].ar:LAUNCH_LABELS[v].en); });
+    FILTER.avail.forEach(function(v){ push('avail', v, lang==='ar'?AVAIL_LABELS[v].ar:AVAIL_LABELS[v].en); });
+    FILTER.delivery.forEach(function(v){ push('delivery', v, lang==='ar'?DELIVERY_LABELS[v].ar:DELIVERY_LABELS[v].en); });
+    if(FILTER.minPrice!=null||FILTER.maxPrice!=null){ var lab=(FILTER.minPrice!=null?moneyM(FILTER.minPrice):'0')+'–'+(FILTER.maxPrice!=null?moneyM(FILTER.maxPrice):'∞');
+      var tag=h('span',{class:'filter-tag'}, lab, h('button',{type:'button','aria-label':t('cta_reset')},'×'));
+      tag.querySelector('button').addEventListener('click', function(){ FILTER.minPrice=null; FILTER.maxPrice=null; finderApply(); }); out.push(tag); }
+    return out;
+  }
 
   /* ---- Developers list + detail ---- */
   V.developers = function(){
