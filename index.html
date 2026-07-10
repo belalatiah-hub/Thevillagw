@@ -507,6 +507,31 @@
   .results-head{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:16px}
   .results-head .rc{font-weight:700}
   .results-head select{min-height:42px;padding:8px 12px;border:1.5px solid var(--line-cool);border-radius:var(--r-sm);background:var(--paper);font:inherit}
+  /* ---- Global search command palette ---- */
+  .pal-back{position:fixed;inset:0;background:rgba(14,26,31,.55);z-index:200;display:none;align-items:flex-start;justify-content:center;padding:9vh 16px 16px}
+  .pal-back.open{display:flex}
+  .pal{background:var(--bone-2);width:min(680px,100%);max-height:78vh;border-radius:var(--r-lg);box-shadow:var(--shadow-lg);display:flex;flex-direction:column;overflow:hidden}
+  .pal-top{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--line-2);background:var(--paper)}
+  .pal-top svg{width:20px;height:20px;color:var(--teal-600);flex:none}
+  .pal-top input{flex:1;min-width:0;border:none;background:none;font:inherit;font-size:1.05rem;outline:none;color:var(--ink)}
+  .pal-top kbd{font-size:.68rem;background:var(--bone);border:1px solid var(--line);border-radius:5px;padding:2px 6px;color:var(--ink-3);flex:none}
+  .pal-body{overflow-y:auto;padding:6px}
+  .pal-group{padding:4px 6px}
+  .pal-group h5{font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);margin:8px 6px 4px;font-weight:700}
+  .pal-item{display:flex;align-items:center;gap:11px;padding:9px 10px;border-radius:var(--r-sm);cursor:pointer}
+  .pal-item:hover,.pal-item.active{background:var(--teal-050)}
+  .pal-item .pi-ic{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;background:var(--teal-050);color:var(--teal-700);flex:none}
+  .pal-item .pi-ic svg{width:18px;height:18px}
+  .pal-item .pi-t{font-weight:600;font-size:.93rem}
+  .pal-item .pi-s{font-size:.77rem;color:var(--ink-3)}
+  .pal-empty{padding:26px 16px;text-align:center;color:var(--ink-2)}
+  .pal-chips{display:flex;gap:6px;flex-wrap:wrap;padding:10px 14px;border-bottom:1px solid var(--line-2)}
+  .pal-chips button{background:var(--teal-050);color:var(--teal-700);border:1px solid #bfdae3;border-radius:var(--r-pill);padding:5px 11px;font-size:.8rem;font-weight:600}
+  .pal-chips button:hover{background:var(--teal-600);color:#fff}
+  .pal-foot{padding:8px 14px;border-top:1px solid var(--line-2);font-size:.74rem;color:var(--ink-3);display:flex;gap:12px;justify-content:space-between}
+  .search-btn{gap:8px;color:var(--ink-2)}
+  .search-btn .sk{font-size:.68rem;background:var(--bone);border:1px solid var(--line);border-radius:5px;padding:1px 5px;color:var(--ink-3)}
+  @media(max-width:520px){.search-btn .sk{display:none}}
   </style>
 </head>
 
@@ -522,6 +547,10 @@
       </a>
       <nav class="nav-links" id="primary-nav" aria-label="Primary"></nav>
       <div class="nav-actions">
+        <button class="btn btn--ghost btn--sm search-btn" id="search-open" aria-label="Search" title="Search (Ctrl/⌘ + K)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14z"/><path d="M21 21l-4.3-4.3"/></svg>
+          <span class="sk">⌘K</span>
+        </button>
         <button class="btn btn--sm lang-btn icon-btn" id="lang-toggle" style="width:auto;padding:0 14px" aria-label="Switch language">ع</button>
         <a class="btn btn--wa btn--sm" id="wa-header" href="#" target="_blank" rel="noopener" aria-label="WhatsApp" style="display:none">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 0 1-11.9 7L4 20l1.1-4A8 8 0 1 1 20 12z"/><path d="M9 9c0 4 2 6 6 6"/></svg>
@@ -699,6 +728,17 @@
     origin: "https://www.thevillageinvestment.com"
   };
 
+  /* Privacy-safe analytics dispatcher — pushes a versioned event to
+     window.dataLayer (GA4/GTM-ready). Only primitive, non-PII props allowed. */
+  function track(ev, props){
+    try{
+      window.dataLayer = window.dataLayer || [];
+      var o={ event:ev, v:1, locale:(typeof lang!=='undefined'?lang:'en'), route:(typeof currentRoute!=='undefined'&&currentRoute?currentRoute.name:'') };
+      if(props) for(var k in props){ var val=props[k]; if(val!=null && (typeof val==='string'||typeof val==='number'||typeof val==='boolean')) o[k]=val; }
+      window.dataLayer.push(o);
+    }catch(e){}
+  }
+
   /* ==================================================================
      i18n — UI chrome + page copy
      ================================================================== */
@@ -782,7 +822,10 @@
       finder_none:"No units match all your filters together. Remove a filter, widen your budget, or talk to an advisor.",
       filter_budget:"Budget (total price)", min_price:"Min EGP", max_price:"Max EGP", inc_tbc:"Include units with price to confirm",
       launch_status:"Launch status", availability:"Availability", beds:"Bedrooms",
-      sort_delivery:"Earliest delivery", sort_newest:"Newest launch"
+      sort_delivery:"Earliest delivery", sort_newest:"Newest launch",
+      nav_search:"Search", search_ph:"Search projects, units, developers, areas, guides…",
+      search_hint:"Start typing to search across the whole site.", search_none:"No matches. Try a project, developer, area — or ask the assistant.",
+      search_finder:"Open the unit finder", search_h:"Search results", search_p:"Results across projects, units, developers, areas, guides and questions."
     },
     ar: {
       invest:"للاستثمار العقاري", skip:"تخطَّ إلى المحتوى",
@@ -863,7 +906,10 @@
       finder_none:"لا توجد وحدات تطابق كل الفلاتر معاً. أزِل فلتراً أو وسّع الميزانية أو تحدّث إلى مستشار.",
       filter_budget:"الميزانية (السعر الكلي)", min_price:"أدنى ج.م", max_price:"أقصى ج.م", inc_tbc:"تضمين وحدات سعرها قيد التأكيد",
       launch_status:"حالة الإطلاق", availability:"الإتاحة", beds:"غرف النوم",
-      sort_delivery:"الأقرب تسليماً", sort_newest:"الأحدث إطلاقاً"
+      sort_delivery:"الأقرب تسليماً", sort_newest:"الأحدث إطلاقاً",
+      nav_search:"بحث", search_ph:"ابحث في المشروعات والوحدات والمطوّرين والمناطق والأدلة…",
+      search_hint:"ابدأ الكتابة للبحث في كل الموقع.", search_none:"لا نتائج. جرّب مشروعاً أو مطوّراً أو منطقة — أو اسأل المساعد.",
+      search_finder:"افتح محرّك البحث عن الوحدات", search_h:"نتائج البحث", search_p:"نتائج عبر المشروعات والوحدات والمطوّرين والمناطق والأدلة والأسئلة."
     }
   };
 
@@ -1361,6 +1407,7 @@
       case 'projects': return b+'projects/';
       case 'project': return b+'projects/'+params.slug+'/';
       case 'units': return b+'units/';
+      case 'search': return b+'search/';
       case 'launches': return b+'new-launches/';
       case 'developers': return b+'developers/';
       case 'developer': return b+'developers/'+params.slug+'/';
@@ -1391,6 +1438,7 @@
     if(seg.length===0) name='home';
     else if(seg[0]==='projects') { name = seg[1]?'project':'projects'; if(seg[1]) params.slug=seg[1]; }
     else if(seg[0]==='units') name='units';
+    else if(seg[0]==='search') name='search';
     else if(seg[0]==='new-launches') name='launches';
     else if(seg[0]==='developers'){ name = seg[1]?'developer':'developers'; if(seg[1]) params.slug=seg[1]; }
     else if(seg[0]==='areas'){ name = seg[1]?'area':'areas'; if(seg[1]) params.slug=seg[1]; }
@@ -1752,6 +1800,155 @@
     if(/(developer|مطور|مطوّر|مطورين)/.test(ql)) return chatList(t('chat_found'), DEVELOPERS.map(function(d){ return {label:L(d.name), href:buildPath('developer',{slug:d.key})}; }));
     return chatActions(t('chat_noanswer'));
   }
+
+  /* ==================================================================
+     GLOBAL SEARCH (spec §33) — one shared index + ranking, command
+     palette (Cmd/Ctrl+K), header entry, and a /search route.
+     Arabic-aware normalization; grouped results; keyboard operable.
+     ================================================================== */
+  function arNorm(s){
+    return String(s==null?'':s).toLowerCase()
+      .replace(/[ً-ْٰ]/g,'')                 // diacritics
+      .replace(/ـ/g,'')                                 // tatweel
+      .replace(/[أإآا]/g,'ا')       // alef variants -> ا
+      .replace(/ى/g,'ي').replace(/ة/g,'ه') // ى->ي , ة->ه
+      .replace(/ؤ/g,'و').replace(/ئ/g,'ي')
+      .replace(/[^0-9a-z؀-ۿ\s]/g,' ')
+      .replace(/\s+/g,' ').trim();
+  }
+  var SEARCH_TYPES=['project','unit','developer','area','article','faq','page'];
+  var SEARCH_TYPE_LABEL={project:{en:'Projects',ar:'مشروعات'},unit:{en:'Units',ar:'وحدات'},developer:{en:'Developers',ar:'مطوّرون'},area:{en:'Areas',ar:'مناطق'},article:{en:'Guides',ar:'أدلة'},faq:{en:'FAQs',ar:'أسئلة'},page:{en:'Pages',ar:'صفحات'}};
+  function buildSearchIndex(){
+    var idx=[];
+    function add(type,title,subtitle,href,aliases,extra,icon){
+      idx.push({type:type,title:title,subtitle:subtitle||'',href:href,aliases:aliases||[],icon:icon,
+        norm:arNorm([title,subtitle,(aliases||[]).join(' '),extra||''].join(' '))});
+    }
+    PROJECTS.forEach(function(p){ var d=devByKey(p.dev),a=areaByKey(p.area);
+      add('project',(lang==='ar'?p.name_ar:p.name),L(d.name)+' · '+L(a.name),buildPath('project',{slug:p.slug}),
+        [p.name,p.name_ar],L(p.types)+' '+(lang==='ar'?p.tags.ar.join(' '):p.tags.en.join(' '))+' '+a.name.en+' '+a.name.ar+' '+d.name.en+' '+d.name.ar,'build'); });
+    UNITS.forEach(function(u){ var p=projBySlug(u.project),a=areaByKey(p.area);
+      add('unit',typeLabelC(unitCanon(u))+' — '+(lang==='ar'?p.name_ar:p.name),L(a.name)+' · '+money(u.price),buildPath('project',{slug:p.slug}),
+        [u.id,u.type],u.beds+' '+a.name.en+' '+a.name.ar,(TYPE_BY_CANON[unitCanon(u)]||{}).icon||'ty_apartment'); });
+    DEVELOPERS.forEach(function(d){ add('developer',L(d.name),L(d.tagline),buildPath('developer',{slug:d.key}),[d.name.en,d.name.ar],L(d.areas)+' '+d.areas.en+' '+d.areas.ar,'shield'); });
+    AREAS.forEach(function(a){ add('area',L(a.name),L(a.blurb),buildPath('area',{slug:a.key}),[a.name.en,a.name.ar],'','pin'); });
+    RESEARCH.forEach(function(r){ add('article',L(r.title),L(r.cat),buildPath('insight',{slug:r.slug}),[],L(r.excerpt),'doc'); });
+    FAQ.forEach(function(g){ g.items.forEach(function(it){ add('faq',L(it.q),L(g.label),buildPath('faqs'),[],L(it.a),'chat'); }); });
+    [['units','finder_h'],['compare','cmp_h'],['insights','insights_h'],['faqs','faqs_h'],['about','about_h'],['contact','contact_h'],['launches','nav_launches']]
+      .forEach(function(pg){ add('page',t(pg[1]),'',buildPath(pg[0]),[],'','arrow'); });
+    return idx;
+  }
+  function searchAll(q){
+    var nq=arNorm(q); if(!nq) return [];
+    var toks=nq.split(' ').filter(Boolean), out=[];
+    buildSearchIndex().forEach(function(d){
+      var title=arNorm(d.title), score=0;
+      if(title===nq) score+=100; else if(title.indexOf(nq)===0) score+=60; else if(title.indexOf(nq)>-1) score+=42;
+      d.aliases.forEach(function(a){ var na=arNorm(a); if(na===nq) score+=80; else if(na.indexOf(nq)===0) score+=30; });
+      var hit=toks.filter(function(tk){ return d.norm.indexOf(tk)>-1; }).length;
+      if(hit===toks.length) score+=22; else score+=hit*5;
+      if(score>0){ if(d.type==='project'||d.type==='unit') score+=2; out.push({d:d,s:score}); }
+    });
+    out.sort(function(a,b){ return b.s-a.s; });
+    return out.map(function(x){ return x.d; });
+  }
+  function recentSearches(){ return load('tv_recent', []); }
+  function pushRecent(q){ q=(q||'').trim(); if(!q) return; var r=recentSearches().filter(function(x){return x!==q;}); r.unshift(q); store('tv_recent', r.slice(0,6)); }
+
+  /* ---- Command palette ---- */
+  var palEls=null, palActive=-1, palItems=[];
+  function searchBuild(){
+    if(palEls) return;
+    var back=h('div',{class:'pal-back', id:'pal-back'});
+    var input=h('input',{type:'text', id:'pal-input', role:'combobox','aria-expanded':'true','aria-controls':'pal-list','aria-autocomplete':'list', autocomplete:'off','aria-label':t('search_ph')});
+    var top=h('div',{class:'pal-top'}, svg(ICON.search), input, h('kbd',null,'Esc'));
+    var chips=h('div',{class:'pal-chips', id:'pal-chips'});
+    var list=h('div',{class:'pal-body', id:'pal-list', role:'listbox'});
+    var foot=h('div',{class:'pal-foot'}, h('span',null,'↑↓ · Enter · Esc'), h('span',{id:'pal-count','aria-live':'polite'},''));
+    var pal=h('div',{class:'pal', role:'dialog','aria-label':t('search_ph')}, top, chips, list, foot);
+    back.appendChild(pal); document.body.appendChild(back);
+    palEls={back:back,input:input,list:list,chips:chips,count:document.getElementById('pal-count')};
+    back.addEventListener('click', function(e){ if(e.target===back) searchClose(); });
+    input.addEventListener('input', function(){ palActive=-1; searchRender(input.value); });
+    input.addEventListener('keydown', palKey);
+    document.addEventListener('keydown', function(e){ if((e.metaKey||e.ctrlKey) && (e.key==='k'||e.key==='K')){ e.preventDefault(); searchOpen(); } });
+  }
+  function searchOpen(prefill){
+    searchBuild(); palEls.back.classList.add('open'); palEls.input.value=prefill||'';
+    document.body.style.overflow='hidden'; searchRender(palEls.input.value);
+    setTimeout(function(){ palEls.input.focus(); },40);
+    track('global_search_open');
+  }
+  function searchClose(){ if(!palEls) return; palEls.back.classList.remove('open'); document.body.style.overflow=''; }
+  function palKey(e){
+    if(e.key==='Escape'){ searchClose(); return; }
+    if(e.key==='ArrowDown'){ e.preventDefault(); palMove(1); }
+    else if(e.key==='ArrowUp'){ e.preventDefault(); palMove(-1); }
+    else if(e.key==='Enter'){ e.preventDefault();
+      if(palActive>=0 && palItems[palActive]){ palGo(palItems[palActive]); }
+      else if(palEls.input.value.trim()){ pushRecent(palEls.input.value.trim()); searchClose(); navigateTo(buildPath('search')+'?q='+encodeURIComponent(palEls.input.value.trim())); }
+    }
+  }
+  function palMove(d){ var els=palEls.list.querySelectorAll('.pal-item'); if(!els.length) return;
+    palActive=(palActive+d+els.length)%els.length;
+    els.forEach(function(el,i){ el.classList.toggle('active', i===palActive); if(i===palActive) el.scrollIntoView({block:'nearest'}); }); }
+  function palGo(d){ pushRecent(palEls.input.value); searchClose(); track('global_search_result_click'); navigateTo(d.href); }
+  function searchRender(q){
+    var list=palEls.list, chips=palEls.chips; clear(list); clear(chips); palItems=[];
+    if(!q || !q.trim()){
+      var rec=recentSearches();
+      var seeds = rec.length?rec:(lang==='ar'?['العاصمة الإدارية','شقة','بالم هيلز','تقسيط']:['New Cairo','apartment','SODIC','installments']);
+      seeds.forEach(function(s){ var b=h('button',{type:'button'}, s); b.addEventListener('click',function(){ palEls.input.value=s; searchRender(s); palEls.input.focus(); }); chips.appendChild(b); });
+      list.appendChild(h('div',{class:'pal-empty'}, t('search_hint')));
+      palEls.count.textContent=''; return;
+    }
+    var res=searchAll(q); track('global_search_query');
+    if(!res.length){ list.appendChild(h('div',{class:'pal-empty'}, t('search_none'))); palEls.count.textContent='0';
+      var wf=h('button',{type:'button'}, t('search_finder')); wf.addEventListener('click',function(){ searchClose(); navigateTo(buildPath('units')); }); chips.appendChild(wf); return; }
+    var byType={}; res.forEach(function(d){ (byType[d.type]=byType[d.type]||[]).push(d); });
+    SEARCH_TYPES.forEach(function(ty){ if(!byType[ty]) return;
+      var g=h('div',{class:'pal-group'}); g.appendChild(h('h5',null, (lang==='ar'?SEARCH_TYPE_LABEL[ty].ar:SEARCH_TYPE_LABEL[ty].en)+' · '+num(byType[ty].length)));
+      byType[ty].slice(0,6).forEach(function(d){
+        var it=h('div',{class:'pal-item', role:'option'},
+          h('div',{class:'pi-ic'}, ic(d.icon||'arrow')),
+          h('div',null, h('div',{class:'pi-t'}, d.title), d.subtitle?h('div',{class:'pi-s'}, d.subtitle):null));
+        it.addEventListener('click', function(){ palGo(d); }); g.appendChild(it); palItems.push(d);
+      });
+      list.appendChild(g);
+    });
+    palEls.count.textContent=num(res.length);
+  }
+  function searchInit(){ searchBuild(); var b=document.getElementById('search-open'); if(b) b.addEventListener('click', function(){ searchOpen(); }); }
+
+  /* ---- /search route (noindex results) ---- */
+  V.search = function(){
+    var qs=new URLSearchParams(CUR.search), q=qs.get('q')||'';
+    var res=q?searchAll(q):[];
+    var node=h('div',null);
+    node.appendChild(sectionWrap(crumbNode([{label:'Home',path:buildPath('home')},{label:t('search_h')}]),
+      sectionHead('', t('search_h'), q?('“'+q+'” · '+num(res.length)+' '+t('results')):t('search_p'))));
+    var sec=h('section',{style:'padding-bottom:clamp(40px,7vw,80px)'}), w=h('div',{class:'wrap'});
+    var inp=h('input',{type:'text',value:q,placeholder:t('search_ph'),'aria-label':t('search_ph')});
+    var box=h('form',{class:'toolbar',role:'search',style:'margin-bottom:22px'}, h('div',{class:'field',style:'flex:1;margin:0'}, inp), h('button',{class:'btn btn--primary',type:'submit'}, ic('search'), t('nav_search')));
+    box.addEventListener('submit', function(e){ e.preventDefault(); navigateTo(buildPath('search')+(inp.value.trim()?('?q='+encodeURIComponent(inp.value.trim())):'')); });
+    w.appendChild(box);
+    if(!q) w.appendChild(h('p',{class:'muted'}, t('search_hint')));
+    else if(!res.length) w.appendChild(h('div',{class:'state'}, ic('search'), h('h3',null,t('search_none')), h('a',{class:'btn btn--primary mt-16', href:U(buildPath('units'))}, t('search_finder'))));
+    else {
+      var byType={}; res.forEach(function(d){ (byType[d.type]=byType[d.type]||[]).push(d); });
+      SEARCH_TYPES.forEach(function(ty){ if(!byType[ty]) return;
+        w.appendChild(h('h3',{style:'font-size:1.12rem;margin:22px 0 10px'}, (lang==='ar'?SEARCH_TYPE_LABEL[ty].ar:SEARCH_TYPE_LABEL[ty].en)+' · '+num(byType[ty].length)));
+        var col=h('div',{style:'display:flex;flex-direction:column;gap:8px'});
+        byType[ty].forEach(function(d){ col.appendChild(h('a',{class:'dev-card', href:U(d.href)},
+          h('div',{class:'dev-logo', style:'width:40px;height:40px;font-size:1rem'}, ic(d.icon||'arrow')),
+          h('div',{class:'meta'}, h('h3',{style:'font-size:.98rem'}, d.title), d.subtitle?h('p',null,d.subtitle):null))); });
+        w.appendChild(col);
+      });
+    }
+    sec.appendChild(w); node.appendChild(sec);
+    return {node:node, title:(q?('“'+q+'” — '):'')+t('search_h')+' · The Village Investment', desc:t('search_p'),
+      indexable:false, crumbs:[{label:'Home',path:buildPath('home')},{label:t('search_h')}]};
+  };
 
   /* ---- Projects list (also serves /new-launches/) ---- */
   V.projects = function(preset){
@@ -2332,6 +2529,7 @@
       case 'home': return V.home();
       case 'projects': return V.projects(null);
       case 'units': return V.units();
+      case 'search': return V.search();
       case 'launches': return V.projects('launch');
       case 'project': return V.project(r.params.slug);
       case 'developers': return V.developers();
@@ -2518,6 +2716,7 @@
      ================================================================== */
   route();
   chatBuild();
+  searchInit();
   </script>
 </body>
 </html>
