@@ -603,6 +603,18 @@
   .tl-bar{flex:1;height:2px;background:var(--line-cool);margin-top:7px;min-width:20px}
   .tl-bar--done{background:var(--teal-600)}
   @media (max-width:560px){ .tl-node{width:70px} .tl-lbl{font-size:.68rem} }
+  /* horizontal carousel (New Launches) + empty states */
+  .sec-row{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:8px}
+  .hscroll{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 2px 20px;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:var(--line-cool) transparent}
+  .hscroll__cell{flex:0 0 300px;max-width:86vw;scroll-snap-align:start}
+  @media (min-width:700px){ .hscroll__cell{flex-basis:328px} }
+  .hscroll::-webkit-scrollbar{height:8px}
+  .hscroll::-webkit-scrollbar-thumb{background:var(--line-cool);border-radius:8px}
+  .hscroll::-webkit-scrollbar-track{background:transparent}
+  .empty-state{text-align:center;padding:48px 20px;display:flex;flex-direction:column;align-items:center;gap:14px}
+  .empty-ico{width:66px;height:66px;border-radius:50%;background:var(--bone-2);color:var(--teal-600);display:grid;place-items:center}
+  .empty-ico svg{width:28px;height:28px}
+  .empty-state p{color:var(--ink-3);max-width:38ch;margin:0}
   /* ---- Recommendation engine (Exact / Balanced / Flexible) ---- */
   .mode-seg{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:16px}
   .mode-seg__lbl{font-size:.8rem;font-weight:700;color:var(--ink-3);margin-inline-end:2px}
@@ -942,7 +954,8 @@
     en: {
       invest:"Investment", skip:"Skip to main content", intro_skip:"Skip",
       nav_home:"Home", nav_projects:"Projects", nav_developers:"Developers", nav_areas:"Areas",
-      nav_insights:"Insights", nav_about:"About", nav_launches:"New launches",
+      nav_insights:"Insights", nav_about:"About", nav_launches:"New launches", nav_search:"Search", nav_favorites:"Favorites",
+      fav_h:"Your favorites", fav_p:"Projects you've saved — kept on this device.", fav_empty:"No favorites yet. Tap the heart on any project to save it here.",
       nav_faqs:"FAQs", nav_contact:"Contact", nav_compare:"Compare",
       cta_talk:"Talk to an advisor", cta_explore:"Explore projects", cta_details:"View details",
       cta_more:"Learn more", cta_all:"View all", cta_reset:"Reset filters", cta_apply:"Apply",
@@ -1046,7 +1059,8 @@
     ar: {
       invest:"للاستثمار العقاري", skip:"تخطَّ إلى المحتوى", intro_skip:"تخطّي",
       nav_home:"الرئيسية", nav_projects:"المشروعات", nav_developers:"المطوّرون", nav_areas:"المناطق",
-      nav_insights:"مقالات", nav_about:"من نحن", nav_launches:"إطلاقات جديدة",
+      nav_insights:"مقالات", nav_about:"من نحن", nav_launches:"إطلاقات جديدة", nav_search:"بحث", nav_favorites:"المفضّلة",
+      fav_h:"مفضّلتك", fav_p:"المشروعات التي حفظتها — تُحفظ على هذا الجهاز.", fav_empty:"لا توجد مفضّلة بعد. اضغط القلب على أي مشروع لحفظه هنا.",
       nav_faqs:"الأسئلة الشائعة", nav_contact:"تواصل معنا", nav_compare:"المقارنة",
       cta_talk:"تحدّث إلى مستشار", cta_explore:"استكشف المشروعات", cta_details:"عرض التفاصيل",
       cta_more:"اعرف أكثر", cta_all:"عرض الكل", cta_reset:"مسح الفلاتر", cta_apply:"تطبيق",
@@ -1895,6 +1909,7 @@
       case 'insight': return b+'insights/'+params.slug+'/';
       case 'faqs': return b+'faqs/';
       case 'about': return b+'about/';
+      case 'favorites': return b+'favorites/';
       case 'contact': return b+'contact/';
       case 'privacy': return b+'privacy/';
       case 'terms': return b+'terms/';
@@ -1924,6 +1939,7 @@
     else if(seg[0]==='insights'){ name = seg[1]?'insight':'insights'; if(seg[1]) params.slug=seg[1]; }
     else if(seg[0]==='faqs') name='faqs';
     else if(seg[0]==='about') name='about';
+    else if(seg[0]==='favorites') name='favorites';
     else if(seg[0]==='contact') name='contact';
     else if(seg[0]==='privacy') name='privacy';
     else if(seg[0]==='terms') name='terms';
@@ -2170,9 +2186,10 @@
     var ours = ['ogami-north-coast','june-north-coast','caesar-north-coast','ramla-ras-el-hekma','modon-ras-el-hekma'].map(projBySlug).filter(Boolean);
     if(ours.length) node.appendChild(listSection(t('home_ours_k'), t('home_ours_h'), t('home_ours_p'), ours.map(projectCard),
       {label:t('nav_projects'), path:buildPath('projects')}));
-    // new launches
-    node.appendChild(listSection(t('nav_launches'), t('home_launch_h'), t('home_launch_p'), launches.map(projectCard),
-      {label:t('cta_all'), path:buildPath('launches')}));
+    // new launches — horizontal, snap-scrolling carousel
+    var launchAll = PROJECTS.filter(function(p){return p.status==='launch';}).slice(0,10);
+    node.appendChild(carouselSection(t('nav_launches'), t('home_launch_h'), t('home_launch_p'),
+      (launchAll.length?launchAll:launches).map(projectCard), {label:t('cta_all'), path:buildPath('launches')}));
     // featured
     node.appendChild(listSection('', t('home_feat_h'), t('home_feat_p'), feat.map(projectCard),
       {label:t('cta_all'), path:buildPath('projects')}, 'band'));
@@ -2203,6 +2220,20 @@
     return {node:node, title:t('nav_about')==='من نحن'?'The Village Investment — عقارات البيع الأولي في مصر':'The Village Investment — Primary-Sale Property & New Launches in Egypt',
       desc:t('hero_p'), indexable:true, crumbs:[], name:'home'};
   };
+  V.favorites = function(){
+    var ps=[]; saved.forEach(function(s){ var p=projBySlug(s); if(p) ps.push(p); });
+    var node=h('div',null);
+    node.appendChild(sectionWrap(
+      crumbNode([{label:t('nav_home'),path:buildPath('home')},{label:t('nav_favorites')}]),
+      sectionHead(t('hero_kicker'), t('fav_h'), t('fav_p'), 'h1')));
+    var sec=h('section',{style:'padding-bottom:clamp(40px,7vw,80px)'}), w=h('div',{class:'wrap'});
+    if(ps.length){ w.appendChild(h('div',{class:'grid grid--3'}, ps.map(projectCard))); }
+    else { w.appendChild(h('div',{class:'empty-state'}, h('div',{class:'empty-ico'}, ic('heart')),
+      h('p',null, t('fav_empty')), h('a',{class:'btn btn--primary', href:U(buildPath('projects'))}, t('cta_explore')))); }
+    sec.appendChild(w); node.appendChild(sec);
+    return {node:node, title:t('nav_favorites')+' · The Village Investment', desc:t('fav_p'), indexable:false,
+      crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_favorites')}]};
+  };
   function stat(b,s){ return h('div',{class:'stat'}, h('b',null,b), h('span',null,s)); }
   function feature(icon,title,txt){
     return h('div',{class:'card', style:'padding:22px'},
@@ -2215,6 +2246,16 @@
     var head = sectionHead(kick,title,desc);
     if(cta){ var row=h('div',{style:'display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap'}, head, h('a',{class:'btn btn--ghost btn--sm', href:U(cta.path)}, cta.label, ic('arrow'))); sec.appendChild(h('div',{class:'wrap'}, row, h('div',{class:'grid '+(gridCls||'grid--3'), style:'margin-top:8px'}, items))); }
     else sec.appendChild(h('div',{class:'wrap'}, head, h('div',{class:'grid '+(gridCls||'grid--3')}, items)));
+    return sec;
+  }
+  // Horizontal, snap-scrolling carousel (New Launches) — premium portal pattern
+  function carouselSection(kick,title,desc,items,cta,band){
+    var sec=h('section',{class:'section'+(band?(' '+band):'')});
+    var head=sectionHead(kick,title,desc);
+    var row=cta ? h('div',{class:'sec-row'}, head, h('a',{class:'btn btn--ghost btn--sm', href:U(cta.path)}, cta.label, ic('arrow'))) : head;
+    var track=h('div',{class:'hscroll', role:'list', 'aria-label':title});
+    items.forEach(function(it){ var cell=h('div',{class:'hscroll__cell', role:'listitem'}, it); track.appendChild(cell); });
+    sec.appendChild(h('div',{class:'wrap'}, row, track));
     return sec;
   }
   function field(kind,id,label,children){
@@ -3570,8 +3611,8 @@
      ROUTER + CHROME + HEAD
      ================================================================== */
   var currentRoute=null;
-  var NAV=[['projects','nav_projects'],['developers','nav_developers'],['areas','nav_areas'],['insights','nav_insights'],['about','nav_about']];
-  var NAV_GROUP={home:'',projects:'projects',project:'projects',launches:'projects',developers:'developers',developer:'developers',areas:'areas',area:'areas',insights:'insights',insight:'insights',about:'about'};
+  var NAV=[['units','nav_search'],['launches','nav_launches'],['developers','nav_developers'],['areas','nav_areas'],['about','nav_about'],['favorites','nav_favorites']];
+  var NAV_GROUP={home:'',units:'units',unit:'units',project:'units',projects:'units',launches:'launches',developers:'developers',developer:'developers',areas:'areas',area:'areas',insights:'',insight:'',about:'about',favorites:'favorites'};
 
   function viewFor(r){
     switch(r.name){
@@ -3592,6 +3633,7 @@
       case 'insight': return V.insight(r.params.slug);
       case 'faqs': return V.faqs();
       case 'about': return V.about();
+      case 'favorites': return V.favorites();
       case 'contact': return V.contact();
       case 'privacy': return V.privacy();
       case 'terms': return V.terms();
