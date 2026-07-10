@@ -471,15 +471,13 @@
   .chat-fab svg{width:22px;height:22px}
   @media(max-width:640px){.chat-fab{inset-block-end:84px;padding:0;width:52px;justify-content:center}.chat-fab .lbl{display:none}}
   /* ---- Floating contact rail (phone / email / WhatsApp) + 30s nudge ---- */
-  .contact-rail{position:fixed;inset-inline-end:0;top:50%;transform:translateY(-50%);z-index:92;display:flex;flex-direction:column;gap:3px}
-  .cr-btn{width:44px;height:44px;display:grid;place-items:center;background:var(--teal-700);color:var(--bone);box-shadow:0 5px 16px rgba(7,61,82,.30);transition:background var(--t),width var(--t)}
-  .cr-btn svg{width:21px;height:21px}
-  .cr-btn:first-child{border-start-start-radius:13px}
-  .cr-btn:last-child{border-end-start-radius:13px}
-  .cr-btn:hover,.cr-btn:focus-visible{background:var(--teal-800);width:50px;outline:none}
-  .cr-btn--wa{background:#1f8f4e}
-  .cr-btn--wa:hover,.cr-btn--wa:focus-visible{background:#187a40}
-  .rail-nudge{position:fixed;inset-inline-end:56px;top:50%;transform:translateY(-50%) translateX(14px);z-index:91;display:flex;align-items:center;gap:9px;max-width:min(74vw,258px);padding:10px 12px;background:var(--paper);color:var(--ink);border:1px solid var(--line-2);border-radius:14px;box-shadow:0 12px 34px rgba(7,61,82,.24);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .3s,transform .3s,visibility .3s;text-decoration:none;font-size:.85rem;font-weight:600;line-height:1.3}
+  .contact-rail{position:fixed;inset-inline-end:14px;top:50%;transform:translateY(-50%);z-index:92;display:flex;flex-direction:column;align-items:center;gap:2px;background:var(--paper);padding:7px 6px;border-radius:36px;box-shadow:0 10px 34px rgba(7,61,82,.20);border:1px solid var(--line-2)}
+  .cr-btn{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:transparent;color:var(--teal-800);transition:var(--t)}
+  .cr-btn svg{width:24px;height:24px}
+  .cr-btn:hover,.cr-btn:focus-visible{background:var(--teal-050);transform:scale(1.08);outline:none}
+  .cr-btn--wa{color:var(--teal-800)}
+  .cr-btn--wa:hover,.cr-btn--wa:focus-visible{background:var(--teal-050)}
+  .rail-nudge{position:fixed;inset-inline-end:82px;top:50%;transform:translateY(-50%) translateX(14px);z-index:91;display:flex;align-items:center;gap:9px;max-width:min(74vw,258px);padding:10px 12px;background:var(--paper);color:var(--ink);border:1px solid var(--line-2);border-radius:14px;box-shadow:0 12px 34px rgba(7,61,82,.24);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .3s,transform .3s,visibility .3s;text-decoration:none;font-size:.85rem;font-weight:600;line-height:1.3}
   .rail-nudge.show{opacity:1;visibility:visible;transform:translateY(-50%) translateX(0);pointer-events:auto}
   .rail-nudge__ic{width:30px;height:30px;border-radius:50%;background:#1f8f4e;color:#fff;display:grid;place-items:center;flex:none}
   .rail-nudge__ic svg{width:17px;height:17px}
@@ -487,7 +485,7 @@
   .rail-nudge__x{flex:none;border:none;background:transparent;color:var(--ink-3);font-size:1.15rem;line-height:1;cursor:pointer;padding:0 2px}
   .rail-nudge__x:hover{color:var(--ink)}
   @media(prefers-reduced-motion:reduce){.rail-nudge{transition:opacity .2s}.rail-nudge.show{transform:translateY(-50%)}.cr-btn{transition:background var(--t)}.cr-btn:hover,.cr-btn:focus-visible{width:44px}}
-  @media(max-width:640px){.cr-btn{width:40px;height:40px}.cr-btn svg{width:19px;height:19px}.rail-nudge{inset-inline-end:50px;font-size:.8rem}}
+  @media(max-width:640px){.contact-rail{inset-inline-end:10px}.cr-btn{width:42px;height:42px}.cr-btn svg{width:22px;height:22px}.rail-nudge{inset-inline-end:74px;font-size:.8rem}}
   .chat-panel{position:fixed;inset-block-end:20px;inset-inline-end:20px;z-index:120;width:min(94vw,380px);height:min(74vh,580px);background:var(--bone-2);border-radius:var(--r-lg);box-shadow:var(--shadow-lg);display:none;flex-direction:column;overflow:hidden;border:1px solid var(--line-2)}
   .chat-panel.open{display:flex}
   @media(max-width:640px){.chat-panel{inset:auto 8px calc(8px + env(safe-area-inset-bottom)) 8px;width:auto;height:82vh;border-radius:var(--r-lg)}}
@@ -734,6 +732,9 @@
     arr.forEach(function(d){ var p = document.createElementNS('http://www.w3.org/2000/svg','path'); p.setAttribute('d', d); s.appendChild(p); });
     return s;
   }
+  function svgSolid(path, vb){ var s=document.createElementNS('http://www.w3.org/2000/svg','svg');
+    s.setAttribute('viewBox', vb||'0 0 24 24'); s.setAttribute('fill','currentColor'); s.setAttribute('aria-hidden','true');
+    var p=document.createElementNS('http://www.w3.org/2000/svg','path'); p.setAttribute('d', path); s.appendChild(p); return s; }
   var ICON = {
     pin:'M12 21s-7-5.7-7-11a7 7 0 0 1 14 0c0 5.3-7 11-7 11z M12 10a2 2 0 1 0 0-.01',
     build:'M4 21V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v16 M14 21V9h4a2 2 0 0 1 2 2v10 M7 7h2M7 11h2M7 15h2',
@@ -753,6 +754,7 @@
     ban:'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z M5.6 5.6l12.8 12.8',
     phone:'M6.6 3.5 4 4.2C3 4.5 2.6 5.6 3 6.6a17 17 0 0 0 14.4 14.4c1 .4 2.1 0 2.4-1l.7-2.6-4.6-2-1.6 2A13 13 0 0 1 8.6 9.1l2-1.6-2-4z',
     wa:'M20 12a8 8 0 0 1-11.9 7L4 20l1.1-4A8 8 0 1 1 20 12z M9 9c0 4 2 6 6 6',
+    wa_solid:'M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z',
     send:'M22 2 11 13 M22 2 15 22l-4-9-9-4z',
     /* spec icons */
     bed:['M3 18v-6h13a4 4 0 0 1 4 4v2','M3 12V8h7a3 3 0 0 1 3 3v1','M3 18h18','M20 18v2M4 18v2'],
@@ -1056,10 +1058,10 @@
     {slug:'cairo-gate', name:'Cairo Gate', name_ar:'كايرو جيت', dev:'palmhills', area:'zayed', status:'launch', price:11500000, dp:10, years:8, delivery:'2027', finishing:{en:'Semi-finished',ar:'نصف تشطيب'}, types:{en:'Apartment · Townhouse',ar:'شقة · تاون هاوس'}, tags:{en:['Sheikh Zayed','Gateway'],ar:['الشيخ زايد','بوابة']}, blurb:{en:'A gateway West Cairo launch by Palm Hills on the Cairo–Alexandria corridor.',ar:'إطلاق مميّز بغرب القاهرة من بالم هيلز على محور القاهرة–الإسكندرية.'}},
     {slug:'aeon', name:'Aeon', name_ar:'إيون', dev:'marakez', area:'october', status:'launch', price:6000000, dp:10, years:8, delivery:'2028', finishing:{en:'Semi-finished',ar:'نصف تشطيب'}, types:{en:'Apartment',ar:'شقق'}, tags:{en:['6th of October','Mixed-use'],ar:['٦ أكتوبر','متعدد الاستخدامات']}, blurb:{en:'A mixed-use launch in 6th of October pairing homes with retail and offices.',ar:'إطلاق متعدد الاستخدامات ب٦ أكتوبر يجمع السكن مع التجزئة والمكاتب.'}},
     {slug:'il-monte-galala', name:'Il Monte Galala', name_ar:'إل مونتي جلالة', dev:'tatweer', area:'sokhna', status:'primary', price:6500000, dp:10, years:8, delivery:'2027', finishing:{en:'Fully finished',ar:'تشطيب كامل'}, types:{en:'Chalet · Cabin · Villa',ar:'شاليه · كابين · فيلا'}, tags:{en:['Ain Sokhna','Sea view'],ar:['العين السخنة','إطلالة بحر']}, blurb:{en:'A terraced mountain-and-sea resort in Ain Sokhna by Tatweer Misr.',ar:'منتجع جبلي بحري متدرّج بالعين السخنة من تطوير مصر.'}},
-    /* --- The Village's own listed projects (Ras El Hekma, North Coast). Prices, payment plans, delivery and unit mix are TO CONFIRM — placeholders left null until the owner supplies the exact figures. --- */
-    {slug:'ogami-north-coast', name:'Ogami', name_ar:'أوجامي', dev:'sodic', area:'sahel', status:'launch', price:null, dp:null, years:null, delivery:'', finishing:{en:'Fully finished',ar:'تشطيب كامل'}, types:{en:'Chalet · Twin house · Villa',ar:'شاليه · توين هاوس · فيلا'}, tags:{en:['Ras El Hekma','Beachfront'],ar:['رأس الحكمة','على البحر']}, blurb:{en:'SODIC’s Ras El Hekma resort on the North Coast — developer-direct primary coastal units. Current prices, payment plans and unit mix are being confirmed with the developer.',ar:'منتجع سوديك برأس الحكمة على الساحل الشمالي — وحدات ساحلية أولية من المطوّر مباشرة. يجري تأكيد الأسعار وخطط السداد ومزيج الوحدات الحالي مع المطوّر.'}},
-    {slug:'ramla-ras-el-hekma', name:'Ramla', name_ar:'رملة', dev:'marakez', area:'sahel', status:'launch', price:null, dp:null, years:null, delivery:'', finishing:{en:'Fully finished',ar:'تشطيب كامل'}, types:{en:'Chalet · Villa',ar:'شاليه · فيلا'}, tags:{en:['Ras El Hekma','Beachfront'],ar:['رأس الحكمة','على البحر']}, blurb:{en:'Marakez’s Ramla coastal destination on the Ras El Hekma North Coast — developer-direct primary units. Prices, payment plan and unit details are being confirmed with the developer.',ar:'وجهة رملة الساحلية من مراكز برأس الحكمة على الساحل الشمالي — وحدات أولية من المطوّر مباشرة. يجري تأكيد الأسعار وخطة السداد وتفاصيل الوحدات مع المطوّر.'}},
-    {slug:'modon-ras-el-hekma', name:'Modon Ras El Hekma', name_ar:'مدن رأس الحكمة', dev:'modon', area:'sahel', status:'launch', price:null, dp:null, years:null, delivery:'', finishing:{en:'Fully finished',ar:'تشطيب كامل'}, types:{en:'Chalet · Twin house · Villa',ar:'شاليه · توين هاوس · فيلا'}, tags:{en:['Ras El Hekma','Master-planned'],ar:['رأس الحكمة','مخطط متكامل']}, blurb:{en:'Modon’s master-planned Ras El Hekma destination on the North Coast — developer-direct primary coastal units. Current prices, plans and availability are being confirmed with the developer.',ar:'وجهة مدن المخطّطة برأس الحكمة على الساحل الشمالي — وحدات ساحلية أولية من المطوّر مباشرة. يجري تأكيد الأسعار والخطط والإتاحة الحالية مع المطوّر.'}}
+    /* --- The Village's own listed projects (Ras El Hekma, North Coast) — figures from the owner's project files; all commercial numbers remain illustrative/badged. --- */
+    {slug:'ogami-north-coast', name:'Ogami', name_ar:'أوجامي', dev:'sodic', area:'sahel', status:'launch', price:22800000, dp:5, years:8, delivery:'2029', finishing:{en:'Fully finished',ar:'تشطيب كامل'}, types:{en:'Chalet · Townhouse · Twin house · Villa',ar:'شاليه · تاون هاوس · توين هاوس · فيلا'}, tags:{en:['Ras El Hekma','Nobu-branded','5% down'],ar:['رأس الحكمة','بشراكة Nobu','مقدم ٥٪']}, blurb:{en:'SODIC’s Japanese-inspired Ras El Hekma resort at Km 205 on 440 feddan — an 800m private crystalline beach, 11km of swimmable lagoons and a Nobu hotel with branded residences. Developer-direct primary units.',ar:'منتجع سوديك المستوحى من اليابان برأس الحكمة عند الكيلو ٢٠٥ على مساحة ٤٤٠ فدان — شاطئ كريستالي خاص ٨٠٠ متر و١١ كم بحيرات قابلة للسباحة وفندق Nobu بريزيدنسز فندقية. وحدات أولية من المطوّر مباشرة.'}},
+    {slug:'ramla-ras-el-hekma', name:'Ramla', name_ar:'رملة', dev:'marakez', area:'sahel', status:'launch', price:22700000, dp:10, years:8, delivery:'2026', finishing:{en:'Fully finished',ar:'تشطيب كامل'}, types:{en:'Chalet · Twin house · Villa',ar:'شاليه · توين هاوس · فيلا'}, tags:{en:['Ras El Hekma','Beachfront','10% down'],ar:['رأس الحكمة','على البحر','مقدم ١٠٪']}, blurb:{en:'Marakez’s Ramla in the heart of Ras El Hekma bay on 400 feddan — fully finished chalets, twin houses and standalone villas with sea and lagoon views. Delivery by Q4 2026. Developer-direct primary units.',ar:'وجهة رملة من مراكز في قلب خليج رأس الحكمة على مساحة ٤٠٠ فدان — شاليهات وتوين هاوس وفيلات مستقلة كاملة التشطيب بإطلالات على البحر والبحيرات. التسليم بحلول الربع الأخير من ٢٠٢٦. وحدات أولية من المطوّر مباشرة.'}},
+    {slug:'modon-ras-el-hekma', name:'Modon Ras El Hekma', name_ar:'مدن رأس الحكمة', dev:'modon', area:'sahel', status:'launch', price:14000000, dp:5, years:8, delivery:'', finishing:{en:'Fully finished',ar:'تشطيب كامل'}, types:{en:'Apartment · Townhouse',ar:'شقة · تاون هاوس'}, tags:{en:['Ras El Hekma','Master-planned','5% down'],ar:['رأس الحكمة','مخطط متكامل','مقدم ٥٪']}, blurb:{en:'Modon Holding’s (UAE) master-planned coastal city on 40,000 feddan in Ras El Hekma — Beach Plaza apartments, Wadi West townhouses and Boulevard units, fully finished with AC and fitted kitchens. Developer-direct primary units.',ar:'مدينة مدن القابضة الإماراتية الساحلية المخطّطة على ٤٠٬٠٠٠ فدان برأس الحكمة — شقق Beach Plaza وتاون هاوس Wadi West ووحدات Boulevard كاملة التشطيب بتكييف ومطبخ جاهز. وحدات أولية من المطوّر مباشرة.'}}
   ];
 
   /* Representative UNITS — illustrative sample inventory (always badged).
@@ -1102,15 +1104,22 @@
     {id:'HP-V6B',  project:'hyde-park-new-cairo', type:'Villa',            beds:6, baths:6, area:420, price:32000000, avail:'available'},
     {id:'D5-A0T',  project:'district-5',          type:'Apartment',        beds:null, baths:2, area:130, price:6600000, avail:'to-confirm'},
     {id:'AE-AO3',  project:'aeon',                type:'Administrative Office', beds:0, baths:1, area:110, price:9200000, avail:'available', floor:'middle'},
-    /* The Village's own listings — unit specs & prices TO CONFIRM (owner to supply). */
-    {id:'OG-CH1',  project:'ogami-north-coast',  type:'Chalet',           beds:null, baths:null, area:null, price:null, avail:'to-confirm'},
-    {id:'OG-TW1',  project:'ogami-north-coast',  type:'Twin house',       beds:null, baths:null, area:null, price:null, avail:'to-confirm'},
-    {id:'OG-VL1',  project:'ogami-north-coast',  type:'Standalone Villa', beds:null, baths:null, area:null, price:null, avail:'to-confirm'},
-    {id:'RM-CH1',  project:'ramla-ras-el-hekma', type:'Chalet',           beds:null, baths:null, area:null, price:null, avail:'to-confirm'},
-    {id:'RM-VL1',  project:'ramla-ras-el-hekma', type:'Villa',            beds:null, baths:null, area:null, price:null, avail:'to-confirm'},
-    {id:'MD-CH1',  project:'modon-ras-el-hekma', type:'Chalet',           beds:null, baths:null, area:null, price:null, avail:'to-confirm'},
-    {id:'MD-TW1',  project:'modon-ras-el-hekma', type:'Twin house',       beds:null, baths:null, area:null, price:null, avail:'to-confirm'},
-    {id:'MD-VL1',  project:'modon-ras-el-hekma', type:'Standalone Villa', beds:null, baths:null, area:null, price:null, avail:'to-confirm'}
+    /* The Village's own listings — specs & prices from the owner's project files (illustrative/badged). */
+    {id:'OG-WC1', project:'ogami-north-coast',  type:'Chalet',           beds:2, baths:2, area:150, price:22800000, avail:'available'},
+    {id:'OG-TH1', project:'ogami-north-coast',  type:'Townhouse',        beds:3, baths:3, area:226, price:36100000, avail:'available'},
+    {id:'OG-TW1', project:'ogami-north-coast',  type:'Twin house',       beds:4, baths:4, area:268, price:49100000, avail:'available'},
+    {id:'OG-BV1', project:'ogami-north-coast',  type:'Standalone Villa', beds:4, baths:4, area:254, price:56000000, avail:'available'},
+    {id:'RM-CH1', project:'ramla-ras-el-hekma', type:'Chalet',           beds:2, baths:2, area:130, price:22700000, avail:'available'},
+    {id:'RM-CH2', project:'ramla-ras-el-hekma', type:'Chalet',           beds:4, baths:3, area:200, price:25100000, avail:'available'},
+    {id:'RM-CR1', project:'ramla-ras-el-hekma', type:'Chalet',           beds:2, baths:2, area:131, price:23800000, avail:'available', floor:'top', roof:true},
+    {id:'RM-TW1', project:'ramla-ras-el-hekma', type:'Twin house',       beds:4, baths:4, area:200, price:54600000, avail:'available'},
+    {id:'RM-TW2', project:'ramla-ras-el-hekma', type:'Twin house',       beds:4, baths:4, area:168, price:60100000, avail:'available'},
+    {id:'RM-VL1', project:'ramla-ras-el-hekma', type:'Standalone Villa', beds:4, baths:5, area:260, price:80400000, avail:'available'},
+    {id:'MD-BP1', project:'modon-ras-el-hekma', type:'Apartment',        beds:1, baths:1, area:93,  price:14000000, avail:'available', floor:'low'},
+    {id:'MD-BP2', project:'modon-ras-el-hekma', type:'Apartment',        beds:2, baths:2, area:145, price:23000000, avail:'available', floor:'middle'},
+    {id:'MD-BP3', project:'modon-ras-el-hekma', type:'Apartment',        beds:3, baths:3, area:193, price:32000000, avail:'available', floor:'high'},
+    {id:'MD-WW1', project:'modon-ras-el-hekma', type:'Townhouse',        beds:3, baths:3, area:248, price:38000000, avail:'available'},
+    {id:'MD-WW2', project:'modon-ras-el-hekma', type:'Townhouse',        beds:4, baths:4, area:255, price:45000000, avail:'available'}
   ];
   // Floor / internal-level enrichment (illustrative). Units without a floor
   // remain "floor to confirm" and never pass a strict floor filter.
@@ -2192,8 +2201,8 @@
     var rail=h('div',{class:'contact-rail', id:'contact-rail', role:'group'});
     var phoneB = CONFIG.phone ? h('a',{class:'cr-btn'}, ic('phone')) : null;
     var emailB = CONFIG.email ? h('a',{class:'cr-btn'}, ic('mail')) : null;
-    var waB    = CONFIG.whatsapp ? h('a',{class:'cr-btn cr-btn--wa', target:'_blank', rel:'noopener'}, ic('wa')) : null;
-    [phoneB,emailB,waB].forEach(function(b){ if(b) rail.appendChild(b); });
+    var waB    = CONFIG.whatsapp ? h('a',{class:'cr-btn cr-btn--wa', target:'_blank', rel:'noopener'}, svgSolid(ICON.wa_solid)) : null;
+    [waB,phoneB,emailB].forEach(function(b){ if(b) rail.appendChild(b); });
     if(!rail.childNodes.length) return;
     document.body.appendChild(rail);
     railEls={rail:rail, phone:phoneB, email:emailB, wa:waB};
@@ -2203,7 +2212,7 @@
   function contactNudgeInit(){
     if(!CONFIG.whatsapp || railNudge.el) return;
     var link=h('a',{class:'rail-nudge', target:'_blank', rel:'noopener', 'aria-hidden':'true', tabindex:'-1'},
-      h('span',{class:'rail-nudge__ic'}, ic('wa')), h('span',{class:'rail-nudge__t'}, nudgeText()));
+      h('span',{class:'rail-nudge__ic'}, svgSolid(ICON.wa_solid)), h('span',{class:'rail-nudge__t'}, nudgeText()));
     var x=h('button',{class:'rail-nudge__x', type:'button', 'aria-label':t('a_close')}, '×');
     link.appendChild(x);
     x.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); railNudge.dismissed=true; clearTimeout(railNudge.timer); clearInterval(railNudge.timer); railNudgeHide(); track('contact_nudge_dismissed'); });
