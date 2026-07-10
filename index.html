@@ -532,6 +532,21 @@
   .search-btn{gap:8px;color:var(--ink-2)}
   .search-btn .sk{font-size:.68rem;background:var(--bone);border:1px solid var(--line);border-radius:5px;padding:1px 5px;color:var(--ink-3)}
   @media(max-width:520px){.search-btn .sk{display:none}}
+  /* ---- Print factsheet ---- */
+  #print-sheet{display:none}
+  .ps-head{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #073D52;padding-bottom:12px;margin-bottom:14px}
+  .ps-head img{height:34px}
+  .ps-title{font-family:var(--serif);font-size:1.6rem;color:#073D52;margin:6px 0}
+  .ps-table{width:100%;border-collapse:collapse;margin:12px 0}
+  .ps-table th,.ps-table td{text-align:start;padding:7px 10px;border:1px solid #ccc;font-size:.92rem}
+  .ps-table th{background:#f0ede6;width:40%}
+  .ps-note{font-size:.8rem;color:#555;margin-top:14px;border-top:1px solid #ccc;padding-top:10px}
+  @media print{
+    header.site,footer.site,.mobile-bar,.chat-fab,.chat-panel,.pal-back,#drawer,.drawer-back,.toast-host{display:none!important}
+    body>*:not(#print-sheet){display:none!important}
+    body{background:#fff}
+    #print-sheet{display:block!important;padding:20px;color:#111}
+  }
   </style>
 </head>
 
@@ -615,6 +630,7 @@
   </div>
 
   <div class="toast-host" id="toast-host" aria-live="polite"></div>
+  <div id="print-sheet" aria-hidden="true"></div>
 
   <script>
   "use strict";
@@ -825,7 +841,12 @@
       sort_delivery:"Earliest delivery", sort_newest:"Newest launch",
       nav_search:"Search", search_ph:"Search projects, units, developers, areas, guides…",
       search_hint:"Start typing to search across the whole site.", search_none:"No matches. Try a project, developer, area — or ask the assistant.",
-      search_finder:"Open the unit finder", search_h:"Search results", search_p:"Results across projects, units, developers, areas, guides and questions."
+      search_finder:"Open the unit finder", search_h:"Search results", search_p:"Results across projects, units, developers, areas, guides and questions.",
+      pay_calc:"Payment estimator", calc_price:"Unit price (EGP)", calc_dp:"Down payment %", calc_years:"Installment years",
+      calc_dp_amt:"Down payment", calc_monthly:"Est. monthly", calc_total:"Financed",
+      calc_note:"Indicative estimate only — confirm the developer's current plan with an advisor.",
+      print_sheet:"Print / Save as PDF", fs_generated:"Generated", fs_title:"Project factsheet", data_conf:"Data confidence",
+      conf_illustrative:"Illustrative", verified:"Verified", to_confirm:"To confirm"
     },
     ar: {
       invest:"للاستثمار العقاري", skip:"تخطَّ إلى المحتوى",
@@ -909,7 +930,12 @@
       sort_delivery:"الأقرب تسليماً", sort_newest:"الأحدث إطلاقاً",
       nav_search:"بحث", search_ph:"ابحث في المشروعات والوحدات والمطوّرين والمناطق والأدلة…",
       search_hint:"ابدأ الكتابة للبحث في كل الموقع.", search_none:"لا نتائج. جرّب مشروعاً أو مطوّراً أو منطقة — أو اسأل المساعد.",
-      search_finder:"افتح محرّك البحث عن الوحدات", search_h:"نتائج البحث", search_p:"نتائج عبر المشروعات والوحدات والمطوّرين والمناطق والأدلة والأسئلة."
+      search_finder:"افتح محرّك البحث عن الوحدات", search_h:"نتائج البحث", search_p:"نتائج عبر المشروعات والوحدات والمطوّرين والمناطق والأدلة والأسئلة.",
+      pay_calc:"حاسبة السداد", calc_price:"سعر الوحدة (ج.م)", calc_dp:"الدفعة المقدمة %", calc_years:"سنوات التقسيط",
+      calc_dp_amt:"الدفعة المقدمة", calc_monthly:"القسط الشهري التقديري", calc_total:"المموَّل",
+      calc_note:"تقدير استرشادي فقط — أكّد خطة المطوّر الحالية مع المستشار.",
+      print_sheet:"طباعة / حفظ PDF", fs_generated:"تاريخ الإصدار", fs_title:"ملف المشروع", data_conf:"موثوقية البيانات",
+      conf_illustrative:"استرشادي", verified:"موثّق", to_confirm:"قيد التأكيد"
     }
   };
 
@@ -1199,6 +1225,47 @@
   function typeIcon(t, cls){ return ic(typeMeta(t).icon, cls); }
   function typeLabel(t){ return lang==='ar' ? typeMeta(t).ar : t; }
   function unitsIn(slug){ return UNITS.filter(function(u){ return u.project===slug; }); }
+
+  /* Payment estimator (indicative only) */
+  function field2(label, input){ return h('div',{class:'field',style:'margin:0'}, h('label',{style:'font-size:.72rem'},label), input); }
+  function paymentCalc(p){
+    var price=h('input',{type:'number',inputmode:'numeric',value:p.price,'aria-label':t('calc_price')});
+    var dp=h('input',{type:'number',inputmode:'numeric',value:p.dp||10,'aria-label':t('calc_dp')});
+    var yrs=h('input',{type:'number',inputmode:'numeric',value:p.years||8,'aria-label':t('calc_years')});
+    var out=h('div',{style:'margin-top:10px'});
+    function calc(){ var P=+price.value||0, D=+dp.value||0, Y=+yrs.value||1;
+      var dpAmt=Math.round(P*D/100), monthly=Y>0?Math.round((P-dpAmt)/(Y*12)):0; clear(out);
+      out.appendChild(h('div',{class:'spec-row'},
+        h('span',{class:'spec'}, h('span',{class:'spec-lbl'}, t('calc_dp_amt')+': '), h('b',null, money(dpAmt))),
+        h('span',{class:'spec'}, h('span',{class:'spec-lbl'}, t('calc_monthly')+': '), h('b',null, money(monthly))))); }
+    [price,dp,yrs].forEach(function(i){ i.addEventListener('input', calc); });
+    calc();
+    return h('div',{class:'aside-card',style:'margin-top:16px'},
+      h('div',{class:'muted',style:'font-weight:700;font-size:.85rem'}, t('pay_calc')),
+      field2(t('calc_price'), price),
+      h('div',{class:'field-row',style:'margin-top:8px'}, field2(t('calc_dp'), dp), field2(t('calc_years'), yrs)),
+      out, h('div',{class:'prov',style:'margin-top:8px'}, ic('info'), t('calc_note')));
+  }
+  /* Print / Save-as-PDF factsheet (honest: uses the browser print pipeline) */
+  function printFactsheet(p){
+    var dev=devByKey(p.dev), area=areaByKey(p.area), sheet=document.getElementById('print-sheet'); if(!sheet) return; clear(sheet);
+    var bimg=document.querySelector('header .brand img'), logo=bimg?bimg.getAttribute('src'):'';
+    sheet.appendChild(h('div',{class:'ps-head'},
+      logo?h('img',{src:logo,alt:'The Village'}):h('strong',null,'The Village'),
+      h('div',{style:'text-align:end;font-size:.78rem;color:#555'}, t('fs_title'), h('div',null, t('fs_generated')+': '+new Date().toLocaleDateString(lang==='ar'?'ar-EG':'en-GB')))));
+    sheet.appendChild(h('div',{class:'ps-title'}, lang==='ar'?p.name_ar:p.name));
+    sheet.appendChild(h('div',{style:'color:#333;margin-bottom:8px'}, L(dev.name)+' · '+L(area.name)+' · '+statusLabel(p.status)));
+    var tbl=h('table',{class:'ps-table'});
+    [[t('price'), money(p.price)+' — '+t('conf_illustrative')],[t('units'),L(p.types)],[t('dp'),p.dp?num(p.dp)+'%':'—'],
+     [t('years'),p.years?num(p.years):'—'],[t('delivery'),p.delivery==='Ready'?t('ready'):p.delivery],[t('finishing'),L(p.finishing)]]
+      .forEach(function(r){ tbl.appendChild(h('tr',null,h('th',null,r[0]),h('td',null,r[1]))); });
+    sheet.appendChild(tbl);
+    sheet.appendChild(h('div',null, L(p.blurb)));
+    var contact=[]; if(CONFIG.phone) contact.push(CONFIG.phoneDisplay||CONFIG.phone); if(CONFIG.email) contact.push(CONFIG.email); if(CONFIG.whatsapp) contact.push('WhatsApp');
+    sheet.appendChild(h('div',{class:'ps-note'}, t('illustrative')+(contact.length?(' · '+contact.join(' · ')):'')));
+    track('factsheet_requested',{project:p.slug});
+    try{ window.print(); }catch(e){}
+  }
 
   /* ==================================================================
      RELATIONAL INVENTORY FILTER ENGINE  (spec §42)
@@ -1508,6 +1575,7 @@
     store('tv_saved', Array.from(saved));
     var on = saved.has(slug);
     if(btn){ btn.setAttribute('aria-pressed', on?'true':'false'); }
+    if(on) track('save_project', {project:slug});
     toast(on?t('saved'):t('save'), 'heart');
   }
 
@@ -1546,7 +1614,7 @@
   function toggleCompare(slug){
     var i = compare.indexOf(slug);
     if(i>-1) compare.splice(i,1);
-    else { if(compare.length>=3){ toast(lang==='ar'?'الحد الأقصى ٣ مشروعات':'Up to 3 projects','scale'); return; } compare.push(slug); }
+    else { if(compare.length>=3){ toast(lang==='ar'?'الحد الأقصى ٣ مشروعات':'Up to 3 projects','scale'); return; } compare.push(slug); track('compare_project', {project:slug}); }
     store('tv_compare', compare);
   }
 
@@ -1740,7 +1808,7 @@
     document.addEventListener('keydown', function(e){ if(e.key==='Escape' && panel.classList.contains('open')) chatClose(); });
     chatRefresh();
   }
-  function chatOpen(){ if(!chatEls) return; chatEls.panel.classList.add('open'); chatEls.panel.setAttribute('aria-hidden','false'); chatEls.fab.style.display='none'; chatRefresh(); setTimeout(function(){ chatEls.input.focus(); },50); }
+  function chatOpen(){ if(!chatEls) return; chatEls.panel.classList.add('open'); chatEls.panel.setAttribute('aria-hidden','false'); chatEls.fab.style.display='none'; chatRefresh(); track('ai_advisor_open'); setTimeout(function(){ chatEls.input.focus(); },50); }
   function chatClose(){ if(!chatEls) return; chatEls.panel.classList.remove('open'); chatEls.panel.setAttribute('aria-hidden','true'); chatEls.fab.style.display=''; }
   function chatRefresh(){
     if(!chatEls) return;
@@ -2062,7 +2130,9 @@
       h('div',{class:'card__foot', style:'margin-top:16px;flex-wrap:wrap'},
         h('a',{class:'btn btn--primary', href:U(buildPath('contact'))+'?p='+p.slug}, t('cta_talk')),
         compareBtn(p.slug)),
-      h('button',{class:'btn btn--ghost btn--sm', type:'button', style:'margin-top:10px', onclick:function(e){toggleSave(p.slug,null); render(currentRoute,{keep:true});}}, ic('heart'), saved.has(p.slug)?t('saved'):t('save')),
+      h('div',{style:'display:flex;gap:8px;flex-wrap:wrap;margin-top:10px'},
+        h('button',{class:'btn btn--ghost btn--sm', type:'button', onclick:function(e){toggleSave(p.slug,null); render(currentRoute,{keep:true});}}, ic('heart'), saved.has(p.slug)?t('saved'):t('save')),
+        h('button',{class:'btn btn--ghost btn--sm', type:'button', onclick:function(){ printFactsheet(p); }}, ic('doc'), t('print_sheet'))),
       h('div',{class:'notice notice--warn', style:'margin-top:16px'}, ic('info'), h('div',null, t('illustrative'))));
 
     wrap.appendChild(h('div',{class:'detail-hero'},
@@ -2075,8 +2145,9 @@
         h('p',{class:'muted', style:'max-width:60ch'}, L(p.blurb)),
         h('h2',{style:'font-size:1.3rem;margin-top:28px;margin-bottom:12px'}, t('facts')),
         facts),
-      aside));
+      h('div',null, aside, paymentCalc(p))));
     top.appendChild(wrap); node.appendChild(top);
+    track('project_viewed', {project:p.slug});
 
     // unit types (clear icons) + available units (image + specs)
     var typesEn=(p.types.en||'').split(' · ');
@@ -2466,6 +2537,7 @@
     }
   }
   function leadResult(form, ok, details){
+    track(ok===false?'lead_failed':'lead_submitted');
     var box=h('div',{class:'notice '+(ok===true?'notice--ok':ok===false?'notice--warn':'notice--info'), role:'status', style:'margin-top:16px'});
     if(ok===true){ box.appendChild(ic('check')); box.appendChild(h('div',null, lang==='ar'?'تم استلام طلبك بنجاح. سيتواصل معك مستشار قريباً.':'Your request was received. An advisor will be in touch shortly.')); form.reset(); }
     else if(ok===false){ box.appendChild(ic('info')); box.appendChild(h('div',null, lang==='ar'?'تعذّر إرسال الطلب الآن. برجاء المحاولة لاحقاً — لم نعرض رسالة نجاح زائفة.':'We could not send your request right now. Please try again later — we won’t show a fake success message.')); }
@@ -2680,8 +2752,16 @@
   document.addEventListener('click', function(e){
     var a=e.target.closest && e.target.closest('a'); if(!a) return;
     var href=a.getAttribute('href'); if(!href) return;
-    if(a.target==='_blank'||a.hasAttribute('download')) return;
-    if(/^(https?:|mailto:|tel:|#)/.test(href)) return;
+    if(a.target==='_blank'||a.hasAttribute('download')){
+      if(/wa\.me|whatsapp/i.test(href)) track('whatsapp_clicked');
+      return;
+    }
+    if(/^(https?:|mailto:|tel:|#)/.test(href)){
+      if(/wa\.me|whatsapp/i.test(href)) track('whatsapp_clicked');
+      else if(href.indexOf('tel:')===0) track('phone_clicked');
+      else if(href.indexOf('mailto:')===0) track('email_clicked');
+      return;
+    }
     e.preventDefault(); navigateTo(stripBase(a.pathname) + (a.search||''));
   });
   if(FILEMODE) window.addEventListener('hashchange', route);
