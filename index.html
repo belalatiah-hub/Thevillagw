@@ -570,6 +570,17 @@
   .results-head{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:16px}
   .results-head .rc{font-weight:700}
   .results-head select{min-height:42px;padding:8px 12px;border:1.5px solid var(--line-cool);border-radius:var(--r-sm);background:var(--paper);font:inherit}
+  .rhead-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .rhead-actions .btn svg{width:15px;height:15px}
+  .saved-searches{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:16px;padding:10px 12px;border:1px dashed var(--line-cool);border-radius:var(--r-md);background:var(--bone-2)}
+  .saved-searches .ss-lbl{display:inline-flex;align-items:center;gap:6px;font-size:.76rem;font-weight:700;color:var(--ink-3);text-transform:uppercase;letter-spacing:.04em}
+  .saved-searches .ss-lbl svg{width:14px;height:14px}
+  .ss-chip{display:inline-flex;align-items:center;gap:2px;background:var(--paper);border:1px solid var(--line-cool);border-radius:var(--r-pill);padding:3px 4px 3px 12px;font-size:.82rem}
+  .ss-chip a{color:var(--teal-800);text-decoration:none;font-weight:600}
+  .ss-chip a:hover{text-decoration:underline}
+  .ss-x{border:0;background:transparent;color:var(--ink-3);cursor:pointer;font-size:1.05rem;line-height:1;width:24px;height:24px;border-radius:50%;display:grid;place-items:center}
+  .ss-x:hover{background:var(--line-cool);color:var(--ink)}
+  html[dir="rtl"] .ss-chip{padding:3px 12px 3px 4px}
   /* ---- Recommendation engine (Exact / Balanced / Flexible) ---- */
   .mode-seg{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:16px}
   .mode-seg__lbl{font-size:.8rem;font-weight:700;color:var(--ink-3);margin-inline-end:2px}
@@ -972,6 +983,7 @@
       calc_dp_amt:"Down payment", calc_monthly:"Est. monthly", calc_total:"Financed",
       calc_note:"Indicative estimate only — confirm the developer's current plan with an advisor.",
       afford_h:"What can I afford?", afford_monthly:"Monthly budget (EGP)", afford_apply:"Show homes in my budget", afford_upto:"You could consider homes up to",
+      save_search:"Save search", saved_searches:"Saved searches", get_alerts:"Alerts on new launches", search_saved:"Search saved — get a WhatsApp alert when new matches launch", rm_search:"Remove saved search",
       print_sheet:"Print / Save as PDF", fs_generated:"Generated", fs_title:"Project factsheet", data_conf:"Data confidence",
       conf_illustrative:"Illustrative", verified:"Verified", to_confirm:"To confirm",
       nav_investors:"Investors", investors_h:"GCC & overseas buyers",
@@ -1072,6 +1084,7 @@
       calc_dp_amt:"الدفعة المقدمة", calc_monthly:"القسط الشهري التقديري", calc_total:"المموَّل",
       calc_note:"تقدير استرشادي فقط — أكّد خطة المطوّر الحالية مع المستشار.",
       afford_h:"ما الذي يناسب ميزانيتي؟", afford_monthly:"القسط الشهري (ج.م)", afford_apply:"اعرض ما يناسب ميزانيتي", afford_upto:"يمكنك النظر في وحدات حتى",
+      save_search:"احفظ البحث", saved_searches:"عمليات بحث محفوظة", get_alerts:"تنبيهات عند الإطلاقات الجديدة", search_saved:"تم حفظ البحث — ستصلك رسالة واتساب عند توفّر وحدات جديدة مطابقة", rm_search:"إزالة البحث المحفوظ",
       print_sheet:"طباعة / حفظ PDF", fs_generated:"تاريخ الإصدار", fs_title:"ملف المشروع", data_conf:"موثوقية البيانات",
       conf_illustrative:"استرشادي", verified:"موثّق", to_confirm:"قيد التأكيد",
       nav_investors:"المستثمرون", investors_h:"مشترو الخليج والخارج",
@@ -2800,6 +2813,25 @@
   function fgroup(title, node){ return h('div',{class:'facet-group'}, h('h4',null,title), node); }
   function bedsLabel(v){ if(v==='tbc') return lang==='ar'?'قيد التأكيد':'To confirm'; if(v===0) return lang==='ar'?'استوديو':'Studio'; if(v===6) return lang==='ar'?'٦+ غرف':'6+ BR'; return num(v)+(lang==='ar'?' غرف':'BR'); }
 
+  /* CRO-02 · saved searches + launch alerts (no CRM — hand off to WhatsApp/email). */
+  function searchLabel(f){
+    var parts=[];
+    if(f.areas&&f.areas.length) parts.push(f.areas.map(function(k){var a=areaByKey(k);return a?L(a.name):k;}).join(' / '));
+    if(f.types&&f.types.length) parts.push(f.types.map(function(c){return typeLabelC(c);}).join(' / '));
+    if(f.beds&&f.beds.length) parts.push(f.beds.map(bedsLabel).join(' / '));
+    if(f.maxPrice) parts.push('≤ '+moneyM(f.maxPrice));
+    if(f.devs&&f.devs.length) parts.push(f.devs.map(function(k){var d=devByKey(k);return d?L(d.name):k;}).join(' / '));
+    return parts.length ? parts.join(' · ') : (lang==='ar'?'كل الوحدات الأولية':'All primary units');
+  }
+  function savedSearches(){ var v=load('tv_searches',[]); return Array.isArray(v)?v:[]; }
+  function saveCurrentSearch(){
+    var q=filterToQuery(FILTER)||'', list=savedSearches();
+    if(list.some(function(s){return s.q===q;})) return false;
+    list.unshift({q:q, label:searchLabel(FILTER)}); store('tv_searches', list.slice(0,8)); return true;
+  }
+  function removeSearch(q){ store('tv_searches', savedSearches().filter(function(s){return s.q!==q;})); }
+  function alertMsg(label){ return (lang==='ar'?'أرغب في تلقّي تنبيه عند توفّر وحدات أولية جديدة مطابقة لـ: ':'Please alert me when new primary units launch matching: ')+(label||searchLabel(FILTER)); }
+
   V.units = function(){
     FILTER = filterFromQuery(CUR.search); reconcileFilter();
     var af=areaFacets(), df=devFacets(), pf=projFacets(), tf=typeFacets(), bf=bedFacets(), ff=floorFacets(), lf=launchFacets(), avf=availFacets(), delf=deliveryFacets();
@@ -2888,6 +2920,12 @@
         .map(function(o){ return h('option', FILTER.sort===o[0]?{value:o[0],selected:true}:{value:o[0]}, t(o[1])); }));
     sortSel.addEventListener('change', function(){ FILTER.sort=sortSel.value; pendingFocusId='finder-sort'; finderApply(); });
     if(mode==='strict') rhead.appendChild(sortSel);            // reco modes rank by match, so sort is hidden
+    var rActions=h('div',{class:'rhead-actions'});
+    var saveSearchBtn=h('button',{class:'btn btn--ghost btn--sm', type:'button'}, ic('heart'), t('save_search'));
+    saveSearchBtn.addEventListener('click', function(){ if(saveCurrentSearch()) toast(t('search_saved')); finderApply(); });
+    rActions.appendChild(saveSearchBtn);
+    if(CONFIG.whatsapp) rActions.appendChild(h('a',{class:'btn btn--wa btn--sm', href:waLink(alertMsg()), target:'_blank', rel:'noopener'}, ic('wa'), t('get_alerts')));
+    rhead.appendChild(rActions);
     results.appendChild(rhead);
     // recommendation mode selector (Exact / Balanced / Flexible)
     results.appendChild(modeSelector(mode));
@@ -2898,6 +2936,20 @@
       active.forEach(function(a){ af2.appendChild(a); });
       af2.appendChild(h('button',{class:'btn btn--ghost btn--sm', type:'button', onclick:function(){ FILTER=defaultFilter(); finderApply(); }}, t('cta_reset')));
       results.appendChild(af2);
+    }
+    // saved searches (revisit / remove) — persisted locally
+    var ss=savedSearches();
+    if(ss.length){
+      var ssWrap=h('div',{class:'saved-searches'});
+      ssWrap.appendChild(h('span',{class:'ss-lbl'}, ic('heart'), t('saved_searches')));
+      ss.forEach(function(s){
+        var chip=h('span',{class:'ss-chip'});
+        chip.appendChild(h('a',{href:U(buildPath('units'))+(s.q?('?'+s.q):'')}, s.label));
+        var rm=h('button',{class:'ss-x', type:'button','aria-label':t('rm_search')}, '×');
+        rm.addEventListener('click', function(e){ e.preventDefault(); removeSearch(s.q); finderApply(); });
+        chip.appendChild(rm); ssWrap.appendChild(chip);
+      });
+      results.appendChild(ssWrap);
     }
     // relaxation planner: strict mode with a thin/empty result AND active criteria -> offer the biggest single loosen + nearest matches
     if(mode==='strict' && activeCriteriaCount(FILTER)>0 && strictList.length<4){
