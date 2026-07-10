@@ -27,7 +27,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <!-- frame-ancestors/HSTS belong in HTTP response headers (see deploy runbook), not meta. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; connect-src 'self'; base-uri 'self'; form-action 'self'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; connect-src 'self' https://script.google.com https://script.googleusercontent.com; base-uri 'self'; form-action 'self'" />
   <meta name="theme-color" content="#073D52" />
   <meta name="color-scheme" content="light" />
   <meta name="format-detection" content="telephone=no" />
@@ -681,6 +681,33 @@
   .intro__skip:focus-visible{outline:2px solid #7FC8DC;outline-offset:2px;}
   @keyframes introPulse{0%,100%{transform:scale(1);opacity:.82}50%{transform:scale(1.07);opacity:1}}
   @media (prefers-reduced-motion:reduce){ .intro{display:none!important} }
+
+  /* ---- Lead-capture popup ---- */
+  .lead-back{position:fixed;inset:0;z-index:600;display:grid;place-items:center;padding:20px;
+    background:rgba(8,23,29,.55);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);
+    opacity:0;transition:opacity .28s ease}
+  .lead-back.show{opacity:1}
+  .lead-card{position:relative;width:100%;max-width:440px;background:var(--paper);border-radius:24px;
+    padding:34px 26px 26px;box-shadow:0 40px 90px -30px rgba(8,23,29,.55);
+    transform:translateY(14px) scale(.98);transition:transform .3s cubic-bezier(.2,.7,.2,1)}
+  .lead-back.show .lead-card{transform:none}
+  .lead-x{position:absolute;inset-block-start:16px;inset-inline-start:16px;width:38px;height:38px;border-radius:50%;
+    border:0;background:var(--bone-2);color:var(--ink-2);font-size:1.35rem;line-height:1;cursor:pointer;display:grid;place-items:center;transition:background .15s}
+  .lead-x:hover{background:var(--line-cool)}
+  .lead-h{font-family:var(--serif);font-size:clamp(1.4rem,4.5vw,1.85rem);font-weight:700;color:var(--teal-800);text-align:center;margin:4px 0 0;line-height:1.18}
+  .lead-sub{text-align:center;color:var(--ink-3);font-size:.9rem;margin:12px auto 22px;line-height:1.55;max-width:34ch}
+  .lead-form{display:flex;flex-direction:column;gap:12px}
+  .lead-form input{width:100%;padding:15px 16px;border:1.5px solid var(--line-cool);border-radius:14px;font:inherit;background:var(--bone-2);text-align:center}
+  .lead-form input:focus{outline:none;border-color:var(--teal-600);background:var(--paper)}
+  .lead-err{color:#b0392c;font-size:.82rem;text-align:center;margin:-2px 0 2px}
+  .lead-send{margin-top:6px;padding:15px;border:0;border-radius:999px;cursor:pointer;background:linear-gradient(180deg,var(--teal-700),var(--teal-900));color:#fff;font-weight:700;font-size:1rem;transition:filter .15s}
+  .lead-send:hover{filter:brightness(1.08)}
+  .lead-send:disabled{opacity:.7;cursor:default}
+  .lead-note{display:flex;align-items:center;gap:6px;justify-content:center;margin-top:14px;color:var(--ink-3);font-size:.72rem}
+  .lead-note svg{width:13px;height:13px;flex:0 0 auto}
+  .lead-thanks{text-align:center;padding:22px 0 8px}
+  .lead-check{width:64px;height:64px;border-radius:50%;background:#e7f3ec;color:#2f7d54;font-size:2rem;font-weight:700;display:grid;place-items:center;margin:0 auto 16px}
+  @media (prefers-reduced-motion:reduce){ .lead-back,.lead-card{transition:none} }
   </style>
 </head>
 
@@ -892,7 +919,8 @@
     whatsapp: "201016000201",               // same number, WhatsApp
     email: "info@thevillageinvestment.com", // verified business inbox
     social: { facebook:"https://www.facebook.com/share/18vY47m3rz/", instagram:"https://www.instagram.com/thevillageinvestment", linkedin:"https://www.linkedin.com/company/the-village-investment/", tiktok:"https://www.tiktok.com/@thevillageinvestment" },
-    LEAD_ENDPOINT: "",                       // no CRM by request — the form hands off to WhatsApp/email
+    leadEmail: "leads@thevillageinvestment.com", // lead notifications go here (Apps Script emails it; mailto fallback uses it)
+    LEAD_ENDPOINT: "",                       // paste your Google Apps Script Web App URL here → leads append to a Sheet + email leadEmail. See docs/LEAD_CAPTURE_SETUP.md
     origin: "https://www.thevillageinvestment.com"
   };
 
@@ -1008,6 +1036,7 @@
       save_search:"Save search", saved_searches:"Saved searches", get_alerts:"Alerts on new launches", search_saved:"Search saved — get a WhatsApp alert when new matches launch", rm_search:"Remove saved search",
       avail_available:"Available", avail_limited:"Limited", avail_reserved:"Reserved", avail_tbc:"To confirm",
       timeline_h:"Delivery timeline", tl_launched:"Launched", tl_construction:"Under construction", tl_delivery:"Delivery", tl_ready:"Ready to move", avail_asof:"as of",
+      lead_title:"Register your interest", lead_sub:"Leave your details and a property advisor will contact you shortly — primary-sale, developer-direct.", lead_name:"Full name", lead_phone:"Phone number", lead_send:"Send request", lead_sending:"Sending…", lead_thanks:"Thank you — an advisor will be in touch shortly.", lead_err:"Please enter your name and a valid phone number.",
       print_sheet:"Print / Save as PDF", fs_generated:"Generated", fs_title:"Project factsheet", data_conf:"Data confidence",
       conf_illustrative:"Illustrative", verified:"Verified", to_confirm:"To confirm",
       nav_investors:"Investors", investors_h:"GCC & overseas buyers",
@@ -1111,6 +1140,7 @@
       save_search:"احفظ البحث", saved_searches:"عمليات بحث محفوظة", get_alerts:"تنبيهات عند الإطلاقات الجديدة", search_saved:"تم حفظ البحث — ستصلك رسالة واتساب عند توفّر وحدات جديدة مطابقة", rm_search:"إزالة البحث المحفوظ",
       avail_available:"متاحة", avail_limited:"محدودة", avail_reserved:"محجوزة", avail_tbc:"قيد التأكيد",
       timeline_h:"الجدول الزمني للتسليم", tl_launched:"أُطلق", tl_construction:"قيد الإنشاء", tl_delivery:"التسليم", tl_ready:"جاهزة للاستلام", avail_asof:"حتى",
+      lead_title:"سجّل اهتمامك", lead_sub:"اترك بياناتك وسيتواصل معك مستشار عقاري قريبًا — بيع أولي من المطوّر مباشرةً.", lead_name:"الاسم الكامل", lead_phone:"رقم الهاتف", lead_send:"إرسال الطلب", lead_sending:"جارٍ الإرسال…", lead_thanks:"شكرًا لك — سيتواصل معك مستشار قريبًا.", lead_err:"من فضلك أدخل اسمك ورقم هاتف صحيح.",
       print_sheet:"طباعة / حفظ PDF", fs_generated:"تاريخ الإصدار", fs_title:"ملف المشروع", data_conf:"موثوقية البيانات",
       conf_illustrative:"استرشادي", verified:"موثّق", to_confirm:"قيد التأكيد",
       nav_investors:"المستثمرون", investors_h:"مشترو الخليج والخارج",
@@ -2409,6 +2439,82 @@
       var x=railNudge.el.querySelector('.rail-nudge__x'); if(x) x.setAttribute('aria-label', t('a_close')); }
   }
 
+  /* =====================================================================
+     LEAD-CAPTURE POPUP
+     Armed by a contact-icon click or a project view; shows up to twice per
+     session, ~1 minute apart. On submit it records the lead locally, POSTs to
+     CONFIG.LEAD_ENDPOINT (a Google Apps Script that appends to a Sheet AND emails
+     CONFIG.leadEmail), and falls back to a prefilled email so nothing is lost.
+     ===================================================================== */
+  var LEAD = { shown:0, armed:false, open:false, lastFocus:null };
+  function leadDone(){ try{ return !!(window.sessionStorage && window.sessionStorage.getItem('tvi_lead')==='done'); }catch(e){ return false; } }
+  function leadShouldRun(){ return !leadDone() && LEAD.shown<2; }
+  function leadArm(){ if(LEAD.armed || !leadShouldRun()) return; LEAD.armed=true; setTimeout(leadTryOpen, 2500); }
+  function leadTryOpen(){
+    if(!leadShouldRun() || LEAD.open) return;
+    var ae=document.activeElement;
+    if(ae && /^(INPUT|TEXTAREA|SELECT)$/.test(ae.tagName||'')){ setTimeout(leadTryOpen, 10000); return; }   // don't interrupt typing
+    if(document.querySelector('.drawer.open, .chat-panel.open, .pal-back.open')){ setTimeout(leadTryOpen, 10000); return; }
+    leadOpenModal();
+    if(LEAD.shown<2) setTimeout(leadTryOpen, 60000);   // the second pop, one minute later
+  }
+  function leadMarkDone(){ try{ if(window.sessionStorage) window.sessionStorage.setItem('tvi_lead','done'); }catch(e){} }
+  function leadEsc(e){ if(e.key==='Escape'||e.keyCode===27) leadCloseModal(); }
+  function leadCloseModal(){
+    var b=document.getElementById('lead-back'); if(b && b.parentNode) b.parentNode.removeChild(b);
+    LEAD.open=false; document.removeEventListener('keydown', leadEsc);
+    if(LEAD.lastFocus){ try{ LEAD.lastFocus.focus(); }catch(e){} }
+  }
+  function leadOpenModal(){
+    if(document.getElementById('lead-back') || !leadShouldRun()) return;
+    LEAD.open=true; LEAD.shown++; LEAD.lastFocus=document.activeElement;
+    track('lead_popup_shown', {n:LEAD.shown});
+    var nameI=h('input',{type:'text', id:'lead-name', autocomplete:'name', placeholder:t('lead_name'), 'aria-label':t('lead_name')});
+    var phoneI=h('input',{type:'tel', id:'lead-phone', inputmode:'tel', autocomplete:'tel', placeholder:t('lead_phone'), 'aria-label':t('lead_phone')});
+    var err=h('div',{class:'lead-err', role:'alert', style:'display:none'});
+    var send=h('button',{type:'submit', class:'lead-send'}, t('lead_send'));
+    var form=h('form',{class:'lead-form'}, nameI, phoneI, err, send);
+    var closeB=h('button',{type:'button', class:'lead-x', 'aria-label':t('a_close')}, '×');
+    var card=h('div',{class:'lead-card', role:'dialog', 'aria-modal':'true', 'aria-label':t('lead_title')},
+      closeB, h('h2',{class:'lead-h'}, t('lead_title')), h('p',{class:'lead-sub'}, t('lead_sub')),
+      form, h('div',{class:'lead-note'}, ic('info'), h('span',null, t('conf_illustrative'))));
+    var back=h('div',{class:'lead-back', id:'lead-back'}, card);
+    document.body.appendChild(back);
+    try{ requestAnimationFrame(function(){ back.classList.add('show'); }); }catch(e){ back.classList.add('show'); }
+    setTimeout(function(){ try{ nameI.focus(); }catch(e){} }, 60);
+    closeB.addEventListener('click', leadCloseModal);
+    back.addEventListener('click', function(e){ if(e.target===back) leadCloseModal(); });
+    document.addEventListener('keydown', leadEsc);
+    form.addEventListener('submit', function(e){ e.preventDefault();
+      var nm=(nameI.value||'').trim(), ph=(phoneI.value||'').trim(), digits=ph.replace(/[^0-9]/g,'');
+      if(nm.length<2 || digits.length<7){ err.textContent=t('lead_err'); err.style.display='block'; return; }
+      err.style.display='none'; send.disabled=true; send.textContent=t('lead_sending');
+      leadSubmit(nm, ph).then(function(){ leadMarkDone(); leadThanks(card); });
+    });
+  }
+  function leadThanks(card){
+    clear(card);
+    card.appendChild(h('div',{class:'lead-thanks'}, h('div',{class:'lead-check'}, '✓'), h('h2',{class:'lead-h'}, t('lead_thanks'))));
+    setTimeout(leadCloseModal, 2800);
+  }
+  function leadSubmit(name, phone){
+    var data={ name:name, phone:phone, source:'popup', page:(typeof currentRoute!=='undefined'&&currentRoute?currentRoute.name:''), locale:lang, ts:new Date().toISOString(), site:'thevillageinvestment.com' };
+    try{ var arr=load('tv_leads',[]); arr.push(data); store('tv_leads', arr.slice(-50)); }catch(e){}
+    track('lead_submitted', {source:'popup'});
+    if(CONFIG.LEAD_ENDPOINT && typeof fetch!=='undefined'){
+      return fetch(CONFIG.LEAD_ENDPOINT, {method:'POST', mode:'no-cors', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify(data)})
+        .then(function(){ return true; }).catch(function(){ leadMailFallback(data); return false; });
+    }
+    leadMailFallback(data);
+    return Promise.resolve(null);
+  }
+  function leadMailFallback(d){
+    var to=CONFIG.leadEmail||CONFIG.email; if(!to) return;
+    var subj=(lang==='ar'?'عميل جديد من الموقع':'New website lead')+' — '+d.name;
+    var body=(lang==='ar'?'الاسم: ':'Name: ')+d.name+'\n'+(lang==='ar'?'الهاتف: ':'Phone: ')+d.phone+'\n'+(lang==='ar'?'الصفحة: ':'Page: ')+d.page+'\n'+d.ts;
+    try{ window.open('mailto:'+to+'?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(body), '_blank'); }catch(e){}
+  }
+
   /* ==================================================================
      GLOBAL SEARCH (spec §33) — one shared index + ranking, command
      palette (Cmd/Ctrl+K), header entry, and a /search route.
@@ -2763,6 +2869,7 @@
         h('div',{class:'notice notice--info',style:'margin-top:8px'}, ic('info'), h('div',null, t('price_tbc'))))))));
     top.appendChild(wrap); node.appendChild(top);
     track('project_viewed', {project:p.slug});
+    if(typeof leadArm==='function') leadArm();   // a project view is a qualifying engagement
 
     // unit types (clear icons) + available units (image + specs)
     var typesEn=(p.types.en||'').split(' · ');
@@ -3657,13 +3764,13 @@
     var a=e.target.closest && e.target.closest('a'); if(!a) return;
     var href=a.getAttribute('href'); if(!href) return;
     if(a.target==='_blank'||a.hasAttribute('download')){
-      if(/wa\.me|whatsapp/i.test(href)) track('whatsapp_clicked');
+      if(/wa\.me|whatsapp/i.test(href)){ track('whatsapp_clicked'); if(typeof leadArm==='function') leadArm(); }
       return;
     }
     if(/^(https?:|mailto:|tel:|#)/.test(href)){
-      if(/wa\.me|whatsapp/i.test(href)) track('whatsapp_clicked');
-      else if(href.indexOf('tel:')===0) track('phone_clicked');
-      else if(href.indexOf('mailto:')===0) track('email_clicked');
+      if(/wa\.me|whatsapp/i.test(href)){ track('whatsapp_clicked'); if(typeof leadArm==='function') leadArm(); }
+      else if(href.indexOf('tel:')===0){ track('phone_clicked'); if(typeof leadArm==='function') leadArm(); }
+      else if(href.indexOf('mailto:')===0){ track('email_clicked'); if(typeof leadArm==='function') leadArm(); }
       return;
     }
     e.preventDefault(); navigateTo(stripBase(a.pathname) + (a.search||''));
