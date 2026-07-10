@@ -846,7 +846,10 @@
       calc_dp_amt:"Down payment", calc_monthly:"Est. monthly", calc_total:"Financed",
       calc_note:"Indicative estimate only — confirm the developer's current plan with an advisor.",
       print_sheet:"Print / Save as PDF", fs_generated:"Generated", fs_title:"Project factsheet", data_conf:"Data confidence",
-      conf_illustrative:"Illustrative", verified:"Verified", to_confirm:"To confirm"
+      conf_illustrative:"Illustrative", verified:"Verified", to_confirm:"To confirm",
+      nav_investors:"Investors", investors_h:"GCC & overseas buyers",
+      investors_p:"Buying Egypt primary-sale property from abroad — a plain, honest view of the process for Gulf, overseas and Egyptian-expatriate buyers.",
+      invest_note:"General guidance only, not legal, tax or immigration advice. Confirm transfer, power-of-attorney, residency and tax questions with a licensed professional and the developer."
     },
     ar: {
       invest:"للاستثمار العقاري", skip:"تخطَّ إلى المحتوى",
@@ -935,7 +938,10 @@
       calc_dp_amt:"الدفعة المقدمة", calc_monthly:"القسط الشهري التقديري", calc_total:"المموَّل",
       calc_note:"تقدير استرشادي فقط — أكّد خطة المطوّر الحالية مع المستشار.",
       print_sheet:"طباعة / حفظ PDF", fs_generated:"تاريخ الإصدار", fs_title:"ملف المشروع", data_conf:"موثوقية البيانات",
-      conf_illustrative:"استرشادي", verified:"موثّق", to_confirm:"قيد التأكيد"
+      conf_illustrative:"استرشادي", verified:"موثّق", to_confirm:"قيد التأكيد",
+      nav_investors:"المستثمرون", investors_h:"مشترو الخليج والخارج",
+      investors_p:"شراء عقارات البيع الأولي في مصر من الخارج — نظرة واضحة وصادقة للإجراء لمشتري الخليج والخارج والمصريين المغتربين.",
+      invest_note:"إرشاد عام فقط، وليس استشارة قانونية أو ضريبية أو خاصة بالهجرة. أكّد مسائل التحويل والتوكيل والإقامة والضرائب مع مختصّ مرخّص ومع المطوّر."
     }
   };
 
@@ -1474,6 +1480,7 @@
       case 'projects': return b+'projects/';
       case 'project': return b+'projects/'+params.slug+'/';
       case 'units': return b+'units/';
+      case 'investors': return b+'investors/';
       case 'search': return b+'search/';
       case 'launches': return b+'new-launches/';
       case 'developers': return b+'developers/';
@@ -1505,6 +1512,7 @@
     if(seg.length===0) name='home';
     else if(seg[0]==='projects') { name = seg[1]?'project':'projects'; if(seg[1]) params.slug=seg[1]; }
     else if(seg[0]==='units') name='units';
+    else if(seg[0]==='investors') name='investors';
     else if(seg[0]==='search') name='search';
     else if(seg[0]==='new-launches') name='launches';
     else if(seg[0]==='developers'){ name = seg[1]?'developer':'developers'; if(seg[1]) params.slug=seg[1]; }
@@ -2278,6 +2286,38 @@
     return out;
   }
 
+  /* ---- Investors / audience guidance (one consolidated page) ---- */
+  V.investors = function(){
+    var AUD=[
+      {t:{en:'GCC investors',ar:'مستثمرو الخليج'}, i:{en:'Buyers across Saudi Arabia, the UAE, Kuwait, Qatar, Bahrain and Oman shortlist Egypt primary-sale units and reserve remotely. We compare options in your timezone and confirm figures with the developer before you commit.',ar:'يرشّح مشترون من السعودية والإمارات والكويت وقطر والبحرين وعُمان وحدات البيع الأولي في مصر ويحجزون عن بُعد. نقارن الخيارات بتوقيتك ونؤكّد الأرقام مع المطوّر قبل أي التزام.'},
+        s:{en:['Shortlist projects and unit types that fit your goal and budget.','Ask an advisor for the developer’s current price list and payment plan in writing.','Confirm reservation terms and the developer’s process before any payment.','Review transfer, power-of-attorney and residency questions with a licensed professional.'],ar:['رشّح المشروعات وأنواع الوحدات المناسبة لهدفك وميزانيتك.','اطلب من المستشار قائمة أسعار المطوّر الحالية وخطة السداد كتابةً.','أكّد شروط الحجز وإجراء المطوّر قبل أي دفعة.','راجع مسائل التحويل والتوكيل والإقامة مع مختصّ مرخّص.']}},
+      {t:{en:'Overseas buyers',ar:'المشترون بالخارج'}, i:{en:'Investors in Europe, the UK, North America and beyond can compare Egypt areas, developers and payment plans remotely, then reserve under the developer’s process. Legal and tax questions depend on your country and should be reviewed with a professional.',ar:'يستطيع المستثمرون في أوروبا والمملكة المتحدة وأمريكا الشمالية وغيرها مقارنة مناطق مصر والمطوّرين وخطط السداد عن بُعد، ثم الحجز وفق إجراء المطوّر. وتعتمد المسائل القانونية والضريبية على بلدك وتُراجَع مع مختصّ.'},
+        s:{en:['Compare areas and developers using the finder and developer pages.','Request current figures and a written reservation offer from an advisor.','Arrange payment and reservation under the developer’s documented process.','Confirm ownership, transfer and tax steps with a licensed professional for your country.'],ar:['قارن المناطق والمطوّرين عبر المحرّك وصفحات المطوّرين.','اطلب الأرقام الحالية وعرض حجز مكتوباً من المستشار.','رتّب الدفع والحجز وفق إجراء المطوّر الموثّق.','أكّد خطوات الملكية والتحويل والضرائب مع مختصّ مرخّص في بلدك.']}},
+      {t:{en:'Egyptians abroad',ar:'المصريون بالخارج'}, i:{en:'Egyptians living abroad often reserve primary units to hold or for family. A power of attorney can let a trusted person or professional complete local steps on your behalf; the exact method should be confirmed with the developer and a professional.',ar:'يحجز المصريون بالخارج غالباً وحدات أولية للاحتفاظ أو للعائلة. ويتيح التوكيل لشخص موثوق أو مختصّ إتمام الخطوات محلياً نيابةً عنك، وتُؤكَّد الطريقة الدقيقة مع المطوّر ومختصّ.'},
+        s:{en:['Shortlist and confirm current developer terms with an advisor.','Prepare a power of attorney if someone will complete steps locally.','Reserve under the developer’s process and keep written confirmations.','Confirm transfer and documentation with a licensed professional.'],ar:['رشّح وأكّد شروط المطوّر الحالية مع المستشار.','جهّز توكيلاً إن كان أحد سيُتمّ الخطوات محلياً.','احجز وفق إجراء المطوّر واحتفظ بالتأكيدات المكتوبة.','أكّد التحويل والمستندات مع مختصّ مرخّص.']}}
+    ];
+    var node=h('div',null);
+    node.appendChild(sectionWrap(crumbNode([{label:'Home',path:buildPath('home')},{label:t('investors_h')}]),
+      sectionHead(t('hero_kicker'), t('investors_h'), t('investors_p'))));
+    var sec=h('section',{style:'padding-bottom:clamp(40px,7vw,80px)'}), w=h('div',{class:'wrap'});
+    AUD.forEach(function(a){
+      var ol=h('ol',{class:'prose',style:'padding-inline-start:22px;margin-top:12px'});
+      (lang==='ar'?a.s.ar:a.s.en).forEach(function(s){ ol.appendChild(h('li',null,s)); });
+      w.appendChild(h('div',{class:'card',style:'padding:24px;margin-bottom:18px'},
+        h('div',{style:'display:flex;gap:12px;align-items:center'},
+          h('div',{style:'width:44px;height:44px;border-radius:12px;background:var(--teal-050);color:var(--teal-700);display:grid;place-items:center'}, ic('globe')),
+          h('h2',{style:'font-size:1.35rem'}, L(a.t))),
+        h('p',{class:'muted',style:'margin-top:12px;max-width:66ch'}, L(a.i)),
+        ol,
+        h('a',{class:'btn btn--primary btn--sm', href:U(buildPath('contact'))}, t('cta_talk'))));
+    });
+    w.appendChild(h('div',{class:'notice notice--warn'}, ic('info'), h('div',null, t('invest_note'))));
+    sec.appendChild(w); node.appendChild(sec); node.appendChild(ctaBand());
+    track('country_page_view');
+    return {node:node, title:t('investors_h')+' · The Village Investment', desc:t('investors_p'), indexable:true,
+      crumbs:[{label:'Home',path:buildPath('home')},{label:t('investors_h')}]};
+  };
+
   /* ---- Developers list + detail ---- */
   V.developers = function(){
     var node=h('div',null);
@@ -2601,6 +2641,7 @@
       case 'home': return V.home();
       case 'projects': return V.projects(null);
       case 'units': return V.units();
+      case 'investors': return V.investors();
       case 'search': return V.search();
       case 'launches': return V.projects('launch');
       case 'project': return V.project(r.params.slug);
@@ -2632,11 +2673,12 @@
       var a2=h('a',{href:U(buildPath(it[0]))}, t(it[1])); if(group===it[0]) a2.setAttribute('aria-current','page'); dn.appendChild(a2);
     });
     dn.appendChild(h('a',{href:U(buildPath('units'))}, t('nav_units')));
+    dn.appendChild(h('a',{href:U(buildPath('investors'))}, t('nav_investors')));
     dn.appendChild(h('a',{href:U(buildPath('faqs'))}, t('nav_faqs')));
     dn.appendChild(h('a',{href:U(buildPath('compare'))}, t('nav_compare')+ (compare.length?(' ('+num(compare.length)+')'):'')));
     // footer columns
     fill('foot-explore',[['projects','nav_projects'],['units','nav_units'],['launches','nav_launches'],['areas','nav_areas'],['developers','nav_developers'],['compare','nav_compare']]);
-    fill('foot-company',[['about','nav_about'],['insights','nav_insights'],['faqs','nav_faqs'],['contact','nav_contact']]);
+    fill('foot-company',[['about','nav_about'],['investors','nav_investors'],['insights','nav_insights'],['faqs','nav_faqs'],['contact','nav_contact']]);
     fill('foot-legal',[['privacy','legal_priv'],['terms','legal_terms']]);
     document.getElementById('foot-tag').textContent=t('brand_note');
     document.getElementById('foot-blocker').textContent=t('foot_blocker');
