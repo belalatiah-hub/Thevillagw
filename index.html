@@ -521,6 +521,16 @@
   @media(max-width:900px){.finder{grid-template-columns:1fr}}
   .finder-panel{background:var(--paper);border:1px solid var(--line-2);border-radius:var(--r-lg);padding:18px 18px 6px;position:sticky;top:calc(var(--header-h) + 12px);max-height:calc(100vh - var(--header-h) - 28px);overflow:auto}
   @media(max-width:900px){.finder-panel{position:static;max-height:none}}
+  /* mobile: collapse the filter panel behind a toggle so unit results (and their specs) show first */
+  .finder-toggle{display:none}
+  @media(max-width:900px){
+    .finder-toggle{display:inline-flex;align-items:center;gap:9px;width:100%;min-height:48px;padding:11px 16px;border:1.5px solid var(--line-cool);border-radius:var(--r-pill);background:var(--paper);font-family:inherit;font-weight:700;font-size:.92rem;color:var(--teal-800);cursor:pointer;margin-bottom:14px;box-shadow:var(--shadow-soft)}
+    .finder-toggle svg{width:18px;height:18px;flex:none}
+    .finder-toggle .ft-caret{margin-inline-start:auto;font-size:1.1rem;transition:transform var(--t)}
+    .finder--open .finder-toggle .ft-caret{transform:rotate(180deg)}
+    .finder-panel{display:none}
+    .finder--open .finder-panel{display:block;margin-bottom:18px}
+  }
   .facet-group{padding:13px 0;border-bottom:1px solid var(--line-2)}
   .facet-group:last-child{border-bottom:none}
   .facet-group h4{font-size:.74rem;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);margin-bottom:10px;font-family:var(--sans);font-weight:700}
@@ -752,6 +762,7 @@
     phone:'M6.6 3.5 4 4.2C3 4.5 2.6 5.6 3 6.6a17 17 0 0 0 14.4 14.4c1 .4 2.1 0 2.4-1l.7-2.6-4.6-2-1.6 2A13 13 0 0 1 8.6 9.1l2-1.6-2-4z',
     wa:'M20 12a8 8 0 0 1-11.9 7L4 20l1.1-4A8 8 0 1 1 20 12z M9 9c0 4 2 6 6 6',
     mail:'M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z M22 6 12 13 2 6',
+    filter:'M22 3H2l8 9.46V19l4 2v-8.54z',
     wa_solid:'M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z',
     send:'M22 2 11 13 M22 2 15 22l-4-9-9-4z',
     /* spec icons */
@@ -889,6 +900,7 @@
       finder_none:"No units match all your filters together. Remove a filter, widen your budget, or talk to an advisor.",
       filter_budget:"Budget (total price)", min_price:"Min EGP", max_price:"Max EGP", inc_tbc:"Include units with price to confirm",
       filter_floor:"Preferred floor", avoid_ground:"Avoid ground floor", filter_years:"Installment period", years_any:"Any length", years_min_n:"At least {n} years",
+      filters:"Filters", hide_filters:"Hide filters",
       reco_mode:"Match", reco_balanced_note:"Balanced view: your closest matches, ranked — a few criteria may be relaxed. Each card shows what it matches.", reco_flexible_note:"Flexible view: a wider ranked shortlist to explore — verify the details that matter with an advisor.",
       reco_zero_h:"No exact match", reco_few_h:"Only a few exact matches", reco_relax_p:"Loosen one preference to see more (extra units shown):", reco_see_near:"See nearest matches",
       price_tbc:"Price & payment plan are being confirmed — talk to an advisor for the developer’s current terms.",
@@ -987,6 +999,7 @@
       finder_none:"لا توجد وحدات تطابق كل الفلاتر معاً. أزِل فلتراً أو وسّع الميزانية أو تحدّث إلى مستشار.",
       filter_budget:"الميزانية (السعر الكلي)", min_price:"أدنى ج.م", max_price:"أقصى ج.م", inc_tbc:"تضمين وحدات سعرها قيد التأكيد",
       filter_floor:"الدور المفضّل", avoid_ground:"تجنّب الدور الأرضي", filter_years:"مدة التقسيط", years_any:"أي مدة", years_min_n:"{n} سنوات على الأقل",
+      filters:"الفلاتر", hide_filters:"إخفاء الفلاتر",
       reco_mode:"المطابقة", reco_balanced_note:"عرض متوازن: أقرب النتائج مرتّبة حسب المطابقة — قد تُخفَّف بعض المعايير. كل بطاقة توضّح ما يطابقه.", reco_flexible_note:"عرض مرن: قائمة أوسع مرتّبة للاستكشاف — تأكّد من التفاصيل المهمة مع المستشار.",
       reco_zero_h:"لا توجد مطابقة تامة", reco_few_h:"مطابقات تامة قليلة فقط", reco_relax_p:"خفِّف أحد التفضيلات لرؤية المزيد (الوحدات الإضافية):", reco_see_near:"اعرض أقرب النتائج",
       price_tbc:"يجري تأكيد السعر وخطة السداد — تواصل مع مستشار لمعرفة شروط المطوّر الحالية.",
@@ -1453,6 +1466,7 @@
   var RECO_LABELS={strict:{en:'Exact match',ar:'مطابقة تامة'},balanced:{en:'Balanced',ar:'متوازن'},flexible:{en:'Flexible',ar:'مرن'}};
   var FILTER = defaultFilter();
   var pendingFocusId = null;   // control id to restore keyboard focus to after a keep-mode re-render (a11y)
+  var finderFiltersOpen = false;   // mobile: is the filter panel expanded? (desktop shows it always)
 
   // Match a unit against the filter; `ignore` skips one group (for facet counts).
   function matchUnit(u, f, ignore){
@@ -2599,7 +2613,7 @@
       sectionHead(t('hero_kicker'), t('finder_h'), t('finder_p'), 'h1')));
 
     // ---- filter panel ----
-    var panel=h('div',{class:'finder-panel'});
+    var panel=h('div',{class:'finder-panel', id:'finder-panel'});
     panel.appendChild(fgroup(t('filter_area'), facetChips('areas', AREAS.map(function(a){return {v:a.key,label:L(a.name),count:af[a.key]||0};}))));
     panel.appendChild(fgroup(t('filter_dev'), facetChips('devs', DEVELOPERS.map(function(d){return {v:d.key,label:L(d.name),count:df[d.key]||0};}))));
     panel.appendChild(fgroup(t('nav_projects'), facetChips('projects', PROJECTS.map(function(p){return {v:p.slug,label:(lang==='ar'?p.name_ar:p.name),count:pf[p.slug]||0};}))));
@@ -2683,7 +2697,12 @@
     results.appendChild(h('p',{class:'muted',style:'font-size:.78rem;margin-top:16px'}, t('art_note')));
 
     var sec=h('section',{style:'padding-bottom:clamp(40px,7vw,80px)'});
-    sec.appendChild(h('div',{class:'wrap'}, h('div',{class:'finder'}, panel, results)));
+    // mobile-only toggle: keep the unit results (with their bed/bath/area specs) visible first, not buried under the filter panel
+    var fToggle=h('button',{class:'finder-toggle', id:'finder-toggle', type:'button', 'aria-controls':'finder-panel', 'aria-expanded':finderFiltersOpen?'true':'false'},
+      ic('filter'), h('span',null, t('filters')+(active.length?(' · '+num(active.length)):'')), h('span',{class:'ft-caret','aria-hidden':'true'}, '⌄'));
+    var finderEl=h('div',{class:'finder'+(finderFiltersOpen?' finder--open':'')}, fToggle, panel, results);
+    fToggle.addEventListener('click', function(){ finderFiltersOpen=!finderFiltersOpen; finderEl.classList.toggle('finder--open', finderFiltersOpen); fToggle.setAttribute('aria-expanded', finderFiltersOpen?'true':'false'); });
+    sec.appendChild(h('div',{class:'wrap'}, finderEl));
     node.appendChild(sec);
     return {node:node, title:t('finder_h')+' · The Village Investment', desc:t('finder_p'), indexable:true,
       announce: num(list.length)+' '+(lang==='ar'?'وحدة':'units')+' · '+num(projCount)+' '+(lang==='ar'?'مشروع':'projects'),
