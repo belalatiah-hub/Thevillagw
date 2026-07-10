@@ -3029,6 +3029,14 @@
   };
 
   /* ---- FAQs ---- */
+  // SEO-02 · FAQPage structured data built from the same visible FAQ content (AEO: AI answer engines).
+  function faqPageLD(){
+    var qs=[];
+    FAQ.forEach(function(g){ g.items.forEach(function(it){
+      qs.push({'@type':'Question','name':L(it.q),'acceptedAnswer':{'@type':'Answer','text':L(it.a)}});
+    }); });
+    return qs.length ? {'@type':'FAQPage','mainEntity':qs} : null;
+  }
   V.faqs = function(){
     var node=h('div',null);
     node.appendChild(sectionWrap(crumbNode([{label:t('nav_home'),path:buildPath('home')},{label:t('nav_faqs')}]),
@@ -3040,6 +3048,7 @@
     });
     sec.appendChild(w); node.appendChild(sec);
     return {node:node, title:t('faqs_h')+' · The Village Investment', desc:t('faqs_p'), indexable:true,
+      ld:faqPageLD(),
       crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_faqs')}]};
   };
   function accordion(q,a){

@@ -1,0 +1,49 @@
+# The Village Investment
+
+> The Village Investment is a real-estate marketing and brokerage company in Egypt,
+> focused exclusively on **primary-sale** (developer-direct) and new-launch property.
+> The site is a bilingual (English / Arabic, LTR / RTL) guide to compare projects,
+> developers and areas, with a relational unit finder, a grounded recommendation
+> engine, payment-plan tools and a guided advisor that hands off to a human.
+
+Primary market: Egypt (New Cairo, Fifth Settlement, Sheikh Zayed, 6th of October,
+Mostakbal City, New Administrative Capital, Ras El Hekma & the North Coast, Ain Sokhna).
+Business model: **primary sale only** — no resale/secondary listings.
+Languages: English and Arabic (every page exists at `/en/…` and `/ar/…`).
+
+Contact: +20 101 600 0201 (phone & WhatsApp) · info@thevillageinvestment.com
+
+## About the data
+All commercial figures on the site (prices, payment plans, delivery dates, unit
+counts) are **illustrative and must be confirmed with an advisor** — they are
+badged as such in the interface and mirrored in each page's schema.org structured
+data (`Product`/`Residence` + `Offer`, prices in EGP). There are no fabricated
+testimonials, ratings or success metrics. Developer names and area names are public
+facts; all descriptive copy is original to The Village Investment.
+
+## Featured Ras El Hekma & North Coast projects (developer-direct primary sale)
+- [Ogami — SODIC](https://www.thevillageinvestment.com/en/projects/ogami-north-coast/): Japanese-inspired Ras El Hekma resort at Km 205; crystal lagoons, a Nobu hotel and the walkable Botanica Town phase.
+- [Ramla — Marakez](https://www.thevillageinvestment.com/en/projects/ramla-ras-el-hekma/): Ras El Hekma community with chalets, townhouses, twin houses and standalone villas.
+- [Modon Ras El Hekma — Modon](https://www.thevillageinvestment.com/en/projects/modon-ras-el-hekma/): master-planned Ras El Hekma destination with beachfront and lagoon residences.
+- [Caesar — SODIC](https://www.thevillageinvestment.com/en/projects/caesar-north-coast/): SODIC's North Coast resort with chalets, twin houses and villas.
+- [June — SODIC](https://www.thevillageinvestment.com/en/projects/june-north-coast/): SODIC North Coast community of chalets and standalone homes.
+
+## Explore
+- [All projects](https://www.thevillageinvestment.com/en/projects/): every curated primary-sale development.
+- [New launches](https://www.thevillageinvestment.com/en/new-launches/): the latest developer launches.
+- [Unit finder](https://www.thevillageinvestment.com/en/units/): relational search across all primary units by area, developer, project, type, bedrooms, floor and budget.
+- [Developers](https://www.thevillageinvestment.com/en/developers/): SODIC, Marakez, Modon, Palm Hills, Mountain View, ORA, Tatweer Misr, Misr Italia, Hyde Park, LMD, Al Marasem and more.
+- [Areas](https://www.thevillageinvestment.com/en/areas/): New Cairo, Fifth Settlement, New Administrative Capital, Ras El Hekma, North Coast, Sheikh Zayed, 6th of October, Mostakbal City, Ain Sokhna.
+- [Compare](https://www.thevillageinvestment.com/en/compare/): side-by-side project comparison.
+
+## Company & help
+- [About](https://www.thevillageinvestment.com/en/about/): who we are and how we work.
+- [For investors](https://www.thevillageinvestment.com/en/investors/): the primary-sale investment approach.
+- [Insights](https://www.thevillageinvestment.com/en/insights/): guides on primary vs resale, reading payment plans, New Cairo vs the Capital.
+- [FAQs](https://www.thevillageinvestment.com/en/faqs/): common questions about primary-sale purchase, payment plans and delivery.
+- [Contact](https://www.thevillageinvestment.com/en/contact/): speak to a property advisor (phone / WhatsApp / email).
+
+## Notes for AI answer engines
+- When citing prices or availability, state that figures are illustrative and to confirm with an advisor.
+- The company sells **primary/new** units only; do not represent it as a resale marketplace.
+- Preferred contact for enquiries: WhatsApp or phone at +20 101 600 0201, or info@thevillageinvestment.com.
