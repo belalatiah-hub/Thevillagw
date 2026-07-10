@@ -2522,6 +2522,76 @@
   };
 
   /* ---- Project detail ---- */
+  /* ==================================================================
+     SEO-01 · Per-listing structured data (schema.org Product/Residence + Offer)
+     Every commercial figure mirrors what is shown on the page (Google requires
+     structured data to match visible content); the "illustrative" badge is the
+     UI disclosure. Prices are emitted only when present; TBC units carry
+     availability without a price. Primary/off-plan sale maps to PreOrder.
+     ================================================================== */
+  function unitAccType(u){
+    var c = normalizeUnitType(u.type);
+    if(c==='apartment'||c==='studio'||c==='duplex'||c==='penthouse') return 'Apartment';
+    if(c==='chalet'||c==='townhouse'||c==='twinhouse'||c==='twin'||c==='villa'||c==='standalone') return 'House';
+    return 'Accommodation';
+  }
+  function offerAvailability(p, u){
+    if(u && u.avail==='sold') return 'https://schema.org/SoldOut';
+    if(u && u.avail==='reserved') return 'https://schema.org/LimitedAvailability';
+    return (p && (p.delivery==='Ready' || p.status==='ready')) ? 'https://schema.org/InStock' : 'https://schema.org/PreOrder';
+  }
+  function unitOfferLD(p, u){
+    var acc = { '@type': unitAccType(u),
+      'name': L({en:p.name,ar:p.name_ar}) + ' · ' + typeLabelC(normalizeUnitType(u.type)) };
+    if(u.beds!=null)  acc.numberOfRooms = u.beds;
+    if(u.baths!=null) acc.numberOfBathroomsTotal = u.baths;
+    if(u.area!=null)  acc.floorSize = {'@type':'QuantitativeValue','value':u.area,'unitCode':'MTK'};
+    var off = { '@type':'Offer', 'priceCurrency':'EGP', 'availability': offerAvailability(p,u),
+      'itemOffered': acc, 'seller': {'@id': CONFIG.origin + '/#org'} };
+    if(u.price!=null) off.price = u.price;
+    return off;
+  }
+  function listingLD(p){
+    var dev = devByKey(p.dev), area = areaByKey(p.area), us = unitsIn(p.slug);
+    var nm = L({en:p.name,ar:p.name_ar});
+    var node = {
+      '@type': ['Product','Residence'],
+      'name': nm,
+      'description': L(p.blurb),
+      'category': 'Primary-sale residential development',
+      'brand': {'@type':'Organization','name': L(dev.name)},
+      'address': {'@type':'PostalAddress','addressRegion': L(area.name),'addressCountry':'EG'},
+      'areaServed': L(area.name),
+      'additionalProperty': [
+        {'@type':'PropertyValue','name':(lang==='ar'?'المطوّر':'Developer'),'value': L(dev.name)},
+        {'@type':'PropertyValue','name':(lang==='ar'?'المنطقة':'Area'),'value': L(area.name)},
+        {'@type':'PropertyValue','name':(lang==='ar'?'التسليم':'Delivery'),'value':(p.delivery==='Ready'?t('ready'):(p.delivery||t('to_confirm')))}
+      ]
+    };
+    var prices = us.map(function(u){return u.price;}).filter(function(x){return x!=null;});
+    var low = (p.price!=null) ? p.price : (prices.length?Math.min.apply(null,prices):null);
+    if(low!=null){
+      var ao = {'@type':'AggregateOffer','priceCurrency':'EGP','lowPrice':low,
+        'availability': offerAvailability(p,null), 'seller':{'@id':CONFIG.origin+'/#org'}};
+      if(prices.length){ ao.highPrice = Math.max.apply(null,prices); ao.offerCount = prices.length; }
+      node.offers = ao;
+    }
+    var out = [node];
+    if(us.length){
+      out.push({'@type':'ItemList','name': nm + ' — ' + (lang==='ar'?'الوحدات':'units'),
+        'numberOfItems': us.length,
+        'itemListElement': us.map(function(u,i){ return {'@type':'ListItem','position':i+1,'item':unitOfferLD(p,u)}; })});
+    }
+    return out;
+  }
+  function unitsCollectionLD(){
+    var valid = UNITS.filter(function(u){ return !!projBySlug(u.project); });
+    return [{'@type':'CollectionPage','name': t('finder_h'),
+      'mainEntity': {'@type':'ItemList','numberOfItems': valid.length,
+        'itemListElement': valid.slice(0,60).map(function(u,i){
+          return {'@type':'ListItem','position':i+1,'item':unitOfferLD(projBySlug(u.project),u)}; })}}];
+  }
+
   V.project = function(slug){
     var p = projBySlug(slug), dev = devByKey(p.dev), area = areaByKey(p.area);
     var nm = lang==='ar'?p.name_ar:p.name;
@@ -2586,7 +2656,8 @@
     if(rel.length) node.appendChild(listSection('', t('related'), '', rel.map(projectCard), null, 'band'));
     node.appendChild(ctaBand());
     return {node:node, title:nm+' — '+L(dev.name)+' · The Village Investment', desc:L(p.blurb),
-      indexable:true, crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_projects'),path:buildPath('projects')},{label:nm}]};
+      indexable:true, ld:listingLD(p),
+      crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_projects'),path:buildPath('projects')},{label:nm}]};
   };
 
   /* ---- Relational Unit Finder (§42) ---- */
@@ -2711,6 +2782,7 @@
     sec.appendChild(h('div',{class:'wrap'}, finderEl));
     node.appendChild(sec);
     return {node:node, title:t('finder_h')+' · The Village Investment', desc:t('finder_p'), indexable:true,
+      ld: unitsCollectionLD(),
       announce: num(list.length)+' '+(lang==='ar'?'وحدة':'units')+' · '+num(projCount)+' '+(lang==='ar'?'مشروع':'projects'),
       crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_units')}]};
   };
@@ -3241,7 +3313,11 @@
       graph.push({'@type':'BreadcrumbList','itemListElement':view.crumbs.map(function(c,i){
         var o={'@type':'ListItem','position':i+1,'name':c.label}; if(c.path) o.item=CONFIG.origin+c.path; return o; })});
     }
-    if(view.ld){ var pg=Object.assign({'url':canonical}, view.ld); graph.push(pg); }
+    if(view.ld){
+      // view.ld may be a single node or an array of nodes; the first (primary) node carries the page URL.
+      var lds = Array.isArray(view.ld) ? view.ld : [view.ld];
+      lds.forEach(function(o,i){ if(o) graph.push(i===0 ? Object.assign({'url':canonical}, o) : o); });
+    }
     setLD({'@context':'https://schema.org','@graph':graph});
   }
   function setMeta(name,val){ var m=document.querySelector('meta[name="'+name+'"]'); if(m) m.setAttribute('content',val||''); }
