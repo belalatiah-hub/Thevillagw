@@ -491,6 +491,8 @@
   .chat-chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 10px}
   .chat-chips button{background:var(--teal-050);color:var(--teal-700);border:1px solid #bfdae3;border-radius:var(--r-pill);padding:6px 12px;font-size:.8rem;font-weight:600}
   .chat-chips button:hover{background:var(--teal-600);color:#fff}
+  .chat-chips button.chip-key{background:var(--teal-700);color:var(--bone);border-color:var(--teal-700)}
+  .chat-chips button.chip-key:hover{background:var(--teal-800)}
   .chat-input{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line-2);background:var(--paper)}
   .chat-input input{flex:1;min-width:0;padding:10px 14px;border:1.5px solid var(--line-cool);border-radius:var(--r-pill);font:inherit;background:var(--bone-2)}
   .chat-input input:focus{border-color:var(--teal-600);outline:none}
@@ -519,6 +521,22 @@
   .results-head{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:16px}
   .results-head .rc{font-weight:700}
   .results-head select{min-height:42px;padding:8px 12px;border:1.5px solid var(--line-cool);border-radius:var(--r-sm);background:var(--paper);font:inherit}
+  /* ---- Recommendation engine (Exact / Balanced / Flexible) ---- */
+  .mode-seg{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:16px}
+  .mode-seg__lbl{font-size:.8rem;font-weight:700;color:var(--ink-3);margin-inline-end:2px}
+  .mode-seg__btn{padding:7px 14px;border:1.5px solid var(--line-cool);background:var(--bone-2);border-radius:var(--r-pill);font-size:.83rem;font-weight:600;color:var(--ink-2);min-height:38px;transition:var(--t);cursor:pointer}
+  .mode-seg__btn:hover{border-color:var(--teal-600);color:var(--teal-800)}
+  .mode-seg__btn.on{background:var(--teal-700);border-color:var(--teal-700);color:var(--bone)}
+  .reco-explain{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line-2)}
+  .rx{display:inline-flex;align-items:center;gap:3px;font-size:.72rem;font-weight:600;padding:3px 8px;border-radius:var(--r-pill);line-height:1.2}
+  .rx svg{width:12px;height:12px}
+  .rx--ok{background:rgba(31,143,78,.12);color:#12703b}
+  .rx--no{background:var(--bone);color:var(--ink-3);text-decoration:line-through;text-decoration-thickness:1px}
+  html[data-theme="dark"] .rx--ok{background:rgba(45,180,100,.16);color:#7fdba2}
+  .relax-panel{background:var(--bone-2);border:1.5px solid var(--line-cool);border-radius:var(--r-lg);padding:16px;margin-bottom:18px}
+  .relax-h{display:flex;align-items:center;gap:8px;font-size:1rem}
+  .relax-h svg{width:19px;height:19px;color:var(--teal-600);flex:none}
+  .relax-panel .fchip small{color:var(--teal-700);font-weight:700}
   /* ---- Global search command palette ---- */
   .pal-back{position:fixed;inset:0;background:rgba(14,26,31,.55);z-index:200;display:none;align-items:flex-start;justify-content:center;padding:9vh 16px 16px}
   .pal-back.open{display:flex}
@@ -840,7 +858,7 @@
       filter_type:"Type", all_types:"All types",
       social_h:"Follow us",
       chat_open:"Ask us", chat_title:"Village Assistant", chat_sub:"Answers from this site",
-      a_close:"Close", a_send:"Send",
+      a_close:"Close", a_send:"Send", chat_reco:"Recommend from my selection",
       chat_hello:"Hi! I’m the Village assistant. Ask me about our projects, developers, areas, payment plans, or say “talk to an advisor”.",
       chat_ph:"Type your question…",
       chat_c1:"New launches", chat_c2:"Payment plans", chat_c3:"Browse areas", chat_c4:"Talk to an advisor",
@@ -851,6 +869,9 @@
       finder_h:"Find your primary unit", finder_p:"One relational finder across verified primary-sale inventory — every result matches all your selected filters at once. Figures are illustrative; confirm with an advisor.",
       finder_none:"No units match all your filters together. Remove a filter, widen your budget, or talk to an advisor.",
       filter_budget:"Budget (total price)", min_price:"Min EGP", max_price:"Max EGP", inc_tbc:"Include units with price to confirm",
+      filter_floor:"Preferred floor", avoid_ground:"Avoid ground floor", filter_years:"Installment period", years_any:"Any length", years_min_n:"At least {n} years",
+      reco_mode:"Match", reco_balanced_note:"Balanced view: your closest matches, ranked — a few criteria may be relaxed. Each card shows what it matches.", reco_flexible_note:"Flexible view: a wider ranked shortlist to explore — verify the details that matter with an advisor.",
+      reco_zero_h:"No exact match", reco_few_h:"Only a few exact matches", reco_relax_p:"Loosen one preference to see more (extra units shown):", reco_see_near:"See nearest matches",
       launch_status:"Launch status", availability:"Availability", beds:"Bedrooms",
       sort_delivery:"Earliest delivery", sort_newest:"Newest launch",
       nav_search:"Search", search_ph:"Search projects, units, developers, areas, guides…",
@@ -933,7 +954,7 @@
       filter_type:"النوع", all_types:"كل الأنواع",
       social_h:"تابعنا",
       chat_open:"اسألنا", chat_title:"مساعد The Village", chat_sub:"إجابات من محتوى الموقع",
-      a_close:"إغلاق", a_send:"إرسال",
+      a_close:"إغلاق", a_send:"إرسال", chat_reco:"رشّح من اختياري",
       chat_hello:"أهلاً! أنا مساعد The Village. اسألني عن مشروعاتنا أو المطوّرين أو المناطق أو خطط السداد، أو قل «تحدّث إلى مستشار».",
       chat_ph:"اكتب سؤالك…",
       chat_c1:"إطلاقات جديدة", chat_c2:"خطط السداد", chat_c3:"تصفّح المناطق", chat_c4:"تحدّث إلى مستشار",
@@ -944,6 +965,9 @@
       finder_h:"اعثر على وحدتك الأولية", finder_p:"محرّك بحث علائقي واحد عبر معروض البيع الأولي — كل نتيجة تطابق جميع الفلاتر المختارة معاً. الأرقام استرشادية؛ أكّد مع المستشار.",
       finder_none:"لا توجد وحدات تطابق كل الفلاتر معاً. أزِل فلتراً أو وسّع الميزانية أو تحدّث إلى مستشار.",
       filter_budget:"الميزانية (السعر الكلي)", min_price:"أدنى ج.م", max_price:"أقصى ج.م", inc_tbc:"تضمين وحدات سعرها قيد التأكيد",
+      filter_floor:"الدور المفضّل", avoid_ground:"تجنّب الدور الأرضي", filter_years:"مدة التقسيط", years_any:"أي مدة", years_min_n:"{n} سنوات على الأقل",
+      reco_mode:"المطابقة", reco_balanced_note:"عرض متوازن: أقرب النتائج مرتّبة حسب المطابقة — قد تُخفَّف بعض المعايير. كل بطاقة توضّح ما يطابقه.", reco_flexible_note:"عرض مرن: قائمة أوسع مرتّبة للاستكشاف — تأكّد من التفاصيل المهمة مع المستشار.",
+      reco_zero_h:"لا توجد مطابقة تامة", reco_few_h:"مطابقات تامة قليلة فقط", reco_relax_p:"خفِّف أحد التفضيلات لرؤية المزيد (الوحدات الإضافية):", reco_see_near:"اعرض أقرب النتائج",
       launch_status:"حالة الإطلاق", availability:"الإتاحة", beds:"غرف النوم",
       sort_delivery:"الأقرب تسليماً", sort_newest:"الأحدث إطلاقاً",
       nav_search:"بحث", search_ph:"ابحث في المشروعات والوحدات والمطوّرين والمناطق والأدلة…",
@@ -1359,7 +1383,14 @@
   function unitAvail(u){ return u.avail || 'available'; }
   function unitDp(u){ var p=projBySlug(u.project); return (u.price!=null && p && p.dp) ? Math.round(u.price*p.dp/100) : null; }
 
-  function defaultFilter(){ return {areas:[],devs:[],projects:[],types:[],beds:[],minPrice:null,maxPrice:null,maxDp:null,launch:[],avail:[],delivery:[],sort:'recommended',includeUnverified:false}; }
+  var FLOOR_BANDS=['ground','low','middle','high','top'];
+  var FLOOR_LABELS={ground:{en:'Ground floor',ar:'الدور الأرضي'},low:{en:'Low floor',ar:'دور منخفض'},middle:{en:'Middle floor',ar:'دور متوسط'},high:{en:'High floor',ar:'دور مرتفع'},top:{en:'Top / roof',ar:'الأخير / روف'}};
+  var YEARS_PRESETS=[5,6,7,8];   // "installments of at least N years"
+  function unitFloor(u){ return u.floor||null; }
+  function projYears(u){ var p=projBySlug(u.project); return p?(p.years||null):null; }
+  function defaultFilter(){ return {areas:[],devs:[],projects:[],types:[],beds:[],minPrice:null,maxPrice:null,maxDp:null,floors:[],avoidGround:false,minYears:null,launch:[],avail:[],delivery:[],sort:'recommended',mode:'strict',includeUnverified:false}; }
+  var RECO_MODES=['strict','balanced','flexible'];
+  var RECO_LABELS={strict:{en:'Exact match',ar:'مطابقة تامة'},balanced:{en:'Balanced',ar:'متوازن'},flexible:{en:'Flexible',ar:'مرن'}};
   var FILTER = defaultFilter();
   var pendingFocusId = null;   // control id to restore keyboard focus to after a keep-mode re-render (a11y)
 
@@ -1377,6 +1408,16 @@
       else { if(f.minPrice!=null && u.price<f.minPrice) return false; if(f.maxPrice!=null && u.price>f.maxPrice) return false; }
     }
     if(ignore!=='dp' && f.maxDp!=null){ var dp=unitDp(u); if(dp==null || dp>f.maxDp) return false; }
+    if(ignore!=='floor'){
+      // Preferred floor bands apply only to types that live on floors (flat/multi/commercial);
+      // house-type units are floor-agnostic and are never excluded by a floor band.
+      if(f.floors.length && usesFloorBands(unitCanon(u))){
+        if(!u.floor){ if(!f.includeUnverified) return false; }        // unknown floor fails a strict floor filter
+        else if(f.floors.indexOf(u.floor)<0) return false;
+      }
+      if(f.avoidGround && u.floor==='ground') return false;
+    }
+    if(ignore!=='years' && f.minYears!=null){ var yy=projYears(u); if(yy==null || yy<f.minYears) return false; }
     if(ignore!=='launch' && f.launch.length && f.launch.indexOf(launchStatusOf(p))<0) return false;
     if(ignore!=='avail'){ var av=unitAvail(u);
       if(f.avail.length){ if(f.avail.indexOf(av)<0) return false; }
@@ -1403,6 +1444,7 @@
   function projFacets(){ return facet('project', function(u){ return u.project; }); }
   function typeFacets(){ return facet('type', function(u){ return unitCanon(u); }); }
   function bedFacets(){ return facet('beds', function(u){ var b=u.beds; return b==null?'tbc':(b>=6?6:b); }); }
+  function floorFacets(){ return facet('floor', function(u){ return usesFloorBands(unitCanon(u)) ? (u.floor||null) : null; }); }
   function launchFacets(){ return facet('launch', function(u){ return launchStatusOf(projBySlug(u.project)); }); }
   function availFacets(){ return facet('avail', function(u){ return unitAvail(u); }); }
   function deliveryFacets(){ return facet('delivery', function(u){ return deliveryBucket(projBySlug(u.project)); }); }
@@ -1444,10 +1486,14 @@
     if(f.minPrice!=null) q.push('minPrice='+f.minPrice);
     if(f.maxPrice!=null) q.push('maxPrice='+f.maxPrice);
     if(f.maxDp!=null) q.push('maxDp='+f.maxDp);
+    if(f.floors.length) q.push('floors='+f.floors.join(','));
+    if(f.avoidGround) q.push('avoidGround=1');
+    if(f.minYears!=null) q.push('minYears='+f.minYears);
     if(f.launch.length) q.push('launch='+f.launch.join(','));
     if(f.avail.length) q.push('availability='+f.avail.join(','));
     if(f.delivery.length) q.push('delivery='+f.delivery.join(','));
     if(f.includeUnverified) q.push('incTbc=1');
+    if(f.mode && f.mode!=='strict') q.push('mode='+f.mode);
     if(f.sort && f.sort!=='recommended') q.push('sort='+f.sort);
     return q.join('&');
   }
@@ -1460,7 +1506,11 @@
     if(p.get('minPrice')) f.minPrice=+p.get('minPrice');
     if(p.get('maxPrice')) f.maxPrice=+p.get('maxPrice');
     if(p.get('maxDp')) f.maxDp=+p.get('maxDp');
+    f.floors=arr('floors').filter(function(x){ return FLOOR_BANDS.indexOf(x)>-1; });
+    if(p.get('avoidGround')) f.avoidGround=true;
+    if(p.get('minYears')) f.minYears=+p.get('minYears');
     if(p.get('incTbc')) f.includeUnverified=true;
+    if(p.get('mode') && RECO_MODES.indexOf(p.get('mode'))>-1) f.mode=p.get('mode');
     if(p.get('sort')) f.sort=p.get('sort');
     return f;
   }
@@ -1474,6 +1524,105 @@
   // navigate (updates URL + re-renders) — navigateTo/buildPath are hoisted from later parts
   function finderApply(){ var q=filterToQuery(FILTER); navigateTo(buildPath('units')+(q?('?'+q):''), true); }
   function finderToggle(group, v){ var a=FILTER[group], i=a.indexOf(v); if(i>-1) a.splice(i,1); else a.push(v); pendingFocusId='fchip-'+group+'-'+v; reconcileFilter(); finderApply(); }
+
+  /* ==================================================================
+     RECOMMENDATION ENGINE  (spec: Strict / Balanced / Flexible)
+     Scores each unit against the user's active preferences, ranks the
+     nearest matches, explains WHY, and — when strict yields little —
+     plans which single filter to relax for the biggest gain.
+     Everything is grounded in the same dataset; nothing is invented.
+     ================================================================== */
+  var RECO_W={area:3,dev:2,project:3,type:3,beds:2,price:3,floor:1,ground:1,years:1,dp:1,delivery:1,launch:1,avail:1};
+  function bedMatch(bd, arr){ return arr.some(function(v){ return v==='tbc'?(bd==null):(v===6?(bd!=null&&bd>=6):bd===v); }); }
+  // Per-unit criteria list: each active preference becomes {key, ok, label}.
+  function recoCriteria(u, f){
+    var p=projBySlug(u.project), C=[];
+    function crit(active, ok, key, label){ if(active) C.push({key:key, ok:!!ok, label:label, w:RECO_W[key]||1}); }
+    crit(f.areas.length,    p&&f.areas.indexOf(p.area)>-1,      'area',  p?L(areaByKey(p.area).name):'');
+    crit(f.devs.length,     p&&f.devs.indexOf(p.dev)>-1,        'dev',   p?L(devByKey(p.dev).name):'');
+    crit(f.projects.length, p&&f.projects.indexOf(p.slug)>-1,   'project', p?(lang==='ar'?p.name_ar:p.name):'');
+    crit(f.types.length,    f.types.indexOf(unitCanon(u))>-1,   'type',  typeLabelC(unitCanon(u)));
+    crit(f.beds.length,     bedMatch(u.beds, f.beds),           'beds',  (u.beds==null?(lang==='ar'?'غرف قيد التأكيد':'beds TBC'):u.beds+(lang==='ar'?' غرف':'BR')));
+    var priceActive=(f.minPrice!=null||f.maxPrice!=null);
+    var priceOk = u.price!=null && (f.minPrice==null||u.price>=f.minPrice) && (f.maxPrice==null||u.price<=f.maxPrice);
+    crit(priceActive, priceOk, 'price', lang==='ar'?'ضمن الميزانية':'In budget');
+    crit(f.floors.length && usesFloorBands(unitCanon(u)), u.floor&&f.floors.indexOf(u.floor)>-1, 'floor', u.floor?(lang==='ar'?FLOOR_LABELS[u.floor].ar:FLOOR_LABELS[u.floor].en):'');
+    crit(f.avoidGround, u.floor!=='ground', 'ground', t('avoid_ground'));
+    crit(f.minYears!=null, p&&p.years&&p.years>=f.minYears, 'years', t('years_min_n').replace('{n}', num(f.minYears||0)));
+    crit(f.maxDp!=null, (function(){ var dp=unitDp(u); return dp!=null&&dp<=f.maxDp; })(), 'dp', (lang==='ar'?'مقدم مناسب':'Down payment OK'));
+    crit(f.delivery.length, p&&f.delivery.indexOf(deliveryBucket(p))>-1, 'delivery', p?(lang==='ar'?DELIVERY_LABELS[deliveryBucket(p)].ar:DELIVERY_LABELS[deliveryBucket(p)].en):'');
+    crit(f.launch.length, p&&f.launch.indexOf(launchStatusOf(p))>-1, 'launch', p?(lang==='ar'?LAUNCH_LABELS[launchStatusOf(p)].ar:LAUNCH_LABELS[launchStatusOf(p)].en):'');
+    return C;
+  }
+  function scoreUnit(u, f){ var C=recoCriteria(u,f), tot=0, got=0;
+    C.forEach(function(c){ tot+=c.w; if(c.ok) got+=c.w; });
+    return {score: tot?got/tot:1, total:tot, got:got, crit:C,
+      matched:C.filter(function(c){return c.ok;}), missed:C.filter(function(c){return !c.ok;})}; }
+  // Hard gate that even relaxed modes keep: primary-sale + never surface sold/reserved.
+  function matchHard(u, f){ var p=projBySlug(u.project); if(!p) return false;
+    var av=unitAvail(u);
+    if(f.avail.length){ if(f.avail.indexOf(av)<0) return false; } else if(av==='reserved'||av==='sold') return false;
+    if(u.price==null && !f.includeUnverified && (f.minPrice!=null||f.maxPrice!=null)) return false;
+    return true; }
+  // Ranked recommendations for a mode. strict === the relational finder result.
+  function recommendUnits(f, mode){
+    mode = mode || f.mode || 'strict';
+    if(mode==='strict') return sortUnits(filterUnits(f));
+    var thresh = mode==='flexible' ? 0.34 : 0.6;
+    var scored = UNITS.filter(function(u){ return matchHard(u,f); }).map(function(u){ return {u:u, r:scoreUnit(u,f)}; })
+      .filter(function(x){ return x.r.total===0 || x.r.score>=thresh; });
+    scored.sort(function(a,b){ return (b.r.score-a.r.score) || ((a.u.price==null?1e15:a.u.price)-(b.u.price==null?1e15:b.u.price)); });
+    return scored.map(function(x){ return x.u; });
+  }
+  // When results are sparse: which single filter, dropped, yields the most extra units?
+  function relaxationPlan(f){
+    var base=filterUnits(f).length, out=[];
+    function test(key, label, mut){ var f2=JSON.parse(JSON.stringify(f)); mut(f2); var gain=filterUnits(f2).length-base;
+      if(gain>0) out.push({key:key, label:label, gain:gain}); }
+    if(f.minPrice!=null||f.maxPrice!=null) test('price', t('filter_budget'), function(x){ x.minPrice=null; x.maxPrice=null; });
+    [['areas',t('filter_area')],['devs',t('filter_dev')],['projects',t('nav_projects')],['types',t('filter_type')],['beds',t('beds')],['floors',t('filter_floor')],['delivery',t('delivery')],['launch',t('launch_status')],['avail',t('availability')]]
+      .forEach(function(g){ if(f[g[0]] && f[g[0]].length) test(g[0], g[1], function(x){ x[g[0]]=[]; }); });
+    if(f.avoidGround) test('ground', t('avoid_ground'), function(x){ x.avoidGround=false; });
+    if(f.minYears!=null) test('years', t('filter_years'), function(x){ x.minYears=null; });
+    if(f.maxDp!=null) test('dp', (lang==='ar'?'حد المقدم':'Down-payment cap'), function(x){ x.maxDp=null; });
+    out.sort(function(a,b){ return b.gain-a.gain; });
+    return out;
+  }
+  function clearFilterKey(key){
+    if(key==='price'){ FILTER.minPrice=null; FILTER.maxPrice=null; }
+    else if(key==='ground'){ FILTER.avoidGround=false; }
+    else if(key==='years'){ FILTER.minYears=null; }
+    else if(key==='dp'){ FILTER.maxDp=null; }
+    else if(Array.isArray(FILTER[key])){ FILTER[key]=[]; }
+    reconcileFilter(); finderApply();
+  }
+  function setMode(m){ FILTER.mode=m; pendingFocusId='mode-'+m; finderApply(); }
+  function activeCriteriaCount(f){ return recoCriteria(UNITS[0]||{}, f).length; }
+  // Does the user have any active preference? (used by the selection-aware advisor)
+  function hasSelection(f){ return !!(f.areas.length||f.devs.length||f.projects.length||f.types.length||f.beds.length||f.floors.length||f.minPrice!=null||f.maxPrice!=null||f.minYears!=null||f.maxDp!=null||f.avoidGround); }
+  function bedsPhrase(v){ return v==='tbc'?t('to_confirm'):(v===6?(lang==='ar'?'٦+ غرف':'6+ BR'):v+(lang==='ar'?' غرف':' BR')); }
+  // Human-readable one-line summary of the current selection.
+  function selectionSummary(f){
+    var parts=[];
+    if(f.types.length)  parts.push(f.types.map(typeLabelC).join(lang==='ar'?'، ':', '));
+    if(f.beds.length)   parts.push(f.beds.map(bedsPhrase).join(lang==='ar'?'، ':', '));
+    if(f.areas.length)  parts.push((lang==='ar'?'في ':'in ')+f.areas.map(function(k){return L(areaByKey(k).name);}).join(lang==='ar'?'، ':', '));
+    if(f.devs.length)   parts.push(f.devs.map(function(k){return L(devByKey(k).name);}).join(lang==='ar'?'، ':', '));
+    if(f.projects.length) parts.push(f.projects.map(function(s){var p=projBySlug(s);return p?(lang==='ar'?p.name_ar:p.name):s;}).join(lang==='ar'?'، ':', '));
+    if(f.minPrice!=null||f.maxPrice!=null) parts.push((f.minPrice!=null?moneyM(f.minPrice):'0')+'–'+(f.maxPrice!=null?moneyM(f.maxPrice):'∞'));
+    if(f.floors.length) parts.push(f.floors.map(function(k){return lang==='ar'?FLOOR_LABELS[k].ar:FLOOR_LABELS[k].en;}).join(lang==='ar'?'، ':', '));
+    if(f.avoidGround)   parts.push(t('avoid_ground'));
+    if(f.minYears!=null) parts.push(t('years_min_n').replace('{n}', num(f.minYears)));
+    if(f.maxDp!=null)   parts.push((lang==='ar'?'مقدم حتى ':'down ≤ ')+moneyM(f.maxDp));
+    return parts.join(' · ');
+  }
+  // Which key preferences are still unset (advisor asks about these).
+  function missingPrefs(f){ var out=[];
+    if(!f.areas.length) out.push('area');
+    if(!f.types.length) out.push('type');
+    if(f.minPrice==null&&f.maxPrice==null) out.push('budget');
+    if(!f.beds.length) out.push('beds');
+    return out; }
 
   /* ==================================================================
      STATE + LOOKUPS
@@ -1877,9 +2026,17 @@
     chatEls.fab.setAttribute('aria-label', t('chat_open')); chatEls.closeB.setAttribute('aria-label', t('a_close')); chatEls.sendB.setAttribute('aria-label', t('a_send'));
     chatEls.input.setAttribute('aria-label', t('chat_ph'));
     clear(chatEls.chips);
+    if(hasSelection(FILTER)){
+      var rb=h('button',{type:'button', class:'chip-key'}, t('chat_reco'));
+      rb.addEventListener('click', function(){ chatPush(h('div',{class:'msg user'}, t('chat_reco'))); chatPush(chatRecommend()); });
+      chatEls.chips.appendChild(rb);
+    }
     ['chat_c1','chat_c2','chat_c3','chat_c4'].forEach(function(k){
       var b=h('button',{type:'button'}, t(k)); b.addEventListener('click', function(){ chatUserSend(t(k)); }); chatEls.chips.appendChild(b); });
-    if(!chatEls.body.children.length) chatPush(chatMsg(t('chat_hello')));
+    if(!chatEls.body.children.length){
+      chatPush(chatMsg(t('chat_hello')));
+      if(hasSelection(FILTER)) chatPush(chatMsg((lang==='ar'?'أرى أنك تبحث عن: ':'I can see you’re looking at: ')+selectionSummary(FILTER)+(lang==='ar'?' — اضغط «رشّح من اختياري».':' — tap “Recommend from my selection”.')));
+    }
   }
   function chatPush(node){ chatEls.body.appendChild(node); chatEls.body.scrollTop=chatEls.body.scrollHeight; }
   function chatMsg(){ var m=h('div',{class:'msg bot'}); for(var i=0;i<arguments.length;i++){ if(arguments[i]!=null && arguments[i]!==false) append(m, arguments[i]); } return m; }
@@ -1899,6 +2056,51 @@
     if(CONFIG.phone) row.appendChild(h('a',{class:'btn btn--ghost btn--sm', href:'tel:'+CONFIG.phone}, svg(ICON.phone), CONFIG.phoneDisplay||CONFIG.phone));
     box.appendChild(row); return box;
   }
+  /* ---- Selection-aware advisor: recommend from the user's finder selection ---- */
+  function chatBriefText(f, recs){
+    var loc=lang==='ar', lines=[loc?'استفسار من موقع The Village':'Enquiry via The Village website'];
+    if(hasSelection(f)) lines.push((loc?'المطلوب: ':'Looking for: ')+selectionSummary(f));
+    if(recs && recs.length){ lines.push(loc?'قائمة مختارة (استرشادية):':'Shortlist (illustrative):');
+      recs.forEach(function(u){ var p=projBySlug(u.project); lines.push('• '+typeLabelC(unitCanon(u))+' — '+(loc?p.name_ar:p.name)+' · '+money(u.price)); }); }
+    lines.push(loc?'برجاء تأكيد الأسعار والإتاحة الحالية.':'Please confirm current prices and availability.');
+    return lines.join('\n');
+  }
+  function chatAskPrefs(){
+    var box=chatMsg(lang==='ar'?'لأرشّح لك وحدات مناسبة، اختر منطقة للبداية:':'To shortlist units for you, pick an area to start:');
+    var row=h('div',{class:'chat-chips',style:'margin-top:8px'});
+    AREAS.slice(0,5).forEach(function(a){ var b=h('button',{type:'button'}, L(a.name));
+      b.addEventListener('click', function(){ var f=defaultFilter(); f.areas=[a.key]; f.mode='balanced'; FILTER=f; navigateTo(buildPath('units')+'?areas='+a.key+'&mode=balanced'); chatClose(); }); row.appendChild(b); });
+    box.appendChild(row);
+    box.appendChild(h('div',{style:'margin-top:8px'}, h('a',{class:'btn btn--ghost btn--sm', href:U(buildPath('units'))}, svg(ICON.search), t('finder_h'))));
+    return box;
+  }
+  function chatRecommend(){
+    var f=FILTER;
+    if(!hasSelection(f)) return chatAskPrefs();
+    var recs=recommendUnits(f,'balanced').slice(0,5);
+    var box=chatMsg((lang==='ar'?'حسب اختيارك — ':'Based on your selection — ')+selectionSummary(f)+':');
+    if(!recs.length){
+      box.appendChild(h('div',{style:'margin-top:6px'}, lang==='ar'?'لم أجد تطابقاً قريباً؛ يمكن توسيع النطاق أو التحدث مع مستشار.':'No close matches yet — try widening your criteria or talk to an advisor.'));
+      var pr=relaxationPlan(f);
+      if(pr.length) box.appendChild(h('div',{class:'chat-illus',style:'margin-top:6px'}, (lang==='ar'?'جرّب تخفيف: ':'Try loosening: ')+pr.slice(0,2).map(function(s){return s.label;}).join('، ')));
+      box.appendChild(chatRecoActions(f, recs)); return box;
+    }
+    var ul=h('div',{style:'margin-top:8px;display:flex;flex-direction:column;gap:5px'});
+    recs.forEach(function(u){ var p=projBySlug(u.project);
+      ul.appendChild(h('a',{class:'unit-mini', href:U(buildPath('project',{slug:p.slug}))},
+        typeLabelC(unitCanon(u))+' — '+(lang==='ar'?p.name_ar:p.name)+' · '+money(u.price)+' · '+t('conf_illustrative'))); });
+    box.appendChild(ul);
+    box.appendChild(h('div',{class:'chat-illus',style:'margin-top:6px'}, lang==='ar'?'مرتّبة حسب قربها من اختيارك — أكّد التفاصيل مع مستشار.':'Ranked by closeness to your selection — confirm details with an advisor.'));
+    box.appendChild(chatRecoActions(f, recs));
+    return box;
+  }
+  function chatRecoActions(f, recs){
+    var row=h('div',{style:'display:flex;gap:6px;flex-wrap:wrap;margin-top:9px'});
+    var brief=chatBriefText(f, recs);
+    if(CONFIG.whatsapp) row.appendChild(h('a',{class:'btn btn--wa btn--sm', href:waLink(brief), target:'_blank', rel:'noopener'}, svg(ICON.wa), lang==='ar'?'أرسل القائمة لمستشار':'Send shortlist to advisor'));
+    row.appendChild(h('a',{class:'btn btn--primary btn--sm', href:U(buildPath('contact'))}, t('chat_leave')));
+    return row;
+  }
   function chatUserSend(text){
     text=(text||'').trim(); if(!text || !chatEls) return;
     chatPush(h('div',{class:'msg user'}, text));
@@ -1907,6 +2109,7 @@
   }
   function chatRespond(raw){
     var q=raw.trim(), ql=q.toLowerCase();
+    if(/(recommend|suggest|shortlist|best fit|match me|for me|رشّ?ح|اقترح|الأنسب|المناسب|قائمة مختارة)/.test(ql)) return chatRecommend();
     if(/(advisor|agent|human|call|phone|whatsapp|contact|register|مستشار|اتصال|تواصل|واتساب|واتس|كلم|سجل|بيانات)/.test(ql)) return chatActions(lang==='ar'?'يسعدنا مساعدتك مباشرة:':'Happy to help you directly:');
     if(/(payment|install|plan|deposit|قسط|تقسيط|سداد|دفعة|مقدم)/.test(ql)){
       var maxY=Math.max.apply(null, PROJECTS.map(function(p){ return p.years||0; }))||7;   // derived from data, never overstated
@@ -2259,8 +2462,11 @@
 
   V.units = function(){
     FILTER = filterFromQuery(CUR.search); reconcileFilter();
-    var af=areaFacets(), df=devFacets(), pf=projFacets(), tf=typeFacets(), bf=bedFacets(), lf=launchFacets(), avf=availFacets(), delf=deliveryFacets();
-    var list=sortUnits(filterUnits(FILTER)), projs=filteredProjects(FILTER);
+    var af=areaFacets(), df=devFacets(), pf=projFacets(), tf=typeFacets(), bf=bedFacets(), ff=floorFacets(), lf=launchFacets(), avf=availFacets(), delf=deliveryFacets();
+    var mode=FILTER.mode||'strict';
+    var strictList=filterUnits(FILTER);
+    var list = (mode==='strict') ? sortUnits(strictList) : recommendUnits(FILTER, mode);
+    var projSet={}; list.forEach(function(u){ projSet[u.project]=1; }); var projCount=Object.keys(projSet).length;
     var node=h('div',null);
     node.appendChild(sectionWrap(
       crumbNode([{label:t('nav_home'),path:buildPath('home')},{label:t('nav_units')}]),
@@ -2273,6 +2479,15 @@
     panel.appendChild(fgroup(t('nav_projects'), facetChips('projects', PROJECTS.map(function(p){return {v:p.slug,label:(lang==='ar'?p.name_ar:p.name),count:pf[p.slug]||0};}))));
     panel.appendChild(fgroup(t('filter_type'), facetChips('types', TYPES.map(function(tp){return {v:tp.c,label:typeLabelC(tp.c),icon:typeIconC(tp.c),count:tf[tp.c]||0};}))));
     panel.appendChild(fgroup(t('beds'), facetChips('beds', [0,1,2,3,4,5,6,'tbc'].map(function(v){return {v:v,label:bedsLabel(v),count:bf[v]||0};}))));
+    // preferred floor (only meaningful for floor-based types) + avoid-ground
+    if(Object.keys(ff).length){
+      var fwrap=h('div',null);
+      fwrap.appendChild(facetChips('floors', FLOOR_BANDS.map(function(fb){return {v:fb,label:(lang==='ar'?FLOOR_LABELS[fb].ar:FLOOR_LABELS[fb].en),count:ff[fb]||0};})));
+      var ag=h('input',{type:'checkbox', id:'avoid-ground', style:'width:18px;height:18px'}); if(FILTER.avoidGround) ag.checked=true;
+      ag.addEventListener('change', function(){ FILTER.avoidGround=ag.checked; pendingFocusId='avoid-ground'; finderApply(); });
+      fwrap.appendChild(h('label',{class:'toggle-line', for:'avoid-ground', style:'margin-top:8px'}, ag, t('avoid_ground')));
+      panel.appendChild(fgroup(t('filter_floor'), fwrap));
+    }
     // budget
     var bwrap=h('div',null);
     var brow=h('div',{class:'facet-row'});
@@ -2292,6 +2507,12 @@
     var tbc=h('input',{type:'checkbox', id:'inc-tbc', style:'width:18px;height:18px'}); if(FILTER.includeUnverified) tbc.checked=true;
     tbc.addEventListener('change', function(){ FILTER.includeUnverified=tbc.checked; finderApply(); });
     bwrap.appendChild(h('label',{class:'toggle-line', for:'inc-tbc'}, tbc, t('inc_tbc')));
+    // installment period (min years) — a financial preference filtering project payment plans
+    var yrsSel=h('select',{id:'finder-years','aria-label':t('filter_years')},
+      [h('option',{value:''}, t('years_any'))].concat(YEARS_PRESETS.map(function(n){
+        return h('option', FILTER.minYears===n?{value:String(n),selected:true}:{value:String(n)}, t('years_min_n').replace('{n}', num(n))); })));
+    yrsSel.addEventListener('change', function(){ FILTER.minYears=yrsSel.value?+yrsSel.value:null; pendingFocusId='finder-years'; finderApply(); });
+    bwrap.appendChild(h('div',{class:'field',style:'margin-top:10px'}, h('label',{for:'finder-years',style:'font-size:.82rem;color:var(--ink-2);display:block;margin-bottom:5px'}, t('filter_years')), yrsSel));
     panel.appendChild(fgroup(t('filter_budget'), bwrap));
     // statuses
     panel.appendChild(fgroup(t('launch_status'), facetChips('launch', ['newly-launched','available'].map(function(s){return {v:s,label:(lang==='ar'?LAUNCH_LABELS[s].ar:LAUNCH_LABELS[s].en),count:lf[s]||0};}))));
@@ -2301,13 +2522,15 @@
     // ---- results ----
     var results=h('div',null);
     var rhead=h('div',{class:'results-head'});
-    rhead.appendChild(h('div',{class:'rc','aria-live':'polite'}, num(list.length)+' '+(lang==='ar'?'وحدة':'units')+' · '+num(projs.length)+' '+(lang==='ar'?'مشروع':'projects')));
+    rhead.appendChild(h('div',{class:'rc','aria-live':'polite'}, num(list.length)+' '+(lang==='ar'?'وحدة':'units')+' · '+num(projCount)+' '+(lang==='ar'?'مشروع':'projects')));
     var sortSel=h('select',{id:'finder-sort','aria-label':t('filter_sort')},
       [['recommended','sort_feat'],['price-asc','sort_price_a'],['price-desc','sort_price_d'],['earliest-delivery','sort_delivery'],['newest','sort_newest']]
         .map(function(o){ return h('option', FILTER.sort===o[0]?{value:o[0],selected:true}:{value:o[0]}, t(o[1])); }));
     sortSel.addEventListener('change', function(){ FILTER.sort=sortSel.value; pendingFocusId='finder-sort'; finderApply(); });
-    rhead.appendChild(sortSel);
+    if(mode==='strict') rhead.appendChild(sortSel);            // reco modes rank by match, so sort is hidden
     results.appendChild(rhead);
+    // recommendation mode selector (Exact / Balanced / Flexible)
+    results.appendChild(modeSelector(mode));
     // active chips
     var active=activeFilterChips();
     if(active.length){
@@ -2316,8 +2539,18 @@
       af2.appendChild(h('button',{class:'btn btn--ghost btn--sm', type:'button', onclick:function(){ FILTER=defaultFilter(); finderApply(); }}, t('cta_reset')));
       results.appendChild(af2);
     }
-    if(list.length) results.appendChild(h('div',{class:'grid grid--2'}, list.map(unitCard)));
-    else results.appendChild(h('div',{class:'state'}, ic('search'), h('h3',null,t('noresults')), h('p',null,t('finder_none')),
+    // relaxation planner: strict mode with a thin/empty result AND active criteria -> offer the biggest single loosen + nearest matches
+    if(mode==='strict' && activeCriteriaCount(FILTER)>0 && strictList.length<4){
+      var plan=relaxationPlan(FILTER);
+      if(plan.length || strictList.length===0) results.appendChild(relaxPanel(plan, strictList.length));
+    }
+    if(mode!=='strict') results.appendChild(h('div',{class:'notice notice--info',style:'margin-bottom:16px'}, ic('spark'),
+      h('div',null, mode==='balanced'?t('reco_balanced_note'):t('reco_flexible_note'))));
+    if(list.length){
+      var grid=h('div',{class:'grid grid--2'});
+      list.forEach(function(u){ grid.appendChild(mode==='strict'?unitCard(u):recoCard(u)); });
+      results.appendChild(grid);
+    } else results.appendChild(h('div',{class:'state'}, ic('search'), h('h3',null,t('noresults')), h('p',null,t('finder_none')),
       h('div',{style:'display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px'},
         h('button',{class:'btn btn--primary', type:'button', onclick:function(){ FILTER=defaultFilter(); finderApply(); }}, t('cta_reset')),
         h('a',{class:'btn btn--ghost', href:U(buildPath('contact'))}, t('cta_talk')))));
@@ -2327,9 +2560,48 @@
     sec.appendChild(h('div',{class:'wrap'}, h('div',{class:'finder'}, panel, results)));
     node.appendChild(sec);
     return {node:node, title:t('finder_h')+' · The Village Investment', desc:t('finder_p'), indexable:true,
-      announce: num(list.length)+' '+(lang==='ar'?'وحدة':'units')+' · '+num(projs.length)+' '+(lang==='ar'?'مشروع':'projects'),
+      announce: num(list.length)+' '+(lang==='ar'?'وحدة':'units')+' · '+num(projCount)+' '+(lang==='ar'?'مشروع':'projects'),
       crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_units')}]};
   };
+  // ---- recommendation UI helpers ----
+  function modeSelector(mode){
+    var wrap=h('div',{class:'mode-seg', role:'group','aria-label':t('reco_mode')});
+    wrap.appendChild(h('span',{class:'mode-seg__lbl'}, t('reco_mode')));
+    RECO_MODES.forEach(function(m){
+      var on=(mode===m);
+      var b=h('button',{class:'mode-seg__btn'+(on?' on':''), id:'mode-'+m, type:'button','aria-pressed':on?'true':'false'}, lang==='ar'?RECO_LABELS[m].ar:RECO_LABELS[m].en);
+      b.addEventListener('click', function(){ if(!on) setMode(m); });
+      wrap.appendChild(b);
+    });
+    return wrap;
+  }
+  function recoCard(u){
+    var card=unitCard(u);
+    var sc=scoreUnit(u, FILTER);
+    if(sc.crit.length){
+      var strip=h('div',{class:'reco-explain'});
+      sc.matched.slice(0,4).forEach(function(c){ if(c.label) strip.appendChild(h('span',{class:'rx rx--ok'}, ic('check'), c.label)); });
+      sc.missed.slice(0,2).forEach(function(c){ if(c.label) strip.appendChild(h('span',{class:'rx rx--no'}, c.label)); });
+      var body=card.querySelector('.card__body'); if(body) body.appendChild(strip);
+    }
+    return card;
+  }
+  function relaxPanel(plan, strictN){
+    var box=h('div',{class:'relax-panel'});
+    box.appendChild(h('div',{class:'relax-h'}, ic('spark'), h('strong',null, strictN===0?t('reco_zero_h'):t('reco_few_h'))));
+    if(plan.length){
+      box.appendChild(h('p',{class:'muted',style:'font-size:.85rem;margin:6px 0 10px'}, t('reco_relax_p')));
+      var row=h('div',{class:'facet-row'});
+      plan.slice(0,4).forEach(function(s){
+        var b=h('button',{class:'fchip', type:'button'}, ic('close'), h('span',null, s.label), h('small',null,'+'+num(s.gain)));
+        b.addEventListener('click', function(){ clearFilterKey(s.key); });
+        row.appendChild(b);
+      });
+      box.appendChild(row);
+    }
+    box.appendChild(h('button',{class:'btn btn--primary btn--sm', type:'button', style:'margin-top:12px', onclick:function(){ setMode('balanced'); }}, ic('spark'), t('reco_see_near')));
+    return box;
+  }
   function activeFilterChips(){
     var out=[];
     function push(group, v, label){ var tag=h('span',{class:'filter-tag'}, label, h('button',{type:'button','aria-label':t('cta_reset')+': '+label},'×'));
@@ -2339,12 +2611,18 @@
     FILTER.projects.forEach(function(v){ var p=projBySlug(v); push('projects', v, lang==='ar'?p.name_ar:p.name); });
     FILTER.types.forEach(function(v){ push('types', v, typeLabelC(v)); });
     FILTER.beds.forEach(function(v){ push('beds', v, bedsLabel(v)); });
+    FILTER.floors.forEach(function(v){ push('floors', v, lang==='ar'?FLOOR_LABELS[v].ar:FLOOR_LABELS[v].en); });
     FILTER.launch.forEach(function(v){ push('launch', v, lang==='ar'?LAUNCH_LABELS[v].ar:LAUNCH_LABELS[v].en); });
     FILTER.avail.forEach(function(v){ push('avail', v, lang==='ar'?AVAIL_LABELS[v].ar:AVAIL_LABELS[v].en); });
     FILTER.delivery.forEach(function(v){ push('delivery', v, lang==='ar'?DELIVERY_LABELS[v].ar:DELIVERY_LABELS[v].en); });
     if(FILTER.minPrice!=null||FILTER.maxPrice!=null){ var lab=(FILTER.minPrice!=null?moneyM(FILTER.minPrice):'0')+'–'+(FILTER.maxPrice!=null?moneyM(FILTER.maxPrice):'∞');
       var tag=h('span',{class:'filter-tag'}, lab, h('button',{type:'button','aria-label':t('cta_reset')},'×'));
       tag.querySelector('button').addEventListener('click', function(){ FILTER.minPrice=null; FILTER.maxPrice=null; finderApply(); }); out.push(tag); }
+    function pushOne(label, onRemove){ var tag=h('span',{class:'filter-tag'}, label, h('button',{type:'button','aria-label':t('cta_reset')+': '+label},'×'));
+      tag.querySelector('button').addEventListener('click', onRemove); out.push(tag); }
+    if(FILTER.avoidGround) pushOne(t('avoid_ground'), function(){ FILTER.avoidGround=false; finderApply(); });
+    if(FILTER.minYears!=null) pushOne(t('years_min_n').replace('{n}', num(FILTER.minYears)), function(){ FILTER.minYears=null; finderApply(); });
+    if(FILTER.maxDp!=null) pushOne((lang==='ar'?'مقدم حتى ':'Down ≤ ')+moneyM(FILTER.maxDp), function(){ FILTER.maxDp=null; finderApply(); });
     return out;
   }
 
