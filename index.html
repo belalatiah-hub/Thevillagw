@@ -262,6 +262,12 @@
   .field-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
   .search-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 12px}
   @media (max-width:520px){ .search-grid{grid-template-columns:1fr} }
+  .search-adv{margin:0 0 8px}
+  .search-adv>summary{cursor:pointer;list-style:none;font-weight:700;font-size:.82rem;color:var(--teal-700);display:inline-flex;align-items:center;gap:6px;padding:6px 2px;user-select:none}
+  .search-adv>summary::-webkit-details-marker{display:none}
+  .search-adv>summary::after{content:"\25BE";font-size:.75rem;transition:transform .2s}
+  .search-adv[open]>summary::after{transform:rotate(180deg)}
+  .search-adv>summary:focus-visible{outline:2px solid var(--teal-600);outline-offset:3px;border-radius:6px}
 
   /* ===================================================================
      CARDS / GRIDS
@@ -1035,7 +1041,7 @@
       finder_none:"No units match all your filters together. Remove a filter, widen your budget, or talk to an advisor.",
       filter_budget:"Budget (total price)", min_price:"Min EGP", max_price:"Max EGP", inc_tbc:"Include units with price to confirm",
       filter_floor:"Preferred floor", avoid_ground:"Avoid ground floor", filter_years:"Installment period", years_any:"Any length", years_min_n:"At least {n} years",
-      filter_project:"Project", filter_beds:"Bedrooms",
+      filter_project:"Project", filter_beds:"Bedrooms", more_filters:"More filters", fewer_filters:"Fewer filters",
       filters:"Filters", hide_filters:"Hide filters",
       reco_mode:"Match", reco_balanced_note:"Balanced view: your closest matches, ranked — a few criteria may be relaxed. Each card shows what it matches.", reco_flexible_note:"Flexible view: a wider ranked shortlist to explore — verify the details that matter with an advisor.",
       reco_zero_h:"No exact match", reco_few_h:"Only a few exact matches", reco_relax_p:"Loosen one preference to see more (extra units shown):", reco_see_near:"See nearest matches",
@@ -1141,7 +1147,7 @@
       finder_none:"لا توجد وحدات تطابق كل الفلاتر معاً. أزِل فلتراً أو وسّع الميزانية أو تحدّث إلى مستشار.",
       filter_budget:"الميزانية (السعر الكلي)", min_price:"أدنى ج.م", max_price:"أقصى ج.م", inc_tbc:"تضمين وحدات سعرها قيد التأكيد",
       filter_floor:"الدور المفضّل", avoid_ground:"تجنّب الدور الأرضي", filter_years:"مدة التقسيط", years_any:"أي مدة", years_min_n:"{n} سنوات على الأقل",
-      filter_project:"المشروع", filter_beds:"غرف النوم",
+      filter_project:"المشروع", filter_beds:"غرف النوم", more_filters:"فلاتر إضافية", fewer_filters:"فلاتر أقل",
       filters:"الفلاتر", hide_filters:"إخفاء الفلاتر",
       reco_mode:"المطابقة", reco_balanced_note:"عرض متوازن: أقرب النتائج مرتّبة حسب المطابقة — قد تُخفَّف بعض المعايير. كل بطاقة توضّح ما يطابقه.", reco_flexible_note:"عرض مرن: قائمة أوسع مرتّبة للاستكشاف — تأكّد من التفاصيل المهمة مع المستشار.",
       reco_zero_h:"لا توجد مطابقة تامة", reco_few_h:"مطابقات تامة قليلة فقط", reco_relax_p:"خفِّف أحد التفضيلات لرؤية المزيد (الوحدات الإضافية):", reco_see_near:"اعرض أقرب النتائج",
@@ -2161,14 +2167,19 @@
     var searchCard = h('form',{class:'search-card', role:'search'},
       h('h2',null, t('find_h')),
       h('p',{class:'muted'}, t('find_p')),
+      // primary, always-visible fields: Area · Developer · Unit
       h('div',{class:'search-grid'},
         field('select','f-area', t('filter_area'), areaOptions()),
-        field('select','f-dev', t('filter_dev'), devOptions()),
-        field('select','f-project', t('filter_project'), projOpts),
-        field('select','f-type', t('filter_type'), typeOpts),
-        field('select','f-beds', t('filter_beds'), bedOpts),
-        field('select','f-floor', t('filter_floor'), floorOpts)),
-      field('select','f-budget', t('filter_budget'), budgetOpts),
+        field('select','f-dev', t('filter_dev'), devOptions())),
+      field('select','f-type', t('filter_type'), typeOpts),
+      // secondary fields, collapsed by default — revealed on expand
+      h('details',{class:'search-adv'},
+        h('summary',null, t('more_filters')),
+        h('div',{class:'search-grid', style:'margin-top:12px'},
+          field('select','f-project', t('filter_project'), projOpts),
+          field('select','f-beds', t('filter_beds'), bedOpts),
+          field('select','f-floor', t('filter_floor'), floorOpts),
+          field('select','f-budget', t('filter_budget'), budgetOpts))),
       h('button',{class:'btn btn--primary btn--block', type:'submit'}, ic('search'), t('cta_explore')));
     searchCard.addEventListener('submit', function(e){
       e.preventDefault();
