@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Env & secrets
+.env
+.env.*
+!.env.example
+
+# Prisma (keep migrations + migration_lock.toml committed)
+prisma/*.db
+
+# Coverage & test
+coverage/
+.nyc_output/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+*.tsbuildinfo
