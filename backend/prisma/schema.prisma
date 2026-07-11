@@ -138,6 +138,42 @@ enum OpportunityStatus {
   LOST
 }
 
+enum ReservationStatus {
+  HELD
+  CONVERTED
+  CANCELLED
+  EXPIRED
+}
+
+enum ContractStatus {
+  DRAFT
+  SIGNED
+  ACTIVE
+  COMPLETED
+  CANCELLED
+}
+
+enum InstallmentStatus {
+  DUE
+  PAID
+  OVERDUE
+  WAIVED
+}
+
+enum PaymentMethod {
+  CASH
+  BANK_TRANSFER
+  CHEQUE
+  CARD
+  INSTALLMENT
+}
+
+enum CommissionStatus {
+  PENDING
+  APPROVED
+  PAID
+}
+
 // ─── Tenancy & identity ──────────────────────────────────────────────────────
 
 model Company {
@@ -163,6 +199,10 @@ model Company {
   opportunities Opportunity[]
   activities    Activity[]
   auditLogs     AuditLog[]
+  reservations  Reservation[]
+  contracts     Contract[]
+  payments      Payment[]
+  commissions   Commission[]
 
   @@index([slug])
 }
@@ -210,6 +250,7 @@ model User {
   ownedCustomers Customer[]     @relation("CustomerOwner")
   activities     Activity[]     @relation("ActivityOwner")
   opportunities  Opportunity[]  @relation("OpportunityOwner")
+  commissions    Commission[]
   auditLogs      AuditLog[]
 
   @@unique([companyId, email])
@@ -338,6 +379,8 @@ model Unit {
   updatedAt    DateTime   @updatedAt
 
   opportunities Opportunity[]
+  reservations  Reservation[]
+  contracts     Contract[]
 
   @@unique([companyId, projectId, code])
   @@index([companyId, status])
@@ -374,6 +417,8 @@ model Customer {
   leads         Lead[]
   activities    Activity[]
   opportunities Opportunity[]
+  reservations  Reservation[]
+  contracts     Contract[]
 
   @@index([companyId])
   @@index([companyId, phone])
@@ -490,7 +535,9 @@ model Opportunity {
   createdAt     DateTime          @default(now())
   updatedAt     DateTime          @updatedAt
 
-  activities Activity[]
+  activities  Activity[]
+  reservation Reservation?
+  contract    Contract?
 
   @@index([companyId, pipelineId])
   @@index([companyId, stageId])
@@ -544,4 +591,114 @@ model AuditLog {
 
   @@index([companyId, createdAt])
   @@index([companyId, entityType, entityId])
+}
+
+// ─── Finance: reservation → contract → installments → payments → commission ──
+
+model Reservation {
+  id            String            @id @default(cuid())
+  companyId     String
+  company       Company           @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  unitId        String
+  unit          Unit              @relation(fields: [unitId], references: [id])
+  customerId    String
+  customer      Customer          @relation(fields: [customerId], references: [id])
+  opportunityId String?           @unique
+  opportunity   Opportunity?      @relation(fields: [opportunityId], references: [id])
+  status        ReservationStatus @default(HELD)
+  depositMinor  BigInt            @default(0)
+  currency      Currency          @default(EGP)
+  expiresAt     DateTime?
+  notes         String?
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+
+  contract Contract?
+
+  @@index([companyId, status])
+}
+
+model Contract {
+  id             String         @id @default(cuid())
+  companyId      String
+  company        Company        @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  reference      String
+  unitId         String
+  unit           Unit           @relation(fields: [unitId], references: [id])
+  customerId     String
+  customer       Customer       @relation(fields: [customerId], references: [id])
+  opportunityId  String?        @unique
+  opportunity    Opportunity?   @relation(fields: [opportunityId], references: [id])
+  reservationId  String?        @unique
+  reservation    Reservation?   @relation(fields: [reservationId], references: [id])
+  status         ContractStatus @default(DRAFT)
+  totalPriceMinor BigInt
+  downPaymentMinor BigInt        @default(0)
+  currency       Currency       @default(EGP)
+  installmentCount Int           @default(0)
+  signedAt       DateTime?
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  installments Installment[]
+  payments     Payment[]
+  commissions  Commission[]
+
+  @@unique([companyId, reference])
+  @@index([companyId, status])
+}
+
+model Installment {
+  id          String            @id @default(cuid())
+  contractId  String
+  contract    Contract          @relation(fields: [contractId], references: [id], onDelete: Cascade)
+  seq         Int
+  dueDate     DateTime
+  amountMinor BigInt
+  paidMinor   BigInt            @default(0)
+  status      InstallmentStatus @default(DUE)
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  payments Payment[]
+
+  @@unique([contractId, seq])
+  @@index([contractId, status])
+}
+
+model Payment {
+  id            String        @id @default(cuid())
+  companyId     String
+  company       Company       @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  contractId    String
+  contract      Contract      @relation(fields: [contractId], references: [id], onDelete: Cascade)
+  installmentId String?
+  installment   Installment?  @relation(fields: [installmentId], references: [id])
+  amountMinor   BigInt
+  currency      Currency      @default(EGP)
+  method        PaymentMethod @default(BANK_TRANSFER)
+  reference     String?
+  receivedAt    DateTime      @default(now())
+  createdAt     DateTime      @default(now())
+
+  @@index([companyId, contractId])
+}
+
+model Commission {
+  id          String           @id @default(cuid())
+  companyId   String
+  company     Company          @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  contractId  String
+  contract    Contract         @relation(fields: [contractId], references: [id], onDelete: Cascade)
+  userId      String
+  user        User             @relation(fields: [userId], references: [id])
+  ratePct     Float
+  amountMinor BigInt
+  currency    Currency         @default(EGP)
+  status      CommissionStatus @default(PENDING)
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  @@index([companyId, status])
+  @@index([userId])
 }

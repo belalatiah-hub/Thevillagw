@@ -1,6 +1,8 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 import { Opportunity, OpportunityStatus, Pipeline } from '@prisma/client';
 import { AuthUser } from '../../common/decorators/current-user.decorator';
+import { DOMAIN_EVENTS } from '../../common/events/domain-events';
 import { PrismaService } from '../../prisma/prisma.service';
 import {
   CreateOpportunityDto,
@@ -21,7 +23,10 @@ export interface ForecastRow {
 
 @Injectable()
 export class PipelineService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly events: EventEmitter2,
+  ) {}
 
   // ── Pipelines ────────────────────────────────────────────────────────────
 
@@ -161,10 +166,17 @@ export class PipelineService {
       : stage.isLost
         ? OpportunityStatus.LOST
         : OpportunityStatus.OPEN;
-    return this.prisma.opportunity.update({
+    const moved = await this.prisma.opportunity.update({
       where: { id },
       data: { stageId: dto.stageId, status },
     });
+    this.events.emit(DOMAIN_EVENTS.OPPORTUNITY_MOVED, {
+      companyId: user.companyId,
+      opportunityId: id,
+      stageId: dto.stageId,
+      status,
+    });
+    return moved;
   }
 
   async updateOpportunity(

@@ -18,6 +18,8 @@ export interface AppConfig {
   };
   leadCaptureKey: string;
   throttle: { ttl: number; limit: number };
+  openaiApiKey: string;
+  openaiModel: string;
 }
 
 export default (): AppConfig => ({
@@ -41,4 +43,6 @@ export default (): AppConfig => ({
     ttl: parseInt(process.env.THROTTLE_TTL ?? '60', 10),
     limit: parseInt(process.env.THROTTLE_LIMIT ?? '120', 10),
   },
+  openaiApiKey: process.env.OPENAI_API_KEY ?? '',
+  openaiModel: process.env.OPENAI_MODEL ?? 'gpt-4o-mini',
 });

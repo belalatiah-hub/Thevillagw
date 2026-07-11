@@ -1,0 +1,917 @@
+<title>The Village CRM — Console</title>
+<meta name="description" content="Enterprise Real Estate CRM console for The Village Investment — leads, pipeline, inventory." />
+<style>
+  /* ─── Tokens ────────────────────────────────────────────────────────────── */
+  :root {
+    --brand-900: #062A39;
+    --brand-800: #073D52;
+    --brand-700: #0B4C64;
+    --brand-500: #115F7D;
+    --accent: #0E9AB8;
+    --accent-ink: #ffffff;
+
+    --hot: #E4572E;
+    --warm: #E39A2B;
+    --cold: #3E7CA6;
+    --success: #1F9D6B;
+    --danger: #D64545;
+    --info: #2E7DA6;
+
+    /* light theme (default) */
+    --bg: #ECE7DB;
+    --surface: #FFFFFF;
+    --surface-2: #F6F1E7;
+    --surface-3: #EFE9DC;
+    --ink: #0C1B22;
+    --ink-soft: #33474F;
+    --muted: #63757D;
+    --line: #E1D9CA;
+    --line-strong: #D2C8B5;
+    --shadow: 0 1px 2px rgba(12,27,34,.06), 0 8px 24px rgba(12,27,34,.06);
+    --shadow-lg: 0 12px 40px rgba(12,27,34,.16);
+    --ring: rgba(14,154,184,.35);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #08141A;
+      --surface: #0F252D;
+      --surface-2: #0C1D24;
+      --surface-3: #123039;
+      --ink: #E9F1F2;
+      --ink-soft: #C4D4D7;
+      --muted: #86A0A8;
+      --line: #1C3A44;
+      --line-strong: #274B57;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
+      --shadow-lg: 0 16px 50px rgba(0,0,0,.5);
+      --ring: rgba(34,184,214,.4);
+    }
+  }
+  :root[data-theme="light"] {
+    --bg: #ECE7DB; --surface: #FFFFFF; --surface-2: #F6F1E7; --surface-3: #EFE9DC;
+    --ink: #0C1B22; --ink-soft: #33474F; --muted: #63757D; --line: #E1D9CA; --line-strong: #D2C8B5;
+    --shadow: 0 1px 2px rgba(12,27,34,.06), 0 8px 24px rgba(12,27,34,.06);
+    --shadow-lg: 0 12px 40px rgba(12,27,34,.16); --ring: rgba(14,154,184,.35);
+  }
+  :root[data-theme="dark"] {
+    --bg: #08141A; --surface: #0F252D; --surface-2: #0C1D24; --surface-3: #123039;
+    --ink: #E9F1F2; --ink-soft: #C4D4D7; --muted: #86A0A8; --line: #1C3A44; --line-strong: #274B57;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
+    --shadow-lg: 0 16px 50px rgba(0,0,0,.5); --ring: rgba(34,184,214,.4);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, "Noto Sans Arabic",
+      "Helvetica Neue", Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  [dir="rtl"] body, [dir="rtl"] { font-family: "Noto Sans Arabic", "Segoe UI", system-ui, -apple-system, sans-serif; }
+  .tnum { font-variant-numeric: tabular-nums; }
+  button { font: inherit; cursor: pointer; }
+  a { color: inherit; }
+  ::selection { background: var(--accent); color: #fff; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+  @media (prefers-reduced-motion: reduce) { * { animation-duration: .001ms !important; transition-duration: .001ms !important; } }
+
+  /* ─── App shell ─────────────────────────────────────────────────────────── */
+  #app { height: 100%; }
+  .shell { display: grid; grid-template-columns: 248px 1fr; height: 100%; }
+  [dir="rtl"] .shell { grid-template-columns: 248px 1fr; }
+
+  .side {
+    background: linear-gradient(180deg, var(--brand-900), var(--brand-800) 60%, var(--brand-700));
+    color: #DCEAF0; display: flex; flex-direction: column; gap: 4px; padding: 18px 14px;
+    border-inline-end: 1px solid rgba(255,255,255,.06);
+  }
+  .brand { display: flex; align-items: center; gap: 11px; padding: 6px 8px 16px; }
+  .brand .mark {
+    width: 38px; height: 38px; border-radius: 10px; flex: 0 0 auto;
+    background: linear-gradient(135deg, var(--accent), #0B7A93);
+    display: grid; place-items: center; color: #fff; font-weight: 800; font-size: 19px;
+    box-shadow: 0 6px 16px rgba(14,154,184,.4);
+  }
+  .brand b { display: block; color: #fff; font-size: 14.5px; letter-spacing: .2px; }
+  .brand span { color: #9FC2CF; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+  .nav-label { color: #7FA6B4; font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; padding: 14px 10px 6px; }
+  .nav-item {
+    display: flex; align-items: center; gap: 11px; width: 100%; text-align: start;
+    padding: 9px 11px; border-radius: 9px; border: 0; background: transparent; color: #C6DBE3;
+    font-size: 13.5px; transition: background .15s, color .15s;
+  }
+  .nav-item svg { width: 18px; height: 18px; opacity: .85; flex: 0 0 auto; }
+  .nav-item:hover { background: rgba(255,255,255,.06); color: #fff; }
+  .nav-item.active { background: rgba(14,154,184,.22); color: #fff; box-shadow: inset 0 0 0 1px rgba(255,255,255,.08); }
+  .nav-item .badge { margin-inline-start: auto; background: var(--accent); color: #fff; font-size: 11px;
+    padding: 1px 7px; border-radius: 999px; font-variant-numeric: tabular-nums; }
+  .side-foot { margin-top: auto; padding: 10px; color: #9FC2CF; font-size: 11.5px; border-top: 1px solid rgba(255,255,255,.08); }
+
+  .main { min-width: 0; display: flex; flex-direction: column; height: 100%; overflow: hidden; }
+  .topbar {
+    display: flex; align-items: center; gap: 12px; padding: 12px 22px;
+    background: color-mix(in srgb, var(--surface) 82%, transparent);
+    backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); flex: 0 0 auto;
+  }
+  .page-title { font-size: 17px; font-weight: 700; letter-spacing: -.01em; margin: 0; }
+  .page-sub { color: var(--muted); font-size: 12px; }
+  .search {
+    display: flex; align-items: center; gap: 8px; background: var(--surface-2);
+    border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; width: 300px; max-width: 34vw;
+    color: var(--muted);
+  }
+  .search svg { width: 18px; height: 18px; flex: 0 0 auto; }
+  .search input { border: 0; background: transparent; color: var(--ink); width: 100%; outline: none; font-size: 13px; }
+  .icon-btn {
+    width: 38px; height: 38px; border-radius: 10px; border: 1px solid var(--line);
+    background: var(--surface); color: var(--ink-soft); display: grid; place-items: center; transition: .15s;
+  }
+  .icon-btn:hover { border-color: var(--line-strong); color: var(--ink); background: var(--surface-2); }
+  .icon-btn svg { width: 18px; height: 18px; }
+  .who { display: flex; align-items: center; gap: 9px; padding-inline-start: 4px; }
+  .avatar { width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg,var(--brand-500),var(--accent));
+    color: #fff; display: grid; place-items: center; font-weight: 700; font-size: 13px; }
+  .who b { font-size: 13px; display: block; line-height: 1.2; }
+  .who span { font-size: 11px; color: var(--muted); }
+
+  .content { overflow-y: auto; padding: 22px; flex: 1 1 auto; }
+  .grow { flex: 1 1 auto; }
+
+  /* ─── Reusable ──────────────────────────────────────────────────────────── */
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow); }
+  .card-pad { padding: 16px 18px; }
+  .row { display: flex; align-items: center; gap: 12px; }
+  .between { justify-content: space-between; }
+  .wrap { flex-wrap: wrap; }
+  h2.sec { font-size: 13px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin: 2px 0 12px; font-weight: 700; }
+  .pill { display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 600;
+    padding: 3px 9px; border-radius: 999px; border: 1px solid transparent; white-space: nowrap; }
+  .dot { width: 7px; height: 7px; border-radius: 50%; flex: 0 0 auto; }
+  .t-hot   { color: var(--hot);  background: color-mix(in srgb, var(--hot) 13%, transparent); }
+  .t-warm  { color: var(--warm); background: color-mix(in srgb, var(--warm) 15%, transparent); }
+  .t-cold  { color: var(--cold); background: color-mix(in srgb, var(--cold) 15%, transparent); }
+  .st { color: var(--ink-soft); background: var(--surface-3); border-color: var(--line); }
+  .btn {
+    display: inline-flex; align-items: center; gap: 7px; padding: 9px 15px; border-radius: 10px;
+    border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink); font-weight: 600; font-size: 13px; transition: .15s;
+  }
+  .btn:hover { background: var(--surface-2); }
+  .btn svg { width: 16px; height: 16px; }
+  .btn.primary { background: linear-gradient(135deg, var(--brand-500), var(--accent)); border-color: transparent; color: #fff;
+    box-shadow: 0 6px 18px rgba(14,154,184,.32); }
+  .btn.primary:hover { filter: brightness(1.05); }
+  .btn.sm { padding: 6px 11px; font-size: 12px; }
+
+  /* KPI tiles */
+  .kpis { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-bottom: 18px; }
+  .kpi { position: relative; overflow: hidden; }
+  .kpi .lab { color: var(--muted); font-size: 11.5px; font-weight: 600; letter-spacing: .03em; text-transform: uppercase; }
+  .kpi .val { font-size: 22px; font-weight: 800; letter-spacing: -.02em; margin-top: 6px; line-height: 1.15; white-space: nowrap; }
+  .kpi .sub { font-size: 12px; color: var(--muted); margin-top: 3px; }
+  .kpi .trend { font-weight: 700; }
+  .up { color: var(--success); } .down { color: var(--danger); }
+  .kpi .spark { position: absolute; inset-block-end: 0; inset-inline-end: 0; width: 96px; height: 42px; opacity: .9; }
+
+  .grid-2 { display: grid; grid-template-columns: 1.4fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+  /* Tables */
+  .tbl-wrap { overflow-x: auto; }
+  table.tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .tbl th { text-align: start; color: var(--muted); font-weight: 600; font-size: 11px; text-transform: uppercase;
+    letter-spacing: .06em; padding: 10px 12px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  .tbl td { padding: 11px 12px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+  .tbl tbody tr { transition: background .12s; cursor: pointer; }
+  .tbl tbody tr:hover { background: var(--surface-2); }
+  .tbl tbody tr:last-child td { border-bottom: 0; }
+  .who-cell { display: flex; align-items: center; gap: 10px; }
+  .mini-av { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: 11.5px; color: #fff; flex: 0 0 auto; }
+  .score-wrap { display: flex; align-items: center; gap: 8px; min-width: 92px; }
+  .score-bar { flex: 1; height: 6px; border-radius: 999px; background: var(--surface-3); overflow: hidden; }
+  .score-fill { height: 100%; border-radius: 999px; }
+
+  .seg { display: inline-flex; background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px; padding: 3px; gap: 2px; }
+  .seg button { border: 0; background: transparent; color: var(--muted); padding: 6px 12px; border-radius: 7px; font-size: 12.5px; font-weight: 600; }
+  .seg button.on { background: var(--surface); color: var(--ink); box-shadow: var(--shadow); }
+
+  /* Pipeline */
+  .board { display: flex; gap: 14px; overflow-x: auto; padding-bottom: 8px; align-items: flex-start; }
+  .col { background: var(--surface-2); border: 1px solid var(--line); border-radius: 14px; width: 264px; flex: 0 0 auto; display: flex; flex-direction: column; max-height: 100%; }
+  .col.drag-over { outline: 2px dashed var(--accent); outline-offset: -3px; }
+  .col-head { padding: 12px 13px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); }
+  .col-head b { font-size: 13px; } .col-head .pb { font-size: 11px; color: var(--muted); }
+  .col-body { padding: 11px; display: flex; flex-direction: column; gap: 10px; overflow-y: auto; }
+  .deal { background: var(--surface); border: 1px solid var(--line); border-radius: 11px; padding: 12px; box-shadow: var(--shadow); cursor: grab; }
+  .deal:active { cursor: grabbing; }
+  .deal.dragging { opacity: .5; }
+  .deal .dt { font-weight: 700; font-size: 13px; margin-bottom: 5px; }
+  .deal .dv { font-size: 13px; font-weight: 800; color: var(--brand-500); }
+  [data-theme="dark"] .deal .dv { color: var(--accent); }
+  @media (prefers-color-scheme: dark) { .deal .dv { color: var(--accent); } }
+  .deal .dm { color: var(--muted); font-size: 11.5px; margin-top: 4px; }
+
+  /* Inventory */
+  .units { display: grid; grid-template-columns: repeat(auto-fill, minmax(258px,1fr)); gap: 15px; }
+  .unit { overflow: hidden; }
+  .unit .hd { height: 96px; background: linear-gradient(135deg, var(--brand-700), var(--brand-500)); position: relative; display: grid; place-items: center; }
+  .unit .hd svg { width: 100%; height: 100%; position: absolute; inset: 0; opacity: .5; }
+  .unit .hd .utype { position: relative; color: #fff; font-weight: 700; letter-spacing: .04em; font-size: 13px; }
+  .unit .bd { padding: 13px 15px; }
+  .unit .price { font-size: 18px; font-weight: 800; letter-spacing: -.01em; }
+  .unit .specs { display: flex; gap: 14px; color: var(--muted); font-size: 12px; margin-top: 8px; }
+
+  /* Permission matrix */
+  .matrix { overflow-x: auto; }
+  .matrix table { border-collapse: collapse; font-size: 12.5px; min-width: 640px; }
+  .matrix th, .matrix td { padding: 9px 11px; border-bottom: 1px solid var(--line); text-align: center; }
+  .matrix th:first-child, .matrix td:first-child { text-align: start; font-weight: 600; white-space: nowrap; }
+  .matrix .yes { color: var(--success); } .matrix .no { color: var(--line-strong); }
+
+  /* Drawer */
+  .drawer-scrim { position: fixed; inset: 0; background: rgba(6,20,26,.5); backdrop-filter: blur(2px); opacity: 0; pointer-events: none; transition: opacity .2s; z-index: 40; }
+  .drawer-scrim.open { opacity: 1; pointer-events: auto; }
+  .drawer {
+    position: fixed; inset-block: 0; inset-inline-end: 0; width: 460px; max-width: 92vw; background: var(--surface);
+    border-inline-start: 1px solid var(--line); box-shadow: var(--shadow-lg); transform: translateX(100%);
+    transition: transform .26s cubic-bezier(.4,0,.2,1); z-index: 41; display: flex; flex-direction: column;
+  }
+  [dir="rtl"] .drawer { transform: translateX(-100%); }
+  .drawer.open { transform: translateX(0); }
+  .drawer-head { padding: 18px 20px; border-bottom: 1px solid var(--line); }
+  .drawer-body { padding: 18px 20px; overflow-y: auto; }
+  .field { margin-bottom: 15px; }
+  .field .k { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 3px; }
+  .field .v { font-size: 14px; font-weight: 600; }
+  .tl { position: relative; padding-inline-start: 22px; }
+  .tl::before { content: ""; position: absolute; inset-block: 4px 4px; inset-inline-start: 5px; width: 2px; background: var(--line); }
+  .tl-item { position: relative; padding-bottom: 15px; }
+  .tl-item::before { content: ""; position: absolute; inset-inline-start: -21px; top: 3px; width: 11px; height: 11px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent); }
+  .tl-item .tt { font-weight: 600; font-size: 13px; }
+  .tl-item .td { color: var(--muted); font-size: 11.5px; }
+
+  /* Login */
+  .login { position: fixed; inset: 0; display: grid; grid-template-columns: 1.05fr .95fr; z-index: 60; }
+  .login-art { background: linear-gradient(150deg, var(--brand-900), var(--brand-700) 55%, var(--brand-500)); color: #fff; padding: 46px; position: relative; overflow: hidden; display: flex; flex-direction: column; }
+  .login-art svg.bgnet { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .22; }
+  .login-art .lg-brand { display: flex; align-items: center; gap: 12px; position: relative; }
+  .login-art h1 { font-size: 34px; line-height: 1.12; letter-spacing: -.02em; margin: auto 0 14px; max-width: 15ch; text-wrap: balance; position: relative; }
+  .login-art p { color: #B9D4DE; max-width: 42ch; position: relative; margin: 0 0 8px; }
+  .login-art .stats { display: flex; gap: 26px; margin-top: 24px; position: relative; }
+  .login-art .stats b { font-size: 24px; } .login-art .stats span { color: #9FC2CF; font-size: 12px; }
+  .login-form { background: var(--surface); display: grid; place-items: center; padding: 30px; }
+  .login-form .inner { width: 100%; max-width: 340px; }
+  .login-form h2 { font-size: 22px; margin: 0 0 5px; letter-spacing: -.01em; }
+  .login-form .lead { color: var(--muted); margin: 0 0 22px; font-size: 13px; }
+  .inp { width: 100%; padding: 11px 13px; border: 1px solid var(--line-strong); border-radius: 10px; background: var(--surface-2); color: var(--ink); font-size: 14px; margin-bottom: 12px; }
+  .inp:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--ring); }
+  .demo-creds { margin-top: 16px; padding: 12px 14px; background: var(--surface-2); border: 1px dashed var(--line-strong); border-radius: 10px; font-size: 12px; color: var(--muted); }
+  .demo-creds code { color: var(--ink); font-weight: 600; }
+
+  .toast { position: fixed; inset-block-end: 22px; inset-inline: 0; display: flex; justify-content: center; z-index: 80; pointer-events: none; }
+  .toast .t { background: var(--brand-800); color: #fff; padding: 11px 18px; border-radius: 11px; box-shadow: var(--shadow-lg); font-size: 13px; font-weight: 600;
+    transform: translateY(20px); opacity: 0; transition: .25s; }
+  .toast .t.show { transform: translateY(0); opacity: 1; }
+
+  .empty { color: var(--muted); text-align: center; padding: 40px; font-size: 13px; }
+  .lang-en [data-ar], .lang-ar [data-en] { display: none; }
+
+  @media (max-width: 1080px) {
+    .shell { grid-template-columns: 1fr; }
+    .side { display: none; }
+    .kpis { grid-template-columns: repeat(2,1fr); }
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .login { grid-template-columns: 1fr; }
+    .login-art { display: none; }
+  }
+</style>
+
+<div id="app"></div>
+<div class="toast"><div class="t" id="toast"></div></div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════════════════
+   The Village CRM — self-contained demo console.
+   Mirrors the NestJS/Prisma backend data model and endpoints (leads, pipeline,
+   inventory, customers, RBAC). Data is embedded so the page is fully browsable
+   offline; in production these views call the real API (see repo backend/).
+   ═══════════════════════════════════════════════════════════════════════════ */
+(function () {
+  "use strict";
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var state = { lang: "en", view: "dashboard", authed: false, leadFilter: "ALL", role: "Super Admin" };
+
+  /* ── i18n ─────────────────────────────────────────────────────────────── */
+  var I = {
+    en: {
+      tagline: "Real Estate CRM", company: "The Village Investment",
+      nav_main: "Workspace", nav_more: "Company",
+      dashboard: "Dashboard", leads: "Leads", pipeline: "Pipeline", inventory: "Inventory",
+      customers: "Customers", developers: "Developers", team: "Team & Roles", settings: "Settings",
+      search: "Search leads, units, customers…",
+      welcome: "Welcome back", overview: "Here is what is happening today",
+      k_newleads: "New leads today", k_hot: "Hot leads", k_pipeline: "Open pipeline",
+      k_forecast: "Weighted forecast", k_won: "Won this month",
+      leads_by_source: "Leads by source", pipeline_health: "Pipeline health",
+      temp_split: "Lead temperature", recent_leads: "Priority leads", view_all: "View all",
+      lead: "Lead", source: "Source", score: "Score", status: "Status", owner: "Owner", area: "Interest", created: "Created", value: "Value", stage: "Stage",
+      all: "All", hot: "Hot", warm: "Warm", cold: "Cold",
+      new: "New", contacted: "Contacted", qualified: "Qualified", meeting: "Meeting set", negotiation: "Negotiation", won: "Won", lost: "Lost",
+      add_lead: "Add lead", export: "Export",
+      forecast: "Weighted forecast", total_open: "open value",
+      unit: "Unit", price: "Price", beds: "Beds", baths: "Baths", size: "Size", available: "Available", reserved: "Reserved", sold: "Sold",
+      customer: "Customer", phone: "Phone", budget: "Budget", nationality: "Nationality",
+      role: "Role", permissions: "Permissions", user: "Member", perm_matrix: "Permission matrix",
+      timeline: "Activity timeline", assign: "Assign", call: "Log call", whatsapp: "WhatsApp",
+      login_h: "Sign in to your console", login_p: "Enterprise real estate CRM — leads, pipeline, and inventory in one place.",
+      email: "Email", password: "Password", signin: "Sign in", demo_note: "Demo credentials",
+      hero_h: "Close more deals, with less busywork.", hero_p: "Every lead scored, every follow-up tracked, every unit at your fingertips — in Arabic and English.",
+      s_leads: "Leads managed", s_conv: "Faster follow-up", s_lang: "Bilingual",
+      resource: "Resource", read: "Read", create: "Create", update: "Update", del: "Delete",
+      logout: "Sign out", back: "Back", live_note: "Demo data — mirrors the seeded backend",
+      moved: "Deal moved", assigned: "Lead assigned", exported: "Export ready (demo)", added: "Lead created (demo)"
+    },
+    ar: {
+      tagline: "نظام إدارة العقارات", company: "The Village Investment",
+      nav_main: "مساحة العمل", nav_more: "الشركة",
+      dashboard: "الرئيسية", leads: "العملاء المحتملون", pipeline: "مسار البيع", inventory: "المخزون",
+      customers: "العملاء", developers: "المطورون", team: "الفريق والصلاحيات", settings: "الإعدادات",
+      search: "ابحث عن عميل، وحدة، أو مشروع…",
+      welcome: "أهلاً بعودتك", overview: "إليك ما يحدث اليوم",
+      k_newleads: "عملاء جدد اليوم", k_hot: "عملاء ساخنون", k_pipeline: "مسار مفتوح",
+      k_forecast: "التوقع المرجّح", k_won: "صفقات هذا الشهر",
+      leads_by_source: "العملاء حسب المصدر", pipeline_health: "حالة مسار البيع",
+      temp_split: "درجة حرارة العملاء", recent_leads: "عملاء ذوو أولوية", view_all: "عرض الكل",
+      lead: "العميل", source: "المصدر", score: "التقييم", status: "الحالة", owner: "المسؤول", area: "الاهتمام", created: "أُنشئ", value: "القيمة", stage: "المرحلة",
+      all: "الكل", hot: "ساخن", warm: "دافئ", cold: "بارد",
+      new: "جديد", contacted: "تم التواصل", qualified: "مؤهل", meeting: "اجتماع", negotiation: "تفاوض", won: "مكتمل", lost: "خاسر",
+      add_lead: "إضافة عميل", export: "تصدير",
+      forecast: "التوقع المرجّح", total_open: "قيمة مفتوحة",
+      unit: "وحدة", price: "السعر", beds: "غرف", baths: "حمامات", size: "المساحة", available: "متاحة", reserved: "محجوزة", sold: "مباعة",
+      customer: "العميل", phone: "الهاتف", budget: "الميزانية", nationality: "الجنسية",
+      role: "الدور", permissions: "الصلاحيات", user: "العضو", perm_matrix: "مصفوفة الصلاحيات",
+      timeline: "سجل النشاط", assign: "إسناد", call: "تسجيل مكالمة", whatsapp: "واتساب",
+      login_h: "تسجيل الدخول إلى لوحتك", login_p: "نظام CRM عقاري متكامل — العملاء، مسار البيع، والمخزون في مكان واحد.",
+      email: "البريد الإلكتروني", password: "كلمة المرور", signin: "دخول", demo_note: "بيانات تجريبية",
+      hero_h: "أغلق صفقات أكثر بجهد أقل.", hero_p: "كل عميل مُقيَّم، وكل متابعة مُسجّلة، وكل وحدة في متناول يدك — بالعربية والإنجليزية.",
+      s_leads: "عميل مُدار", s_conv: "متابعة أسرع", s_lang: "لغتان",
+      resource: "المورد", read: "عرض", create: "إضافة", update: "تعديل", del: "حذف",
+      logout: "خروج", back: "رجوع", live_note: "بيانات تجريبية — مطابقة لبيانات الـ backend",
+      moved: "تم نقل الصفقة", assigned: "تم إسناد العميل", exported: "التصدير جاهز (تجريبي)", added: "تم إنشاء العميل (تجريبي)"
+    }
+  };
+  function t(k) { return (I[state.lang] && I[state.lang][k]) || (I.en[k] || k); }
+
+  /* ── Demo data (mirrors backend seed) ─────────────────────────────────── */
+  var members = [
+    { id: "u1", name: "Village Admin", nameAr: "مدير النظام", role: "Super Admin", roleAr: "مدير عام", color: "#115F7D", init: "VA" },
+    { id: "u2", name: "Nour Consultant", nameAr: "نور", role: "Property Consultant", roleAr: "مستشار عقاري", color: "#0E9AB8", init: "NC" },
+    { id: "u3", name: "Omar Hassan", nameAr: "عمر حسن", role: "Sales Manager", roleAr: "مدير مبيعات", color: "#1F9D6B", init: "OH" },
+    { id: "u4", name: "Layla Fahmy", nameAr: "ليلى فهمي", role: "Team Leader", roleAr: "قائد فريق", color: "#E39A2B", init: "LF" }
+  ];
+  var SRC = { WEBSITE:"Website", FACEBOOK:"Facebook", INSTAGRAM:"Instagram", PROPERTY_FINDER:"Property Finder", BAYUT:"Bayut", REFERRAL:"Referral", WHATSAPP:"WhatsApp", GOOGLE_ADS:"Google Ads", TIKTOK:"TikTok" };
+  var SRC_AR = { WEBSITE:"الموقع", FACEBOOK:"فيسبوك", INSTAGRAM:"إنستغرام", PROPERTY_FINDER:"بروبرتي فايندر", BAYUT:"بيوت", REFERRAL:"ترشيح", WHATSAPP:"واتساب", GOOGLE_ADS:"إعلانات جوجل", TIKTOK:"تيك توك" };
+
+  var leads = [
+    { id:"l1", first:"Ahmed", last:"Selim", firstAr:"أحمد سليم", phone:"+20 101 600 0201", src:"PROPERTY_FINDER", score:88, temp:"HOT", status:"QUALIFIED", owner:"u2", area:"New Cairo", areaAr:"القاهرة الجديدة", budget:1200, days:0 },
+    { id:"l2", first:"Mona", last:"Adel", firstAr:"منى عادل", phone:"+20 100 222 3344", src:"WEBSITE", score:78, temp:"HOT", status:"MEETING", owner:"u2", area:"New Cairo", areaAr:"القاهرة الجديدة", budget:800, days:0 },
+    { id:"l3", first:"Khaled", last:"Nabil", firstAr:"خالد نبيل", phone:"+20 109 988 7766", src:"REFERRAL", score:72, temp:"HOT", status:"NEGOTIATION", owner:"u3", area:"6th October", areaAr:"السادس من أكتوبر", budget:1500, days:1 },
+    { id:"l4", first:"Sara", last:"Kamal", firstAr:"سارة كمال", phone:"+20 111 445 8899", src:"FACEBOOK", score:64, temp:"WARM", status:"CONTACTED", owner:"u2", area:"6th October", areaAr:"السادس من أكتوبر", budget:600, days:1 },
+    { id:"l5", first:"Youssef", last:"Tarek", firstAr:"يوسف طارق", phone:"+20 122 334 5566", src:"BAYUT", score:59, temp:"WARM", status:"NEW", owner:"u4", area:"Sheikh Zayed", areaAr:"الشيخ زايد", budget:950, days:2 },
+    { id:"l6", first:"Dina", last:"Fouad", firstAr:"دينا فؤاد", phone:"+20 128 776 5544", src:"INSTAGRAM", score:52, temp:"WARM", status:"CONTACTED", owner:"u4", area:"New Cairo", areaAr:"القاهرة الجديدة", budget:700, days:2 },
+    { id:"l7", first:"Hani", last:"Reda", firstAr:"هاني رضا", phone:"+20 106 223 1188", src:"WHATSAPP", score:47, temp:"WARM", status:"NEW", owner:"u2", area:"Mostakbal City", areaAr:"مدينة المستقبل", budget:1100, days:3 },
+    { id:"l8", first:"Rana", last:"Ezzat", firstAr:"رنا عزت", phone:"+20 115 990 2277", src:"GOOGLE_ADS", score:38, temp:"COLD", status:"NEW", owner:"u3", area:"Sheikh Zayed", areaAr:"الشيخ زايد", budget:500, days:4 },
+    { id:"l9", first:"Tamer", last:"Saad", firstAr:"تامر سعد", phone:"+20 100 111 9090", src:"TIKTOK", score:31, temp:"COLD", status:"CONTACTED", owner:"u4", area:"6th October", areaAr:"السادس من أكتوبر", budget:450, days:5 },
+    { id:"l10", first:"Nadia", last:"Wael", firstAr:"نادية وائل", phone:"+20 127 654 3210", src:"FACEBOOK", score:26, temp:"COLD", status:"NEW", owner:"u2", area:"New Cairo", areaAr:"القاهرة الجديدة", budget:400, days:6 }
+  ];
+  var STATUS_LABEL = { NEW:"new", CONTACTED:"contacted", QUALIFIED:"qualified", MEETING:"meeting", NEGOTIATION:"negotiation", WON:"won", LOST:"lost" };
+
+  var developers = [
+    { id:"d1", name:"Palm Hills", nameAr:"بالم هيلز", projects:1, units:3 },
+    { id:"d2", name:"Mountain View", nameAr:"ماونتن فيو", projects:1, units:3 }
+  ];
+  var units = [
+    { id:"un1", code:"BAD-100", type:"APARTMENT", typeAr:"شقة", project:"Badya", projectAr:"بادية", beds:3, baths:3, size:160, price:7.5, status:"AVAILABLE" },
+    { id:"un2", code:"BAD-200", type:"VILLA", typeAr:"فيلا", project:"Badya", projectAr:"بادية", beds:4, baths:4, size:240, price:9.0, status:"RESERVED" },
+    { id:"un3", code:"BAD-300", type:"APARTMENT", typeAr:"شقة", project:"Badya", projectAr:"بادية", beds:5, baths:5, size:280, price:10.5, status:"AVAILABLE" },
+    { id:"un4", code:"ICI-100", type:"TOWNHOUSE", typeAr:"تاون هاوس", project:"iCity", projectAr:"آي سيتي", beds:3, baths:3, size:200, price:8.2, status:"AVAILABLE" },
+    { id:"un5", code:"ICI-200", type:"VILLA", typeAr:"فيلا", project:"iCity", projectAr:"آي سيتي", beds:4, baths:4, size:255, price:11.4, status:"SOLD" },
+    { id:"un6", code:"ICI-300", type:"APARTMENT", typeAr:"شقة", project:"iCity", projectAr:"آي سيتي", beds:2, baths:2, size:130, price:6.1, status:"AVAILABLE" }
+  ];
+  var stages = [
+    { id:"s1", name:"new", prob:10, color:"#3E7CA6" },
+    { id:"s2", name:"qualified", prob:30, color:"#0E9AB8" },
+    { id:"s3", name:"meeting", prob:50, color:"#E39A2B" },
+    { id:"s4", name:"negotiation", prob:75, color:"#E4572E" },
+    { id:"s5", name:"won", prob:100, color:"#1F9D6B" }
+  ];
+  var deals = [
+    { id:"o1", title:"Ahmed Selim — Villa", titleAr:"أحمد سليم — فيلا", value:9.0, stage:"s4", owner:"u2", unit:"BAD-200" },
+    { id:"o2", title:"Mona Adel — Apartment", titleAr:"منى عادل — شقة", value:7.5, stage:"s3", owner:"u2", unit:"BAD-100" },
+    { id:"o3", title:"Khaled Nabil — Villa", titleAr:"خالد نبيل — فيلا", value:11.4, stage:"s4", owner:"u3", unit:"ICI-200" },
+    { id:"o4", title:"Sara Kamal — Townhouse", titleAr:"سارة كمال — تاون هاوس", value:8.2, stage:"s2", owner:"u2", unit:"ICI-100" },
+    { id:"o5", title:"Youssef Tarek — Apartment", titleAr:"يوسف طارق — شقة", value:6.1, stage:"s2", owner:"u4", unit:"ICI-300" },
+    { id:"o6", title:"Hani Reda — Apartment", titleAr:"هاني رضا — شقة", value:10.5, stage:"s1", owner:"u2", unit:"BAD-300" },
+    { id:"o7", title:"Dina Fouad — Apartment", titleAr:"دينا فؤاد — شقة", value:7.5, stage:"s3", owner:"u4", unit:"BAD-100" },
+    { id:"o8", title:"Rana Ezzat — Villa", titleAr:"رنا عزت — فيلا", value:9.0, stage:"s5", owner:"u3", unit:"BAD-200" }
+  ];
+  var timelineByLead = {
+    l1: [ {tt:"Site visit booked — Badya",ttAr:"حجز زيارة — بادية",td:"2h ago",tdAr:"منذ ساعتين"},
+          {tt:"WhatsApp — sent villa payment plan",ttAr:"واتساب — إرسال خطة سداد الفيلا",td:"Yesterday",tdAr:"أمس"},
+          {tt:"Call — 6m, strong intent",ttAr:"مكالمة — ٦ دقائق، اهتمام قوي",td:"2 days ago",tdAr:"منذ يومين"},
+          {tt:"Lead captured from Property Finder",ttAr:"تم استلام العميل من بروبرتي فايندر",td:"3 days ago",tdAr:"منذ ٣ أيام"} ]
+  };
+  function tlFor(id){ return timelineByLead[id] || [
+    {tt:"Status updated",ttAr:"تحديث الحالة",td:"1 day ago",tdAr:"منذ يوم"},
+    {tt:"Follow-up call scheduled",ttAr:"جدولة مكالمة متابعة",td:"2 days ago",tdAr:"منذ يومين"},
+    {tt:"Lead captured",ttAr:"تم استلام العميل",td:"3 days ago",tdAr:"منذ ٣ أيام"} ]; }
+
+  /* ── helpers ──────────────────────────────────────────────────────────── */
+  function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
+  function member(id){ return members.filter(function(m){return m.id===id;})[0] || members[0]; }
+  function mName(m){ return state.lang==="ar" ? m.nameAr : m.name; }
+  function money(m){ // m in millions EGP
+    var v = m>=1 ? m.toFixed(m<10?2:1) : (m*1000).toFixed(0);
+    return state.lang==="ar" ? (m>=1? m.toFixed(2)+" م ج.م" : (m*1000)+" ألف") : (m>=1? "EGP "+m.toFixed(2)+"M" : "EGP "+(m*1000)+"K");
+  }
+  function tempCls(x){ return x==="HOT"?"t-hot":x==="WARM"?"t-warm":"t-cold"; }
+  function tempColor(x){ return x==="HOT"?"var(--hot)":x==="WARM"?"var(--warm)":"var(--cold)"; }
+  function scoreColor(s){ return s>=70?"var(--hot)":s>=40?"var(--warm)":"var(--cold)"; }
+  function toast(msg){ var e=$("#toast"); e.textContent=msg; e.classList.add("show"); clearTimeout(e._t); e._t=setTimeout(function(){e.classList.remove("show");},1800); }
+
+  /* icons */
+  var ic = {
+    grid:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>',
+    users:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 20c.7-3.3 3-5 5.5-5s4.8 1.7 5.5 5"/><path d="M16 5.5a3 3 0 0 1 0 5.8M18 20c-.3-2-1-3.4-2-4.3"/></svg>',
+    funnel:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5h18l-7 8v6l-4 2v-8L3 5z"/></svg>',
+    box:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z"/><path d="M4 7.5l8 4.5 8-4.5M12 12v9"/></svg>',
+    user:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1-4 4-6 7-6s6 2 7 6"/></svg>',
+    tower:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 21V6l6-3 6 3v15"/><path d="M3 21h18M10 9h4M10 13h4M10 17h4"/></svg>',
+    shield:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/></svg>',
+    gear:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3.2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg>',
+    search:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>',
+    moon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg>',
+    globe:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15 0 18M12 3c-2.5 2.5-2.5 15 0 18"/></svg>',
+    plus:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>',
+    download:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M7 11l5 4 5-4M5 21h14"/></svg>',
+    logout:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h9"/></svg>'
+  };
+
+  /* ── charts (inline SVG) ──────────────────────────────────────────────── */
+  function sparkline(vals, color) {
+    var w=96,h=42,max=Math.max.apply(null,vals),min=Math.min.apply(null,vals),rng=(max-min)||1;
+    var pts=vals.map(function(v,i){ return [ (i/(vals.length-1))*w, h-4-((v-min)/rng)*(h-10) ]; });
+    var d=pts.map(function(p,i){return (i?"L":"M")+p[0].toFixed(1)+" "+p[1].toFixed(1);}).join(" ");
+    var area=d+" L"+w+" "+h+" L0 "+h+" Z";
+    var last=pts[pts.length-1];
+    return '<svg class="spark" viewBox="0 0 '+w+' '+h+'"><defs><linearGradient id="sg'+color.replace(/\W/g,"")+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="'+color+'" stop-opacity=".28"/><stop offset="1" stop-color="'+color+'" stop-opacity="0"/></linearGradient></defs><path d="'+area+'" fill="url(#sg'+color.replace(/\W/g,"")+')"/><path d="'+d+'" fill="none" stroke="'+color+'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="'+last[0].toFixed(1)+'" cy="'+last[1].toFixed(1)+'" r="2.6" fill="'+color+'"/></svg>';
+  }
+  function barChart(data) { // [{label,value,color}]
+    var max=Math.max.apply(null,data.map(function(d){return d.value;}))||1;
+    var rows=data.map(function(d){
+      var pct=Math.round((d.value/max)*100);
+      return '<div class="row" style="gap:10px"><div style="width:104px;color:var(--muted);font-size:12px;text-align:start">'+d.label+'</div>'+
+        '<div style="flex:1;height:10px;border-radius:999px;background:var(--surface-3);overflow:hidden"><div style="width:'+pct+'%;height:100%;border-radius:999px;background:'+d.color+'"></div></div>'+
+        '<div class="tnum" style="width:26px;text-align:end;font-weight:700;font-size:12.5px">'+d.value+'</div></div>';
+    }).join("");
+    return '<div style="display:flex;flex-direction:column;gap:11px">'+rows+'</div>';
+  }
+  function funnelChart(data) { // [{label,count,color}]
+    var max=Math.max.apply(null,data.map(function(d){return d.count;}))||1;
+    return '<div style="display:flex;flex-direction:column;gap:8px">'+data.map(function(d){
+      var pct=Math.max(16,Math.round((d.count/max)*100));
+      return '<div class="row between" style="gap:12px"><span style="font-size:12.5px;color:var(--ink-soft);min-width:96px">'+d.label+'</span>'+
+        '<div style="flex:1;display:flex;justify-content:center"><div style="width:'+pct+'%;height:30px;border-radius:8px;background:'+d.color+';display:grid;place-items:center;color:#fff;font-weight:700;font-size:12.5px" class="tnum">'+d.count+'</div></div></div>';
+    }).join("")+'</div>';
+  }
+  function donut(data) { // [{label,value,color}]
+    var total=data.reduce(function(a,d){return a+d.value;},0)||1, r=52, c=2*Math.PI*r, off=0, R=64;
+    var segs=data.map(function(d){
+      var frac=d.value/total, len=frac*c;
+      var s='<circle cx="'+R+'" cy="'+R+'" r="'+r+'" fill="none" stroke="'+d.color+'" stroke-width="16" stroke-dasharray="'+len.toFixed(1)+' '+(c-len).toFixed(1)+'" stroke-dashoffset="'+(-off).toFixed(1)+'" transform="rotate(-90 '+R+' '+R+')"/>';
+      off+=len; return s;
+    }).join("");
+    var legend=data.map(function(d){ return '<div class="row" style="gap:7px"><span class="dot" style="background:'+d.color+'"></span><span style="font-size:12.5px;flex:1">'+d.label+'</span><b class="tnum" style="font-size:12.5px">'+d.value+'</b></div>'; }).join("");
+    return '<div class="row" style="gap:18px"><svg width="128" height="128" viewBox="0 0 128 128" style="flex:0 0 auto">'+segs+
+      '<text x="64" y="60" text-anchor="middle" font-size="22" font-weight="800" fill="var(--ink)" class="tnum">'+total+'</text>'+
+      '<text x="64" y="78" text-anchor="middle" font-size="10" fill="var(--muted)">'+t("leads")+'</text></svg>'+
+      '<div style="flex:1;display:flex;flex-direction:column;gap:9px">'+legend+'</div></div>';
+  }
+
+  /* ── views ────────────────────────────────────────────────────────────── */
+  function viewDashboard() {
+    var c = el("div");
+    var hot = leads.filter(function(l){return l.temp==="HOT";}).length;
+    var newToday = leads.filter(function(l){return l.days===0;}).length;
+    var openVal = deals.filter(function(d){return d.stage!=="s5";}).reduce(function(a,d){return a+d.value;},0);
+    var weighted = deals.filter(function(d){return d.stage!=="s5";}).reduce(function(a,d){var st=stages.filter(function(s){return s.id===d.stage;})[0];return a+d.value*(st.prob/100);},0);
+    var won = deals.filter(function(d){return d.stage==="s5";}).reduce(function(a,d){return a+d.value;},0);
+
+    var kpis = [
+      { lab:t("k_newleads"), val:newToday, sub:'<span class="trend up">▲ 18%</span> '+t("created").toLowerCase(), spark:[2,3,2,4,3,5,newToday], color:"var(--accent)" },
+      { lab:t("k_hot"), val:hot, sub:'<span class="trend up">▲ 2</span>', spark:[1,1,2,2,3,3,hot], color:"var(--hot)" },
+      { lab:t("k_pipeline"), val:money(openVal), sub:deals.filter(function(d){return d.stage!=="s5";}).length+" "+t("pipeline").toLowerCase(), spark:[40,44,48,52,58,62,openVal], color:"var(--warm)" },
+      { lab:t("k_forecast"), val:money(weighted), sub:t("forecast").toLowerCase(), spark:[20,24,26,30,33,36,weighted], color:"var(--info)" },
+      { lab:t("k_won"), val:money(won), sub:'<span class="trend up">▲ 1</span> '+t("won").toLowerCase(), spark:[3,5,6,6,8,8,won], color:"var(--success)" }
+    ];
+    var kwrap = el("div","kpis");
+    kpis.forEach(function(k){
+      var card = el("div","card card-pad kpi");
+      card.innerHTML = '<div class="lab">'+k.lab+'</div><div class="val tnum">'+k.val+'</div><div class="sub">'+k.sub+'</div>'+sparkline(k.spark,k.color);
+      kwrap.appendChild(card);
+    });
+    c.appendChild(kwrap);
+
+    // charts row
+    var g = el("div","grid-3"); g.style.marginBottom="18px";
+    var srcCounts = {}; leads.forEach(function(l){ srcCounts[l.src]=(srcCounts[l.src]||0)+1; });
+    var srcColors = { WEBSITE:"var(--brand-500)", PROPERTY_FINDER:"var(--accent)", FACEBOOK:"var(--info)", BAYUT:"var(--success)", REFERRAL:"var(--warm)", INSTAGRAM:"#B14FA0", WHATSAPP:"#25a06a", GOOGLE_ADS:"var(--hot)", TIKTOK:"#444" };
+    var srcData = Object.keys(srcCounts).sort(function(a,b){return srcCounts[b]-srcCounts[a];}).slice(0,6).map(function(k){ return { label:(state.lang==="ar"?SRC_AR[k]:SRC[k]), value:srcCounts[k], color:srcColors[k]||"var(--muted)" }; });
+    var c1 = el("div","card card-pad"); c1.innerHTML='<h2 class="sec">'+t("leads_by_source")+'</h2>'; c1.appendChild(elFrom(barChart(srcData))); g.appendChild(c1);
+
+    var funnelData = stages.map(function(s){ return { label:t(s.name), count:deals.filter(function(d){return d.stage===s.id;}).length, color:s.color }; });
+    var c2 = el("div","card card-pad"); c2.innerHTML='<h2 class="sec">'+t("pipeline_health")+'</h2>'; c2.appendChild(elFrom(funnelChart(funnelData))); g.appendChild(c2);
+
+    var tempData = [
+      { label:t("hot"), value:leads.filter(function(l){return l.temp==="HOT";}).length, color:"var(--hot)" },
+      { label:t("warm"), value:leads.filter(function(l){return l.temp==="WARM";}).length, color:"var(--warm)" },
+      { label:t("cold"), value:leads.filter(function(l){return l.temp==="COLD";}).length, color:"var(--cold)" }
+    ];
+    var c3 = el("div","card card-pad"); c3.innerHTML='<h2 class="sec">'+t("temp_split")+'</h2>'; c3.appendChild(elFrom(donut(tempData))); g.appendChild(c3);
+    c.appendChild(g);
+
+    // priority leads table
+    var card = el("div","card");
+    var head = el("div","card-pad row between");
+    head.innerHTML = '<h2 class="sec" style="margin:0">'+t("recent_leads")+'</h2>';
+    var vlink = el("button","btn sm"); vlink.textContent=t("view_all"); vlink.onclick=function(){ go("leads"); };
+    head.appendChild(vlink); card.appendChild(head);
+    card.appendChild(leadTable(leads.slice().sort(function(a,b){return b.score-a.score;}).slice(0,6)));
+    c.appendChild(card);
+    return c;
+  }
+  function elFrom(html){ var d=el("div"); d.innerHTML=html; return d.firstChild.parentNode.childElementCount===1?d.firstChild:d; }
+
+  function leadTable(list) {
+    var wrap = el("div","tbl-wrap");
+    var tb = el("table","tbl");
+    tb.innerHTML = '<thead><tr>'+
+      '<th>'+t("lead")+'</th><th>'+t("score")+'</th><th>'+t("source")+'</th><th>'+t("status")+'</th><th>'+t("area")+'</th><th>'+t("owner")+'</th></tr></thead>';
+    var body = el("tbody");
+    list.forEach(function(l){
+      var m = member(l.owner);
+      var tr = el("tr");
+      var name = state.lang==="ar" ? l.firstAr : (l.first+" "+l.last);
+      tr.innerHTML =
+        '<td><div class="who-cell"><span class="mini-av" style="background:'+tempColor(l.temp)+'">'+(l.first[0])+'</span>'+
+          '<div><div style="font-weight:600">'+name+'</div><div class="tnum" style="color:var(--muted);font-size:11.5px">'+l.phone+'</div></div></div></td>'+
+        '<td><div class="score-wrap"><div class="score-bar"><div class="score-fill" style="width:'+l.score+'%;background:'+scoreColor(l.score)+'"></div></div><b class="tnum" style="font-size:12.5px">'+l.score+'</b></div></td>'+
+        '<td><span style="font-size:12.5px;color:var(--ink-soft)">'+(state.lang==="ar"?SRC_AR[l.src]:SRC[l.src])+'</span></td>'+
+        '<td><span class="pill st">'+t(STATUS_LABEL[l.status])+'</span></td>'+
+        '<td><span style="font-size:12.5px">'+(state.lang==="ar"?l.areaAr:l.area)+'</span></td>'+
+        '<td><div class="who-cell"><span class="mini-av" style="width:26px;height:26px;background:'+m.color+'">'+m.init+'</span></div></td>';
+      tr.onclick=function(){ openLead(l); };
+      body.appendChild(tr);
+    });
+    tb.appendChild(body); wrap.appendChild(tb); return wrap;
+  }
+
+  function viewLeads() {
+    var c = el("div");
+    var bar = el("div","row between wrap"); bar.style.marginBottom="16px";
+    var seg = el("div","seg");
+    [["ALL","all"],["HOT","hot"],["WARM","warm"],["COLD","cold"]].forEach(function(f){
+      var b=el("button",state.leadFilter===f[0]?"on":""); b.textContent=t(f[1]);
+      b.onclick=function(){ state.leadFilter=f[0]; render(); }; seg.appendChild(b);
+    });
+    bar.appendChild(seg);
+    var actions = el("div","row");
+    var add=el("button","btn primary"); add.innerHTML=ic.plus+"<span>"+t("add_lead")+"</span>"; add.onclick=function(){ toast(t("added")); };
+    var exp=el("button","btn"); exp.innerHTML=ic.download+"<span>"+t("export")+"</span>"; exp.onclick=function(){ toast(t("exported")); };
+    actions.appendChild(exp); actions.appendChild(add); bar.appendChild(actions);
+    c.appendChild(bar);
+
+    var list = leads.slice().sort(function(a,b){return b.score-a.score;});
+    if (state.leadFilter!=="ALL") list=list.filter(function(l){return l.temp===state.leadFilter;});
+    var card = el("div","card"); card.appendChild(leadTable(list));
+    if (!list.length) card.innerHTML='<div class="empty">—</div>';
+    c.appendChild(card);
+    return c;
+  }
+
+  function viewPipeline() {
+    var c = el("div");
+    var openVal = deals.filter(function(d){return d.stage!=="s5";}).reduce(function(a,d){return a+d.value;},0);
+    var weighted = deals.filter(function(d){return d.stage!=="s5";}).reduce(function(a,d){var st=stages.filter(function(s){return s.id===d.stage;})[0];return a+d.value*(st.prob/100);},0);
+    var fc = el("div","card card-pad row between wrap"); fc.style.marginBottom="16px";
+    fc.innerHTML = '<div><div class="lab" style="color:var(--muted);font-size:11.5px;text-transform:uppercase;letter-spacing:.05em">'+t("forecast")+'</div>'+
+      '<div class="row" style="gap:18px;margin-top:4px"><div class="val tnum" style="font-size:24px;font-weight:800">'+money(weighted)+'</div>'+
+      '<div style="color:var(--muted);font-size:12.5px;align-self:center">'+money(openVal)+' '+t("total_open")+'</div></div></div>';
+    var legend=el("div","row wrap"); legend.style.gap="10px";
+    stages.forEach(function(s){ var p=el("span","pill st"); p.innerHTML='<span class="dot" style="background:'+s.color+'"></span>'+t(s.name)+' · '+s.prob+'%'; legend.appendChild(p); });
+    fc.appendChild(legend); c.appendChild(fc);
+
+    var board = el("div","board");
+    stages.forEach(function(s){
+      var col = el("div","col"); col.dataset.stage=s.id;
+      var colDeals = deals.filter(function(d){return d.stage===s.id;});
+      var sum = colDeals.reduce(function(a,d){return a+d.value;},0);
+      var head = el("div","col-head");
+      head.innerHTML='<div class="row" style="gap:8px"><span class="dot" style="background:'+s.color+'"></span><b>'+t(s.name)+'</b><span class="pill st" style="padding:1px 7px">'+colDeals.length+'</span></div><span class="pb tnum">'+money(sum)+'</span>';
+      col.appendChild(head);
+      var body = el("div","col-body");
+      colDeals.forEach(function(d){
+        var m=member(d.owner);
+        var card=el("div","deal"); card.draggable=true; card.dataset.id=d.id;
+        card.innerHTML='<div class="dt">'+(state.lang==="ar"?d.titleAr:d.title)+'</div><div class="dv tnum">'+money(d.value)+'</div>'+
+          '<div class="row between" style="margin-top:8px"><span class="dm">'+d.unit+'</span><span class="mini-av" style="width:24px;height:24px;font-size:10.5px;background:'+m.color+'">'+m.init+'</span></div>';
+        card.addEventListener("dragstart",function(e){ card.classList.add("dragging"); e.dataTransfer.setData("text/plain",d.id); });
+        card.addEventListener("dragend",function(){ card.classList.remove("dragging"); });
+        body.appendChild(card);
+      });
+      col.appendChild(body);
+      col.addEventListener("dragover",function(e){ e.preventDefault(); col.classList.add("drag-over"); });
+      col.addEventListener("dragleave",function(){ col.classList.remove("drag-over"); });
+      col.addEventListener("drop",function(e){ e.preventDefault(); col.classList.remove("drag-over");
+        var id=e.dataTransfer.getData("text/plain"); var d=deals.filter(function(x){return x.id===id;})[0];
+        if(d && d.stage!==s.id){ d.stage=s.id; toast(t("moved")+" → "+t(s.name)); render(); }
+      });
+      board.appendChild(col);
+    });
+    c.appendChild(board);
+    return c;
+  }
+
+  function viewInventory() {
+    var c = el("div");
+    var grid = el("div","units");
+    var pat = '<svg viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0 70 L30 40 L55 60 L100 25 L100 100 L0 100 Z" fill="rgba(255,255,255,.12)"/><path d="M0 82 L40 58 L70 76 L100 50 L100 100 L0 100 Z" fill="rgba(255,255,255,.10)"/></svg>';
+    units.forEach(function(u){
+      var stCls = u.status==="AVAILABLE"?"t-warm":u.status==="SOLD"?"t-cold":"st";
+      var stTxt = u.status==="AVAILABLE"?t("available"):u.status==="SOLD"?t("sold"):t("reserved");
+      var stColor = u.status==="AVAILABLE"?"var(--success)":u.status==="SOLD"?"var(--danger)":"var(--warm)";
+      var card = el("div","card unit");
+      card.innerHTML =
+        '<div class="hd">'+pat+'<span class="utype">'+(state.lang==="ar"?u.typeAr:u.type)+'</span></div>'+
+        '<div class="bd"><div class="row between"><span class="tnum" style="color:var(--muted);font-size:12px;font-weight:600">'+u.code+'</span>'+
+          '<span class="pill" style="color:'+stColor+';background:color-mix(in srgb,'+stColor+' 14%,transparent)"><span class="dot" style="background:'+stColor+'"></span>'+stTxt+'</span></div>'+
+        '<div class="price tnum" style="margin-top:8px">'+money(u.price)+'</div>'+
+        '<div style="color:var(--muted);font-size:12px;margin-top:2px">'+(state.lang==="ar"?u.projectAr:u.project)+'</div>'+
+        '<div class="specs tnum"><span>'+u.beds+' '+t("beds")+'</span><span>'+u.baths+' '+t("baths")+'</span><span>'+u.size+' m²</span></div></div>';
+      grid.appendChild(card);
+    });
+    c.appendChild(grid);
+    return c;
+  }
+
+  function viewCustomers() {
+    var c = el("div"), card = el("div","card"), wrap=el("div","tbl-wrap"), tb=el("table","tbl");
+    tb.innerHTML='<thead><tr><th>'+t("customer")+'</th><th>'+t("phone")+'</th><th>'+t("area")+'</th><th>'+t("budget")+'</th><th>'+t("owner")+'</th><th>'+t("status")+'</th></tr></thead>';
+    var body=el("tbody");
+    leads.forEach(function(l){
+      var m=member(l.owner), name=state.lang==="ar"?l.firstAr:(l.first+" "+l.last);
+      var tr=el("tr");
+      tr.innerHTML='<td><div class="who-cell"><span class="mini-av" style="background:'+m.color+'">'+l.first[0]+'</span><b style="font-weight:600">'+name+'</b></div></td>'+
+        '<td class="tnum" style="color:var(--ink-soft)">'+l.phone+'</td>'+
+        '<td>'+(state.lang==="ar"?l.areaAr:l.area)+'</td>'+
+        '<td class="tnum">'+money(l.budget/1000)+'</td>'+
+        '<td><span class="mini-av" style="width:26px;height:26px;background:'+m.color+'">'+m.init+'</span></td>'+
+        '<td><span class="pill '+tempCls(l.temp)+'"><span class="dot" style="background:'+tempColor(l.temp)+'"></span>'+t(l.temp.toLowerCase())+'</span></td>';
+      tr.onclick=function(){ openLead(l); };
+      body.appendChild(tr);
+    });
+    tb.appendChild(body); wrap.appendChild(tb); card.appendChild(wrap); c.appendChild(card);
+    return c;
+  }
+
+  function viewDevelopers() {
+    var c=el("div"), grid=el("div","grid-2");
+    developers.forEach(function(d){
+      var card=el("div","card card-pad");
+      var projUnits = units.filter(function(u){return (d.name==="Palm Hills"&&u.project==="Badya")||(d.name==="Mountain View"&&u.project==="iCity");});
+      var avail=projUnits.filter(function(u){return u.status==="AVAILABLE";}).length;
+      card.innerHTML='<div class="row" style="gap:13px"><div class="mark" style="width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,var(--brand-700),var(--accent));display:grid;place-items:center;color:#fff;font-weight:800;font-size:15px">'+d.name.split(" ").map(function(x){return x[0];}).join("")+'</div>'+
+        '<div><div style="font-weight:700;font-size:15px">'+(state.lang==="ar"?d.nameAr:d.name)+'</div>'+
+        '<div style="color:var(--muted);font-size:12.5px">'+d.projects+' '+t("developers").toLowerCase()+' · '+projUnits.length+' '+t("inventory").toLowerCase()+'</div></div></div>'+
+        '<div class="row" style="gap:18px;margin-top:14px">'+
+          '<div><div class="tnum" style="font-size:20px;font-weight:800">'+projUnits.length+'</div><div style="color:var(--muted);font-size:11.5px">'+t("unit")+'</div></div>'+
+          '<div><div class="tnum" style="font-size:20px;font-weight:800;color:var(--success)">'+avail+'</div><div style="color:var(--muted);font-size:11.5px">'+t("available")+'</div></div></div>';
+      grid.appendChild(card);
+    });
+    c.appendChild(grid);
+    return c;
+  }
+
+  function viewTeam() {
+    var c=el("div");
+    var card=el("div","card"); card.style.marginBottom="18px";
+    var wrap=el("div","tbl-wrap"), tb=el("table","tbl");
+    tb.innerHTML='<thead><tr><th>'+t("user")+'</th><th>'+t("role")+'</th><th>'+t("leads")+'</th><th>'+t("pipeline")+'</th></tr></thead>';
+    var body=el("tbody");
+    members.forEach(function(m){
+      var own=leads.filter(function(l){return l.owner===m.id;}).length;
+      var dv=deals.filter(function(d){return d.owner===m.id;}).reduce(function(a,d){return a+d.value;},0);
+      var tr=el("tr"); tr.style.cursor="default";
+      tr.innerHTML='<td><div class="who-cell"><span class="mini-av" style="background:'+m.color+'">'+m.init+'</span><b style="font-weight:600">'+mName(m)+'</b></div></td>'+
+        '<td><span class="pill st">'+(state.lang==="ar"?m.roleAr:m.role)+'</span></td>'+
+        '<td class="tnum">'+own+'</td><td class="tnum">'+money(dv)+'</td>';
+      body.appendChild(tr);
+    });
+    tb.appendChild(body); wrap.appendChild(tb); card.appendChild(wrap); c.appendChild(card);
+
+    // RBAC matrix
+    var mcard=el("div","card card-pad");
+    mcard.innerHTML='<h2 class="sec">'+t("perm_matrix")+'</h2>';
+    var roles=["Super Admin","Sales Manager","Consultant","Marketing"];
+    var rolesAr=["مدير عام","مدير مبيعات","مستشار","تسويق"];
+    var resources=[["leads","lead"],["customers","customer"],["inventory","unit"],["pipeline","pipeline"],["team","user"]];
+    var caps={ // resource -> [SA,SM,Cons,Mkt] for read/create/update/delete summarised as booleans of "can edit"
+      lead:[true,true,true,false], customer:[true,true,true,false], unit:[true,false,false,false], pipeline:[true,true,false,false], user:[true,false,false,false]
+    };
+    var mw=el("div","matrix");
+    var html='<table><thead><tr><th>'+t("resource")+'</th>'+roles.map(function(r,i){return '<th>'+(state.lang==="ar"?rolesAr[i]:r)+'</th>';}).join("")+'</tr></thead><tbody>';
+    resources.forEach(function(r){
+      html+='<tr><td>'+t(r[0])+'</td>'+caps[r[1]].map(function(v){return '<td>'+(v?'<span class="yes">✓</span>':'<span class="no">—</span>')+'</td>';}).join("")+'</tr>';
+    });
+    html+='</tbody></table>';
+    mw.innerHTML=html; mcard.appendChild(mw); c.appendChild(mcard);
+    return c;
+  }
+
+  function viewSettings() {
+    var c=el("div"), g=el("div","grid-2");
+    var c1=el("div","card card-pad");
+    c1.innerHTML='<h2 class="sec">'+t("company")+'</h2>'+
+      '<div class="field"><div class="k">'+t("company")+'</div><div class="v">The Village Investment</div></div>'+
+      '<div class="field"><div class="k">Base currency</div><div class="v">EGP · '+(state.lang==="ar"?"جنيه مصري":"Egyptian Pound")+'</div></div>'+
+      '<div class="field"><div class="k">Timezone</div><div class="v">Africa/Cairo (GMT+2)</div></div>'+
+      '<div class="field"><div class="k">Lead capture endpoint</div><div class="v tnum" style="font-size:12.5px;word-break:break-all">/api/leads/site/the-village</div></div>';
+    var c2=el("div","card card-pad");
+    c2.innerHTML='<h2 class="sec">Multi-currency</h2><div class="row wrap" style="gap:8px">'+
+      ["EGP","USD","AED","SAR","EUR","GBP"].map(function(x){return '<span class="pill st">'+x+'</span>';}).join("")+'</div>'+
+      '<h2 class="sec" style="margin-top:18px">Channels</h2><div class="row wrap" style="gap:8px">'+
+      ["WhatsApp","Website","Property Finder","Bayut","Facebook","Google Ads","Instagram","TikTok"].map(function(x){return '<span class="pill st">'+x+'</span>';}).join("")+'</div>';
+    g.appendChild(c1); g.appendChild(c2); c.appendChild(g);
+    return c;
+  }
+
+  /* ── lead drawer ──────────────────────────────────────────────────────── */
+  function openLead(l) {
+    var scrim = $("#scrim"), drawer = $("#drawer");
+    var m = member(l.owner), name = state.lang==="ar"?l.firstAr:(l.first+" "+l.last);
+    var tl = tlFor(l.id).map(function(x){ return '<div class="tl-item"><div class="tt">'+(state.lang==="ar"?x.ttAr:x.tt)+'</div><div class="td">'+(state.lang==="ar"?x.tdAr:x.td)+'</div></div>'; }).join("");
+    drawer.innerHTML =
+      '<div class="drawer-head"><div class="row between"><div class="row" style="gap:12px">'+
+        '<span class="mini-av" style="width:44px;height:44px;font-size:16px;background:'+tempColor(l.temp)+'">'+l.first[0]+'</span>'+
+        '<div><div style="font-weight:700;font-size:16px">'+name+'</div><div class="tnum" style="color:var(--muted);font-size:12.5px">'+l.phone+'</div></div></div>'+
+        '<button class="icon-btn" id="closeDrawer" aria-label="close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>'+
+        '<div class="row wrap" style="gap:8px;margin-top:12px">'+
+          '<span class="pill '+tempCls(l.temp)+'"><span class="dot" style="background:'+tempColor(l.temp)+'"></span>'+t(l.temp.toLowerCase())+'</span>'+
+          '<span class="pill st">'+t(STATUS_LABEL[l.status])+'</span>'+
+          '<span class="pill st">'+(state.lang==="ar"?SRC_AR[l.src]:SRC[l.src])+'</span></div></div>'+
+      '<div class="drawer-body">'+
+        '<div class="row" style="gap:8px;margin-bottom:18px">'+
+          '<button class="btn sm primary" id="dCall">'+t("call")+'</button>'+
+          '<button class="btn sm" id="dWa">'+t("whatsapp")+'</button>'+
+          '<button class="btn sm" id="dAssign">'+t("assign")+'</button></div>'+
+        '<div class="row" style="gap:24px;margin-bottom:8px">'+
+          '<div class="field" style="flex:1"><div class="k">'+t("score")+'</div><div class="row" style="gap:8px"><div class="score-bar" style="flex:1"><div class="score-fill" style="width:'+l.score+'%;background:'+scoreColor(l.score)+'"></div></div><b class="tnum">'+l.score+'</b></div></div>'+
+          '<div class="field" style="flex:1"><div class="k">'+t("owner")+'</div><div class="v">'+mName(m)+'</div></div></div>'+
+        '<div class="row" style="gap:24px">'+
+          '<div class="field" style="flex:1"><div class="k">'+t("area")+'</div><div class="v">'+(state.lang==="ar"?l.areaAr:l.area)+'</div></div>'+
+          '<div class="field" style="flex:1"><div class="k">'+t("budget")+'</div><div class="v tnum">'+money(l.budget/1000)+'</div></div></div>'+
+        '<h2 class="sec" style="margin-top:14px">'+t("timeline")+'</h2><div class="tl">'+tl+'</div></div>';
+    scrim.classList.add("open"); drawer.classList.add("open");
+    $("#closeDrawer").onclick = closeDrawer;
+    $("#dCall").onclick = function(){ toast(t("call")+" ✓"); };
+    $("#dWa").onclick = function(){ toast("WhatsApp ✓"); };
+    $("#dAssign").onclick = function(){ toast(t("assigned")); };
+  }
+  function closeDrawer(){ $("#scrim").classList.remove("open"); $("#drawer").classList.remove("open"); }
+
+  /* ── chrome (sidebar + topbar) ────────────────────────────────────────── */
+  var NAV = [
+    { id:"dashboard", icon:"grid" }, { id:"leads", icon:"users", badge:function(){return leads.filter(function(l){return l.temp==="HOT";}).length;} },
+    { id:"pipeline", icon:"funnel" }, { id:"inventory", icon:"box" }, { id:"customers", icon:"user" }
+  ];
+  var NAV2 = [ { id:"developers", icon:"tower" }, { id:"team", icon:"shield" }, { id:"settings", icon:"gear" } ];
+
+  function chrome() {
+    var shell = el("div","shell");
+    // sidebar
+    var side = el("aside","side");
+    var brand = el("div","brand");
+    brand.innerHTML = '<div class="mark">V</div><div><b>'+t("company")+'</b><span>'+t("tagline")+'</span></div>';
+    side.appendChild(brand);
+    side.appendChild(navGroup(t("nav_main"), NAV));
+    side.appendChild(navGroup(t("nav_more"), NAV2));
+    var foot = el("div","side-foot"); foot.textContent = t("live_note");
+    side.appendChild(foot);
+    shell.appendChild(side);
+
+    // main
+    var main = el("div","main");
+    var top = el("header","topbar");
+    var titleWrap = el("div");
+    titleWrap.innerHTML = '<h1 class="page-title">'+t(state.view)+'</h1><div class="page-sub">'+t("welcome")+', '+mName(member("u1"))+' · '+t("overview")+'</div>';
+    top.appendChild(titleWrap);
+    top.appendChild(el("div","grow"));
+    var search = el("div","search"); search.innerHTML = ic.search + '<input placeholder="'+t("search")+'" aria-label="search"/>';
+    top.appendChild(search);
+    var langBtn = el("button","icon-btn"); langBtn.innerHTML = ic.globe; langBtn.title="عرب/ EN";
+    langBtn.onclick = function(){ state.lang = state.lang==="en"?"ar":"en"; applyDir(); render(); };
+    var themeBtn = el("button","icon-btn"); themeBtn.innerHTML = ic.moon; themeBtn.title="Theme";
+    themeBtn.onclick = toggleTheme;
+    top.appendChild(langBtn); top.appendChild(themeBtn);
+    var who = el("div","who");
+    who.innerHTML = '<div class="avatar">'+member("u1").init+'</div><div><b>'+mName(member("u1"))+'</b><span>'+(state.lang==="ar"?member("u1").roleAr:member("u1").role)+'</span></div>';
+    var out = el("button","icon-btn"); out.innerHTML = ic.logout; out.title=t("logout"); out.style.marginInlineStart="4px";
+    out.onclick=function(){ state.authed=false; render(); };
+    who.appendChild(out);
+    top.appendChild(who);
+    main.appendChild(top);
+
+    var content = el("div","content");
+    var viewFn = { dashboard:viewDashboard, leads:viewLeads, pipeline:viewPipeline, inventory:viewInventory, customers:viewCustomers, developers:viewDevelopers, team:viewTeam, settings:viewSettings }[state.view] || viewDashboard;
+    content.appendChild(viewFn());
+    main.appendChild(content);
+    shell.appendChild(main);
+    return shell;
+  }
+  function navGroup(label, items) {
+    var g = el("div");
+    g.appendChild(el("div","nav-label",label));
+    items.forEach(function(n){
+      var b = el("button","nav-item"+(state.view===n.id?" active":""));
+      var badge = n.badge ? '<span class="badge tnum">'+n.badge()+'</span>' : "";
+      b.innerHTML = ic[n.icon] + '<span>'+t(n.id)+'</span>' + badge;
+      b.onclick = function(){ go(n.id); };
+      g.appendChild(b);
+    });
+    return g;
+  }
+  function go(v){ state.view=v; closeDrawer(); render(); var c=$(".content"); if(c) c.scrollTop=0; }
+
+  /* ── login ────────────────────────────────────────────────────────────── */
+  function loginView() {
+    var net='<svg class="bgnet" viewBox="0 0 400 600" preserveAspectRatio="xMidYMid slice"><g stroke="#fff" stroke-width="1" fill="none">'+
+      '<path d="M0 480 L80 430 L150 470 L240 400 L320 450 L400 380"/><path d="M0 520 L90 470 L170 510 L250 445 L340 490 L400 430"/>'+
+      '</g><g fill="#fff">'+[[80,430],[240,400],[320,450],[170,510],[340,490]].map(function(p){return '<circle cx="'+p[0]+'" cy="'+p[1]+'" r="3"/>';}).join("")+'</g></svg>';
+    var wrap = el("div","login");
+    var art = el("div","login-art");
+    art.innerHTML = net +
+      '<div class="lg-brand"><div class="mark" style="width:40px;height:40px;border-radius:11px;background:rgba(255,255,255,.14);display:grid;place-items:center;font-weight:800;font-size:19px">V</div>'+
+      '<div><b style="display:block">'+t("company")+'</b><span style="color:#9FC2CF;font-size:11px;letter-spacing:.08em;text-transform:uppercase">'+t("tagline")+'</span></div></div>'+
+      '<h1>'+t("hero_h")+'</h1><p>'+t("hero_p")+'</p>'+
+      '<div class="stats"><div><b class="tnum">1,240+</b><br><span>'+t("s_leads")+'</span></div><div><b>3×</b><br><span>'+t("s_conv")+'</span></div><div><b>AR / EN</b><br><span>'+t("s_lang")+'</span></div></div>';
+    var form = el("div","login-form");
+    form.innerHTML =
+      '<div class="inner"><div class="row between" style="margin-bottom:20px"><div></div>'+
+      '<div class="row" style="gap:6px"><button class="icon-btn" id="lgLang" title="عرب/EN">'+ic.globe+'</button><button class="icon-btn" id="lgTheme" title="Theme">'+ic.moon+'</button></div></div>'+
+      '<h2>'+t("login_h")+'</h2><p class="lead">'+t("login_p")+'</p>'+
+      '<input class="inp" id="lgEmail" value="admin@thevillageinvestment.com" placeholder="'+t("email")+'"/>'+
+      '<input class="inp" id="lgPass" type="password" value="Admin!2345" placeholder="'+t("password")+'"/>'+
+      '<button class="btn primary" id="lgGo" style="width:100%;justify-content:center;padding:12px">'+t("signin")+'</button>'+
+      '<div class="demo-creds"><b style="color:var(--ink)">'+t("demo_note")+':</b><br>'+
+        '<code>admin@thevillageinvestment.com</code> · <code>Admin!2345</code><br>'+
+        '<code>sales@thevillageinvestment.com</code> · <code>Sales!2345</code></div></div>';
+    wrap.appendChild(art); wrap.appendChild(form);
+    setTimeout(function(){
+      $("#lgGo").onclick = function(){ state.authed=true; state.view="dashboard"; render(); toast(t("welcome")+" 👋"); };
+      $("#lgLang").onclick = function(){ state.lang=state.lang==="en"?"ar":"en"; applyDir(); render(); };
+      $("#lgTheme").onclick = toggleTheme;
+      $("#lgPass").addEventListener("keydown",function(e){ if(e.key==="Enter") $("#lgGo").click(); });
+    },0);
+    return wrap;
+  }
+
+  /* ── theme + dir ──────────────────────────────────────────────────────── */
+  function toggleTheme(){
+    var root=document.documentElement;
+    var cur=root.getAttribute("data-theme");
+    if(!cur){ cur = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark":"light"; }
+    root.setAttribute("data-theme", cur==="dark"?"light":"dark");
+  }
+  function applyDir(){
+    document.documentElement.dir = state.lang==="ar"?"rtl":"ltr";
+    document.documentElement.lang = state.lang;
+    document.body.className = state.lang==="ar"?"lang-ar":"lang-en";
+  }
+
+  /* ── render ───────────────────────────────────────────────────────────── */
+  function render(){
+    var app = $("#app"); app.innerHTML="";
+    if(!state.authed){ app.appendChild(loginView()); return; }
+    app.appendChild(chrome());
+    if(!$("#scrim")){
+      var s=el("div","drawer-scrim"); s.id="scrim"; s.onclick=closeDrawer; document.body.appendChild(s);
+      var d=el("aside","drawer"); d.id="drawer"; document.body.appendChild(d);
+    }
+  }
+  applyDir();
+  render();
+})();
+</script>

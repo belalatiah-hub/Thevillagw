@@ -1,7 +1,9 @@
 import { BadRequestException, Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 import { Lead, LeadSource, LeadStatus, Prisma } from '@prisma/client';
 import { AuthUser } from '../../common/decorators/current-user.decorator';
 import { PaginatedResult } from '../../common/dto/pagination.dto';
+import { DOMAIN_EVENTS } from '../../common/events/domain-events';
 import { normalizePhone } from '../../common/util/phone';
 import { PrismaService } from '../../prisma/prisma.service';
 import {
@@ -20,6 +22,7 @@ export class LeadsService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly scoring: LeadScoringService,
+    private readonly events: EventEmitter2,
   ) {}
 
   /**
@@ -124,6 +127,15 @@ export class LeadsService {
         entityId: lead.id,
         metadata: { source: lead.source, score },
       },
+    });
+
+    this.events.emit(DOMAIN_EVENTS.LEAD_CAPTURED, {
+      companyId: company.id,
+      leadId: lead.id,
+      firstName: lead.firstName,
+      source: lead.source,
+      score,
+      temperature,
     });
 
     this.logger.log(`Captured lead ${lead.id} (${lead.source}, score ${score})`);
@@ -297,7 +309,16 @@ export class LeadsService {
     if (!owner) {
       throw new BadRequestException('Owner must be a user in the same company');
     }
-    return this.prisma.lead.update({ where: { id }, data: { ownerId: dto.ownerId } });
+    const updated = await this.prisma.lead.update({
+      where: { id },
+      data: { ownerId: dto.ownerId },
+    });
+    this.events.emit(DOMAIN_EVENTS.LEAD_ASSIGNED, {
+      companyId: user.companyId,
+      leadId: id,
+      ownerId: dto.ownerId,
+    });
+    return updated;
   }
 
   async remove(user: AuthUser, id: string): Promise<void> {

@@ -53,6 +53,10 @@ npm run start:dev
 | **Customers** | Full profile (nationality, budget range, documents, preferences), activity timeline. |
 | **Property catalogue** | Developers → Projects → Units, with inventory search (status/type/beds/price), payment-plan fields, geo. |
 | **Pipeline** | Custom pipelines + stages (probability), opportunities, drag-to-stage move, **weighted revenue forecast**. |
+| **Finance** | Reservations → contracts (auto installment schedule) → payments → commission, with unit status transitions (AVAILABLE→RESERVED→SOLD). |
+| **Reports** | `/reports/dashboard` — executive KPIs: lead counts, hot/new, pipeline open + weighted forecast, won-this-month, breakdowns by source/temperature, top owners. |
+| **AI** | Provider abstraction (`AI_PROVIDER`): deterministic rules provider (default, offline) or OpenAI when `OPENAI_API_KEY` is set. Lead summary + recommended next action. |
+| **Realtime** | Socket.io gateway at `/realtime` (JWT-authed, company-scoped rooms) emitting `lead.captured`, `lead.assigned`, `opportunity.moved`. |
 | **Users** | Team management, role assignment, soft-deactivate + session revocation, `/users/me`. |
 | **Platform** | Global validation, unified error envelope, Prisma error mapping, rate limiting (Throttler), Helmet, CORS allowlist, health probe, Swagger, BigInt-safe money (minor units), audit log. |
 

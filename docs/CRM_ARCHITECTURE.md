@@ -75,15 +75,16 @@ commented, with enums for statuses, sources, unit/project types, and currency.
 | Phase | Brief | Status |
 | ----- | ----- | ------ |
 | 1 | Architecture | ✅ This document + module structure |
-| 2 | Database | ✅ Prisma schema, migration, seed |
+| 2 | Database | ✅ Prisma schema (incl. finance), migrations, seed |
 | 3 | Backend | ✅ Core CRM modules, REST, Swagger |
 | 4 | Authentication | ✅ JWT + refresh + RBAC + multi-tenant (Google/Apple columns ready) |
-| 5 | CRM Modules | 🟡 Core shipped: Leads, Customers, Developers, Projects, Units, Pipeline, Users, Activities, Audit. Remaining: Tasks/Calendar UI, Contracts, Reservations, Installments, Payments, Commission, HR/Attendance, Marketing campaigns |
+| 5 | CRM Modules | 🟡 Shipped: Leads, Customers, Developers, Projects, Units, Pipeline, Users, Activities, Audit, **Reports/dashboard KPIs**, and **Finance** (Reservations → Contracts → Installments → Payments → Commission). Remaining: Tasks/Calendar, HR/Attendance, Marketing campaigns |
 | 6 | Mobile app | ⬜ Flutter (recommended) — thin client on this API |
-| 7 | Dashboard | ⬜ Web admin (React/Vite) — thin client on this API |
-| 8 | AI | ⬜ OpenAI behind service interfaces (scoring, summaries, next-action, matching) |
+| 7 | Dashboard | 🟡 Interactive **bilingual console** shipped as a browsable demo (`dashboard/crm-demo.html`) — leads, pipeline (drag-drop), inventory, RBAC, dark mode, AR/EN + RTL. Next: wire it to the live API (React/Vite build) |
+| 8 | AI | 🟡 **Provider abstraction shipped** (`AI_PROVIDER`): deterministic rules provider (default, offline) + OpenAI-backed provider (activates on `OPENAI_API_KEY`). Lead summary + next-action live. Next: call/meeting summaries, property matching |
 | 9 | Testing | 🟡 Unit + e2e smoke in place; expand to full module coverage |
 | 10 | Deployment | 🟡 Dockerfile + compose + CI build; add managed Postgres/Redis, secrets, HTTPS termination |
+| — | Realtime | ✅ Socket.io gateway (`/realtime`, JWT-authed, company-scoped rooms) broadcasting `lead.captured` / `lead.assigned` / `opportunity.moved` |
 
 Legend: ✅ done · 🟡 partial · ⬜ not started
 

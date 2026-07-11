@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_FILTER, APP_GUARD } from '@nestjs/core';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import configuration from './config/configuration';
 import { validateEnv } from './config/env.validation';
@@ -17,6 +18,10 @@ import { ProjectsModule } from './modules/projects/projects.module';
 import { UnitsModule } from './modules/units/units.module';
 import { PipelineModule } from './modules/pipeline/pipeline.module';
 import { HealthModule } from './modules/health/health.module';
+import { ReportsModule } from './modules/reports/reports.module';
+import { AiModule } from './modules/ai/ai.module';
+import { EventsModule } from './modules/events/events.module';
+import { FinanceModule } from './modules/finance/finance.module';
 
 @Module({
   imports: [
@@ -34,6 +39,7 @@ import { HealthModule } from './modules/health/health.module';
         },
       ],
     }),
+    EventEmitterModule.forRoot(),
     PrismaModule,
     AuthModule,
     UsersModule,
@@ -44,6 +50,10 @@ import { HealthModule } from './modules/health/health.module';
     UnitsModule,
     PipelineModule,
     HealthModule,
+    ReportsModule,
+    AiModule,
+    EventsModule,
+    FinanceModule,
   ],
   providers: [
     // Order matters: authenticate → rate-limit → authorize.
