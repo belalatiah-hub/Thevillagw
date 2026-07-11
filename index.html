@@ -1667,6 +1667,7 @@
       h('div',{style:'text-align:end;font-size:.78rem;color:#555'}, t('fs_title'), h('div',null, t('fs_generated')+': '+new Date().toLocaleDateString(lang==='ar'?'ar-EG':'en-GB')))));
     sheet.appendChild(h('div',{class:'ps-title'}, lang==='ar'?p.name_ar:p.name));
     sheet.appendChild(h('div',{style:'color:#333;margin-bottom:8px'}, L(dev.name)+' · '+L(area.name)+' · '+statusLabel(p.status)));
+    sheet.appendChild(h('div',{class:'ps-media'}, projectArt(p)));
     var tbl=h('table',{class:'ps-table'});
     [[t('price'), money(p.price)+' — '+t('conf_illustrative')],[t('units'),L(p.types)],[t('dp'),p.dp?num(p.dp)+'%':'—'],
      [t('years'),p.years?num(p.years):'—'],[t('delivery'),p.delivery==='Ready'?t('ready'):(p.delivery||t('to_confirm'))],[t('finishing'),L(p.finishing)]]
