@@ -693,11 +693,31 @@
   .ps-devrow .dev-logo{flex:0 0 auto}
   .ps-media{position:relative;aspect-ratio:16/9;border-radius:10px;overflow:hidden;margin:8px 0 14px;background:#0a4a61}
   .ps-media .artsvg{position:absolute;inset:0;width:100%;height:100%}
+  /* On-screen factsheet preview overlay — guarantees the Print / Save-as-PDF
+     action is always usable, even where window.print() is a no-op (in-app
+     webviews, some Android WebViews, file://). The toolbar is hidden when the
+     page is actually sent to the printer via @media print below. */
+  #print-sheet.print-sheet--open{display:block;position:fixed;inset:0;z-index:800;
+    background:#fff;color:#111;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding:0 0 56px}
+  body.fs-lock{overflow:hidden}
+  .fs-toolbar{position:sticky;top:0;z-index:3;display:flex;gap:10px 12px;align-items:center;justify-content:flex-end;
+    flex-wrap:wrap;padding:12px 16px;background:#fff;border-bottom:1px solid #e6e2d8;box-shadow:0 3px 14px rgba(7,61,82,.10)}
+  .fs-hint{flex:1 1 200px;min-width:0;color:#556a71;font-size:.82rem;font-weight:500;line-height:1.4}
+  .fs-btn{flex:0 0 auto;display:inline-flex;align-items:center;gap:7px;padding:11px 20px;border-radius:999px;border:1px solid var(--line-cool);
+    background:var(--bone-2);color:var(--ink);font:inherit;font-weight:700;font-size:.9rem;cursor:pointer;transition:filter .15s,background .15s}
+  .fs-btn svg{width:16px;height:16px;flex:0 0 auto}
+  .fs-btn--primary{background:linear-gradient(180deg,var(--teal-700),var(--teal-900));color:#fff;border-color:transparent}
+  .fs-btn:hover{filter:brightness(1.06)}
+  .fs-btn:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+  .fs-body{max-width:840px;margin-inline:auto;padding:22px 18px 0}
   @media print{
     header.site,footer.site,.mobile-bar,.chat-fab,.chat-panel,.pal-back,#drawer,.drawer-back,.toast-host,.contact-rail,.rail-nudge{display:none!important}
     body>*:not(#print-sheet){display:none!important}
     body{background:#fff}
     #print-sheet{display:block!important;padding:20px;color:#111}
+    #print-sheet.print-sheet--open{position:static!important;inset:auto!important;z-index:auto!important;overflow:visible!important;padding:20px!important}
+    .fs-toolbar{display:none!important}
+    .fs-body{max-width:none!important;margin:0!important;padding:0!important}
     .intro{display:none!important}
     .ps-page{page-break-inside:avoid}
     .ps-page--break{page-break-before:always}
@@ -731,13 +751,13 @@
     opacity:0;transition:opacity .28s ease}
   .lead-back.show{opacity:1}
   .lead-card{position:relative;width:100%;max-width:440px;background:var(--paper);border-radius:24px;
-    padding:34px 26px 26px;box-shadow:0 40px 90px -30px rgba(8,23,29,.55);
+    padding:56px 26px 26px;box-shadow:0 40px 90px -30px rgba(8,23,29,.55);
     transform:translateY(14px) scale(.98);transition:transform .3s cubic-bezier(.2,.7,.2,1)}
   .lead-back.show .lead-card{transform:none}
-  .lead-x{position:absolute;inset-block-start:16px;inset-inline-start:16px;width:38px;height:38px;border-radius:50%;
-    border:0;background:var(--bone-2);color:var(--ink-2);font-size:1.35rem;line-height:1;cursor:pointer;display:grid;place-items:center;transition:background .15s}
+  .lead-x{position:absolute;inset-block-start:16px;inset-inline-end:16px;width:36px;height:36px;border-radius:50%;
+    border:0;background:var(--bone-2);color:var(--ink-2);font-size:1.25rem;line-height:1;cursor:pointer;display:grid;place-items:center;transition:background .15s;z-index:2}
   .lead-x:hover{background:var(--line-cool)}
-  .lead-h{font-family:var(--serif);font-size:clamp(1.4rem,4.5vw,1.85rem);font-weight:700;color:var(--teal-800);text-align:center;margin:4px 0 0;line-height:1.18}
+  .lead-h{font-family:var(--serif);font-size:clamp(1.35rem,4.3vw,1.8rem);font-weight:700;color:var(--teal-800);text-align:center;margin:0;line-height:1.2}
   .lead-sub{text-align:center;color:var(--ink-3);font-size:.9rem;margin:12px auto 22px;line-height:1.55;max-width:34ch}
   .lead-form{display:flex;flex-direction:column;gap:12px}
   .lead-form input{width:100%;padding:15px 16px;border:1.5px solid var(--line-cool);border-radius:14px;font:inherit;background:var(--bone-2);text-align:center}
@@ -748,7 +768,7 @@
   .lead-send:disabled{opacity:.7;cursor:default}
   .lead-note{display:flex;align-items:center;gap:6px;justify-content:center;margin-top:14px;color:var(--ink-3);font-size:.72rem}
   .lead-note svg{width:13px;height:13px;flex:0 0 auto}
-  .lead-thanks{text-align:center;padding:22px 0 8px}
+  .lead-thanks{text-align:center;padding:12px 0 8px}
   .lead-check{width:64px;height:64px;border-radius:50%;background:#e7f3ec;color:#2f7d54;font-size:2rem;font-weight:700;display:grid;place-items:center;margin:0 auto 16px}
   @media (prefers-reduced-motion:reduce){ .lead-back,.lead-card{transition:none} }
   </style>
@@ -1084,6 +1104,7 @@
       timeline_h:"Delivery timeline", tl_launched:"Launched", tl_construction:"Under construction", tl_delivery:"Delivery", tl_ready:"Ready to move", avail_asof:"as of",
       lead_title:"Register your interest", lead_sub:"Leave your details and a property advisor will contact you shortly — primary-sale, developer-direct.", lead_name:"Full name", lead_phone:"Phone number", lead_send:"Send request", lead_sending:"Sending…", lead_thanks:"Thank you — an advisor will be in touch shortly.", lead_err:"Please enter your name and a valid phone number.",
       print_sheet:"Print / Save as PDF", fs_generated:"Generated", fs_title:"Project factsheet", data_conf:"Data confidence",
+      fs_hint:"Tap “Print / Save as PDF”. If your app blocks printing, you can also screenshot this page.", fs_preview:"Factsheet preview",
       conf_illustrative:"Illustrative", verified:"Verified", to_confirm:"To confirm",
       nav_investors:"Investors", investors_h:"GCC & overseas buyers",
       investors_p:"Buying Egypt primary-sale property from abroad — a plain, honest view of the process for Gulf, overseas and Egyptian-expatriate buyers.",
@@ -1191,6 +1212,7 @@
       timeline_h:"الجدول الزمني للتسليم", tl_launched:"أُطلق", tl_construction:"قيد الإنشاء", tl_delivery:"التسليم", tl_ready:"جاهزة للاستلام", avail_asof:"حتى",
       lead_title:"سجّل اهتمامك", lead_sub:"اترك بياناتك وسيتواصل معك مستشار عقاري قريبًا — بيع أولي من المطوّر مباشرةً.", lead_name:"الاسم الكامل", lead_phone:"رقم الهاتف", lead_send:"إرسال الطلب", lead_sending:"جارٍ الإرسال…", lead_thanks:"شكرًا لك — سيتواصل معك مستشار قريبًا.", lead_err:"من فضلك أدخل اسمك ورقم هاتف صحيح.",
       print_sheet:"طباعة / حفظ PDF", fs_generated:"تاريخ الإصدار", fs_title:"ملف المشروع", data_conf:"موثوقية البيانات",
+      fs_hint:"اضغط «طباعة / حفظ PDF». وإذا كان التطبيق يمنع الطباعة، يمكنك أيضًا تصوير الشاشة لهذه الصفحة.", fs_preview:"معاينة ملف الوحدة",
       conf_illustrative:"استرشادي", verified:"موثّق", to_confirm:"قيد التأكيد",
       nav_investors:"المستثمرون", investors_h:"مشترو الخليج والخارج",
       investors_p:"شراء عقارات البيع الأولي في مصر من الخارج — نظرة واضحة وصادقة للإجراء لمشتري الخليج والخارج والمصريين المغتربين.",
@@ -1601,6 +1623,40 @@
       h('div',{class:'field-row',style:'margin-top:8px'}, field2(t('calc_dp'), dp), field2(t('calc_years'), yrs)),
       out, h('div',{class:'prov',style:'margin-top:8px'}, ic('info'), t('calc_note')));
   }
+  /* Factsheet preview overlay. Rendering the sheet as a visible, full-screen
+     panel means the "Print / Save as PDF" action ALWAYS produces a result the
+     user can act on — even inside in-app webviews (Instagram/Facebook/etc.) and
+     file:// previews where window.print() is silently ignored. Capable browsers
+     still get the print dialog immediately; everyone else can print from the
+     toolbar, use the browser menu, or screenshot the page. */
+  function fsEsc(e){ if(e && (e.key==='Escape'||e.keyCode===27)) closeFactsheet(); }
+  function fsPrintNow(){ try{ window.print(); }catch(e){} }
+  function closeFactsheet(){
+    var sheet=document.getElementById('print-sheet'); if(!sheet) return;
+    sheet.classList.remove('print-sheet--open'); sheet.setAttribute('aria-hidden','true');
+    sheet.removeAttribute('role'); sheet.removeAttribute('aria-modal');
+    try{ document.body.classList.remove('fs-lock'); }catch(e){}
+    document.removeEventListener('keydown', fsEsc);
+  }
+  function openFactsheet(){
+    var sheet=document.getElementById('print-sheet'); if(!sheet) return;
+    var stale=sheet.querySelector('.fs-toolbar'); if(stale && stale.parentNode) stale.parentNode.removeChild(stale);
+    var body=h('div',{class:'fs-body'});
+    while(sheet.firstChild){ body.appendChild(sheet.firstChild); }
+    var printB=h('button',{type:'button', class:'fs-btn fs-btn--primary'}, ic('doc'), t('print_sheet'));
+    var closeB=h('button',{type:'button', class:'fs-btn', 'aria-label':t('a_close')}, t('a_close'));
+    printB.addEventListener('click', fsPrintNow);
+    closeB.addEventListener('click', closeFactsheet);
+    var tb=h('div',{class:'fs-toolbar'}, h('span',{class:'fs-hint'}, t('fs_hint')), printB, closeB);
+    sheet.appendChild(tb); sheet.appendChild(body);
+    sheet.classList.add('print-sheet--open'); sheet.setAttribute('aria-hidden','false');
+    sheet.setAttribute('role','dialog'); sheet.setAttribute('aria-modal','true'); sheet.setAttribute('aria-label', t('fs_preview'));
+    try{ document.body.classList.add('fs-lock'); }catch(e){}
+    try{ sheet.scrollTop=0; }catch(e){}
+    document.addEventListener('keydown', fsEsc);
+    try{ printB.focus(); }catch(e){}
+    fsPrintNow();   /* fast path: fire the print dialog where the browser honours it */
+  }
   /* Print / Save-as-PDF factsheet (honest: uses the browser print pipeline) */
   function printFactsheet(p){
     var dev=devByKey(p.dev), area=areaByKey(p.area), sheet=document.getElementById('print-sheet'); if(!sheet) return; clear(sheet);
@@ -1619,7 +1675,7 @@
     var contact=[]; if(CONFIG.phone) contact.push(CONFIG.phoneDisplay||CONFIG.phone); if(CONFIG.email) contact.push(CONFIG.email); if(CONFIG.whatsapp) contact.push('WhatsApp');
     sheet.appendChild(h('div',{class:'ps-note'}, t('illustrative')+(contact.length?(' · '+contact.join(' · ')):'')));
     track('factsheet_requested',{project:p.slug});
-    try{ window.print(); }catch(e){}
+    openFactsheet();
   }
   /* Per-unit factsheet: page 1 = developer logo + unit image + spec table;
      page 2 = payment plan with quarterly (every-3-months) installments. */
@@ -1679,7 +1735,7 @@
       sheet.appendChild(page2);
     }
     track('unit_factsheet_requested',{unit:u.id});
-    try{ window.print(); }catch(e){}
+    openFactsheet();
   }
 
   /* ==================================================================
