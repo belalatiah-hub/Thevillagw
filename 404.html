@@ -8,10 +8,11 @@
 <script>
   // Single-page-app deep-link support on static hosting (rafgraph pattern).
   // pathSegmentsToKeep = 0 for domain-root deploys; 1 for /repo/ project pages.
-  // This repo deploys as a GitHub Pages PROJECT page (belalatiah-hub.github.io/Thevillagw/),
-  // so seg = 1. If you move to a custom-domain root, set it back to 0.
+  // This site deploys at the custom-domain ROOT (www.thevillageinvestment.com, see CNAME),
+  // which is what every absolute URL (canonical, sitemap, OG, JSON-LD) targets — so seg = 0.
+  // If you ever serve it as a GitHub project page (user.github.io/repo/), set seg = 1.
   (function(l){
-    var seg = 1;
+    var seg = 0;
     l.replace(
       l.protocol + '//' + l.host +
       l.pathname.split('/').slice(0, 1 + seg).join('/') + '/?/' +

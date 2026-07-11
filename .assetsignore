@@ -1,0 +1,7 @@
+# Files that should not be published as part of the Cloudflare static deploy.
+.assetsignore
+wrangler.toml
+.github/
+docs/
+README.txt
+.nojekyll
