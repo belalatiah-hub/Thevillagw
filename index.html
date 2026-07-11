@@ -623,6 +623,22 @@
   .empty-ico{width:66px;height:66px;border-radius:50%;background:var(--bone-2);color:var(--teal-600);display:grid;place-items:center}
   .empty-ico svg{width:28px;height:28px}
   .empty-state p{color:var(--ink-3);max-width:38ch;margin:0}
+  /* Top Locations cards */
+  .toploc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:18px;margin-top:8px}
+  .toploc{display:block;border-radius:var(--r-lg);overflow:hidden;background:var(--paper);border:1px solid var(--line-2);box-shadow:var(--shadow-soft);text-decoration:none;color:inherit;transition:transform .22s ease,box-shadow .22s ease}
+  .toploc:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+  .toploc:focus-visible{outline:2px solid var(--teal-600);outline-offset:2px}
+  .toploc__media{position:relative;aspect-ratio:16/10;overflow:hidden}
+  .toploc__media .artsvg{position:absolute;inset:0;width:100%;height:100%;transition:transform .4s ease}
+  .toploc:hover .toploc__media .artsvg{transform:scale(1.06)}
+  .toploc__pin{position:absolute;inset-block-start:10px;inset-inline-start:10px;width:30px;height:30px;border-radius:9px;background:rgba(255,255,255,.92);color:var(--teal-800);display:grid;place-items:center;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+  .toploc__pin svg{width:16px;height:16px}
+  .toploc__badge{position:absolute;inset-block-start:10px;inset-inline-end:10px;background:rgba(7,61,82,.9);color:var(--bone);font-size:.68rem;font-weight:700;padding:3px 9px;border-radius:20px;letter-spacing:.02em}
+  .toploc__body{padding:14px 16px 16px}
+  .toploc__body h3{font-size:1.1rem;margin:0 0 3px}
+  .toploc__meta{font-size:.82rem;color:var(--ink-3);font-weight:600}
+  .toploc--soon .toploc__meta{color:var(--teal-700)}
+  @media (prefers-reduced-motion:reduce){ .toploc,.toploc__media .artsvg{transition:none} .toploc:hover{transform:none} .toploc:hover .toploc__media .artsvg{transform:none} }
   /* ---- Recommendation engine (Exact / Balanced / Flexible) ---- */
   .mode-seg{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:16px}
   .mode-seg__lbl{font-size:.8rem;font-weight:700;color:var(--ink-3);margin-inline-end:2px}
@@ -995,6 +1011,7 @@
       home_launch_h:"New launches", home_launch_p:"Recently launched primary developments in our curated selection.",
       home_feat_h:"Featured projects", home_feat_p:"A hand-picked look across areas and developers. Figures are illustrative pending advisor confirmation.",
       home_area_h:"Browse by area", home_area_p:"Egypt's most active primary-sale destinations.",
+      top_loc_h:"Top locations", top_loc_p:"Egypt's most sought-after primary-sale destinations — updated live from our inventory.", coming_soon:"Coming soon", register_interest:"Register interest",
       home_dev_h:"Developers we track", home_dev_p:"Public developer names with original summaries. We show a relationship only when it is documented and approved.",
       home_why_h:"Why buyers choose The Village",
       why1_h:"Primary sale, done right", why1_p:"New launches, off-plan and developer-direct units only — never resale or owner listings.",
@@ -1101,6 +1118,7 @@
       home_launch_h:"إطلاقات جديدة", home_launch_p:"مشروعات بيع أولي أُطلقت حديثاً ضمن اختياراتنا.",
       home_feat_h:"مشروعات مميّزة", home_feat_p:"نظرة مختارة عبر المناطق والمطوّرين. الأرقام تقديرية لحين تأكيد المستشار.",
       home_area_h:"تصفّح حسب المنطقة", home_area_p:"أنشط وجهات البيع الأولي في مصر.",
+      top_loc_h:"أهم المناطق", top_loc_p:"أكثر وجهات البيع الأولي طلبًا في مصر — تُحدَّث مباشرةً من مخزوننا.", coming_soon:"قريبًا", register_interest:"سجّل اهتمامك",
       home_dev_h:"مطوّرون نتابعهم", home_dev_p:"أسماء مطوّرين معروفة مع ملخصات أصلية. لا نذكر شراكة إلا عند توثيقها واعتمادها.",
       home_why_h:"لماذا يختار المشترون The Village",
       why1_h:"بيع أولي كما يجب", why1_p:"إطلاقات جديدة ووحدات من المطوّر مباشرة فقط — دون إعادة بيع أو عروض مُلّاك.",
@@ -2128,6 +2146,43 @@
     ));
     return tile;
   }
+  // Top Locations (Section 3) — premium cards with original representative art + a live compound count.
+  function locArt(cat){
+    var gid='la'+(ART_ID++), top = cat==='redsea'?'#0e8fa3':cat==='coast'?'#0e6f86':'#0f5a70', i;
+    var s=sEl('svg',{viewBox:'0 0 400 200', class:'artsvg', preserveAspectRatio:'xMidYMid slice','aria-hidden':'true'});
+    var defs=sEl('defs'), lg=sEl('linearGradient',{id:gid,x1:'0',y1:'0',x2:'0',y2:'1'});
+    lg.appendChild(sEl('stop',{offset:'0','stop-color':top})); lg.appendChild(sEl('stop',{offset:'1','stop-color':'#05303f'}));
+    defs.appendChild(lg); s.appendChild(defs);
+    s.appendChild(sEl('rect',{width:'400',height:'200',fill:'url(#'+gid+')'}));
+    s.appendChild(sEl('circle',{cx:'322',cy:'48',r:'24',fill:'#F3EFE6',opacity:'0.88'}));
+    if(cat==='coast'||cat==='redsea'){
+      s.appendChild(sEl('rect',{x:'0',y:'128',width:'400',height:'72',fill:'#0e6f86',opacity:'0.45'}));
+      for(i=0;i<3;i++) s.appendChild(sEl('path',{d:'M0 '+(132+i*20)+' q 50 -9 100 0 t 100 0 t 100 0 t 100 0', stroke:'#bfe3ef', fill:'none','stroke-width':'3', opacity:(0.4-i*0.1).toFixed(2)}));
+      s.appendChild(palm(56,150)); s.appendChild(palm(330,150));
+    } else {
+      for(i=0;i<6;i++){ var bw=42+((i*37)%18), bx=8+i*66, bh=74+((i*53)%78), by=200-bh;
+        s.appendChild(sEl('rect',{x:bx,y:by,width:bw,height:bh,rx:'2',fill:i%2?'#F3EFE6':'#cfe0e5',opacity:(0.9-i*0.07).toFixed(2)})); }
+    }
+    return s;
+  }
+  var TOP_LOCS=[
+    {key:'newcairo'},{key:'zayed'},{key:'sahel'},{key:'raselhekma'},{key:'capital'},
+    {coming:true, art:'redsea', name:{en:'Soma Bay',ar:'سوما باي'}},
+    {coming:true, art:'redsea', name:{en:'El Gouna',ar:'الجونة'}}
+  ];
+  function topLocationCard(loc){
+    var coming=!!loc.coming, key=loc.key, area=key?areaByKey(key):null;
+    var name=coming?L(loc.name):L(area.name);
+    var cat=loc.art || (key==='raselhekma'?'coast':areaCat(key));
+    var count=key?projInArea(key).length:0, from=key?areaFrom(key):null;
+    var href=coming?U(buildPath('contact')):U(buildPath('area',{slug:key}));
+    var media=h('div',{class:'toploc__media'}, locArt(cat), h('span',{class:'toploc__pin'}, ic('pin')));
+    if(coming) media.appendChild(h('span',{class:'toploc__badge'}, t('coming_soon')));
+    var meta = coming ? t('register_interest')
+      : (num(count)+' '+(lang==='ar'?'كمبوند':(count===1?'compound':'compounds')) + (from?(' · '+t('from')+' '+moneyM(from)):''));
+    return h('a',{class:'toploc'+(coming?' toploc--soon':''), href:href, 'aria-label':name},
+      media, h('div',{class:'toploc__body'}, h('h3',null,name), h('div',{class:'toploc__meta'}, meta)));
+  }
   function devCard(d){
     var ps = projByDev(d.key);
     return h('a',{class:'dev-card', href:U(buildPath('developer',{slug:d.key}))},
@@ -2225,9 +2280,11 @@
     // featured units
     node.appendChild(listSection('', t('home_units_h'), t('home_units_p'), UNITS.slice(0,3).map(unitCard),
       {label:t('cta_all'), path:buildPath('units')}));
-    // areas
-    node.appendChild(listSection('', t('home_area_h'), t('home_area_p'),
-      AREAS.slice(0,6).map(areaTile), {label:t('cta_all'), path:buildPath('areas')}, null, 'grid--3'));
+    // top locations (Section 3) — premium cards + live compound counts
+    var tlRow=h('div',{class:'sec-row'}, sectionHead('', t('top_loc_h'), t('top_loc_p')),
+      h('a',{class:'btn btn--ghost btn--sm', href:U(buildPath('areas'))}, t('cta_all'), ic('arrow')));
+    node.appendChild(h('section',{class:'section band'}, h('div',{class:'wrap'}, tlRow,
+      h('div',{class:'toploc-grid'}, TOP_LOCS.map(topLocationCard)))));
     // why
     var why = h('section',{class:'section band'});
     why.appendChild(h('div',{class:'wrap'},
