@@ -4070,8 +4070,13 @@
     return true;
   }
   function openExternal(href){
-    var win=null; try{ win=window.open(href, '_blank', 'noopener'); }catch(e){}
-    if(!win){ try{ window.location.href=href; }catch(e2){} }        // fallback for webviews/file preview
+    // Open a real new tab and return its handle so we can detect success. We do NOT pass
+    // 'noopener' in the features string (that makes window.open always return null, which
+    // previously forced the same-tab fallback to ALSO fire → the site got navigated away
+    // on every social click). Instead we null the opener on the returned window for safety.
+    var win=null; try{ win=window.open(href, '_blank'); }catch(e){}
+    if(win){ try{ win.opener=null; }catch(e2){} }
+    else { try{ window.location.href=href; }catch(e3){} }             // webview/popup-blocked fallback
   }
   document.addEventListener('click', function(e){
     var a=e.target.closest && e.target.closest('a'); if(!a) return;
