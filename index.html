@@ -4330,7 +4330,7 @@
      ROUTER + CHROME + HEAD
      ================================================================== */
   var currentRoute=null;
-  var NAV=[['units','nav_search'],['maps','nav_maps'],['launches','nav_launches'],['developers','nav_developers'],['areas','nav_areas'],['about','nav_about'],['favorites','nav_favorites']];
+  var NAV=[['units','nav_search'],['maps','nav_maps'],['launches','nav_launches'],['about','nav_about'],['favorites','nav_favorites']];
   var NAV_GROUP={home:'',units:'units',unit:'units',project:'units',projects:'units',maps:'maps',launches:'launches',developers:'developers',developer:'developers',areas:'areas',area:'areas',insights:'',insight:'',about:'about',favorites:'favorites'};
 
   function viewFor(r){
@@ -4372,7 +4372,6 @@
       var a=h('a',{href:U(buildPath(it[0]))}, t(it[1])); if(group===it[0]) a.setAttribute('aria-current','page'); pn.appendChild(a);
       var a2=h('a',{href:U(buildPath(it[0]))}, t(it[1])); if(group===it[0]) a2.setAttribute('aria-current','page'); dn.appendChild(a2);
     });
-    dn.appendChild(h('a',{href:U(buildPath('units'))}, t('nav_units')));
     dn.appendChild(h('a',{href:U(buildPath('investors'))}, t('nav_investors')));
     dn.appendChild(h('a',{href:U(buildPath('faqs'))}, t('nav_faqs')));
     dn.appendChild(h('a',{href:U(buildPath('compare'))}, t('nav_compare')+ (compare.length?(' ('+num(compare.length)+')'):'')));
