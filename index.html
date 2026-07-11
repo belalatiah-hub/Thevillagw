@@ -627,6 +627,18 @@
   .empty-state p{color:var(--ink-3);max-width:38ch;margin:0}
   /* Top Locations cards */
   .toploc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:18px;margin-top:8px}
+  /* Browse-by-developer circular rail */
+  .dev-rail{display:flex;gap:20px;overflow-x:auto;padding:10px 2px 16px;margin-top:6px;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity;scrollbar-width:thin;scrollbar-color:var(--line-cool) transparent}
+  .dev-rail::-webkit-scrollbar{height:7px}
+  .dev-rail::-webkit-scrollbar-thumb{background:var(--line-cool);border-radius:8px}
+  .dev-circle{flex:0 0 auto;width:96px;display:flex;flex-direction:column;align-items:center;gap:9px;text-decoration:none;color:var(--ink);scroll-snap-align:start}
+  .dev-circle__av{width:78px;height:78px;border-radius:50%;display:grid;place-items:center;overflow:hidden;background:var(--paper);
+    border:1px solid var(--line-2);box-shadow:var(--shadow-sm);transition:transform var(--t),box-shadow var(--t),border-color var(--t)}
+  .dev-circle__av .dev-logo{border-radius:50%!important;width:74px!important;height:74px!important}
+  .dev-circle:hover .dev-circle__av,.dev-circle:focus-visible .dev-circle__av{transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:var(--teal-400)}
+  .dev-circle__name{font-size:.78rem;font-weight:600;text-align:center;line-height:1.25;color:var(--ink-2);
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;max-width:96px}
+  .dev-circle:focus-visible{outline:none}
   .toploc{display:block;border-radius:var(--r-lg);overflow:hidden;background:var(--paper);border:1px solid var(--line-2);box-shadow:var(--shadow-soft);text-decoration:none;color:inherit;transition:transform .22s ease,box-shadow .22s ease}
   .toploc:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
   .toploc:focus-visible{outline:2px solid var(--teal-600);outline-offset:2px}
@@ -1038,6 +1050,7 @@
       find_h:"Find your primary unit", find_p:"Filter the curated selection, then talk to an advisor for live availability.",
       home_ours_k:"Marketed by The Village", home_ours_h:"Our featured projects", home_ours_p:"Primary-sale launches we market directly on the Ras El Hekma North Coast. Figures are illustrative — talk to an advisor to confirm current prices and availability.",
       home_launch_h:"New launches", home_launch_p:"Recently launched primary developments in our curated selection.",
+      home_devrail_h:"Browse by developer", home_devrail_p:"Tap a developer to explore their primary-sale projects.",
       home_feat_h:"Featured projects", home_feat_p:"A hand-picked look across areas and developers. Figures are illustrative pending advisor confirmation.",
       home_area_h:"Browse by area", home_area_p:"Egypt's most active primary-sale destinations.",
       top_loc_h:"Top locations", top_loc_p:"Egypt's most sought-after primary-sale destinations — updated live from our inventory.", coming_soon:"Coming soon", register_interest:"Register interest",
@@ -1146,6 +1159,7 @@
       find_h:"اعثر على وحدتك الأولية", find_p:"صفِّ الاختيارات ثم تحدّث إلى مستشار لمعرفة الإتاحة الحالية.",
       home_ours_k:"مقدَّمة من The Village", home_ours_h:"مشروعاتنا المميّزة", home_ours_p:"مشروعات بيع أولي نسوّقها مباشرةً على ساحل رأس الحكمة الشمالي. الأرقام استرشادية — تواصل مع مستشار لتأكيد الأسعار والإتاحة الحالية.",
       home_launch_h:"إطلاقات جديدة", home_launch_p:"مشروعات بيع أولي أُطلقت حديثاً ضمن اختياراتنا.",
+      home_devrail_h:"تصفّح حسب المطوّر", home_devrail_p:"اضغط على أي مطوّر لاستعراض مشروعاته للبيع الأولي.",
       home_feat_h:"مشروعات مميّزة", home_feat_p:"نظرة مختارة عبر المناطق والمطوّرين. الأرقام تقديرية لحين تأكيد المستشار.",
       home_area_h:"تصفّح حسب المنطقة", home_area_p:"أنشط وجهات البيع الأولي في مصر.",
       top_loc_h:"أهم المناطق", top_loc_p:"أكثر وجهات البيع الأولي طلبًا في مصر — تُحدَّث مباشرةً من مخزوننا.", coming_soon:"قريبًا", register_interest:"سجّل اهتمامك",
@@ -2359,6 +2373,19 @@
         h('p',null, L(d.tagline)),
         h('p',null, ps.length ? (num(ps.length)+' '+(lang==='ar'?'مشروع مُدرج':'listed projects')) : L(d.areas))));
   }
+  // Circular developer avatar → opens the developer page (home "browse by developer" rail)
+  function devCircle(d){
+    return h('a',{class:'dev-circle', href:U(buildPath('developer',{slug:d.key})), 'aria-label':L(d.name), role:'listitem'},
+      h('span',{class:'dev-circle__av'}, devBadge(d,74)),
+      h('span',{class:'dev-circle__name'}, L(d.name)));
+  }
+  function developerRail(){
+    var devs = DEVELOPERS.slice().sort(function(a,b){ return projByDev(b.key).length - projByDev(a.key).length; });
+    var row=h('div',{class:'sec-row'}, sectionHead('', t('home_devrail_h'), t('home_devrail_p')),
+      h('a',{class:'btn btn--ghost btn--sm', href:U(buildPath('developers'))}, t('cta_all'), ic('arrow')));
+    return h('section',{class:'section'}, h('div',{class:'wrap'}, row,
+      h('div',{class:'dev-rail', role:'list'}, devs.map(devCircle))));
+  }
 
   function ctaBand(){
     return h('section',{class:'section band-teal'},
@@ -2441,6 +2468,8 @@
     var launchAll = PROJECTS.filter(function(p){return p.status==='launch';}).slice(0,10);
     node.appendChild(carouselSection(t('nav_launches'), t('home_launch_h'), t('home_launch_p'),
       (launchAll.length?launchAll:launches).map(projectCard), {label:t('cta_all'), path:buildPath('launches')}));
+    // browse by developer — circular avatar rail → developer page
+    node.appendChild(developerRail());
     // featured
     node.appendChild(listSection('', t('home_feat_h'), t('home_feat_p'), feat.map(projectCard),
       {label:t('cta_all'), path:buildPath('projects')}, 'band'));
