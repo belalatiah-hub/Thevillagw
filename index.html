@@ -3802,19 +3802,35 @@
   /* ==================================================================
      GLOBAL INTERACTIONS
      ================================================================== */
+  // Decide whether an href points off-site (social/external/WhatsApp) and must be opened
+  // directly instead of routed by the SPA. Pure + testable.
+  function isExternalLink(href, target){
+    if(!href || href.charAt(0)==='#') return false;
+    if(/^(mailto:|tel:)/.test(href)) return false;                 // OS handles these
+    if(!/^https?:\/\//i.test(href)) return false;                  // relative app routes
+    if(/wa\.me|whatsapp/i.test(href)) return true;                 // WhatsApp always opens out
+    var appOrigin = (typeof location!=='undefined' && location.origin) ? location.origin : '';
+    if(target!=='_blank' && appOrigin && href.indexOf(appOrigin)===0) return false; // same-origin internal
+    return true;
+  }
+  function openExternal(href){
+    var win=null; try{ win=window.open(href, '_blank', 'noopener'); }catch(e){}
+    if(!win){ try{ window.location.href=href; }catch(e2){} }        // fallback for webviews/file preview
+  }
   document.addEventListener('click', function(e){
     var a=e.target.closest && e.target.closest('a'); if(!a) return;
     var href=a.getAttribute('href'); if(!href) return;
-    if(a.target==='_blank'||a.hasAttribute('download')){
-      if(/wa\.me|whatsapp/i.test(href)){ track('whatsapp_clicked'); if(typeof leadArm==='function') leadArm(); }
-      return;
-    }
-    if(/^(https?:|mailto:|tel:|#)/.test(href)){
-      if(/wa\.me|whatsapp/i.test(href)){ track('whatsapp_clicked'); if(typeof leadArm==='function') leadArm(); }
-      else if(href.indexOf('tel:')===0){ track('phone_clicked'); if(typeof leadArm==='function') leadArm(); }
-      else if(href.indexOf('mailto:')===0){ track('email_clicked'); if(typeof leadArm==='function') leadArm(); }
-      return;
-    }
+    if(a.hasAttribute('download')) return;                       // let the browser handle downloads
+    var isWa=/wa\.me|whatsapp/i.test(href);
+    if(isWa){ track('whatsapp_clicked'); if(typeof leadArm==='function') leadArm(); }
+    else if(href.indexOf('tel:')===0){ track('phone_clicked'); if(typeof leadArm==='function') leadArm(); }
+    else if(href.indexOf('mailto:')===0){ track('email_clicked'); if(typeof leadArm==='function') leadArm(); }
+    // OS-handled schemes and in-page anchors: let the browser/OS do its thing.
+    if(/^(mailto:|tel:)/.test(href) || href.charAt(0)==='#') return;
+    // Absolute external URL (social profiles, WhatsApp, any off-site link): open it explicitly
+    // so it works even inside constrained webviews / file previews where target="_blank" is
+    // silently ignored (that is why the social icons appeared to "do nothing").
+    if(isExternalLink(href, a.target)){ e.preventDefault(); openExternal(href); return; }
     e.preventDefault(); navigateTo(stripBase(a.pathname) + (a.search||''));
   });
   if(FILEMODE) window.addEventListener('hashchange', route);
