@@ -5,3 +5,5 @@ wrangler.toml
 docs/
 README.txt
 .nojekyll
+# Internal data-entry templates — never part of the public website.
+data-import-kit/

@@ -36,6 +36,12 @@ jobs:
           # so the first deploy doesn't require a manual Settings step.
           enablement: true
 
+      - name: Exclude internal-only folders from the published site
+        # data-import-kit/ holds internal staff data-entry templates; it must
+        # never be served publicly. Removing it from the runner checkout keeps
+        # it out of the Pages artifact (Cloudflare is handled by .assetsignore).
+        run: rm -rf data-import-kit
+
       - name: Upload site
         uses: actions/upload-pages-artifact@v3
         with:

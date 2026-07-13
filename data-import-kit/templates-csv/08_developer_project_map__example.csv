@@ -1,0 +1,3 @@
+﻿map_id,developer_id,project_id,role,ownership_pct,notes_en,notes_ar
+DPM-00001,DEV-0001,PRJ-00001,Lead Developer,100,Sole developer of the project.,المطور الوحيد للمشروع.
+DPM-00002,DEV-0002,PRJ-00002,Lead Developer,60,Joint venture with the master developer.,مشروع مشترك مع مطور المخطط العام.

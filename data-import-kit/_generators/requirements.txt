@@ -1,0 +1,9 @@
+# Regenerate the kit:  pip install -r requirements.txt
+#   python kit_schema.py   # (import-only, single source of truth)
+#   python gen_data.py     # XLSX + CSV + SQL + JSON schema + validation rules
+#   python gen_er.py       # ER diagram (mmd + svg); render PNG with any SVG tool
+#   python gen_docs.py     # markdown guides + README.pdf + Data Dictionary.pdf
+openpyxl>=3.1
+reportlab>=4.0
+arabic-reshaper>=3.0
+python-bidi>=0.4
