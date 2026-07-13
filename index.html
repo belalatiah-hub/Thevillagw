@@ -27,7 +27,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <!-- frame-ancestors/HSTS belong in HTTP response headers (see deploy runbook), not meta. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: https://tile.openstreetmap.org https://*.tile.openstreetmap.org; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; connect-src 'self' https://script.google.com https://script.googleusercontent.com; base-uri 'self'; form-action 'self'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; connect-src 'self' https://script.google.com https://script.googleusercontent.com; base-uri 'self'; form-action 'self'" />
   <meta name="theme-color" content="#073D52" />
   <meta name="color-scheme" content="light" />
   <meta name="format-detection" content="telephone=no" />
@@ -786,115 +786,7 @@
   .lead-check{width:64px;height:64px;border-radius:50%;background:#e7f3ec;color:#2f7d54;font-size:2rem;font-weight:700;display:grid;place-items:center;margin:0 auto 16px}
   @media (prefers-reduced-motion:reduce){ .lead-back,.lead-card{transition:none} }
 
-  /* ==================== THE VILLAGE MAPS ==================== */
-  .maps-view{--map-land-1:#e9f1ee;--map-land-2:#dce8e3;--map-sea-1:#c3e2ea;--map-sea-2:#9fd2df;
-    --map-road:#ffffff;--map-shore:#79b8c6;--map-grid:#cfe0dc;--map-green:#cbe6d5;--map-lbl:#5c7b74}
-  .maps-view.map-style--dark{--map-land-1:#0e2a31;--map-land-2:#0a2128;--map-sea-1:#0e3a46;--map-sea-2:#0a2c37;
-    --map-road:#2c5561;--map-shore:#2f7f8f;--map-grid:#123840;--map-green:#123e35;--map-lbl:#84acac}
-  .maps-hero{padding-bottom:6px}
-  .maps-h{font-family:var(--serif);font-size:clamp(1.7rem,5vw,2.5rem);margin:2px 0 6px;color:var(--teal-800)}
-  html[dir="rtl"] .maps-h{font-family:var(--arab)}
-  .maps-p{color:var(--ink-3);max-width:70ch;margin:0 0 16px;line-height:1.6}
-  .wrap--wide{max-width:1320px}
-  .map-tabs{display:inline-flex;gap:6px;background:var(--bone-2);border:1px solid var(--line-2);padding:5px;border-radius:var(--r-pill);flex-wrap:wrap}
-  .map-tab{border:0;background:transparent;padding:9px 18px;border-radius:var(--r-pill);font:inherit;font-weight:700;font-size:.92rem;color:var(--ink-2);cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:var(--t)}
-  .map-tab.is-active{background:linear-gradient(180deg,var(--teal-700),var(--teal-900));color:#fff;box-shadow:var(--shadow-sm)}
-  .map-tab__n{font-size:.72rem;font-weight:800;background:rgba(0,0,0,.09);padding:1px 8px;border-radius:999px}
-  .map-tab.is-active .map-tab__n{background:rgba(255,255,255,.22)}
-  /* toolbar */
-  .map-toolbar{display:grid;grid-template-columns:minmax(220px,1fr) auto;gap:12px;align-items:center;margin:14px 0 12px}
-  .map-searchwrap{position:relative;display:flex;align-items:center;gap:9px;background:var(--paper);border:1.5px solid var(--line-cool);border-radius:var(--r-pill);padding:0 16px;min-width:0}
-  .map-searchwrap>svg{width:18px;height:18px;color:var(--ink-3);flex:0 0 auto}
-  .map-search{border:0;background:none;font:inherit;padding:13px 4px;width:100%;min-width:0;outline:none;color:var(--ink)}
-  .map-sugg{position:absolute;top:calc(100% + 6px);inset-inline:0;background:var(--paper);border:1px solid var(--line-2);border-radius:14px;box-shadow:var(--shadow-lg);z-index:30;overflow:hidden;display:none}
-  .map-sugg.is-open{display:block}
-  .map-sugg__row{display:flex;flex-direction:column;gap:1px;width:100%;text-align:start;border:0;background:none;padding:10px 14px;cursor:pointer;font:inherit;border-top:1px solid var(--line-2)}
-  .map-sugg__row:first-child{border-top:0}
-  .map-sugg__row:hover{background:var(--bone-2)}
-  .map-sugg__row b{font-size:.92rem;color:var(--ink)} .map-sugg__row span{font-size:.78rem;color:var(--ink-3)}
-  .map-filters{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
-  .map-sel{appearance:none;-webkit-appearance:none;border:1.5px solid var(--line-cool);background:var(--paper);border-radius:12px;padding:11px 32px 11px 14px;font:inherit;font-size:.88rem;color:var(--ink);cursor:pointer;
-    background-image:linear-gradient(45deg,transparent 50%,var(--ink-3) 50%),linear-gradient(135deg,var(--ink-3) 50%,transparent 50%);background-position:calc(100% - 16px) 55%,calc(100% - 11px) 55%;background-size:5px 5px,5px 5px;background-repeat:no-repeat}
-  html[dir="rtl"] .map-sel{padding:11px 14px 11px 32px;background-position:16px 55%,21px 55%}
-  .map-chiprow{grid-column:1/-1;display:flex;gap:16px;flex-wrap:wrap;align-items:center}
-  .map-chips{display:flex;gap:7px;flex-wrap:wrap}
-  .map-chip{border:1.5px solid var(--line-cool);background:var(--paper);color:var(--ink-2);border-radius:var(--r-pill);padding:7px 14px;font:inherit;font-size:.82rem;font-weight:600;cursor:pointer;transition:var(--t)}
-  .map-chip.is-on{background:var(--teal-800);border-color:var(--teal-800);color:#fff}
-  .map-meta{grid-column:1/-1;display:flex;justify-content:flex-end}
-  .map-count{font-size:.82rem;font-weight:700;color:var(--ink-3)}
-  .map-icobtn{width:38px;height:38px;border-radius:11px;border:1px solid var(--line-2);background:var(--paper);color:var(--ink-2);font-size:1.15rem;font-weight:700;cursor:pointer;display:grid;place-items:center;box-shadow:var(--shadow-sm);transition:var(--t)}
-  .map-icobtn:hover{background:var(--bone-2)} .map-icobtn svg{width:18px;height:18px}
-  /* stage */
-  .map-stagewrap{display:flex;gap:14px;align-items:stretch}
-  .map-stage{position:relative;flex:1 1 auto;min-width:0;height:clamp(440px,68vh,720px);border-radius:var(--r-lg);overflow:hidden;
-    background:#dfe7ea;border:1px solid var(--line-2);box-shadow:var(--shadow-md);cursor:grab;touch-action:none;outline:none}
-  .map-style--dark .map-stage{background:#0c2129}
-  .map-stage.is-grabbing{cursor:grabbing} .map-stage:focus-visible{box-shadow:0 0 0 3px var(--focus)}
-  /* real OSM raster tile layer */
-  .map-content{position:absolute;inset:0;will-change:transform}
-  .map-tiles{position:absolute;inset:0}
-  .map-tile{position:absolute;width:256px;height:256px;user-select:none;-webkit-user-drag:none;pointer-events:none}
-  .map-style--dark .map-tiles{filter:invert(1) hue-rotate(180deg) brightness(.92) contrast(.92) saturate(.85)}
-  .map-attr{position:absolute;inset-inline-end:0;bottom:0;z-index:7;background:rgba(255,255,255,.78);font-size:.62rem;color:#334;padding:2px 7px;border-start-start-radius:8px}
-  .map-attr a{color:inherit} .map-style--dark .map-attr{background:rgba(8,26,32,.72);color:#cdd}
-  .map-stylebtn{position:absolute;inset-inline-end:14px;top:14px;z-index:8}
-  .map-markers{position:absolute;inset:0}
-  /* pin = pill with score dot + developer name (points down to the coordinate) */
-  .map-pin{position:absolute;transform:translate(-16px,-100%);display:inline-flex;align-items:center;gap:6px;
-    background:var(--paper);border:1.5px solid var(--pin);border-radius:999px;padding:3px 11px 3px 3px;cursor:pointer;z-index:2;
-    box-shadow:0 4px 12px rgba(7,61,82,.28);transition:transform .12s ease,box-shadow .12s ease}
-  .map-pin::after{content:"";position:absolute;bottom:-6px;inset-inline-start:12px;border:6px solid transparent;border-top-color:var(--pin)}
-  html[dir="rtl"] .map-pin{transform:translate(16px,-100%)} html[dir="rtl"] .map-pin::after{inset-inline-start:auto;inset-inline-end:12px}
-  .map-pin__dot{flex:0 0 auto;width:24px;height:24px;border-radius:50%;background:var(--pin);color:#fff;display:grid;place-items:center}
-  .map-pin__num{font-size:.72rem;font-weight:800;color:#fff;line-height:1}
-  .map-pin__lbl{font-size:.75rem;font-weight:700;color:var(--ink);max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  .map-pin:hover,.map-pin:focus-visible{z-index:6;transform:translate(-16px,-100%) scale(1.06);outline:none}
-  html[dir="rtl"] .map-pin:hover,html[dir="rtl"] .map-pin:focus-visible{transform:translate(16px,-100%) scale(1.06)}
-  .map-pin.is-active{border-width:2.5px;box-shadow:0 8px 22px rgba(7,61,82,.45);z-index:5}
-  .map-empty{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--ink-3);background:rgba(255,255,255,.55);backdrop-filter:blur(2px)}
-  .map-style--dark .map-empty{background:rgba(8,30,36,.55)}
-  .map-empty svg{width:34px;height:34px;opacity:.6}
-  .map-zoom{position:absolute;inset-inline-end:14px;bottom:14px;display:flex;flex-direction:column;gap:7px;z-index:8}
-  .map-legend{position:absolute;inset-inline-start:14px;bottom:14px;display:flex;gap:12px;flex-wrap:wrap;background:var(--paper);border:1px solid var(--line-2);border-radius:12px;padding:8px 12px;box-shadow:var(--shadow-sm);z-index:8;font-size:.72rem;font-weight:600;color:var(--ink-2)}
-  .map-legend span{display:inline-flex;align-items:center;gap:6px} .map-legend i{width:11px;height:11px;border-radius:50%;display:inline-block}
-  /* side panel */
-  .map-panel{flex:0 0 0;width:0;overflow:hidden;background:var(--paper);border-radius:var(--r-lg);opacity:0;transition:width .32s cubic-bezier(.2,.7,.2,1),opacity .2s;box-shadow:var(--shadow-lg)}
-  .map-stagewrap.has-panel .map-panel,.map-panel.is-open{flex:0 0 380px;width:380px;opacity:1;border:1px solid var(--line-2)}
-  .map-panel{max-height:clamp(440px,68vh,720px);overflow-y:auto;scrollbar-width:thin}
-  .mp-head{position:relative}
-  .mp-close{position:absolute;top:12px;inset-inline-end:12px;z-index:3;width:34px;height:34px;border-radius:50%;border:0;background:rgba(255,255,255,.9);color:var(--ink);font-size:1.2rem;cursor:pointer;display:grid;place-items:center;box-shadow:var(--shadow-sm)}
-  .mp-media{position:relative;aspect-ratio:16/10;overflow:hidden}
-  .mp-media .artsvg{position:absolute;inset:0;width:100%;height:100%}
-  .mp-badge{position:absolute;inset-inline-start:12px;bottom:12px;background:rgba(8,30,36,.72);color:#fff;font-size:.72rem;font-weight:700;padding:4px 10px;border-radius:999px}
-  .mp-body{padding:16px 18px 6px}
-  .mp-devrow{display:flex;align-items:center;gap:11px;margin-bottom:8px}
-  .mp-dev{font-size:.86rem;font-weight:700;color:var(--ink)} .mp-loc{display:flex;align-items:center;gap:4px;font-size:.78rem;color:var(--ink-3)} .mp-loc svg{width:13px;height:13px}
-  .mp-title{font-family:var(--serif);font-size:1.35rem;color:var(--teal-800);margin:0 0 6px}
-  html[dir="rtl"] .mp-title{font-family:var(--arab)}
-  .mp-price{font-size:.98rem;color:var(--ink)} .mp-price b{font-size:1.12rem} .mp-illus{color:var(--ink-3);font-size:.74rem}
-  .mp-score{display:flex;align-items:center;gap:13px;margin:14px 0;padding:12px;background:var(--bone-2);border-radius:14px}
-  .mp-score__ring{--v:60;flex:0 0 auto;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;
-    background:conic-gradient(var(--c) calc(var(--v)*1%),var(--line-cool) 0);position:relative}
-  .mp-score__ring::before{content:"";position:absolute;inset:5px;border-radius:50%;background:var(--paper)}
-  .mp-score__ring span{position:relative;font-weight:800;font-size:1.05rem;color:var(--c)}
-  .mp-score__lbl{font-weight:700;font-size:.9rem;color:var(--ink)}
-  .mp-score__note{display:flex;align-items:center;gap:5px;font-size:.72rem;color:var(--ink-3);margin-top:3px} .mp-score__note svg{width:12px;height:12px;flex:0 0 auto}
-  .mp-facts{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:12px 0}
-  .mp-fact{background:var(--bone-2);border-radius:11px;padding:9px 11px} .mp-fact__k{display:block;font-size:.7rem;color:var(--ink-3);text-transform:uppercase;letter-spacing:.03em} .mp-fact__v{font-weight:700;font-size:.86rem;color:var(--ink)}
-  .mp-blurb{font-size:.86rem;color:var(--ink-2);line-height:1.6;margin:6px 0 2px}
-  .mp-foot{padding:8px 18px 18px;position:sticky;bottom:0;background:linear-gradient(180deg,transparent,var(--paper) 22%)}
-  .mp-actions{display:flex;gap:8px;align-items:center;margin-bottom:9px}
-  .mp-actions .btn--primary{flex:1}
-  .mp-rail{display:flex;gap:8px;flex-wrap:wrap}
-  @media (max-width:860px){
-    .map-toolbar{grid-template-columns:1fr} .map-filters{justify-content:flex-start}
-    .map-stagewrap{display:block;position:relative}
-    .map-panel,.map-stagewrap.has-panel .map-panel,.map-panel.is-open{position:fixed;inset-inline:0;bottom:0;top:auto;width:auto;max-height:82vh;
-      border-radius:22px 22px 0 0;transform:translateY(100%);transition:transform .34s cubic-bezier(.2,.7,.2,1);opacity:1;z-index:220;flex:none}
-    .map-panel.is-open{transform:translateY(0)}
-    .map-panel.is-open::before{content:"";position:absolute;top:8px;left:50%;transform:translateX(-50%);width:44px;height:5px;border-radius:3px;background:var(--line-cool)}
-  }
-  @media (prefers-reduced-motion:reduce){ .map-panel,.map-pin,.map-tab{transition:none} }
+  /* THE VILLAGE MAPS styles removed with the feature — parked for a professional rebuild. */
   </style>
 </head>
 
@@ -2242,7 +2134,6 @@
       case 'developer': return b+'developers/'+params.slug+'/';
       case 'areas': return b+'areas/';
       case 'area': return b+'areas/'+params.slug+'/';
-      case 'maps': return b+'maps/'+(params.region?params.region+'/':'');
       case 'compare': return b+'compare/';
       case 'insights': return b+'insights/';
       case 'insight': return b+'insights/'+params.slug+'/';
@@ -2274,7 +2165,6 @@
     else if(seg[0]==='new-launches') name='launches';
     else if(seg[0]==='developers'){ name = seg[1]?'developer':'developers'; if(seg[1]) params.slug=seg[1]; }
     else if(seg[0]==='areas'){ name = seg[1]?'area':'areas'; if(seg[1]) params.slug=seg[1]; }
-    else if(seg[0]==='maps'){ name='maps'; if(seg[1]) params.region=seg[1]; }
     else if(seg[0]==='compare') name='compare';
     else if(seg[0]==='insights'){ name = seg[1]?'insight':'insights'; if(seg[1]) params.slug=seg[1]; }
     else if(seg[0]==='faqs') name='faqs';
@@ -3120,248 +3010,6 @@
     return {node:node, title:(q?('“'+q+'” — '):'')+t('search_h')+' · The Village Investment', desc:t('search_p'),
       indexable:false, crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('search_h')}]};
   };
-
-  /* ==================================================================
-     THE VILLAGE MAPS — a real interactive street map.
-     Renders live OpenStreetMap raster tiles (Web-Mercator slippy map) with
-     an original marker/panel/filter engine on top. No Google Maps and no API
-     key: OSM tiles are free and open (© OpenStreetMap contributors). Tiles
-     load over the network at runtime, so the map needs an internet connection
-     (like every real map). Project coordinates are approximate until precise
-     lat/lng are supplied. Prices + the investment signal stay illustrative.
-     ================================================================== */
-  var AREA_GEO = {
-    newcairo:{lat:30.030,lng:31.470}, fifthsettlement:{lat:30.010,lng:31.430},
-    capital:{lat:30.020,lng:31.750}, mostakbal:{lat:30.100,lng:31.660},
-    sahel:{lat:30.980,lng:28.800}, raselhekma:{lat:31.100,lng:27.860},
-    zayed:{lat:30.020,lng:30.970}, october:{lat:29.950,lng:30.920}, sokhna:{lat:29.600,lng:32.320}
-  };
-  var MAP_REGIONS = [
-    {key:'north-coast', name:{en:'North Coast',ar:'الساحل الشمالي'}, areas:['raselhekma','sahel'], center:{lat:31.02,lng:28.35}, zoom:9},
-    {key:'east-cairo', name:{en:'East Cairo',ar:'شرق القاهرة'}, areas:['newcairo','fifthsettlement','capital','mostakbal'], center:{lat:30.035,lng:31.58}, zoom:11},
-    {key:'west-cairo', name:{en:'West Cairo',ar:'غرب القاهرة'}, areas:['zayed','october'], center:{lat:29.99,lng:30.95}, zoom:12}
-  ];
-  function mapRegion(k){ for(var i=0;i<MAP_REGIONS.length;i++) if(MAP_REGIONS[i].key===k) return MAP_REGIONS[i]; return MAP_REGIONS[0]; }
-  function projByRegion(rk){ var r=mapRegion(rk); return PROJECTS.filter(function(p){ return r.areas.indexOf(p.area)>-1 && AREA_GEO[p.area]; }); }
-  function projLatLng(p){ var g=AREA_GEO[p.area]||{lat:30,lng:31}, hp=hashN(p.slug);
-    return {lat: g.lat + ((hp%1000)/1000-0.5)*0.055, lng: g.lng + (((hp>>10)%1000)/1000-0.5)*0.075}; }
-
-  /* Investment signal — indicative only (payment flexibility, delivery horizon,
-     launch upside, developer tenure). Never presented as financial advice. */
-  function investScore(p){
-    var s=52; if(p.dp!=null) s+=(12-Math.min(12,p.dp)); if(p.years) s+=Math.min(13,p.years*1.6);
-    if(p.status==='launch') s+=11; else if(p.status==='ready') s+=7; else s+=4;
-    var d=devByKey(p.dev); if(d&&d.since) s+=(d.since<2005?8:(d.since<2013?5:2));
-    return Math.max(41, Math.min(96, Math.round(s)));
-  }
-  function scoreBand(v){ return v>=85?'excellent':v>=72?'strong':v>=60?'solid':'fair'; }
-  var SCORE_COLOR = {excellent:'#1f8a4c', strong:'#0e7d7d', solid:'#2b6ca8', fair:'#b0692c'};
-
-  /* ---- Web Mercator projection (256px tiles) ---- */
-  var TILE=256;
-  function worldSize(z){ return TILE*Math.pow(2,z); }
-  function lngToWorldX(lng,z){ return (lng+180)/360*worldSize(z); }
-  function latToWorldY(lat,z){ var s=Math.sin(lat*Math.PI/180); s=Math.max(-0.9999,Math.min(0.9999,s));
-    return (0.5 - Math.log((1+s)/(1-s))/(4*Math.PI))*worldSize(z); }
-  function worldXToLng(x,z){ return x/worldSize(z)*360-180; }
-  function worldYToLat(y,z){ var n=Math.PI-2*Math.PI*y/worldSize(z); return 180/Math.PI*Math.atan(0.5*(Math.exp(n)-Math.exp(-n))); }
-
-  var MAP = {region:'north-coast', center:{lat:31.02,lng:28.35}, zoom:9, active:null, style:'light',
-    f:{area:'',dev:'',type:'',budget:'',status:''}, els:{}, drag:null};
-
-  function mapProjects(){
-    var f=MAP.f;
-    return projByRegion(MAP.region).filter(function(p){
-      if(f.area && p.area!==f.area) return false;
-      if(f.dev && p.dev!==f.dev) return false;
-      if(f.status && p.status!==f.status) return false;
-      if(f.budget){ var b=f.budget.split('-'); var lo=+b[0]||0, hi=+b[1]||Infinity; if(p.price<lo||p.price>hi) return false; }
-      return true;
-    });
-  }
-  function stageSize(){ var s=MAP.els.stage; if(!s||!s.getBoundingClientRect) return {w:900,h:560};
-    var r=s.getBoundingClientRect(); return {w:r.width||900, h:r.height||560}; }
-  function origin(){ var sz=stageSize(), z=MAP.zoom;
-    return {x:lngToWorldX(MAP.center.lng,z)-sz.w/2, y:latToWorldY(MAP.center.lat,z)-sz.h/2, w:sz.w, h:sz.h, z:z}; }
-  function latLngToScreen(lat,lng){ var o=origin(); return {x:lngToWorldX(lng,o.z)-o.x, y:latToWorldY(lat,o.z)-o.y}; }
-  function screenToLatLng(sx,sy){ var o=origin(); return {lat:worldYToLat(o.y+sy,o.z), lng:worldXToLng(o.x+sx,o.z)}; }
-
-  function renderTiles(){
-    var layer=MAP.els.tiles; if(!layer) return; clear(layer);
-    var o=origin(), z=Math.round(o.z), n=Math.pow(2,z);
-    var minTX=Math.floor(o.x/TILE)-1, maxTX=Math.floor((o.x+o.w)/TILE)+1;
-    var minTY=Math.floor(o.y/TILE)-1, maxTY=Math.floor((o.y+o.h)/TILE)+1;
-    for(var tx=minTX; tx<=maxTX; tx++) for(var ty=minTY; ty<=maxTY; ty++){
-      if(ty<0||ty>=n) continue; var wtx=((tx%n)+n)%n;
-      layer.appendChild(h('img',{class:'map-tile', alt:'', draggable:'false',
-        src:'https://tile.openstreetmap.org/'+z+'/'+wtx+'/'+ty+'.png',
-        style:'left:'+(tx*TILE-o.x)+'px;top:'+(ty*TILE-o.y)+'px'}));
-    }
-  }
-  function marker(p){
-    var sc=investScore(p), band=scoreBand(sc), c=SCORE_COLOR[band], dev=devByKey(p.dev)||{name:{}}, s=latLngToScreen(projLatLng(p).lat, projLatLng(p).lng);
-    var pin=h('button',{class:'map-pin'+(MAP.active===p.slug?' is-active':''), type:'button', 'data-slug':p.slug,
-      style:'left:'+s.x+'px;top:'+s.y+'px;--pin:'+c, 'aria-label':(lang==='ar'?p.name_ar:p.name)+' · '+L(dev.name)+' — '+t('map_invest')+' '+num(sc)},
-      h('span',{class:'map-pin__dot'}, h('b',{class:'map-pin__num'}, num(sc))),
-      h('span',{class:'map-pin__lbl'}, L(dev.name)));
-    pin.addEventListener('click', function(e){ e.stopPropagation(); openMapPanel(p.slug); });
-    return pin;
-  }
-  function renderMarkers(){
-    var layer=MAP.els.markers; if(!layer) return; clear(layer);
-    var ps=mapProjects(); ps.forEach(function(p){ layer.appendChild(marker(p)); });
-    if(MAP.els.count) MAP.els.count.textContent=num(ps.length)+' '+(lang==='ar'?'مشروع':'projects');
-    if(MAP.els.empty) MAP.els.empty.style.display=ps.length?'none':'flex';
-  }
-  function renderAll(){ if(MAP.els.content && MAP.els.content.style) MAP.els.content.style.transform='translate(0px,0px)'; renderTiles(); renderMarkers(); }
-  function setView(center, zoom){ MAP.center=center; MAP.zoom=Math.max(6,Math.min(16,zoom)); renderAll(); }
-  function zoomAt(dz, sx, sy){
-    var sz=stageSize(); if(sx==null){ sx=sz.w/2; sy=sz.h/2; }
-    var nz=Math.max(6,Math.min(16, Math.round((MAP.zoom+dz)))); if(nz===MAP.zoom) return;
-    var ll=screenToLatLng(sx,sy); MAP.zoom=nz;
-    var cx=lngToWorldX(ll.lng,nz)-(sx-sz.w/2), cy=latToWorldY(ll.lat,nz)-(sy-sz.h/2);
-    MAP.center={lat:worldYToLat(cy,nz), lng:worldXToLng(cx,nz)}; renderAll();
-  }
-  function flyTo(p){ var ll=projLatLng(p); setView({lat:ll.lat,lng:ll.lng}, Math.max(MAP.zoom,13)); }
-  function resetRegion(){ var r=mapRegion(MAP.region); setView({lat:r.center.lat,lng:r.center.lng}, r.zoom); }
-
-  /* ---- panel (unchanged engine, reused) ---- */
-  function fact(k,v){ return h('div',{class:'mp-fact'}, h('span',{class:'mp-fact__k'}, k), h('span',{class:'mp-fact__v'}, v)); }
-  function scoreRow(p){ var sc=investScore(p), band=scoreBand(sc);
-    return h('div',{class:'mp-score'},
-      h('div',{class:'mp-score__ring', style:'--c:'+SCORE_COLOR[band]+';--v:'+sc}, h('span',null, num(sc))),
-      h('div',null, h('div',{class:'mp-score__lbl'}, t('map_invest')+' · '+t('score_'+band)),
-        h('div',{class:'mp-score__note'}, ic('info'), t('map_invest_note')))); }
-  function directionsUrl(p){ var g=projLatLng(p); return 'https://www.google.com/maps/dir/?api=1&destination='+g.lat.toFixed(5)+','+g.lng.toFixed(5); }
-  function openMapPanel(slug){
-    var p=projBySlug(slug); if(!p) return; MAP.active=slug;
-    var dev=devByKey(p.dev), area=areaByKey(p.area), panel=MAP.els.panel; if(!panel) return; clear(panel);
-    panel.appendChild(h('div',{class:'mp-head'},
-      h('button',{class:'mp-close', type:'button','aria-label':t('a_close'), onclick:closeMapPanel}, '×'),
-      h('div',{class:'mp-media'}, projectArt(p), h('span',{class:'mp-badge'}, statusLabel(p.status)))));
-    panel.appendChild(h('div',{class:'mp-body'},
-      h('div',{class:'mp-devrow'}, devBadge(dev,40),
-        h('div',null, h('div',{class:'mp-dev'}, L(dev.name)), h('div',{class:'mp-loc'}, ic('pin'), L(area.name)))),
-      h('h2',{class:'mp-title'}, lang==='ar'?p.name_ar:p.name),
-      h('div',{class:'mp-price'}, t('price_from')+' ', h('b',null, money(p.price)), h('span',{class:'mp-illus'}, ' · '+t('conf_illustrative'))),
-      scoreRow(p),
-      h('div',{class:'mp-facts'},
-        fact(t('units'), L(p.types)), fact(t('delivery'), p.delivery==='Ready'?t('ready'):(p.delivery||t('to_confirm'))),
-        fact(t('dp'), p.dp?num(p.dp)+'%':'—'), fact(t('years'), p.years?num(p.years)+' '+(lang==='ar'?'سنوات':'yrs'):'—')),
-      h('p',{class:'mp-blurb'}, L(p.blurb))));
-    var actions=h('div',{class:'mp-actions'},
-      h('a',{class:'btn btn--primary btn--sm', href:U(buildPath('project',{slug:p.slug}))}, ic('arrow'), t('map_view_details')),
-      saveBtn(p.slug),
-      h('button',{class:'card__save', type:'button','aria-label':t('cmp_add'), onclick:function(){ toggleCompare(p.slug); }}, ic('scale')));
-    var rail=h('div',{class:'mp-rail'});
-    if(CONFIG.whatsapp) rail.appendChild(h('a',{class:'btn btn--ghost btn--sm', href:waLink((lang==='ar'?'مهتم بمشروع ':'Interested in ')+(lang==='ar'?p.name_ar:p.name))}, ic('wa'), 'WhatsApp'));
-    if(CONFIG.phone) rail.appendChild(h('a',{class:'btn btn--ghost btn--sm', href:'tel:'+CONFIG.phone}, ic('phone'), t('cta_call')));
-    rail.appendChild(h('a',{class:'btn btn--ghost btn--sm', href:directionsUrl(p), target:'_blank', rel:'noopener'}, ic('pin'), t('map_directions')));
-    panel.appendChild(h('div',{class:'mp-foot'}, actions, rail));
-    panel.classList.add('is-open'); if(MAP.els.stageWrap) MAP.els.stageWrap.classList.add('has-panel');
-    renderMarkers(); track('map_project_open',{project:p.slug, region:MAP.region});
-  }
-  function closeMapPanel(){ MAP.active=null; if(MAP.els.panel) MAP.els.panel.classList.remove('is-open');
-    if(MAP.els.stageWrap) MAP.els.stageWrap.classList.remove('has-panel'); renderMarkers(); }
-
-  function chip(v,label,on,onClick){ var b=h('button',{class:'map-chip'+(on?' is-on':''), type:'button','data-v':v,'aria-pressed':on?'true':'false'}, label);
-    b.addEventListener('click', onClick); return b; }
-  function switchRegion(rk){ if(MAP.region===rk) return; MAP.region=rk; MAP.f={area:'',dev:'',type:'',budget:'',status:''}; MAP.active=null; navigateTo(buildPath('maps',{region:rk})); }
-
-  V.maps = function(regionKey){
-    if(regionKey && mapRegion(regionKey).key===regionKey) MAP.region=regionKey;
-    var r=mapRegion(MAP.region); MAP.center={lat:r.center.lat,lng:r.center.lng}; MAP.zoom=r.zoom;
-    var node=h('div',{class:'maps-view map-style--'+MAP.style});
-    node.appendChild(h('section',{class:'section maps-hero'}, h('div',{class:'wrap'},
-      h('div',{class:'eyebrow'}, t('maps_kicker')), h('h1',{class:'maps-h'}, t('maps_h')), h('p',{class:'maps-p'}, t('maps_p')),
-      h('div',{class:'map-tabs', role:'tablist'}, MAP_REGIONS.map(function(rg){
-        return h('button',{class:'map-tab'+(rg.key===MAP.region?' is-active':''), type:'button', role:'tab',
-          'aria-selected':rg.key===MAP.region?'true':'false', onclick:function(){ switchRegion(rg.key); }},
-          h('span',{class:'map-tab__n'}, num(projByRegion(rg.key).length)), L(rg.name)); })))));
-
-    var search=h('input',{class:'map-search', type:'search', id:'map-q', placeholder:t('map_search_ph'), autocomplete:'off','aria-label':t('map_search_ph')});
-    var sugg=h('div',{class:'map-sugg', id:'map-sugg'});
-    var areaChips=h('div',{class:'map-chips'}, chip('', t('all_areas'), !MAP.f.area, function(){ MAP.f.area=''; renderMarkers(); syncChips(); }));
-    r.areas.forEach(function(ak){ var a=areaByKey(ak); if(a) areaChips.appendChild(chip(ak, L(a.name), MAP.f.area===ak, function(){ MAP.f.area=(MAP.f.area===ak?'':ak); renderMarkers(); syncChips(); })); });
-    var devSel=h('select',{class:'map-sel','aria-label':t('filter_dev')}, opt('', t('all_developers')));
-    DEVELOPERS.filter(function(d){ return projByRegion(MAP.region).some(function(p){return p.dev===d.key;}); }).forEach(function(d){ devSel.appendChild(opt(d.key, L(d.name))); });
-    devSel.addEventListener('change', function(){ MAP.f.dev=devSel.value; renderMarkers(); });
-    var budgetSel=h('select',{class:'map-sel','aria-label':t('budget')}, opt('', t('any_budget')), opt('0-8000000','< 8M'), opt('8000000-15000000','8–15M'), opt('15000000-30000000','15–30M'), opt('30000000-999000000','30M+'));
-    budgetSel.addEventListener('change', function(){ MAP.f.budget=budgetSel.value; renderMarkers(); });
-    var statusChips=h('div',{class:'map-chips'},
-      chip('', t('any'), !MAP.f.status, function(){ MAP.f.status=''; renderMarkers(); syncChips(); }),
-      chip('launch', t('launch'), false, function(){ MAP.f.status=(MAP.f.status==='launch'?'':'launch'); renderMarkers(); syncChips(); }),
-      chip('ready', t('ready'), false, function(){ MAP.f.status=(MAP.f.status==='ready'?'':'ready'); renderMarkers(); syncChips(); }));
-    function syncChips(){ [[areaChips,'area'],[statusChips,'status']].forEach(function(pair){ Array.prototype.forEach.call(pair[0].childNodes,function(c){ if(c.getAttribute){ var on=(MAP.f[pair[1]]||'')===(c.getAttribute('data-v')||''); c.classList.toggle('is-on',on); c.setAttribute('aria-pressed',on?'true':'false'); } }); }); }
-    var count=h('span',{class:'map-count'});
-    var toolbar=h('div',{class:'map-toolbar'},
-      h('div',{class:'map-searchwrap'}, ic('search'), search, sugg),
-      h('div',{class:'map-filters'}, devSel, budgetSel),
-      h('div',{class:'map-chiprow'}, areaChips, statusChips),
-      h('div',{class:'map-meta'}, count));
-
-    var tiles=h('div',{class:'map-tiles'});
-    var markers=h('div',{class:'map-markers'});
-    var content=h('div',{class:'map-content'}, tiles, markers);
-    var empty=h('div',{class:'map-empty'}, ic('search'), h('p',null, t('map_no_results')));
-    var zoomCtl=h('div',{class:'map-zoom'},
-      h('button',{class:'map-icobtn', type:'button','aria-label':'+', onclick:function(){ zoomAt(1); }}, '+'),
-      h('button',{class:'map-icobtn', type:'button','aria-label':'−', onclick:function(){ zoomAt(-1); }}, '−'),
-      h('button',{class:'map-icobtn', type:'button','aria-label':t('map_reset'), onclick:resetRegion}, ic('target')));
-    var legend=h('div',{class:'map-legend'},
-      h('span',null, h('i',{style:'background:'+SCORE_COLOR.excellent}), t('score_excellent')),
-      h('span',null, h('i',{style:'background:'+SCORE_COLOR.strong}), t('score_strong')),
-      h('span',null, h('i',{style:'background:'+SCORE_COLOR.solid}), t('score_solid')));
-    var attr=h('div',{class:'map-attr'}, '© ', h('a',{href:'https://www.openstreetmap.org/copyright', target:'_blank', rel:'noopener'}, 'OpenStreetMap'));
-    var styleBtn=h('button',{class:'map-icobtn map-stylebtn', type:'button','aria-label':t('map_style'), onclick:function(){ MAP.style=(MAP.style==='light'?'dark':'light'); node.classList.toggle('map-style--dark',MAP.style==='dark'); node.classList.toggle('map-style--light',MAP.style==='light'); }}, ic('layers'));
-    var stage=h('div',{class:'map-stage', tabindex:'0','aria-label':t('maps_h')}, content, empty, styleBtn, zoomCtl, legend, attr);
-    var panel=h('aside',{class:'map-panel','aria-live':'polite'});
-    var stageWrap=h('div',{class:'map-stagewrap'}, stage, panel);
-    node.appendChild(h('section',{class:'section maps-body'}, h('div',{class:'wrap wrap--wide'}, toolbar, stageWrap)));
-    node.appendChild(mapsDisclaimer());
-
-    MAP.els={stage:stage, content:content, tiles:tiles, markers:markers, stageWrap:stageWrap, panel:panel, count:count, empty:empty};
-    wireStage(stage); wireSearch(search, sugg);
-    renderAll(); setTimeout(renderAll, 40);
-    return {node:node, title:t('maps_h')+' — '+L(r.name)+' · The Village Investment', desc:t('maps_p'),
-      indexable:true, name:'maps', crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('maps_h')}], ld:mapsLD(r)};
-  };
-
-  function wireStage(stage){
-    stage.addEventListener('pointerdown', function(e){ if(e.target.closest && e.target.closest('.map-pin')) return;
-      MAP.drag={x:e.clientX,y:e.clientY,dx:0,dy:0}; stage.classList.add('is-grabbing'); try{ stage.setPointerCapture(e.pointerId); }catch(_){}} );
-    stage.addEventListener('pointermove', function(e){ if(!MAP.drag) return; MAP.drag.dx=e.clientX-MAP.drag.x; MAP.drag.dy=e.clientY-MAP.drag.y;
-      if(MAP.els.content && MAP.els.content.style) MAP.els.content.style.transform='translate('+MAP.drag.dx+'px,'+MAP.drag.dy+'px)'; });
-    function end(){ if(!MAP.drag){ stage.classList.remove('is-grabbing'); return; } var d=MAP.drag; MAP.drag=null; stage.classList.remove('is-grabbing');
-      if(Math.abs(d.dx)<1 && Math.abs(d.dy)<1){ renderAll(); return; }
-      var o=origin(); MAP.center={lat:worldYToLat(o.y+o.h/2-d.dy,o.z), lng:worldXToLng(o.x+o.w/2-d.dx,o.z)}; renderAll(); }
-    stage.addEventListener('pointerup', end); stage.addEventListener('pointercancel', end); stage.addEventListener('pointerleave', end);
-    stage.addEventListener('wheel', function(e){ e.preventDefault(); var r=stage.getBoundingClientRect(); zoomAt(e.deltaY<0?1:-1, e.clientX-r.left, e.clientY-r.top); }, {passive:false});
-    stage.addEventListener('keydown', function(e){ var o=origin(), step=80;
-      if(e.key==='ArrowLeft'){ MAP.center=screenToLatLng(o.w/2-step,o.h/2); } else if(e.key==='ArrowRight'){ MAP.center=screenToLatLng(o.w/2+step,o.h/2); }
-      else if(e.key==='ArrowUp'){ MAP.center=screenToLatLng(o.w/2,o.h/2-step); } else if(e.key==='ArrowDown'){ MAP.center=screenToLatLng(o.w/2,o.h/2+step); }
-      else if(e.key==='+'||e.key==='='){ zoomAt(1); return; } else if(e.key==='-'){ zoomAt(-1); return; } else return;
-      e.preventDefault(); renderAll(); });
-    stage.addEventListener('click', function(e){ if(!(e.target.closest&&e.target.closest('.map-pin'))) closeMapPanel(); });
-  }
-  function wireSearch(input, sugg){
-    function close(){ clear(sugg); sugg.classList.remove('is-open'); }
-    input.addEventListener('input', function(){ var q=(input.value||'').trim(); clear(sugg); if(q.length<2){ sugg.classList.remove('is-open'); return; }
-      var qn=arNorm(q).toLowerCase();
-      var hits=projByRegion(MAP.region).filter(function(p){ return (arNorm(p.name)+' '+arNorm(p.name_ar||'')+' '+arNorm(L(devByKey(p.dev).name))).toLowerCase().indexOf(qn)>-1; }).slice(0,6);
-      if(!hits.length){ sugg.classList.remove('is-open'); return; }
-      hits.forEach(function(p){ var row=h('button',{class:'map-sugg__row', type:'button'}, h('b',null, lang==='ar'?p.name_ar:p.name), h('span',null, L(devByKey(p.dev).name)));
-        row.addEventListener('click', function(){ input.value=(lang==='ar'?p.name_ar:p.name); close(); MAP.f={area:'',dev:'',type:'',budget:'',status:''}; flyTo(p); openMapPanel(p.slug); });
-        sugg.appendChild(row); });
-      sugg.classList.add('is-open'); });
-    input.addEventListener('blur', function(){ setTimeout(close, 180); });
-  }
-  function mapsDisclaimer(){ return h('section',{class:'section'}, h('div',{class:'wrap'},
-    h('div',{class:'notice notice--info', style:'max-width:82ch;margin-inline:auto'}, ic('info'),
-      h('div',null, h('strong',null, t('map_note_h')+' — '), t('map_note_p'))))); }
-  function mapsLD(r){ return {"@context":"https://schema.org","@type":"CollectionPage","name":t('maps_h')+" — "+L(r.name),
-    "description":t('maps_p'),"about":{"@type":"Place","name":L(r.name),"address":{"@type":"PostalAddress","addressCountry":"EG"}},
-    "url":CONFIG.origin+buildPath('maps',{region:r.key})}; }
 
   /* ---- Projects list (also serves /new-launches/) ---- */
   V.projects = function(preset){
@@ -4271,8 +3919,8 @@
      ROUTER + CHROME + HEAD
      ================================================================== */
   var currentRoute=null;
-  var NAV=[['units','nav_search'],['maps','nav_maps'],['launches','nav_launches'],['about','nav_about'],['favorites','nav_favorites']];
-  var NAV_GROUP={home:'',units:'units',unit:'units',project:'units',projects:'units',maps:'maps',launches:'launches',developers:'developers',developer:'developers',areas:'areas',area:'areas',insights:'',insight:'',about:'about',favorites:'favorites'};
+  var NAV=[['units','nav_search'],['launches','nav_launches'],['about','nav_about'],['favorites','nav_favorites']];
+  var NAV_GROUP={home:'',units:'units',unit:'units',project:'units',projects:'units',launches:'launches',developers:'developers',developer:'developers',areas:'areas',area:'areas',insights:'',insight:'',about:'about',favorites:'favorites'};
 
   function viewFor(r){
     switch(r.name){
@@ -4288,7 +3936,6 @@
       case 'developer': return V.developer(r.params.slug);
       case 'areas': return V.areas();
       case 'area': return V.area(r.params.slug);
-      case 'maps': return V.maps(r.params.region);
       case 'compare': return V.compare();
       case 'insights': return V.insights();
       case 'insight': return V.insight(r.params.slug);
