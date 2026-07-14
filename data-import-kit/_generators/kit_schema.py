@@ -1,0 +1,605 @@
+# -*- coding: utf-8 -*-
+"""
+THE VILLAGE INVESTMENT — Real-Estate Data Import Kit
+Single source of truth for the entire template system.
+
+Everything (XLSX templates, CSV, SQL DDL, JSON Schema, validation rules,
+the Data Dictionary and README) is generated from the definitions below,
+so all deliverables stay perfectly consistent.
+
+Design references: primary-sale Egyptian market practice as seen on Nawy,
+Property Finder and Bayut — normalised into 8 related entities. No competitor
+data, copy or imagery is reproduced; this is an original schema.
+"""
+
+BRAND = {
+    "name": "The Village Investment",
+    "site": "www.thevillageinvestment.com",
+    "teal": "073D52",
+    "teal2": "115F7D",
+    "bone": "F3EFE6",
+    "ink": "1B2B31",
+    "version": "1.0",
+    "date": "2026-07-13",
+}
+
+# ---------------------------------------------------------------------------
+# CONTROLLED VOCABULARIES (dropdown lists / enums)
+# Each value is a bilingual pair; the English token is the canonical value
+# stored in the database. Arabic is the on-screen helper for data-entry staff.
+# ---------------------------------------------------------------------------
+LOOKUPS = {
+    "region": [
+        ("New Cairo", "القاهرة الجديدة"),
+        ("Fifth Settlement", "التجمع الخامس"),
+        ("New Administrative Capital", "العاصمة الإدارية الجديدة"),
+        ("Mostakbal City", "مدينة المستقبل"),
+        ("Sheikh Zayed", "الشيخ زايد"),
+        ("6th of October", "السادس من أكتوبر"),
+        ("New Zayed", "زايد الجديدة"),
+        ("New Heliopolis", "هليوبوليس الجديدة"),
+        ("North Coast (Sahel)", "الساحل الشمالي"),
+        ("Ras El Hekma", "رأس الحكمة"),
+        ("New Alamein", "العلمين الجديدة"),
+        ("Ain Sokhna", "العين السخنة"),
+        ("New Mansoura", "المنصورة الجديدة"),
+        ("Other", "أخرى"),
+    ],
+    "governorate": [
+        ("Cairo", "القاهرة"),
+        ("Giza", "الجيزة"),
+        ("Alexandria", "الإسكندرية"),
+        ("Matrouh", "مطروح"),
+        ("Red Sea", "البحر الأحمر"),
+        ("Suez", "السويس"),
+        ("Qalyubia", "القليوبية"),
+        ("Dakahlia", "الدقهلية"),
+    ],
+    "area_status": [
+        ("active", "نشطة"),
+        ("coming_soon", "قريباً"),
+        ("archived", "مؤرشفة"),
+    ],
+    "developer_status": [
+        ("active", "نشط"),
+        ("archived", "مؤرشف"),
+    ],
+    "project_type": [
+        ("Residential", "سكني"),
+        ("Coastal", "ساحلي"),
+        ("Mixed-Use", "متعدد الاستخدام"),
+        ("Administrative", "إداري"),
+        ("Commercial", "تجاري"),
+        ("Medical", "طبي"),
+    ],
+    "project_status": [
+        ("New Launch", "طرح جديد"),
+        ("Under Construction", "تحت الإنشاء"),
+        ("Ready to Move", "استلام فوري"),
+        ("Fully Sold", "مكتمل البيع"),
+    ],
+    # Business rule: The Village markets PRIMARY sale only.
+    "sale_type": [
+        ("Primary", "بيع أساسي (من المطور)"),
+    ],
+    "finishing": [
+        ("Fully Finished", "تشطيب كامل"),
+        ("Finished with ACs", "تشطيب كامل مع تكييفات"),
+        ("Semi-Finished", "نصف تشطيب"),
+        ("Core & Shell", "على المحارة"),
+        ("Not Finished", "بدون تشطيب"),
+    ],
+    "currency": [
+        ("EGP", "جنيه مصري"),
+        ("USD", "دولار أمريكي"),
+    ],
+    "yesno": [
+        ("Yes", "نعم"),
+        ("No", "لا"),
+    ],
+    "availability": [
+        ("Available", "متاحة"),
+        ("Reserved", "محجوزة"),
+        ("Sold", "مباعة"),
+    ],
+    "unit_category": [
+        ("Apartment", "شقة"),
+        ("Duplex", "دوبلكس"),
+        ("Penthouse", "بنتهاوس"),
+        ("Studio", "استوديو"),
+        ("Townhouse", "تاون هاوس"),
+        ("Twinhouse", "توين هاوس"),
+        ("Standalone Villa", "فيلا مستقلة"),
+        ("Chalet", "شاليه"),
+        ("Cabin", "كابين"),
+        ("Serviced Apartment", "شقة فندقية"),
+        ("Office", "مكتب إداري"),
+        ("Clinic", "عيادة"),
+        ("Retail Store", "محل تجاري"),
+        ("Pharmacy", "صيدلية"),
+    ],
+    "view": [
+        ("Garden", "حديقة"),
+        ("Lagoon", "لاجون"),
+        ("Sea", "بحر"),
+        ("Pool", "حمام سباحة"),
+        ("Landscape", "لاندسكيب"),
+        ("Golf", "جولف"),
+        ("Street", "شارع"),
+        ("Corner", "ناصية"),
+    ],
+    "orientation": [
+        ("N", "شمال"), ("S", "جنوب"), ("E", "شرق"), ("W", "غرب"),
+        ("NE", "شمال شرق"), ("NW", "شمال غرب"),
+        ("SE", "جنوب شرق"), ("SW", "جنوب غرب"),
+    ],
+    "amenity_category": [
+        ("Leisure & Clubhouse", "ترفيه ونادي"),
+        ("Sports & Fitness", "رياضة ولياقة"),
+        ("Security & Access", "أمن ودخول"),
+        ("Retail & F&B", "تجاري ومطاعم"),
+        ("Health & Wellness", "صحة وعافية"),
+        ("Education", "تعليم"),
+        ("Green & Open Spaces", "مساحات خضراء"),
+        ("Infrastructure & Smart", "بنية تحتية وذكية"),
+    ],
+    "amenity": [
+        ("Clubhouse", "كلوب هاوس"),
+        ("Swimming Pools", "حمامات سباحة"),
+        ("Gym & Spa", "جيم وسبا"),
+        ("Kids Area", "منطقة أطفال"),
+        ("24/7 Security", "أمن على مدار الساعة"),
+        ("Gated Community", "كمبوند مسور"),
+        ("Retail Strip", "منطقة تجارية"),
+        ("Mosque", "مسجد"),
+        ("Medical Center", "مركز طبي"),
+        ("International School", "مدرسة دولية"),
+        ("Sports Courts", "ملاعب رياضية"),
+        ("Cycling & Jogging Tracks", "مسارات دراجات وجري"),
+        ("Central Park", "حديقة مركزية"),
+        ("Crystal Lagoon", "بحيرة كريستالية"),
+        ("Business Hub", "مركز أعمال"),
+        ("Smart Home", "منزل ذكي"),
+        ("Beach Access", "شاطئ خاص"),
+        ("Marina", "مارينا"),
+    ],
+    "payment_frequency": [
+        ("Monthly", "شهري"),
+        ("Quarterly", "ربع سنوي"),
+        ("Semi-Annual", "نصف سنوي"),
+        ("Annual", "سنوي"),
+    ],
+    "developer_role": [
+        ("Lead Developer", "المطور الرئيسي"),
+        ("Co-Developer", "مطور شريك"),
+        ("Master Developer", "مطور المخطط العام"),
+        ("Main Contractor", "المقاول الرئيسي"),
+        ("Consultant", "استشاري"),
+    ],
+}
+
+
+def L(key):
+    """Canonical English tokens for a lookup (the values stored in the DB)."""
+    return [en for (en, ar) in LOOKUPS[key]]
+
+
+# Helper to build a field record compactly.
+def F(name, en, ar, type_, required=False, example="", help_en="", help_ar="",
+      pk=False, fk=None, enum=None, unique=False, sql=None, seo=False):
+    return dict(name=name, label_en=en, label_ar=ar, type=type_, required=required,
+                example=example, help_en=help_en, help_ar=help_ar, pk=pk, fk=fk,
+                enum=enum, unique=unique, sql=sql, seo=seo)
+
+
+# ---------------------------------------------------------------------------
+# THE 8 ENTITIES
+# order matters: parents before children (import order).
+# ---------------------------------------------------------------------------
+ENTITIES = []
+
+
+def entity(key, num, title_en, title_ar, table, id_prefix, desc_en, desc_ar, fields):
+    e = dict(key=key, num=num, title_en=title_en, title_ar=title_ar, table=table,
+             id_prefix=id_prefix, desc_en=desc_en, desc_ar=desc_ar, fields=fields)
+    ENTITIES.append(e)
+    return e
+
+
+# 1) AREAS ------------------------------------------------------------------
+entity("areas", 1, "Areas", "المناطق", "areas", "AREA",
+       "Geographic zones that projects belong to (e.g. New Cairo, North Coast).",
+       "النطاقات الجغرافية التي تتبعها المشروعات (مثل القاهرة الجديدة، الساحل الشمالي).",
+       [
+        F("area_id", "Area ID", "معرّف المنطقة", "id", True, "AREA-0001",
+          "Unique code for the area. Leave blank to auto-generate on import.",
+          "كود فريد للمنطقة. اتركه فارغاً ليُنشأ تلقائياً عند الاستيراد.", pk=True, sql="VARCHAR(16)"),
+        F("name_en", "Name (EN)", "الاسم (إنجليزي)", "text", True, "New Cairo",
+          "Official English area name.", "اسم المنطقة بالإنجليزية."),
+        F("name_ar", "Name (AR)", "الاسم (عربي)", "text", True, "القاهرة الجديدة",
+          "Official Arabic area name.", "اسم المنطقة بالعربية."),
+        F("slug", "URL Slug", "الرابط المختصر", "slug", True, "new-cairo",
+          "Lowercase, dashes, unique. Used in the website address.",
+          "حروف صغيرة وشرطات، فريد. يُستخدم في رابط الموقع.", unique=True, seo=True),
+        F("region", "Region", "الإقليم", "enum", True, "New Cairo",
+          "Pick from the list.", "اختر من القائمة.", enum="region"),
+        F("governorate", "Governorate", "المحافظة", "enum", True, "Cairo",
+          "Pick from the list.", "اختر من القائمة.", enum="governorate"),
+        F("city_en", "City (EN)", "المدينة (إنجليزي)", "text", False, "New Cairo City", "", ""),
+        F("city_ar", "City (AR)", "المدينة (عربي)", "text", False, "مدينة القاهرة الجديدة", "", ""),
+        F("latitude", "Latitude", "خط العرض", "decimal", False, "30.0074",
+          "Decimal degrees, optional.", "بالدرجات العشرية، اختياري."),
+        F("longitude", "Longitude", "خط الطول", "decimal", False, "31.4913",
+          "Decimal degrees, optional.", "بالدرجات العشرية، اختياري."),
+        F("description_en", "Description (EN)", "الوصف (إنجليزي)", "longtext", False,
+          "Established east-Cairo hub of gated communities and services.", "", ""),
+        F("description_ar", "Description (AR)", "الوصف (عربي)", "longtext", False,
+          "منطقة راسخة شرق القاهرة تضم كمبوندات وخدمات متكاملة.", "", ""),
+        F("meta_title_en", "SEO Title (EN)", "عنوان SEO (إنجليزي)", "text", False,
+          "Property for Sale in New Cairo", "Max ~60 chars.", "بحد أقصى ~60 حرف.", seo=True),
+        F("meta_title_ar", "SEO Title (AR)", "عنوان SEO (عربي)", "text", False,
+          "عقارات للبيع في القاهرة الجديدة", "", "", seo=True),
+        F("meta_description_en", "SEO Description (EN)", "وصف SEO (إنجليزي)", "longtext", False,
+          "Compare primary-sale projects across New Cairo.", "Max ~160 chars.", "بحد أقصى ~160 حرف.", seo=True),
+        F("meta_description_ar", "SEO Description (AR)", "وصف SEO (عربي)", "longtext", False,
+          "قارن مشروعات البيع الأساسي في القاهرة الجديدة.", "", "", seo=True),
+        F("hero_image", "Hero Image", "الصورة الرئيسية", "image", False,
+          "areas/new-cairo/hero.jpg",
+          "Path inside the assets folder. See naming rules.",
+          "مسار داخل مجلد الأصول. راجع قواعد التسمية."),
+        F("status", "Status", "الحالة", "enum", True, "active",
+          "Pick from the list.", "اختر من القائمة.", enum="area_status"),
+        F("sort_order", "Sort Order", "ترتيب العرض", "int", False, "10",
+          "Lower numbers show first.", "الأرقام الأقل تظهر أولاً."),
+       ])
+
+# 2) DEVELOPERS -------------------------------------------------------------
+entity("developers", 2, "Developers", "المطورون", "developers", "DEV",
+       "Real-estate development companies whose projects you market.",
+       "شركات التطوير العقاري التي تسوّق مشروعاتها.",
+       [
+        F("developer_id", "Developer ID", "معرّف المطور", "id", True, "DEV-0001",
+          "Unique code. Leave blank to auto-generate.",
+          "كود فريد. اتركه فارغاً للإنشاء التلقائي.", pk=True, sql="VARCHAR(16)"),
+        F("name_en", "Name (EN)", "الاسم (إنجليزي)", "text", True, "Palm Hills Developments", "", ""),
+        F("name_ar", "Name (AR)", "الاسم (عربي)", "text", True, "بالم هيلز للتطوير", "", ""),
+        F("slug", "URL Slug", "الرابط المختصر", "slug", True, "palm-hills",
+          "Lowercase, dashes, unique.", "حروف صغيرة وشرطات، فريد.", unique=True, seo=True),
+        F("founded_year", "Founded Year", "سنة التأسيس", "int", False, "1997",
+          "4-digit year.", "سنة من 4 أرقام."),
+        F("headquarters_en", "HQ (EN)", "المقر (إنجليزي)", "text", False, "Sheikh Zayed, Giza", "", ""),
+        F("headquarters_ar", "HQ (AR)", "المقر (عربي)", "text", False, "الشيخ زايد، الجيزة", "", ""),
+        F("website", "Website", "الموقع الإلكتروني", "url", False, "https://example.com",
+          "Full URL incl. https://", "رابط كامل يبدأ بـ https://"),
+        F("phone", "Phone", "الهاتف", "phone", False, "+20 16000",
+          "International format.", "بالصيغة الدولية."),
+        F("tagline_en", "Tagline (EN)", "العبارة التعريفية (إنجليزي)", "text", False,
+          "Building integrated communities.", "", ""),
+        F("tagline_ar", "Tagline (AR)", "العبارة التعريفية (عربي)", "text", False,
+          "نبني مجتمعات متكاملة.", "", ""),
+        F("description_en", "Description (EN)", "الوصف (إنجليزي)", "longtext", False,
+          "Listed developer with a large delivered portfolio across Egypt.", "", ""),
+        F("description_ar", "Description (AR)", "الوصف (عربي)", "longtext", False,
+          "مطور مقيّد بالبورصة بمحفظة كبيرة مسلّمة في مصر.", "", ""),
+        F("logo_image", "Logo Image", "شعار المطور", "image", False, "developers/palm-hills/logo.png",
+          "Use only logos you are licensed to display.",
+          "استخدم فقط الشعارات المصرّح لك بعرضها."),
+        F("cover_image", "Cover Image", "صورة الغلاف", "image", False, "developers/palm-hills/cover.jpg", "", ""),
+        F("meta_title_en", "SEO Title (EN)", "عنوان SEO (إنجليزي)", "text", False,
+          "Palm Hills Developments — Projects & Prices", "", "", seo=True),
+        F("meta_title_ar", "SEO Title (AR)", "عنوان SEO (عربي)", "text", False,
+          "بالم هيلز — المشروعات والأسعار", "", "", seo=True),
+        F("meta_description_en", "SEO Description (EN)", "وصف SEO (إنجليزي)", "longtext", False,
+          "Explore primary-sale projects by Palm Hills.", "", "", seo=True),
+        F("meta_description_ar", "SEO Description (AR)", "وصف SEO (عربي)", "longtext", False,
+          "استكشف مشروعات البيع الأساسي لبالم هيلز.", "", "", seo=True),
+        F("status", "Status", "الحالة", "enum", True, "active",
+          "Pick from the list.", "اختر من القائمة.", enum="developer_status"),
+        F("sort_order", "Sort Order", "ترتيب العرض", "int", False, "10", "", ""),
+       ])
+
+# 3) PROJECTS ---------------------------------------------------------------
+entity("projects", 3, "Projects", "المشروعات", "projects", "PRJ",
+       "Master developments (compounds / resorts) offered for primary sale.",
+       "المشروعات الكبرى (كمبوندات/منتجعات) المعروضة للبيع الأساسي.",
+       [
+        F("project_id", "Project ID", "معرّف المشروع", "id", True, "PRJ-00001",
+          "Unique code. Leave blank to auto-generate.",
+          "كود فريد. اتركه فارغاً للإنشاء التلقائي.", pk=True, sql="VARCHAR(16)"),
+        F("name_en", "Name (EN)", "الاسم (إنجليزي)", "text", True, "Badya", "", ""),
+        F("name_ar", "Name (AR)", "الاسم (عربي)", "text", True, "بادية", "", ""),
+        F("slug", "URL Slug", "الرابط المختصر", "slug", True, "badya",
+          "Lowercase, dashes, unique.", "حروف صغيرة وشرطات، فريد.", unique=True, seo=True),
+        F("developer_id", "Developer ID", "معرّف المطور", "fk", True, "DEV-0001",
+          "Must exist in Developers. Lead developer of the project.",
+          "يجب أن يوجد في ورقة المطورين. المطور الرئيسي للمشروع.", fk="developers.developer_id"),
+        F("area_id", "Area ID", "معرّف المنطقة", "fk", True, "AREA-0001",
+          "Must exist in Areas.", "يجب أن يوجد في ورقة المناطق.", fk="areas.area_id"),
+        F("project_type", "Project Type", "نوع المشروع", "enum", True, "Residential",
+          "Pick from the list.", "اختر من القائمة.", enum="project_type"),
+        F("project_status", "Status", "حالة المشروع", "enum", True, "New Launch",
+          "Pick from the list.", "اختر من القائمة.", enum="project_status"),
+        F("sale_type", "Sale Type", "نوع البيع", "enum", True, "Primary",
+          "Primary only (from the developer).", "بيع أساسي فقط (من المطور).", enum="sale_type"),
+        F("launch_date", "Launch Date", "تاريخ الطرح", "date", False, "2026-03-01",
+          "Format YYYY-MM-DD.", "الصيغة YYYY-MM-DD."),
+        F("delivery_date", "Delivery Date", "تاريخ التسليم", "date", False, "2030-06-30",
+          "Expected handover, YYYY-MM-DD.", "التسليم المتوقع، YYYY-MM-DD."),
+        F("min_price_egp", "Min Price (EGP)", "أقل سعر (جنيه)", "decimal", False, "4500000",
+          "Illustrative starting price; confirm with developer.",
+          "سعر بداية استرشادي؛ يُؤكد من المطور."),
+        F("max_price_egp", "Max Price (EGP)", "أعلى سعر (جنيه)", "decimal", False, "22000000", "", ""),
+        F("currency", "Currency", "العملة", "enum", True, "EGP",
+          "Default EGP.", "الافتراضي جنيه.", enum="currency"),
+        F("down_payment_pct", "Down Payment %", "المقدم %", "decimal", False, "10",
+          "Percent, e.g. 10 for 10%.", "نسبة مئوية، مثال 10 تعني 10%."),
+        F("installment_years", "Installment Years", "سنوات التقسيط", "int", False, "8", "", ""),
+        F("min_unit_area_sqm", "Min Unit Area (m²)", "أقل مساحة وحدة (م²)", "decimal", False, "120", "", ""),
+        F("max_unit_area_sqm", "Max Unit Area (m²)", "أكبر مساحة وحدة (م²)", "decimal", False, "420", "", ""),
+        F("finishing", "Finishing", "التشطيب", "enum", False, "Fully Finished",
+          "Pick from the list.", "اختر من القائمة.", enum="finishing"),
+        F("latitude", "Latitude", "خط العرض", "decimal", False, "29.9420", "", ""),
+        F("longitude", "Longitude", "خط الطول", "decimal", False, "30.8760", "", ""),
+        F("description_en", "Description (EN)", "الوصف (إنجليزي)", "longtext", False,
+          "A large mixed-use community with schools, business hub and green spine.", "", ""),
+        F("description_ar", "Description (AR)", "الوصف (عربي)", "longtext", False,
+          "مجتمع متعدد الاستخدام كبير يضم مدارس ومركز أعمال ومحور أخضر.", "", ""),
+        F("highlights_en", "Highlights (EN)", "أبرز المميزات (إنجليزي)", "longtext", False,
+          "Central park | International schools | Retail hub",
+          "Separate points with a pipe |.", "افصل النقاط بعلامة |."),
+        F("highlights_ar", "Highlights (AR)", "أبرز المميزات (عربي)", "longtext", False,
+          "حديقة مركزية | مدارس دولية | منطقة تجارية", "", ""),
+        F("meta_title_en", "SEO Title (EN)", "عنوان SEO (إنجليزي)", "text", False,
+          "Badya by Palm Hills — Prices & Units", "", "", seo=True),
+        F("meta_title_ar", "SEO Title (AR)", "عنوان SEO (عربي)", "text", False,
+          "بادية بالم هيلز — الأسعار والوحدات", "", "", seo=True),
+        F("meta_description_en", "SEO Description (EN)", "وصف SEO (إنجليزي)", "longtext", False,
+          "Primary-sale apartments and villas in Badya. Payment plans available.", "", "", seo=True),
+        F("meta_description_ar", "SEO Description (AR)", "وصف SEO (عربي)", "longtext", False,
+          "شقق وفيلات بيع أساسي في بادية. أنظمة سداد متاحة.", "", "", seo=True),
+        F("hero_image", "Hero Image", "الصورة الرئيسية", "image", False, "projects/badya/hero.jpg", "", ""),
+        F("gallery_images", "Gallery Images", "صور المعرض", "images", False,
+          "projects/badya/g1.jpg | projects/badya/g2.jpg",
+          "Multiple paths separated by a pipe |.", "عدة مسارات مفصولة بعلامة |."),
+        F("master_plan_image", "Master Plan Image", "صورة المخطط العام", "image", False,
+          "projects/badya/master-plan.jpg", "", ""),
+        F("brochure_pdf", "Brochure PDF", "الكتيّب (PDF)", "image", False,
+          "projects/badya/brochure.pdf", "", ""),
+        F("is_featured", "Featured?", "مميز؟", "enum", False, "No",
+          "Show on featured rails.", "يظهر في الأقسام المميزة.", enum="yesno"),
+        F("status", "Row Status", "حالة الصف", "enum", True, "active",
+          "active / archived.", "نشط / مؤرشف.", enum="area_status"),
+        F("sort_order", "Sort Order", "ترتيب العرض", "int", False, "10", "", ""),
+       ])
+
+# 4) UNIT TYPES -------------------------------------------------------------
+entity("unit_types", 4, "Unit Types", "أنواع الوحدات", "unit_types", "UTYP",
+       "Repeatable unit models/typologies within a project (e.g. 'Type A – 3BR').",
+       "نماذج/طرازات الوحدات المتكررة داخل المشروع (مثل 'نوع A – 3 غرف').",
+       [
+        F("unit_type_id", "Unit Type ID", "معرّف النوع", "id", True, "UTYP-0001",
+          "Unique code. Leave blank to auto-generate.",
+          "كود فريد. اتركه فارغاً للإنشاء التلقائي.", pk=True, sql="VARCHAR(16)"),
+        F("project_id", "Project ID", "معرّف المشروع", "fk", True, "PRJ-00001",
+          "Must exist in Projects.", "يجب أن يوجد في ورقة المشروعات.", fk="projects.project_id"),
+        F("name_en", "Name (EN)", "الاسم (إنجليزي)", "text", True, "Type A — 3BR Apartment", "", ""),
+        F("name_ar", "Name (AR)", "الاسم (عربي)", "text", True, "نوع A — شقة 3 غرف", "", ""),
+        F("category", "Category", "الفئة", "enum", True, "Apartment",
+          "Pick from the list.", "اختر من القائمة.", enum="unit_category"),
+        F("bedrooms", "Bedrooms", "غرف النوم", "int", True, "3",
+          "Use 0 for a studio.", "استخدم 0 للاستوديو."),
+        F("bathrooms", "Bathrooms", "الحمامات", "int", False, "3", "", ""),
+        F("min_area_sqm", "Min Area (m²)", "أقل مساحة (م²)", "decimal", True, "165", "", ""),
+        F("max_area_sqm", "Max Area (m²)", "أكبر مساحة (م²)", "decimal", False, "185", "", ""),
+        F("has_garden", "Has Garden?", "لها حديقة؟", "enum", False, "No", "", "", enum="yesno"),
+        F("has_roof", "Has Roof?", "لها روف؟", "enum", False, "No", "", "", enum="yesno"),
+        F("typical_price_from_egp", "Price From (EGP)", "السعر يبدأ من (جنيه)", "decimal", False,
+          "6200000", "Illustrative; confirm with developer.", "استرشادي؛ يُؤكد من المطور."),
+        F("floor_plan_image", "Floor Plan Image", "صورة المخطط", "image", False,
+          "projects/badya/types/type-a.jpg", "", ""),
+        F("description_en", "Description (EN)", "الوصف (إنجليزي)", "longtext", False,
+          "Corner three-bedroom layout with a wide living space.", "", ""),
+        F("description_ar", "Description (AR)", "الوصف (عربي)", "longtext", False,
+          "تصميم 3 غرف بزاوية ومساحة معيشة واسعة.", "", ""),
+        F("status", "Status", "الحالة", "enum", True, "active", "", "", enum="area_status"),
+        F("sort_order", "Sort Order", "ترتيب العرض", "int", False, "10", "", ""),
+       ])
+
+# 5) UNITS ------------------------------------------------------------------
+entity("units", 5, "Units", "الوحدات", "units", "UNIT",
+       "Individual sellable units (inventory rows) inside a project.",
+       "الوحدات الفردية القابلة للبيع (المخزون) داخل المشروع.",
+       [
+        F("unit_id", "Unit ID", "معرّف الوحدة", "id", True, "UNIT-000001",
+          "Unique code. Leave blank to auto-generate.",
+          "كود فريد. اتركه فارغاً للإنشاء التلقائي.", pk=True, sql="VARCHAR(20)"),
+        F("project_id", "Project ID", "معرّف المشروع", "fk", True, "PRJ-00001",
+          "Must exist in Projects.", "يجب أن يوجد في ورقة المشروعات.", fk="projects.project_id"),
+        F("unit_type_id", "Unit Type ID", "معرّف النوع", "fk", False, "UTYP-0001",
+          "Optional link to Unit Types.", "ربط اختياري بأنواع الوحدات.", fk="unit_types.unit_type_id"),
+        F("unit_code", "Developer Unit Code", "كود الوحدة لدى المطور", "text", False, "B-A-1203",
+          "The developer's own reference.", "المرجع الخاص بالمطور."),
+        F("category", "Category", "الفئة", "enum", True, "Apartment",
+          "Pick from the list.", "اختر من القائمة.", enum="unit_category"),
+        F("bedrooms", "Bedrooms", "غرف النوم", "int", True, "3",
+          "0 = studio.", "0 = استوديو."),
+        F("bathrooms", "Bathrooms", "الحمامات", "int", False, "3", "", ""),
+        F("built_up_area_sqm", "Built-up Area (m²)", "المساحة البنائية (م²)", "decimal", True, "172",
+          "Numbers only.", "أرقام فقط."),
+        F("garden_area_sqm", "Garden Area (m²)", "مساحة الحديقة (م²)", "decimal", False, "45", "", ""),
+        F("roof_area_sqm", "Roof Area (m²)", "مساحة الروف (م²)", "decimal", False, "0", "", ""),
+        F("floor_number", "Floor", "الدور", "text", False, "2",
+          "e.g. Ground, 1, 2, Penthouse.", "مثل: أرضي، 1، 2، بنتهاوس."),
+        F("price_egp", "Price (EGP)", "السعر (جنيه)", "decimal", False, "6450000",
+          "Illustrative; confirm with developer.", "استرشادي؛ يُؤكد من المطور."),
+        F("payment_plan_id", "Payment Plan ID", "معرّف نظام السداد", "fk", False, "PLAN-0001",
+          "Optional link to Payment Plans.", "ربط اختياري بأنظمة السداد.", fk="payment_plans.payment_plan_id"),
+        F("availability", "Availability", "الإتاحة", "enum", True, "Available",
+          "Pick from the list.", "اختر من القائمة.", enum="availability"),
+        F("finishing", "Finishing", "التشطيب", "enum", False, "Fully Finished", "", "", enum="finishing"),
+        F("orientation", "Orientation", "الاتجاه", "enum", False, "NE", "", "", enum="orientation"),
+        F("view", "View", "الإطلالة", "enum", False, "Garden", "", "", enum="view"),
+        F("delivery_date", "Delivery Date", "تاريخ التسليم", "date", False, "2030-06-30", "", ""),
+        F("floor_plan_image", "Floor Plan Image", "صورة المخطط", "image", False,
+          "projects/badya/units/unit-000001.jpg", "", ""),
+        F("status", "Row Status", "حالة الصف", "enum", True, "active", "", "", enum="area_status"),
+        F("sort_order", "Sort Order", "ترتيب العرض", "int", False, "10", "", ""),
+       ])
+
+# 6) PROJECT AMENITIES ------------------------------------------------------
+entity("project_amenities", 6, "Project Amenities", "مرافق المشروع", "project_amenities", "PAMN",
+       "One row per amenity offered by a project (many amenities per project).",
+       "صف واحد لكل مرفق يوفره المشروع (عدة مرافق لكل مشروع).",
+       [
+        F("project_amenity_id", "Row ID", "معرّف الصف", "id", True, "PAMN-000001",
+          "Unique code. Leave blank to auto-generate.",
+          "كود فريد. اتركه فارغاً للإنشاء التلقائي.", pk=True, sql="VARCHAR(20)"),
+        F("project_id", "Project ID", "معرّف المشروع", "fk", True, "PRJ-00001",
+          "Must exist in Projects.", "يجب أن يوجد في ورقة المشروعات.", fk="projects.project_id"),
+        F("amenity", "Amenity", "المرفق", "enum", True, "Clubhouse",
+          "Pick from the list.", "اختر من القائمة.", enum="amenity"),
+        F("category", "Category", "التصنيف", "enum", True, "Leisure & Clubhouse",
+          "Pick from the list.", "اختر من القائمة.", enum="amenity_category"),
+        F("notes_en", "Notes (EN)", "ملاحظات (إنجليزي)", "text", False,
+          "Two clubhouses across the community.", "", ""),
+        F("notes_ar", "Notes (AR)", "ملاحظات (عربي)", "text", False,
+          "ناديان داخل المجتمع.", "", ""),
+       ])
+
+# 7) PAYMENT PLANS ----------------------------------------------------------
+entity("payment_plans", 7, "Payment Plans", "أنظمة السداد", "payment_plans", "PLAN",
+       "Named payment structures offered on a project (down payment + tenor).",
+       "أنظمة سداد مسماة معروضة على المشروع (مقدم + مدة).",
+       [
+        F("payment_plan_id", "Payment Plan ID", "معرّف النظام", "id", True, "PLAN-0001",
+          "Unique code. Leave blank to auto-generate.",
+          "كود فريد. اتركه فارغاً للإنشاء التلقائي.", pk=True, sql="VARCHAR(16)"),
+        F("project_id", "Project ID", "معرّف المشروع", "fk", True, "PRJ-00001",
+          "Must exist in Projects.", "يجب أن يوجد في ورقة المشروعات.", fk="projects.project_id"),
+        F("name_en", "Name (EN)", "الاسم (إنجليزي)", "text", True, "10% Down · 8 Years", "", ""),
+        F("name_ar", "Name (AR)", "الاسم (عربي)", "text", True, "10% مقدم · 8 سنوات", "", ""),
+        F("down_payment_pct", "Down Payment %", "المقدم %", "decimal", True, "10",
+          "Percent number only.", "رقم نسبة فقط."),
+        F("installment_years", "Installment Years", "سنوات التقسيط", "int", True, "8", "", ""),
+        F("installment_frequency", "Frequency", "دورية الأقساط", "enum", True, "Quarterly",
+          "Pick from the list.", "اختر من القائمة.", enum="payment_frequency"),
+        F("delivery_payment_pct", "Delivery Payment %", "دفعة الاستلام %", "decimal", False, "5", "", ""),
+        F("maintenance_pct", "Maintenance %", "الصيانة %", "decimal", False, "8", "", ""),
+        F("cash_discount_pct", "Cash Discount %", "خصم الكاش %", "decimal", False, "0", "", ""),
+        F("valid_until", "Valid Until", "ساري حتى", "date", False, "2026-12-31",
+          "YYYY-MM-DD, optional.", "YYYY-MM-DD، اختياري."),
+        F("notes_en", "Notes (EN)", "ملاحظات (إنجليزي)", "text", False,
+          "Equal quarterly installments.", "", ""),
+        F("notes_ar", "Notes (AR)", "ملاحظات (عربي)", "text", False,
+          "أقساط ربع سنوية متساوية.", "", ""),
+        F("status", "Status", "الحالة", "enum", True, "active", "", "", enum="area_status"),
+       ])
+
+# 8) DEVELOPERS & PROJECTS MAPPING -----------------------------------------
+entity("developer_project_map", 8, "Developers & Projects Mapping",
+       "ربط المطورين بالمشروعات", "developer_project_map", "DPM",
+       "Bridge for projects co-developed by more than one company (joint ventures).",
+       "جسر للمشروعات التي يطوّرها أكثر من شركة (مشروعات مشتركة).",
+       [
+        F("map_id", "Mapping ID", "معرّف الربط", "id", True, "DPM-00001",
+          "Unique code. Leave blank to auto-generate.",
+          "كود فريد. اتركه فارغاً للإنشاء التلقائي.", pk=True, sql="VARCHAR(16)"),
+        F("developer_id", "Developer ID", "معرّف المطور", "fk", True, "DEV-0001",
+          "Must exist in Developers.", "يجب أن يوجد في ورقة المطورين.", fk="developers.developer_id"),
+        F("project_id", "Project ID", "معرّف المشروع", "fk", True, "PRJ-00001",
+          "Must exist in Projects.", "يجب أن يوجد في ورقة المشروعات.", fk="projects.project_id"),
+        F("role", "Role", "الدور", "enum", True, "Lead Developer",
+          "Pick from the list.", "اختر من القائمة.", enum="developer_role"),
+        F("ownership_pct", "Ownership %", "نسبة الملكية %", "decimal", False, "60",
+          "Optional share of the JV.", "حصة اختيارية في المشروع المشترك."),
+        F("notes_en", "Notes (EN)", "ملاحظات (إنجليزي)", "text", False,
+          "Joint venture with the master developer.", "", ""),
+        F("notes_ar", "Notes (AR)", "ملاحظات (عربي)", "text", False,
+          "مشروع مشترك مع مطور المخطط العام.", "", ""),
+       ])
+
+
+# ---------------------------------------------------------------------------
+# SAMPLE ROWS  (2 realistic-but-clearly-illustrative rows per entity, using
+# consistent IDs so the foreign keys line up across sheets).
+# Values are illustrative and must be confirmed with the developer/advisor.
+# ---------------------------------------------------------------------------
+SAMPLES = {
+ "areas": [
+   ["AREA-0001","New Cairo","القاهرة الجديدة","new-cairo","New Cairo","Cairo","New Cairo City","مدينة القاهرة الجديدة",
+    "30.0074","31.4913","Established east-Cairo hub of gated communities.","منطقة راسخة شرق القاهرة تضم كمبوندات.",
+    "Property for Sale in New Cairo","عقارات للبيع في القاهرة الجديدة",
+    "Compare primary-sale projects across New Cairo.","قارن مشروعات البيع الأساسي في القاهرة الجديدة.",
+    "areas/new-cairo/hero.jpg","active","10"],
+   ["AREA-0002","North Coast (Sahel)","الساحل الشمالي","north-coast","North Coast","Matrouh","Ras El Hekma","رأس الحكمة",
+    "31.1000","28.0000","Egypt's premier summer coastline of resort compounds.","أبرز وجهات الساحل الصيفية بمنتجعات متكاملة.",
+    "Chalets for Sale on the North Coast","شاليهات للبيع في الساحل الشمالي",
+    "Primary-sale chalets and villas on the North Coast.","شاليهات وفيلات بيع أساسي في الساحل الشمالي.",
+    "areas/north-coast/hero.jpg","active","20"],
+ ],
+ "developers": [
+   ["DEV-0001","Palm Hills Developments","بالم هيلز للتطوير","palm-hills","1997","Sheikh Zayed, Giza","الشيخ زايد، الجيزة",
+    "https://example.com","+20 16000","Building integrated communities.","نبني مجتمعات متكاملة.",
+    "Listed developer with a large delivered portfolio across Egypt.","مطور مقيّد بالبورصة بمحفظة كبيرة مسلّمة في مصر.",
+    "developers/palm-hills/logo.png","developers/palm-hills/cover.jpg",
+    "Palm Hills Developments — Projects & Prices","بالم هيلز — المشروعات والأسعار",
+    "Explore primary-sale projects by Palm Hills.","استكشف مشروعات البيع الأساسي لبالم هيلز.","active","10"],
+   ["DEV-0002","Mountain View","ماونتن فيو","mountain-view","2005","New Cairo, Cairo","القاهرة الجديدة، القاهرة",
+    "https://example.com","+20 16000","Homes designed around happiness.","بيوت مصممة حول السعادة.",
+    "Developer known for lifestyle-led communities.","مطور معروف بمجتمعات تركّز على أسلوب الحياة.",
+    "developers/mountain-view/logo.png","developers/mountain-view/cover.jpg",
+    "Mountain View — Projects & Prices","ماونتن فيو — المشروعات والأسعار",
+    "Explore primary-sale projects by Mountain View.","استكشف مشروعات البيع الأساسي لماونتن فيو.","active","20"],
+ ],
+ "projects": [
+   ["PRJ-00001","Badya","بادية","badya","DEV-0001","AREA-0001","Residential","New Launch","Primary",
+    "2026-03-01","2030-06-30","4500000","22000000","EGP","10","8","120","420","Fully Finished","29.9420","30.8760",
+    "A large mixed-use community with schools, business hub and green spine.","مجتمع متعدد الاستخدام كبير يضم مدارس ومركز أعمال ومحور أخضر.",
+    "Central park | International schools | Retail hub","حديقة مركزية | مدارس دولية | منطقة تجارية",
+    "Badya by Palm Hills — Prices & Units","بادية بالم هيلز — الأسعار والوحدات",
+    "Primary-sale apartments and villas in Badya. Payment plans available.","شقق وفيلات بيع أساسي في بادية. أنظمة سداد متاحة.",
+    "projects/badya/hero.jpg","projects/badya/g1.jpg | projects/badya/g2.jpg","projects/badya/master-plan.jpg",
+    "projects/badya/brochure.pdf","Yes","active","10"],
+   ["PRJ-00002","Kingsway","كينجزواي","kingsway","DEV-0002","AREA-0001","Residential","Under Construction","Primary",
+    "2025-09-01","2029-12-31","7000000","30000000","EGP","5","9","150","500","Semi-Finished","30.0100","31.4700",
+    "A gated community centred on a green valley and clubhouse.","كمبوند يتمحور حول وادٍ أخضر وكلوب هاوس.",
+    "Green valley | Clubhouse | Sports hub","وادٍ أخضر | كلوب هاوس | مركز رياضي",
+    "Kingsway by Mountain View — Prices & Units","كينجزواي ماونتن فيو — الأسعار والوحدات",
+    "Primary-sale homes in Kingsway, New Cairo.","بيوت بيع أساسي في كينجزواي، القاهرة الجديدة.",
+    "projects/kingsway/hero.jpg","projects/kingsway/g1.jpg | projects/kingsway/g2.jpg","projects/kingsway/master-plan.jpg",
+    "projects/kingsway/brochure.pdf","No","active","20"],
+ ],
+ "unit_types": [
+   ["UTYP-0001","PRJ-00001","Type A — 3BR Apartment","نوع A — شقة 3 غرف","Apartment","3","3","165","185","No","No",
+    "6200000","projects/badya/types/type-a.jpg","Corner three-bedroom layout with a wide living space.","تصميم 3 غرف بزاوية ومساحة معيشة واسعة.","active","10"],
+   ["UTYP-0002","PRJ-00001","Type V — Standalone Villa","نوع V — فيلا مستقلة","Standalone Villa","4","4","300","420","Yes","Yes",
+    "18000000","projects/badya/types/type-v.jpg","Detached four-bedroom villa with garden and roof.","فيلا مستقلة 4 غرف بحديقة وروف.","active","20"],
+ ],
+ "units": [
+   ["UNIT-000001","PRJ-00001","UTYP-0001","B-A-1203","Apartment","3","3","172","45","0","2","6450000","PLAN-0001",
+    "Available","Fully Finished","NE","Garden","2030-06-30","projects/badya/units/unit-000001.jpg","active","10"],
+   ["UNIT-000002","PRJ-00001","UTYP-0002","B-V-0007","Standalone Villa","4","4","360","220","60","Ground","19500000","PLAN-0001",
+    "Available","Semi-Finished","SW","Landscape","2030-06-30","projects/badya/units/unit-000002.jpg","active","20"],
+ ],
+ "project_amenities": [
+   ["PAMN-000001","PRJ-00001","Clubhouse","Leisure & Clubhouse","Two clubhouses across the community.","ناديان داخل المجتمع."],
+   ["PAMN-000002","PRJ-00001","International School","Education","Two international schools on site.","مدرستان دوليتان بالموقع."],
+ ],
+ "payment_plans": [
+   ["PLAN-0001","PRJ-00001","10% Down · 8 Years","10% مقدم · 8 سنوات","10","8","Quarterly","5","8","0","2026-12-31",
+    "Equal quarterly installments.","أقساط ربع سنوية متساوية.","active"],
+   ["PLAN-0002","PRJ-00002","5% Down · 9 Years","5% مقدم · 9 سنوات","5","9","Monthly","10","8","3","2026-12-31",
+    "Monthly installments with a cash discount option.","أقساط شهرية مع خيار خصم كاش.","active"],
+ ],
+ "developer_project_map": [
+   ["DPM-00001","DEV-0001","PRJ-00001","Lead Developer","100","Sole developer of the project.","المطور الوحيد للمشروع."],
+   ["DPM-00002","DEV-0002","PRJ-00002","Lead Developer","60","Joint venture with the master developer.","مشروع مشترك مع مطور المخطط العام."],
+ ],
+}
+
+
+def entity_by_key(k):
+    for e in ENTITIES:
+        if e["key"] == k:
+            return e
+    return None

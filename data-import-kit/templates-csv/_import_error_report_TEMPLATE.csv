@@ -1,0 +1,4 @@
+﻿row_number,sheet,column,field,offending_value,severity,error_code,message
+7,projects,developer_id,developer_id,DEV-9999,error,FK_NOT_FOUND,developer_id 'DEV-9999' does not exist in Developers
+12,units,built_up_area_sqm,built_up_area_sqm,,error,REQUIRED_MISSING,built_up_area_sqm is required
+20,areas,slug,slug,new cairo,warning,SLUG_FORMAT,slug should be lowercase-with-dashes; suggested 'new-cairo'

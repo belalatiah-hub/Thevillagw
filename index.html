@@ -324,6 +324,33 @@
   .dev-card:hover{border-color:var(--teal-600);box-shadow:var(--shadow-sm);transform:translateY(-1px)}
   .dev-logo{width:52px;height:52px;border-radius:12px;display:grid;place-items:center;flex:none;
     font-family:var(--serif);font-weight:700;font-size:1.1rem;color:var(--bone);background:linear-gradient(150deg,var(--teal-600),var(--teal-900))}
+  /* Official logo variant: white plate, contain (never distort), inset padding,
+     hairline ring so a light logo still reads on a white surface. */
+  .dev-logo--img{background:#fff;object-fit:contain;padding:7%;
+    box-shadow:inset 0 0 0 1px rgba(7,61,82,.10)}
+  /* Developer-page hero lockup — natural aspect ratio inside a card. */
+  .dev-lockup-wrap{display:inline-flex;align-items:center;justify-content:center;
+    padding:14px 20px;background:#fff;border:1px solid var(--line-2);border-radius:16px;box-shadow:var(--shadow-sm)}
+  .dev-lockup{max-width:230px;max-height:92px;width:auto;height:auto;object-fit:contain}
+  /* Project-page wordmark lockup. */
+  .proj-logo-wrap{display:inline-flex;margin-top:16px;padding:10px 16px;background:#fff;
+    border:1px solid var(--line-2);border-radius:14px;box-shadow:var(--shadow-sm)}
+  .proj-logo{max-width:min(260px,68vw);max-height:60px;width:auto;height:auto;object-fit:contain;display:block}
+  /* Logo + text developer line. */
+  .card__dev--logo{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+  /* Inline horizontal logo (natural aspect ratio, consistent height). */
+  .dev-logo-inline{width:auto;max-width:150px;object-fit:contain;display:block;flex:none}
+  /* Card-image corner chip — white pill sized to the logo/name (no tiny square). */
+  .dev-chip{position:absolute;inset-block-start:10px;inset-inline-start:10px;z-index:2;
+    display:inline-flex;align-items:center;height:30px;max-width:60%;padding:0 10px;
+    background:rgba(255,255,255,.96);border-radius:9px;box-shadow:0 2px 8px rgba(5,36,48,.28)}
+  .dev-chip__img{height:17px;width:auto;max-width:118px;object-fit:contain;display:block}
+  .dev-chip__txt{font-size:.72rem;font-weight:800;letter-spacing:.03em;text-transform:uppercase;
+    color:var(--teal-800);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  /* Developer-card white logo plate (consistent with the hero lockup). */
+  .dev-card__logo{width:104px;height:60px;flex:none;display:grid;place-items:center;padding:9px;
+    background:#fff;border:1px solid var(--line-2);border-radius:12px}
+  .dev-card__logo img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain}
   .dev-card .meta h3{font-size:1.02rem}
   .dev-card .meta p{font-size:.8rem;color:var(--ink-3);margin-top:2px}
 
@@ -413,7 +440,7 @@
   footer.site .cols{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:32px}
   @media(max-width:820px){footer.site .cols{grid-template-columns:1fr 1fr}}
   @media(max-width:480px){footer.site .cols{grid-template-columns:1fr}}
-  footer.site img.flogo{height:30px;margin-bottom:14px}
+  footer.site img.flogo{height:34px;width:auto;margin-bottom:14px}
   footer.site h4{color:var(--bone);font-family:var(--sans);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px}
   footer.site a{display:block;padding:5px 0;color:#b6ccd2;font-size:.9rem;transition:var(--t)}
   footer.site a:hover{color:#fff}
@@ -635,6 +662,10 @@
   .dev-circle__av{width:78px;height:78px;border-radius:50%;display:grid;place-items:center;overflow:hidden;background:var(--paper);
     border:1px solid var(--line-2);box-shadow:var(--shadow-sm);transition:transform var(--t),box-shadow var(--t),border-color var(--t)}
   .dev-circle__av .dev-logo{border-radius:50%!important;width:74px!important;height:74px!important}
+  /* Logos inside the round rail avatars need extra padding so a wide wordmark
+     sits inside the inscribed circle (never clipped by the round mask); drop the
+     square inset ring that a circle would otherwise crop oddly. */
+  .dev-circle__av .dev-logo--img{padding:20%;box-shadow:none}
   .dev-circle:hover .dev-circle__av,.dev-circle:focus-visible .dev-circle__av{transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:var(--teal-400)}
   .dev-circle__name{font-size:.78rem;font-weight:600;text-align:center;line-height:1.25;color:var(--ink-2);
     display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;max-width:96px}
@@ -1046,7 +1077,7 @@
       send_wa:"Send on WhatsApp", send_email:"Send by email",
       unit_types_h:"Unit types", unit_types_p:"Unit types available in this project. Layouts are illustrative — confirm current availability and prices with an advisor.",
       art_note:"Images are original brand illustrations, not photographs of the actual project. Real photography can replace them once supplied with usage rights.",
-      devmark_note:"Developer marks are original placeholders. Official developer logos can be added once provided with usage rights.",
+      devmark_note:"Official developer logos are shown where provided with usage rights; the remaining developers use original placeholder marks until their logos are supplied.",
       lead_handoff:"Your enquiry is ready. Send it to an advisor on WhatsApp, or by email.",
       derived:"Count derived from projects shown on this site — not full live inventory",
       dp:"Down payment", years:"Installments", delivery:"Delivery", finishing:"Finishing",
@@ -1163,7 +1194,7 @@
       send_wa:"أرسل عبر واتساب", send_email:"أرسل عبر البريد",
       unit_types_h:"أنواع الوحدات", unit_types_p:"أنواع الوحدات المتاحة في هذا المشروع. التصاميم استرشادية — أكّد الإتاحة والأسعار الحالية مع المستشار.",
       art_note:"الصور رسوم أصلية للعلامة وليست صوراً فوتوغرافية للمشروع الفعلي. يمكن استبدالها بتصوير حقيقي عند توفيره بحقوق الاستخدام.",
-      devmark_note:"علامات المطوّرين عناصر أصلية مؤقتة. يمكن إضافة الشعارات الرسمية للمطوّرين عند توفيرها بحقوق الاستخدام.",
+      devmark_note:"تُعرض شعارات المطوّرين الرسمية حيثما تم توفيرها بحقوق الاستخدام؛ وتظهر بقية المطوّرين بعلامات أصلية مؤقتة لحين توفير شعاراتهم.",
       lead_handoff:"استفسارك جاهز. أرسله إلى مستشار عبر واتساب أو البريد.",
       derived:"العدد محسوب من المشروعات المعروضة على الموقع — وليس كامل المعروض الفعلي",
       dp:"الدفعة المقدمة", years:"التقسيط", delivery:"التسليم", finishing:"التشطيب",
@@ -1618,20 +1649,107 @@
     sEl('path',{d:'M'+x+' '+y+' q 2 -12 0 -20',stroke:'#093a4c','stroke-width':'2',fill:'none'}),
     sEl('circle',{cx:x,cy:y-20,r:'6',fill:'#1e7a5a'})); }
 
-  // Developer identity badge — original monogram mark (placeholder for an
-  // official logo), tinted with the developer's colour.
-  function devBadge(dev, px){
-    px=px||44;
-    // If an official licensed logo file is supplied on the developer record, render it; otherwise
-    // fall back to the original branded monogram. Drop-in: add logo:"data:image/...;base64,..." to the dev.
-    if(dev && dev.logo){
-      return h('img',{class:'dev-logo dev-logo--img', src:dev.logo, alt:L(dev.name)+' logo', loading:'lazy',
-        width:px, height:px, style:'width:'+px+'px;height:'+px+'px;border-radius:'+Math.round(px*0.22)+'px;object-fit:contain;background:#fff'});
+  /* ===========================================================================
+     CENTRALISED LOGO REGISTRY
+     ---------------------------------------------------------------------------
+     One place maps a developer/project to its PNG in /logos. Components never
+     hardcode a path — they call devBadge()/devLogoLockup()/projectLogoSrc(),
+     which resolve here and fall back to a branded monogram, so an image is
+     never broken. To add a developer logo later: drop <name>.png into /logos
+     and add one line to DEV_LOGOS (key = the developer's `key`). Project logos
+     go in /logos/projects and one line in PROJECT_LOGOS (key = project slug).
+     =========================================================================== */
+  // Root-absolute (matches how /favicon.png is referenced) so logos resolve
+  // correctly from any History-API route depth.
+  var LOGO_BASE = '/logos/';
+  var DEV_LOGOS = {
+    sodic:'sodic.png', palmhills:'palm-hills.png', mountainview:'mountain-view.png',
+    ora:'ora.png', tatweer:'tatweer-misr.png', misritalia:'misr-italia.png',
+    marakez:'marakez.png', lmd:'lmd.png', hydepark:'hyde-park.png',
+    marasem:'al-marasem.png', modon:'modon.png'
+  };
+  var PROJECT_LOGOS = {
+    'villette':'villette.png', 'sodic-east':'sodic-east.png', 'eastown':'eastown.png',
+    'allegria':'allegria.png', 'ogami-north-coast':'ogami.png',
+    'caesar-north-coast':'caesar.png', 'june-north-coast':'june.png',
+    'the-estates-zayed':'the-estates.png'
+  };
+  // Normalise any free text to a compact token, so slightly different spellings
+  // of a developer's name still resolve to the same logo.
+  function logoNorm(s){ return String(s==null?'':s).toLowerCase().replace(/[^a-z0-9]+/g,''); }
+  var DEV_ALIAS = {};
+  (function(){
+    for(var i=0;i<DEVELOPERS.length;i++){
+      var d=DEVELOPERS[i];
+      DEV_ALIAS[logoNorm(d.key)] = d.key;
+      if(d.name){ DEV_ALIAS[logoNorm(d.name.en)] = d.key; DEV_ALIAS[logoNorm(d.name.ar)] = d.key; }
     }
+    // a few short-form / variant spellings pointing at the canonical key
+    var extra = { almarasem:'marasem', marasem:'marasem', oradevelopers:'ora',
+      palmhillsdevelopments:'palmhills', hydeparkdevelopments:'hydepark',
+      misritaliaproperties:'misritalia', tatweermisr:'tatweer', mountainview:'mountainview' };
+    for(var k in extra){ if(extra.hasOwnProperty(k) && DEV_ALIAS[k]===undefined) DEV_ALIAS[k]=extra[k]; }
+  })();
+  function devKeyFor(dev){
+    if(!dev) return '';
+    if(DEV_LOGOS[dev.key]) return dev.key;
+    var k = DEV_ALIAS[logoNorm(dev.key)]
+         || (dev.name && (DEV_ALIAS[logoNorm(dev.name.en)] || DEV_ALIAS[logoNorm(dev.name.ar)]));
+    return (k && DEV_LOGOS[k]) ? k : '';
+  }
+  function devLogoSrc(dev){ var k=devKeyFor(dev); return k ? (LOGO_BASE+DEV_LOGOS[k]) : ''; }
+  function projectLogoSrc(p){ return (p && PROJECT_LOGOS[p.slug]) ? (LOGO_BASE+'projects/'+PROJECT_LOGOS[p.slug]) : ''; }
+  function logoAlt(name){ return lang==='ar' ? ('شعار '+name) : (name+' logo'); }
+
+  // Branded monogram fallback (also used if a logo file ever fails to load).
+  function devMonogram(dev, px){
     var c=(dev&&dev.c1)?dev.c1:'#0d6e7d';
     return h('div',{class:'dev-logo', 'aria-hidden':'true',
       style:'width:'+px+'px;height:'+px+'px;border-radius:'+Math.round(px*0.26)+'px;font-size:'+Math.round(px*0.4)+'px;background:linear-gradient(150deg,'+c+','+shade(c,-0.5)+')'},
       initials(L(dev.name)));
+  }
+  // Developer identity badge — official logo when available, else the monogram.
+  // Fixed square box (width/height reserved → no layout shift), aspect preserved.
+  function devBadge(dev, px){
+    px=px||44;
+    var src=devLogoSrc(dev);
+    if(src){
+      var img=h('img',{class:'dev-logo dev-logo--img', src:src, alt:logoAlt(L(dev.name)),
+        loading:'lazy', decoding:'async', width:px, height:px,
+        style:'width:'+px+'px;height:'+px+'px;border-radius:'+Math.round(px*0.22)+'px'});
+      img.addEventListener('error', function(){ if(img.parentNode) img.parentNode.replaceChild(devMonogram(dev,px), img); });
+      return img;
+    }
+    return devMonogram(dev,px);
+  }
+  // Larger horizontal lockup for hero/detail contexts (natural aspect ratio).
+  function devLogoLockup(dev){
+    var src=devLogoSrc(dev);
+    if(!src) return devBadge(dev,72);
+    var img=h('img',{class:'dev-lockup', src:src, alt:logoAlt(L(dev.name)), decoding:'async',
+      width:220, height:88});
+    img.addEventListener('error', function(){ var b=devBadge(dev,72); if(img.parentNode) img.parentNode.replaceChild(b, img); });
+    return h('div',{class:'dev-lockup-wrap'}, img);
+  }
+  // Small horizontal logo (natural aspect ratio) for inline "logo + name" rows.
+  // Returns null when the developer has no logo, so callers fall back to text.
+  function devLogoInline(dev, hpx){
+    var src=devLogoSrc(dev); if(!src) return null;
+    hpx=hpx||22;
+    var img=h('img',{class:'dev-logo-inline', src:src, alt:logoAlt(L(dev.name)), loading:'lazy',
+      decoding:'async', style:'height:'+hpx+'px'});
+    img.addEventListener('error', function(){ if(img.parentNode) img.parentNode.removeChild(img); });
+    return img;
+  }
+  // White pill for the card-image corner — the logo if we have one, else the
+  // developer's name — so wide wordmarks stay legible (never a tiny square).
+  function devChip(dev){
+    var src=devLogoSrc(dev), inner;
+    if(src){ inner=h('img',{class:'dev-chip__img', src:src, alt:logoAlt(L(dev.name)), loading:'lazy', decoding:'async', style:'height:17px'}); }
+    else { inner=h('span',{class:'dev-chip__txt'}, L(dev.name)); }
+    var chip=h('div',{class:'dev-chip'}, inner);
+    if(src) inner.addEventListener('error', function(){ chip.replaceChild(h('span',{class:'dev-chip__txt'}, L(dev.name)), inner); });
+    return chip;
   }
   function waLink(text){ return CONFIG.whatsapp ? ('https://wa.me/'+CONFIG.whatsapp+(text?('?text='+encodeURIComponent(text)):'')) : ''; }
   function typeMeta(t){ return TYPE_META[t] || {ar:t, icon:'ty_apartment'}; }
@@ -1728,7 +1846,7 @@
       logo?h('img',{src:logo,alt:'The Village'}):h('strong',null,'The Village'),
       h('div',{style:'text-align:end;font-size:.78rem;color:#555'}, t('fs_title'), h('div',null, t('fs_generated')+': '+new Date().toLocaleDateString(lang==='ar'?'ar-EG':'en-GB')))));
     var page1=h('div',{class:'ps-page'});
-    page1.appendChild(h('div',{class:'ps-devrow'}, devBadge(dev,46),
+    page1.appendChild(h('div',{class:'ps-devrow'}, (devLogoInline(dev,40) || devBadge(dev,46)),
       h('div',null, h('div',{class:'ps-title',style:'margin:0'}, unitName+' · '+pnm),
         h('div',{style:'color:#555;font-size:.9rem'}, L(dev.name)+' · '+L(area.name)))));
     page1.appendChild(h('div',{class:'ps-media'}, projectArt(p)));
@@ -2242,7 +2360,7 @@
     var card = h('article',{class:'card'});
     var media = h('div',{class:'card__media'}, projectArt(p),
       h('div',{class:'tags'}, h('span',{class:'chip'}, statusLabel(p.status))));
-    var mark = devBadge(dev,34); mark.classList.add('card__devmark'); media.appendChild(mark);
+    media.appendChild(devChip(dev));
     media.appendChild(saveBtn(p.slug));
     var link = h('a',{href:U(buildPath('project',{slug:p.slug})), 'aria-label':(lang==='ar'?p.name_ar:p.name)});
     link.appendChild(media); card.appendChild(link);
@@ -2319,7 +2437,7 @@
     var uc=unitCanon(u), tl=typeLabelC(uc);
     var media=h('div',{class:'card__media'}, projectArt(p),
       h('div',{class:'tags'}, h('span',{class:'chip'}, typeIconC(uc,'chip-ico'), tl)));
-    var mark=devBadge(dev,34); mark.classList.add('card__devmark'); media.appendChild(mark);
+    media.appendChild(devChip(dev));
     media.appendChild(saveBtn(p.slug));
     var link=h('a',{href:href,'aria-label':tl+' — '+(lang==='ar'?p.name_ar:p.name)}); link.appendChild(media); card.appendChild(link);
     card.appendChild(h('div',{class:'card__body'},
@@ -2387,8 +2505,10 @@
   }
   function devCard(d){
     var ps = projByDev(d.key);
+    var lg = devLogoInline(d,34);
+    var mark = lg ? h('div',{class:'dev-card__logo'}, lg) : devBadge(d,52);
     return h('a',{class:'dev-card', href:U(buildPath('developer',{slug:d.key}))},
-      devBadge(d,52),
+      mark,
       h('div',{class:'meta'},
         h('h3',null, L(d.name)),
         h('p',null, L(d.tagline)),
@@ -3198,11 +3318,21 @@
         h('button',{class:'btn btn--ghost btn--sm', type:'button', onclick:function(){ printFactsheet(p); }}, ic('doc'), t('print_sheet'))),
       h('div',{class:'notice notice--warn', style:'margin-top:16px'}, ic('info'), h('div',null, t('illustrative'))));
 
+    var plogoSrc = projectLogoSrc(p);
+    var plogo = null;
+    if(plogoSrc){
+      var plimg = h('img',{class:'proj-logo', src:plogoSrc, alt:logoAlt(nm), decoding:'async', loading:'eager', width:200, height:64});
+      plimg.addEventListener('error', function(){ if(plimg.parentNode) plimg.parentNode.removeChild(plimg); });
+      plogo = h('div',{class:'proj-logo-wrap'}, plimg);
+    }
     wrap.appendChild(h('div',{class:'detail-hero'},
       h('div',null,
         media,
-        h('h1',{style:'font-size:clamp(1.7rem,4vw,2.6rem);margin-top:20px'}, nm),
-        h('div',{class:'card__dev', style:'margin-top:6px'}, h('a',{href:U(buildPath('developer',{slug:dev.key}))}, L(dev.name)), ' · ', h('a',{href:U(buildPath('area',{slug:area.key}))}, L(area.name))),
+        plogo,
+        h('h1',{style:'font-size:clamp(1.7rem,4vw,2.6rem);margin-top:'+(plogo?'12px':'20px')}, nm),
+        h('div',{class:'card__dev card__dev--logo', style:'margin-top:8px'},
+          devLogoInline(dev,26),
+          h('span',null, h('a',{href:U(buildPath('developer',{slug:dev.key}))}, L(dev.name)), ' · ', h('a',{href:U(buildPath('area',{slug:area.key}))}, L(area.name)))),
         h('div',{style:'display:flex;gap:8px;flex-wrap:wrap;margin-top:14px'}, (lang==='ar'?p.tags.ar:p.tags.en).map(function(x){return h('span',{class:'chip'},x);})),
         h('h2',{style:'font-size:1.3rem;margin-top:28px;margin-bottom:10px'}, t('overview')),
         h('p',{class:'muted', style:'max-width:60ch'}, L(p.blurb)),
@@ -3604,7 +3734,7 @@
       crumbNode([{label:t('nav_home'),path:buildPath('home')},{label:t('nav_developers'),path:buildPath('developers')},{label:L(d.name)}]),
       h('div',{class:'detail-hero'},
         h('div',null,
-          devBadge(d,64),
+          devLogoLockup(d),
           h('h1',{style:'font-size:clamp(1.8rem,4vw,2.6rem);margin-top:16px'}, L(d.name)),
           h('p',{class:'lead', style:'margin-top:10px'}, L(d.tagline)),
           h('p',{class:'muted', style:'margin-top:14px;max-width:60ch'}, L(d.desc)),

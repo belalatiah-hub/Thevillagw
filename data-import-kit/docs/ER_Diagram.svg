@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1420 1010" font-family="Segoe UI, Arial, sans-serif">
+<rect width="1420" height="1010" fill="#ffffff"/>
+<text x="40" y="42" font-size="26" font-weight="700" fill="#073D52">The Village Investment — Data Model (ER Diagram)</text>
+<text x="40" y="64" font-size="13" fill="#1B2B31">8 connected entities · one-to-many shown as 1 ──&#8734; · dashed = optional link · v1.0 2026-07-13</text>
+<path d="M 290 131 L 440 131 L 440 411 L 590 411" fill="none" stroke="#9db4bb" stroke-width="2"/>
+<text x="290" y="125" font-size="12" fill="#115F7D" text-anchor="middle">1</text>
+<text x="590" y="405" font-size="13" fill="#115F7D" text-anchor="middle">&#8734;</text>
+<circle cx="590" cy="411" r="3.5" fill="#115F7D"/>
+<path d="M 1110 131 L 1000 131 L 1000 411 L 890 411" fill="none" stroke="#9db4bb" stroke-width="2"/>
+<text x="1110" y="125" font-size="12" fill="#115F7D" text-anchor="middle">1</text>
+<text x="890" y="405" font-size="13" fill="#115F7D" text-anchor="middle">&#8734;</text>
+<circle cx="890" cy="411" r="3.5" fill="#115F7D"/>
+<path d="M 590 411 L 440 411 L 440 431 L 290 431" fill="none" stroke="#9db4bb" stroke-width="2"/>
+<text x="590" y="405" font-size="12" fill="#115F7D" text-anchor="middle">1</text>
+<text x="290" y="425" font-size="13" fill="#115F7D" text-anchor="middle">&#8734;</text>
+<circle cx="290" cy="431" r="3.5" fill="#115F7D"/>
+<path d="M 740 492 L 740 492 L 740 680 L 740 680" fill="none" stroke="#9db4bb" stroke-width="2"/>
+<text x="740" y="486" font-size="12" fill="#115F7D" text-anchor="middle">1</text>
+<text x="740" y="674" font-size="13" fill="#115F7D" text-anchor="middle">&#8734;</text>
+<circle cx="740" cy="680" r="3.5" fill="#115F7D"/>
+<path d="M 165 502 L 378 502 L 378 771 L 590 771" fill="none" stroke="#9db4bb" stroke-width="2" stroke-dasharray="6 5"/>
+<text x="165" y="496" font-size="12" fill="#115F7D" text-anchor="middle">1</text>
+<text x="590" y="765" font-size="13" fill="#115F7D" text-anchor="middle">&#8734;</text>
+<circle cx="590" cy="771" r="3.5" fill="#115F7D"/>
+<path d="M 890 411 L 1090 411 L 1090 660 L 1290 660" fill="none" stroke="#9db4bb" stroke-width="2"/>
+<text x="890" y="405" font-size="12" fill="#115F7D" text-anchor="middle">1</text>
+<text x="1290" y="654" font-size="13" fill="#115F7D" text-anchor="middle">&#8734;</text>
+<circle cx="1290" cy="660" r="3.5" fill="#115F7D"/>
+<path d="M 890 411 L 1000 411 L 1000 431 L 1110 431" fill="none" stroke="#9db4bb" stroke-width="2"/>
+<text x="890" y="405" font-size="12" fill="#115F7D" text-anchor="middle">1</text>
+<text x="1110" y="425" font-size="13" fill="#115F7D" text-anchor="middle">&#8734;</text>
+<circle cx="1110" cy="431" r="3.5" fill="#115F7D"/>
+<path d="M 1235 502 L 1062 502 L 1062 771 L 890 771" fill="none" stroke="#9db4bb" stroke-width="2" stroke-dasharray="6 5"/>
+<text x="1235" y="496" font-size="12" fill="#115F7D" text-anchor="middle">1</text>
+<text x="890" y="765" font-size="13" fill="#115F7D" text-anchor="middle">&#8734;</text>
+<circle cx="890" cy="771" r="3.5" fill="#115F7D"/>
+<path d="M 1110 131 L 1000 131 L 1000 151 L 890 151" fill="none" stroke="#9db4bb" stroke-width="2"/>
+<text x="1110" y="125" font-size="12" fill="#115F7D" text-anchor="middle">1</text>
+<text x="890" y="145" font-size="13" fill="#115F7D" text-anchor="middle">&#8734;</text>
+<circle cx="890" cy="151" r="3.5" fill="#115F7D"/>
+<path d="M 740 330 L 740 330 L 740 232 L 740 232" fill="none" stroke="#9db4bb" stroke-width="2"/>
+<text x="740" y="324" font-size="12" fill="#115F7D" text-anchor="middle">1</text>
+<text x="740" y="226" font-size="13" fill="#115F7D" text-anchor="middle">&#8734;</text>
+<circle cx="740" cy="232" r="3.5" fill="#115F7D"/>
+<rect x="40" y="70" width="250" height="122" rx="10" fill="#ffffff" stroke="#073D52" stroke-width="1.6"/>
+<path d="M 40 104 L 40 80 Q 40 70 50 70 L 280 70 Q 290 70 290 80 L 290 104 Z" fill="#073D52"/>
+<text x="54" y="92" font-size="14" font-weight="700" fill="#fff">areas</text>
+<text x="278" y="92" font-size="11" fill="#bfe0e8" text-anchor="end">المناطق</text>
+<rect x="41" y="106" width="248" height="20" fill="#F3EFE6" opacity="0.5"/>
+<text x="54" y="119" font-size="12" fill="#0E5A3C" font-weight="700">area_id</text>
+<text x="278" y="119" font-size="10" fill="#0E5A3C" text-anchor="end" font-weight="700">PK</text>
+<text x="54" y="139" font-size="12" fill="#1B2B31" font-weight="400">name_en</text>
+<rect x="41" y="146" width="248" height="20" fill="#F3EFE6" opacity="0.5"/>
+<text x="54" y="159" font-size="12" fill="#1B2B31" font-weight="400">name_ar</text>
+<text x="54" y="179" font-size="12" fill="#1B2B31" font-weight="400">slug</text>
+<rect x="1110" y="70" width="250" height="122" rx="10" fill="#ffffff" stroke="#073D52" stroke-width="1.6"/>
+<path d="M 1110 104 L 1110 80 Q 1110 70 1120 70 L 1350 70 Q 1360 70 1360 80 L 1360 104 Z" fill="#073D52"/>
+<text x="1124" y="92" font-size="14" font-weight="700" fill="#fff">developers</text>
+<text x="1348" y="92" font-size="11" fill="#bfe0e8" text-anchor="end">المطورون</text>
+<rect x="1111" y="106" width="248" height="20" fill="#F3EFE6" opacity="0.5"/>
+<text x="1124" y="119" font-size="12" fill="#0E5A3C" font-weight="700">developer_id</text>
+<text x="1348" y="119" font-size="10" fill="#0E5A3C" text-anchor="end" font-weight="700">PK</text>
+<text x="1124" y="139" font-size="12" fill="#1B2B31" font-weight="400">name_en</text>
+<rect x="1111" y="146" width="248" height="20" fill="#F3EFE6" opacity="0.5"/>
+<text x="1124" y="159" font-size="12" fill="#1B2B31" font-weight="400">name_ar</text>
+<text x="1124" y="179" font-size="12" fill="#1B2B31" font-weight="400">slug</text>
+<rect x="590" y="330" width="300" height="162" rx="10" fill="#ffffff" stroke="#073D52" stroke-width="1.6"/>
+<path d="M 590 364 L 590 340 Q 590 330 600 330 L 880 330 Q 890 330 890 340 L 890 364 Z" fill="#073D52"/>
+<text x="604" y="352" font-size="14" font-weight="700" fill="#fff">projects</text>
+<text x="878" y="352" font-size="11" fill="#bfe0e8" text-anchor="end">المشروعات</text>
+<rect x="591" y="366" width="298" height="20" fill="#F3EFE6" opacity="0.5"/>
+<text x="604" y="379" font-size="12" fill="#0E5A3C" font-weight="700">project_id</text>
+<text x="878" y="379" font-size="10" fill="#0E5A3C" text-anchor="end" font-weight="700">PK</text>
+<text x="604" y="399" font-size="12" fill="#0E5A3C" font-weight="700">developer_id</text>
+<text x="878" y="399" font-size="10" fill="#0E5A3C" text-anchor="end" font-weight="700">FK</text>
+<rect x="591" y="406" width="298" height="20" fill="#F3EFE6" opacity="0.5"/>
+<text x="604" y="419" font-size="12" fill="#0E5A3C" font-weight="700">area_id</text>
+<text x="878" y="419" font-size="10" fill="#0E5A3C" text-anchor="end" font-weight="700">FK</text>
+<text x="604" y="439" font-size="12" fill="#1B2B31" font-weight="400">name_en</text>
+<rect x="591" y="446" width="298" height="20" fill="#F3EFE6" opacity="0.5"/>
+<text x="604" y="459" font-size="12" fill="#1B2B31" font-weight="400">name_ar</text>
+<text x="604" y="479" font-size="12" fill="#1B2B31" font-weight="400">slug</text>
+<rect x="40" y="360" width="250" height="142" rx="10" fill="#ffffff" stroke="#073D52" stroke-width="1.6"/>
+<path d="M 40 394 L 40 370 Q 40 360 50 360 L 280 360 Q 290 360 290 370 L 290 394 Z" fill="#073D52"/>
+<text x="54" y="382" font-size="14" font-weight="700" fill="#fff">unit_types</text>
+<text x="278" y="382" font-size="11" fill="#bfe0e8" text-anchor="end">أنواع الوحدات</text>
+<rect x="41" y="396" width="248" height="20" fill="#F3EFE6" opacity="0.5"/>
+<text x="54" y="409" font-size="12" fill="#0E5A3C" font-weight="700">unit_type_id</text>
+<text x="278" y="409" font-size="10" fill="#0E5A3C" text-anchor="end" font-weight="700">PK</text>
+<text x="54" y="429" font-size="12" fill="#0E5A3C" font-weight="700">project_id</text>
+<text x="278" y="429" font-size="10" fill="#0E5A3C" text-anchor="end" font-weight="700">FK</text>
+<rect x="41" y="436" width="248" height="20" fill="#F3EFE6" opacity="0.5"/>
+<text x="54" y="449" font-size="12" fill="#1B2B31" font-weight="400">name_en</text>
+<text x="54" y="469" font-size="12" fill="#1B2B31" font-weight="400">name_ar</text>
+<rect x="41" y="476" width="248" height="20" fill="#F3EFE6" opacity="0.5"/>
+<text x="54" y="489" font-size="12" fill="#1B2B31" font-weight="400">category</text>
+<rect x="590" y="680" width="300" height="182" rx="10" fill="#ffffff" stroke="#073D52" stroke-width="1.6"/>
+<path d="M 590 714 L 590 690 Q 590 680 600 680 L 880 680 Q 890 680 890 690 L 890 714 Z" fill="#073D52"/>
+<text x="604" y="702" font-size="14" font-weight="700" fill="#fff">units</text>
+<text x="878" y="702" font-size="11" fill="#bfe0e8" text-anchor="end">الوحدات</text>
+<rect x="591" y="716" width="298" height="20" fill="#F3EFE6" opacity="0.5"/>
+<text x="604" y="729" font-size="12" fill="#0E5A3C" font-weight="700">unit_id</text>
+<text x="878" y="729" font-size="10" fill="#0E5A3C" text-anchor="end" font-weight="700">PK</text>
+<text x="604" y="749" font-size="12" fill="#0E5A3C" font-weight="700">project_id</text>
+<text x="878" y="749" font-size="10" fill="#0E5A3C" text-anchor="end" font-weight="700">FK</text>
+<rect x="591" y="756" width="298" height="20" fill="#F3EFE6" opacity="0.5"/>
+<text x="604" y="769" font-size="12" fill="#0E5A3C" font-weight="700">unit_type_id</text>
+<text x="878" y="769" font-size="10" fill="#0E5A3C" text-anchor="end" font-weight="700">FK</text>
+<text x="604" y="789" font-size="12" fill="#0E5A3C" font-weight="700">payment_plan_id</text>
+<text x="878" y="789" font-size="10" fill="#0E5A3C" text-anchor="end" font-weight="700">FK</text>
+<rect x="591" y="796" width="298" height="20" fill="#F3EFE6" opacity="0.5"/>
+<text x="604" y="809" font-size="12" fill="#1B2B31" font-weight="400">unit_code</text>
+<text x="604" y="829" font-size="12" fill="#1B2B31" font-weight="400">category</text>
+<rect x="591" y="836" width="298" height="20" fill="#F3EFE6" opacity="0.5"/>
+<text x="604" y="849" font-size="12" fill="#1B2B31" font-weight="400">built_up_area_sqm</text>
+<rect x="1110" y="660" width="250" height="142" rx="10" fill="#ffffff" stroke="#073D52" stroke-width="1.6"/>
+<path d="M 1110 694 L 1110 670 Q 1110 660 1120 660 L 1350 660 Q 1360 660 1360 670 L 1360 694 Z" fill="#073D52"/>
+<text x="1124" y="682" font-size="14" font-weight="700" fill="#fff">project_amenities</text>
+<text x="1348" y="682" font-size="11" fill="#bfe0e8" text-anchor="end">مرافق المشروع</text>
+<rect x="1111" y="696" width="248" height="20" fill="#F3EFE6" opacity="0.5"/>
+<text x="1124" y="709" font-size="12" fill="#0E5A3C" font-weight="700">project_amenity_id</text>
+<text x="1348" y="709" font-size="10" fill="#0E5A3C" text-anchor="end" font-weight="700">PK</text>
+<text x="1124" y="729" font-size="12" fill="#0E5A3C" font-weight="700">project_id</text>
+<text x="1348" y="729" font-size="10" fill="#0E5A3C" text-anchor="end" font-weight="700">FK</text>
+<rect x="1111" y="736" width="248" height="20" fill="#F3EFE6" opacity="0.5"/>
+<text x="1124" y="749" font-size="12" fill="#1B2B31" font-weight="400">amenity</text>
+<text x="1124" y="769" font-size="12" fill="#1B2B31" font-weight="400">category</text>
+<rect x="1111" y="776" width="248" height="20" fill="#F3EFE6" opacity="0.5"/>
+<text x="1124" y="789" font-size="12" fill="#1B2B31" font-weight="400">notes_en</text>
+<rect x="1110" y="360" width="250" height="142" rx="10" fill="#ffffff" stroke="#073D52" stroke-width="1.6"/>
+<path d="M 1110 394 L 1110 370 Q 1110 360 1120 360 L 1350 360 Q 1360 360 1360 370 L 1360 394 Z" fill="#073D52"/>
+<text x="1124" y="382" font-size="14" font-weight="700" fill="#fff">payment_plans</text>
+<text x="1348" y="382" font-size="11" fill="#bfe0e8" text-anchor="end">أنظمة السداد</text>
+<rect x="1111" y="396" width="248" height="20" fill="#F3EFE6" opacity="0.5"/>
+<text x="1124" y="409" font-size="12" fill="#0E5A3C" font-weight="700">payment_plan_id</text>
+<text x="1348" y="409" font-size="10" fill="#0E5A3C" text-anchor="end" font-weight="700">PK</text>
+<text x="1124" y="429" font-size="12" fill="#0E5A3C" font-weight="700">project_id</text>
+<text x="1348" y="429" font-size="10" fill="#0E5A3C" text-anchor="end" font-weight="700">FK</text>
+<rect x="1111" y="436" width="248" height="20" fill="#F3EFE6" opacity="0.5"/>
+<text x="1124" y="449" font-size="12" fill="#1B2B31" font-weight="400">name_en</text>
+<text x="1124" y="469" font-size="12" fill="#1B2B31" font-weight="400">name_ar</text>
+<rect x="1111" y="476" width="248" height="20" fill="#F3EFE6" opacity="0.5"/>
+<text x="1124" y="489" font-size="12" fill="#1B2B31" font-weight="400">down_payment_pct</text>
+<rect x="590" y="70" width="300" height="162" rx="10" fill="#ffffff" stroke="#073D52" stroke-width="1.6"/>
+<path d="M 590 104 L 590 80 Q 590 70 600 70 L 880 70 Q 890 70 890 80 L 890 104 Z" fill="#073D52"/>
+<text x="604" y="92" font-size="14" font-weight="700" fill="#fff">developer_project_map</text>
+<rect x="591" y="106" width="298" height="20" fill="#F3EFE6" opacity="0.5"/>
+<text x="604" y="119" font-size="12" fill="#0E5A3C" font-weight="700">map_id</text>
+<text x="878" y="119" font-size="10" fill="#0E5A3C" text-anchor="end" font-weight="700">PK</text>
+<text x="604" y="139" font-size="12" fill="#0E5A3C" font-weight="700">developer_id</text>
+<text x="878" y="139" font-size="10" fill="#0E5A3C" text-anchor="end" font-weight="700">FK</text>
+<rect x="591" y="146" width="298" height="20" fill="#F3EFE6" opacity="0.5"/>
+<text x="604" y="159" font-size="12" fill="#0E5A3C" font-weight="700">project_id</text>
+<text x="878" y="159" font-size="10" fill="#0E5A3C" text-anchor="end" font-weight="700">FK</text>
+<text x="604" y="179" font-size="12" fill="#1B2B31" font-weight="400">role</text>
+<rect x="591" y="186" width="298" height="20" fill="#F3EFE6" opacity="0.5"/>
+<text x="604" y="199" font-size="12" fill="#1B2B31" font-weight="400">ownership_pct</text>
+<text x="604" y="219" font-size="12" fill="#1B2B31" font-weight="400">notes_en</text>
+<rect x="40" y="940" width="520" height="52" rx="8" fill="#F3EFE6" stroke="#9db4bb"/>
+<text x="54" y="960" font-size="12" fill="#1B2B31"><tspan font-weight="700">PK</tspan> primary key   ·   <tspan font-weight="700">FK</tspan> foreign key (link)   ·   1 ──&#8734; one-to-many</text>
+<text x="54" y="980" font-size="12" fill="#1B2B31">Solid line = required link   ·   Dashed line = optional link   ·   Fill sheets top-to-bottom (parents first)</text>
+</svg>

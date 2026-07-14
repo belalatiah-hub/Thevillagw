@@ -1,0 +1,1709 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "The Village Investment — data import schemas",
+  "version": "1.0",
+  "generated": "2026-07-13",
+  "entities": [
+    "areas",
+    "developers",
+    "projects",
+    "unit_types",
+    "units",
+    "project_amenities",
+    "payment_plans",
+    "developer_project_map"
+  ],
+  "definitions": {
+    "areas": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$id": "https://www.thevillageinvestment.com/schema/areas.json",
+      "title": "Areas",
+      "title_ar": "المناطق",
+      "description": "Geographic zones that projects belong to (e.g. New Cairo, North Coast).",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "area_id": {
+          "type": "string",
+          "title": "Area ID",
+          "title_ar": "معرّف المنطقة",
+          "description": "Unique code for the area. Leave blank to auto-generate on import.",
+          "examples": [
+            "AREA-0001"
+          ],
+          "x-primary-key": true
+        },
+        "name_en": {
+          "type": "string",
+          "title": "Name (EN)",
+          "title_ar": "الاسم (إنجليزي)",
+          "description": "Official English area name.",
+          "examples": [
+            "New Cairo"
+          ]
+        },
+        "name_ar": {
+          "type": "string",
+          "title": "Name (AR)",
+          "title_ar": "الاسم (عربي)",
+          "description": "Official Arabic area name.",
+          "examples": [
+            "القاهرة الجديدة"
+          ]
+        },
+        "slug": {
+          "type": "string",
+          "title": "URL Slug",
+          "title_ar": "الرابط المختصر",
+          "description": "Lowercase, dashes, unique. Used in the website address.",
+          "examples": [
+            "new-cairo"
+          ],
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+          "x-unique": true
+        },
+        "region": {
+          "type": "string",
+          "title": "Region",
+          "title_ar": "الإقليم",
+          "description": "Pick from the list.",
+          "examples": [
+            "New Cairo"
+          ],
+          "enum": [
+            "New Cairo",
+            "Fifth Settlement",
+            "New Administrative Capital",
+            "Mostakbal City",
+            "Sheikh Zayed",
+            "6th of October",
+            "New Zayed",
+            "New Heliopolis",
+            "North Coast (Sahel)",
+            "Ras El Hekma",
+            "New Alamein",
+            "Ain Sokhna",
+            "New Mansoura",
+            "Other"
+          ]
+        },
+        "governorate": {
+          "type": "string",
+          "title": "Governorate",
+          "title_ar": "المحافظة",
+          "description": "Pick from the list.",
+          "examples": [
+            "Cairo"
+          ],
+          "enum": [
+            "Cairo",
+            "Giza",
+            "Alexandria",
+            "Matrouh",
+            "Red Sea",
+            "Suez",
+            "Qalyubia",
+            "Dakahlia"
+          ]
+        },
+        "city_en": {
+          "type": "string",
+          "title": "City (EN)",
+          "title_ar": "المدينة (إنجليزي)",
+          "description": "City (EN)",
+          "examples": [
+            "New Cairo City"
+          ]
+        },
+        "city_ar": {
+          "type": "string",
+          "title": "City (AR)",
+          "title_ar": "المدينة (عربي)",
+          "description": "City (AR)",
+          "examples": [
+            "مدينة القاهرة الجديدة"
+          ]
+        },
+        "latitude": {
+          "type": "number",
+          "title": "Latitude",
+          "title_ar": "خط العرض",
+          "description": "Decimal degrees, optional.",
+          "examples": [
+            "30.0074"
+          ],
+          "minimum": -1000000000000.0
+        },
+        "longitude": {
+          "type": "number",
+          "title": "Longitude",
+          "title_ar": "خط الطول",
+          "description": "Decimal degrees, optional.",
+          "examples": [
+            "31.4913"
+          ],
+          "minimum": -1000000000000.0
+        },
+        "description_en": {
+          "type": "string",
+          "title": "Description (EN)",
+          "title_ar": "الوصف (إنجليزي)",
+          "description": "Description (EN)",
+          "examples": [
+            "Established east-Cairo hub of gated communities and services."
+          ]
+        },
+        "description_ar": {
+          "type": "string",
+          "title": "Description (AR)",
+          "title_ar": "الوصف (عربي)",
+          "description": "Description (AR)",
+          "examples": [
+            "منطقة راسخة شرق القاهرة تضم كمبوندات وخدمات متكاملة."
+          ]
+        },
+        "meta_title_en": {
+          "type": "string",
+          "title": "SEO Title (EN)",
+          "title_ar": "عنوان SEO (إنجليزي)",
+          "description": "Max ~60 chars.",
+          "examples": [
+            "Property for Sale in New Cairo"
+          ]
+        },
+        "meta_title_ar": {
+          "type": "string",
+          "title": "SEO Title (AR)",
+          "title_ar": "عنوان SEO (عربي)",
+          "description": "SEO Title (AR)",
+          "examples": [
+            "عقارات للبيع في القاهرة الجديدة"
+          ]
+        },
+        "meta_description_en": {
+          "type": "string",
+          "title": "SEO Description (EN)",
+          "title_ar": "وصف SEO (إنجليزي)",
+          "description": "Max ~160 chars.",
+          "examples": [
+            "Compare primary-sale projects across New Cairo."
+          ]
+        },
+        "meta_description_ar": {
+          "type": "string",
+          "title": "SEO Description (AR)",
+          "title_ar": "وصف SEO (عربي)",
+          "description": "SEO Description (AR)",
+          "examples": [
+            "قارن مشروعات البيع الأساسي في القاهرة الجديدة."
+          ]
+        },
+        "hero_image": {
+          "type": "string",
+          "title": "Hero Image",
+          "title_ar": "الصورة الرئيسية",
+          "description": "Path inside the assets folder. See naming rules.",
+          "examples": [
+            "areas/new-cairo/hero.jpg"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "title": "Status",
+          "title_ar": "الحالة",
+          "description": "Pick from the list.",
+          "examples": [
+            "active"
+          ],
+          "enum": [
+            "active",
+            "coming_soon",
+            "archived"
+          ]
+        },
+        "sort_order": {
+          "type": "integer",
+          "title": "Sort Order",
+          "title_ar": "ترتيب العرض",
+          "description": "Lower numbers show first.",
+          "examples": [
+            "10"
+          ],
+          "minimum": 0
+        }
+      },
+      "required": [
+        "area_id",
+        "name_en",
+        "name_ar",
+        "slug",
+        "region",
+        "governorate",
+        "status"
+      ]
+    },
+    "developers": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$id": "https://www.thevillageinvestment.com/schema/developers.json",
+      "title": "Developers",
+      "title_ar": "المطورون",
+      "description": "Real-estate development companies whose projects you market.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "developer_id": {
+          "type": "string",
+          "title": "Developer ID",
+          "title_ar": "معرّف المطور",
+          "description": "Unique code. Leave blank to auto-generate.",
+          "examples": [
+            "DEV-0001"
+          ],
+          "x-primary-key": true
+        },
+        "name_en": {
+          "type": "string",
+          "title": "Name (EN)",
+          "title_ar": "الاسم (إنجليزي)",
+          "description": "Name (EN)",
+          "examples": [
+            "Palm Hills Developments"
+          ]
+        },
+        "name_ar": {
+          "type": "string",
+          "title": "Name (AR)",
+          "title_ar": "الاسم (عربي)",
+          "description": "Name (AR)",
+          "examples": [
+            "بالم هيلز للتطوير"
+          ]
+        },
+        "slug": {
+          "type": "string",
+          "title": "URL Slug",
+          "title_ar": "الرابط المختصر",
+          "description": "Lowercase, dashes, unique.",
+          "examples": [
+            "palm-hills"
+          ],
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+          "x-unique": true
+        },
+        "founded_year": {
+          "type": "integer",
+          "title": "Founded Year",
+          "title_ar": "سنة التأسيس",
+          "description": "4-digit year.",
+          "examples": [
+            "1997"
+          ],
+          "minimum": 0
+        },
+        "headquarters_en": {
+          "type": "string",
+          "title": "HQ (EN)",
+          "title_ar": "المقر (إنجليزي)",
+          "description": "HQ (EN)",
+          "examples": [
+            "Sheikh Zayed, Giza"
+          ]
+        },
+        "headquarters_ar": {
+          "type": "string",
+          "title": "HQ (AR)",
+          "title_ar": "المقر (عربي)",
+          "description": "HQ (AR)",
+          "examples": [
+            "الشيخ زايد، الجيزة"
+          ]
+        },
+        "website": {
+          "type": "string",
+          "title": "Website",
+          "title_ar": "الموقع الإلكتروني",
+          "description": "Full URL incl. https://",
+          "examples": [
+            "https://example.com"
+          ],
+          "format": "uri"
+        },
+        "phone": {
+          "type": "string",
+          "title": "Phone",
+          "title_ar": "الهاتف",
+          "description": "International format.",
+          "examples": [
+            "+20 16000"
+          ]
+        },
+        "tagline_en": {
+          "type": "string",
+          "title": "Tagline (EN)",
+          "title_ar": "العبارة التعريفية (إنجليزي)",
+          "description": "Tagline (EN)",
+          "examples": [
+            "Building integrated communities."
+          ]
+        },
+        "tagline_ar": {
+          "type": "string",
+          "title": "Tagline (AR)",
+          "title_ar": "العبارة التعريفية (عربي)",
+          "description": "Tagline (AR)",
+          "examples": [
+            "نبني مجتمعات متكاملة."
+          ]
+        },
+        "description_en": {
+          "type": "string",
+          "title": "Description (EN)",
+          "title_ar": "الوصف (إنجليزي)",
+          "description": "Description (EN)",
+          "examples": [
+            "Listed developer with a large delivered portfolio across Egypt."
+          ]
+        },
+        "description_ar": {
+          "type": "string",
+          "title": "Description (AR)",
+          "title_ar": "الوصف (عربي)",
+          "description": "Description (AR)",
+          "examples": [
+            "مطور مقيّد بالبورصة بمحفظة كبيرة مسلّمة في مصر."
+          ]
+        },
+        "logo_image": {
+          "type": "string",
+          "title": "Logo Image",
+          "title_ar": "شعار المطور",
+          "description": "Use only logos you are licensed to display.",
+          "examples": [
+            "developers/palm-hills/logo.png"
+          ]
+        },
+        "cover_image": {
+          "type": "string",
+          "title": "Cover Image",
+          "title_ar": "صورة الغلاف",
+          "description": "Cover Image",
+          "examples": [
+            "developers/palm-hills/cover.jpg"
+          ]
+        },
+        "meta_title_en": {
+          "type": "string",
+          "title": "SEO Title (EN)",
+          "title_ar": "عنوان SEO (إنجليزي)",
+          "description": "SEO Title (EN)",
+          "examples": [
+            "Palm Hills Developments — Projects & Prices"
+          ]
+        },
+        "meta_title_ar": {
+          "type": "string",
+          "title": "SEO Title (AR)",
+          "title_ar": "عنوان SEO (عربي)",
+          "description": "SEO Title (AR)",
+          "examples": [
+            "بالم هيلز — المشروعات والأسعار"
+          ]
+        },
+        "meta_description_en": {
+          "type": "string",
+          "title": "SEO Description (EN)",
+          "title_ar": "وصف SEO (إنجليزي)",
+          "description": "SEO Description (EN)",
+          "examples": [
+            "Explore primary-sale projects by Palm Hills."
+          ]
+        },
+        "meta_description_ar": {
+          "type": "string",
+          "title": "SEO Description (AR)",
+          "title_ar": "وصف SEO (عربي)",
+          "description": "SEO Description (AR)",
+          "examples": [
+            "استكشف مشروعات البيع الأساسي لبالم هيلز."
+          ]
+        },
+        "status": {
+          "type": "string",
+          "title": "Status",
+          "title_ar": "الحالة",
+          "description": "Pick from the list.",
+          "examples": [
+            "active"
+          ],
+          "enum": [
+            "active",
+            "archived"
+          ]
+        },
+        "sort_order": {
+          "type": "integer",
+          "title": "Sort Order",
+          "title_ar": "ترتيب العرض",
+          "description": "Sort Order",
+          "examples": [
+            "10"
+          ],
+          "minimum": 0
+        }
+      },
+      "required": [
+        "developer_id",
+        "name_en",
+        "name_ar",
+        "slug",
+        "status"
+      ]
+    },
+    "projects": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$id": "https://www.thevillageinvestment.com/schema/projects.json",
+      "title": "Projects",
+      "title_ar": "المشروعات",
+      "description": "Master developments (compounds / resorts) offered for primary sale.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "project_id": {
+          "type": "string",
+          "title": "Project ID",
+          "title_ar": "معرّف المشروع",
+          "description": "Unique code. Leave blank to auto-generate.",
+          "examples": [
+            "PRJ-00001"
+          ],
+          "x-primary-key": true
+        },
+        "name_en": {
+          "type": "string",
+          "title": "Name (EN)",
+          "title_ar": "الاسم (إنجليزي)",
+          "description": "Name (EN)",
+          "examples": [
+            "Badya"
+          ]
+        },
+        "name_ar": {
+          "type": "string",
+          "title": "Name (AR)",
+          "title_ar": "الاسم (عربي)",
+          "description": "Name (AR)",
+          "examples": [
+            "بادية"
+          ]
+        },
+        "slug": {
+          "type": "string",
+          "title": "URL Slug",
+          "title_ar": "الرابط المختصر",
+          "description": "Lowercase, dashes, unique.",
+          "examples": [
+            "badya"
+          ],
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+          "x-unique": true
+        },
+        "developer_id": {
+          "type": "string",
+          "title": "Developer ID",
+          "title_ar": "معرّف المطور",
+          "description": "Must exist in Developers. Lead developer of the project.",
+          "examples": [
+            "DEV-0001"
+          ],
+          "x-foreign-key": "developers.developer_id"
+        },
+        "area_id": {
+          "type": "string",
+          "title": "Area ID",
+          "title_ar": "معرّف المنطقة",
+          "description": "Must exist in Areas.",
+          "examples": [
+            "AREA-0001"
+          ],
+          "x-foreign-key": "areas.area_id"
+        },
+        "project_type": {
+          "type": "string",
+          "title": "Project Type",
+          "title_ar": "نوع المشروع",
+          "description": "Pick from the list.",
+          "examples": [
+            "Residential"
+          ],
+          "enum": [
+            "Residential",
+            "Coastal",
+            "Mixed-Use",
+            "Administrative",
+            "Commercial",
+            "Medical"
+          ]
+        },
+        "project_status": {
+          "type": "string",
+          "title": "Status",
+          "title_ar": "حالة المشروع",
+          "description": "Pick from the list.",
+          "examples": [
+            "New Launch"
+          ],
+          "enum": [
+            "New Launch",
+            "Under Construction",
+            "Ready to Move",
+            "Fully Sold"
+          ]
+        },
+        "sale_type": {
+          "type": "string",
+          "title": "Sale Type",
+          "title_ar": "نوع البيع",
+          "description": "Primary only (from the developer).",
+          "examples": [
+            "Primary"
+          ],
+          "enum": [
+            "Primary"
+          ]
+        },
+        "launch_date": {
+          "type": "string",
+          "title": "Launch Date",
+          "title_ar": "تاريخ الطرح",
+          "description": "Format YYYY-MM-DD.",
+          "examples": [
+            "2026-03-01"
+          ],
+          "format": "date"
+        },
+        "delivery_date": {
+          "type": "string",
+          "title": "Delivery Date",
+          "title_ar": "تاريخ التسليم",
+          "description": "Expected handover, YYYY-MM-DD.",
+          "examples": [
+            "2030-06-30"
+          ],
+          "format": "date"
+        },
+        "min_price_egp": {
+          "type": "number",
+          "title": "Min Price (EGP)",
+          "title_ar": "أقل سعر (جنيه)",
+          "description": "Illustrative starting price; confirm with developer.",
+          "examples": [
+            "4500000"
+          ],
+          "minimum": 0
+        },
+        "max_price_egp": {
+          "type": "number",
+          "title": "Max Price (EGP)",
+          "title_ar": "أعلى سعر (جنيه)",
+          "description": "Max Price (EGP)",
+          "examples": [
+            "22000000"
+          ],
+          "minimum": 0
+        },
+        "currency": {
+          "type": "string",
+          "title": "Currency",
+          "title_ar": "العملة",
+          "description": "Default EGP.",
+          "examples": [
+            "EGP"
+          ],
+          "enum": [
+            "EGP",
+            "USD"
+          ]
+        },
+        "down_payment_pct": {
+          "type": "number",
+          "title": "Down Payment %",
+          "title_ar": "المقدم %",
+          "description": "Percent, e.g. 10 for 10%.",
+          "examples": [
+            "10"
+          ],
+          "minimum": 0
+        },
+        "installment_years": {
+          "type": "integer",
+          "title": "Installment Years",
+          "title_ar": "سنوات التقسيط",
+          "description": "Installment Years",
+          "examples": [
+            "8"
+          ],
+          "minimum": 0
+        },
+        "min_unit_area_sqm": {
+          "type": "number",
+          "title": "Min Unit Area (m²)",
+          "title_ar": "أقل مساحة وحدة (م²)",
+          "description": "Min Unit Area (m²)",
+          "examples": [
+            "120"
+          ],
+          "minimum": 0
+        },
+        "max_unit_area_sqm": {
+          "type": "number",
+          "title": "Max Unit Area (m²)",
+          "title_ar": "أكبر مساحة وحدة (م²)",
+          "description": "Max Unit Area (m²)",
+          "examples": [
+            "420"
+          ],
+          "minimum": 0
+        },
+        "finishing": {
+          "type": "string",
+          "title": "Finishing",
+          "title_ar": "التشطيب",
+          "description": "Pick from the list.",
+          "examples": [
+            "Fully Finished"
+          ],
+          "enum": [
+            "Fully Finished",
+            "Finished with ACs",
+            "Semi-Finished",
+            "Core & Shell",
+            "Not Finished"
+          ]
+        },
+        "latitude": {
+          "type": "number",
+          "title": "Latitude",
+          "title_ar": "خط العرض",
+          "description": "Latitude",
+          "examples": [
+            "29.9420"
+          ],
+          "minimum": -1000000000000.0
+        },
+        "longitude": {
+          "type": "number",
+          "title": "Longitude",
+          "title_ar": "خط الطول",
+          "description": "Longitude",
+          "examples": [
+            "30.8760"
+          ],
+          "minimum": -1000000000000.0
+        },
+        "description_en": {
+          "type": "string",
+          "title": "Description (EN)",
+          "title_ar": "الوصف (إنجليزي)",
+          "description": "Description (EN)",
+          "examples": [
+            "A large mixed-use community with schools, business hub and green spine."
+          ]
+        },
+        "description_ar": {
+          "type": "string",
+          "title": "Description (AR)",
+          "title_ar": "الوصف (عربي)",
+          "description": "Description (AR)",
+          "examples": [
+            "مجتمع متعدد الاستخدام كبير يضم مدارس ومركز أعمال ومحور أخضر."
+          ]
+        },
+        "highlights_en": {
+          "type": "string",
+          "title": "Highlights (EN)",
+          "title_ar": "أبرز المميزات (إنجليزي)",
+          "description": "Separate points with a pipe |.",
+          "examples": [
+            "Central park | International schools | Retail hub"
+          ]
+        },
+        "highlights_ar": {
+          "type": "string",
+          "title": "Highlights (AR)",
+          "title_ar": "أبرز المميزات (عربي)",
+          "description": "Highlights (AR)",
+          "examples": [
+            "حديقة مركزية | مدارس دولية | منطقة تجارية"
+          ]
+        },
+        "meta_title_en": {
+          "type": "string",
+          "title": "SEO Title (EN)",
+          "title_ar": "عنوان SEO (إنجليزي)",
+          "description": "SEO Title (EN)",
+          "examples": [
+            "Badya by Palm Hills — Prices & Units"
+          ]
+        },
+        "meta_title_ar": {
+          "type": "string",
+          "title": "SEO Title (AR)",
+          "title_ar": "عنوان SEO (عربي)",
+          "description": "SEO Title (AR)",
+          "examples": [
+            "بادية بالم هيلز — الأسعار والوحدات"
+          ]
+        },
+        "meta_description_en": {
+          "type": "string",
+          "title": "SEO Description (EN)",
+          "title_ar": "وصف SEO (إنجليزي)",
+          "description": "SEO Description (EN)",
+          "examples": [
+            "Primary-sale apartments and villas in Badya. Payment plans available."
+          ]
+        },
+        "meta_description_ar": {
+          "type": "string",
+          "title": "SEO Description (AR)",
+          "title_ar": "وصف SEO (عربي)",
+          "description": "SEO Description (AR)",
+          "examples": [
+            "شقق وفيلات بيع أساسي في بادية. أنظمة سداد متاحة."
+          ]
+        },
+        "hero_image": {
+          "type": "string",
+          "title": "Hero Image",
+          "title_ar": "الصورة الرئيسية",
+          "description": "Hero Image",
+          "examples": [
+            "projects/badya/hero.jpg"
+          ]
+        },
+        "gallery_images": {
+          "type": "string",
+          "title": "Gallery Images",
+          "title_ar": "صور المعرض",
+          "description": "Multiple paths separated by a pipe |.",
+          "examples": [
+            "projects/badya/g1.jpg | projects/badya/g2.jpg"
+          ]
+        },
+        "master_plan_image": {
+          "type": "string",
+          "title": "Master Plan Image",
+          "title_ar": "صورة المخطط العام",
+          "description": "Master Plan Image",
+          "examples": [
+            "projects/badya/master-plan.jpg"
+          ]
+        },
+        "brochure_pdf": {
+          "type": "string",
+          "title": "Brochure PDF",
+          "title_ar": "الكتيّب (PDF)",
+          "description": "Brochure PDF",
+          "examples": [
+            "projects/badya/brochure.pdf"
+          ]
+        },
+        "is_featured": {
+          "type": "string",
+          "title": "Featured?",
+          "title_ar": "مميز؟",
+          "description": "Show on featured rails.",
+          "examples": [
+            "No"
+          ],
+          "enum": [
+            "Yes",
+            "No"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "title": "Row Status",
+          "title_ar": "حالة الصف",
+          "description": "active / archived.",
+          "examples": [
+            "active"
+          ],
+          "enum": [
+            "active",
+            "coming_soon",
+            "archived"
+          ]
+        },
+        "sort_order": {
+          "type": "integer",
+          "title": "Sort Order",
+          "title_ar": "ترتيب العرض",
+          "description": "Sort Order",
+          "examples": [
+            "10"
+          ],
+          "minimum": 0
+        }
+      },
+      "required": [
+        "project_id",
+        "name_en",
+        "name_ar",
+        "slug",
+        "developer_id",
+        "area_id",
+        "project_type",
+        "project_status",
+        "sale_type",
+        "currency",
+        "status"
+      ]
+    },
+    "unit_types": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$id": "https://www.thevillageinvestment.com/schema/unit_types.json",
+      "title": "Unit Types",
+      "title_ar": "أنواع الوحدات",
+      "description": "Repeatable unit models/typologies within a project (e.g. 'Type A – 3BR').",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "unit_type_id": {
+          "type": "string",
+          "title": "Unit Type ID",
+          "title_ar": "معرّف النوع",
+          "description": "Unique code. Leave blank to auto-generate.",
+          "examples": [
+            "UTYP-0001"
+          ],
+          "x-primary-key": true
+        },
+        "project_id": {
+          "type": "string",
+          "title": "Project ID",
+          "title_ar": "معرّف المشروع",
+          "description": "Must exist in Projects.",
+          "examples": [
+            "PRJ-00001"
+          ],
+          "x-foreign-key": "projects.project_id"
+        },
+        "name_en": {
+          "type": "string",
+          "title": "Name (EN)",
+          "title_ar": "الاسم (إنجليزي)",
+          "description": "Name (EN)",
+          "examples": [
+            "Type A — 3BR Apartment"
+          ]
+        },
+        "name_ar": {
+          "type": "string",
+          "title": "Name (AR)",
+          "title_ar": "الاسم (عربي)",
+          "description": "Name (AR)",
+          "examples": [
+            "نوع A — شقة 3 غرف"
+          ]
+        },
+        "category": {
+          "type": "string",
+          "title": "Category",
+          "title_ar": "الفئة",
+          "description": "Pick from the list.",
+          "examples": [
+            "Apartment"
+          ],
+          "enum": [
+            "Apartment",
+            "Duplex",
+            "Penthouse",
+            "Studio",
+            "Townhouse",
+            "Twinhouse",
+            "Standalone Villa",
+            "Chalet",
+            "Cabin",
+            "Serviced Apartment",
+            "Office",
+            "Clinic",
+            "Retail Store",
+            "Pharmacy"
+          ]
+        },
+        "bedrooms": {
+          "type": "integer",
+          "title": "Bedrooms",
+          "title_ar": "غرف النوم",
+          "description": "Use 0 for a studio.",
+          "examples": [
+            "3"
+          ],
+          "minimum": 0
+        },
+        "bathrooms": {
+          "type": "integer",
+          "title": "Bathrooms",
+          "title_ar": "الحمامات",
+          "description": "Bathrooms",
+          "examples": [
+            "3"
+          ],
+          "minimum": 0
+        },
+        "min_area_sqm": {
+          "type": "number",
+          "title": "Min Area (m²)",
+          "title_ar": "أقل مساحة (م²)",
+          "description": "Min Area (m²)",
+          "examples": [
+            "165"
+          ],
+          "minimum": 0
+        },
+        "max_area_sqm": {
+          "type": "number",
+          "title": "Max Area (m²)",
+          "title_ar": "أكبر مساحة (م²)",
+          "description": "Max Area (m²)",
+          "examples": [
+            "185"
+          ],
+          "minimum": 0
+        },
+        "has_garden": {
+          "type": "string",
+          "title": "Has Garden?",
+          "title_ar": "لها حديقة؟",
+          "description": "Has Garden?",
+          "examples": [
+            "No"
+          ],
+          "enum": [
+            "Yes",
+            "No"
+          ]
+        },
+        "has_roof": {
+          "type": "string",
+          "title": "Has Roof?",
+          "title_ar": "لها روف؟",
+          "description": "Has Roof?",
+          "examples": [
+            "No"
+          ],
+          "enum": [
+            "Yes",
+            "No"
+          ]
+        },
+        "typical_price_from_egp": {
+          "type": "number",
+          "title": "Price From (EGP)",
+          "title_ar": "السعر يبدأ من (جنيه)",
+          "description": "Illustrative; confirm with developer.",
+          "examples": [
+            "6200000"
+          ],
+          "minimum": 0
+        },
+        "floor_plan_image": {
+          "type": "string",
+          "title": "Floor Plan Image",
+          "title_ar": "صورة المخطط",
+          "description": "Floor Plan Image",
+          "examples": [
+            "projects/badya/types/type-a.jpg"
+          ]
+        },
+        "description_en": {
+          "type": "string",
+          "title": "Description (EN)",
+          "title_ar": "الوصف (إنجليزي)",
+          "description": "Description (EN)",
+          "examples": [
+            "Corner three-bedroom layout with a wide living space."
+          ]
+        },
+        "description_ar": {
+          "type": "string",
+          "title": "Description (AR)",
+          "title_ar": "الوصف (عربي)",
+          "description": "Description (AR)",
+          "examples": [
+            "تصميم 3 غرف بزاوية ومساحة معيشة واسعة."
+          ]
+        },
+        "status": {
+          "type": "string",
+          "title": "Status",
+          "title_ar": "الحالة",
+          "description": "Status",
+          "examples": [
+            "active"
+          ],
+          "enum": [
+            "active",
+            "coming_soon",
+            "archived"
+          ]
+        },
+        "sort_order": {
+          "type": "integer",
+          "title": "Sort Order",
+          "title_ar": "ترتيب العرض",
+          "description": "Sort Order",
+          "examples": [
+            "10"
+          ],
+          "minimum": 0
+        }
+      },
+      "required": [
+        "unit_type_id",
+        "project_id",
+        "name_en",
+        "name_ar",
+        "category",
+        "bedrooms",
+        "min_area_sqm",
+        "status"
+      ]
+    },
+    "units": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$id": "https://www.thevillageinvestment.com/schema/units.json",
+      "title": "Units",
+      "title_ar": "الوحدات",
+      "description": "Individual sellable units (inventory rows) inside a project.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "unit_id": {
+          "type": "string",
+          "title": "Unit ID",
+          "title_ar": "معرّف الوحدة",
+          "description": "Unique code. Leave blank to auto-generate.",
+          "examples": [
+            "UNIT-000001"
+          ],
+          "x-primary-key": true
+        },
+        "project_id": {
+          "type": "string",
+          "title": "Project ID",
+          "title_ar": "معرّف المشروع",
+          "description": "Must exist in Projects.",
+          "examples": [
+            "PRJ-00001"
+          ],
+          "x-foreign-key": "projects.project_id"
+        },
+        "unit_type_id": {
+          "type": "string",
+          "title": "Unit Type ID",
+          "title_ar": "معرّف النوع",
+          "description": "Optional link to Unit Types.",
+          "examples": [
+            "UTYP-0001"
+          ],
+          "x-foreign-key": "unit_types.unit_type_id"
+        },
+        "unit_code": {
+          "type": "string",
+          "title": "Developer Unit Code",
+          "title_ar": "كود الوحدة لدى المطور",
+          "description": "The developer's own reference.",
+          "examples": [
+            "B-A-1203"
+          ]
+        },
+        "category": {
+          "type": "string",
+          "title": "Category",
+          "title_ar": "الفئة",
+          "description": "Pick from the list.",
+          "examples": [
+            "Apartment"
+          ],
+          "enum": [
+            "Apartment",
+            "Duplex",
+            "Penthouse",
+            "Studio",
+            "Townhouse",
+            "Twinhouse",
+            "Standalone Villa",
+            "Chalet",
+            "Cabin",
+            "Serviced Apartment",
+            "Office",
+            "Clinic",
+            "Retail Store",
+            "Pharmacy"
+          ]
+        },
+        "bedrooms": {
+          "type": "integer",
+          "title": "Bedrooms",
+          "title_ar": "غرف النوم",
+          "description": "0 = studio.",
+          "examples": [
+            "3"
+          ],
+          "minimum": 0
+        },
+        "bathrooms": {
+          "type": "integer",
+          "title": "Bathrooms",
+          "title_ar": "الحمامات",
+          "description": "Bathrooms",
+          "examples": [
+            "3"
+          ],
+          "minimum": 0
+        },
+        "built_up_area_sqm": {
+          "type": "number",
+          "title": "Built-up Area (m²)",
+          "title_ar": "المساحة البنائية (م²)",
+          "description": "Numbers only.",
+          "examples": [
+            "172"
+          ],
+          "minimum": 0
+        },
+        "garden_area_sqm": {
+          "type": "number",
+          "title": "Garden Area (m²)",
+          "title_ar": "مساحة الحديقة (م²)",
+          "description": "Garden Area (m²)",
+          "examples": [
+            "45"
+          ],
+          "minimum": 0
+        },
+        "roof_area_sqm": {
+          "type": "number",
+          "title": "Roof Area (m²)",
+          "title_ar": "مساحة الروف (م²)",
+          "description": "Roof Area (m²)",
+          "examples": [
+            "0"
+          ],
+          "minimum": 0
+        },
+        "floor_number": {
+          "type": "string",
+          "title": "Floor",
+          "title_ar": "الدور",
+          "description": "e.g. Ground, 1, 2, Penthouse.",
+          "examples": [
+            "2"
+          ]
+        },
+        "price_egp": {
+          "type": "number",
+          "title": "Price (EGP)",
+          "title_ar": "السعر (جنيه)",
+          "description": "Illustrative; confirm with developer.",
+          "examples": [
+            "6450000"
+          ],
+          "minimum": 0
+        },
+        "payment_plan_id": {
+          "type": "string",
+          "title": "Payment Plan ID",
+          "title_ar": "معرّف نظام السداد",
+          "description": "Optional link to Payment Plans.",
+          "examples": [
+            "PLAN-0001"
+          ],
+          "x-foreign-key": "payment_plans.payment_plan_id"
+        },
+        "availability": {
+          "type": "string",
+          "title": "Availability",
+          "title_ar": "الإتاحة",
+          "description": "Pick from the list.",
+          "examples": [
+            "Available"
+          ],
+          "enum": [
+            "Available",
+            "Reserved",
+            "Sold"
+          ]
+        },
+        "finishing": {
+          "type": "string",
+          "title": "Finishing",
+          "title_ar": "التشطيب",
+          "description": "Finishing",
+          "examples": [
+            "Fully Finished"
+          ],
+          "enum": [
+            "Fully Finished",
+            "Finished with ACs",
+            "Semi-Finished",
+            "Core & Shell",
+            "Not Finished"
+          ]
+        },
+        "orientation": {
+          "type": "string",
+          "title": "Orientation",
+          "title_ar": "الاتجاه",
+          "description": "Orientation",
+          "examples": [
+            "NE"
+          ],
+          "enum": [
+            "N",
+            "S",
+            "E",
+            "W",
+            "NE",
+            "NW",
+            "SE",
+            "SW"
+          ]
+        },
+        "view": {
+          "type": "string",
+          "title": "View",
+          "title_ar": "الإطلالة",
+          "description": "View",
+          "examples": [
+            "Garden"
+          ],
+          "enum": [
+            "Garden",
+            "Lagoon",
+            "Sea",
+            "Pool",
+            "Landscape",
+            "Golf",
+            "Street",
+            "Corner"
+          ]
+        },
+        "delivery_date": {
+          "type": "string",
+          "title": "Delivery Date",
+          "title_ar": "تاريخ التسليم",
+          "description": "Delivery Date",
+          "examples": [
+            "2030-06-30"
+          ],
+          "format": "date"
+        },
+        "floor_plan_image": {
+          "type": "string",
+          "title": "Floor Plan Image",
+          "title_ar": "صورة المخطط",
+          "description": "Floor Plan Image",
+          "examples": [
+            "projects/badya/units/unit-000001.jpg"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "title": "Row Status",
+          "title_ar": "حالة الصف",
+          "description": "Row Status",
+          "examples": [
+            "active"
+          ],
+          "enum": [
+            "active",
+            "coming_soon",
+            "archived"
+          ]
+        },
+        "sort_order": {
+          "type": "integer",
+          "title": "Sort Order",
+          "title_ar": "ترتيب العرض",
+          "description": "Sort Order",
+          "examples": [
+            "10"
+          ],
+          "minimum": 0
+        }
+      },
+      "required": [
+        "unit_id",
+        "project_id",
+        "category",
+        "bedrooms",
+        "built_up_area_sqm",
+        "availability",
+        "status"
+      ]
+    },
+    "project_amenities": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$id": "https://www.thevillageinvestment.com/schema/project_amenities.json",
+      "title": "Project Amenities",
+      "title_ar": "مرافق المشروع",
+      "description": "One row per amenity offered by a project (many amenities per project).",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "project_amenity_id": {
+          "type": "string",
+          "title": "Row ID",
+          "title_ar": "معرّف الصف",
+          "description": "Unique code. Leave blank to auto-generate.",
+          "examples": [
+            "PAMN-000001"
+          ],
+          "x-primary-key": true
+        },
+        "project_id": {
+          "type": "string",
+          "title": "Project ID",
+          "title_ar": "معرّف المشروع",
+          "description": "Must exist in Projects.",
+          "examples": [
+            "PRJ-00001"
+          ],
+          "x-foreign-key": "projects.project_id"
+        },
+        "amenity": {
+          "type": "string",
+          "title": "Amenity",
+          "title_ar": "المرفق",
+          "description": "Pick from the list.",
+          "examples": [
+            "Clubhouse"
+          ],
+          "enum": [
+            "Clubhouse",
+            "Swimming Pools",
+            "Gym & Spa",
+            "Kids Area",
+            "24/7 Security",
+            "Gated Community",
+            "Retail Strip",
+            "Mosque",
+            "Medical Center",
+            "International School",
+            "Sports Courts",
+            "Cycling & Jogging Tracks",
+            "Central Park",
+            "Crystal Lagoon",
+            "Business Hub",
+            "Smart Home",
+            "Beach Access",
+            "Marina"
+          ]
+        },
+        "category": {
+          "type": "string",
+          "title": "Category",
+          "title_ar": "التصنيف",
+          "description": "Pick from the list.",
+          "examples": [
+            "Leisure & Clubhouse"
+          ],
+          "enum": [
+            "Leisure & Clubhouse",
+            "Sports & Fitness",
+            "Security & Access",
+            "Retail & F&B",
+            "Health & Wellness",
+            "Education",
+            "Green & Open Spaces",
+            "Infrastructure & Smart"
+          ]
+        },
+        "notes_en": {
+          "type": "string",
+          "title": "Notes (EN)",
+          "title_ar": "ملاحظات (إنجليزي)",
+          "description": "Notes (EN)",
+          "examples": [
+            "Two clubhouses across the community."
+          ]
+        },
+        "notes_ar": {
+          "type": "string",
+          "title": "Notes (AR)",
+          "title_ar": "ملاحظات (عربي)",
+          "description": "Notes (AR)",
+          "examples": [
+            "ناديان داخل المجتمع."
+          ]
+        }
+      },
+      "required": [
+        "project_amenity_id",
+        "project_id",
+        "amenity",
+        "category"
+      ]
+    },
+    "payment_plans": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$id": "https://www.thevillageinvestment.com/schema/payment_plans.json",
+      "title": "Payment Plans",
+      "title_ar": "أنظمة السداد",
+      "description": "Named payment structures offered on a project (down payment + tenor).",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "payment_plan_id": {
+          "type": "string",
+          "title": "Payment Plan ID",
+          "title_ar": "معرّف النظام",
+          "description": "Unique code. Leave blank to auto-generate.",
+          "examples": [
+            "PLAN-0001"
+          ],
+          "x-primary-key": true
+        },
+        "project_id": {
+          "type": "string",
+          "title": "Project ID",
+          "title_ar": "معرّف المشروع",
+          "description": "Must exist in Projects.",
+          "examples": [
+            "PRJ-00001"
+          ],
+          "x-foreign-key": "projects.project_id"
+        },
+        "name_en": {
+          "type": "string",
+          "title": "Name (EN)",
+          "title_ar": "الاسم (إنجليزي)",
+          "description": "Name (EN)",
+          "examples": [
+            "10% Down · 8 Years"
+          ]
+        },
+        "name_ar": {
+          "type": "string",
+          "title": "Name (AR)",
+          "title_ar": "الاسم (عربي)",
+          "description": "Name (AR)",
+          "examples": [
+            "10% مقدم · 8 سنوات"
+          ]
+        },
+        "down_payment_pct": {
+          "type": "number",
+          "title": "Down Payment %",
+          "title_ar": "المقدم %",
+          "description": "Percent number only.",
+          "examples": [
+            "10"
+          ],
+          "minimum": 0
+        },
+        "installment_years": {
+          "type": "integer",
+          "title": "Installment Years",
+          "title_ar": "سنوات التقسيط",
+          "description": "Installment Years",
+          "examples": [
+            "8"
+          ],
+          "minimum": 0
+        },
+        "installment_frequency": {
+          "type": "string",
+          "title": "Frequency",
+          "title_ar": "دورية الأقساط",
+          "description": "Pick from the list.",
+          "examples": [
+            "Quarterly"
+          ],
+          "enum": [
+            "Monthly",
+            "Quarterly",
+            "Semi-Annual",
+            "Annual"
+          ]
+        },
+        "delivery_payment_pct": {
+          "type": "number",
+          "title": "Delivery Payment %",
+          "title_ar": "دفعة الاستلام %",
+          "description": "Delivery Payment %",
+          "examples": [
+            "5"
+          ],
+          "minimum": 0
+        },
+        "maintenance_pct": {
+          "type": "number",
+          "title": "Maintenance %",
+          "title_ar": "الصيانة %",
+          "description": "Maintenance %",
+          "examples": [
+            "8"
+          ],
+          "minimum": 0
+        },
+        "cash_discount_pct": {
+          "type": "number",
+          "title": "Cash Discount %",
+          "title_ar": "خصم الكاش %",
+          "description": "Cash Discount %",
+          "examples": [
+            "0"
+          ],
+          "minimum": 0
+        },
+        "valid_until": {
+          "type": "string",
+          "title": "Valid Until",
+          "title_ar": "ساري حتى",
+          "description": "YYYY-MM-DD, optional.",
+          "examples": [
+            "2026-12-31"
+          ],
+          "format": "date"
+        },
+        "notes_en": {
+          "type": "string",
+          "title": "Notes (EN)",
+          "title_ar": "ملاحظات (إنجليزي)",
+          "description": "Notes (EN)",
+          "examples": [
+            "Equal quarterly installments."
+          ]
+        },
+        "notes_ar": {
+          "type": "string",
+          "title": "Notes (AR)",
+          "title_ar": "ملاحظات (عربي)",
+          "description": "Notes (AR)",
+          "examples": [
+            "أقساط ربع سنوية متساوية."
+          ]
+        },
+        "status": {
+          "type": "string",
+          "title": "Status",
+          "title_ar": "الحالة",
+          "description": "Status",
+          "examples": [
+            "active"
+          ],
+          "enum": [
+            "active",
+            "coming_soon",
+            "archived"
+          ]
+        }
+      },
+      "required": [
+        "payment_plan_id",
+        "project_id",
+        "name_en",
+        "name_ar",
+        "down_payment_pct",
+        "installment_years",
+        "installment_frequency",
+        "status"
+      ]
+    },
+    "developer_project_map": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$id": "https://www.thevillageinvestment.com/schema/developer_project_map.json",
+      "title": "Developers & Projects Mapping",
+      "title_ar": "ربط المطورين بالمشروعات",
+      "description": "Bridge for projects co-developed by more than one company (joint ventures).",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "map_id": {
+          "type": "string",
+          "title": "Mapping ID",
+          "title_ar": "معرّف الربط",
+          "description": "Unique code. Leave blank to auto-generate.",
+          "examples": [
+            "DPM-00001"
+          ],
+          "x-primary-key": true
+        },
+        "developer_id": {
+          "type": "string",
+          "title": "Developer ID",
+          "title_ar": "معرّف المطور",
+          "description": "Must exist in Developers.",
+          "examples": [
+            "DEV-0001"
+          ],
+          "x-foreign-key": "developers.developer_id"
+        },
+        "project_id": {
+          "type": "string",
+          "title": "Project ID",
+          "title_ar": "معرّف المشروع",
+          "description": "Must exist in Projects.",
+          "examples": [
+            "PRJ-00001"
+          ],
+          "x-foreign-key": "projects.project_id"
+        },
+        "role": {
+          "type": "string",
+          "title": "Role",
+          "title_ar": "الدور",
+          "description": "Pick from the list.",
+          "examples": [
+            "Lead Developer"
+          ],
+          "enum": [
+            "Lead Developer",
+            "Co-Developer",
+            "Master Developer",
+            "Main Contractor",
+            "Consultant"
+          ]
+        },
+        "ownership_pct": {
+          "type": "number",
+          "title": "Ownership %",
+          "title_ar": "نسبة الملكية %",
+          "description": "Optional share of the JV.",
+          "examples": [
+            "60"
+          ],
+          "minimum": 0
+        },
+        "notes_en": {
+          "type": "string",
+          "title": "Notes (EN)",
+          "title_ar": "ملاحظات (إنجليزي)",
+          "description": "Notes (EN)",
+          "examples": [
+            "Joint venture with the master developer."
+          ]
+        },
+        "notes_ar": {
+          "type": "string",
+          "title": "Notes (AR)",
+          "title_ar": "ملاحظات (عربي)",
+          "description": "Notes (AR)",
+          "examples": [
+            "مشروع مشترك مع مطور المخطط العام."
+          ]
+        }
+      },
+      "required": [
+        "map_id",
+        "developer_id",
+        "project_id",
+        "role"
+      ]
+    }
+  }
+}

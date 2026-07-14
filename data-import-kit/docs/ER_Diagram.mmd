@@ -1,0 +1,169 @@
+erDiagram
+  %% The Village Investment — real-estate data model (8 entities)
+  AREAS {
+    id area_id PK
+    text name_en
+    text name_ar
+    slug slug
+    enum region
+    enum governorate
+    text city_en
+    text city_ar
+    decimal latitude
+    decimal longitude
+    longtext description_en
+    longtext description_ar
+    text meta_title_en
+    text meta_title_ar
+    longtext meta_description_en
+    longtext meta_description_ar
+    image hero_image
+    enum status
+    int sort_order
+  }
+  DEVELOPERS {
+    id developer_id PK
+    text name_en
+    text name_ar
+    slug slug
+    int founded_year
+    text headquarters_en
+    text headquarters_ar
+    url website
+    phone phone
+    text tagline_en
+    text tagline_ar
+    longtext description_en
+    longtext description_ar
+    image logo_image
+    image cover_image
+    text meta_title_en
+    text meta_title_ar
+    longtext meta_description_en
+    longtext meta_description_ar
+    enum status
+    int sort_order
+  }
+  PROJECTS {
+    id project_id PK
+    text name_en
+    text name_ar
+    slug slug
+    fk developer_id FK
+    fk area_id FK
+    enum project_type
+    enum project_status
+    enum sale_type
+    date launch_date
+    date delivery_date
+    decimal min_price_egp
+    decimal max_price_egp
+    enum currency
+    decimal down_payment_pct
+    int installment_years
+    decimal min_unit_area_sqm
+    decimal max_unit_area_sqm
+    enum finishing
+    decimal latitude
+    decimal longitude
+    longtext description_en
+    longtext description_ar
+    longtext highlights_en
+    longtext highlights_ar
+    text meta_title_en
+    text meta_title_ar
+    longtext meta_description_en
+    longtext meta_description_ar
+    image hero_image
+    images gallery_images
+    image master_plan_image
+    image brochure_pdf
+    enum is_featured
+    enum status
+    int sort_order
+  }
+  UNIT_TYPES {
+    id unit_type_id PK
+    fk project_id FK
+    text name_en
+    text name_ar
+    enum category
+    int bedrooms
+    int bathrooms
+    decimal min_area_sqm
+    decimal max_area_sqm
+    enum has_garden
+    enum has_roof
+    decimal typical_price_from_egp
+    image floor_plan_image
+    longtext description_en
+    longtext description_ar
+    enum status
+    int sort_order
+  }
+  UNITS {
+    id unit_id PK
+    fk project_id FK
+    fk unit_type_id FK
+    text unit_code
+    enum category
+    int bedrooms
+    int bathrooms
+    decimal built_up_area_sqm
+    decimal garden_area_sqm
+    decimal roof_area_sqm
+    text floor_number
+    decimal price_egp
+    fk payment_plan_id FK
+    enum availability
+    enum finishing
+    enum orientation
+    enum view
+    date delivery_date
+    image floor_plan_image
+    enum status
+    int sort_order
+  }
+  PROJECT_AMENITIES {
+    id project_amenity_id PK
+    fk project_id FK
+    enum amenity
+    enum category
+    text notes_en
+    text notes_ar
+  }
+  PAYMENT_PLANS {
+    id payment_plan_id PK
+    fk project_id FK
+    text name_en
+    text name_ar
+    decimal down_payment_pct
+    int installment_years
+    enum installment_frequency
+    decimal delivery_payment_pct
+    decimal maintenance_pct
+    decimal cash_discount_pct
+    date valid_until
+    text notes_en
+    text notes_ar
+    enum status
+  }
+  DEVELOPER_PROJECT_MAP {
+    id map_id PK
+    fk developer_id FK
+    fk project_id FK
+    enum role
+    decimal ownership_pct
+    text notes_en
+    text notes_ar
+  }
+  AREAS ||--o{ PROJECTS : "has"
+  DEVELOPERS ||--o{ PROJECTS : "has"
+  PROJECTS ||--o{ UNIT_TYPES : "has"
+  PROJECTS ||--o{ UNITS : "has"
+  UNIT_TYPES ||--o{ UNITS : "has"
+  PROJECTS ||--o{ PROJECT_AMENITIES : "has"
+  PROJECTS ||--o{ PAYMENT_PLANS : "has"
+  PAYMENT_PLANS ||--o{ UNITS : "has"
+  DEVELOPERS ||--o{ DEVELOPER_PROJECT_MAP : "has"
+  PROJECTS ||--o{ DEVELOPER_PROJECT_MAP : "has"

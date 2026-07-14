@@ -1,0 +1,3 @@
+﻿payment_plan_id,project_id,name_en,name_ar,down_payment_pct,installment_years,installment_frequency,delivery_payment_pct,maintenance_pct,cash_discount_pct,valid_until,notes_en,notes_ar,status
+PLAN-0001,PRJ-00001,10% Down · 8 Years,10% مقدم · 8 سنوات,10,8,Quarterly,5,8,0,2026-12-31,Equal quarterly installments.,أقساط ربع سنوية متساوية.,active
+PLAN-0002,PRJ-00002,5% Down · 9 Years,5% مقدم · 9 سنوات,5,9,Monthly,10,8,3,2026-12-31,Monthly installments with a cash discount option.,أقساط شهرية مع خيار خصم كاش.,active

@@ -1,0 +1,1065 @@
+{
+  "version": "1.0",
+  "generated": "2026-07-13",
+  "conventions": {
+    "header_row": 1,
+    "data_start_row": 2,
+    "encoding": "UTF-8",
+    "date_format": "YYYY-MM-DD",
+    "decimal_separator": ".",
+    "list_separator_multi_value": "|",
+    "boolean_values": [
+      "Yes",
+      "No"
+    ]
+  },
+  "import_order": [
+    "areas",
+    "developers",
+    "projects",
+    "unit_types",
+    "units",
+    "project_amenities",
+    "payment_plans",
+    "developer_project_map"
+  ],
+  "id_patterns": {
+    "areas": "^AREA-[0-9]{4}[0-9]*$",
+    "developers": "^DEV-[0-9]{4}[0-9]*$",
+    "projects": "^PRJ-[0-9]{5}[0-9]*$",
+    "unit_types": "^UTYP-[0-9]{4}[0-9]*$",
+    "units": "^UNIT-[0-9]{5}[0-9]*$",
+    "project_amenities": "^PAMN-[0-9]{5}[0-9]*$",
+    "payment_plans": "^PLAN-[0-9]{4}[0-9]*$",
+    "developer_project_map": "^DPM-[0-9]{5}[0-9]*$"
+  },
+  "entities": {
+    "areas": {
+      "id_prefix": "AREA",
+      "fields": [
+        {
+          "field": "area_id",
+          "required": true,
+          "type": "id",
+          "primary_key": true,
+          "auto_generate_if_blank": true
+        },
+        {
+          "field": "name_en",
+          "required": true,
+          "type": "text"
+        },
+        {
+          "field": "name_ar",
+          "required": true,
+          "type": "text"
+        },
+        {
+          "field": "slug",
+          "required": true,
+          "type": "slug",
+          "unique": true,
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        {
+          "field": "region",
+          "required": true,
+          "type": "enum",
+          "one_of": [
+            "New Cairo",
+            "Fifth Settlement",
+            "New Administrative Capital",
+            "Mostakbal City",
+            "Sheikh Zayed",
+            "6th of October",
+            "New Zayed",
+            "New Heliopolis",
+            "North Coast (Sahel)",
+            "Ras El Hekma",
+            "New Alamein",
+            "Ain Sokhna",
+            "New Mansoura",
+            "Other"
+          ]
+        },
+        {
+          "field": "governorate",
+          "required": true,
+          "type": "enum",
+          "one_of": [
+            "Cairo",
+            "Giza",
+            "Alexandria",
+            "Matrouh",
+            "Red Sea",
+            "Suez",
+            "Qalyubia",
+            "Dakahlia"
+          ]
+        },
+        {
+          "field": "city_en",
+          "required": false,
+          "type": "text"
+        },
+        {
+          "field": "city_ar",
+          "required": false,
+          "type": "text"
+        },
+        {
+          "field": "latitude",
+          "required": false,
+          "type": "decimal",
+          "min": -180
+        },
+        {
+          "field": "longitude",
+          "required": false,
+          "type": "decimal",
+          "min": -180
+        },
+        {
+          "field": "description_en",
+          "required": false,
+          "type": "longtext"
+        },
+        {
+          "field": "description_ar",
+          "required": false,
+          "type": "longtext"
+        },
+        {
+          "field": "meta_title_en",
+          "required": false,
+          "type": "text"
+        },
+        {
+          "field": "meta_title_ar",
+          "required": false,
+          "type": "text"
+        },
+        {
+          "field": "meta_description_en",
+          "required": false,
+          "type": "longtext"
+        },
+        {
+          "field": "meta_description_ar",
+          "required": false,
+          "type": "longtext"
+        },
+        {
+          "field": "hero_image",
+          "required": false,
+          "type": "image"
+        },
+        {
+          "field": "status",
+          "required": true,
+          "type": "enum",
+          "one_of": [
+            "active",
+            "coming_soon",
+            "archived"
+          ]
+        },
+        {
+          "field": "sort_order",
+          "required": false,
+          "type": "int",
+          "min": 0
+        }
+      ]
+    },
+    "developers": {
+      "id_prefix": "DEV",
+      "fields": [
+        {
+          "field": "developer_id",
+          "required": true,
+          "type": "id",
+          "primary_key": true,
+          "auto_generate_if_blank": true
+        },
+        {
+          "field": "name_en",
+          "required": true,
+          "type": "text"
+        },
+        {
+          "field": "name_ar",
+          "required": true,
+          "type": "text"
+        },
+        {
+          "field": "slug",
+          "required": true,
+          "type": "slug",
+          "unique": true,
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        {
+          "field": "founded_year",
+          "required": false,
+          "type": "int",
+          "min": 0
+        },
+        {
+          "field": "headquarters_en",
+          "required": false,
+          "type": "text"
+        },
+        {
+          "field": "headquarters_ar",
+          "required": false,
+          "type": "text"
+        },
+        {
+          "field": "website",
+          "required": false,
+          "type": "url"
+        },
+        {
+          "field": "phone",
+          "required": false,
+          "type": "phone"
+        },
+        {
+          "field": "tagline_en",
+          "required": false,
+          "type": "text"
+        },
+        {
+          "field": "tagline_ar",
+          "required": false,
+          "type": "text"
+        },
+        {
+          "field": "description_en",
+          "required": false,
+          "type": "longtext"
+        },
+        {
+          "field": "description_ar",
+          "required": false,
+          "type": "longtext"
+        },
+        {
+          "field": "logo_image",
+          "required": false,
+          "type": "image"
+        },
+        {
+          "field": "cover_image",
+          "required": false,
+          "type": "image"
+        },
+        {
+          "field": "meta_title_en",
+          "required": false,
+          "type": "text"
+        },
+        {
+          "field": "meta_title_ar",
+          "required": false,
+          "type": "text"
+        },
+        {
+          "field": "meta_description_en",
+          "required": false,
+          "type": "longtext"
+        },
+        {
+          "field": "meta_description_ar",
+          "required": false,
+          "type": "longtext"
+        },
+        {
+          "field": "status",
+          "required": true,
+          "type": "enum",
+          "one_of": [
+            "active",
+            "archived"
+          ]
+        },
+        {
+          "field": "sort_order",
+          "required": false,
+          "type": "int",
+          "min": 0
+        }
+      ]
+    },
+    "projects": {
+      "id_prefix": "PRJ",
+      "fields": [
+        {
+          "field": "project_id",
+          "required": true,
+          "type": "id",
+          "primary_key": true,
+          "auto_generate_if_blank": true
+        },
+        {
+          "field": "name_en",
+          "required": true,
+          "type": "text"
+        },
+        {
+          "field": "name_ar",
+          "required": true,
+          "type": "text"
+        },
+        {
+          "field": "slug",
+          "required": true,
+          "type": "slug",
+          "unique": true,
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        {
+          "field": "developer_id",
+          "required": true,
+          "type": "fk",
+          "foreign_key": "developers.developer_id"
+        },
+        {
+          "field": "area_id",
+          "required": true,
+          "type": "fk",
+          "foreign_key": "areas.area_id"
+        },
+        {
+          "field": "project_type",
+          "required": true,
+          "type": "enum",
+          "one_of": [
+            "Residential",
+            "Coastal",
+            "Mixed-Use",
+            "Administrative",
+            "Commercial",
+            "Medical"
+          ]
+        },
+        {
+          "field": "project_status",
+          "required": true,
+          "type": "enum",
+          "one_of": [
+            "New Launch",
+            "Under Construction",
+            "Ready to Move",
+            "Fully Sold"
+          ]
+        },
+        {
+          "field": "sale_type",
+          "required": true,
+          "type": "enum",
+          "one_of": [
+            "Primary"
+          ]
+        },
+        {
+          "field": "launch_date",
+          "required": false,
+          "type": "date",
+          "format": "YYYY-MM-DD"
+        },
+        {
+          "field": "delivery_date",
+          "required": false,
+          "type": "date",
+          "format": "YYYY-MM-DD"
+        },
+        {
+          "field": "min_price_egp",
+          "required": false,
+          "type": "decimal",
+          "min": 0
+        },
+        {
+          "field": "max_price_egp",
+          "required": false,
+          "type": "decimal",
+          "min": 0
+        },
+        {
+          "field": "currency",
+          "required": true,
+          "type": "enum",
+          "one_of": [
+            "EGP",
+            "USD"
+          ]
+        },
+        {
+          "field": "down_payment_pct",
+          "required": false,
+          "type": "decimal",
+          "min": 0
+        },
+        {
+          "field": "installment_years",
+          "required": false,
+          "type": "int",
+          "min": 0
+        },
+        {
+          "field": "min_unit_area_sqm",
+          "required": false,
+          "type": "decimal",
+          "min": 0
+        },
+        {
+          "field": "max_unit_area_sqm",
+          "required": false,
+          "type": "decimal",
+          "min": 0
+        },
+        {
+          "field": "finishing",
+          "required": false,
+          "type": "enum",
+          "one_of": [
+            "Fully Finished",
+            "Finished with ACs",
+            "Semi-Finished",
+            "Core & Shell",
+            "Not Finished"
+          ]
+        },
+        {
+          "field": "latitude",
+          "required": false,
+          "type": "decimal",
+          "min": -180
+        },
+        {
+          "field": "longitude",
+          "required": false,
+          "type": "decimal",
+          "min": -180
+        },
+        {
+          "field": "description_en",
+          "required": false,
+          "type": "longtext"
+        },
+        {
+          "field": "description_ar",
+          "required": false,
+          "type": "longtext"
+        },
+        {
+          "field": "highlights_en",
+          "required": false,
+          "type": "longtext"
+        },
+        {
+          "field": "highlights_ar",
+          "required": false,
+          "type": "longtext"
+        },
+        {
+          "field": "meta_title_en",
+          "required": false,
+          "type": "text"
+        },
+        {
+          "field": "meta_title_ar",
+          "required": false,
+          "type": "text"
+        },
+        {
+          "field": "meta_description_en",
+          "required": false,
+          "type": "longtext"
+        },
+        {
+          "field": "meta_description_ar",
+          "required": false,
+          "type": "longtext"
+        },
+        {
+          "field": "hero_image",
+          "required": false,
+          "type": "image"
+        },
+        {
+          "field": "gallery_images",
+          "required": false,
+          "type": "images",
+          "multi_value_separator": "|"
+        },
+        {
+          "field": "master_plan_image",
+          "required": false,
+          "type": "image"
+        },
+        {
+          "field": "brochure_pdf",
+          "required": false,
+          "type": "image"
+        },
+        {
+          "field": "is_featured",
+          "required": false,
+          "type": "enum",
+          "one_of": [
+            "Yes",
+            "No"
+          ]
+        },
+        {
+          "field": "status",
+          "required": true,
+          "type": "enum",
+          "one_of": [
+            "active",
+            "coming_soon",
+            "archived"
+          ]
+        },
+        {
+          "field": "sort_order",
+          "required": false,
+          "type": "int",
+          "min": 0
+        }
+      ]
+    },
+    "unit_types": {
+      "id_prefix": "UTYP",
+      "fields": [
+        {
+          "field": "unit_type_id",
+          "required": true,
+          "type": "id",
+          "primary_key": true,
+          "auto_generate_if_blank": true
+        },
+        {
+          "field": "project_id",
+          "required": true,
+          "type": "fk",
+          "foreign_key": "projects.project_id"
+        },
+        {
+          "field": "name_en",
+          "required": true,
+          "type": "text"
+        },
+        {
+          "field": "name_ar",
+          "required": true,
+          "type": "text"
+        },
+        {
+          "field": "category",
+          "required": true,
+          "type": "enum",
+          "one_of": [
+            "Apartment",
+            "Duplex",
+            "Penthouse",
+            "Studio",
+            "Townhouse",
+            "Twinhouse",
+            "Standalone Villa",
+            "Chalet",
+            "Cabin",
+            "Serviced Apartment",
+            "Office",
+            "Clinic",
+            "Retail Store",
+            "Pharmacy"
+          ]
+        },
+        {
+          "field": "bedrooms",
+          "required": true,
+          "type": "int",
+          "min": 0
+        },
+        {
+          "field": "bathrooms",
+          "required": false,
+          "type": "int",
+          "min": 0
+        },
+        {
+          "field": "min_area_sqm",
+          "required": true,
+          "type": "decimal",
+          "min": 0
+        },
+        {
+          "field": "max_area_sqm",
+          "required": false,
+          "type": "decimal",
+          "min": 0
+        },
+        {
+          "field": "has_garden",
+          "required": false,
+          "type": "enum",
+          "one_of": [
+            "Yes",
+            "No"
+          ]
+        },
+        {
+          "field": "has_roof",
+          "required": false,
+          "type": "enum",
+          "one_of": [
+            "Yes",
+            "No"
+          ]
+        },
+        {
+          "field": "typical_price_from_egp",
+          "required": false,
+          "type": "decimal",
+          "min": 0
+        },
+        {
+          "field": "floor_plan_image",
+          "required": false,
+          "type": "image"
+        },
+        {
+          "field": "description_en",
+          "required": false,
+          "type": "longtext"
+        },
+        {
+          "field": "description_ar",
+          "required": false,
+          "type": "longtext"
+        },
+        {
+          "field": "status",
+          "required": true,
+          "type": "enum",
+          "one_of": [
+            "active",
+            "coming_soon",
+            "archived"
+          ]
+        },
+        {
+          "field": "sort_order",
+          "required": false,
+          "type": "int",
+          "min": 0
+        }
+      ]
+    },
+    "units": {
+      "id_prefix": "UNIT",
+      "fields": [
+        {
+          "field": "unit_id",
+          "required": true,
+          "type": "id",
+          "primary_key": true,
+          "auto_generate_if_blank": true
+        },
+        {
+          "field": "project_id",
+          "required": true,
+          "type": "fk",
+          "foreign_key": "projects.project_id"
+        },
+        {
+          "field": "unit_type_id",
+          "required": false,
+          "type": "fk",
+          "foreign_key": "unit_types.unit_type_id"
+        },
+        {
+          "field": "unit_code",
+          "required": false,
+          "type": "text"
+        },
+        {
+          "field": "category",
+          "required": true,
+          "type": "enum",
+          "one_of": [
+            "Apartment",
+            "Duplex",
+            "Penthouse",
+            "Studio",
+            "Townhouse",
+            "Twinhouse",
+            "Standalone Villa",
+            "Chalet",
+            "Cabin",
+            "Serviced Apartment",
+            "Office",
+            "Clinic",
+            "Retail Store",
+            "Pharmacy"
+          ]
+        },
+        {
+          "field": "bedrooms",
+          "required": true,
+          "type": "int",
+          "min": 0
+        },
+        {
+          "field": "bathrooms",
+          "required": false,
+          "type": "int",
+          "min": 0
+        },
+        {
+          "field": "built_up_area_sqm",
+          "required": true,
+          "type": "decimal",
+          "min": 0
+        },
+        {
+          "field": "garden_area_sqm",
+          "required": false,
+          "type": "decimal",
+          "min": 0
+        },
+        {
+          "field": "roof_area_sqm",
+          "required": false,
+          "type": "decimal",
+          "min": 0
+        },
+        {
+          "field": "floor_number",
+          "required": false,
+          "type": "text"
+        },
+        {
+          "field": "price_egp",
+          "required": false,
+          "type": "decimal",
+          "min": 0
+        },
+        {
+          "field": "payment_plan_id",
+          "required": false,
+          "type": "fk",
+          "foreign_key": "payment_plans.payment_plan_id"
+        },
+        {
+          "field": "availability",
+          "required": true,
+          "type": "enum",
+          "one_of": [
+            "Available",
+            "Reserved",
+            "Sold"
+          ]
+        },
+        {
+          "field": "finishing",
+          "required": false,
+          "type": "enum",
+          "one_of": [
+            "Fully Finished",
+            "Finished with ACs",
+            "Semi-Finished",
+            "Core & Shell",
+            "Not Finished"
+          ]
+        },
+        {
+          "field": "orientation",
+          "required": false,
+          "type": "enum",
+          "one_of": [
+            "N",
+            "S",
+            "E",
+            "W",
+            "NE",
+            "NW",
+            "SE",
+            "SW"
+          ]
+        },
+        {
+          "field": "view",
+          "required": false,
+          "type": "enum",
+          "one_of": [
+            "Garden",
+            "Lagoon",
+            "Sea",
+            "Pool",
+            "Landscape",
+            "Golf",
+            "Street",
+            "Corner"
+          ]
+        },
+        {
+          "field": "delivery_date",
+          "required": false,
+          "type": "date",
+          "format": "YYYY-MM-DD"
+        },
+        {
+          "field": "floor_plan_image",
+          "required": false,
+          "type": "image"
+        },
+        {
+          "field": "status",
+          "required": true,
+          "type": "enum",
+          "one_of": [
+            "active",
+            "coming_soon",
+            "archived"
+          ]
+        },
+        {
+          "field": "sort_order",
+          "required": false,
+          "type": "int",
+          "min": 0
+        }
+      ]
+    },
+    "project_amenities": {
+      "id_prefix": "PAMN",
+      "fields": [
+        {
+          "field": "project_amenity_id",
+          "required": true,
+          "type": "id",
+          "primary_key": true,
+          "auto_generate_if_blank": true
+        },
+        {
+          "field": "project_id",
+          "required": true,
+          "type": "fk",
+          "foreign_key": "projects.project_id"
+        },
+        {
+          "field": "amenity",
+          "required": true,
+          "type": "enum",
+          "one_of": [
+            "Clubhouse",
+            "Swimming Pools",
+            "Gym & Spa",
+            "Kids Area",
+            "24/7 Security",
+            "Gated Community",
+            "Retail Strip",
+            "Mosque",
+            "Medical Center",
+            "International School",
+            "Sports Courts",
+            "Cycling & Jogging Tracks",
+            "Central Park",
+            "Crystal Lagoon",
+            "Business Hub",
+            "Smart Home",
+            "Beach Access",
+            "Marina"
+          ]
+        },
+        {
+          "field": "category",
+          "required": true,
+          "type": "enum",
+          "one_of": [
+            "Leisure & Clubhouse",
+            "Sports & Fitness",
+            "Security & Access",
+            "Retail & F&B",
+            "Health & Wellness",
+            "Education",
+            "Green & Open Spaces",
+            "Infrastructure & Smart"
+          ]
+        },
+        {
+          "field": "notes_en",
+          "required": false,
+          "type": "text"
+        },
+        {
+          "field": "notes_ar",
+          "required": false,
+          "type": "text"
+        }
+      ]
+    },
+    "payment_plans": {
+      "id_prefix": "PLAN",
+      "fields": [
+        {
+          "field": "payment_plan_id",
+          "required": true,
+          "type": "id",
+          "primary_key": true,
+          "auto_generate_if_blank": true
+        },
+        {
+          "field": "project_id",
+          "required": true,
+          "type": "fk",
+          "foreign_key": "projects.project_id"
+        },
+        {
+          "field": "name_en",
+          "required": true,
+          "type": "text"
+        },
+        {
+          "field": "name_ar",
+          "required": true,
+          "type": "text"
+        },
+        {
+          "field": "down_payment_pct",
+          "required": true,
+          "type": "decimal",
+          "min": 0
+        },
+        {
+          "field": "installment_years",
+          "required": true,
+          "type": "int",
+          "min": 0
+        },
+        {
+          "field": "installment_frequency",
+          "required": true,
+          "type": "enum",
+          "one_of": [
+            "Monthly",
+            "Quarterly",
+            "Semi-Annual",
+            "Annual"
+          ]
+        },
+        {
+          "field": "delivery_payment_pct",
+          "required": false,
+          "type": "decimal",
+          "min": 0
+        },
+        {
+          "field": "maintenance_pct",
+          "required": false,
+          "type": "decimal",
+          "min": 0
+        },
+        {
+          "field": "cash_discount_pct",
+          "required": false,
+          "type": "decimal",
+          "min": 0
+        },
+        {
+          "field": "valid_until",
+          "required": false,
+          "type": "date",
+          "format": "YYYY-MM-DD"
+        },
+        {
+          "field": "notes_en",
+          "required": false,
+          "type": "text"
+        },
+        {
+          "field": "notes_ar",
+          "required": false,
+          "type": "text"
+        },
+        {
+          "field": "status",
+          "required": true,
+          "type": "enum",
+          "one_of": [
+            "active",
+            "coming_soon",
+            "archived"
+          ]
+        }
+      ]
+    },
+    "developer_project_map": {
+      "id_prefix": "DPM",
+      "fields": [
+        {
+          "field": "map_id",
+          "required": true,
+          "type": "id",
+          "primary_key": true,
+          "auto_generate_if_blank": true
+        },
+        {
+          "field": "developer_id",
+          "required": true,
+          "type": "fk",
+          "foreign_key": "developers.developer_id"
+        },
+        {
+          "field": "project_id",
+          "required": true,
+          "type": "fk",
+          "foreign_key": "projects.project_id"
+        },
+        {
+          "field": "role",
+          "required": true,
+          "type": "enum",
+          "one_of": [
+            "Lead Developer",
+            "Co-Developer",
+            "Master Developer",
+            "Main Contractor",
+            "Consultant"
+          ]
+        },
+        {
+          "field": "ownership_pct",
+          "required": false,
+          "type": "decimal",
+          "min": 0
+        },
+        {
+          "field": "notes_en",
+          "required": false,
+          "type": "text"
+        },
+        {
+          "field": "notes_ar",
+          "required": false,
+          "type": "text"
+        }
+      ]
+    }
+  },
+  "error_codes": {
+    "REQUIRED_MISSING": "A required field is empty.",
+    "FK_NOT_FOUND": "A linked ID does not exist in its parent sheet.",
+    "NOT_IN_LIST": "Value is not one of the allowed drop-down options.",
+    "DUPLICATE_ID": "This ID/slug already exists.",
+    "SLUG_FORMAT": "Slug must be lowercase-with-dashes.",
+    "BAD_NUMBER": "Field must be a number (no commas/text).",
+    "BAD_DATE": "Date must be YYYY-MM-DD.",
+    "OUT_OF_RANGE": "Number is below the allowed minimum."
+  }
+}
