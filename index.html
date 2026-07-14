@@ -295,8 +295,11 @@
   .card__save{position:absolute;inset-block-start:10px;inset-inline-end:10px;width:38px;height:38px;border-radius:var(--r-pill);
     background:rgba(255,255,255,.9);display:grid;place-items:center;border:none;transition:var(--t)}
   .card__save:hover{background:#fff;transform:scale(1.08)}
-  .card__save svg{width:19px;height:19px;color:var(--teal-700)}
-  .card__save[aria-pressed="true"] svg{fill:var(--teal-700)}
+  .card__save svg{width:19px;height:19px;color:var(--teal-700);transition:transform .18s cubic-bezier(.2,.8,.2,1.4)}
+  /* Saved = solid red heart (clear "favourited" signal). */
+  .card__save[aria-pressed="true"] svg{fill:#e5484d;color:#e5484d}
+  .card__save[aria-pressed="true"]{background:#fff}
+  .card__save[aria-pressed="true"] svg{transform:scale(1.12)}
   .card__body{padding:18px;display:flex;flex-direction:column;gap:8px;flex:1}
   .card__body h3{font-size:1.16rem}
   .card__dev{font-size:.82rem;color:var(--ink-3);font-weight:600}
@@ -340,13 +343,13 @@
   .card__dev--logo{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
   /* Inline horizontal logo (natural aspect ratio, consistent height). */
   .dev-logo-inline{width:auto;max-width:150px;object-fit:contain;display:block;flex:none}
-  /* Card-image corner chip — white pill sized to the logo/name (no tiny square). */
-  .dev-chip{position:absolute;inset-block-start:10px;inset-inline-start:10px;z-index:2;
-    display:inline-flex;align-items:center;height:30px;max-width:60%;padding:0 10px;
-    background:rgba(255,255,255,.96);border-radius:9px;box-shadow:0 2px 8px rgba(5,36,48,.28)}
-  .dev-chip__img{height:17px;width:auto;max-width:118px;object-fit:contain;display:block}
-  .dev-chip__txt{font-size:.72rem;font-weight:800;letter-spacing:.03em;text-transform:uppercase;
-    color:var(--teal-800);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  /* Card-image corner — round white developer avatar (matches the rail). */
+  .card__devcircle{position:absolute;inset-block-start:10px;inset-inline-start:10px;z-index:2;
+    width:50px;height:50px;border-radius:50%;background:#fff;border:1px solid var(--line-2);
+    box-shadow:0 2px 9px rgba(5,36,48,.30);display:grid;place-items:center;overflow:hidden}
+  .card__devcircle .dev-logo--img{width:100%!important;height:100%!important;border-radius:50%;
+    padding:20%;box-shadow:none;background:#fff}
+  .card__devcircle .dev-logo{width:100%!important;height:100%!important;border-radius:50%!important}
   /* Developer-card white logo plate (consistent with the hero lockup). */
   .dev-card__logo{width:104px;height:60px;flex:none;display:grid;place-items:center;padding:9px;
     background:#fff;border:1px solid var(--line-2);border-radius:12px}
@@ -974,7 +977,7 @@
   var ICON = {
     pin:'M12 21s-7-5.7-7-11a7 7 0 0 1 14 0c0 5.3-7 11-7 11z M12 10a2 2 0 1 0 0-.01',
     build:'M4 21V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v16 M14 21V9h4a2 2 0 0 1 2 2v10 M7 7h2M7 11h2M7 15h2',
-    heart:'M12 20s-7-4.4-9.3-8.3C1 8.5 2.5 5 6 5c2 0 3.2 1.2 4 2.3C10.8 6.2 12 5 14 5c3.5 0 5 3.5 3.3 6.7C19 15.6 12 20 12 20z',
+    heart:'M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z',
     scale:'M12 3v18 M7 8l-4 7a3 3 0 0 0 8 0zM17 8l-4 7a3 3 0 0 0 8 0z M4 7h16',
     check:'M20 6L9 17l-5-5',
     search:'M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14z M21 21l-4.3-4.3',
@@ -1741,15 +1744,20 @@
     img.addEventListener('error', function(){ if(img.parentNode) img.parentNode.removeChild(img); });
     return img;
   }
-  // White pill for the card-image corner — the logo if we have one, else the
-  // developer's name — so wide wordmarks stay legible (never a tiny square).
+  // Round white developer avatar for the card-image corner — the logo inside a
+  // circle, matching the home "browse by developer" rail. Falls back to the
+  // branded monogram so it is never empty.
   function devChip(dev){
-    var src=devLogoSrc(dev), inner;
-    if(src){ inner=h('img',{class:'dev-chip__img', src:src, alt:logoAlt(L(dev.name)), loading:'lazy', decoding:'async', style:'height:17px'}); }
-    else { inner=h('span',{class:'dev-chip__txt'}, L(dev.name)); }
-    var chip=h('div',{class:'dev-chip'}, inner);
-    if(src) inner.addEventListener('error', function(){ chip.replaceChild(h('span',{class:'dev-chip__txt'}, L(dev.name)), inner); });
-    return chip;
+    var src=devLogoSrc(dev);
+    var av=h('div',{class:'card__devcircle', title:L(dev.name)});
+    if(src){
+      var img=h('img',{class:'dev-logo dev-logo--img', src:src, alt:logoAlt(L(dev.name)), loading:'lazy', decoding:'async', width:50, height:50});
+      img.addEventListener('error', function(){ if(img.parentNode) img.parentNode.replaceChild(devMonogram(dev,50), img); });
+      av.appendChild(img);
+    } else {
+      av.appendChild(devMonogram(dev,50));
+    }
+    return av;
   }
   function waLink(text){ return CONFIG.whatsapp ? ('https://wa.me/'+CONFIG.whatsapp+(text?('?text='+encodeURIComponent(text)):'')) : ''; }
   function typeMeta(t){ return TYPE_META[t] || {ar:t, icon:'ty_apartment'}; }
