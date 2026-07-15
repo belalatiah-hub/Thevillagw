@@ -239,7 +239,23 @@
   .hero::after{content:"";position:absolute;inset:0;z-index:-1;opacity:.5;
     background-image:linear-gradient(rgba(243,239,230,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(243,239,230,.04) 1px,transparent 1px);
     background-size:44px 44px;mask-image:radial-gradient(90% 70% at 70% 0,#000,transparent 75%)}
-  .hero .wrap{position:relative;padding-block:clamp(48px,8vw,104px)}
+  .hero .wrap{position:relative;z-index:2;padding-block:clamp(48px,8vw,104px)}
+  /* Animated render backdrop (Ramla masterplan renders) behind the hero. */
+  .hero__bg{position:absolute;inset:0;z-index:0;overflow:hidden}
+  .hero__slide{position:absolute;inset:0;background-size:cover;background-position:center;
+    opacity:0;will-change:opacity,transform;transform:scale(1.02);
+    animation:heroSlides 30s linear infinite}
+  @keyframes heroSlides{
+    0%{opacity:0;transform:scale(1.02)} 5%{opacity:1} 20%{opacity:1;transform:scale(1.09)}
+    25%{opacity:0;transform:scale(1.10)} 100%{opacity:0;transform:scale(1.02)}
+  }
+  .hero__scrim{position:absolute;inset:0;
+    background:linear-gradient(100deg,rgba(6,44,58,.94) 0%,rgba(7,61,82,.84) 42%,rgba(9,74,97,.60) 100%),
+      linear-gradient(0deg,rgba(6,44,58,.55),transparent 42%)}
+  @media (prefers-reduced-motion:reduce){
+    .hero__slide{animation:none;opacity:0;transform:none}
+    .hero__slide:first-child{opacity:1}
+  }
   .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(28px,5vw,60px);align-items:center}
   @media(max-width:880px){.hero-grid{grid-template-columns:1fr;gap:32px}}
   .hero h1{color:var(--bone);font-size:clamp(2.2rem,5.6vw,3.9rem);font-weight:600;letter-spacing:-.02em}
@@ -1637,7 +1653,8 @@
     'caesar-north-coast':'/project-media/caesar/villa.webp',
     'june-north-coast':'/project-media/june/standalone-june.webp',
     'the-estates-zayed':'/project-media/the-estates/villa.webp',
-    'ramla-ras-el-hekma':RAMLA_IMG+'2026-06-03-205649-6a206ae197165.jpg'
+    // Ramla cover is now self-hosted (real Marakez masterplan render)
+    'ramla-ras-el-hekma':'/project-media/hero/promenade.webp'
   };
   var UNIT_IMAGES = {
     'V-A305':'/project-media/villette/apartment.webp', 'V-TH22':'/project-media/villette/town-house.webp', 'VL-IV3':'/project-media/villette/i-villa.webp',
@@ -2646,6 +2663,16 @@
     var node = h('div',null);
     // hero
     var hero = h('section',{class:'hero'});
+    // animated render backdrop behind the search/filter (slow crossfade + subtle
+    // zoom; a teal scrim keeps the text and finder fully legible; static for
+    // reduced-motion users).
+    var heroBg = h('div',{class:'hero__bg','aria-hidden':'true'});
+    ['beach','sunset','lagoon','town','clubhouse'].forEach(function(nm,i){
+      heroBg.appendChild(h('div',{class:'hero__slide',
+        style:"background-image:url('/project-media/hero/"+nm+".webp');animation-delay:"+(i*6)+"s"}));
+    });
+    heroBg.appendChild(h('div',{class:'hero__scrim'}));
+    hero.appendChild(heroBg);
     var typeOpts = [opt('',t('all_types'))].concat(TYPES.map(function(tp){ return opt(tp.c, typeLabelC(tp.c)); }));
     var budgetOpts = [opt('',t('any'))].concat(BUDGET_PRESETS.map(function(pr,i){
       return opt(i, pr[0]==null?(lang==='ar'?'أقل من ٣ م':'Under 3M'):pr[1]==null?(lang==='ar'?'٢٠ م+':'20M+'):moneyM(pr[0])+'–'+moneyM(pr[1])); }));
@@ -3269,46 +3296,69 @@
     tb.appendChild(field('select','tb-dev', t('filter_dev'), devOptions(f.dev)));
     if(preset!=='launch') tb.appendChild(field('select','tb-status', t('filter_status'), statusOptions(f.status)));
     tb.appendChild(field('select','tb-sort', t('filter_sort'), [opt('feat',t('sort_feat'),f.sort==='feat'),opt('price_a',t('sort_price_a'),f.sort==='price_a'),opt('price_d',t('sort_price_d'),f.sort==='price_d')]));
-    function apply(focusId){
-      var q=[];
-      var a=$('#tb-area',tb).value, d=$('#tb-dev',tb).value, s=$('#tb-sort',tb).value;
-      var st=$('#tb-status',tb)?$('#tb-status',tb).value:'';
-      if(a) q.push('area='+a); if(d) q.push('dev='+d);
-      if(st && preset!=='launch') q.push('status='+st);
-      if(s && s!=='feat') q.push('sort='+s);
-      if(f.saved) q.push('saved=1');
-      navigateTo(buildPath(preset==='launch'?'launches':'projects')+(q.length?('?'+q.join('&')):''), true);
-      if(focusId){ var el=document.getElementById(focusId); if(el){ el.focus(); } } // keep keyboard focus on the changed control
+    // Results update IN PLACE on filter change — the toolbar/selects are never
+    // rebuilt, so a mobile <select> can't reopen after a pick (fixes the
+    // "have to choose twice" bug). The URL still syncs for deep links.
+    var resultsHost = h('div');
+    function readFilters(){
+      return { a:$('#tb-area',tb).value, d:$('#tb-dev',tb).value,
+               s:$('#tb-sort',tb).value, st:$('#tb-status',tb)?$('#tb-status',tb).value:'' };
     }
-    tb.addEventListener('change', function(e){ apply(e.target && e.target.id); });
-    tb.addEventListener('submit', function(e){ e.preventDefault(); apply(); });
-    wrap.appendChild(tb);
-
-    // result bar + active filters
-    var rb = h('div',{class:'result-bar'});
-    rb.appendChild(h('span',{class:'count','aria-live':'polite'}, num(list.length)+' '+t('results')));
-    var af = h('div',{class:'active-filters'});
-    function ftag(label, keyToClear){
-      var tag = h('span',{class:'filter-tag'}, label,
-        h('button',{type:'button','aria-label':t('cta_reset')+': '+label},'×'));
-      tag.querySelector('button').addEventListener('click', function(){
-        var q = new URLSearchParams(CUR.search); q.delete(keyToClear);
-        navigateTo(buildPath(preset==='launch'?'launches':'projects')+(q.toString()?('?'+q.toString()):''), true);
+    function computeList(cq){
+      var status = preset==='launch' ? 'launch' : cq.st;
+      var lst = PROJECTS.filter(function(p){
+        if(cq.a && p.area!==cq.a) return false;
+        if(cq.d && p.dev!==cq.d) return false;
+        if(status && p.status!==status) return false;
+        if(f.max && p.price>Number(f.max)) return false;
+        if(f.saved && !saved.has(p.slug)) return false;
+        return true;
       });
+      if(cq.s==='price_a') lst=lst.slice().sort(function(a,b){return a.price-b.price;});
+      if(cq.s==='price_d') lst=lst.slice().sort(function(a,b){return b.price-a.price;});
+      return lst;
+    }
+    function resetAll(){
+      $('#tb-area',tb).value=''; $('#tb-dev',tb).value='';
+      if($('#tb-status',tb)) $('#tb-status',tb).value=''; $('#tb-sort',tb).value='feat';
+      renderResults();
+    }
+    function ftag(label, selId){
+      var tag=h('span',{class:'filter-tag'}, label, h('button',{type:'button','aria-label':t('cta_reset')+': '+label},'×'));
+      tag.querySelector('button').addEventListener('click', function(){ var el=$('#'+selId,tb); if(el) el.value=''; renderResults(); });
       return tag;
     }
-    if(f.area) af.appendChild(ftag(L(areaByKey(f.area).name),'area'));
-    if(f.dev) af.appendChild(ftag(L(devByKey(f.dev).name),'dev'));
-    if(f.status && preset!=='launch') af.appendChild(ftag(statusLabel(f.status),'status'));
-    if(f.saved) af.appendChild(ftag(t('saved'),'saved'));
-    rb.appendChild(af);
-    if(f.area||f.dev||(f.status&&preset!=='launch')||f.saved||f.sort!=='feat')
-      rb.appendChild(h('button',{class:'btn btn--ghost btn--sm', type:'button', onclick:function(){ navigateTo(buildPath(preset==='launch'?'launches':'projects')); }}, t('cta_reset')));
-    wrap.appendChild(rb);
-
-    if(list.length) wrap.appendChild(h('div',{class:'grid grid--3'}, list.map(projectCard)));
-    else wrap.appendChild(h('div',{class:'state'}, ic('search'), h('h3',null,t('noresults')), h('p',null,t('noresults_p')),
-      h('button',{class:'btn btn--primary mt-16', type:'button', onclick:function(){ navigateTo(buildPath('projects')); }}, t('cta_reset'))));
+    function renderResults(){
+      var cq=readFilters(), lst=computeList(cq);
+      clear(resultsHost);
+      var rb=h('div',{class:'result-bar'});
+      rb.appendChild(h('span',{class:'count','aria-live':'polite'}, num(lst.length)+' '+t('results')));
+      var af=h('div',{class:'active-filters'});
+      if(cq.a) af.appendChild(ftag(L(areaByKey(cq.a).name),'tb-area'));
+      if(cq.d) af.appendChild(ftag(L(devByKey(cq.d).name),'tb-dev'));
+      if(cq.st && preset!=='launch') af.appendChild(ftag(statusLabel(cq.st),'tb-status'));
+      if(f.saved) af.appendChild(h('span',{class:'filter-tag'}, t('saved')));
+      rb.appendChild(af);
+      if(cq.a||cq.d||(cq.st&&preset!=='launch')||f.saved||cq.s!=='feat')
+        rb.appendChild(h('button',{class:'btn btn--ghost btn--sm', type:'button', onclick:resetAll}, t('cta_reset')));
+      resultsHost.appendChild(rb);
+      if(lst.length) resultsHost.appendChild(h('div',{class:'grid grid--3'}, lst.map(projectCard)));
+      else resultsHost.appendChild(h('div',{class:'state'}, ic('search'), h('h3',null,t('noresults')), h('p',null,t('noresults_p')),
+        h('button',{class:'btn btn--primary mt-16', type:'button', onclick:resetAll}, t('cta_reset'))));
+      // sync the URL without a re-render (keeps deep-linking + the selects intact)
+      var q=[];
+      if(cq.a) q.push('area='+cq.a); if(cq.d) q.push('dev='+cq.d);
+      if(cq.st && preset!=='launch') q.push('status='+cq.st);
+      if(cq.s && cq.s!=='feat') q.push('sort='+cq.s);
+      if(f.saved) q.push('saved=1');
+      var qs=q.length?('?'+q.join('&')):''; CUR.search=qs;
+      try{ history.replaceState(history.state,'', U(buildPath(preset==='launch'?'launches':'projects'))+qs); }catch(e){}
+    }
+    tb.addEventListener('change', function(){ renderResults(); });
+    tb.addEventListener('submit', function(e){ e.preventDefault(); renderResults(); });
+    wrap.appendChild(tb);
+    wrap.appendChild(resultsHost);
+    renderResults();
     main.appendChild(wrap); node.appendChild(main);
 
     var items = list.map(function(p){ return {name:(lang==='ar'?p.name_ar:p.name), url:CONFIG.origin+buildPath('project',{slug:p.slug})}; });
