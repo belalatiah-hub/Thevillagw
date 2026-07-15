@@ -1619,24 +1619,48 @@
     sEl('circle',{cx:x-7,cy:y-13,r:'8',fill:'#20855f'}),
     sEl('circle',{cx:x+7,cy:y-13,r:'8',fill:'#20855f'})); }
 
-  /* Project COVER images (main thumbnail per project). Drop <slug>.jpg/webp into
-     /project-covers and add one line below (key = project slug). When a cover
-     exists it replaces the generated art on cards and the project hero; unit
-     gallery images are untouched. Empty = every project keeps its original art. */
+  /* Real project media (WebP renders under /project-media). PROJECT_COVERS is the
+     main cover per project (cards + hero); UNIT_IMAGES is the render per unit
+     (keyed by unit id). A missing entry falls back to the branded art, so nothing
+     is ever broken. To add more: drop the WebP in /project-media/<slug>/ and add
+     one line below. */
   var PROJECT_COVERS = {
-    // 'villette':'villette.webp', 'badya':'badya.jpg', ...
+    'villette':'/project-media/villette/i-villa.webp',
+    'sodic-east':'/project-media/sodic-east/apartment.webp',
+    'eastown':'/project-media/eastown/apartment.webp',
+    'allegria':'/project-media/allegria/standalone.webp',
+    'ogami-north-coast':'/project-media/ogami/apartment.webp',
+    'caesar-north-coast':'/project-media/caesar/villa.webp',
+    'june-north-coast':'/project-media/june/standalone-june.webp',
+    'the-estates-zayed':'/project-media/the-estates/villa.webp'
   };
-  function projectCoverSrc(p){ return (p && PROJECT_COVERS[p.slug]) ? ('/project-covers/'+PROJECT_COVERS[p.slug]) : ''; }
-  // Card / hero media: the cover photo when supplied, else the branded art.
+  var UNIT_IMAGES = {
+    'V-A305':'/project-media/villette/apartment.webp', 'V-TH22':'/project-media/villette/town-house.webp', 'VL-IV3':'/project-media/villette/i-villa.webp',
+    'SE-T12':'/project-media/sodic-east/town-house.webp', 'SE-A44':'/project-media/sodic-east/apartment.webp',
+    'ET-D07':'/project-media/eastown/duplex.webp', 'ET-A12':'/project-media/eastown/apartment.webp',
+    'AL-V03':'/project-media/allegria/standalone.webp', 'AL-TW6':'/project-media/allegria/twin-house.webp', 'AL-TV2':'/project-media/allegria/town-house.webp',
+    'OG-WC1':'/project-media/ogami/chalet.webp', 'OG-TH1':'/project-media/ogami/town-house.webp', 'OG-TW1':'/project-media/ogami/twin-house.webp',
+    'CS-TH1':'/project-media/caesar/town-house.webp', 'CS-TW1':'/project-media/caesar/twin-house.webp', 'CS-SV1':'/project-media/caesar/standalone.webp',
+    'JN-CR1':'/project-media/june/standalone-june.webp', 'JN-OP1':'/project-media/june/standalone-254.webp',
+    'ES-AP1':'/project-media/the-estates/apartment.webp', 'ES-VL1':'/project-media/the-estates/villa.webp'
+  };
+  function projectCoverSrc(p){ return (p && PROJECT_COVERS[p.slug]) || ''; }
+  function unitImageSrc(u){ return (u && UNIT_IMAGES[u.id]) || ''; }
+  function coverImg(src, alt, fallbackFn){
+    var img=h('img',{class:'artsvg proj-cover', src:src, alt:alt, loading:'lazy', decoding:'async'});
+    img.addEventListener('error', function(){ if(img.parentNode) img.parentNode.replaceChild(fallbackFn(), img); });
+    return img;
+  }
+  // Project card / hero media: the cover photo when available, else branded art.
   function projectMedia(p){
     var src=projectCoverSrc(p);
-    if(src){
-      var img=h('img',{class:'artsvg proj-cover', src:src, alt:(lang==='ar'?p.name_ar:p.name),
-        loading:'lazy', decoding:'async'});
-      img.addEventListener('error', function(){ if(img.parentNode) img.parentNode.replaceChild(projectArt(p), img); });
-      return img;
-    }
-    return projectArt(p);
+    return src ? coverImg(src, (lang==='ar'?p.name_ar:p.name), function(){ return projectArt(p); }) : projectArt(p);
+  }
+  // Unit card / detail media: the unit's own render, else its project cover, else art.
+  function unitMedia(u){
+    var p=projBySlug(u.project);
+    var src=unitImageSrc(u) || projectCoverSrc(p);
+    return src ? coverImg(src, (lang==='ar'?p.name_ar:p.name)+' — '+u.type, function(){ return projectArt(p); }) : projectArt(p);
   }
   function projectArt(p){
     var cat=areaCat(p.area), dev=devByKey(p.dev)||{}, accent=dev.c1||'#1a7ba0';
@@ -2499,7 +2523,7 @@
     var href=U(buildPath('unit',{id:u.id}));
     var card=h('article',{class:'card'});
     var uc=unitCanon(u), tl=typeLabelC(uc);
-    var media=h('div',{class:'card__media'}, projectMedia(p),
+    var media=h('div',{class:'card__media'}, unitMedia(u),
       h('div',{class:'tags'}, h('span',{class:'chip'}, typeIconC(uc,'chip-ico'), tl)));
     media.appendChild(devChip(dev));
     media.appendChild(saveBtn(p.slug));
@@ -3465,7 +3489,7 @@
     var title=uLabel+' · '+pnm;
     var node=h('div',null), top=h('section',{class:'section--tight'}), wrap=h('div',{class:'wrap'});
     wrap.appendChild(crumbNode([{label:t('nav_home'),path:buildPath('home')},{label:t('nav_units'),path:buildPath('units')},{label:title}]));
-    var media=h('div',{class:'detail-media'}, projectArt(p),
+    var media=h('div',{class:'detail-media'}, unitMedia(u),
       h('div',{class:'tags'}, h('span',{class:'chip'}, typeIconC(unitCanon(u),'chip-ico'), tl)));
     var aside=h('aside',{class:'aside-card'},
       h('div',{class:'muted',style:'font-size:.8rem;font-weight:700'}, t('price')),
