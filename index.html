@@ -27,7 +27,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <!-- frame-ancestors/HSTS belong in HTTP response headers (see deploy runbook), not meta. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; connect-src 'self' https://script.google.com https://script.googleusercontent.com; base-uri 'self'; form-action 'self'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; connect-src 'self' https://script.google.com https://script.googleusercontent.com; base-uri 'self'; form-action 'self'" />
   <meta name="theme-color" content="#073D52" />
   <meta name="color-scheme" content="light" />
   <meta name="format-detection" content="telephone=no" />
@@ -821,6 +821,46 @@
   @media (prefers-reduced-motion:reduce){ .lead-back,.lead-card{transition:none} }
 
   /* THE VILLAGE MAPS styles removed with the feature — parked for a professional rebuild. */
+  /* ===================================================================
+     UI REFINEMENTS — rounded cards, project covers, Home nav icon,
+     Overview accordion, animated search palette, smooth developer rail
+     =================================================================== */
+  /* 4 · rounder project cards, consistent everywhere */
+  .card{border-radius:24px}
+  .card__media{border-start-start-radius:24px;border-start-end-radius:24px}
+  /* project cover photo (main thumbnail) — fills the media box, no distortion */
+  .proj-cover{object-fit:cover;width:100%;height:100%;background:var(--teal-900)}
+  /* 3 · Home nav icon */
+  .nav-home{display:inline-flex;align-items:center;gap:6px}
+  .nav-home svg{width:18px;height:18px;transition:transform .2s ease}
+  .nav-home:hover svg{transform:translateY(-2px) scale(1.06)}
+  .nav-home.is-active{color:var(--teal-700)}
+  .nav-home.is-active svg{color:var(--teal-600)}
+  .nav-home--drawer svg{width:20px;height:20px}
+  /* 6 · Overview accordion (native <details>, collapsed by default) */
+  .accordion{margin:24px 0 4px;border-block:1px solid var(--line-2)}
+  .accordion__sum{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;
+    gap:12px;padding:14px 2px;user-select:none}
+  .accordion__sum::-webkit-details-marker{display:none}
+  .accordion__sum:focus-visible{outline:2px solid var(--focus);outline-offset:3px;border-radius:8px}
+  .accordion__title{font-size:1.3rem;margin:0;line-height:1.2}
+  .accordion__chev{width:22px;height:22px;flex:none;color:var(--teal-600);transition:transform .25s ease}
+  .accordion[open] .accordion__chev{transform:rotate(180deg)}
+  .accordion__body{padding:0 2px 16px;overflow:hidden}
+  .accordion[open] .accordion__body{animation:accOpen .28s ease}
+  @keyframes accOpen{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+  /* 2 · animated search palette (smooth open, clean box) */
+  .pal-back{display:flex!important;opacity:0;visibility:hidden;pointer-events:none;
+    transition:opacity .22s ease,visibility .22s ease}
+  .pal-back.open{opacity:1;visibility:visible;pointer-events:auto}
+  .pal{transform:translateY(-14px) scale(.975);opacity:0;
+    transition:transform .28s cubic-bezier(.2,.8,.2,1),opacity .22s ease}
+  .pal-back.open .pal{transform:none;opacity:1}
+  /* 5 · developer rail smooth horizontal scroll */
+  .dev-rail{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){
+    .pal,.pal-back,.accordion__chev,.accordion[open] .accordion__body,.nav-home svg{transition:none;animation:none}
+  }
   </style>
 </head>
 
@@ -978,6 +1018,7 @@
     pin:'M12 21s-7-5.7-7-11a7 7 0 0 1 14 0c0 5.3-7 11-7 11z M12 10a2 2 0 1 0 0-.01',
     build:'M4 21V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v16 M14 21V9h4a2 2 0 0 1 2 2v10 M7 7h2M7 11h2M7 15h2',
     heart:'M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z',
+    home:'M3 10.7 12 3.5l9 7.2 M5 9.5V20a1 1 0 0 0 1 1h3v-6h6v6h3a1 1 0 0 0 1-1V9.5',
     scale:'M12 3v18 M7 8l-4 7a3 3 0 0 0 8 0zM17 8l-4 7a3 3 0 0 0 8 0z M4 7h16',
     check:'M20 6L9 17l-5-5',
     search:'M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14z M21 21l-4.3-4.3',
@@ -1411,7 +1452,6 @@
     {id:'OG-WC1', project:'ogami-north-coast',  type:'Chalet',           beds:2, baths:2, area:150, price:22800000, avail:'available'},
     {id:'OG-TH1', project:'ogami-north-coast',  type:'Townhouse',        beds:3, baths:3, area:226, price:36100000, avail:'available'},
     {id:'OG-TW1', project:'ogami-north-coast',  type:'Twin house',       beds:4, baths:4, area:268, price:49100000, avail:'available'},
-    {id:'OG-BV1', project:'ogami-north-coast',  type:'Standalone Villa', beds:4, baths:4, area:254, price:56000000, avail:'available'},
     {id:'RM-CH1', project:'ramla-ras-el-hekma', type:'Chalet',           beds:2, baths:2, area:130, price:22724000, avail:'available', floor:'low'},
     {id:'RM-CH2', project:'ramla-ras-el-hekma', type:'Chalet',           beds:2, baths:2, area:130, price:28800000, avail:'available', floor:'ground', garden:true},
     {id:'RM-CH3', project:'ramla-ras-el-hekma', type:'Chalet',           beds:3, baths:3, area:170, price:35000000, avail:'available', floor:'ground', garden:true},
@@ -1429,11 +1469,8 @@
     {id:'MD-BP3', project:'modon-ras-el-hekma', type:'Apartment',        beds:3, baths:3, area:193, price:32000000, avail:'available', floor:'high'},
     {id:'MD-WW1', project:'modon-ras-el-hekma', type:'Townhouse',        beds:3, baths:3, area:248, price:38000000, avail:'available'},
     {id:'MD-WW2', project:'modon-ras-el-hekma', type:'Townhouse',        beds:4, baths:4, area:255, price:45000000, avail:'available'},
-    {id:'OG-BT2', project:'ogami-north-coast',  type:'Apartment',        beds:2, baths:2, area:120, price:16500000, avail:'available', floor:'ground', garden:true},
-    {id:'OG-BT3', project:'ogami-north-coast',  type:'Apartment',        beds:3, baths:3, area:140, price:18500000, avail:'available', floor:'low'},
     {id:'CS-TH1', project:'caesar-north-coast', type:'Townhouse',        beds:3, baths:3, area:225, price:39200000, avail:'available', lvl:2},
     {id:'CS-TW1', project:'caesar-north-coast', type:'Twin house',       beds:4, baths:4, area:205, price:47300000, avail:'available', lvl:2},
-    {id:'CS-UV1', project:'caesar-north-coast', type:'Villa',            beds:4, baths:4, area:221, price:49000000, avail:'available'},
     {id:'CS-SV1', project:'caesar-north-coast', type:'Standalone Villa', beds:4, baths:5, area:254, price:59200000, avail:'available'},
     {id:'JN-CR1', project:'june-north-coast',   type:'Standalone Villa', beds:4, baths:4, area:268, price:89300000, avail:'available'},
     {id:'JN-OP1', project:'june-north-coast',   type:'Standalone Villa', beds:4, baths:4, area:254, price:134400000, avail:'limited'},
@@ -1582,6 +1619,25 @@
     sEl('circle',{cx:x-7,cy:y-13,r:'8',fill:'#20855f'}),
     sEl('circle',{cx:x+7,cy:y-13,r:'8',fill:'#20855f'})); }
 
+  /* Project COVER images (main thumbnail per project). Drop <slug>.jpg/webp into
+     /project-covers and add one line below (key = project slug). When a cover
+     exists it replaces the generated art on cards and the project hero; unit
+     gallery images are untouched. Empty = every project keeps its original art. */
+  var PROJECT_COVERS = {
+    // 'villette':'villette.webp', 'badya':'badya.jpg', ...
+  };
+  function projectCoverSrc(p){ return (p && PROJECT_COVERS[p.slug]) ? ('/project-covers/'+PROJECT_COVERS[p.slug]) : ''; }
+  // Card / hero media: the cover photo when supplied, else the branded art.
+  function projectMedia(p){
+    var src=projectCoverSrc(p);
+    if(src){
+      var img=h('img',{class:'artsvg proj-cover', src:src, alt:(lang==='ar'?p.name_ar:p.name),
+        loading:'lazy', decoding:'async'});
+      img.addEventListener('error', function(){ if(img.parentNode) img.parentNode.replaceChild(projectArt(p), img); });
+      return img;
+    }
+    return projectArt(p);
+  }
   function projectArt(p){
     var cat=areaCat(p.area), dev=devByKey(p.dev)||{}, accent=dev.c1||'#1a7ba0';
     var rand=rng(hashN(p.slug)), id=(ART_ID++);
@@ -2366,7 +2422,7 @@
   function projectCard(p){
     var dev = devByKey(p.dev), area = areaByKey(p.area);
     var card = h('article',{class:'card'});
-    var media = h('div',{class:'card__media'}, projectArt(p),
+    var media = h('div',{class:'card__media'}, projectMedia(p),
       h('div',{class:'tags'}, h('span',{class:'chip'}, statusLabel(p.status))));
     media.appendChild(devChip(dev));
     media.appendChild(saveBtn(p.slug));
@@ -2443,7 +2499,7 @@
     var href=U(buildPath('unit',{id:u.id}));
     var card=h('article',{class:'card'});
     var uc=unitCanon(u), tl=typeLabelC(uc);
-    var media=h('div',{class:'card__media'}, projectArt(p),
+    var media=h('div',{class:'card__media'}, projectMedia(p),
       h('div',{class:'tags'}, h('span',{class:'chip'}, typeIconC(uc,'chip-ico'), tl)));
     media.appendChild(devChip(dev));
     media.appendChild(saveBtn(p.slug));
@@ -2609,6 +2665,9 @@
         searchCard)));
     node.appendChild(hero);
 
+    // browse by developer — prominent brand strip right under the hero (above the listings/filters)
+    node.appendChild(developerRail());
+
     // our featured projects (The Village's own directly-marketed listings) — highlighted first
     var ours = ['ogami-north-coast','june-north-coast','caesar-north-coast','ramla-ras-el-hekma','modon-ras-el-hekma'].map(projBySlug).filter(Boolean);
     if(ours.length) node.appendChild(listSection(t('home_ours_k'), t('home_ours_h'), t('home_ours_p'), ours.map(projectCard),
@@ -2617,8 +2676,6 @@
     var launchAll = PROJECTS.filter(function(p){return p.status==='launch';}).slice(0,10);
     node.appendChild(carouselSection(t('nav_launches'), t('home_launch_h'), t('home_launch_p'),
       (launchAll.length?launchAll:launches).map(projectCard), {label:t('cta_all'), path:buildPath('launches')}));
-    // browse by developer — circular avatar rail → developer page
-    node.appendChild(developerRail());
     // featured
     node.appendChild(listSection('', t('home_feat_h'), t('home_feat_p'), feat.map(projectCard),
       {label:t('cta_all'), path:buildPath('projects')}, 'band'));
@@ -3305,7 +3362,7 @@
     var top = h('section',{class:'section--tight'});
     var wrap = h('div',{class:'wrap'});
     wrap.appendChild(crumbNode([{label:t('nav_home'),path:buildPath('home')},{label:t('nav_projects'),path:buildPath('projects')},{label:nm}]));
-    var media = h('div',{class:'detail-media'}, projectArt(p),
+    var media = h('div',{class:'detail-media'}, projectMedia(p),
       h('div',{class:'tags'}, h('span',{class:'chip'}, statusLabel(p.status))));
     var facts = h('table',{class:'fact-table'});
     [[t('developer'),L(dev.name)],[t('area'),L(area.name)],[t('status'),statusLabel(p.status)],
@@ -3342,8 +3399,14 @@
           devLogoInline(dev,26),
           h('span',null, h('a',{href:U(buildPath('developer',{slug:dev.key}))}, L(dev.name)), ' · ', h('a',{href:U(buildPath('area',{slug:area.key}))}, L(area.name)))),
         h('div',{style:'display:flex;gap:8px;flex-wrap:wrap;margin-top:14px'}, (lang==='ar'?p.tags.ar:p.tags.en).map(function(x){return h('span',{class:'chip'},x);})),
-        h('h2',{style:'font-size:1.3rem;margin-top:28px;margin-bottom:10px'}, t('overview')),
-        h('p',{class:'muted', style:'max-width:60ch'}, L(p.blurb)),
+        (function(){
+          // Overview as an accordion — collapsed by default, smooth open, arrow.
+          // Content stays in the DOM (<details>) so SEO/crawlers still read it.
+          var chev=sEl('svg',{class:'accordion__chev',viewBox:'0 0 24 24',fill:'none',stroke:'currentColor','stroke-width':'2','stroke-linecap':'round','stroke-linejoin':'round','aria-hidden':'true'}, sEl('path',{d:'M6 9l6 6 6-6'}));
+          var sum=h('summary',{class:'accordion__sum'}, h('h2',{class:'accordion__title'}, t('overview')), chev);
+          return h('details',{class:'accordion'}, sum,
+            h('div',{class:'accordion__body'}, h('p',{class:'muted', style:'max-width:60ch'}, L(p.blurb))));
+        })(),
         h('h2',{style:'font-size:1.3rem;margin-top:28px;margin-bottom:12px'}, t('facts')),
         facts, deliveryTimeline(p)),
       h('div',null, aside, (p.price!=null ? paymentCalc(p) : h('div',{class:'aside-card',style:'margin-top:16px'},
@@ -4094,6 +4157,14 @@
     var pn=document.getElementById('primary-nav'); clear(pn);
     var dn=document.getElementById('drawer-nav'); clear(dn);
     var group=NAV_GROUP[r.name]||'';
+    // Home icon link (professional outline, active state on the home route).
+    var onHome=(r.name==='home');
+    var homeA=h('a',{href:U(buildPath('home')), class:'nav-home'+(onHome?' is-active':''), 'aria-label':t('nav_home'), title:t('nav_home')}, ic('home'), h('span',{class:'nav-home__lbl'}, t('nav_home')));
+    if(onHome) homeA.setAttribute('aria-current','page');
+    pn.appendChild(homeA);
+    var homeA2=h('a',{href:U(buildPath('home')), class:'nav-home nav-home--drawer'+(onHome?' is-active':'')}, ic('home'), h('span',null, t('nav_home')));
+    if(onHome) homeA2.setAttribute('aria-current','page');
+    dn.appendChild(homeA2);
     NAV.forEach(function(it){
       var a=h('a',{href:U(buildPath(it[0]))}, t(it[1])); if(group===it[0]) a.setAttribute('aria-current','page'); pn.appendChild(a);
       var a2=h('a',{href:U(buildPath(it[0]))}, t(it[1])); if(group===it[0]) a2.setAttribute('aria-current','page'); dn.appendChild(a2);
