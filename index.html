@@ -261,7 +261,12 @@
   .hero h1{color:var(--bone);font-size:clamp(2.2rem,5.6vw,3.9rem);font-weight:600;letter-spacing:-.02em}
   html[dir="rtl"] .hero h1{letter-spacing:0}
   .hero h1 em{font-style:italic;color:#bfe3ef;font-weight:500}
-  .hero p.lead{color:#d9e6ea;margin-top:20px;max-width:52ch}
+  .hero-sig{display:flex;align-items:center;gap:13px;margin-top:15px}
+  .hero-sig::before{content:"";inline-size:38px;block-size:2px;border-radius:2px;flex:none;background:linear-gradient(90deg,#cfeaf3,rgba(207,234,243,.12))}
+  html[dir="rtl"] .hero-sig::before{background:linear-gradient(270deg,#cfeaf3,rgba(207,234,243,.12))}
+  .hero-sig span{font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(1.06rem,2.3vw,1.42rem);line-height:1.2;color:#dcedf3;letter-spacing:.005em}
+  html[dir="rtl"] .hero-sig span{font-style:normal;font-weight:700;letter-spacing:0}
+  .hero p.lead{color:#d9e6ea;margin-top:18px;max-width:52ch}
   .hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
   .hero-trust{display:flex;flex-wrap:wrap;gap:22px;margin-top:34px;padding-top:26px;border-top:1px solid rgba(243,239,230,.16)}
   .hero-trust .stat b{font-family:var(--serif);font-size:1.7rem;display:block;color:#fff;font-weight:600;line-height:1}
@@ -1148,7 +1153,7 @@
       filter_area:"Area", filter_dev:"Developer", filter_status:"Status", filter_price:"Max price", filter_sort:"Sort",
       any:"Any", sort_feat:"Featured", sort_price_a:"Price: low to high", sort_price_d:"Price: high to low",
       hero_kicker:"Primary-sale real estate · Egypt",
-      hero_h1a:"Invest in your real-estate future ", hero_h1b:"with confidence",
+      hero_h1a:"Invest in your real-estate future ", hero_h1b:"with confidence", hero_sig:"Invest with Belal Samy",
       hero_p:"The Village is a real-estate marketing and brokerage company. We help you compare new launches, developers and areas across New Cairo, Fifth Settlement, the New Administrative Capital and the coast — with honest advisory from your first question to unit handover.",
       hero_s1:"Areas covered", hero_s2:"Developers tracked", hero_s3:"Curated projects",
       find_h:"Find your primary unit", find_p:"Filter the curated selection, then talk to an advisor for live availability.",
@@ -1265,7 +1270,7 @@
       filter_area:"المنطقة", filter_dev:"المطوّر", filter_status:"الحالة", filter_price:"أقصى سعر", filter_sort:"الترتيب",
       any:"الكل", sort_feat:"مميّز", sort_price_a:"السعر: من الأقل للأعلى", sort_price_d:"السعر: من الأعلى للأقل",
       hero_kicker:"عقارات البيع الأولي · مصر",
-      hero_h1a:"استثمر في مستقبلك العقاري ", hero_h1b:"بثقة",
+      hero_h1a:"استثمر في مستقبلك العقاري ", hero_h1b:"بثقة", hero_sig:"استثمر مع بلال سامي",
       hero_p:"The Village شركة تسويق ووساطة عقارية تساعدك على مقارنة الإطلاقات الجديدة والمطوّرين والمناطق في القاهرة الجديدة والتجمع الخامس والعاصمة الإدارية والساحل — باستشارة صادقة من أول سؤال حتى استلام وحدتك.",
       hero_s1:"مناطق نغطّيها", hero_s2:"مطوّرون نتابعهم", hero_s3:"مشروعات مختارة",
       find_h:"اعثر على وحدتك الأولية", find_p:"صفِّ الاختيارات ثم تحدّث إلى مستشار لمعرفة الإتاحة الحالية.",
@@ -2716,6 +2721,7 @@
         h('div',null,
           h('div',{class:'eyebrow', style:'color:#bfe3ef'}, t('hero_kicker')),
           h('h1',{style:'margin-top:14px'}, t('hero_h1a'), h('em',null,t('hero_h1b'))),
+          h('p',{class:'hero-sig'}, h('span',null, t('hero_sig'))),
           h('p',{class:'lead'}, t('hero_p')),
           h('div',{class:'hero-cta'},
             h('a',{class:'btn btn--light', href:U(buildPath('projects'))}, t('cta_explore')),
