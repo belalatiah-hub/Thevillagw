@@ -137,6 +137,7 @@
   .wrap { flex-wrap: wrap; }
   .grow { flex: 1 1 auto; }
   .sec-title { font-size: 20px; font-weight: 800; letter-spacing: -.4px; margin: 22px 2px 12px; }
+  .sub-head { display: flex; align-items: center; gap: 12px; margin-top: 6px; }
   .link { color: var(--purple); font-weight: 700; font-size: 14px; }
   :root[data-theme="dark"] .link { color: var(--fb); }
   .pill { display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border-radius: 999px; font-size: 12.5px; font-weight: 700; }
@@ -182,6 +183,8 @@
   .st-dark { background: var(--ink); color: #fff; }
   .st-green { background: var(--green-soft); color: var(--green); }
   .st-amber { background: #fdf0d8; color: #b9821c; }
+  .st-blue { background: var(--purple-soft); color: var(--purple); }
+  .st-gray { background: var(--card-2); color: var(--ink-3); }
   .tag { display: inline-flex; align-items: center; gap: 6px; padding: 6px 11px; border-radius: 11px; font-size: 12.5px; font-weight: 700; }
   .tag-fb { background: var(--fb-soft); color: var(--fb); }
   .tag-agent { background: var(--card-2); color: var(--ink-2); }
@@ -313,7 +316,11 @@
       search_inv:"Search developer, project, area…", from:"from", beds:"beds", ai_title:"Salemate AI",
       ai_hi:"Hi Ahmed 👋 I know your leads, inventory and pipeline. Ask me anything.", commission:"Commission", reports:"Reports",
       hr:"HR & Attendance", marketing:"Marketing", settings:"Settings", logout:"Sign out", role_label:"Sales Agent",
-      no_answer:"No Answer", interested:"Interested", meeting_set:"Meeting Set", win_prob:"Win probability" },
+      no_answer:"No Answer", interested:"Interested", meeting_set:"Meeting Set", win_prob:"Win probability",
+      target:"Target", achieved:"Achieved", pending:"Pending", approved:"Approved", paid:"Paid", forecast_c:"Forecast",
+      history:"History", approvals:"Approvals to review", approve:"Approve", my_commission:"My commission", this_year:"this year",
+      rate:"rate", back:"Back", reports:"Reports", by_source:"Leads by source", export_pdf:"Export PDF", export_excel:"Export Excel",
+      switch_role:"Tap to switch role", closed_deals:"Closed deals", collected:"Collected" },
     ar: { dashboard:"الرئيسية", leads:"العملاء", efficiency:"الأداء", inventory:"المخزون", map:"الخريطة",
       good_evening:"مساء الخير", dash_sub:"العملاء والصفقات والخريطة في لمحة — عرض هادئ لما يحتاج انتباهك.",
       total_leads:"إجمالي العملاء", new_leads:"عملاء جدد", follow_up:"متابعة", updated:"آخر تحديث قبل ١٢ دقيقة",
@@ -328,7 +335,11 @@
       search_inv:"ابحث عن مطور، مشروع، منطقة…", from:"يبدأ من", beds:"غرف", ai_title:"مساعد Salemate",
       ai_hi:"أهلاً أحمد 👋 أعرف عملاءك ومخزونك ومسار البيع. اسألني أي شيء.", commission:"العمولات", reports:"التقارير",
       hr:"الموارد والحضور", marketing:"التسويق", settings:"الإعدادات", logout:"تسجيل الخروج", role_label:"مندوب مبيعات",
-      no_answer:"لم يرد", interested:"مهتم", meeting_set:"اجتماع", win_prob:"احتمال الإغلاق" }
+      no_answer:"لم يرد", interested:"مهتم", meeting_set:"اجتماع", win_prob:"احتمال الإغلاق",
+      target:"الهدف", achieved:"مُنجز", pending:"معلّقة", approved:"معتمدة", paid:"مدفوعة", forecast_c:"متوقعة",
+      history:"السجل", approvals:"موافقات بانتظارك", approve:"اعتماد", my_commission:"عمولتي", this_year:"هذا العام",
+      rate:"النسبة", back:"رجوع", reports:"التقارير", by_source:"العملاء حسب المصدر", export_pdf:"تصدير PDF", export_excel:"تصدير Excel",
+      switch_role:"اضغط لتبديل الدور", closed_deals:"صفقات مغلقة", collected:"محصّلة" }
   };
   function t(k){ return (T[S.lang] && T[S.lang][k]) || T.en[k] || k; }
 
@@ -369,6 +380,19 @@
     { name:"Hassan Allam", projects:1, units:11 }, { name:"Mountain View", projects:3, units:18 },
     { name:"Palm Hills", projects:2, units:16 }, { name:"SODIC", projects:2, units:13 }
   ];
+
+  // Commission in millions EGP. Rate applied to contract value. Mirrors the
+  // backend engine: accrue → approve (manager) → approve (finance) → paid.
+  var commissions = [
+    { deal:"Ashraf Hussein — IL Bosco City", agent:"Fatma Sayed", amount:0.240, rate:2.0, status:"paid", date:"Feb 2026" },
+    { deal:"Youssef Tarek — Badya", agent:"Ahmed (you)", amount:0.140, rate:2.0, status:"paid", date:"Feb 2026" },
+    { deal:"Mona Adel — Bloomfields", agent:"Ahmed (you)", amount:0.130, rate:2.0, status:"approved", date:"Apr 2026" },
+    { deal:"Khaled Nabil — HAPTOWN", agent:"Ahmed (you)", amount:0.184, rate:2.0, status:"pending", date:"Apr 2026" },
+    { deal:"Sara Kamal — Aliva", agent:"Ahmed (you)", amount:0.110, rate:2.0, status:"forecast", date:"May 2026" }
+  ];
+  var C_STATUS = { paid:{c:"st-green",k:"paid"}, approved:{c:"st-blue",k:"approved"}, pending:{c:"st-amber",k:"pending"}, forecast:{c:"st-gray",k:"forecast_c"} };
+  var ROLES = ["Sales Agent","Sales Manager","Finance","CEO"];
+  var ROLES_AR = { "Sales Agent":"مندوب مبيعات", "Sales Manager":"مدير مبيعات", "Finance":"مالية", "CEO":"الرئيس التنفيذي" };
 
   /* ── icons ── */
   var I = {
@@ -613,6 +637,96 @@
     return c;
   }
 
+  function money2(m){ // m in millions EGP → compact
+    if(m>=1) return "EGP "+m.toFixed(2)+"M";
+    return "EGP "+Math.round(m*1000)+"K";
+  }
+  function vCommission(){
+    var c = el("div","fade");
+    var sum = { paid:0, approved:0, pending:0, forecast:0 };
+    commissions.forEach(function(x){ sum[x.status]+=x.amount; });
+    var target=0.9, achieved=sum.paid+sum.approved; // millions
+    var pct=Math.min(100,Math.round(achieved/target*100));
+
+    c.appendChild(el("div","sub-head",
+      '<button class="hmb" id="cBack" style="width:42px;height:42px;border-radius:13px">'+I.arrow+'</button>'+
+      '<div><div style="font-size:22px;font-weight:800;letter-spacing:-.5px">'+t("commission")+'</div>'+
+      '<div class="muted" style="font-size:13px">'+t("my_commission")+' · '+t("this_year")+'</div></div>'));
+
+    var ring = el("div","card"); ring.style.cssText="padding:18px;margin-top:14px";
+    ring.innerHTML='<div class="row between"><div><div class="l" style="font-size:12.5px;font-weight:700;color:var(--ink-3);text-transform:uppercase;letter-spacing:.05em">'+t("achieved")+'</div>'+
+      '<div style="font-size:26px;font-weight:800;letter-spacing:-.6px;margin-top:6px">'+money2(achieved)+'</div>'+
+      '<div class="muted" style="font-size:13px;margin-top:4px">'+t("target")+' '+money2(target)+' · '+pct+'% '+t("achieved").toLowerCase()+'</div></div>'+
+      '<div class="ring" style="--p:'+pct+'"><div class="in">'+pct+'%</div></div></div>';
+    c.appendChild(ring);
+
+    var cards = el("div","row wrap"); cards.style.cssText="gap:12px;margin-top:12px";
+    [["paid",sum.paid,"var(--green)"],["approved",sum.approved,"var(--purple)"],["pending",sum.pending,"var(--amber)"],["forecast_c",sum.forecast,"var(--ink-3)"]].forEach(function(s){
+      var card=el("div","card kpi"); card.style.cssText="flex:1 1 44%;min-width:140px";
+      card.innerHTML='<div class="row between"><div class="l">'+t(s[0])+'</div><span class="dot" style="background:'+s[2]+'"></span></div><div class="v tnum" style="color:'+s[2]+'">'+money2(s[1])+'</div>';
+      cards.appendChild(card);
+    });
+    c.appendChild(cards);
+
+    // Role-aware approvals (Manager approves sales, Finance approves payout)
+    if(S.role==="Sales Manager" || S.role==="Finance" || S.role==="CEO"){
+      var appr = commissions.filter(function(x){ return S.role==="Finance"? x.status==="approved" : x.status==="pending"; });
+      if(appr.length){
+        var ac=el("div","card"); ac.style.cssText="padding:16px;margin-top:16px";
+        ac.innerHTML='<div style="font-weight:800;font-size:16px;margin-bottom:6px">'+t("approvals")+'</div>';
+        appr.forEach(function(x){
+          var row=el("div","row between"); row.style.cssText="padding:10px 0;border-top:1px solid var(--line)";
+          row.innerHTML='<div style="min-width:0"><div style="font-weight:700;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+x.deal+'</div><div class="muted" style="font-size:12.5px">'+x.agent+' · '+money2(x.amount)+'</div></div>';
+          var btn=el("button","chip on"); btn.style.cssText="padding:8px 14px;background:var(--green);color:#fff"; btn.textContent=t("approve");
+          btn.onclick=function(){ x.status = S.role==="Finance"?"paid":"approved"; toast(t("approve")+" ✓ "+x.deal.split(" — ")[0]); render(); };
+          row.appendChild(btn); ac.appendChild(row);
+        });
+        c.appendChild(ac);
+      }
+    }
+
+    // History
+    c.appendChild(secHeader(t("history"),null));
+    commissions.forEach(function(x){
+      var st=C_STATUS[x.status];
+      var card=el("div","card"); card.style.cssText="padding:14px 16px;margin-bottom:10px";
+      card.innerHTML='<div class="row between"><div style="min-width:0"><div style="font-weight:700;font-size:14.5px">'+x.deal+'</div>'+
+        '<div class="muted" style="font-size:12.5px">'+x.date+' · '+x.rate+'% '+t("rate")+'</div></div>'+
+        '<div style="text-align:end"><div class="tnum" style="font-weight:800;font-size:15px">'+money2(x.amount)+'</div>'+
+        '<span class="status '+st.c+'" style="padding:4px 10px;font-size:11.5px;margin-top:4px">'+t(st.k)+'</span></div></div>';
+      c.appendChild(card);
+    });
+    setTimeout(function(){ var bk=$("#cBack"); if(bk){ bk.style.transform="scaleX(-1)"; bk.onclick=function(){ go("dashboard"); }; } },0);
+    return c;
+  }
+
+  function vReports(){
+    var c = el("div","fade");
+    c.appendChild(el("div","sub-head",
+      '<button class="hmb" id="rBack" style="width:42px;height:42px;border-radius:13px;transform:scaleX(-1)">'+I.arrow+'</button>'+
+      '<div><div style="font-size:22px;font-weight:800;letter-spacing:-.5px">'+t("reports")+'</div>'+
+      '<div class="muted" style="font-size:13px">'+t("this_month")+'</div></div>'));
+    var exp=el("div","row"); exp.style.cssText="gap:10px;margin:14px 0";
+    exp.innerHTML='<button class="btn-ghost grow" style="justify-content:center">'+I.download+t("export_pdf")+'</button><button class="btn-ghost grow" style="justify-content:center">'+I.download+t("export_excel")+'</button>';
+    c.appendChild(exp);
+
+    var srcCard=el("div","card"); srcCard.style.cssText="padding:18px;margin-bottom:14px";
+    srcCard.innerHTML='<div style="font-weight:800;font-size:16px;margin-bottom:12px">'+t("by_source")+'</div>';
+    [["Facebook",42,"var(--fb)"],["Property Finder",28,"var(--accent-2,#0e9ab8)"],["Instagram",15,"var(--purple)"],["Referral",9,"var(--amber)"],["Google",6,"var(--green)"]].forEach(function(s){
+      srcCard.appendChild(el("div","bar-row",'<div class="n">'+s[0]+'</div><div class="track"><div class="f" style="width:'+s[1]+'%;background:'+s[2]+'"></div></div><b class="tnum" style="width:34px;text-align:end;font-size:13px">'+s[1]+'%</b>'));
+    });
+    c.appendChild(srcCard);
+
+    var fun=el("div","card"); fun.style.cssText="padding:18px;margin-bottom:14px";
+    fun.innerHTML='<div style="font-weight:800;font-size:16px;margin-bottom:12px">'+t("conversion")+'</div>';
+    [["Leads",100,"var(--cool)"],["Contacted",68,"var(--purple)"],["Meeting",34,"var(--amber)"],["Reserved",12,"var(--coral)"],["Closed",7,"var(--green)"]].forEach(function(s){
+      fun.appendChild(el("div","bar-row",'<div class="n">'+s[0]+'</div><div class="track"><div class="f" style="width:'+s[1]+'%;background:'+s[2]+'"></div></div><b class="tnum" style="width:34px;text-align:end;font-size:13px">'+s[1]+'%</b>'));
+    });
+    c.appendChild(fun);
+    setTimeout(function(){ var bk=$("#rBack"); if(bk) bk.onclick=function(){ go("dashboard"); }; },0);
+    return c;
+  }
+
   /* ── overlays ── */
   function openLead(l){
     var sc=SRC[l.src]||{t:l.src}, prob=l.score;
@@ -671,16 +785,19 @@
 
   function openMenu(){
     var mods=[["commission",I.money],["reports",I.chart],["hr",I.users2],["marketing",I.mega],["settings",I.gear]];
+    var roleName = S.lang==="ar" ? (ROLES_AR[S.role]||S.role) : S.role;
     $("#menu").innerHTML=
-      '<div class="hd"><div class="row" style="gap:12px"><div class="av" style="background:linear-gradient(135deg,var(--coral),var(--coral-2))">A</div>'+
-        '<div><div style="font-weight:800;font-size:17px">Ahmed Mostafa</div><div style="opacity:.8;font-size:13px">'+t("role_label")+'</div></div></div></div>'+
+      '<button class="hd" id="mRole" style="text-align:start;width:100%;cursor:pointer"><div class="row" style="gap:12px"><div class="av" style="background:linear-gradient(135deg,var(--coral),var(--coral-2))">A</div>'+
+        '<div><div style="font-weight:800;font-size:17px">Ahmed Mostafa</div><div style="opacity:.85;font-size:13px">'+roleName+' · '+t("switch_role")+'</div></div></div></button>'+
       mods.map(function(m){return '<button class="mi" data-m="'+m[0]+'">'+m[1]+'<span>'+t(m[0])+'</span></button>';}).join("")+
       '<div style="flex:1"></div>'+
       '<button class="mi" id="mLang">'+I.globe+'<span data-en>العربية</span><span data-ar>English</span></button>'+
       '<button class="mi" id="mTheme">'+I.moon+'<span>Theme</span></button>'+
       '<button class="mi danger" style="margin-bottom:16px">'+I.out+'<span>'+t("logout")+'</span></button>';
     $("#scrim").classList.add("open"); $("#menu").classList.add("open");
-    [].forEach.call(document.querySelectorAll("#menu .mi[data-m]"),function(b){ b.onclick=function(){ closeSheet(); toast(t(b.getAttribute("data-m"))+" — "+ (S.lang==="ar"?"قريباً":"coming soon")); }; });
+    var routable={ commission:1, reports:1 };
+    [].forEach.call(document.querySelectorAll("#menu .mi[data-m]"),function(b){ b.onclick=function(){ var m=b.getAttribute("data-m"); closeSheet(); if(routable[m]){ go(m); } else { toast(t(m)+" — "+(S.lang==="ar"?"قريباً":"coming soon")); } }; });
+    $("#mRole").onclick=function(){ var i=ROLES.indexOf(S.role); S.role=ROLES[(i+1)%ROLES.length]; openMenu(); if(S.view==="commission") render(); };
     $("#mLang").onclick=function(){ S.lang=S.lang==="en"?"ar":"en"; applyDir(); closeSheet(); render(); };
     $("#mTheme").onclick=toggleTheme;
   }
@@ -694,7 +811,7 @@
   /* ── chrome + tabs + router ── */
   var NAV=[["dashboard",I.grid],["leads",I.people],["efficiency",I.target],["inventory",I.box],["map",I.mapt]];
   function renderChrome(){
-    if(S.view==="map"){ $("#chrome").innerHTML=""; return; }
+    if(S.view==="map" || S.view==="commission" || S.view==="reports"){ $("#chrome").innerHTML=""; return; }
     $("#chrome").innerHTML=
       '<div class="appbar"><button class="hmb" id="hmb">'+I.menu+'</button>'+
       '<div class="logo">'+salemateLogo(30)+'<span class="name">Salemate</span><span class="tm">™</span></div>'+
@@ -709,7 +826,7 @@
   function go(v){ S.view=v; closeSheet(); render(); var s=$("#view"); if(s) s.scrollTop=0; }
   function render(){
     renderChrome(); renderTabs();
-    var fn={dashboard:vDashboard,leads:vLeads,efficiency:vEfficiency,inventory:vInventory,map:vMap}[S.view]||vDashboard;
+    var fn={dashboard:vDashboard,leads:vLeads,efficiency:vEfficiency,inventory:vInventory,map:vMap,commission:vCommission,reports:vReports}[S.view]||vDashboard;
     var v=$("#view"); v.innerHTML=""; v.style.padding=S.view==="map"?"0 0 118px":"6px 18px 118px"; v.appendChild(fn());
     $("#fab").style.display=S.view==="map"?"none":"grid";
   }
