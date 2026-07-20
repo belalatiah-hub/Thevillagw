@@ -1,0 +1,309 @@
+<title>The Village CRM — Audit & Optimization</title>
+<meta name="description" content="Enterprise consultant audit of The Village real-estate CRM: system map, benchmark, RBAC, AI, commission, and a prioritized roadmap." />
+<style>
+  :root {
+    --ink:#1c2440; --ink-2:#4a5578; --ink-3:#7c86a8; --paper:#f6f4ef; --card:#ffffff;
+    --line:#e7e3d8; --line-2:#d9d4c6; --accent:#2f6f8f; --accent-2:#0e9ab8;
+    --p0:#d64545; --p1:#e08a2e; --p2:#2f8f6f; --p3:#5a6b9c;
+    --good:#2f8f6f; --warn:#c9902a; --bad:#d64545; --obs:#2f6f8f;
+    --shadow:0 1px 2px rgba(28,36,64,.05), 0 10px 30px rgba(28,36,64,.07);
+    --maxw:900px;
+  }
+  @media (prefers-color-scheme: dark){ :root{
+    --ink:#e9edf7; --ink-2:#aeb7d4; --ink-3:#7e88ab; --paper:#0d1120; --card:#161b2e;
+    --line:#242a42; --line-2:#2f3654; --accent:#4aa3c4; --accent-2:#22b8d6;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 12px 34px rgba(0,0,0,.4);
+  }}
+  :root[data-theme="light"]{ --ink:#1c2440; --ink-2:#4a5578; --ink-3:#7c86a8; --paper:#f6f4ef; --card:#fff; --line:#e7e3d8; --line-2:#d9d4c6; --accent:#2f6f8f; --shadow:0 1px 2px rgba(28,36,64,.05),0 10px 30px rgba(28,36,64,.07); }
+  :root[data-theme="dark"]{ --ink:#e9edf7; --ink-2:#aeb7d4; --ink-3:#7e88ab; --paper:#0d1120; --card:#161b2e; --line:#242a42; --line-2:#2f3654; --accent:#4aa3c4; --shadow:0 1px 2px rgba(0,0,0,.3),0 12px 34px rgba(0,0,0,.4); }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;}
+  body{ background:var(--paper); color:var(--ink);
+    font-family:-apple-system,"Segoe UI",system-ui,"Noto Sans Arabic",Georgia,serif; font-size:16px; line-height:1.62; -webkit-font-smoothing:antialiased;}
+  .doc{max-width:var(--maxw); margin:0 auto; padding:40px 24px 96px;}
+  h1,h2,h3{font-family:-apple-system,"Segoe UI",system-ui,sans-serif; line-height:1.2; letter-spacing:-.02em; text-wrap:balance;}
+  h1{font-size:34px; margin:.2em 0 .1em;}
+  h2{font-size:24px; margin:1.9em 0 .5em; padding-top:.6em; border-top:2px solid var(--line);}
+  h3{font-size:18px; margin:1.4em 0 .3em; color:var(--ink);}
+  p{margin:.6em 0;} a{color:var(--accent); font-weight:600;}
+  .lede{font-size:18px; color:var(--ink-2);}
+  .muted{color:var(--ink-3);} .small{font-size:13.5px;}
+  code{background:color-mix(in srgb,var(--ink) 8%,transparent); padding:1px 6px; border-radius:5px; font-size:.9em; font-family:ui-monospace,Menlo,monospace;}
+  ul,ol{padding-inline-start:22px;} li{margin:.28em 0;}
+  .kicker{font-family:sans-serif; font-size:12.5px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--accent);}
+  .card{background:var(--card); border:1px solid var(--line); border-radius:14px; box-shadow:var(--shadow); padding:18px 20px; margin:16px 0;}
+  .banner{border-radius:14px; padding:16px 18px; margin:16px 0; border:1px solid;}
+  .banner.crit{background:color-mix(in srgb,var(--bad) 12%,transparent); border-color:color-mix(in srgb,var(--bad) 40%,transparent);}
+  .banner.info{background:color-mix(in srgb,var(--obs) 12%,transparent); border-color:color-mix(in srgb,var(--obs) 34%,transparent);}
+  .banner b{font-family:sans-serif;}
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:14px;} @media(max-width:680px){.grid2{grid-template-columns:1fr;}}
+  .tag{display:inline-block; font-family:sans-serif; font-size:11.5px; font-weight:700; padding:2px 9px; border-radius:999px; letter-spacing:.02em; white-space:nowrap;}
+  .t-obs{background:color-mix(in srgb,var(--obs) 16%,transparent); color:var(--obs);}
+  .t-ver{background:color-mix(in srgb,var(--warn) 18%,transparent); color:var(--warn);}
+  .t-rec{background:color-mix(in srgb,var(--good) 16%,transparent); color:var(--good);}
+  .t-built{background:color-mix(in srgb,var(--accent-2,#0e9ab8) 16%,transparent); color:var(--accent-2,#0e9ab8);}
+  .tblwrap{overflow-x:auto; margin:14px 0; border:1px solid var(--line); border-radius:12px;}
+  table{border-collapse:collapse; width:100%; font-family:sans-serif; font-size:13.5px; min-width:560px;}
+  th,td{text-align:start; padding:9px 12px; border-bottom:1px solid var(--line); vertical-align:top;}
+  th{background:color-mix(in srgb,var(--ink) 5%,transparent); font-size:11.5px; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-2); position:sticky; top:0;}
+  tr:last-child td{border-bottom:0;}
+  .chip{display:inline-block; font-family:sans-serif; font-weight:800; font-size:11px; padding:2px 8px; border-radius:6px;}
+  .h{background:color-mix(in srgb,var(--bad) 16%,transparent); color:var(--bad);}
+  .m{background:color-mix(in srgb,var(--warn) 18%,transparent); color:var(--warn);}
+  .l{background:color-mix(in srgb,var(--good) 16%,transparent); color:var(--good);}
+  .p0{background:var(--p0); color:#fff;} .p1{background:var(--p1); color:#fff;} .p2{background:var(--p2); color:#fff;} .p3{background:var(--p3); color:#fff;}
+  .p0,.p1,.p2,.p3{font-family:sans-serif; font-weight:800; font-size:11px; padding:2px 8px; border-radius:6px;}
+  .toc{columns:2; column-gap:26px; font-family:sans-serif; font-size:14px;} @media(max-width:680px){.toc{columns:1;}}
+  .toc a{display:block; padding:3px 0; text-decoration:none; color:var(--ink-2);} .toc a:hover{color:var(--accent);}
+  .themebtn{position:fixed; top:14px; right:14px; width:40px; height:40px; border:1px solid var(--line); background:var(--card); color:var(--ink); border-radius:10px; cursor:pointer; box-shadow:var(--shadow); font-size:17px;}
+  .rule{height:1px; background:var(--line); margin:10px 0;}
+  .cta{display:inline-flex; gap:8px; align-items:center; background:var(--accent); color:#fff; padding:11px 18px; border-radius:11px; font-family:sans-serif; font-weight:700; text-decoration:none; margin:6px 8px 6px 0;}
+  .legend{display:flex; gap:14px; flex-wrap:wrap; font-family:sans-serif; font-size:12.5px; margin:8px 0;}
+  footer{margin-top:40px; padding-top:16px; border-top:2px solid var(--line); color:var(--ink-3); font-size:13px; font-family:sans-serif;}
+</style>
+<button class="themebtn" id="themebtn" aria-label="Toggle theme">◐</button>
+
+<div class="doc">
+  <div class="kicker">Enterprise CRM Consulting · Audit &amp; Optimization</div>
+  <h1>The Village Real-Estate CRM — Audit &amp; Optimization Report</h1>
+  <p class="lede">A consultant-grade review of the existing CRM (web + mobile) with a benchmarked redesign, RBAC model, AI &amp; commission architecture, and a roadmap ranked by business impact, complexity, and priority.</p>
+  <p class="small muted">Prepared for The Village Investment · Real-estate brokerage · Egypt/GCC market. Version 1.0 — design-level engagement.</p>
+
+  <div class="banner crit">
+    <b>🔴 Critical security finding — act today.</b> The administrator account uses the password <code>1&hellip;6</code> (a trivial 6-digit numeric) and was shared over plaintext chat. Rotate it now, enforce a password policy (min 12 chars, complexity, history), enable 2FA on <code>login.php</code>, and add login rate-limiting + lockout. This single control gap outweighs every other issue in the report. <span class="small muted">(The credential is not stored in this document.)</span>
+  </div>
+  <div class="banner info">
+    <b>ℹ️ Scope note — live access was blocked.</b> This engagement environment enforces an egress allowlist that returns <code>403</code> for <code>crm.thevillageinvestment.com</code>, so a live click-through crawl was not possible. Findings below are labelled by evidence source. To enable a full live crawl, allowlist the domain in your Claude Code network policy, or share screen exports.
+    <div class="legend" style="margin-top:8px">
+      <span><span class="tag t-obs">Observed</span> seen in the 3 shared screenshots / URL</span>
+      <span><span class="tag t-ver">Verify</span> needs live access to confirm</span>
+      <span><span class="tag t-rec">Recommended</span> consultant design</span>
+      <span><span class="tag t-built">Built</span> already implemented in the reference build</span>
+    </div>
+  </div>
+
+  <h2 id="toc">Contents</h2>
+  <nav class="toc">
+    <a href="#exec">0 · Executive summary</a>
+    <a href="#evidence">1 · Evidence base &amp; system map</a>
+    <a href="#arch">2 · Architecture assessment</a>
+    <a href="#bench">3 · Benchmark vs market leaders</a>
+    <a href="#rbac">4 · Roles &amp; permissions (RBAC)</a>
+    <a href="#ux">5 · UX &amp; workflow optimization</a>
+    <a href="#ai">6 · AI integration roadmap</a>
+    <a href="#commission">7 · Commission system</a>
+    <a href="#dash">8 · Dashboards &amp; reporting by role</a>
+    <a href="#security">9 · Security &amp; permissions findings</a>
+    <a href="#roadmap">10 · Prioritized roadmap</a>
+    <a href="#previews">11 · Working previews &amp; wireframes</a>
+  </nav>
+
+  <h2 id="exec">0 · Executive summary</h2>
+  <p>The product shown (branded <b>Salemate™</b>, mobile) already demonstrates a <b>calm, modern, sales-agent-first UX</b> that is ahead of most local brokerage CRMs: a one-glance dashboard, an interactive project map, and lead cards with inline call / WhatsApp / AI actions. That is a strong foundation. The gaps are not visual — they are <b>structural</b>: role-based dashboards, a transparent commission engine, governed AI, enterprise RBAC, and reporting depth. </p>
+  <p>The five highest-leverage moves, in order:</p>
+  <ol>
+    <li><b>Close the security &amp; access-control gaps</b> (weak admin auth, 2FA, session &amp; phone-reveal auditing).</li>
+    <li><b>Ship role-specific dashboards + enterprise RBAC</b> — every one of the 17 roles sees a different, permission-scoped home.</li>
+    <li><b>Launch a transparent commission engine</b> (target → pending → approved → paid, with manager &amp; finance approval).</li>
+    <li><b>Add governed AI</b> across lead scoring, next-best-action, summaries, and executive briefs.</li>
+    <li><b>Deepen reporting</b> (source ROI, conversion, forecast, agent performance) with filter/drill-down/export.</li>
+  </ol>
+  <p class="small muted">Much of the recommended target state has already been implemented as a working reference (NestJS + PostgreSQL backend, and the Salemate mobile UI) — see §11.</p>
+
+  <h2 id="evidence">1 · Evidence base &amp; system map</h2>
+  <p>What this audit is built on, stated honestly:</p>
+  <div class="grid2">
+    <div class="card"><b>Directly observed</b> <span class="tag t-obs">Observed</span>
+      <ul class="small">
+        <li>Mobile app, 5-tab nav: <b>Dashboard · Leads · Efficiency · Inventory · Map</b>.</li>
+        <li>Dashboard: greeting, Total/New/Follow-up lead counts, interactive Egypt project map, priority leads, weather + notifications.</li>
+        <li>Leads: <code>3.1K</code> total / <code>573</code> potential, filter chips (New/Hot/Today/Follow-up), "search or add a phone number", Saved Filters, Find Leads, "20 of 3,079", lead cards with source (facebook), assigned agent, project, <b>masked phone numbers</b>, assigned date, and call/WhatsApp/video/AI/chat actions.</li>
+        <li>Map: satellite project locator, New Cairo / Mostakbal City compound cluster.</li>
+        <li>URL: <code>login.php#dashboard</code>.</li>
+      </ul>
+    </div>
+    <div class="card"><b>Inferred — to verify live</b> <span class="tag t-ver">Verify</span>
+      <ul class="small">
+        <li>Stack: <b>PHP backend</b> (<code>login.php</code>) + a <b>JS SPA</b> using hash routing (<code>#dashboard</code>). Likely a LAMP monolith.</li>
+        <li>Lead privacy / anti-poaching via phone masking + reveal (good sign — confirm it is <i>audit-logged</i>).</li>
+        <li>"Potential 573" implies a qualification stage exists in the pipeline.</li>
+        <li>Web admin exists in parallel to mobile (one backend, two clients) — confirm parity.</li>
+        <li>Modules not yet seen: Commission, Reports, HR, Marketing, Contracts/Reservations, Settings/Permissions, Automation. These must be crawled before final sign-off.</li>
+      </ul>
+    </div>
+  </div>
+  <p class="small"><b>Discovery checklist to run on live access</b> (so nothing is skipped): for every module capture — screens, menu tree, every form field &amp; validation, filters, buttons/actions, empty/error states, permissions per role, list→detail→edit flow, click-count per core task, load time, export options, and the DB relationships implied by each screen. I will produce the complete screen-by-screen map from this once the crawl is unblocked.</p>
+
+  <h2 id="arch">2 · Architecture assessment</h2>
+  <p><span class="tag t-ver">Verify</span> A PHP monolith with a hash-routed SPA is fine at today's scale (~3K leads) but has known ceilings for a brokerage heading to thousands of users:</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Concern</th><th>Risk if unaddressed</th><th>Recommendation</th></tr></thead>
+    <tbody>
+      <tr><td>Monolithic PHP, server-rendered auth + SPA</td><td>Hard to scale horizontally; coupled deploys; mobile &amp; web drift</td><td>Extract an <b>API-first</b> layer (one JSON API for web + mobile). <span class="tag t-built">Built</span> — reference NestJS API in this repo.</td></tr>
+      <tr><td>Hash routing (<code>#dashboard</code>)</td><td>No deep links, weaker analytics/SEO, back-button quirks</td><td>Move to real path routing with an SPA framework or server routes.</td></tr>
+      <tr><td>Data model unknown</td><td>Reporting &amp; multi-branch scaling blocked by schema debt</td><td>Adopt a normalized model: Company→Branch→Team→User; Developer→Project→Unit; Lead→Opportunity→Contract→Installment→Payment→Commission. <span class="tag t-built">Built</span> (Prisma schema).</td></tr>
+      <tr><td>Realtime</td><td>Stale boards; agents double-work leads</td><td>Socket layer for live lead/deal updates. <span class="tag t-built">Built</span> (Socket.io gateway).</td></tr>
+      <tr><td>Money handling</td><td>Float rounding on prices/commission = disputes</td><td>Integer minor units, explicit currency. <span class="tag t-built">Built</span>.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 id="bench">3 · Benchmark vs market leaders</h2>
+  <p>Best ideas to adopt (not copy) from each — mapped to your gaps:</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Capability</th><th>Best-in-class</th><th>Your CRM (observed/inferred)</th><th>Opportunity</th></tr></thead>
+    <tbody>
+      <tr><td>Speed-to-lead &amp; quick actions</td><td>Follow Up Boss, Salesmate</td><td>Inline call/WhatsApp/AI on cards ✓</td><td>Add <b>auto-dial queue</b> &amp; 1-tap templated WhatsApp</td></tr>
+      <tr><td>Lead scoring &amp; routing</td><td>HubSpot, kvCORE</td><td>"Potential" exists; scoring unclear</td><td><b>Transparent scoring</b> + rotation/round-robin rules <span class="tag t-built">Built</span></td></tr>
+      <tr><td>Pipeline &amp; forecast</td><td>Pipedrive, Salesforce</td><td>Not observed on mobile</td><td>Drag-drop stages + <b>weighted forecast</b> <span class="tag t-built">Built</span></td></tr>
+      <tr><td>Property inventory &amp; map</td><td>Propertybase, Lofty, kvCORE</td><td>Map + inventory tabs ✓ (strong)</td><td>Add unit-level availability, payment plans, matching</td></tr>
+      <tr><td>Automation / sequences</td><td>HubSpot, Salesmate</td><td>Not observed</td><td>Follow-up automation, SLA reminders, drip</td></tr>
+      <tr><td>Reporting &amp; dashboards</td><td>Salesforce, Zoho</td><td>Efficiency tab ✓; depth unclear</td><td>Role dashboards + source ROI, drill-down, export</td></tr>
+      <tr><td>Commission transparency</td><td>Brokerage-specific (kvCORE)</td><td>Not observed</td><td>Full target→paid engine + approvals <span class="tag t-built">Built</span></td></tr>
+      <tr><td>AI assistant</td><td>Salesforce Einstein, HubSpot</td><td>"AI" button on cards ✓</td><td>CRM-grounded assistant per role <span class="tag t-built">Built</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 id="rbac">4 · Roles &amp; permissions (RBAC)</h2>
+  <p><span class="tag t-rec">Recommended</span> Every role gets a dedicated dashboard and a scoped permission set; every action, report, export, and financial field is permission-gated. Permissions are composable <code>resource:action</code> keys so new modules add keys without a migration. <span class="tag t-built">Built</span> in the reference API. Illustrative matrix (✓ full · ◐ own/team only · — none):</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Role</th><th>Leads</th><th>Inventory</th><th>Pipeline</th><th>Commission</th><th>Reports</th><th>Users/RBAC</th><th>Finance</th></tr></thead>
+    <tbody>
+      <tr><td>CEO / GM</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓ all</td><td>✓</td><td>✓</td></tr>
+      <tr><td>Sales Director</td><td>✓</td><td>✓ read</td><td>✓</td><td>✓ approve</td><td>✓ sales</td><td>◐</td><td>read</td></tr>
+      <tr><td>Sales Manager</td><td>✓ team</td><td>read</td><td>✓ team</td><td>◐ approve</td><td>team</td><td>—</td><td>—</td></tr>
+      <tr><td>Supervisor / Team Leader</td><td>◐ team</td><td>read</td><td>◐ team</td><td>read team</td><td>team</td><td>—</td><td>—</td></tr>
+      <tr><td>Senior / Sales Agent</td><td>◐ own</td><td>read</td><td>◐ own</td><td>◐ own</td><td>own</td><td>—</td><td>—</td></tr>
+      <tr><td>Sales Admin</td><td>✓ assign</td><td>✓</td><td>read</td><td>—</td><td>ops</td><td>—</td><td>—</td></tr>
+      <tr><td>Marketing Mgr / Media Buyer</td><td>read + source</td><td>read</td><td>—</td><td>—</td><td>marketing ROI</td><td>—</td><td>—</td></tr>
+      <tr><td>Finance</td><td>—</td><td>read</td><td>read</td><td>✓ payout</td><td>financial</td><td>—</td><td>✓</td></tr>
+      <tr><td>HR</td><td>—</td><td>—</td><td>—</td><td>read</td><td>HR/attendance</td><td>◐</td><td>—</td></tr>
+      <tr><td>Customer Service / Legal / Ops</td><td>read scoped</td><td>read</td><td>read</td><td>—</td><td>scoped</td><td>—</td><td>—</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Also support: sub-roles, custom roles, permission templates per department, temporary/time-boxed permissions, and approval workflows for sensitive actions (mass export, phone reveal, commission edits).</p>
+
+  <h2 id="ux">5 · UX &amp; workflow optimization</h2>
+  <div class="grid2">
+    <div class="card"><b>Keep — genuine strengths</b> <span class="tag t-obs">Observed</span>
+      <ul class="small"><li>Calm, low-cognitive-load visual system.</li><li>Quick actions on the lead card (call/WhatsApp/AI).</li><li>Interactive project map as a first-class tab.</li><li>Phone masking (privacy/anti-poaching).</li></ul>
+    </div>
+    <div class="card"><b>Fix — friction &amp; missing flows</b> <span class="tag t-rec">Recommended</span>
+      <ul class="small">
+        <li><b>Bulk actions</b> on the leads list (assign, tag, change stage, export) — cuts repetitive clicks.</li>
+        <li><b>Inline status change</b> from the card without opening detail.</li>
+        <li><b>Duplicate detection</b> on "add a phone number" (normalize EG/GCC formats). <span class="tag t-built">Built</span></li>
+        <li><b>Follow-up automation</b> + overdue SLA surfacing (agents forget follow-ups → lost deals).</li>
+        <li><b>Global command search</b> (leads, units, projects, phone) with keyboard.</li>
+        <li><b>Offline queue</b> for calls/notes in low-signal site visits.</li>
+        <li><b>Empty/error/loading states</b> audited per screen (verify live).</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2 id="ai">6 · AI integration roadmap</h2>
+  <p><span class="tag t-rec">Recommended</span> A governed assistant grounded in CRM data, with role-aware capabilities. Provider abstraction so it runs deterministically offline and upgrades to an LLM by config. <span class="tag t-built">Built</span> (rules + OpenAI providers behind one interface).</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Role</th><th>AI capabilities</th><th>Phase</th></tr></thead>
+    <tbody>
+      <tr><td>Sales Agent</td><td>Lead summary, next-best-action, project match, WhatsApp/email draft, objection handling, closing probability</td><td>1</td></tr>
+      <tr><td>Supervisor / Team Leader</td><td>Daily team brief, missed follow-ups, at-risk deals, coaching prompts</td><td>2</td></tr>
+      <tr><td>Sales Manager</td><td>Forecast, pipeline health, target attainment, risk detection</td><td>2</td></tr>
+      <tr><td>Sales Admin</td><td>Duplicate detection, missing-document checks, reservation validation</td><td>1</td></tr>
+      <tr><td>Marketing</td><td>Lead-quality by source, CPL/ROAS analysis, creative &amp; audience suggestions</td><td>3</td></tr>
+      <tr><td>CEO / GM</td><td>Executive daily brief, revenue forecast, growth opportunities, cash-flow signals</td><td>3</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small"><b>Governance:</b> log every prompt/response, redact PII in transit, permission-gate which records the AI can read per role, and never let AI mutate data without human confirmation.</p>
+
+  <h2 id="commission">7 · Commission system</h2>
+  <p><span class="tag t-rec">Recommended</span> Full transparency is the #1 retention lever for brokerage sales teams. Each agent sees a single screen: <b>Target · Achievement · Closed deals · Pending · Approved · Paid · Forecast · History · Leaderboard</b>. Two-step approval: <b>Manager → Finance</b>, with developer-payment tracking. <span class="tag t-built">Built</span> — reference engine computes commission as a rate of contract value with exact integer math and status flow (pending → approved → paid).</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Stage</th><th>Owner</th><th>What happens</th></tr></thead>
+    <tbody>
+      <tr><td>Accrue</td><td>System</td><td>On contract signed, commission booked at the rule rate</td></tr>
+      <tr><td>Approve (sales)</td><td>Manager / Director</td><td>Validates the deal &amp; split</td></tr>
+      <tr><td>Approve (finance)</td><td>Finance</td><td>Confirms developer payment received, schedules payout</td></tr>
+      <tr><td>Pay</td><td>Finance</td><td>Marks paid; agent sees it move to "Paid" with history</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 id="dash">8 · Dashboards &amp; reporting by role</h2>
+  <p><span class="tag t-rec">Recommended</span> Each role's home is a curated dashboard; all reports support filter + drill-down + export (PDF/Excel/CSV).</p>
+  <ul class="small">
+    <li><b>Agent:</b> today's calls/follow-ups, hot leads, my pipeline, my commission, my target ring.</li>
+    <li><b>Team Leader/Supervisor:</b> team activity, response time, missed follow-ups, conversion by agent.</li>
+    <li><b>Sales Manager/Director:</b> pipeline value, weighted forecast, target attainment, win/loss reasons, source mix.</li>
+    <li><b>Marketing:</b> leads &amp; CPL by campaign/source, ROAS, quality (lead→meeting rate) by channel.</li>
+    <li><b>Finance:</b> reservations, contracts, installments due, commission payouts, cash flow.</li>
+    <li><b>CEO/GM:</b> revenue, forecast, top projects/agents, growth &amp; risk signals, daily AI brief.</li>
+  </ul>
+  <p class="small"><span class="tag t-built">Built</span> A <code>/reports/dashboard</code> aggregate already returns lead counts, hot/new, pipeline open + weighted forecast, won-this-month, and breakdowns by source, temperature, and top owners.</p>
+
+  <h2 id="security">9 · Security &amp; permissions findings</h2>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Finding</th><th>Severity</th><th>Fix</th></tr></thead>
+    <tbody>
+      <tr><td>Weak admin password (6-digit); credentials shared in plaintext</td><td><span class="chip h">Critical</span></td><td>Rotate now; password policy; 2FA; login rate-limit + lockout</td></tr>
+      <tr><td>Session hardening <span class="tag t-ver">Verify</span></td><td><span class="chip m">High</span></td><td>Confirm cookies are HttpOnly + Secure + SameSite; short idle timeout; server-side session revocation</td></tr>
+      <tr><td>CSRF / injection on PHP forms <span class="tag t-ver">Verify</span></td><td><span class="chip m">High</span></td><td>CSRF tokens on all state-changing forms; parameterized queries; output encoding</td></tr>
+      <tr><td>Phone-reveal &amp; export auditing <span class="tag t-ver">Verify</span></td><td><span class="chip m">High</span></td><td>Log every reveal/export with actor+time; rate-limit; alert on bulk</td></tr>
+      <tr><td>RBAC enforcement server-side <span class="tag t-ver">Verify</span></td><td><span class="chip m">High</span></td><td>Enforce permissions on the API, not just hidden UI; audit log for sensitive actions <span class="tag t-built">Built</span></td></tr>
+      <tr><td>Backups / DR <span class="tag t-ver">Verify</span></td><td><span class="chip l">Medium</span></td><td>Automated DB backups + tested restore; PITR</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 id="roadmap">10 · Prioritized roadmap</h2>
+  <p>Ranked by business impact × development complexity → priority. <span class="tag t-built">Built</span> items exist as a tested reference implementation and mainly need integration.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>#</th><th>Initiative</th><th>Impact</th><th>Complexity</th><th>Priority</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Security hardening (auth, 2FA, session, audit)</td><td><span class="chip h">High</span></td><td><span class="chip l">Low</span></td><td><span class="p0">P0</span></td><td>—</td></tr>
+      <tr><td>2</td><td>Enterprise RBAC + role dashboards</td><td><span class="chip h">High</span></td><td><span class="chip m">Med</span></td><td><span class="p0">P0</span></td><td><span class="tag t-built">Built</span> API</td></tr>
+      <tr><td>3</td><td>Commission engine (transparent, approvals)</td><td><span class="chip h">High</span></td><td><span class="chip m">Med</span></td><td><span class="p0">P0</span></td><td><span class="tag t-built">Built</span></td></tr>
+      <tr><td>4</td><td>Lead scoring + duplicate detection + routing</td><td><span class="chip h">High</span></td><td><span class="chip l">Low</span></td><td><span class="p1">P1</span></td><td><span class="tag t-built">Built</span></td></tr>
+      <tr><td>5</td><td>Pipeline board + weighted forecast</td><td><span class="chip h">High</span></td><td><span class="chip m">Med</span></td><td><span class="p1">P1</span></td><td><span class="tag t-built">Built</span></td></tr>
+      <tr><td>6</td><td>Reporting depth (source ROI, drill-down, export)</td><td><span class="chip h">High</span></td><td><span class="chip m">Med</span></td><td><span class="p1">P1</span></td><td>partial</td></tr>
+      <tr><td>7</td><td>Follow-up automation + SLA reminders</td><td><span class="chip m">Med</span></td><td><span class="chip m">Med</span></td><td><span class="p1">P1</span></td><td>—</td></tr>
+      <tr><td>8</td><td>Governed AI assistant (per role)</td><td><span class="chip h">High</span></td><td><span class="chip m">Med</span></td><td><span class="p2">P2</span></td><td><span class="tag t-built">Built</span> core</td></tr>
+      <tr><td>9</td><td>Marketing module (CPL/ROAS, Meta/Google/TikTok)</td><td><span class="chip m">Med</span></td><td><span class="chip h">High</span></td><td><span class="p2">P2</span></td><td>—</td></tr>
+      <tr><td>10</td><td>API-first refactor + realtime</td><td><span class="chip h">High</span></td><td><span class="chip h">High</span></td><td><span class="p2">P2</span></td><td><span class="tag t-built">Built</span> reference</td></tr>
+      <tr><td>11</td><td>Contracts/reservations + e-signature + PDF</td><td><span class="chip m">Med</span></td><td><span class="chip m">Med</span></td><td><span class="p2">P2</span></td><td>partial</td></tr>
+      <tr><td>12</td><td>Native mobile (offline, push) </td><td><span class="chip m">Med</span></td><td><span class="chip h">High</span></td><td><span class="p3">P3</span></td><td>UI ref built</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 id="previews">11 · Working previews &amp; wireframes</h2>
+  <p>The recommended target state is not theoretical — a working reference implementation was built alongside this audit:</p>
+  <p>
+    <a class="cta" href="https://claude.ai/code/artifact/658987a4-e049-4deb-b110-a922cb358c51" target="_blank" rel="noopener">📱 Salemate mobile CRM — redesign preview</a>
+    <a class="cta" style="background:var(--ink-2)" href="https://claude.ai/code/artifact/7206f040-ee6a-4378-a401-8190e51239b9" target="_blank" rel="noopener">🖥️ Admin console preview</a>
+  </p>
+  <ul class="small">
+    <li><b>Backend reference</b> (in the project repo): NestJS + PostgreSQL API — auth + JWT/refresh, configurable RBAC (14+ system roles), multi-tenant isolation, leads (scoring + dedup + capture), pipeline + weighted forecast, finance (reservation→contract→installments→payments→commission), AI provider abstraction, realtime gateway, and a reports/dashboard aggregate. 11 unit + 3 e2e tests passing; verified live against Postgres.</li>
+    <li><b>Wireframe direction:</b> keep the calm Salemate visual system; add role-scoped dashboards, a pipeline board, a commission screen, and report drill-downs using the same components.</li>
+  </ul>
+
+  <div class="banner info">
+    <b>Next step to complete Phase 1 properly:</b> unblock a live crawl (allowlist the domain, or send module screen exports) and I will produce the exhaustive screen-by-screen system map, the confirmed workflow diagrams, the real database ERD, and turn every <span class="tag t-ver">Verify</span> item into a confirmed finding — then proceed module-by-module with a preview link before each build.
+  </div>
+
+  <footer>
+    The Village Real-Estate CRM — Audit &amp; Optimization Report · v1.0 · design-level engagement.<br>
+    Evidence: 3 shared mobile screenshots + login URL + benchmark analysis. Live click-through crawl pending network access. No production data was modified; no credentials are stored in this document.
+  </footer>
+</div>
+
+<script>
+  (function(){
+    var b=document.getElementById("themebtn");
+    b.addEventListener("click",function(){
+      var r=document.documentElement, cur=r.getAttribute("data-theme");
+      if(!cur) cur=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";
+      r.setAttribute("data-theme", cur==="dark"?"light":"dark");
+    });
+    document.querySelectorAll('.toc a').forEach(function(a){
+      a.addEventListener('click',function(e){ var el=document.querySelector(a.getAttribute('href')); if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth',block:'start'}); } });
+    });
+  })();
+</script>
