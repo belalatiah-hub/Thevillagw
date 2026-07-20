@@ -213,6 +213,12 @@
   .bar-row .n { width: 92px; font-size: 13px; color: var(--ink-2); }
   .bar-row .track { flex: 1; height: 10px; border-radius: 999px; background: var(--card-2); overflow: hidden; }
   .bar-row .f { height: 100%; border-radius: 999px; }
+  .autorow { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+  .autotag { flex: none; min-width: 46px; text-align: center; font-size: 10.5px; font-weight: 800; letter-spacing: .05em;
+    text-transform: uppercase; padding: 4px 8px; border-radius: 8px; color: var(--ink-3); background: var(--card-2); }
+  .autotag.when { color: var(--purple); background: var(--purple-soft); }
+  .autotag.if { color: var(--cool, #4d84c0); background: rgba(77,132,192,.14); }
+  .autotag.then { color: var(--green); background: var(--green-soft); align-self: flex-start; }
   .rank { display: flex; align-items: center; gap: 12px; padding: 11px 4px; }
   .rank .pos { width: 26px; font-weight: 800; color: var(--ink-3); text-align: center; }
 
@@ -327,7 +333,14 @@
       integrations:"Integrations", integration_center:"Integration Center", int_sub:"Connect lead sources, ads, messaging & files — modular & secure.",
       is_connected:"Connected", not_connected:"Not connected", connect:"Connect", test:"Test", enabled:"Enabled", disabled:"Disabled",
       secrets_enc:"Secrets encrypted at rest · modular enable/disable",
-      cat_LEAD_SOURCE:"Lead sources", cat_ADS:"Advertising", cat_MESSAGING:"Messaging", cat_FILES:"Files & docs", cat_PRODUCTIVITY:"Productivity", cat_MAPS:"Maps", cat_NOTIFICATIONS:"Notifications" },
+      cat_LEAD_SOURCE:"Lead sources", cat_ADS:"Advertising", cat_MESSAGING:"Messaging", cat_FILES:"Files & docs", cat_PRODUCTIVITY:"Productivity", cat_MAPS:"Maps", cat_NOTIFICATIONS:"Notifications",
+      automation:"Automation", automation_engine:"Automation Engine", auto_sub:"Rules that fire when a lead arrives — assign, SLA, follow-up, WhatsApp & AI.",
+      when:"When", then:"Then", runs:"runs", last_run:"last run", active_rules:"Active rules", recent_runs:"Recent runs",
+      trg_LEAD_CAPTURED:"A lead is captured from the website or ads", trg_LEAD_CREATED:"A lead is created manually",
+      simulate:"Simulate", add_rule:"New rule", every_lead:"Every lead", no_runs:"No runs yet — capture a lead to see the engine fire.",
+      act_ASSIGN_ROUND_ROBIN:"Assign to least-busy agent", act_ASSIGN_USER:"Assign to a specific agent", act_CREATE_FOLLOW_UP:"Create a follow-up task",
+      act_START_SLA:"Start first-response SLA timer", act_SEND_WHATSAPP_TEMPLATE:"Send WhatsApp template", act_GENERATE_AI_SUMMARY:"Generate AI summary", act_NOTIFY_OWNER:"Notify the owner",
+      st_SUCCESS:"Success", st_PARTIAL:"Partial", st_FAILED:"Failed", st_SKIPPED:"Skipped", mins:"min", just_now:"just now" },
     ar: { dashboard:"الرئيسية", leads:"العملاء", efficiency:"الأداء", inventory:"المخزون", map:"الخريطة",
       good_evening:"مساء الخير", dash_sub:"العملاء والصفقات والخريطة في لمحة — عرض هادئ لما يحتاج انتباهك.",
       total_leads:"إجمالي العملاء", new_leads:"عملاء جدد", follow_up:"متابعة", updated:"آخر تحديث قبل ١٢ دقيقة",
@@ -350,7 +363,14 @@
       integrations:"التكاملات", integration_center:"مركز التكاملات", int_sub:"اربط مصادر العملاء والإعلانات والمراسلة والملفات — معياري وآمن.",
       is_connected:"متصل", not_connected:"غير متصل", connect:"ربط", test:"اختبار", enabled:"مُفعّل", disabled:"مُعطّل",
       secrets_enc:"الأسرار مشفّرة · تفعيل/تعطيل معياري",
-      cat_LEAD_SOURCE:"مصادر العملاء", cat_ADS:"الإعلانات", cat_MESSAGING:"المراسلة", cat_FILES:"الملفات والمستندات", cat_PRODUCTIVITY:"الإنتاجية", cat_MAPS:"الخرائط", cat_NOTIFICATIONS:"الإشعارات" }
+      cat_LEAD_SOURCE:"مصادر العملاء", cat_ADS:"الإعلانات", cat_MESSAGING:"المراسلة", cat_FILES:"الملفات والمستندات", cat_PRODUCTIVITY:"الإنتاجية", cat_MAPS:"الخرائط", cat_NOTIFICATIONS:"الإشعارات",
+      automation:"الأتمتة", automation_engine:"محرك الأتمتة", auto_sub:"قواعد تعمل تلقائياً عند وصول العميل — إسناد، SLA، متابعة، واتساب وذكاء اصطناعي.",
+      when:"عندما", then:"عندها", runs:"تشغيل", last_run:"آخر تشغيل", active_rules:"القواعد الفعّالة", recent_runs:"آخر عمليات التشغيل",
+      trg_LEAD_CAPTURED:"يصل عميل من الموقع أو الإعلانات", trg_LEAD_CREATED:"يُضاف عميل يدوياً",
+      simulate:"محاكاة", add_rule:"قاعدة جديدة", every_lead:"كل عميل", no_runs:"لا يوجد تشغيل بعد — استقبل عميلاً لترى المحرك يعمل.",
+      act_ASSIGN_ROUND_ROBIN:"إسناد لأقل مندوب انشغالاً", act_ASSIGN_USER:"إسناد لمندوب محدد", act_CREATE_FOLLOW_UP:"إنشاء مهمة متابعة",
+      act_START_SLA:"بدء مؤقت SLA للرد الأول", act_SEND_WHATSAPP_TEMPLATE:"إرسال قالب واتساب", act_GENERATE_AI_SUMMARY:"توليد ملخص ذكاء اصطناعي", act_NOTIFY_OWNER:"إشعار المسؤول",
+      st_SUCCESS:"ناجح", st_PARTIAL:"جزئي", st_FAILED:"فشل", st_SKIPPED:"تخطّي", mins:"دقيقة", just_now:"الآن" }
   };
   function t(k){ return (T[S.lang] && T[S.lang][k]) || T.en[k] || k; }
 
@@ -425,6 +445,29 @@
     { p:"GOOGLE_MAPS", name:"Google Maps", cat:"MAPS", auth:"API key", color:"#34A853", init:"◈", status:"connected" }
   ];
   var CAT_ORDER = ["LEAD_SOURCE","ADS","MESSAGING","FILES","PRODUCTIVITY","MAPS","NOTIFICATIONS"];
+
+  // Automation Engine — mirrors the backend AutomationRule/AutomationRun model.
+  // Each rule: trigger → conditions → ordered actions. The engine runs them
+  // when a lead is captured/created and logs a run per rule.
+  var autoRules = [
+    { name:"Inbound web leads", trigger:"LEAD_CAPTURED", enabled:true, cond:null,
+      actions:[{type:"ASSIGN_ROUND_ROBIN"},{type:"START_SLA",minutes:15},{type:"CREATE_FOLLOW_UP",minutes:120},{type:"GENERATE_AI_SUMMARY"},{type:"SEND_WHATSAPP_TEMPLATE",template:"welcome"}],
+      runs:128, last:"just_now" },
+    { name:"Hot Facebook leads → instant call", trigger:"LEAD_CAPTURED", enabled:true, cond:{source:["FACEBOOK"],minScore:75},
+      actions:[{type:"ASSIGN_ROUND_ROBIN"},{type:"START_SLA",minutes:5},{type:"NOTIFY_OWNER"},{type:"SEND_WHATSAPP_TEMPLATE",template:"hot_intro"}],
+      runs:37, last:"12m" },
+    { name:"Manual entries → enrich", trigger:"LEAD_CREATED", enabled:false, cond:null,
+      actions:[{type:"GENERATE_AI_SUMMARY"},{type:"CREATE_FOLLOW_UP",minutes:60}],
+      runs:0, last:null }
+  ];
+  var autoRuns = [
+    { rule:"Inbound web leads", lead:"Ashraf Hussein", status:"SUCCESS", when:"just_now",
+      acts:[["ASSIGN_ROUND_ROBIN","Fatma Sayed"],["START_SLA","due in 15m"],["CREATE_FOLLOW_UP","due in 2h"],["GENERATE_AI_SUMMARY","rules-v1"],["SEND_WHATSAPP_TEMPLATE","sent “welcome”"]] },
+    { rule:"Hot Facebook leads → instant call", lead:"Mona Adel", status:"SUCCESS", when:"12m",
+      acts:[["ASSIGN_ROUND_ROBIN","Omar Khaled"],["START_SLA","due in 5m"],["NOTIFY_OWNER","owner pinged"],["SEND_WHATSAPP_TEMPLATE","sent “hot_intro”"]] },
+    { rule:"Inbound web leads", lead:"Youssef Tarek", status:"PARTIAL", when:"1h",
+      acts:[["ASSIGN_ROUND_ROBIN","Nour Hany"],["START_SLA","due in 15m"],["CREATE_FOLLOW_UP","due in 2h"],["GENERATE_AI_SUMMARY","rules-v1"],["SEND_WHATSAPP_TEMPLATE","queued — connect WhatsApp"]] }
+  ];
 
   // Shared, self-contained stats (mirror the backend /reports/dashboard shape).
   var STATS = { openPipeline:6.0, weighted:2.8, won:0.9, pendingComm:0.184, paidComm:0.38, cpl:180, roas:4.2, activeAgents:4 };
@@ -569,7 +612,9 @@
     close:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>',
     globe:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 2.5 15.4 0 18M12 3c-2.5 2.6-2.5 15.4 0 18"/></svg>',
     moon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg>',
-    bolt:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg>'
+    bolt:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg>',
+    flow:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="6" height="5" rx="1.5"/><rect x="15" y="15" width="6" height="5" rx="1.5"/><path d="M9 6.5h4a3 3 0 0 1 3 3v8"/><circle cx="6" cy="17.5" r="2.2"/><path d="M6 15.3V9"/></svg>',
+    check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4 4L19 7"/></svg>'
   };
   // The official Village icon mark (real logo glyph).
   function villageLogo(sz){ sz=sz||30; return '<img src="'+ICON+'" alt="Village" style="height:'+sz+'px;width:'+sz+'px;object-fit:contain;display:block"/>'; }
@@ -919,6 +964,80 @@
     return card;
   }
 
+  function vAutomation(){
+    var c = el("div","fade");
+    var activeN = autoRules.filter(function(r){return r.enabled;}).length;
+    c.appendChild(el("div","sub-head",
+      '<button class="hmb" id="aBack" style="width:42px;height:42px;border-radius:13px;transform:scaleX(-1)">'+I.arrow+'</button>'+
+      '<div><div style="font-size:22px;font-weight:800;letter-spacing:-.5px">'+t("automation_engine")+'</div>'+
+      '<div class="muted" style="font-size:13px">'+activeN+'/'+autoRules.length+' '+t("active_rules").toLowerCase()+'</div></div>'));
+
+    var banner=el("div","card"); banner.style.cssText="padding:14px 16px;margin-top:14px;background:linear-gradient(135deg,var(--purple-soft),var(--card))";
+    banner.innerHTML='<div class="row" style="gap:8px"><span style="color:var(--purple)">'+I.flow+'</span><div><div style="font-weight:700;font-size:14px">'+t("auto_sub")+'</div></div></div>';
+    c.appendChild(banner);
+
+    c.appendChild(el("div","muted",t("active_rules"))).style.cssText="font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin:20px 2px 10px;color:var(--ink-3)";
+    autoRules.forEach(function(r){ c.appendChild(ruleCard(r)); });
+
+    c.appendChild(el("div","muted",t("recent_runs"))).style.cssText="font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin:22px 2px 10px;color:var(--ink-3)";
+    if(!autoRuns.length){ c.appendChild(el("div","muted",t("no_runs"))).style.cssText="font-size:13px;padding:2px 2px 6px"; }
+    autoRuns.forEach(function(run){ c.appendChild(runCard(run)); });
+
+    setTimeout(function(){ var bk=$("#aBack"); if(bk) bk.onclick=function(){ go("dashboard"); }; },0);
+    return c;
+  }
+  function condLabel(r){
+    if(!r.cond) return t("every_lead");
+    var bits=[];
+    if(r.cond.source) bits.push(r.cond.source.join(" / "));
+    if(typeof r.cond.minScore==="number") bits.push("score ≥ "+r.cond.minScore);
+    if(r.cond.temperature) bits.push(r.cond.temperature.join(" / "));
+    if(r.cond.area) bits.push(r.cond.area.join(" / "));
+    return bits.join(" · ")||t("every_lead");
+  }
+  function actLabel(a){
+    var base=t("act_"+a.type);
+    if(typeof a.minutes==="number") base+=" · "+a.minutes+" "+t("mins");
+    if(a.template) base+=" · “"+a.template+"”";
+    return base;
+  }
+  function ruleCard(r){
+    var on=r.enabled;
+    var card=el("div","card"); card.style.cssText="padding:15px 16px;margin-bottom:11px"+(on?"":";opacity:.62");
+    var last = r.last==null ? "—" : (r.last==="just_now"? t("just_now") : r.last);
+    card.innerHTML=
+      '<div class="row between" style="align-items:flex-start"><div class="grow" style="min-width:0"><div style="font-weight:800;font-size:15.5px">'+r.name+'</div>'+
+        '<div class="muted" style="font-size:12.5px;margin-top:2px">'+r.runs+' '+t("runs")+' · '+t("last_run")+' '+last+'</div></div>'+
+        '<button class="vtog" data-tog="1" role="switch" aria-checked="'+on+'" style="flex:none;width:46px;height:27px;border-radius:16px;border:none;cursor:pointer;position:relative;background:'+(on?"var(--green)":"var(--card-2)")+';transition:.18s">'+
+          '<span style="position:absolute;top:3px;'+(on?"inset-inline-end:3px":"inset-inline-start:3px")+';width:21px;height:21px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.28);transition:.18s"></span></button></div>'+
+      '<div class="autorow" style="margin-top:12px"><span class="autotag when">'+t("when")+'</span><span style="font-size:13px;font-weight:600">'+t("trg_"+r.trigger)+'</span></div>'+
+      '<div class="autorow"><span class="autotag if">IF</span><span style="font-size:13px">'+condLabel(r)+'</span></div>'+
+      '<div class="autorow" style="align-items:flex-start"><span class="autotag then">'+t("then")+'</span><div class="grow">'+
+        r.actions.map(function(a){return '<div class="row" style="gap:7px;margin-bottom:5px"><span style="color:var(--green);flex:none;width:15px;height:15px;margin-top:1px">'+I.check+'</span><span style="font-size:12.8px;line-height:1.35">'+actLabel(a)+'</span></div>';}).join("")+
+      '</div></div>'+
+      '<div class="row" style="gap:9px;margin-top:11px"><button class="btn-ghost grow" data-sim="1" style="justify-content:center">'+I.spark+t("simulate")+'</button></div>';
+    var tog=card.querySelector('[data-tog]');
+    tog.onclick=function(){ r.enabled=!r.enabled; toast(r.name+" — "+(r.enabled?(S.lang==="ar"?"مُفعّل":"enabled"):(S.lang==="ar"?"مُعطّل":"disabled"))); render(); };
+    card.querySelector('[data-sim]').onclick=function(){
+      var names=r.actions.map(function(a){return t("act_"+a.type);}).join(" → ");
+      toast((S.lang==="ar"?"محاكاة: ":"Would run: ")+names);
+    };
+    return card;
+  }
+  function runCard(run){
+    var stColor={SUCCESS:"var(--green)",PARTIAL:"var(--amber)",FAILED:"var(--red)",SKIPPED:"var(--ink-3)"}[run.status];
+    var stBg={SUCCESS:"var(--green-soft)",PARTIAL:"var(--amber-soft,rgba(224,161,46,.14))",FAILED:"rgba(200,60,60,.12)",SKIPPED:"var(--card-2)"}[run.status];
+    var card=el("div","card"); card.style.cssText="padding:14px 16px;margin-bottom:10px";
+    card.innerHTML=
+      '<div class="row between"><div class="grow" style="min-width:0"><div style="font-weight:800;font-size:14.5px">'+run.lead+'</div>'+
+        '<div class="muted" style="font-size:12px;margin-top:1px">'+run.rule+' · '+(run.when==="just_now"?t("just_now"):run.when)+'</div></div>'+
+        '<span class="pill" style="background:'+stBg+';color:'+stColor+'"><span class="dot" style="background:'+stColor+'"></span>'+t("st_"+run.status)+'</span></div>'+
+      '<div style="margin-top:11px;display:flex;flex-direction:column;gap:6px">'+
+        run.acts.map(function(a){var ok=!/queued|—/.test(a[1]);return '<div class="row between" style="gap:8px"><span class="row" style="gap:7px;min-width:0"><span style="color:'+(ok?"var(--green)":"var(--amber)")+';flex:none;width:15px;height:15px">'+(ok?I.check:I.clock)+'</span><span style="font-size:12.6px">'+t("act_"+a[0])+'</span></span><span class="muted" style="font-size:11.5px;flex:none">'+a[1]+'</span></div>';}).join("")+
+      '</div>';
+    return card;
+  }
+
   /* ── overlays ── */
   function openLead(l){
     var sc=SRC[l.src]||{t:l.src}, prob=l.score;
@@ -997,7 +1116,7 @@
   }
 
   function openMenu(){
-    var mods=[["commission",I.money],["reports",I.chart],["integrations",I.bolt],["hr",I.users2],["marketing",I.mega],["settings",I.gear]];
+    var mods=[["commission",I.money],["reports",I.chart],["automation",I.flow],["integrations",I.bolt],["hr",I.users2],["marketing",I.mega],["settings",I.gear]];
     var roleName = S.lang==="ar" ? (ROLES_AR[S.role]||S.role) : S.role;
     $("#menu").innerHTML=
       '<button class="hd" id="mRole" style="text-align:start;width:100%;cursor:pointer"><div class="row" style="gap:12px"><div class="av" style="background:linear-gradient(135deg,var(--coral),var(--coral-2))">A</div>'+
@@ -1008,7 +1127,7 @@
       '<button class="mi" id="mTheme">'+I.moon+'<span>Theme</span></button>'+
       '<button class="mi danger" style="margin-bottom:16px">'+I.out+'<span>'+t("logout")+'</span></button>';
     $("#scrim").classList.add("open"); $("#menu").classList.add("open");
-    var routable={ commission:1, reports:1, integrations:1 };
+    var routable={ commission:1, reports:1, integrations:1, automation:1 };
     [].forEach.call(document.querySelectorAll("#menu .mi[data-m]"),function(b){ b.onclick=function(){ var m=b.getAttribute("data-m"); closeSheet(); if(routable[m]){ go(m); } else { toast(t(m)+" — "+(S.lang==="ar"?"قريباً":"coming soon")); } }; });
     $("#mRole").onclick=function(){ var i=ROLES.indexOf(S.role); S.role=ROLES[(i+1)%ROLES.length]; openMenu(); if(S.view==="commission") render(); };
     $("#mLang").onclick=function(){ S.lang=S.lang==="en"?"ar":"en"; applyDir(); closeSheet(); render(); };
@@ -1024,7 +1143,7 @@
   /* ── chrome + tabs + router ── */
   var NAV=[["dashboard",I.grid],["leads",I.people],["efficiency",I.target],["inventory",I.box],["map",I.mapt]];
   function renderChrome(){
-    if(S.view==="map" || S.view==="commission" || S.view==="reports" || S.view==="integrations"){ $("#chrome").innerHTML=""; return; }
+    if(S.view==="map" || S.view==="commission" || S.view==="reports" || S.view==="integrations" || S.view==="automation"){ $("#chrome").innerHTML=""; return; }
     $("#chrome").innerHTML=
       '<div class="appbar"><button class="hmb" id="hmb">'+I.menu+'</button>'+
       '<div class="logo"><img src="'+LOGO+'" alt="Village" style="height:25px;display:block"/><span class="name" style="font-size:15px;color:var(--ink-2);margin-inline-start:3px">CRM</span></div>'+
@@ -1039,7 +1158,7 @@
   function go(v){ S.view=v; closeSheet(); render(); var s=$("#view"); if(s) s.scrollTop=0; }
   function render(){
     renderChrome(); renderTabs();
-    var fn={dashboard:vDashboard,leads:vLeads,efficiency:vEfficiency,inventory:vInventory,map:vMap,commission:vCommission,reports:vReports,integrations:vIntegrations}[S.view]||vDashboard;
+    var fn={dashboard:vDashboard,leads:vLeads,efficiency:vEfficiency,inventory:vInventory,map:vMap,commission:vCommission,reports:vReports,integrations:vIntegrations,automation:vAutomation}[S.view]||vDashboard;
     var v=$("#view"); v.innerHTML=""; v.style.padding=S.view==="map"?"0 0 118px":"6px 18px 118px"; v.appendChild(fn());
     $("#fab").style.display=S.view==="map"?"none":"grid";
   }
