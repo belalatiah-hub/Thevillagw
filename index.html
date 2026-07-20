@@ -206,7 +206,7 @@
     color:var(--teal-600);font-weight:600;padding-inline-start:2px;border-inline-start:1px solid var(--line);margin-inline-start:2px;padding-block:2px}
   @media(max-width:520px){.brand .sub{display:none}}
   .nav-links{display:flex;align-items:center;gap:2px}
-  .nav-links a{padding:9px 13px;border-radius:var(--r-sm);font-weight:600;font-size:.92rem;color:var(--ink-2);transition:var(--t)}
+  .nav-links a{padding:9px 12px;border-radius:var(--r-sm);font-weight:600;font-size:.92rem;color:var(--ink-2);transition:var(--t);white-space:nowrap}
   .nav-links a:hover{color:var(--teal-800);background:var(--teal-050)}
   .nav-links a[aria-current="page"]{color:var(--teal-800)}
   .nav-links a[aria-current="page"]::after{content:"";display:block;height:2px;background:var(--teal-600);border-radius:2px;margin-top:3px}
@@ -954,6 +954,19 @@
   .nav-home.is-active{color:var(--teal-700)}
   .nav-home.is-active svg{color:var(--teal-600)}
   .nav-home--drawer svg{width:20px;height:20px}
+  /* Icon'd nav items (Search / New launches / About / Favorites / Compare) — like Home */
+  .nav-links a.nav-item{display:inline-flex;align-items:center;gap:6px}
+  .nav-item__ic{width:17px;height:17px;flex:none}
+  .nav-item__ic svg{width:17px;height:17px;transition:transform .2s ease}
+  .nav-links a.nav-item:hover .nav-item__ic svg{transform:translateY(-2px) scale(1.06)}
+  .drawer nav a.nav-item{display:flex;align-items:center;gap:11px}
+  .drawer nav a.nav-item .nav-item__ic{width:20px;height:20px}
+  .drawer nav a.nav-item .nav-item__ic svg{width:20px;height:20px}
+  /* At medium widths the desktop nav gets crowded → show icons only (labels via title) */
+  @media(max-width:1180px){
+    .nav-links .nav-item__lbl,.nav-links .nav-home__lbl{display:none}
+    .nav-links a{padding:9px 10px}
+  }
   /* 6 · Overview accordion (native <details>, collapsed by default) */
   .accordion{margin:24px 0 4px;border-block:1px solid var(--line-2)}
   .accordion__sum{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;
@@ -4537,8 +4550,9 @@
      ROUTER + CHROME + HEAD
      ================================================================== */
   var currentRoute=null;
-  var NAV=[['units','nav_search'],['launches','nav_launches'],['about','nav_about'],['favorites','nav_favorites']];
-  var NAV_GROUP={home:'',units:'units',unit:'units',project:'units',projects:'units',launches:'launches',developers:'developers',developer:'developers',areas:'areas',area:'areas',insights:'',insight:'',about:'about',favorites:'favorites'};
+  // Each primary-nav item carries an outline icon (3rd field), like Home.
+  var NAV=[['units','nav_search','search'],['launches','nav_launches','spark'],['about','nav_about','info'],['favorites','nav_favorites','heart'],['compare','nav_compare','scale']];
+  var NAV_GROUP={home:'',units:'units',unit:'units',project:'units',projects:'units',launches:'launches',developers:'developers',developer:'developers',areas:'areas',area:'areas',insights:'',insight:'',about:'about',favorites:'favorites',compare:'compare'};
 
   function viewFor(r){
     switch(r.name){
@@ -4600,12 +4614,12 @@
     if(onHome) homeA2.setAttribute('aria-current','page');
     dn.appendChild(homeA2);
     NAV.forEach(function(it){
-      var a=h('a',{href:U(buildPath(it[0]))}, t(it[1])); if(group===it[0]) a.setAttribute('aria-current','page'); pn.appendChild(a);
-      var a2=h('a',{href:U(buildPath(it[0]))}, t(it[1])); if(group===it[0]) a2.setAttribute('aria-current','page'); dn.appendChild(a2);
+      var lbl=t(it[1]) + (it[0]==='compare' && compare.length ? (' ('+num(compare.length)+')') : '');
+      var a=h('a',{href:U(buildPath(it[0])), class:'nav-item', title:t(it[1])}, ic(it[2],'nav-item__ic'), h('span',{class:'nav-item__lbl'}, lbl)); if(group===it[0]) a.setAttribute('aria-current','page'); pn.appendChild(a);
+      var a2=h('a',{href:U(buildPath(it[0])), class:'nav-item'}, ic(it[2],'nav-item__ic'), h('span',null, lbl)); if(group===it[0]) a2.setAttribute('aria-current','page'); dn.appendChild(a2);
     });
-    dn.appendChild(h('a',{href:U(buildPath('investors'))}, t('nav_investors')));
-    dn.appendChild(h('a',{href:U(buildPath('faqs'))}, t('nav_faqs')));
-    dn.appendChild(h('a',{href:U(buildPath('compare'))}, t('nav_compare')+ (compare.length?(' ('+num(compare.length)+')'):'')));
+    dn.appendChild(h('a',{href:U(buildPath('investors')), class:'nav-item'}, ic('build','nav-item__ic'), h('span',null, t('nav_investors'))));
+    dn.appendChild(h('a',{href:U(buildPath('faqs')), class:'nav-item'}, ic('info','nav-item__ic'), h('span',null, t('nav_faqs'))));
     // footer columns
     fill('foot-explore',[['projects','nav_projects'],['units','nav_units'],['launches','nav_launches'],['areas','nav_areas'],['developers','nav_developers'],['compare','nav_compare']]);
     fill('foot-company',[['about','nav_about'],['investors','nav_investors'],['insights','nav_insights'],['faqs','nav_faqs'],['contact','nav_contact']]);
