@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { ReportsModule } from '../reports/reports.module';
 import { AiController } from './ai.controller';
 import { AiService } from './ai.service';
 import { OpenAiProvider } from './openai-ai.provider';
@@ -11,6 +12,7 @@ import { AI_PROVIDER } from './ai.types';
  * deterministic rules provider. Callers depend on the AI_PROVIDER token only.
  */
 @Module({
+  imports: [ReportsModule],
   controllers: [AiController],
   providers: [
     AiService,

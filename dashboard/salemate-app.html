@@ -391,8 +391,115 @@
     { deal:"Sara Kamal — Aliva", agent:"Ahmed (you)", amount:0.110, rate:2.0, status:"forecast", date:"May 2026" }
   ];
   var C_STATUS = { paid:{c:"st-green",k:"paid"}, approved:{c:"st-blue",k:"approved"}, pending:{c:"st-amber",k:"pending"}, forecast:{c:"st-gray",k:"forecast_c"} };
-  var ROLES = ["Sales Agent","Sales Manager","Finance","CEO"];
-  var ROLES_AR = { "Sales Agent":"مندوب مبيعات", "Sales Manager":"مدير مبيعات", "Finance":"مالية", "CEO":"الرئيس التنفيذي" };
+  var ROLES = ["Sales Agent","Sales Manager","Finance","Marketing","CEO"];
+  var ROLES_AR = { "Sales Agent":"مندوب مبيعات", "Sales Manager":"مدير مبيعات", "Finance":"مالية", "Marketing":"تسويق", "CEO":"الرئيس التنفيذي" };
+
+  // Shared, self-contained stats (mirror the backend /reports/dashboard shape).
+  var STATS = { openPipeline:6.0, weighted:2.8, won:0.9, pendingComm:0.184, paidComm:0.38, cpl:180, roas:4.2, activeAgents:4 };
+  function hotCount(){ return leads.filter(function(l){return l.score>=70;}).length; }
+  function srcCounts(){ var m={}; leads.forEach(function(l){ m[l.src]=(m[l.src]||0)+1; }); return m; }
+
+  /* Role-aware AI brief — mirrors backend buildRoleBrief(); keeps the app
+     self-contained and offline-browsable while matching the API's messaging. */
+  function roleBrief(role){
+    var hot=hotCount();
+    if(role==="Sales Manager") return {
+      head:"Team pipeline is EGP "+STATS.openPipeline.toFixed(1)+"M with a weighted forecast of EGP "+STATS.weighted.toFixed(1)+"M.",
+      ins:[hot+" hot leads need attention today; 7 open deals.","Top performer: Fatma Sayed (30 active leads)."],
+      rec:"Have the team call the "+hot+" hot leads within the hour — speed-to-lead drives win rate." };
+    if(role==="Finance") return {
+      head:"EGP "+STATS.won.toFixed(1)+"M closed this month; EGP "+Math.round(STATS.pendingComm*1000)+"K commission awaits approval.",
+      ins:["Pending commission: EGP "+Math.round(STATS.pendingComm*1000)+"K.","Paid to date: EGP "+Math.round(STATS.paidComm*1000)+"K."],
+      rec:"Clear the pending commission queue so payouts stay on schedule." };
+    if(role==="Marketing") return {
+      head:"Facebook is your top lead source this month.",
+      ins:["Measure which channels produce the "+hot+" hot leads.","Concentrate spend where lead→meeting rate is highest."],
+      rec:"Shift budget toward best cost-per-qualified-lead, not the cheapest CPL." };
+    if(role==="CEO") return {
+      head:"EGP "+STATS.won.toFixed(1)+"M won this month; EGP "+STATS.weighted.toFixed(1)+"M weighted in the pipeline.",
+      ins:["Open pipeline EGP "+STATS.openPipeline.toFixed(1)+"M across 7 deals.","Standout agent: Fatma Sayed."],
+      rec:"Protect speed-to-lead — the highest-ROI lever in brokerage." };
+    return {
+      head:(hot>0? "You have "+hot+" hot leads and 6 new today." : "6 new leads today — keep the funnel warm."),
+      ins:["Your open pipeline is EGP "+STATS.openPipeline.toFixed(1)+"M (EGP "+STATS.weighted.toFixed(1)+"M weighted).","3.1K leads assigned to you."],
+      rec:"Call your hot leads first and offer a site visit this week." };
+  }
+  function aiBriefCard(role){
+    var b=roleBrief(role);
+    var card=el("div","card"); card.style.cssText="padding:16px;margin-top:14px;background:linear-gradient(135deg,var(--purple-soft),var(--card));border:1px solid var(--line)";
+    card.innerHTML='<div class="row between"><div class="row" style="gap:8px"><span style="color:var(--purple)">'+I.brain+'</span><b style="font-size:13px">Salemate AI · '+(S.lang==="ar"?"موجز":"brief")+'</b></div><span class="muted" style="font-size:11px">'+(S.lang==="ar"?"الآن":"now")+'</span></div>'+
+      '<div style="font-weight:800;font-size:16px;margin:9px 0 8px;line-height:1.35">'+b.head+'</div>'+
+      b.ins.map(function(x){return '<div class="row" style="gap:8px;margin:3px 0"><span class="dot" style="background:var(--purple);margin-top:7px"></span><span class="muted" style="font-size:13px">'+x+'</span></div>';}).join("")+
+      '<div class="divider"></div>'+
+      '<div class="row" style="gap:8px"><span style="color:var(--amber)">'+I.bolt+'</span><div style="font-size:13.5px;font-weight:600">'+b.rec+'</div></div>'+
+      '<button class="btn-ghost" id="briefAsk" style="margin-top:13px;width:100%;justify-content:center">'+I.brain+(S.lang==="ar"?"اسأل Salemate AI":"Ask Salemate AI")+'</button>';
+    setTimeout(function(){ var a=$("#briefAsk"); if(a) a.onclick=openAI; },0);
+    return card;
+  }
+  function kpiCard(label,value,accent,sub){
+    return el("div","card kpi grow",'<div class="l">'+label+'</div><div class="v tnum"'+(accent?' style="color:'+accent+'"':'')+'>'+value+'</div>'+(sub?'<div class="muted" style="font-size:12px;margin-top:2px">'+sub+'</div>':''));
+  }
+  function leaderboardCard(){
+    var lb=el("div","card"); lb.style.cssText="padding:16px 18px;margin-top:16px";
+    lb.innerHTML='<div style="font-weight:800;font-size:16px;margin-bottom:6px">'+t("leaderboard")+'</div>';
+    [["Fatma Sayed","F","EGP 6.8M",1],["Omar Khaled","O","EGP 5.1M",2],["Nour Hany","N","EGP 4.2M",3],["Ahmed (you)","A","EGP 4.2M",4]].forEach(function(r){
+      lb.appendChild(el("div","rank",'<div class="pos">'+r[3]+'</div><div class="av" style="width:38px;height:38px;border-radius:12px;font-size:14px;background:'+(agents[r[1]]||'#7c6fd6')+'">'+r[1]+'</div><div class="grow" style="font-weight:700;font-size:14px">'+r[0]+'</div><b class="tnum" style="font-size:14px">'+r[2]+'</b>'));
+    });
+    return lb;
+  }
+  function roleHeader(){
+    var roleName=S.lang==="ar"?(ROLES_AR[S.role]||S.role):S.role;
+    return el("div",null,'<div class="eyebrow" style="margin-top:6px">'+t("good_evening")+'</div><div class="h1" style="font-size:28px;margin-bottom:2px">Ahmed</div><div class="muted" style="font-size:14px">'+roleName+'</div>');
+  }
+  function goCommissionLink(txt){ var b=el("button","btn-coral"); b.style.cssText="width:100%;justify-content:center;margin-top:16px"; b.innerHTML=txt+' '+I.arrow; b.onclick=function(){ go("commission"); }; return b; }
+
+  function vDashManager(){
+    var c=el("div","fade"); c.appendChild(roleHeader()); c.appendChild(aiBriefCard("Sales Manager"));
+    var row=el("div","row"); row.style.cssText="gap:12px;margin-top:14px";
+    row.appendChild(kpiCard(t("total_leads"),"3.1K")); row.appendChild(kpiCard("Pipeline","EGP 6.0M","var(--amber)")); c.appendChild(row);
+    var row2=el("div","row"); row2.style.cssText="gap:12px;margin-top:12px";
+    row2.appendChild(kpiCard(t("forecast_c"),"EGP 2.8M","var(--purple)")); row2.appendChild(kpiCard(t("approvals"),"1","var(--coral)","tap Commission")); c.appendChild(row2);
+    c.appendChild(leaderboardCard());
+    c.appendChild(goCommissionLink(t("approvals")));
+    return c;
+  }
+  function vDashFinance(){
+    var c=el("div","fade"); c.appendChild(roleHeader()); c.appendChild(aiBriefCard("Finance"));
+    var row=el("div","row"); row.style.cssText="gap:12px;margin-top:14px";
+    row.appendChild(kpiCard("Won · month","EGP 0.9M","var(--green)")); row.appendChild(kpiCard(t("pending"),"EGP 184K","var(--amber)")); c.appendChild(row);
+    var row2=el("div","row"); row2.style.cssText="gap:12px;margin-top:12px";
+    row2.appendChild(kpiCard(t("paid"),"EGP 380K","var(--green)")); row2.appendChild(kpiCard(t("collected"),"EGP 1.2M","var(--purple)")); c.appendChild(row2);
+    c.appendChild(goCommissionLink(t("commission")));
+    return c;
+  }
+  function vDashMarketing(){
+    var c=el("div","fade"); c.appendChild(roleHeader()); c.appendChild(aiBriefCard("Marketing"));
+    var row=el("div","row"); row.style.cssText="gap:12px;margin-top:14px";
+    row.appendChild(kpiCard(t("new_leads"),"6")); row.appendChild(kpiCard("CPL","EGP 180","var(--amber)")); row.appendChild(kpiCard("ROAS","4.2×","var(--green)")); c.appendChild(row);
+    var src=el("div","card"); src.style.cssText="padding:18px;margin-top:16px"; src.innerHTML='<div style="font-weight:800;font-size:16px;margin-bottom:12px">'+t("by_source")+'</div>';
+    [["Facebook",42,"var(--fb)"],["Property Finder",28,"var(--accent-2,#0e9ab8)"],["Instagram",15,"var(--purple)"],["Referral",9,"var(--amber)"],["Google",6,"var(--green)"]].forEach(function(s){
+      src.appendChild(el("div","bar-row",'<div class="n">'+s[0]+'</div><div class="track"><div class="f" style="width:'+s[1]+'%;background:'+s[2]+'"></div></div><b class="tnum" style="width:34px;text-align:end;font-size:13px">'+s[1]+'%</b>'));
+    });
+    c.appendChild(src);
+    var b=el("button","btn-coral"); b.style.cssText="width:100%;justify-content:center;margin-top:16px"; b.innerHTML=t("reports")+' '+I.arrow; b.onclick=function(){ go("reports"); }; c.appendChild(b);
+    return c;
+  }
+  function vDashCEO(){
+    var c=el("div","fade"); c.appendChild(roleHeader()); c.appendChild(aiBriefCard("CEO"));
+    var row=el("div","row"); row.style.cssText="gap:12px;margin-top:14px";
+    row.appendChild(kpiCard("Revenue · MTD","EGP 0.9M","var(--green)")); row.appendChild(kpiCard(t("forecast_c"),"EGP 2.8M","var(--purple)")); c.appendChild(row);
+    var row2=el("div","row"); row2.style.cssText="gap:12px;margin-top:12px";
+    row2.appendChild(kpiCard("Active agents","4")); row2.appendChild(kpiCard(t("total_leads"),"3.1K","var(--amber)")); c.appendChild(row2);
+    var tp=el("div","card"); tp.style.cssText="padding:16px;margin-top:16px";
+    tp.innerHTML='<div style="font-weight:800;font-size:16px;margin-bottom:8px">Top project · agent</div>'+
+      '<div class="row between" style="padding:8px 0"><span class="muted">Top project</span><b>IL Bosco City</b></div>'+
+      '<div class="row between" style="padding:8px 0;border-top:1px solid var(--line)"><span class="muted">Top agent</span><b>Fatma Sayed</b></div>'+
+      '<div class="row between" style="padding:8px 0;border-top:1px solid var(--line)"><span class="muted">Best source</span><b>Facebook</b></div>';
+    c.appendChild(tp);
+    c.appendChild(leaderboardCard());
+    return c;
+  }
+
 
   /* ── icons ── */
   var I = {
@@ -429,7 +536,8 @@
     out:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h9"/></svg>',
     close:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>',
     globe:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 2.5 15.4 0 18M12 3c-2.5 2.6-2.5 15.4 0 18"/></svg>',
-    moon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg>'
+    moon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg>',
+    bolt:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg>'
   };
   function salemateLogo(sz){ sz=sz||30; return '<svg width="'+sz+'" height="'+sz+'" viewBox="0 0 40 40" fill="none"><path d="M20 6c7 0 9 5 6 9-2 2.6-8 2-11 5-2.5 2.5-1 7 5 7" stroke="#5fbf6a" stroke-width="5" stroke-linecap="round"/><path d="M20 34c-7 0-9-5-6-9 2-2.6 8-2 11-5 2.5-2.5 1-7-5-7" stroke="#8b5cf6" stroke-width="5" stroke-linecap="round"/></svg>'; }
   function el(tag, cls, html){ var e=document.createElement(tag); if(cls)e.className=cls; if(html!=null)e.innerHTML=html; return e; }
@@ -459,6 +567,11 @@
 
   /* ── VIEWS ── */
   function vDashboard(){
+    if(S.role==="Sales Manager") return vDashManager();
+    if(S.role==="Finance") return vDashFinance();
+    if(S.role==="Marketing") return vDashMarketing();
+    if(S.role==="CEO") return vDashCEO();
+
     var c = el("div","fade");
     var head = el("div");
     head.innerHTML =
@@ -468,6 +581,7 @@
         '<div class="muted" style="max-width:20ch;font-size:15px">'+t("dash_sub")+'</div>'+
         '<button class="btn-coral" id="toLeads">'+t("leads")+' '+I.arrow+'</button></div>';
     c.appendChild(head);
+    c.appendChild(aiBriefCard("Sales Agent"));
 
     var stats = el("div","stats3");
     stats.innerHTML =
@@ -760,11 +874,20 @@
   function closeSheet(){ $("#scrim").classList.remove("open"); $("#sheet").classList.remove("open"); $("#menu").classList.remove("open"); }
 
   function openAI(){
-    var msgs=[{b:1,t:t("ai_hi")}];
+    var b=roleBrief(S.role);
+    var msgs=[{b:1,t:t("ai_hi")+"<br><br><b>"+b.head+"</b>"}];
+    var SUGG={
+      "Sales Manager":["Team forecast this month","Which agents are behind target?","Who has stale deals?"],
+      "Finance":["Commission pending approval","Collections due this month","Won deals this month"],
+      "Marketing":["Best lead source by quality","What's my CPL and ROAS?","Which campaign should I scale?"],
+      "CEO":["Give me the executive brief","Revenue forecast","Top project and agent"],
+      "Sales Agent":["Recommend a 3-bed under EGP 8M in New Cairo","Summarize Ashraf Hussein","Draft a WhatsApp follow-up"]
+    };
+    var sugg=SUGG[S.role]||SUGG["Sales Agent"];
     render();
     function render(){
       var html=msgs.map(function(m){return '<div class="ai-msg '+(m.b?'ai-bot':'ai-me')+'">'+m.t+'</div>';}).join("")+
-        '<div class="ai-suggest">'+["Recommend a 3-bed under EGP 8M in New Cairo","Summarize Ashraf Hussein","Draft a WhatsApp follow-up"].map(function(s){return '<button class="ai-s" data-q="'+s+'">'+s+'</button>';}).join("")+'</div>';
+        '<div class="ai-suggest">'+sugg.map(function(s){return '<button class="ai-s" data-q="'+s+'">'+s+'</button>';}).join("")+'</div>';
       $("#sheetBody").innerHTML='<div class="row between" style="margin:2px 0 12px"><div class="row" style="gap:10px">'+salemateLogo(26)+'<b style="font-size:17px">'+t("ai_title")+'</b></div></div>'+
         '<div id="aiScroll">'+html+'</div>';
       [].forEach.call(document.querySelectorAll(".ai-s"),function(b){ b.onclick=function(){ ask(b.getAttribute("data-q")); }; });
@@ -776,6 +899,18 @@
       if(/summar/i.test(q)) a="<b>Ashraf Hussein</b> — hot lead (score 88) from Facebook, interested in IL Bosco City, budget ~EGP 12M, 4 beds. Assigned to Fatma Sayed. Last touch: WhatsApp payment plan. <b>Next:</b> call today and book a site visit.";
       else if(/whatsapp|follow/i.test(q)) a="Draft: “Hi Ashraf 👋 following up on IL Bosco City — I’ve reserved a 4-bed with a 10% down / 8-yr plan that fits your budget. Free for a quick visit this week? — Fatma, Salemate.”";
       else if(/recommend|3-bed|new cairo|8m/i.test(q)) a="Top matches under EGP 8M · New Cairo area:<br>• <b>IL Bosco City</b> BOSCO-A12 — 3BR, 165 m² — EGP 7.4M<br>• <b>Scenes</b> SCENES-A9 — 2BR, 118 m² — EGP 5.9M<br>• <b>Bloomfields</b> — from EGP 5.4M. Want me to draft an offer?";
+      else if(/forecast/i.test(q)) a="Weighted forecast is <b>EGP 2.8M</b> from <b>EGP 6.0M</b> open pipeline (7 deals). Reservation-stage deals carry 75% probability — 2 are stalled >3 days and are dragging the number down.";
+      else if(/behind target|agents are behind/i.test(q)) a="Behind target this month: <b>Omar Khaled</b> (62%) and <b>Nour Hany</b> (58%). Both have healthy lead volume but low call activity — coach on speed-to-lead.";
+      else if(/stale/i.test(q)) a="Stale deals (no activity 3+ days): <b>Khaled Nabil — HAPTOWN</b> and <b>Sara Kamal — Aliva</b>. I can nudge their owners now.";
+      else if(/commission pending|pending approval/i.test(q)) a="Pending commission awaiting approval: <b>EGP 184K</b> (Khaled Nabil — HAPTOWN). Approve in the Commission screen; Finance then releases payout.";
+      else if(/collection/i.test(q)) a="Collections due this month: <b>EGP 1.2M</b> across 3 contracts. One installment (BOSCO-A12) is 4 days overdue — flag the customer.";
+      else if(/won deals/i.test(q)) a="Won this month: <b>EGP 0.9M</b> (2 contracts). Both fully collected; commission accrued.";
+      else if(/cpl|roas/i.test(q)) a="This month: <b>CPL EGP 180</b>, blended <b>ROAS 4.2×</b>. Facebook has the best cost-per-qualified-lead; TikTok CPL is low but lead→meeting is weak.";
+      else if(/lead source|source by quality/i.test(q)) a="By quality (lead→meeting): <b>Referral</b> 34%, <b>Property Finder</b> 21%, <b>Facebook</b> 14%. Facebook wins on volume; Referral wins on quality — grow referrals.";
+      else if(/campaign|scale/i.test(q)) a="Scale the <b>Facebook — New Cairo 3BR</b> campaign: lowest cost-per-qualified-lead and 3 hot leads this week. Pause the TikTok awareness set (high CPL, weak conversion).";
+      else if(/executive brief|exec/i.test(q)) a="<b>Executive brief:</b> EGP 0.9M won MTD, EGP 2.8M weighted forecast, 6 new leads today. Facebook is the top source, IL Bosco City the top project, Fatma the top agent. Risk: 2 stalled reservation-stage deals.";
+      else if(/revenue/i.test(q)) a="Revenue MTD <b>EGP 0.9M</b>; weighted forecast <b>EGP 2.8M</b>. On current velocity you'll land ~EGP 1.6M by month-end — 89% of target.";
+      else if(/top project|top agent/i.test(q)) a="Top project: <b>IL Bosco City</b> (14 units, best conversion). Top agent: <b>Fatma Sayed</b> (EGP 6.8M). Best source: <b>Facebook</b>.";
       else a="I checked your CRM — 6 new leads today, 2 follow-ups overdue, and IL Bosco City has 14 available units matching your hot leads. Want the follow-up list?";
       setTimeout(function(){ msgs.push({b:1,t:a}); render(); },260);
       render();
