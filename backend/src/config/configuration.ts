@@ -20,6 +20,7 @@ export interface AppConfig {
   throttle: { ttl: number; limit: number };
   openaiApiKey: string;
   openaiModel: string;
+  integrationEncKey: string;
 }
 
 export default (): AppConfig => ({
@@ -45,4 +46,5 @@ export default (): AppConfig => ({
   },
   openaiApiKey: process.env.OPENAI_API_KEY ?? '',
   openaiModel: process.env.OPENAI_MODEL ?? 'gpt-4o-mini',
+  integrationEncKey: process.env.INTEGRATION_ENC_KEY ?? 'dev-integration-key-change-in-production',
 });

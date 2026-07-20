@@ -22,6 +22,7 @@ import { ReportsModule } from './modules/reports/reports.module';
 import { AiModule } from './modules/ai/ai.module';
 import { EventsModule } from './modules/events/events.module';
 import { FinanceModule } from './modules/finance/finance.module';
+import { IntegrationsModule } from './modules/integrations/integrations.module';
 
 @Module({
   imports: [
@@ -54,6 +55,7 @@ import { FinanceModule } from './modules/finance/finance.module';
     AiModule,
     EventsModule,
     FinanceModule,
+    IntegrationsModule,
   ],
   providers: [
     // Order matters: authenticate → rate-limit → authorize.

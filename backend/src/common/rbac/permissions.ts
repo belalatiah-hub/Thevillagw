@@ -22,6 +22,7 @@ export const RESOURCES = [
   'audit',
   'company',
   'settings',
+  'integration',
 ] as const;
 
 export type Resource = (typeof RESOURCES)[number];

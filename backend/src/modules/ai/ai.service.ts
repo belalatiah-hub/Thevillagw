@@ -43,7 +43,9 @@ export class AiService {
       openCount: stats.pipeline.openCount,
       currency: 'EGP',
       topSource: stats.leadsBySource[0] ?? null,
-      topOwner: stats.topOwners[0] ? { name: stats.topOwners[0].name, leads: stats.topOwners[0].leads } : null,
+      topOwner: stats.topOwners[0]
+        ? { name: stats.topOwners[0].name, leads: stats.topOwners[0].leads }
+        : null,
       commissionPendingMinor: pendingAgg._sum.amountMinor ?? 0n,
       commissionPaidMinor: paidAgg._sum.amountMinor ?? 0n,
     });

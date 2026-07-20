@@ -6,13 +6,7 @@
  * enrich the phrasing, but the grounded facts always come from real data.
  */
 
-export type BriefRole =
-  | 'AGENT'
-  | 'MANAGER'
-  | 'DIRECTOR'
-  | 'FINANCE'
-  | 'MARKETING'
-  | 'CEO';
+export type BriefRole = 'AGENT' | 'MANAGER' | 'DIRECTOR' | 'FINANCE' | 'MARKETING' | 'CEO';
 
 export interface BriefStats {
   totalLeads: number;
@@ -102,7 +96,9 @@ export function buildRoleBrief(role: BriefRole, s: BriefStats): RoleBrief {
         insights: [
           `${s.totalLeads} total leads; ${s.newToday} today.`,
           `${s.hot} leads are hot — measure which channels produce them.`,
-          top ? `Concentrate spend where lead quality (lead→meeting) is highest.` : `Diversify to find your cheapest quality channel.`,
+          top
+            ? `Concentrate spend where lead quality (lead→meeting) is highest.`
+            : `Diversify to find your cheapest quality channel.`,
         ],
         recommendations: [
           `Shift budget toward the channel with the best cost-per-qualified-lead, not just the cheapest CPL.`,
