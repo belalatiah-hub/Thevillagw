@@ -34,12 +34,15 @@
   .orb.b{ width:240px;height:240px; background:#D98E5A; bottom:-40px; left:-30px; animation-delay:-5s; }
   .orb.c{ width:200px;height:200px; background:#1E7FA3; top:40%; left:50%; animation-delay:-9s; }
   @keyframes float{ 0%,100%{transform:translate(0,0) scale(1);} 33%{transform:translate(18px,-22px) scale(1.08);} 66%{transform:translate(-16px,14px) scale(.96);} }
-  .vmark{ position:absolute; right:-30px; bottom:-40px; font-size:340px; font-weight:800; color:rgba(255,255,255,.05); line-height:1; user-select:none; }
-  .brand-top{ position:relative; display:flex; align-items:center; gap:12px; }
-  .brand-top .name{ font-size:19px; font-weight:800; letter-spacing:.2px; }
-  .brand-top .tm{ font-size:10px; opacity:.7; align-self:flex-start; margin-top:4px; }
-  .brand h1{ position:relative; font-size:34px; line-height:1.14; letter-spacing:-.5px; margin:auto 0 14px; max-width:15ch; }
-  .brand p{ position:relative; color:#bcd7e0; max-width:40ch; margin:0 0 24px; }
+  /* Logo-shaped faint watermark (checkmark-V, matching the official mark). */
+  .vmark-svg{ position:absolute; left:50%; top:49%; transform:translate(-50%,-52%); width:min(70%,400px); opacity:.07; z-index:0; }
+  /* Centered logo lockup: big wordmark + smaller CRM below. */
+  .brand-hero{ position:absolute; inset:46px; display:grid; place-content:center; justify-items:center; text-align:center; z-index:2; }
+  .brand-hero img{ height:82px; max-width:80%; filter:brightness(0) invert(1); display:block; }
+  .brand-hero .crm{ margin-top:12px; font-size:21px; font-weight:800; letter-spacing:.36em; color:#c7e3ec; padding-inline-start:.36em; }
+  .brand-bottom{ position:absolute; inset-inline:46px; bottom:42px; z-index:2; }
+  .brand-bottom h1{ font-size:23px; line-height:1.18; letter-spacing:-.4px; margin:0 0 10px; max-width:18ch; }
+  .brand-bottom p{ color:#bcd7e0; font-size:13.5px; margin:0 0 18px; max-width:38ch; }
   .brand .stats{ position:relative; display:flex; gap:26px; }
   .brand .stats b{ font-size:22px; } .brand .stats span{ color:#9fc2cf; font-size:12px; }
 
@@ -83,14 +86,16 @@
 <div class="wrap">
   <div class="brand">
     <div class="mesh"><span class="orb a"></span><span class="orb b"></span><span class="orb c"></span></div>
-    <div class="vmark">V</div>
-    <div class="brand-top" id="brandLogo"></div>
-    <h1>The official CRM of The Village Investment.</h1>
-    <p>Leads, pipeline, inventory, commission, and Village AI — one calm, fast workspace for your brokerage team.</p>
-    <div class="stats">
-      <div><b>15+</b><br><span>Integrations</span></div>
-      <div><b>AI-first</b><br><span>Every role</span></div>
-      <div><b>AR / EN</b><br><span>Bilingual</span></div>
+    <svg class="vmark-svg" viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M6 21 L15.5 32 L33 7" stroke="#fff" stroke-width="5.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20.5" cy="12" r="2.3" fill="#fff"/></svg>
+    <div class="brand-hero" id="brandLogo"></div>
+    <div class="brand-bottom">
+      <h1>The official CRM of The Village Investment.</h1>
+      <p>Leads, pipeline, inventory, commission, and Village AI — one calm, fast workspace for your brokerage team.</p>
+      <div class="stats">
+        <div><b>15+</b><br><span>Integrations</span></div>
+        <div><b>AI-first</b><br><span>Every role</span></div>
+        <div><b>AR / EN</b><br><span>Bilingual</span></div>
+      </div>
     </div>
   </div>
 
@@ -132,8 +137,8 @@
   function logo(sz){ sz=sz||34; return '<svg width="'+sz+'" height="'+sz+'" viewBox="0 0 40 40" fill="none"><defs><linearGradient id="lg" x1="4" y1="6" x2="36" y2="34" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#5fd0e6"/><stop offset="1" stop-color="#bfe6ef"/></linearGradient></defs><path d="M7 8.5 L20 32 L33 8.5" fill="none" stroke="url(#lg)" stroke-width="5.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="9" r="2.7" fill="#D98E5A"/></svg>'; }
   function logoDark(sz){ sz=sz||30; return '<svg width="'+sz+'" height="'+sz+'" viewBox="0 0 40 40" fill="none"><defs><linearGradient id="lgd" x1="4" y1="6" x2="36" y2="34" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#0E9AB8"/><stop offset="1" stop-color="#073D52"/></linearGradient></defs><path d="M7 8.5 L20 32 L33 8.5" fill="none" stroke="url(#lgd)" stroke-width="5.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="9" r="2.7" fill="#D98E5A"/></svg>'; }
   var $=function(s){return document.querySelector(s);};
-  // Real wordmark: inverted to white on the dark brand panel, dark on the light form.
-  $("#brandLogo").innerHTML = '<img src="'+LOGO+'" alt="Village" style="height:30px;filter:brightness(0) invert(1)"/><span class="name" style="color:#fff;margin-inline-start:4px">CRM</span>';
+  // Real wordmark centered (inverted to white on the dark brand panel) with CRM below.
+  $("#brandLogo").innerHTML = '<img src="'+LOGO+'" alt="Village"/><div class="crm">CRM</div>';
   $("#mLogo").innerHTML = '<img src="'+LOGO+'" alt="Village" style="height:26px"/><b style="font-size:15px;margin-inline-start:3px;color:var(--ink-2)">CRM</b>';
 
   $("#theme").addEventListener("click", function(){
