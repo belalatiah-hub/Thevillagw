@@ -1,5 +1,5 @@
-<title>Salemate — Real Estate CRM</title>
-<meta name="description" content="Salemate — a calm, premium real-estate brokerage CRM: leads, pipeline, inventory, and a live project map." />
+<title>Village CRM — The Village Investment</title>
+<meta name="description" content="Village CRM — the official real-estate brokerage CRM of The Village Investment: leads, pipeline, inventory, commission, AI, and a live project map." />
 <style>
   /* ───────── Tokens ───────── */
   :root {
@@ -313,14 +313,18 @@
       my_target:"My target", achieved:"achieved", this_month:"this month", conversion:"Conversion funnel",
       activity:"Activity this week", calls:"Calls", meetings:"Meetings", viewings:"Viewings", leaderboard:"Team leaderboard",
       developers:"Developers", projects:"projects", units:"units", available:"Available", reserved:"Reserved", sold:"Sold",
-      search_inv:"Search developer, project, area…", from:"from", beds:"beds", ai_title:"Salemate AI",
+      search_inv:"Search developer, project, area…", from:"from", beds:"beds", ai_title:"Village AI",
       ai_hi:"Hi Ahmed 👋 I know your leads, inventory and pipeline. Ask me anything.", commission:"Commission", reports:"Reports",
       hr:"HR & Attendance", marketing:"Marketing", settings:"Settings", logout:"Sign out", role_label:"Sales Agent",
       no_answer:"No Answer", interested:"Interested", meeting_set:"Meeting Set", win_prob:"Win probability",
       target:"Target", achieved:"Achieved", pending:"Pending", approved:"Approved", paid:"Paid", forecast_c:"Forecast",
       history:"History", approvals:"Approvals to review", approve:"Approve", my_commission:"My commission", this_year:"this year",
       rate:"rate", back:"Back", reports:"Reports", by_source:"Leads by source", export_pdf:"Export PDF", export_excel:"Export Excel",
-      switch_role:"Tap to switch role", closed_deals:"Closed deals", collected:"Collected" },
+      switch_role:"Tap to switch role", closed_deals:"Closed deals", collected:"Collected",
+      integrations:"Integrations", integration_center:"Integration Center", int_sub:"Connect lead sources, ads, messaging & files — modular & secure.",
+      is_connected:"Connected", not_connected:"Not connected", connect:"Connect", test:"Test", enabled:"Enabled", disabled:"Disabled",
+      secrets_enc:"Secrets encrypted at rest · modular enable/disable",
+      cat_LEAD_SOURCE:"Lead sources", cat_ADS:"Advertising", cat_MESSAGING:"Messaging", cat_FILES:"Files & docs", cat_PRODUCTIVITY:"Productivity", cat_MAPS:"Maps", cat_NOTIFICATIONS:"Notifications" },
     ar: { dashboard:"الرئيسية", leads:"العملاء", efficiency:"الأداء", inventory:"المخزون", map:"الخريطة",
       good_evening:"مساء الخير", dash_sub:"العملاء والصفقات والخريطة في لمحة — عرض هادئ لما يحتاج انتباهك.",
       total_leads:"إجمالي العملاء", new_leads:"عملاء جدد", follow_up:"متابعة", updated:"آخر تحديث قبل ١٢ دقيقة",
@@ -332,14 +336,18 @@
       my_target:"هدفي", achieved:"مُنجز", this_month:"هذا الشهر", conversion:"مسار التحويل",
       activity:"نشاط هذا الأسبوع", calls:"مكالمات", meetings:"اجتماعات", viewings:"معاينات", leaderboard:"ترتيب الفريق",
       developers:"المطورون", projects:"مشاريع", units:"وحدات", available:"متاحة", reserved:"محجوزة", sold:"مباعة",
-      search_inv:"ابحث عن مطور، مشروع، منطقة…", from:"يبدأ من", beds:"غرف", ai_title:"مساعد Salemate",
+      search_inv:"ابحث عن مطور، مشروع، منطقة…", from:"يبدأ من", beds:"غرف", ai_title:"مساعد Village",
       ai_hi:"أهلاً أحمد 👋 أعرف عملاءك ومخزونك ومسار البيع. اسألني أي شيء.", commission:"العمولات", reports:"التقارير",
       hr:"الموارد والحضور", marketing:"التسويق", settings:"الإعدادات", logout:"تسجيل الخروج", role_label:"مندوب مبيعات",
       no_answer:"لم يرد", interested:"مهتم", meeting_set:"اجتماع", win_prob:"احتمال الإغلاق",
       target:"الهدف", achieved:"مُنجز", pending:"معلّقة", approved:"معتمدة", paid:"مدفوعة", forecast_c:"متوقعة",
       history:"السجل", approvals:"موافقات بانتظارك", approve:"اعتماد", my_commission:"عمولتي", this_year:"هذا العام",
       rate:"النسبة", back:"رجوع", reports:"التقارير", by_source:"العملاء حسب المصدر", export_pdf:"تصدير PDF", export_excel:"تصدير Excel",
-      switch_role:"اضغط لتبديل الدور", closed_deals:"صفقات مغلقة", collected:"محصّلة" }
+      switch_role:"اضغط لتبديل الدور", closed_deals:"صفقات مغلقة", collected:"محصّلة",
+      integrations:"التكاملات", integration_center:"مركز التكاملات", int_sub:"اربط مصادر العملاء والإعلانات والمراسلة والملفات — معياري وآمن.",
+      is_connected:"متصل", not_connected:"غير متصل", connect:"ربط", test:"اختبار", enabled:"مُفعّل", disabled:"مُعطّل",
+      secrets_enc:"الأسرار مشفّرة · تفعيل/تعطيل معياري",
+      cat_LEAD_SOURCE:"مصادر العملاء", cat_ADS:"الإعلانات", cat_MESSAGING:"المراسلة", cat_FILES:"الملفات والمستندات", cat_PRODUCTIVITY:"الإنتاجية", cat_MAPS:"الخرائط", cat_NOTIFICATIONS:"الإشعارات" }
   };
   function t(k){ return (T[S.lang] && T[S.lang][k]) || T.en[k] || k; }
 
@@ -394,6 +402,27 @@
   var ROLES = ["Sales Agent","Sales Manager","Finance","Marketing","CEO"];
   var ROLES_AR = { "Sales Agent":"مندوب مبيعات", "Sales Manager":"مدير مبيعات", "Finance":"مالية", "Marketing":"تسويق", "CEO":"الرئيس التنفيذي" };
 
+  // Integration Center providers — mirrors the backend registry (15 providers).
+  // Modular: each is a descriptor; enabling/disabling never touches the CRM core.
+  var PROVIDERS = [
+    { p:"META", name:"Meta Business", cat:"ADS", auth:"OAuth2", color:"#1877F2", init:"M", status:"disconnected" },
+    { p:"FACEBOOK_LEAD_ADS", name:"Facebook Lead Ads", cat:"LEAD_SOURCE", auth:"Webhook", color:"#1877F2", init:"f", status:"connected" },
+    { p:"INSTAGRAM_LEAD_ADS", name:"Instagram Lead Ads", cat:"LEAD_SOURCE", auth:"Webhook", color:"#C13584", init:"◎", status:"disconnected" },
+    { p:"GOOGLE_ADS", name:"Google Ads", cat:"ADS", auth:"OAuth2", color:"#EA4335", init:"G", status:"disconnected" },
+    { p:"TIKTOK_LEADS", name:"TikTok Lead Gen", cat:"LEAD_SOURCE", auth:"OAuth2", color:"#111", init:"♪", status:"disconnected" },
+    { p:"TIKTOK_BUSINESS", name:"TikTok Business", cat:"ADS", auth:"OAuth2", color:"#111", init:"♪", status:"disconnected" },
+    { p:"WHATSAPP_CLOUD", name:"WhatsApp Cloud API", cat:"MESSAGING", auth:"API key", color:"#25D366", init:"W", status:"connected" },
+    { p:"SMTP", name:"Email (SMTP)", cat:"MESSAGING", auth:"SMTP", color:"#5b6b9c", init:"@", status:"disconnected" },
+    { p:"TWILIO", name:"Twilio", cat:"MESSAGING", auth:"API key", color:"#F22F46", init:"T", status:"disconnected" },
+    { p:"FIREBASE", name:"Firebase FCM", cat:"NOTIFICATIONS", auth:"API key", color:"#FFA000", init:"▲", status:"connected" },
+    { p:"GOOGLE_DRIVE", name:"Google Drive", cat:"FILES", auth:"OAuth2", color:"#1FA463", init:"△", status:"disconnected" },
+    { p:"GOOGLE_SHEETS", name:"Google Sheets", cat:"PRODUCTIVITY", auth:"OAuth2", color:"#0F9D58", init:"⊞", status:"disconnected" },
+    { p:"GOOGLE_CALENDAR", name:"Google Calendar", cat:"PRODUCTIVITY", auth:"OAuth2", color:"#4285F4", init:"▦", status:"disconnected" },
+    { p:"GOOGLE_CONTACTS", name:"Google Contacts", cat:"PRODUCTIVITY", auth:"OAuth2", color:"#4285F4", init:"◕", status:"disconnected" },
+    { p:"GOOGLE_MAPS", name:"Google Maps", cat:"MAPS", auth:"API key", color:"#34A853", init:"◈", status:"connected" }
+  ];
+  var CAT_ORDER = ["LEAD_SOURCE","ADS","MESSAGING","FILES","PRODUCTIVITY","MAPS","NOTIFICATIONS"];
+
   // Shared, self-contained stats (mirror the backend /reports/dashboard shape).
   var STATS = { openPipeline:6.0, weighted:2.8, won:0.9, pendingComm:0.184, paidComm:0.38, cpl:180, roas:4.2, activeAgents:4 };
   function hotCount(){ return leads.filter(function(l){return l.score>=70;}).length; }
@@ -427,12 +456,12 @@
   function aiBriefCard(role){
     var b=roleBrief(role);
     var card=el("div","card"); card.style.cssText="padding:16px;margin-top:14px;background:linear-gradient(135deg,var(--purple-soft),var(--card));border:1px solid var(--line)";
-    card.innerHTML='<div class="row between"><div class="row" style="gap:8px"><span style="color:var(--purple)">'+I.brain+'</span><b style="font-size:13px">Salemate AI · '+(S.lang==="ar"?"موجز":"brief")+'</b></div><span class="muted" style="font-size:11px">'+(S.lang==="ar"?"الآن":"now")+'</span></div>'+
+    card.innerHTML='<div class="row between"><div class="row" style="gap:8px"><span style="color:var(--purple)">'+I.brain+'</span><b style="font-size:13px">Village AI · '+(S.lang==="ar"?"موجز":"brief")+'</b></div><span class="muted" style="font-size:11px">'+(S.lang==="ar"?"الآن":"now")+'</span></div>'+
       '<div style="font-weight:800;font-size:16px;margin:9px 0 8px;line-height:1.35">'+b.head+'</div>'+
       b.ins.map(function(x){return '<div class="row" style="gap:8px;margin:3px 0"><span class="dot" style="background:var(--purple);margin-top:7px"></span><span class="muted" style="font-size:13px">'+x+'</span></div>';}).join("")+
       '<div class="divider"></div>'+
       '<div class="row" style="gap:8px"><span style="color:var(--amber)">'+I.bolt+'</span><div style="font-size:13.5px;font-weight:600">'+b.rec+'</div></div>'+
-      '<button class="btn-ghost" id="briefAsk" style="margin-top:13px;width:100%;justify-content:center">'+I.brain+(S.lang==="ar"?"اسأل Salemate AI":"Ask Salemate AI")+'</button>';
+      '<button class="btn-ghost" id="briefAsk" style="margin-top:13px;width:100%;justify-content:center">'+I.brain+(S.lang==="ar"?"اسأل Village AI":"Ask Village AI")+'</button>';
     setTimeout(function(){ var a=$("#briefAsk"); if(a) a.onclick=openAI; },0);
     return card;
   }
@@ -539,7 +568,8 @@
     moon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg>',
     bolt:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg>'
   };
-  function salemateLogo(sz){ sz=sz||30; return '<svg width="'+sz+'" height="'+sz+'" viewBox="0 0 40 40" fill="none"><path d="M20 6c7 0 9 5 6 9-2 2.6-8 2-11 5-2.5 2.5-1 7 5 7" stroke="#5fbf6a" stroke-width="5" stroke-linecap="round"/><path d="M20 34c-7 0-9-5-6-9 2-2.6 8-2 11-5 2.5-2.5 1-7-5-7" stroke="#8b5cf6" stroke-width="5" stroke-linecap="round"/></svg>'; }
+  // The Village monogram: a teal "V" with a warm accent — the company brand.
+  function villageLogo(sz){ sz=sz||30; return '<svg width="'+sz+'" height="'+sz+'" viewBox="0 0 40 40" fill="none"><defs><linearGradient id="vlg" x1="4" y1="6" x2="36" y2="34" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#0E9AB8"/><stop offset="1" stop-color="#073D52"/></linearGradient></defs><path d="M7 8.5 L20 32 L33 8.5" fill="none" stroke="url(#vlg)" stroke-width="5.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="9" r="2.7" fill="#D98E5A"/></svg>'; }
   function el(tag, cls, html){ var e=document.createElement(tag); if(cls)e.className=cls; if(html!=null)e.innerHTML=html; return e; }
 
   /* ── stylized map (self-drawn, no external tiles) ── */
@@ -841,6 +871,51 @@
     return c;
   }
 
+  function vIntegrations(){
+    var c = el("div","fade");
+    var connectedN = PROVIDERS.filter(function(p){return p.status==="connected";}).length;
+    c.appendChild(el("div","sub-head",
+      '<button class="hmb" id="iBack" style="width:42px;height:42px;border-radius:13px;transform:scaleX(-1)">'+I.arrow+'</button>'+
+      '<div><div style="font-size:22px;font-weight:800;letter-spacing:-.5px">'+t("integration_center")+'</div>'+
+      '<div class="muted" style="font-size:13px">'+connectedN+'/'+PROVIDERS.length+' '+t("is_connected").toLowerCase()+'</div></div>'));
+
+    var banner=el("div","card"); banner.style.cssText="padding:14px 16px;margin-top:14px;background:linear-gradient(135deg,var(--purple-soft),var(--card))";
+    banner.innerHTML='<div class="row" style="gap:8px"><span style="color:var(--purple)">'+I.bolt+'</span><div><div style="font-weight:700;font-size:14px">'+t("int_sub")+'</div><div class="muted" style="font-size:12px;margin-top:2px">🔒 '+t("secrets_enc")+'</div></div></div>';
+    c.appendChild(banner);
+
+    CAT_ORDER.forEach(function(cat){
+      var items=PROVIDERS.filter(function(p){return p.cat===cat;});
+      if(!items.length) return;
+      c.appendChild(el("div","muted",t("cat_"+cat))).style.cssText="font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin:20px 2px 10px;color:var(--ink-3)";
+      items.forEach(function(p){ c.appendChild(providerCard(p)); });
+    });
+    setTimeout(function(){ var bk=$("#iBack"); if(bk) bk.onclick=function(){ go("dashboard"); }; },0);
+    return c;
+  }
+  function providerCard(p){
+    var on=p.status==="connected";
+    var card=el("div","card"); card.style.cssText="padding:14px 16px;margin-bottom:10px";
+    card.innerHTML='<div class="row" style="gap:12px">'+
+      '<div class="av" style="width:44px;height:44px;border-radius:13px;font-size:17px;background:'+p.color+'">'+p.init+'</div>'+
+      '<div class="grow" style="min-width:0"><div class="row between"><div style="font-weight:800;font-size:15px">'+p.name+'</div>'+
+        '<span class="pill '+(on?"":"")+'" style="'+(on?"background:var(--green-soft);color:var(--green)":"background:var(--card-2);color:var(--ink-3)")+'"><span class="dot" style="background:'+(on?"var(--green)":"var(--ink-3)")+'"></span>'+(on?t("is_connected"):t("not_connected"))+'</span></div>'+
+        '<div class="muted" style="font-size:12.5px;margin-top:2px">'+t("cat_"+p.cat)+' · '+p.auth+'</div></div></div>'+
+      '<div class="row" style="gap:9px;margin-top:12px">'+
+        (on
+          ? '<button class="btn-ghost grow" data-act="test" style="justify-content:center">'+t("test")+'</button><button class="btn-ghost grow" data-act="toggle" style="justify-content:center;color:var(--red)">'+t("disabled")+'…</button>'
+          : '<button class="btn-coral grow" data-act="connect" style="justify-content:center;padding:11px">'+t("connect")+'</button>')+
+      '</div>';
+    card.querySelectorAll("button").forEach(function(b){
+      b.onclick=function(){
+        var act=b.getAttribute("data-act");
+        if(act==="connect"){ p.status="connected"; toast(p.name+" — "+(S.lang==="ar"?"تم الربط (تجريبي)":"connected (demo)")); render(); }
+        else if(act==="test"){ toast(p.name+" — "+(S.lang==="ar"?"الاتصال سليم ✓":"health OK ✓")); }
+        else if(act==="toggle"){ p.status="disconnected"; toast(p.name+" — "+(S.lang==="ar"?"تم التعطيل":"disabled")); render(); }
+      };
+    });
+    return card;
+  }
+
   /* ── overlays ── */
   function openLead(l){
     var sc=SRC[l.src]||{t:l.src}, prob=l.score;
@@ -888,7 +963,7 @@
     function render(){
       var html=msgs.map(function(m){return '<div class="ai-msg '+(m.b?'ai-bot':'ai-me')+'">'+m.t+'</div>';}).join("")+
         '<div class="ai-suggest">'+sugg.map(function(s){return '<button class="ai-s" data-q="'+s+'">'+s+'</button>';}).join("")+'</div>';
-      $("#sheetBody").innerHTML='<div class="row between" style="margin:2px 0 12px"><div class="row" style="gap:10px">'+salemateLogo(26)+'<b style="font-size:17px">'+t("ai_title")+'</b></div></div>'+
+      $("#sheetBody").innerHTML='<div class="row between" style="margin:2px 0 12px"><div class="row" style="gap:10px">'+villageLogo(26)+'<b style="font-size:17px">'+t("ai_title")+'</b></div></div>'+
         '<div id="aiScroll">'+html+'</div>';
       [].forEach.call(document.querySelectorAll(".ai-s"),function(b){ b.onclick=function(){ ask(b.getAttribute("data-q")); }; });
       var as=$("#aiScroll"); if(as) as.scrollTop=as.scrollHeight;
@@ -897,7 +972,7 @@
       msgs.push({b:0,t:q});
       var a;
       if(/summar/i.test(q)) a="<b>Ashraf Hussein</b> — hot lead (score 88) from Facebook, interested in IL Bosco City, budget ~EGP 12M, 4 beds. Assigned to Fatma Sayed. Last touch: WhatsApp payment plan. <b>Next:</b> call today and book a site visit.";
-      else if(/whatsapp|follow/i.test(q)) a="Draft: “Hi Ashraf 👋 following up on IL Bosco City — I’ve reserved a 4-bed with a 10% down / 8-yr plan that fits your budget. Free for a quick visit this week? — Fatma, Salemate.”";
+      else if(/whatsapp|follow/i.test(q)) a="Draft: “Hi Ashraf 👋 following up on IL Bosco City — I’ve reserved a 4-bed with a 10% down / 8-yr plan that fits your budget. Free for a quick visit this week? — Fatma, Village CRM.”";
       else if(/recommend|3-bed|new cairo|8m/i.test(q)) a="Top matches under EGP 8M · New Cairo area:<br>• <b>IL Bosco City</b> BOSCO-A12 — 3BR, 165 m² — EGP 7.4M<br>• <b>Scenes</b> SCENES-A9 — 2BR, 118 m² — EGP 5.9M<br>• <b>Bloomfields</b> — from EGP 5.4M. Want me to draft an offer?";
       else if(/forecast/i.test(q)) a="Weighted forecast is <b>EGP 2.8M</b> from <b>EGP 6.0M</b> open pipeline (7 deals). Reservation-stage deals carry 75% probability — 2 are stalled >3 days and are dragging the number down.";
       else if(/behind target|agents are behind/i.test(q)) a="Behind target this month: <b>Omar Khaled</b> (62%) and <b>Nour Hany</b> (58%). Both have healthy lead volume but low call activity — coach on speed-to-lead.";
@@ -919,7 +994,7 @@
   }
 
   function openMenu(){
-    var mods=[["commission",I.money],["reports",I.chart],["hr",I.users2],["marketing",I.mega],["settings",I.gear]];
+    var mods=[["commission",I.money],["reports",I.chart],["integrations",I.bolt],["hr",I.users2],["marketing",I.mega],["settings",I.gear]];
     var roleName = S.lang==="ar" ? (ROLES_AR[S.role]||S.role) : S.role;
     $("#menu").innerHTML=
       '<button class="hd" id="mRole" style="text-align:start;width:100%;cursor:pointer"><div class="row" style="gap:12px"><div class="av" style="background:linear-gradient(135deg,var(--coral),var(--coral-2))">A</div>'+
@@ -930,7 +1005,7 @@
       '<button class="mi" id="mTheme">'+I.moon+'<span>Theme</span></button>'+
       '<button class="mi danger" style="margin-bottom:16px">'+I.out+'<span>'+t("logout")+'</span></button>';
     $("#scrim").classList.add("open"); $("#menu").classList.add("open");
-    var routable={ commission:1, reports:1 };
+    var routable={ commission:1, reports:1, integrations:1 };
     [].forEach.call(document.querySelectorAll("#menu .mi[data-m]"),function(b){ b.onclick=function(){ var m=b.getAttribute("data-m"); closeSheet(); if(routable[m]){ go(m); } else { toast(t(m)+" — "+(S.lang==="ar"?"قريباً":"coming soon")); } }; });
     $("#mRole").onclick=function(){ var i=ROLES.indexOf(S.role); S.role=ROLES[(i+1)%ROLES.length]; openMenu(); if(S.view==="commission") render(); };
     $("#mLang").onclick=function(){ S.lang=S.lang==="en"?"ar":"en"; applyDir(); closeSheet(); render(); };
@@ -946,10 +1021,10 @@
   /* ── chrome + tabs + router ── */
   var NAV=[["dashboard",I.grid],["leads",I.people],["efficiency",I.target],["inventory",I.box],["map",I.mapt]];
   function renderChrome(){
-    if(S.view==="map" || S.view==="commission" || S.view==="reports"){ $("#chrome").innerHTML=""; return; }
+    if(S.view==="map" || S.view==="commission" || S.view==="reports" || S.view==="integrations"){ $("#chrome").innerHTML=""; return; }
     $("#chrome").innerHTML=
       '<div class="appbar"><button class="hmb" id="hmb">'+I.menu+'</button>'+
-      '<div class="logo">'+salemateLogo(30)+'<span class="name">Salemate</span><span class="tm">™</span></div>'+
+      '<div class="logo">'+villageLogo(30)+'<span class="name">Village CRM</span><span class="tm">™</span></div>'+
       '<div class="weather">☀︎ 29°</div>'+
       '<button class="bell">'+I.bell+'<span class="dot">9+</span></button></div>';
     $("#hmb").onclick=openMenu;
@@ -961,7 +1036,7 @@
   function go(v){ S.view=v; closeSheet(); render(); var s=$("#view"); if(s) s.scrollTop=0; }
   function render(){
     renderChrome(); renderTabs();
-    var fn={dashboard:vDashboard,leads:vLeads,efficiency:vEfficiency,inventory:vInventory,map:vMap,commission:vCommission,reports:vReports}[S.view]||vDashboard;
+    var fn={dashboard:vDashboard,leads:vLeads,efficiency:vEfficiency,inventory:vInventory,map:vMap,commission:vCommission,reports:vReports,integrations:vIntegrations}[S.view]||vDashboard;
     var v=$("#view"); v.innerHTML=""; v.style.padding=S.view==="map"?"0 0 118px":"6px 18px 118px"; v.appendChild(fn());
     $("#fab").style.display=S.view==="map"?"none":"grid";
   }
