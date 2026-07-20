@@ -6,6 +6,7 @@
  */
 export const DOMAIN_EVENTS = {
   LEAD_CAPTURED: 'lead.captured',
+  LEAD_CREATED: 'lead.created',
   LEAD_ASSIGNED: 'lead.assigned',
   OPPORTUNITY_MOVED: 'opportunity.moved',
 } as const;

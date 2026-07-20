@@ -55,9 +55,14 @@ export class AiService {
    * Summarise a lead and recommend a next action. Persists the summary back on
    * the lead (aiSummary) so the UI can show it without re-calling the model.
    */
-  async summarizeLead(user: AuthUser, leadId: string): Promise<AiSummary> {
+  summarizeLead(user: AuthUser, leadId: string): Promise<AiSummary> {
+    return this.summarizeLeadForCompany(user.companyId, leadId);
+  }
+
+  /** Company-scoped summary — used by the automation engine (no request user). */
+  async summarizeLeadForCompany(companyId: string, leadId: string): Promise<AiSummary> {
     const lead = await this.prisma.lead.findFirst({
-      where: { id: leadId, companyId: user.companyId },
+      where: { id: leadId, companyId },
     });
     if (!lead) {
       throw new NotFoundException('Lead not found');

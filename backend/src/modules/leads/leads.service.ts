@@ -180,7 +180,7 @@ export class LeadsService {
     const budgetMinor = dto.budgetMinor != null ? BigInt(dto.budgetMinor) : null;
     const { score, temperature } = this.scoring.score({ ...dto, budgetMinor });
 
-    return this.prisma.lead.create({
+    const lead = await this.prisma.lead.create({
       data: {
         companyId: user.companyId,
         firstName: dto.firstName,
@@ -203,6 +203,16 @@ export class LeadsService {
         lastActivityAt: new Date(),
       },
     });
+
+    this.events.emit(DOMAIN_EVENTS.LEAD_CREATED, {
+      companyId: user.companyId,
+      leadId: lead.id,
+      firstName: lead.firstName,
+      source: lead.source,
+      score,
+      temperature,
+    });
+    return lead;
   }
 
   async findAll(user: AuthUser, query: QueryLeadsDto): Promise<PaginatedResult<Lead>> {

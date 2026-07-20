@@ -217,6 +217,18 @@ enum SyncStatus {
   RETRYING
 }
 
+enum AutomationTrigger {
+  LEAD_CAPTURED
+  LEAD_CREATED
+}
+
+enum AutomationRunStatus {
+  SUCCESS
+  PARTIAL
+  FAILED
+  SKIPPED
+}
+
 // ─── Tenancy & identity ──────────────────────────────────────────────────────
 
 model Company {
@@ -247,6 +259,8 @@ model Company {
   payments      Payment[]
   commissions   Commission[]
   integrations  Integration[]
+  automationRules AutomationRule[]
+  automationRuns  AutomationRun[]
 
   @@index([slug])
 }
@@ -795,4 +809,47 @@ model IntegrationSyncLog {
   createdAt     DateTime      @default(now())
 
   @@index([integrationId, createdAt])
+}
+
+// ─── Automation Engine ───────────────────────────────────────────────────────
+// Rules-based workflows. On a trigger (e.g. a lead is captured) the engine
+// evaluates each enabled rule's conditions and runs its actions: assign
+// (round-robin), create a follow-up, start an SLA timer, send a WhatsApp
+// template (via the Integration Center), and generate an AI summary. Modular:
+// actions/conditions are JSON, so new behaviour needs no schema change.
+
+model AutomationRule {
+  id         String            @id @default(cuid())
+  companyId  String
+  company    Company           @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  name       String
+  trigger    AutomationTrigger @default(LEAD_CAPTURED)
+  enabled    Boolean           @default(true)
+  order      Int               @default(0)
+  conditions Json? // { source?: string[], temperature?: string[], minScore?: number, area?: string[] }
+  actions    Json // [{ type, minutes?, userId?, template? }]
+  runCount   Int               @default(0)
+  lastRunAt  DateTime?
+  createdAt  DateTime          @default(now())
+  updatedAt  DateTime          @updatedAt
+
+  runs AutomationRun[]
+
+  @@index([companyId, enabled])
+}
+
+model AutomationRun {
+  id        String              @id @default(cuid())
+  companyId String
+  company   Company             @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  ruleId    String
+  rule      AutomationRule      @relation(fields: [ruleId], references: [id], onDelete: Cascade)
+  leadId    String?
+  status    AutomationRunStatus
+  actions   Json // executed action results
+  error     String?
+  createdAt DateTime            @default(now())
+
+  @@index([companyId, createdAt])
+  @@index([ruleId])
 }

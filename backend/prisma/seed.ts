@@ -193,6 +193,30 @@ async function main(): Promise<void> {
     }
   }
 
+  // Default automation rule: inbound web leads → assign, SLA, follow-up, AI, WhatsApp.
+  const existingRule = await prisma.automationRule.findFirst({
+    where: { companyId: company.id, name: 'Inbound web leads' },
+  });
+  if (!existingRule) {
+    await prisma.automationRule.create({
+      data: {
+        companyId: company.id,
+        name: 'Inbound web leads',
+        trigger: 'LEAD_CAPTURED',
+        enabled: true,
+        order: 0,
+        conditions: {},
+        actions: [
+          { type: 'ASSIGN_ROUND_ROBIN' },
+          { type: 'START_SLA', minutes: 15 },
+          { type: 'CREATE_FOLLOW_UP', minutes: 120 },
+          { type: 'GENERATE_AI_SUMMARY' },
+          { type: 'SEND_WHATSAPP_TEMPLATE', template: 'welcome' },
+        ],
+      },
+    });
+  }
+
   console.log('Seed complete.');
 }
 
