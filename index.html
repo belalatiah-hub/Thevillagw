@@ -27,7 +27,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <!-- frame-ancestors/HSTS belong in HTTP response headers (see deploy runbook), not meta. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: https://arro-consultancy.com; media-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; connect-src 'self' https://script.google.com https://script.googleusercontent.com; base-uri 'self'; form-action 'self'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; connect-src 'self' https://script.google.com https://script.googleusercontent.com; base-uri 'self'; form-action 'self'" />
   <meta name="theme-color" content="#073D52" />
   <meta name="color-scheme" content="light" />
   <meta name="format-detection" content="telephone=no" />
@@ -1842,10 +1842,8 @@
      (keyed by unit id). A missing entry falls back to the branded art, so nothing
      is ever broken. To add more: drop the WebP in /project-media/<slug>/ and add
      one line below. */
-  // Marakez Ramla covers/renders are served from the source page's host
-  // (arro-consultancy.com, allowed in the CSP). If a render is ever hotlink-
-  // blocked or moved it degrades to the branded art via the onerror fallback.
-  var RAMLA_IMG = 'https://arro-consultancy.com/uploads/';
+  // Marakez Ramla renders are now self-hosted (extracted from the official Ramla
+  // "Sacred Summers" renders deck) under /project-media/ramla — no external hotlinking.
   var PROJECT_COVERS = {
     'villette':'/project-media/villette/i-villa.webp',
     'sodic-east':'/project-media/sodic-east/apartment.webp',
@@ -1867,12 +1865,11 @@
     'CS-TH1':'/project-media/caesar/town-house.webp', 'CS-TW1':'/project-media/caesar/twin-house.webp', 'CS-SV1':'/project-media/caesar/standalone.webp',
     'JN-CR1':'/project-media/june/standalone-june.webp', 'JN-OP1':'/project-media/june/standalone-254.webp',
     'ES-AP1':'/project-media/the-estates/apartment.webp', 'ES-VL1':'/project-media/the-estates/villa.webp',
-    // Marakez Ramla — per-type renders from the source page
-    'RM-CH1':RAMLA_IMG+'2026-06-03-205649-6a206ae14b620.jpg', 'RM-CH2':RAMLA_IMG+'2026-06-03-205649-6a206ae14b620.jpg',
-    'RM-CH3':RAMLA_IMG+'2026-06-03-172541-6a2039659e3f4.jpg', 'RM-CH4':RAMLA_IMG+'2026-06-03-172541-6a2039659e3f4.jpg',
-    'RM-TW1':RAMLA_IMG+'2026-06-03-205649-6a206ae144615.jpg', 'RM-TW2':RAMLA_IMG+'2026-06-03-205649-6a206ae144615.jpg', 'RM-TW3':RAMLA_IMG+'2026-06-03-205649-6a206ae144615.jpg',
-    'RM-TH1':RAMLA_IMG+'2026-06-03-205649-6a206ae164de1.jpg', 'RM-TH2':RAMLA_IMG+'2026-06-03-205649-6a206ae164de1.jpg',
-    'RM-VL1':RAMLA_IMG+'2026-06-03-205649-6a206ae135526.jpg', 'RM-VL2':RAMLA_IMG+'2026-06-03-205649-6a206ae135526.jpg', 'RM-VL3':RAMLA_IMG+'2026-06-03-205649-6a206ae135526.jpg'
+    // Marakez Ramla — self-hosted per-type renders (from the official renders deck)
+    'RM-CH1':'/project-media/ramla/chalet.webp', 'RM-CH2':'/project-media/ramla/chalet.webp', 'RM-CH3':'/project-media/ramla/chalet.webp', 'RM-CH4':'/project-media/ramla/chalet.webp',
+    'RM-TW1':'/project-media/ramla/twin.webp', 'RM-TW2':'/project-media/ramla/twin.webp', 'RM-TW3':'/project-media/ramla/twin.webp',
+    'RM-TH1':'/project-media/ramla/townhouse.webp', 'RM-TH2':'/project-media/ramla/townhouse.webp',
+    'RM-VL1':'/project-media/ramla/villa.webp', 'RM-VL2':'/project-media/ramla/villa.webp', 'RM-VL3':'/project-media/ramla/villa.webp'
   };
   /* Location aerials (per area) — reused as the unit "Location" viewer image and
      the Top-Locations card art. Drop <area-key>.webp into /project-media/locations. */
