@@ -340,7 +340,11 @@
       simulate:"Simulate", add_rule:"New rule", every_lead:"Every lead", no_runs:"No runs yet — capture a lead to see the engine fire.",
       act_ASSIGN_ROUND_ROBIN:"Assign to least-busy agent", act_ASSIGN_USER:"Assign to a specific agent", act_CREATE_FOLLOW_UP:"Create a follow-up task",
       act_START_SLA:"Start first-response SLA timer", act_SEND_WHATSAPP_TEMPLATE:"Send WhatsApp template", act_GENERATE_AI_SUMMARY:"Generate AI summary", act_NOTIFY_OWNER:"Notify the owner",
-      st_SUCCESS:"Success", st_PARTIAL:"Partial", st_FAILED:"Failed", st_SKIPPED:"Skipped", mins:"min", just_now:"just now" },
+      st_SUCCESS:"Success", st_PARTIAL:"Partial", st_FAILED:"Failed", st_SKIPPED:"Skipped", mins:"min", just_now:"just now",
+      notifications:"Notifications", notif_center:"Notifications", mark_all_read:"Mark all read", all_read:"You're all caught up",
+      unread:"unread", f_all:"All", f_unread:"Unread", ago:"ago", h_ago:"h", d_ago:"d", m_ago:"m",
+      nt_LEAD_ASSIGNED:"Lead assigned", nt_LEAD_CAPTURED:"New lead", nt_SLA_DUE:"SLA due", nt_FOLLOW_UP_DUE:"Follow-up due",
+      nt_OPPORTUNITY_MOVED:"Deal update", nt_MENTION:"Mention", nt_SYSTEM:"System" },
     ar: { dashboard:"الرئيسية", leads:"العملاء", efficiency:"الأداء", inventory:"المخزون", map:"الخريطة",
       good_evening:"مساء الخير", dash_sub:"العملاء والصفقات والخريطة في لمحة — عرض هادئ لما يحتاج انتباهك.",
       total_leads:"إجمالي العملاء", new_leads:"عملاء جدد", follow_up:"متابعة", updated:"آخر تحديث قبل ١٢ دقيقة",
@@ -370,7 +374,11 @@
       simulate:"محاكاة", add_rule:"قاعدة جديدة", every_lead:"كل عميل", no_runs:"لا يوجد تشغيل بعد — استقبل عميلاً لترى المحرك يعمل.",
       act_ASSIGN_ROUND_ROBIN:"إسناد لأقل مندوب انشغالاً", act_ASSIGN_USER:"إسناد لمندوب محدد", act_CREATE_FOLLOW_UP:"إنشاء مهمة متابعة",
       act_START_SLA:"بدء مؤقت SLA للرد الأول", act_SEND_WHATSAPP_TEMPLATE:"إرسال قالب واتساب", act_GENERATE_AI_SUMMARY:"توليد ملخص ذكاء اصطناعي", act_NOTIFY_OWNER:"إشعار المسؤول",
-      st_SUCCESS:"ناجح", st_PARTIAL:"جزئي", st_FAILED:"فشل", st_SKIPPED:"تخطّي", mins:"دقيقة", just_now:"الآن" }
+      st_SUCCESS:"ناجح", st_PARTIAL:"جزئي", st_FAILED:"فشل", st_SKIPPED:"تخطّي", mins:"دقيقة", just_now:"الآن",
+      notifications:"الإشعارات", notif_center:"الإشعارات", mark_all_read:"تعليم الكل كمقروء", all_read:"لا إشعارات جديدة",
+      unread:"غير مقروء", f_all:"الكل", f_unread:"غير مقروء", ago:"", h_ago:"س", d_ago:"ي", m_ago:"د",
+      nt_LEAD_ASSIGNED:"عميل مُسند", nt_LEAD_CAPTURED:"عميل جديد", nt_SLA_DUE:"استحقاق SLA", nt_FOLLOW_UP_DUE:"متابعة مستحقة",
+      nt_OPPORTUNITY_MOVED:"تحديث صفقة", nt_MENTION:"إشارة", nt_SYSTEM:"النظام" }
   };
   function t(k){ return (T[S.lang] && T[S.lang][k]) || T.en[k] || k; }
 
@@ -468,6 +476,21 @@
     { rule:"Inbound web leads", lead:"Youssef Tarek", status:"PARTIAL", when:"1h",
       acts:[["ASSIGN_ROUND_ROBIN","Nour Hany"],["START_SLA","due in 15m"],["CREATE_FOLLOW_UP","due in 2h"],["GENERATE_AI_SUMMARY","rules-v1"],["SEND_WHATSAPP_TEMPLATE","queued — connect WhatsApp"]] }
   ];
+
+  // Notifications Center — mirrors the backend Notification model. Delivered
+  // live over the socket (per-user room) and, when Firebase is connected, as FCM.
+  var notifs = [
+    { id:"n1", type:"LEAD_ASSIGNED", pri:"HIGH", title:"New lead assigned: Ashraf Hussein", body:"Facebook · Mostakbal City · 🔥 Hot — respond within your SLA", when:"m2", read:false },
+    { id:"n2", type:"SLA_DUE", pri:"URGENT", title:"SLA breach in 4 min: Mona Adel", body:"First response overdue — call now", when:"m8", read:false },
+    { id:"n3", type:"OPPORTUNITY_MOVED", pri:"HIGH", title:"🎉 Deal won: Youssef Tarek — Badya", body:"EGP 7.0M · commission accrued", when:"h1", read:false },
+    { id:"n4", type:"FOLLOW_UP_DUE", pri:"NORMAL", title:"Follow-up due: Khaled Nabil", body:"HAPTOWN · send payment plan on WhatsApp", when:"h3", read:true },
+    { id:"n5", type:"LEAD_CAPTURED", pri:"NORMAL", title:"New lead captured from Instagram", body:"Dina Fouad · Scenes · auto-assigned by Automation", when:"h5", read:true },
+    { id:"n6", type:"SYSTEM", pri:"LOW", title:"WhatsApp Cloud API connected", body:"Templates can now send automatically", when:"d1", read:true }
+  ];
+  function unreadN(){ return notifs.filter(function(n){return !n.read;}).length; }
+  var NT_ICON = { LEAD_ASSIGNED:"people", LEAD_CAPTURED:"spark", SLA_DUE:"clock", FOLLOW_UP_DUE:"cal", OPPORTUNITY_MOVED:"money", MENTION:"chat", SYSTEM:"bolt" };
+  var NT_COLOR = { LEAD_ASSIGNED:"var(--purple)", LEAD_CAPTURED:"var(--cool,#4d84c0)", SLA_DUE:"var(--red)", FOLLOW_UP_DUE:"var(--amber)", OPPORTUNITY_MOVED:"var(--green)", MENTION:"var(--purple)", SYSTEM:"var(--ink-3)" };
+  function whenLabel(w){ var n=w.slice(1); var u=w[0]; return u==="m"? n+t("m_ago") : u==="h"? n+t("h_ago") : n+t("d_ago"); }
 
   // Shared, self-contained stats (mirror the backend /reports/dashboard shape).
   var STATS = { openPipeline:6.0, weighted:2.8, won:0.9, pendingComm:0.184, paidComm:0.38, cpl:180, roas:4.2, activeAgents:4 };
@@ -1038,6 +1061,59 @@
     return card;
   }
 
+  var notifFilter = "all";
+  function vNotifs(){
+    var c = el("div","fade");
+    var un = unreadN();
+    c.appendChild(el("div","sub-head",
+      '<button class="hmb" id="nBack" style="width:42px;height:42px;border-radius:13px;transform:scaleX(-1)">'+I.arrow+'</button>'+
+      '<div class="grow"><div style="font-size:22px;font-weight:800;letter-spacing:-.5px">'+t("notif_center")+'</div>'+
+        '<div class="muted" style="font-size:13px">'+un+' '+t("unread")+'</div></div>'+
+      (un? '<button class="btn-ghost" id="nAll" style="padding:9px 12px;font-size:12.5px">'+I.check+t("mark_all_read")+'</button>':'')));
+
+    var seg=el("div","row"); seg.style.cssText="gap:8px;margin:14px 0 4px";
+    [["all","f_all"],["unread","f_unread"]].forEach(function(f){
+      var on=notifFilter===f[0];
+      var b=el("button","", (f[0]==="unread"&&un? t(f[1])+" · "+un : t(f[1])));
+      b.style.cssText="flex:1;padding:10px;border:none;border-radius:13px;font-weight:800;font-size:13.5px;cursor:pointer;"+(on?"background:var(--ink);color:#fff":"background:var(--card);color:var(--ink-2);box-shadow:inset 0 0 0 1px var(--line)");
+      b.onclick=function(){ notifFilter=f[0]; render(); };
+      seg.appendChild(b);
+    });
+    c.appendChild(seg);
+
+    var list=notifs.filter(function(n){ return notifFilter==="all" || !n.read; });
+    if(!list.length){
+      var empty=el("div","card"); empty.style.cssText="padding:34px 18px;text-align:center;margin-top:14px";
+      empty.innerHTML='<div style="width:54px;height:54px;border-radius:16px;margin:0 auto 12px;display:grid;place-items:center;background:var(--green-soft);color:var(--green)">'+I.check+'</div><div style="font-weight:800;font-size:16px">'+t("all_read")+'</div>';
+      c.appendChild(empty);
+    }
+    list.forEach(function(n){ c.appendChild(notifCard(n)); });
+
+    setTimeout(function(){
+      var bk=$("#nBack"); if(bk) bk.onclick=function(){ go("dashboard"); };
+      var all=$("#nAll"); if(all) all.onclick=function(){ notifs.forEach(function(n){n.read=true;}); toast(S.lang==="ar"?"تم تعليم الكل كمقروء":"All marked read"); render(); };
+    },0);
+    return c;
+  }
+  function notifCard(n){
+    var col=NT_COLOR[n.type]||"var(--purple)", ic=I[NT_ICON[n.type]||"bolt"];
+    var urgent=n.pri==="URGENT";
+    var card=el("div","card"); card.style.cssText="padding:14px 15px;margin-bottom:10px;position:relative;cursor:pointer"+(n.read?"":";box-shadow:inset 0 0 0 1.5px var(--purple-soft),var(--shadow-s,0 1px 3px rgba(0,0,0,.05))");
+    card.innerHTML=
+      '<div class="row" style="gap:12px;align-items:flex-start">'+
+        '<div class="av" style="width:42px;height:42px;border-radius:12px;flex:none;background:'+col+'1f;color:'+col+'">'+ic+'</div>'+
+        '<div class="grow" style="min-width:0">'+
+          '<div class="row between" style="gap:8px"><span class="muted" style="font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:'+col+'">'+t("nt_"+n.type)+(urgent?' · !':'')+'</span>'+
+            '<span class="muted" style="font-size:11.5px;flex:none">'+whenLabel(n.when)+'</span></div>'+
+          '<div style="font-weight:'+(n.read?"600":"800")+';font-size:14.5px;margin-top:3px;line-height:1.35">'+n.title+'</div>'+
+          (n.body? '<div class="muted" style="font-size:12.5px;margin-top:3px;line-height:1.4">'+n.body+'</div>':'')+
+        '</div>'+
+        (n.read?'':'<span style="flex:none;width:9px;height:9px;border-radius:50%;background:var(--coral);margin-top:5px"></span>')+
+      '</div>';
+    card.onclick=function(){ if(!n.read){ n.read=true; render(); } };
+    return card;
+  }
+
   /* ── overlays ── */
   function openLead(l){
     var sc=SRC[l.src]||{t:l.src}, prob=l.score;
@@ -1116,7 +1192,7 @@
   }
 
   function openMenu(){
-    var mods=[["commission",I.money],["reports",I.chart],["automation",I.flow],["integrations",I.bolt],["hr",I.users2],["marketing",I.mega],["settings",I.gear]];
+    var mods=[["notifications",I.bell],["commission",I.money],["reports",I.chart],["automation",I.flow],["integrations",I.bolt],["hr",I.users2],["marketing",I.mega],["settings",I.gear]];
     var roleName = S.lang==="ar" ? (ROLES_AR[S.role]||S.role) : S.role;
     $("#menu").innerHTML=
       '<button class="hd" id="mRole" style="text-align:start;width:100%;cursor:pointer"><div class="row" style="gap:12px"><div class="av" style="background:linear-gradient(135deg,var(--coral),var(--coral-2))">A</div>'+
@@ -1127,7 +1203,7 @@
       '<button class="mi" id="mTheme">'+I.moon+'<span>Theme</span></button>'+
       '<button class="mi danger" style="margin-bottom:16px">'+I.out+'<span>'+t("logout")+'</span></button>';
     $("#scrim").classList.add("open"); $("#menu").classList.add("open");
-    var routable={ commission:1, reports:1, integrations:1, automation:1 };
+    var routable={ commission:1, reports:1, integrations:1, automation:1, notifications:1 };
     [].forEach.call(document.querySelectorAll("#menu .mi[data-m]"),function(b){ b.onclick=function(){ var m=b.getAttribute("data-m"); closeSheet(); if(routable[m]){ go(m); } else { toast(t(m)+" — "+(S.lang==="ar"?"قريباً":"coming soon")); } }; });
     $("#mRole").onclick=function(){ var i=ROLES.indexOf(S.role); S.role=ROLES[(i+1)%ROLES.length]; openMenu(); if(S.view==="commission") render(); };
     $("#mLang").onclick=function(){ S.lang=S.lang==="en"?"ar":"en"; applyDir(); closeSheet(); render(); };
@@ -1143,13 +1219,14 @@
   /* ── chrome + tabs + router ── */
   var NAV=[["dashboard",I.grid],["leads",I.people],["efficiency",I.target],["inventory",I.box],["map",I.mapt]];
   function renderChrome(){
-    if(S.view==="map" || S.view==="commission" || S.view==="reports" || S.view==="integrations" || S.view==="automation"){ $("#chrome").innerHTML=""; return; }
+    if(S.view==="map" || S.view==="commission" || S.view==="reports" || S.view==="integrations" || S.view==="automation" || S.view==="notifications"){ $("#chrome").innerHTML=""; return; }
     $("#chrome").innerHTML=
       '<div class="appbar"><button class="hmb" id="hmb">'+I.menu+'</button>'+
       '<div class="logo"><img src="'+LOGO+'" alt="Village" style="height:25px;display:block"/><span class="name" style="font-size:15px;color:var(--ink-2);margin-inline-start:3px">CRM</span></div>'+
       '<div class="weather">☀︎ 29°</div>'+
-      '<button class="bell">'+I.bell+'<span class="dot">9+</span></button></div>';
+      '<button class="bell" id="bell">'+I.bell+(unreadN()? '<span class="dot">'+unreadN()+'</span>':'')+'</button></div>';
     $("#hmb").onclick=openMenu;
+    $("#bell").onclick=function(){ go("notifications"); };
   }
   function renderTabs(){
     $("#tabs").innerHTML=NAV.map(function(n){return '<button class="tab'+(S.view===n[0]?" on":"")+'" data-v="'+n[0]+'">'+n[1]+'<span>'+t(n[0])+'</span></button>';}).join("");
@@ -1158,7 +1235,7 @@
   function go(v){ S.view=v; closeSheet(); render(); var s=$("#view"); if(s) s.scrollTop=0; }
   function render(){
     renderChrome(); renderTabs();
-    var fn={dashboard:vDashboard,leads:vLeads,efficiency:vEfficiency,inventory:vInventory,map:vMap,commission:vCommission,reports:vReports,integrations:vIntegrations,automation:vAutomation}[S.view]||vDashboard;
+    var fn={dashboard:vDashboard,leads:vLeads,efficiency:vEfficiency,inventory:vInventory,map:vMap,commission:vCommission,reports:vReports,integrations:vIntegrations,automation:vAutomation,notifications:vNotifs}[S.view]||vDashboard;
     var v=$("#view"); v.innerHTML=""; v.style.padding=S.view==="map"?"0 0 118px":"6px 18px 118px"; v.appendChild(fn());
     $("#fab").style.display=S.view==="map"?"none":"grid";
   }
