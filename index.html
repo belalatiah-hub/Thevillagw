@@ -1270,23 +1270,6 @@
     am_mosque:['M5 20V11c0-3 3-5 7-5s7 2 7 5v9','M4 20h16','M12 6V3','M9 20v-4a3 3 0 0 1 6 0v4']
   };
   function ic(name, cls){ var s = svg(ICON[name]); if(cls) s.setAttribute('class',cls); return s; }
-  // Brand V-mark (the Village logo icon) — teal gradient stroke + warm accent dot.
-  // Faithful to the CRM app's own mark so the CRM nav item reads as "opens that app".
-  var _vgid=0;
-  function vmark(cls){
-    var NS='http://www.w3.org/2000/svg', gid='tvv'+(++_vgid);
-    var s=document.createElementNS(NS,'svg');
-    s.setAttribute('viewBox','0 0 40 40'); s.setAttribute('fill','none'); s.setAttribute('aria-hidden','true');
-    if(cls) s.setAttribute('class',cls);
-    var defs=document.createElementNS(NS,'defs');
-    var lg=document.createElementNS(NS,'linearGradient');
-    lg.setAttribute('id',gid); lg.setAttribute('x1','4'); lg.setAttribute('y1','6'); lg.setAttribute('x2','36'); lg.setAttribute('y2','34'); lg.setAttribute('gradientUnits','userSpaceOnUse');
-    [['0','#0E9AB8'],['1','#073D52']].forEach(function(p){ var st=document.createElementNS(NS,'stop'); st.setAttribute('offset',p[0]); st.setAttribute('stop-color',p[1]); lg.appendChild(st); });
-    defs.appendChild(lg); s.appendChild(defs);
-    var p=document.createElementNS(NS,'path'); p.setAttribute('d','M7 8.5 L20 32 L33 8.5'); p.setAttribute('fill','none'); p.setAttribute('stroke','url(#'+gid+')'); p.setAttribute('stroke-width','5.4'); p.setAttribute('stroke-linecap','round'); p.setAttribute('stroke-linejoin','round'); s.appendChild(p);
-    var c=document.createElementNS(NS,'circle'); c.setAttribute('cx','20'); c.setAttribute('cy','9'); c.setAttribute('r','2.7'); c.setAttribute('fill','#D98E5A'); s.appendChild(c);
-    return s;
-  }
   var $ = function(s, r){ return (r||document).querySelector(s); };
 
   /* ==================================================================
@@ -1333,7 +1316,7 @@
       map_note_h:"About this map", map_note_p:"Marker positions are approximate and schematic, for orientation only. Prices and the investment signal are illustrative — confirm current figures and availability with an advisor.",
       price_from:"From", all_areas:"All areas", all_developers:"All developers", any_budget:"Any budget", budget:"Budget", cta_call:"Call", cmp_add:"Compare",
       fav_h:"Your favorites", fav_p:"Projects you've saved — kept on this device.", fav_empty:"No favorites yet. Tap the heart on any project to save it here.",
-      nav_faqs:"FAQs", nav_contact:"Contact", nav_compare:"Compare", nav_crm:"Village CRM",
+      nav_faqs:"FAQs", nav_contact:"Contact", nav_compare:"Compare",
       cta_talk:"Talk to an advisor", cta_explore:"Explore projects", cta_details:"View details",
       cta_more:"Learn more", cta_all:"View all", cta_reset:"Reset filters", cta_apply:"Apply",
       egp:"EGP", from:"Starting From", tba:"On request", perm:"/ month (illustrative)",
@@ -1450,7 +1433,7 @@
       map_note_h:"عن هذه الخريطة", map_note_p:"مواقع العلامات تقريبية وتخطيطية للاسترشاد فقط. الأسعار ومؤشر الاستثمار استرشادية — تأكّد من الأرقام والإتاحة الحالية مع المستشار.",
       price_from:"يبدأ من", all_areas:"كل المناطق", all_developers:"كل المطوّرين", any_budget:"أي ميزانية", budget:"الميزانية", cta_call:"اتصال", cmp_add:"قارن",
       fav_h:"مفضّلتك", fav_p:"المشروعات التي حفظتها — تُحفظ على هذا الجهاز.", fav_empty:"لا توجد مفضّلة بعد. اضغط القلب على أي مشروع لحفظه هنا.",
-      nav_faqs:"الأسئلة الشائعة", nav_contact:"تواصل معنا", nav_compare:"المقارنة", nav_crm:"Village CRM",
+      nav_faqs:"الأسئلة الشائعة", nav_contact:"تواصل معنا", nav_compare:"المقارنة",
       cta_talk:"تحدّث إلى مستشار", cta_explore:"استكشف المشروعات", cta_details:"عرض التفاصيل",
       cta_more:"اعرف أكثر", cta_all:"عرض الكل", cta_reset:"مسح الفلاتر", cta_apply:"تطبيق",
       egp:"ج.م", from:"يبدأ من", tba:"عند الطلب", perm:"/ شهرياً (تقديري)",
@@ -4675,12 +4658,6 @@
       var a=h('a',{href:U(buildPath(it[0])), class:'nav-item', title:t(it[1])}, ic(it[2],'nav-item__ic'), h('span',{class:'nav-item__lbl'}, lbl)); if(group===it[0]) a.setAttribute('aria-current','page'); pn.appendChild(a);
       var a2=h('a',{href:U(buildPath(it[0])), class:'nav-item'}, ic(it[2],'nav-item__ic'), h('span',null, lbl)); if(group===it[0]) a2.setAttribute('aria-current','page'); dn.appendChild(a2);
     });
-    // Village CRM — a separate, self-contained static app served at /crm/. It is NOT
-    // an SPA route, so these links do a full browser navigation (see the /crm/ bypass
-    // in the global link interceptor). Teal brand V-mark next to the label.
-    var crmHref=U('/crm/login/');
-    pn.appendChild(h('a',{href:crmHref, class:'nav-item', title:t('nav_crm')}, vmark('nav-item__ic'), h('span',{class:'nav-item__lbl'}, t('nav_crm'))));
-    dn.appendChild(h('a',{href:crmHref, class:'nav-item'}, vmark('nav-item__ic'), h('span',null, t('nav_crm'))));
     dn.appendChild(h('a',{href:U(buildPath('investors')), class:'nav-item'}, ic('build','nav-item__ic'), h('span',null, t('nav_investors'))));
     dn.appendChild(h('a',{href:U(buildPath('faqs')), class:'nav-item'}, ic('info','nav-item__ic'), h('span',null, t('nav_faqs'))));
     // footer columns
@@ -4864,9 +4841,6 @@
     // so it works even inside constrained webviews / file previews where target="_blank" is
     // silently ignored (that is why the social icons appeared to "do nothing").
     if(isExternalLink(href, a.target)){ e.preventDefault(); openExternal(href); return; }
-    // Village CRM lives at /crm/ as a separate static app — never intercept it into the
-    // SPA router; let the browser perform a real, full-page navigation.
-    if(stripBase(a.pathname).indexOf('/crm/')===0) return;
     e.preventDefault(); navigateTo(stripBase(a.pathname) + (a.search||''));
   });
   if(FILEMODE) window.addEventListener('hashchange', route);
