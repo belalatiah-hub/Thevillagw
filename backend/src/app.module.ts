@@ -29,6 +29,9 @@ import { RolesModule } from './modules/roles/roles.module';
 import { OrgModule } from './modules/org/org.module';
 import { AuditModule } from './modules/audit/audit.module';
 import { SettingsModule } from './modules/settings/settings.module';
+import { TelephonyModule } from './modules/telephony/telephony.module';
+import { WhatsappModule } from './modules/whatsapp/whatsapp.module';
+import { DistributionModule } from './modules/distribution/distribution.module';
 import { AuditInterceptor } from './common/interceptors/audit.interceptor';
 import { ScopeModule } from './common/scope/scope.module';
 
@@ -71,6 +74,9 @@ import { ScopeModule } from './common/scope/scope.module';
     AuditModule,
     SettingsModule,
     ScopeModule,
+    TelephonyModule,
+    WhatsappModule,
+    DistributionModule,
   ],
   providers: [
     // Order matters: authenticate → rate-limit → authorize.

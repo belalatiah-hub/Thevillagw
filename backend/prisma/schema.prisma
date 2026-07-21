@@ -250,6 +250,67 @@ enum NotificationPriority {
   URGENT
 }
 
+enum CallDirection {
+  INBOUND
+  OUTBOUND
+}
+
+enum CallStatus {
+  RINGING
+  ANSWERED
+  COMPLETED
+  MISSED
+  BUSY
+  FAILED
+  VOICEMAIL
+}
+
+enum CallOutcome {
+  INTERESTED
+  NOT_INTERESTED
+  NO_ANSWER
+  CALLBACK
+  WRONG_NUMBER
+  MEETING_BOOKED
+  DO_NOT_CALL
+}
+
+enum WaDirection {
+  INBOUND
+  OUTBOUND
+}
+
+enum WaMessageType {
+  TEXT
+  TEMPLATE
+  IMAGE
+  DOCUMENT
+  AUDIO
+  LOCATION
+}
+
+enum WaMessageStatus {
+  QUEUED
+  SENT
+  DELIVERED
+  READ
+  FAILED
+  RECEIVED
+}
+
+enum WaConversationStatus {
+  OPEN
+  PENDING
+  CLOSED
+}
+
+enum DistributionStrategy {
+  ROUND_ROBIN
+  LEAST_BUSY
+  SPECIFIC_TEAM
+  SPECIFIC_USER
+}
+
 enum AutomationRunStatus {
   SUCCESS
   PARTIAL
@@ -294,6 +355,10 @@ model Company {
   departments     Department[]
   positions       Position[]
   teams           Team[]
+  calls             Call[]
+  waConversations   WaConversation[]
+  waMessages        WaMessage[]
+  distributionRules DistributionRule[]
 
   @@index([slug])
 }
@@ -351,6 +416,8 @@ model User {
   auditLogs      AuditLog[]
   notifications  Notification[]
   ledTeams       Team[]         @relation("TeamLeader")
+  calls           Call[]           @relation("CallAgent")
+  waConversations WaConversation[] @relation("WaAssignee")
 
   @@unique([companyId, email])
   @@index([companyId])
@@ -518,6 +585,8 @@ model Customer {
   opportunities Opportunity[]
   reservations  Reservation[]
   contracts     Contract[]
+  calls           Call[]
+  waConversations WaConversation[]
 
   @@index([companyId])
   @@index([companyId, phone])
@@ -567,6 +636,8 @@ model Lead {
 
   activities    Activity[]
   opportunities Opportunity[]
+  calls           Call[]
+  waConversations WaConversation[]
 
   @@index([companyId, status])
   @@index([companyId, ownerId])
@@ -969,4 +1040,101 @@ model Team {
 
   @@unique([companyId, name])
   @@index([companyId])
+}
+
+// ─── Telephony / Call Center ─────────────────────────────────────────────────
+
+model Call {
+  id           String        @id @default(cuid())
+  companyId    String
+  company      Company       @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  leadId       String?
+  lead         Lead?         @relation(fields: [leadId], references: [id], onDelete: SetNull)
+  customerId   String?
+  customer     Customer?     @relation(fields: [customerId], references: [id], onDelete: SetNull)
+  agentId      String?
+  agent        User?         @relation("CallAgent", fields: [agentId], references: [id], onDelete: SetNull)
+  direction    CallDirection @default(OUTBOUND)
+  status       CallStatus    @default(COMPLETED)
+  outcome      CallOutcome?
+  fromNumber   String?
+  toNumber     String?
+  durationSec  Int           @default(0)
+  recordingUrl String?
+  notes        String?
+  provider     String? // e.g. TWILIO, PBX, MANUAL
+  externalId   String? // provider call id (for webhook correlation)
+  startedAt    DateTime      @default(now())
+  endedAt      DateTime?
+  createdAt    DateTime      @default(now())
+
+  @@index([companyId, createdAt])
+  @@index([leadId])
+  @@index([agentId])
+}
+
+// ─── WhatsApp Business (conversations + messages) ─────────────────────────────
+
+model WaConversation {
+  id            String               @id @default(cuid())
+  companyId     String
+  company       Company              @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  leadId        String?
+  lead          Lead?                @relation(fields: [leadId], references: [id], onDelete: SetNull)
+  customerId    String?
+  customer      Customer?            @relation(fields: [customerId], references: [id], onDelete: SetNull)
+  assigneeId    String?
+  assignee      User?                @relation("WaAssignee", fields: [assigneeId], references: [id], onDelete: SetNull)
+  waNumber      String // the customer's WhatsApp number (E.164)
+  contactName   String?
+  status        WaConversationStatus @default(OPEN)
+  unread        Int                  @default(0)
+  lastMessageAt DateTime             @default(now())
+  createdAt     DateTime             @default(now())
+
+  messages WaMessage[]
+
+  @@unique([companyId, waNumber])
+  @@index([companyId, lastMessageAt])
+}
+
+model WaMessage {
+  id             String          @id @default(cuid())
+  companyId      String
+  company        Company         @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  conversationId String
+  conversation   WaConversation  @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  direction      WaDirection
+  type           WaMessageType   @default(TEXT)
+  body           String?
+  templateName   String?
+  mediaUrl       String?
+  status         WaMessageStatus @default(SENT)
+  externalId     String?
+  senderId       String? // the agent who sent an OUTBOUND message
+  createdAt      DateTime        @default(now())
+
+  @@index([conversationId, createdAt])
+  @@index([companyId, createdAt])
+}
+
+// ─── Advanced lead distribution ──────────────────────────────────────────────
+
+model DistributionRule {
+  id             String               @id @default(cuid())
+  companyId      String
+  company        Company              @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  name           String
+  enabled        Boolean              @default(true)
+  order          Int                  @default(0)
+  conditions     Json? // { source?: string[], area?: string[], minScore?: number }
+  strategy       DistributionStrategy @default(ROUND_ROBIN)
+  targetTeamId   String?
+  targetUserId   String?
+  dailyCapPerAgent Int? // null = uncapped
+  assignedCount  Int                  @default(0)
+  createdAt      DateTime             @default(now())
+  updatedAt      DateTime             @updatedAt
+
+  @@index([companyId, enabled, order])
 }

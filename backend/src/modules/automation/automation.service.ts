@@ -4,6 +4,7 @@ import { AutomationRunStatus, AutomationTrigger, Prisma } from '@prisma/client';
 import { DOMAIN_EVENTS } from '../../common/events/domain-events';
 import { PrismaService } from '../../prisma/prisma.service';
 import { AiService } from '../ai/ai.service';
+import { DistributionService } from '../distribution/distribution.service';
 import { AutomationAction, AutomationConditions, matchesConditions } from './automation.types';
 
 /** System roles considered eligible for automatic lead assignment. */
@@ -28,6 +29,7 @@ export class AutomationService {
     private readonly prisma: PrismaService,
     private readonly events: EventEmitter2,
     private readonly ai: AiService,
+    private readonly distribution: DistributionService,
   ) {}
 
   /**
@@ -148,10 +150,39 @@ export class AutomationService {
   private async assignRoundRobin(companyId: string, leadId: string): Promise<ActionResult> {
     const lead = await this.prisma.lead.findUnique({
       where: { id: leadId },
-      select: { ownerId: true },
+      select: { ownerId: true, source: true, interestArea: true, score: true },
     });
     if (lead?.ownerId) return { type: 'ASSIGN_ROUND_ROBIN', ok: true, detail: 'already assigned' };
 
+    // Prefer the advanced distribution engine (rules by source/area, daily caps).
+    if (lead) {
+      const picked = await this.distribution.pickAssignee(companyId, {
+        source: lead.source,
+        interestArea: lead.interestArea,
+        score: lead.score,
+      });
+      if (picked.userId) {
+        await this.prisma.lead.update({ where: { id: leadId }, data: { ownerId: picked.userId } });
+        this.events.emit(DOMAIN_EVENTS.LEAD_ASSIGNED, {
+          companyId,
+          leadId,
+          ownerId: picked.userId,
+        });
+        const u = await this.prisma.user.findUnique({
+          where: { id: picked.userId },
+          select: { firstName: true, lastName: true },
+        });
+        return {
+          type: 'ASSIGN_ROUND_ROBIN',
+          ok: true,
+          detail:
+            `${u?.firstName ?? ''} ${u?.lastName ?? ''}`.trim() +
+            (picked.ruleName ? ` · ${picked.ruleName}` : ''),
+        };
+      }
+    }
+
+    // Fallback: least-loaded eligible agent (no matching distribution rule).
     const users = await this.prisma.user.findMany({
       where: { companyId, isActive: true },
       include: { roles: { include: { role: true } } },
