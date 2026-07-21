@@ -266,6 +266,7 @@ model Company {
   logoUrl      String?
   baseCurrency Currency @default(EGP)
   timezone     String   @default("Africa/Cairo")
+  settings     Json? // flexible tenant prefs: security policy, SLA defaults, branding, locale
   isActive     Boolean  @default(true)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
