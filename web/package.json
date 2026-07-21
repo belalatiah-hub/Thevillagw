@@ -1,0 +1,14 @@
+{
+  "name": "village-crm-web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Village CRM — web console (static, Cloudflare Workers)",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "preview": "npx serve public"
+  },
+  "devDependencies": {
+    "wrangler": "^3.90.0"
+  }
+}
