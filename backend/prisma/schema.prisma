@@ -311,6 +311,20 @@ enum DistributionStrategy {
   SPECIFIC_USER
 }
 
+enum LookupType {
+  CHANNEL // lead sources
+  COMM_WAY // communication methods
+  CANCEL_REASON // lost/cancel reasons
+  LEAD_STAGE // configurable lead statuses
+  NEXT_ACTION // planned next-action types
+}
+
+enum LeadActionStatus {
+  PLANNED
+  DONE
+  CANCELLED
+}
+
 enum AutomationRunStatus {
   SUCCESS
   PARTIAL
@@ -359,6 +373,8 @@ model Company {
   waConversations   WaConversation[]
   waMessages        WaMessage[]
   distributionRules DistributionRule[]
+  lookups           Lookup[]
+  leadActions       LeadAction[]
 
   @@index([slug])
 }
@@ -418,6 +434,10 @@ model User {
   ledTeams       Team[]         @relation("TeamLeader")
   calls           Call[]           @relation("CallAgent")
   waConversations WaConversation[] @relation("WaAssignee")
+  leadActions     LeadAction[]     @relation("ActionAgent")
+  managerId       String?
+  manager         User?            @relation("ReportsTo", fields: [managerId], references: [id], onDelete: SetNull)
+  reports         User[]           @relation("ReportsTo")
 
   @@unique([companyId, email])
   @@index([companyId])
@@ -638,6 +658,7 @@ model Lead {
   opportunities Opportunity[]
   calls           Call[]
   waConversations WaConversation[]
+  leadActions     LeadAction[]
 
   @@index([companyId, status])
   @@index([companyId, ownerId])
@@ -1137,4 +1158,48 @@ model DistributionRule {
   updatedAt      DateTime             @updatedAt
 
   @@index([companyId, enabled, order])
+}
+
+// ─── Configurable lookups (channels, stages, cancel reasons, comm ways) ──────
+
+model Lookup {
+  id        String     @id @default(cuid())
+  companyId String
+  company   Company    @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  type      LookupType
+  name      String
+  order     Int        @default(0)
+  color     String?
+  active    Boolean    @default(true)
+  meta      Json? // e.g. stage kind (OPEN/WON/LOST) for LEAD_STAGE
+  createdAt DateTime   @default(now())
+
+  @@unique([companyId, type, name])
+  @@index([companyId, type])
+}
+
+// ─── Lead actions (Next Action + Stage Date + comment + history) ─────────────
+
+model LeadAction {
+  id           String           @id @default(cuid())
+  companyId    String
+  company      Company          @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  leadId       String
+  lead         Lead             @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  agentId      String?
+  agent        User?            @relation("ActionAgent", fields: [agentId], references: [id], onDelete: SetNull)
+  nextAction   String // e.g. "Call", "Meeting", "Send offer"
+  stageName    String? // resulting lead stage/status
+  dueAt        DateTime? // "Stage Date" — when the next action is due
+  comment      String?
+  voiceNoteUrl String?
+  rating       Int? // 1–5 star qualification of the lead
+  status       LeadActionStatus @default(PLANNED)
+  doneAt       DateTime?
+  createdAt    DateTime         @default(now())
+
+  @@index([companyId, createdAt])
+  @@index([leadId, createdAt])
+  @@index([companyId, status, dueAt])
+  @@index([agentId, status])
 }

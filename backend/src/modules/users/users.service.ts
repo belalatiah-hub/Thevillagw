@@ -19,6 +19,7 @@ const SAFE_SELECT = {
   departmentId: true,
   positionId: true,
   teamId: true,
+  managerId: true,
   lastLoginAt: true,
   createdAt: true,
   twoFactorEnabled: true,
@@ -26,6 +27,7 @@ const SAFE_SELECT = {
   department: { select: { id: true, name: true } },
   position: { select: { id: true, title: true } },
   team: { select: { id: true, name: true } },
+  manager: { select: { id: true, firstName: true, lastName: true } },
 } satisfies Prisma.UserSelect;
 
 @Injectable()
@@ -51,6 +53,7 @@ export class UsersService {
         departmentId: dto.departmentId,
         positionId: dto.positionId,
         teamId: dto.teamId,
+        managerId: dto.managerId,
         roles: dto.roleIds?.length
           ? { create: dto.roleIds.map((roleId) => ({ roleId })) }
           : undefined,
@@ -115,6 +118,7 @@ export class UsersService {
           departmentId: dto.departmentId,
           positionId: dto.positionId,
           teamId: dto.teamId,
+          managerId: dto.managerId,
         },
         select: SAFE_SELECT,
       });

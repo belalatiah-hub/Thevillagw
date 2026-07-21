@@ -59,6 +59,11 @@ export class CreateUserDto {
   @IsString()
   teamId?: string;
 
+  @ApiPropertyOptional({ description: 'Manager this user reports to (parent in the hierarchy)' })
+  @IsOptional()
+  @IsString()
+  managerId?: string;
+
   @ApiPropertyOptional({ type: [String], description: 'Role ids to assign' })
   @IsOptional()
   @IsArray()
@@ -113,6 +118,11 @@ export class UpdateUserDto extends PartialType(
   @IsOptional()
   @IsString()
   teamId?: string;
+
+  @ApiPropertyOptional({ description: 'Manager this user reports to' })
+  @IsOptional()
+  @IsString()
+  managerId?: string;
 
   @ApiPropertyOptional({ type: [String], description: 'Replace the user’s role assignments' })
   @IsOptional()

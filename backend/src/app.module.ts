@@ -32,6 +32,8 @@ import { SettingsModule } from './modules/settings/settings.module';
 import { TelephonyModule } from './modules/telephony/telephony.module';
 import { WhatsappModule } from './modules/whatsapp/whatsapp.module';
 import { DistributionModule } from './modules/distribution/distribution.module';
+import { LookupsModule } from './modules/lookups/lookups.module';
+import { ActionsModule } from './modules/actions/actions.module';
 import { AuditInterceptor } from './common/interceptors/audit.interceptor';
 import { ScopeModule } from './common/scope/scope.module';
 
@@ -77,6 +79,8 @@ import { ScopeModule } from './common/scope/scope.module';
     TelephonyModule,
     WhatsappModule,
     DistributionModule,
+    LookupsModule,
+    ActionsModule,
   ],
   providers: [
     // Order matters: authenticate → rate-limit → authorize.

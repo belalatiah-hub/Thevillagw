@@ -311,6 +311,44 @@ async function main(): Promise<void> {
     });
   }
 
+  // Configurable lookups (channels, comm ways, cancel reasons, stages, next actions).
+  const LOOKUPS: Record<string, { name: string; color?: string; meta?: object }[]> = {
+    CHANNEL: [{ name: 'Website' }, { name: 'Facebook' }, { name: 'Instagram' }, { name: 'TikTok' }, { name: 'Google' }, { name: 'Referral' }, { name: 'Property Finder' }, { name: 'Walk-in' }],
+    COMM_WAY: [{ name: 'Call' }, { name: 'WhatsApp' }, { name: 'Email' }, { name: 'SMS' }, { name: 'Meeting' }, { name: 'Site visit' }],
+    CANCEL_REASON: [{ name: 'Not interested' }, { name: 'Wrong number' }, { name: 'Low budget' }, { name: 'Bought elsewhere' }, { name: 'Duplicate' }, { name: 'No answer' }, { name: 'Switched off' }],
+    LEAD_STAGE: [
+      { name: 'New Lead', color: '#4d84c0', meta: { kind: 'OPEN' } },
+      { name: 'Potential', color: '#7c6fd6', meta: { kind: 'OPEN' } },
+      { name: 'Hot Case', color: '#e0603a', meta: { kind: 'OPEN' } },
+      { name: 'Meeting Done', color: '#e0a12e', meta: { kind: 'OPEN' } },
+      { name: 'Closed Deal', color: '#22b06b', meta: { kind: 'WON' } },
+      { name: 'Non Potential', color: '#8b8ba6', meta: { kind: 'LOST' } },
+      { name: 'Low Budget', color: '#8b8ba6', meta: { kind: 'LOST' } },
+      { name: 'No Answer', color: '#8b8ba6', meta: { kind: 'OPEN' } },
+    ],
+    NEXT_ACTION: [{ name: 'Call' }, { name: 'WhatsApp follow-up' }, { name: 'Send offer' }, { name: 'Book meeting' }, { name: 'Site visit' }, { name: 'Send payment plan' }],
+  };
+  for (const [type, items] of Object.entries(LOOKUPS)) {
+    for (let i = 0; i < items.length; i++) {
+      const it = items[i];
+      const exists = await prisma.lookup.findFirst({ where: { companyId: company.id, type: type as never, name: it.name } });
+      if (!exists) {
+        await prisma.lookup.create({
+          data: { companyId: company.id, type: type as never, name: it.name, order: i, color: it.color, meta: it.meta as never },
+        });
+      }
+    }
+  }
+
+  // Reporting hierarchy: consultants report to the sales manager.
+  const mgr = await prisma.user.findFirst({ where: { companyId: company.id, email: 'manager@thevillageinvestment.com' } });
+  if (mgr) {
+    await prisma.user.updateMany({
+      where: { companyId: company.id, email: { in: ['sales@thevillageinvestment.com', 'agent@thevillageinvestment.com', 'leader@thevillageinvestment.com'] } },
+      data: { managerId: mgr.id },
+    });
+  }
+
   console.log('Seed complete.');
 }
 
