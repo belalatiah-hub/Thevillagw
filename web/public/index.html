@@ -214,6 +214,9 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
       calls:"Calls", call_center:"Call Center", whatsapp:"WhatsApp", distribution:"Lead Distribution", log_call:"Log call", answered:"Answered", missed:"Missed", answer_rate:"Answer rate", avg_duration:"Avg duration", outcome:"Outcome", direction:"Direction", duration:"Duration", inbound:"Inbound", outbound:"Outbound",
       conversations:"Conversations", type_message:"Type a message…", send:"Send", templates:"Templates", unread:"unread", reply:"Reply",
       dist_rules:"Distribution rules", strategy:"Strategy", daily_cap:"Daily cap", conditions:"Conditions", new_rule:"New rule", uncapped:"uncapped", per_agent:"/agent/day",
+      efficiency:"Efficiency", eff_tracker:"Efficiency Tracker", total_actions:"Total Actions", delayed:"Delayed", total_delay:"Total Delay", won:"Won", lost:"Lost", actions:"Actions", agent2:"Agent",
+      log_action:"Log action", next_action:"Next action", stage_date:"Stage date", after_1h:"After 1 hour", after_2h:"After 2 hours", tomorrow:"Tomorrow", next_week:"Next week", comment:"Comment", rating:"Rating", action_history:"Action history", stage:"Stage", planned:"Planned", done:"Done", save_action:"Save action", record:"Record voice note",
+      lookups:"Lookups", channels:"Channels", comm_ways:"Comm. ways", stages:"Stages", cancel_reasons:"Cancel reasons", add_value:"Add value", reports_to:"Reports to",
       welcome:"Welcome back", signin:"Sign in to Village CRM", email:"Email", password:"Password", signin_btn:"Sign in",
       hero:"The complete real-estate CRM for your team.", hero_sub:"Leads, pipeline, inventory, finance, automation and AI — one secure console for The Village Investment.",
       demo_note:"Demo mode — explore with sample data. Set API_BASE in the file to connect your live backend.",
@@ -239,6 +242,9 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
       calls:"المكالمات", call_center:"مركز الاتصال", whatsapp:"واتساب", distribution:"توزيع العملاء", log_call:"تسجيل مكالمة", answered:"مُجابة", missed:"فائتة", answer_rate:"نسبة الرد", avg_duration:"متوسط المدة", outcome:"النتيجة", direction:"الاتجاه", duration:"المدة", inbound:"واردة", outbound:"صادرة",
       conversations:"المحادثات", type_message:"اكتب رسالة…", send:"إرسال", templates:"القوالب", unread:"غير مقروء", reply:"رد",
       dist_rules:"قواعد التوزيع", strategy:"الاستراتيجية", daily_cap:"الحد اليومي", conditions:"الشروط", new_rule:"قاعدة جديدة", uncapped:"بلا حد", per_agent:"/مندوب/يوم",
+      efficiency:"الكفاءة", eff_tracker:"متتبّع الكفاءة", total_actions:"إجمالي الإجراءات", delayed:"متأخرة", total_delay:"إجمالي التأخير", won:"فائزة", lost:"خاسرة", actions:"إجراءات", agent2:"المندوب",
+      log_action:"تسجيل إجراء", next_action:"الإجراء التالي", stage_date:"موعد المرحلة", after_1h:"بعد ساعة", after_2h:"بعد ساعتين", tomorrow:"غداً", next_week:"الأسبوع القادم", comment:"تعليق", rating:"التقييم", action_history:"سجل الإجراءات", stage:"المرحلة", planned:"مخطط", done:"تم", save_action:"حفظ الإجراء", record:"تسجيل ملاحظة صوتية",
+      lookups:"القوائم", channels:"المصادر", comm_ways:"طرق التواصل", stages:"المراحل", cancel_reasons:"أسباب الإلغاء", add_value:"إضافة قيمة", reports_to:"يتبع",
       welcome:"مرحباً بعودتك", signin:"سجّل الدخول إلى Village CRM", email:"البريد الإلكتروني", password:"كلمة المرور", signin_btn:"دخول",
       hero:"نظام CRM عقاري متكامل لفريقك.", hero_sub:"العملاء والمسار والمخزون والمالية والأتمتة والذكاء الاصطناعي — لوحة آمنة واحدة لـ The Village Investment.",
       demo_note:"وضع تجريبي — استكشف ببيانات نموذجية. اضبط API_BASE في الملف لربط الخادم الحقيقي.",
@@ -369,6 +375,25 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
       {name:"Referrals → senior consultant",cond:"REFERRAL",strategy:"SPECIFIC_USER",cap:null,enabled:true},
       {name:"Overflow → least busy",cond:"Every lead",strategy:"LEAST_BUSY",cap:null,enabled:false}
     ],
+    // Efficiency tracker + lead-action config (mirrors /actions/efficiency + lookups).
+    efficiency:{ totals:{actions:342,delayed:37,delayHours:1284,won:64,lost:88,users:6},
+      leaderboard:[
+        {name:"Fatma Sayed",actions:128,delayed:9,won:14,lost:12},
+        {name:"Kareem Fathy",actions:96,delayed:6,won:22,lost:15},
+        {name:"Nour Hany",actions:74,delayed:11,won:9,lost:20},
+        {name:"Omar Khaled",actions:44,delayed:11,won:19,lost:41}
+      ] },
+    nextActions:["Call","WhatsApp follow-up","Send offer","Book meeting","Site visit","Send payment plan"],
+    leadStages:[["New Lead","#4d84c0"],["Potential","#7c6fd6"],["Hot Case","#e0603a"],["Meeting Done","#e0a12e"],["Closed Deal","#22b06b"],["Non Potential","#8b8ba6"],["Low Budget","#8b8ba6"],["No Answer","#8b8ba6"]],
+    lookups:{ CHANNEL:["Website","Facebook","Instagram","TikTok","Google","Referral","Property Finder","Walk-in"],
+      COMM_WAY:["Call","WhatsApp","Email","SMS","Meeting","Site visit"],
+      CANCEL_REASON:["Not interested","Wrong number","Low budget","Bought elsewhere","Duplicate","No answer","Switched off"] },
+    // Per-lead action history (demo).
+    actionHistory:{ "Ashraf Hussein":[
+      {act:"Send offer",stage:"Hot Case",by:"Fatma Sayed",when:"2h",due:"tomorrow",comment:"Sent PDF for IL Bosco 4-bed",rating:5,status:"PLANNED"},
+      {act:"Call",stage:"Potential",by:"Fatma Sayed",when:"1d",comment:"Interested, asked for payment plan",rating:4,status:"DONE"},
+      {act:"WhatsApp follow-up",stage:"New Lead",by:"Fatma Sayed",when:"3d",comment:"First contact",status:"DONE"}
+    ] },
     notifs:[["🔥 New lead assigned: Ashraf Hussein","Facebook · Hot — respond within SLA","2m",true],
       ["SLA breach in 4 min: Mona Adel","First response overdue","8m",true],
       ["🎉 Deal won: Youssef Tarek — Badya","EGP 7.0M · commission accrued","1h",true],
@@ -442,10 +467,10 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
   /* ── nav ── */
   var NAV=[
     {grp:"grp_work",items:[["dashboard",I.dashboard],["leads",I.leads],["calls",I.phone],["whatsapp",I.chat],["customers",I.customers],["pipeline",I.pipeline],["inventory",I.inventory],["map",I.map]]},
-    {grp:"grp_platform",items:[["automation",I.automation],["distribution",I.split],["integrations",I.integrations],["notifications",I.notifications,"badge"],["reports",I.reports]]},
+    {grp:"grp_platform",items:[["automation",I.automation],["distribution",I.split],["efficiency",I.target],["integrations",I.integrations],["notifications",I.notifications,"badge"],["reports",I.reports]]},
     {grp:"grp_admin",items:[["users",I.users],["roles",I.roles],["audit",I.audit],["settings",I.settings]]}
   ];
-  var VIEW_PERM={ users:"user:read", roles:"role:read", audit:"audit:read", settings:"settings:read", automation:"automation:read", integrations:"integration:read", reports:"report:read", calls:"call:read", whatsapp:"whatsapp:read", distribution:"distribution:read" };
+  var VIEW_PERM={ users:"user:read", roles:"role:read", audit:"audit:read", settings:"settings:read", automation:"automation:read", integrations:"integration:read", reports:"report:read", calls:"call:read", whatsapp:"whatsapp:read", distribution:"distribution:read", efficiency:"lead:read" };
   function can(key){ var p=(state.me&&state.me.permissions)||[]; return p.indexOf("*")>=0||p.indexOf(key)>=0; }
   function allowedView(v){ var need=VIEW_PERM[v]; return !need||can(need); }
 
@@ -601,6 +626,34 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
           '<div class="row gap" style="gap:18px;margin-top:8px;flex-wrap:wrap"><span class="muted" style="font-size:12.5px"><b style="color:var(--ink-2)">'+t("conditions")+':</b> '+r.cond+'</span><span class="muted" style="font-size:12.5px"><b style="color:var(--ink-2)">'+t("daily_cap")+':</b> '+(r.cap?r.cap+" "+t("per_agent"):t("uncapped"))+'</span></div></div>'+
           '<span style="color:'+SC[r.strategy]+'">'+I.split+'</span></div></div>'; }).join("");
     },
+    efficiency:function(){
+      var e=demo.efficiency, sc=personaScope();
+      // Scale totals to persona scope for a believable per-role view.
+      var f=sc==="all"?1:sc==="team"?0.5:0.28;
+      var tot=e.totals;
+      var kpis=[
+        [t("total_actions"),Math.round(tot.actions*f),"var(--purple)"],
+        [t("delayed"),Math.round(tot.delayed*f),"var(--red)"],
+        [t("total_delay"),Math.round(tot.delayHours*f)+"h","var(--amber)"],
+        [t("won"),Math.round(tot.won*f),"var(--green)"],
+        [t("lost"),Math.round(tot.lost*f),"var(--ink-3)"]
+      ];
+      var board=e.leaderboard.filter(function(r){ var ow=visibleOwners(); return !ow||ow.indexOf(r.name)>=0; });
+      if(!board.length) board=[e.leaderboard[0]];
+      var maxA=Math.max.apply(null,board.map(function(r){return r.actions;}));
+      return head(t("eff_tracker"),"",'<div class="row gap">'+scopeBadge()+'</div>')+
+        '<div class="grid" style="grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:18px">'+kpis.map(function(k){
+          return '<div class="card kpi"><div class="v tnum" style="color:'+k[2]+'">'+k[1]+'</div><div class="l">'+k[0]+'</div></div>';
+        }).join("")+'</div>'+
+        '<div class="card" style="padding:0;overflow:hidden"><div style="overflow-x:auto"><table><thead><tr><th>'+t("agent2")+'</th><th>'+t("actions")+'</th><th>'+t("delayed")+'</th><th>'+t("won")+'</th><th>'+t("lost")+'</th></tr></thead><tbody>'+
+          board.map(function(r,i){
+            var medal=i===0?"🥇":i===1?"🥈":i===2?"🥉":(i+1)+".";
+            return '<tr><td><div class="row gap"><span style="width:22px;text-align:center">'+medal+'</span><b>'+r.name+'</b></div></td>'+
+              '<td><div class="row gap" style="gap:8px"><div class="bar" style="width:90px"><i style="width:'+Math.round(r.actions/maxA*100)+'%;background:var(--purple)"></i></div><b class="tnum">'+r.actions+'</b></div></td>'+
+              '<td><span class="tag" style="background:'+(r.delayed>8?"var(--red-soft);color:var(--red)":"var(--card-2);color:var(--ink-3)")+'">'+r.delayed+'</span></td>'+
+              '<td class="tnum" style="color:var(--green);font-weight:800">'+r.won+'</td><td class="tnum muted">'+r.lost+'</td></tr>';
+          }).join("")+'</tbody></table></div></div>';
+    },
     automation:function(){
       return head(t("automation"),"Automation Engine")+
         demo.rules.map(function(r){ return '<div class="card" style="padding:16px 18px;margin-bottom:12px"><div class="row between"><div><div class="row gap" style="gap:8px"><b style="font-size:15px">'+r[0]+'</b><span class="pill" style="background:'+(r[3]?"var(--green-soft);color:var(--green)":"var(--card-2);color:var(--ink-3)")+'">'+(r[3]?t("enabled"):t("disabled"))+'</span></div><div class="muted" style="font-size:12.5px;margin-top:4px">IF '+r[1]+' · '+r[2]+' '+t("runs")+'</div></div><span style="color:var(--purple)">'+I.automation+'</span></div></div>'; }).join("");
@@ -648,14 +701,28 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
           '<div class="card" style="padding:20px"><div class="sec-title">'+t("branding")+'</div>'+
             '<div class="row between" style="padding:11px 0"><span style="font-weight:600">'+t("branding")+'</span><span class="row gap"><span style="width:22px;height:22px;border-radius:7px;background:var(--coral);border:1px solid var(--line)"></span><span class="muted tnum">#e0603a</span></span></div></div>'+
         '</div>'+
+        '<div class="sec-title" style="margin:26px 0 12px;font-size:16px">'+t("lookups")+'</div>'+
+        '<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr))">'+
+          lookupCard(t("channels"),"CHANNEL",demo.leadStages?demo.lookups.CHANNEL:[])+
+          lookupCard(t("stages"),"LEAD_STAGE",demo.leadStages.map(function(s){return s[0];}),demo.leadStages)+
+          lookupCard(t("cancel_reasons"),"CANCEL_REASON",demo.lookups.CANCEL_REASON)+
+          lookupCard(t("comm_ways"),"COMM_WAY",demo.lookups.COMM_WAY)+
+        '</div>'+
         '<button class="btn btn-coral" data-act="toast" style="margin-top:18px">'+t("save")+'</button>';
     }
   };
+  function lookupCard(title,type,items,colored){
+    return '<div class="card" style="padding:16px 18px"><div class="row between" style="margin-bottom:10px"><b style="font-size:14px">'+title+'</b>'+
+      (can("settings:update")?'<button class="btn btn-ghost lkadd" data-type="'+type+'" style="padding:5px 10px;font-size:11.5px">'+I.plus+t("add_value")+'</button>':'')+'</div>'+
+      '<div class="row wrap gap" style="gap:7px">'+items.map(function(it,i){ var col=colored&&colored[i]?colored[i][1]:null;
+        return '<span class="pill" style="'+(col?"background:"+col+"1f;color:"+col:"background:var(--card-2);color:var(--ink-2)")+'">'+(col?'<span class="dot-s" style="background:'+col+'"></span>':'')+it+'</span>';
+      }).join("")+'</div></div>';
+  }
 
   function leadRow(l,full){
     var st={ "Interested":"var(--green)","Meeting set":"var(--amber)","No answer":"var(--ink-3)" }[l.status]||"var(--ink-3)";
     var stbg={ "Interested":"var(--green-soft)","Meeting set":"var(--amber-soft)","No answer":"var(--card-2)" }[l.status]||"var(--card-2)";
-    return '<tr><td><b>'+l.n+'</b><div class="muted" style="font-size:11.5px">'+l.area+'</div></td><td class="muted">'+l.src+'</td><td class="muted">'+(l.owner||l.agent||"—")+'</td>'+
+    return '<tr class="leadrow" data-lead="'+l.n+'" style="cursor:pointer"><td><b>'+l.n+'</b><div class="muted" style="font-size:11.5px">'+l.area+'</div></td><td class="muted">'+l.src+'</td><td class="muted">'+(l.owner||l.agent||"—")+'</td>'+
       '<td><span class="tag" style="background:'+stbg+';color:'+st+'">'+l.status+'</span></td>'+(full?'<td class="tnum">'+money(l.budget)+'</td>':'')+
       '<td><div class="row gap" style="gap:8px"><div class="bar" style="width:52px"><i style="width:'+l.score+'%;background:'+(l.score>=75?"var(--green)":l.score>=60?"var(--amber)":"var(--ink-3)")+'"></i></div><b class="tnum" style="font-size:12px">'+l.score+'</b></div></td></tr>';
   }
@@ -688,6 +755,12 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
         else toast(state.lang==="ar"?"إجراء تجريبي":"Demo action"); };
     });
     [].forEach.call(document.querySelectorAll(".rolecard"),function(c){ c.onclick=function(){ state.roleSel=c.getAttribute("data-role"); render(); }; });
+    [].forEach.call(document.querySelectorAll(".leadrow"),function(r){ r.onclick=function(){ var n=r.getAttribute("data-lead"); var l=demo.leads.filter(function(x){return x.n===n;})[0]; if(l) openLeadDrawer(l); }; });
+    [].forEach.call(document.querySelectorAll(".lkadd"),function(b){ b.onclick=function(){ var type=b.getAttribute("data-type");
+      openModal(t("add_value"), field("lkv",t("name"),""), function(ov){ var v=ov.querySelector("#lkv").value.trim(); if(!v) return false;
+        if(type==="LEAD_STAGE"){ demo.leadStages.push([v,"#7c6fd6"]); } else { (demo.lookups[type]=demo.lookups[type]||[]).push(v); }
+        demo.audit.unshift(["lookup.create","create",currentPersona().name,type.toLowerCase()+"/new","127.0.0.1","now"]);
+        toast(state.lang==="ar"?"تمت الإضافة ✓":"Added ✓"); render(); }); }; });
     // Map: area filters + clickable project pins
     [].forEach.call(document.querySelectorAll("[data-area]"),function(b){ b.onclick=function(){ state.mapArea=b.getAttribute("data-area"); render(); }; });
     [].forEach.call(document.querySelectorAll(".mappin"),function(b){ b.onclick=function(ev){ ev.stopPropagation(); openMapPop(demo.projects[+b.getAttribute("data-p")]); }; });
@@ -749,6 +822,48 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
         toast(state.lang==="ar"?"تم إضافة العميل ✓":"Lead added ✓"); render();
       });
   }
+  // Lead detail drawer with the Next-Action loop + action history (mirrors the API).
+  function openLeadDrawer(lead){
+    var due="after_1h", stage=(demo.leadStages[1]||["Potential"])[0], rating=0;
+    var hist=(demo.actionHistory[lead.n]||[]).slice();
+    var ov=document.createElement("div"); ov.style.cssText="position:fixed;inset:0;z-index:150;background:rgba(20,15,40,.45);display:flex;justify-content:flex-end";
+    function draw(){
+      var canAct=can("lead:update");
+      ov.innerHTML='<div class="card" style="width:100%;max-width:460px;height:100%;border-radius:0;display:flex;flex-direction:column;box-shadow:var(--shadow-m)">'+
+        '<div style="padding:18px 20px;border-bottom:1px solid var(--line)"><div class="row between"><div><h3 style="font-size:18px;font-weight:800">'+lead.n+'</h3><div class="muted" style="font-size:12.5px">'+lead.area+' · '+(lead.owner||lead.agent||"")+' · EGP '+lead.budget+'M</div></div><button class="ic-btn" id="dX" style="width:30px;height:30px;border:none">✕</button></div>'+
+          '<div class="row gap" style="gap:8px;margin-top:12px">'+(can("call:create")?'<button class="btn btn-ghost" data-d="call" style="padding:8px 12px;font-size:12.5px">'+I.phone+'Call</button>':'')+(can("whatsapp:create")?'<button class="btn btn-ghost" data-d="wa" style="padding:8px 12px;font-size:12.5px">'+I.chat+'WhatsApp</button>':'')+'</div></div>'+
+        '<div style="flex:1;overflow-y:auto;padding:18px 20px">'+
+          (canAct?'<div class="card" style="padding:16px;background:var(--card-2);box-shadow:none;margin-bottom:18px"><div class="sec-title" style="font-size:14px">'+t("log_action")+'</div>'+
+            '<div class="field"><label>'+t("next_action")+'</label><select id="dAct" style="width:100%;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px 13px;color:var(--ink)">'+demo.nextActions.map(function(a){return '<option>'+a+'</option>';}).join("")+'</select></div>'+
+            '<div class="field"><label>'+t("stage")+'</label><select id="dStage" style="width:100%;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px 13px;color:var(--ink)">'+demo.leadStages.map(function(s){return '<option'+(s[0]===stage?" selected":"")+'>'+s[0]+'</option>';}).join("")+'</select></div>'+
+            '<div class="field"><label>'+t("stage_date")+'</label><div class="row wrap gap" style="gap:7px">'+[["after_1h","after_1h"],["after_2h","after_2h"],["tomorrow","tomorrow"],["next_week","next_week"]].map(function(d){return '<button class="btn ddue '+(due===d[0]?"btn-coral":"btn-ghost")+'" data-due="'+d[0]+'" style="padding:7px 12px;font-size:12px">'+t(d[1])+'</button>';}).join("")+'</div></div>'+
+            '<div class="field"><label>'+t("rating")+'</label><div class="row" id="dStars" style="gap:4px">'+[1,2,3,4,5].map(function(n){return '<span class="dstar" data-n="'+n+'" style="cursor:pointer;font-size:22px;color:'+(n<=rating?"var(--amber)":"var(--line-2)")+'">★</span>';}).join("")+'</div></div>'+
+            '<div class="field"><label>'+t("comment")+'</label><textarea id="dComment" rows="2" style="width:100%;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px 13px;color:var(--ink);resize:vertical" placeholder="…"></textarea></div>'+
+            '<button class="btn btn-coral" id="dSave" style="width:100%;justify-content:center;margin-top:4px">'+t("save_action")+'</button></div>':'')+
+          '<div class="sec-title" style="font-size:14px">'+t("action_history")+'</div>'+
+          (hist.length?hist.map(function(h){ var col=h.status==="PLANNED"?"var(--amber)":"var(--green)";
+            return '<div class="card" style="padding:12px 14px;margin-bottom:9px;box-shadow:none;border-inline-start:3px solid '+col+'"><div class="row between"><b style="font-size:13.5px">'+h.act+(h.stage?' → '+h.stage:'')+'</b><span class="muted" style="font-size:11.5px">'+h.when+'</span></div>'+
+              (h.comment?'<div class="muted" style="font-size:12.5px;margin-top:3px">'+h.comment+'</div>':'')+
+              '<div class="row gap" style="gap:8px;margin-top:5px"><span class="muted" style="font-size:11px">'+h.by+'</span>'+(h.rating?'<span style="color:var(--amber);font-size:11px">'+"★".repeat(h.rating)+'</span>':'')+'<span class="pill" style="background:'+col+'1f;color:'+col+';padding:1px 8px;font-size:10px">'+t(h.status==="PLANNED"?"planned":"done")+'</span></div></div>';
+          }).join(""):'<div class="muted" style="font-size:13px">—</div>')+
+        '</div></div>';
+      ov.querySelector("#dX").onclick=close;
+      [].forEach.call(ov.querySelectorAll("[data-d]"),function(b){ b.onclick=function(){ toast(b.getAttribute("data-d")==="call"?"Calling "+lead.n+"…":"WhatsApp "+lead.n); }; });
+      [].forEach.call(ov.querySelectorAll(".ddue"),function(b){ b.onclick=function(){ due=b.getAttribute("data-due"); draw(); }; });
+      [].forEach.call(ov.querySelectorAll(".dstar"),function(s){ s.onclick=function(){ rating=+s.getAttribute("data-n"); draw(); }; });
+      var sv=ov.querySelector("#dSave"); if(sv) sv.onclick=function(){
+        var act=ov.querySelector("#dAct").value, stg=ov.querySelector("#dStage").value, cm=ov.querySelector("#dComment").value;
+        hist.unshift({act:act,stage:stg,by:currentPersona().name,when:"now",comment:cm,rating:rating||undefined,status:"PLANNED"});
+        demo.actionHistory[lead.n]=hist; lead.status="Interested";
+        demo.audit.unshift(["lead.action","update",currentPersona().name,"lead/"+lead.n.split(" ")[0].toLowerCase(),"127.0.0.1","now"]);
+        toast(state.lang==="ar"?"تم حفظ الإجراء ✓":"Action saved ✓"); rating=0; draw();
+      };
+    }
+    var close=function(){ document.body.removeChild(ov); };
+    ov.addEventListener("click",function(e){ if(e.target===ov) close(); });
+    document.body.appendChild(ov); draw();
+  }
+
   function go(v){ if(!allowedView(v)) return; if(v!=="roles") state.roleSel=null; state.view=v; render(); document.querySelector(".content").scrollTop=0; }
 
   /* ── auth ── */
