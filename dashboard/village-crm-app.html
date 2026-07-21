@@ -355,7 +355,13 @@
       new_role:"New role", edit_perms:"Edit permissions", save:"Save", of_perms:"of", granted:"granted",
       test_report:"Permission Test Report", run_tests:"Run tests", passed:"Passed", warnings:"Warnings", failed:"Failed",
       all_secure:"All roles secure — separation of duties verified", sep_duties:"Separation of duties",
-      pass:"PASS", warn:"WARNING", fail:"FAILED", never_assume:"Never assume permissions work — test them." },
+      pass:"PASS", warn:"WARNING", fail:"FAILED", never_assume:"Never assume permissions work — test them.",
+      audit_log:"Audit Log", audit_sub:"Every change, who made it, and when — across all modules.", export_csv:"Export CSV",
+      f_all_act:"All", f_created:"Created", f_updated:"Updated", f_deleted:"Deleted", by:"by",
+      settings_title:"Settings", company_profile:"Company profile", security:"Security", sla_defaults:"SLA defaults", branding:"Branding", localization:"Localization",
+      require_2fa:"Require two-factor auth", pwd_min:"Minimum password length", session_timeout:"Session timeout (min)",
+      first_response:"First response (min)", follow_up_sla:"Follow-up (min)", primary_color:"Primary color", default_lang:"Default language",
+      currency:"Currency", timezone:"Timezone", email_digest:"Email digest", push_enabled:"Push notifications", saved:"Settings saved" },
     ar: { dashboard:"الرئيسية", leads:"العملاء", efficiency:"الأداء", inventory:"المخزون", map:"الخريطة",
       good_evening:"مساء الخير", dash_sub:"العملاء والصفقات والخريطة في لمحة — عرض هادئ لما يحتاج انتباهك.",
       total_leads:"إجمالي العملاء", new_leads:"عملاء جدد", follow_up:"متابعة", updated:"آخر تحديث قبل ١٢ دقيقة",
@@ -397,7 +403,13 @@
       new_role:"دور جديد", edit_perms:"تعديل الصلاحيات", save:"حفظ", of_perms:"من", granted:"ممنوحة",
       test_report:"تقرير اختبار الصلاحيات", run_tests:"تشغيل الاختبار", passed:"ناجح", warnings:"تحذيرات", failed:"فشل",
       all_secure:"كل الأدوار آمنة — تم التحقق من فصل المهام", sep_duties:"فصل المهام",
-      pass:"ناجح", warn:"تحذير", fail:"فشل", never_assume:"لا تفترض أن الصلاحيات تعمل — اختبرها." }
+      pass:"ناجح", warn:"تحذير", fail:"فشل", never_assume:"لا تفترض أن الصلاحيات تعمل — اختبرها.",
+      audit_log:"سجل التدقيق", audit_sub:"كل تغيير، من قام به ومتى — عبر جميع الوحدات.", export_csv:"تصدير CSV",
+      f_all_act:"الكل", f_created:"إنشاء", f_updated:"تعديل", f_deleted:"حذف", by:"بواسطة",
+      settings_title:"الإعدادات", company_profile:"ملف الشركة", security:"الأمان", sla_defaults:"إعدادات SLA", branding:"الهوية", localization:"اللغة والمنطقة",
+      require_2fa:"إلزام التحقق بخطوتين", pwd_min:"أقل طول لكلمة المرور", session_timeout:"مهلة الجلسة (دقيقة)",
+      first_response:"أول رد (دقيقة)", follow_up_sla:"المتابعة (دقيقة)", primary_color:"اللون الأساسي", default_lang:"اللغة الافتراضية",
+      currency:"العملة", timezone:"المنطقة الزمنية", email_digest:"ملخص بريدي", push_enabled:"إشعارات فورية", saved:"تم حفظ الإعدادات" }
   };
   function t(k){ return (T[S.lang] && T[S.lang][k]) || T.en[k] || k; }
 
@@ -578,6 +590,30 @@
   };
   function permCount(role){ var p=ROLE_PERMS[role]; if(!p) return 8; if(p.indexOf("*")>=0) return 119; return p.length; }
   function roleHas(role, key){ var p=ROLE_PERMS[role]; if(!p) return false; return p.indexOf("*")>=0 || p.indexOf(key)>=0; }
+
+  // ── Audit Log (mirrors backend AuditInterceptor output) ──
+  var auditRows = [
+    { action:"lead.update", verb:"update", actor:"Fatma Sayed", entity:"lead", eid:"cmru8a", ip:"197.35.44.10", when:"2m" },
+    { action:"opportunity.approve", verb:"update", actor:"Omar Khaled", entity:"opportunity", eid:"cmru7c", ip:"197.35.44.2", when:"14m" },
+    { action:"commission.approve", verb:"update", actor:"Hana Mostafa", entity:"commission", eid:"cmru6b", ip:"41.90.12.7", when:"38m" },
+    { action:"lead.create", verb:"create", actor:"System (Automation)", entity:"lead", eid:"cmru5a", ip:"—", when:"1h" },
+    { action:"role.update", verb:"update", actor:"Village Admin", entity:"role", eid:"cmru4z", ip:"127.0.0.1", when:"2h" },
+    { action:"user.create", verb:"create", actor:"Village Admin", entity:"user", eid:"cmru3y", ip:"127.0.0.1", when:"3h" },
+    { action:"integration.update", verb:"update", actor:"Layla Adham", entity:"integration", eid:"cmru2x", ip:"196.20.5.1", when:"5h" },
+    { action:"unit.delete", verb:"delete", actor:"Village Admin", entity:"unit", eid:"cmru1w", ip:"127.0.0.1", when:"1d" },
+    { action:"department.create", verb:"create", actor:"Village Admin", entity:"department", eid:"cmru0v", ip:"127.0.0.1", when:"1d" }
+  ];
+  var auditFilter="all";
+  var AVERB_COLOR={ create:"var(--green)", update:"var(--amber)", "delete":"var(--red)" };
+  // ── Settings state (mirrors backend GET /settings merged defaults) ──
+  var settings = {
+    name:"The Village Investment", currency:"EGP", timezone:"Africa/Cairo",
+    security:{ require2FA:false, passwordMinLength:8, sessionTimeoutMins:720 },
+    sla:{ firstResponseMins:15, followUpMins:120 },
+    localization:{ defaultLanguage:"en" },
+    branding:{ primaryColor:"#e0603a" },
+    notifications:{ emailDigest:true, pushEnabled:true }
+  };
   var NT_ICON = { LEAD_ASSIGNED:"people", LEAD_CAPTURED:"spark", SLA_DUE:"clock", FOLLOW_UP_DUE:"cal", OPPORTUNITY_MOVED:"money", MENTION:"chat", SYSTEM:"bolt" };
   var NT_COLOR = { LEAD_ASSIGNED:"var(--purple)", LEAD_CAPTURED:"var(--cool,#4d84c0)", SLA_DUE:"var(--red)", FOLLOW_UP_DUE:"var(--amber)", OPPORTUNITY_MOVED:"var(--green)", MENTION:"var(--purple)", SYSTEM:"var(--ink-3)" };
   function whenLabel(w){ var n=w.slice(1); var u=w[0]; return u==="m"? n+t("m_ago") : u==="h"? n+t("h_ago") : n+t("d_ago"); }
@@ -1321,6 +1357,92 @@
     return c;
   }
 
+  // ── Audit Log screen ──
+  function vAudit(){
+    var c=el("div","fade");
+    c.appendChild(el("div","sub-head",
+      '<button class="hmb" id="auBack" style="width:42px;height:42px;border-radius:13px;transform:scaleX(-1)">'+I.arrow+'</button>'+
+      '<div class="grow"><div style="font-size:22px;font-weight:800;letter-spacing:-.5px">'+t("audit_log")+'</div>'+
+        '<div class="muted" style="font-size:12.5px">'+t("audit_sub")+'</div></div>'+
+      '<button class="btn-ghost" id="auExp" style="padding:9px 12px;font-size:12.5px">'+I.download+t("export_csv")+'</button>'));
+    var seg=el("div","row"); seg.style.cssText="gap:7px;margin:14px 0 4px;flex-wrap:wrap";
+    [["all","f_all_act"],["create","f_created"],["update","f_updated"],["delete","f_deleted"]].forEach(function(f){
+      var on=auditFilter===f[0];
+      var b=el("button","",t(f[1]));
+      b.style.cssText="flex:1;min-width:70px;padding:9px;border:none;border-radius:12px;font-weight:800;font-size:12.5px;cursor:pointer;"+(on?"background:var(--ink);color:#fff":"background:var(--card);color:var(--ink-2);box-shadow:inset 0 0 0 1px var(--line)");
+      b.onclick=function(){ auditFilter=f[0]; render(); };
+      seg.appendChild(b);
+    });
+    c.appendChild(seg);
+    var list=auditRows.filter(function(r){ return auditFilter==="all"||r.verb===auditFilter; });
+    list.forEach(function(r){
+      var col=AVERB_COLOR[r.verb]||"var(--ink-3)";
+      var card=el("div","card"); card.style.cssText="padding:12px 14px;margin-bottom:8px";
+      var wt=r.when.replace("m",t("m_ago")).replace("h",t("h_ago")).replace("d",t("d_ago"));
+      card.innerHTML='<div class="row" style="gap:11px"><span style="width:8px;height:8px;border-radius:50%;flex:none;margin-top:6px;background:'+col+'"></span>'+
+        '<div class="grow" style="min-width:0"><div class="row between"><span style="font-weight:800;font-size:13.5px">'+r.action+'</span><span class="muted" style="font-size:11.5px;flex:none">'+wt+'</span></div>'+
+        '<div class="muted" style="font-size:12px;margin-top:2px">'+t("by")+' '+r.actor+' · '+r.entity+'/'+r.eid+' · '+r.ip+'</div></div></div>';
+      c.appendChild(card);
+    });
+    setTimeout(function(){ var bk=$("#auBack"); if(bk) bk.onclick=function(){ go("dashboard"); }; var e=$("#auExp"); if(e) e.onclick=function(){ toast(S.lang==="ar"?"تم تصدير CSV (تجريبي)":"CSV exported (demo)"); }; },0);
+    return c;
+  }
+
+  // ── Settings screen ──
+  function vSettings(){
+    var c=el("div","fade");
+    c.appendChild(el("div","sub-head",
+      '<button class="hmb" id="stBack" style="width:42px;height:42px;border-radius:13px;transform:scaleX(-1)">'+I.arrow+'</button>'+
+      '<div class="grow"><div style="font-size:22px;font-weight:800;letter-spacing:-.5px">'+t("settings_title")+'</div></div>'));
+    // Company profile
+    c.appendChild(sSection(t("company_profile"),[
+      sField(t("name"),settings.name), sField(t("currency"),settings.currency), sField(t("timezone"),settings.timezone) ]));
+    // Security
+    c.appendChild(sSection(t("security"),[
+      sToggle("s2fa",t("require_2fa"),settings.security.require2FA,function(v){settings.security.require2FA=v;}),
+      sStepper(t("pwd_min"),settings.security.passwordMinLength,function(d){settings.security.passwordMinLength=Math.max(6,settings.security.passwordMinLength+d);}),
+      sStepper(t("session_timeout"),settings.security.sessionTimeoutMins,function(d){settings.security.sessionTimeoutMins=Math.max(30,settings.security.sessionTimeoutMins+d*30);}) ]));
+    // SLA
+    c.appendChild(sSection(t("sla_defaults"),[
+      sStepper(t("first_response"),settings.sla.firstResponseMins,function(d){settings.sla.firstResponseMins=Math.max(5,settings.sla.firstResponseMins+d*5);}),
+      sStepper(t("follow_up_sla"),settings.sla.followUpMins,function(d){settings.sla.followUpMins=Math.max(15,settings.sla.followUpMins+d*15);}) ]));
+    // Notifications
+    c.appendChild(sSection(t("notifications"),[
+      sToggle("sed",t("email_digest"),settings.notifications.emailDigest,function(v){settings.notifications.emailDigest=v;}),
+      sToggle("spe",t("push_enabled"),settings.notifications.pushEnabled,function(v){settings.notifications.pushEnabled=v;}) ]));
+    // Branding
+    var bwrap=el("div"); bwrap.appendChild(el("div","",'<div class="row between" style="padding:11px 2px"><span style="font-weight:700;font-size:13.5px">'+t("primary_color")+'</span><span class="row" style="gap:8px"><span style="width:22px;height:22px;border-radius:7px;background:'+settings.branding.primaryColor+';box-shadow:inset 0 0 0 1px var(--line)"></span><span class="tnum muted" style="font-size:12.5px">'+settings.branding.primaryColor+'</span></span></div>'));
+    c.appendChild(sSection(t("branding"),[bwrap]));
+
+    var save=el("button","btn-coral"); save.style.cssText="width:100%;justify-content:center;margin:18px 0 8px;padding:14px"; save.textContent=t("save");
+    save.onclick=function(){ toast(t("saved")+" ✓"); }; c.appendChild(save);
+    setTimeout(function(){ var bk=$("#stBack"); if(bk) bk.onclick=function(){ go("dashboard"); }; },0);
+    return c;
+  }
+  function sSection(title,children){
+    var wrap=el("div"); wrap.appendChild(el("div","muted",title)).style.cssText="font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;margin:18px 2px 9px;color:var(--ink-3)";
+    var card=el("div","card"); card.style.cssText="padding:6px 15px";
+    children.forEach(function(ch,i){ if(i) card.appendChild(el("div")).style.cssText="height:1px;background:var(--line);margin:0 -15px"; card.appendChild(ch); });
+    wrap.appendChild(card); return wrap;
+  }
+  function sField(k,v){ return el("div","",'<div class="row between" style="padding:12px 0"><span style="font-weight:700;font-size:13.5px">'+k+'</span><span class="muted" style="font-size:13.5px">'+v+'</span></div>'); }
+  function sToggle(id,label,on,cb){
+    var row=el("div"); row.style.cssText="padding:11px 0";
+    row.innerHTML='<div class="row between"><span style="font-weight:700;font-size:13.5px">'+label+'</span>'+
+      '<button class="vtog" style="flex:none;width:46px;height:27px;border-radius:16px;border:none;cursor:pointer;position:relative;background:'+(on?"var(--green)":"var(--card-2)")+'"><span style="position:absolute;top:3px;'+(on?"inset-inline-end:3px":"inset-inline-start:3px")+';width:21px;height:21px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.28)"></span></button></div>';
+    row.querySelector("button").onclick=function(){ cb(!on); render(); };
+    return row;
+  }
+  function sStepper(label,val,cb){
+    var row=el("div"); row.style.cssText="padding:9px 0";
+    row.innerHTML='<div class="row between"><span style="font-weight:700;font-size:13.5px">'+label+'</span>'+
+      '<span class="row" style="gap:10px"><button class="stp" data-d="-1" style="width:30px;height:30px;border-radius:9px;border:none;background:var(--card-2);font-size:18px;font-weight:800;cursor:pointer;color:var(--ink-2)">−</button>'+
+      '<b class="tnum" style="min-width:42px;text-align:center">'+val+'</b>'+
+      '<button class="stp" data-d="1" style="width:30px;height:30px;border-radius:9px;border:none;background:var(--card-2);font-size:18px;font-weight:800;cursor:pointer;color:var(--ink-2)">+</button></span></div>';
+    row.querySelectorAll("button").forEach(function(b){ b.onclick=function(){ cb(parseInt(b.getAttribute("data-d"),10)); render(); }; });
+    return row;
+  }
+
   /* ── overlays ── */
   function openLead(l){
     var sc=SRC[l.src]||{t:l.src}, prob=l.score;
@@ -1399,7 +1521,7 @@
   }
 
   function openMenu(){
-    var mods=[["notifications",I.bell],["users",I.users2],["roles_perms",I.gear],["perm_test",I.check],["commission",I.money],["reports",I.chart],["automation",I.flow],["integrations",I.bolt],["marketing",I.mega],["settings",I.gear]];
+    var mods=[["notifications",I.bell],["users",I.users2],["roles_perms",I.gear],["perm_test",I.check],["commission",I.money],["reports",I.chart],["automation",I.flow],["integrations",I.bolt],["marketing",I.mega],["audit",I.eye],["settings",I.gear]];
     var roleName = S.lang==="ar" ? (ROLES_AR[S.role]||S.role) : S.role;
     $("#menu").innerHTML=
       '<button class="hd" id="mRole" style="text-align:start;width:100%;cursor:pointer"><div class="row" style="gap:12px"><div class="av" style="background:linear-gradient(135deg,var(--coral),var(--coral-2))">A</div>'+
@@ -1410,7 +1532,7 @@
       '<button class="mi" id="mTheme">'+I.moon+'<span>Theme</span></button>'+
       '<button class="mi danger" style="margin-bottom:16px">'+I.out+'<span>'+t("logout")+'</span></button>';
     $("#scrim").classList.add("open"); $("#menu").classList.add("open");
-    var routable={ commission:1, reports:1, integrations:1, automation:1, notifications:1, users:1, roles_perms:1, perm_test:1 };
+    var routable={ commission:1, reports:1, integrations:1, automation:1, notifications:1, users:1, roles_perms:1, perm_test:1, audit:1, settings:1 };
     [].forEach.call(document.querySelectorAll("#menu .mi[data-m]"),function(b){ b.onclick=function(){ var m=b.getAttribute("data-m"); closeSheet(); if(routable[m]){ go(m); } else { toast(t(m)+" — "+(S.lang==="ar"?"قريباً":"coming soon")); } }; });
     $("#mRole").onclick=function(){ var i=ROLES.indexOf(S.role); S.role=ROLES[(i+1)%ROLES.length]; openMenu(); if(S.view==="commission") render(); };
     $("#mLang").onclick=function(){ S.lang=S.lang==="en"?"ar":"en"; applyDir(); closeSheet(); render(); };
@@ -1426,7 +1548,7 @@
   /* ── chrome + tabs + router ── */
   var NAV=[["dashboard",I.grid],["leads",I.people],["efficiency",I.target],["inventory",I.box],["map",I.mapt]];
   function renderChrome(){
-    if(["map","commission","reports","integrations","automation","notifications","users","roles_perms","perm_test"].indexOf(S.view)>=0){ $("#chrome").innerHTML=""; return; }
+    if(["map","commission","reports","integrations","automation","notifications","users","roles_perms","perm_test","audit","settings"].indexOf(S.view)>=0){ $("#chrome").innerHTML=""; return; }
     $("#chrome").innerHTML=
       '<div class="appbar"><button class="hmb" id="hmb">'+I.menu+'</button>'+
       '<div class="logo"><img src="'+LOGO+'" alt="Village" style="height:25px;display:block"/><span class="name" style="font-size:15px;color:var(--ink-2);margin-inline-start:3px">CRM</span></div>'+
@@ -1442,7 +1564,7 @@
   function go(v){ if(v==="roles_perms") roleSel=null; S.view=v; closeSheet(); render(); var s=$("#view"); if(s) s.scrollTop=0; }
   function render(){
     renderChrome(); renderTabs();
-    var fn={dashboard:vDashboard,leads:vLeads,efficiency:vEfficiency,inventory:vInventory,map:vMap,commission:vCommission,reports:vReports,integrations:vIntegrations,automation:vAutomation,notifications:vNotifs,users:vUsers,roles_perms:vRoles,perm_test:vPermReport}[S.view]||vDashboard;
+    var fn={dashboard:vDashboard,leads:vLeads,efficiency:vEfficiency,inventory:vInventory,map:vMap,commission:vCommission,reports:vReports,integrations:vIntegrations,automation:vAutomation,notifications:vNotifs,users:vUsers,roles_perms:vRoles,perm_test:vPermReport,audit:vAudit,settings:vSettings}[S.view]||vDashboard;
     var v=$("#view"); v.innerHTML=""; v.style.padding=S.view==="map"?"0 0 118px":"6px 18px 118px"; v.appendChild(fn());
     $("#fab").style.display=S.view==="map"?"none":"grid";
   }
