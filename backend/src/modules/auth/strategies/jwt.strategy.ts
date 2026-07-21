@@ -48,6 +48,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
       companyId: user.companyId,
       email: user.email,
       roles: roles.map((r) => r.name),
+      roleKeys: roles.map((r) => r.key).filter((k): k is NonNullable<typeof k> => !!k),
       permissions,
     };
   }

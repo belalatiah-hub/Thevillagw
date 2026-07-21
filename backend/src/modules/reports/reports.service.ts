@@ -1,9 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { LeadStatus, OpportunityStatus } from '@prisma/client';
+import { LeadStatus, OpportunityStatus, Prisma } from '@prisma/client';
 import { AuthUser } from '../../common/decorators/current-user.decorator';
 import { PrismaService } from '../../prisma/prisma.service';
+import { ScopeService } from '../../common/scope/scope.service';
 
 export interface DashboardStats {
+  scope: 'all' | 'team' | 'own';
   leads: { total: number; newToday: number; hot: number; byStatus: Record<string, number> };
   leadsBySource: { source: string; count: number }[];
   leadsByTemperature: { temperature: string; count: number }[];
@@ -18,7 +20,10 @@ export interface DashboardStats {
 
 @Injectable()
 export class ReportsService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly scope: ScopeService,
+  ) {}
 
   /**
    * Everything the executive dashboard needs. We pull the lead rows we need to
@@ -33,9 +38,15 @@ export class ReportsService {
     startOfMonth.setDate(1);
     startOfMonth.setHours(0, 0, 0, 0);
 
+    // Scope every figure to what the caller may see (own / team / all), so the
+    // same dashboard shows an agent their numbers and a director the company's.
+    const ownerIds = await this.scope.visibleOwnerIds(user);
+    const leadOwner: Prisma.LeadWhereInput = ownerIds ? { ownerId: { in: ownerIds } } : {};
+    const oppOwner: Prisma.OpportunityWhereInput = ownerIds ? { ownerId: { in: ownerIds } } : {};
+
     const [leadRows, openOpps, wonOpps, owners] = await Promise.all([
       this.prisma.lead.findMany({
-        where: { companyId },
+        where: { companyId, ...leadOwner },
         select: {
           status: true,
           source: true,
@@ -45,11 +56,16 @@ export class ReportsService {
         },
       }),
       this.prisma.opportunity.findMany({
-        where: { companyId, status: OpportunityStatus.OPEN },
+        where: { companyId, status: OpportunityStatus.OPEN, ...oppOwner },
         select: { valueMinor: true, stage: { select: { probability: true } } },
       }),
       this.prisma.opportunity.findMany({
-        where: { companyId, status: OpportunityStatus.WON, updatedAt: { gte: startOfMonth } },
+        where: {
+          companyId,
+          status: OpportunityStatus.WON,
+          updatedAt: { gte: startOfMonth },
+          ...oppOwner,
+        },
         select: { valueMinor: true },
       }),
       this.prisma.user.findMany({
@@ -87,6 +103,7 @@ export class ReportsService {
     const nameById = new Map(owners.map((o) => [o.id, `${o.firstName} ${o.lastName}`]));
 
     return {
+      scope: this.scope.scopeOf(user),
       leads: { total: leadRows.length, newToday, hot, byStatus },
       leadsBySource: [...bySource.entries()]
         .map(([source, count]) => ({ source, count }))

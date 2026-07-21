@@ -11,8 +11,8 @@ export class ReportsController {
   constructor(private readonly reports: ReportsService) {}
 
   @Get('dashboard')
-  @RequirePermissions('report:read')
-  @ApiOperation({ summary: 'Executive dashboard KPIs + breakdowns' })
+  @RequirePermissions('dashboard:read')
+  @ApiOperation({ summary: 'Dashboard KPIs + breakdowns (row-scoped to the caller)' })
   dashboard(@CurrentUser() user: AuthUser) {
     return this.reports.dashboard(user);
   }

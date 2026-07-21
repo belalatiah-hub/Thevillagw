@@ -10,6 +10,8 @@ export interface AuthUser {
   companyId: string;
   email: string;
   roles: string[];
+  /** System-role keys (e.g. SALES_AGENT) — used for data-visibility scoping. */
+  roleKeys: string[];
   permissions: string[];
 }
 

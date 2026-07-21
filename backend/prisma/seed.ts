@@ -131,6 +131,7 @@ async function main(): Promise<void> {
     prisma.role.findFirstOrThrow({ where: { companyId: company.id, key } });
   const demoTeam: { email: string; first: string; last: string; role: SystemRole; dept: string; team?: string }[] = [
     { email: 'manager@thevillageinvestment.com', first: 'Omar', last: 'Khaled', role: SystemRole.SALES_MANAGER, dept: salesDept.id, team: teamA.id },
+    { email: 'leader@thevillageinvestment.com', first: 'Kareem', last: 'Fathy', role: SystemRole.TEAM_LEADER, dept: salesDept.id, team: teamA.id },
     { email: 'agent@thevillageinvestment.com', first: 'Fatma', last: 'Sayed', role: SystemRole.SALES_AGENT, dept: salesDept.id, team: teamA.id },
     { email: 'marketing@thevillageinvestment.com', first: 'Layla', last: 'Adham', role: SystemRole.MARKETING_MANAGER, dept: mktDept.id },
     { email: 'finance@thevillageinvestment.com', first: 'Hana', last: 'Mostafa', role: SystemRole.FINANCE, dept: undefined as unknown as string },
@@ -139,7 +140,7 @@ async function main(): Promise<void> {
     const role = await roleByKey(m.role);
     await prisma.user.upsert({
       where: { companyId_email: { companyId: company.id, email: m.email } },
-      update: {},
+      update: { departmentId: m.dept ?? undefined, teamId: m.team },
       create: {
         companyId: company.id,
         email: m.email,
@@ -232,10 +233,36 @@ async function main(): Promise<void> {
     }
   }
 
-  // A couple of demo leads
-  const demoLeads = [
-    { firstName: 'Ahmed', phone: '+201016000201', source: LeadSource.WEBSITE, interestArea: 'New Cairo' },
-    { firstName: 'Sara', phone: '+201234567890', source: LeadSource.FACEBOOK, interestArea: '6th of October' },
+  // Demo leads distributed across owners so role-scoped visibility is
+  // demonstrable: an agent sees only their own, a team leader sees the team's,
+  // leadership/finance see everything.
+  const agent = await prisma.user.findFirstOrThrow({
+    where: { companyId: company.id, email: 'agent@thevillageinvestment.com' },
+  });
+  const teamLeader = await prisma.user.findFirstOrThrow({
+    where: { companyId: company.id, email: 'leader@thevillageinvestment.com' },
+  });
+  const manager = await prisma.user.findFirstOrThrow({
+    where: { companyId: company.id, email: 'manager@thevillageinvestment.com' },
+  });
+  const ownerFor: Record<string, string> = { NOUR: consultant.id, FATMA: agent.id, KAREEM: teamLeader.id, OMAR: manager.id };
+  const demoLeads: {
+    firstName: string;
+    phone: string;
+    source: LeadSource;
+    interestArea: string;
+    owner: keyof typeof ownerFor;
+    score: number;
+    temperature: 'HOT' | 'WARM' | 'COLD';
+  }[] = [
+    { firstName: 'Ahmed', phone: '+201016000201', source: LeadSource.WEBSITE, interestArea: 'New Cairo', owner: 'NOUR', score: 74, temperature: 'WARM' },
+    { firstName: 'Sara', phone: '+201234567890', source: LeadSource.FACEBOOK, interestArea: '6th of October', owner: 'NOUR', score: 62, temperature: 'WARM' },
+    { firstName: 'Ashraf', phone: '+201016000301', source: LeadSource.FACEBOOK, interestArea: 'Mostakbal City', owner: 'FATMA', score: 88, temperature: 'HOT' },
+    { firstName: 'Dina', phone: '+201016000302', source: LeadSource.INSTAGRAM, interestArea: 'Mostakbal City', owner: 'FATMA', score: 58, temperature: 'COLD' },
+    { firstName: 'Mona', phone: '+201016000303', source: LeadSource.INSTAGRAM, interestArea: 'Mostakbal City', owner: 'FATMA', score: 81, temperature: 'HOT' },
+    { firstName: 'Khaled', phone: '+201016000304', source: LeadSource.REFERRAL, interestArea: 'Mostakbal City', owner: 'KAREEM', score: 79, temperature: 'WARM' },
+    { firstName: 'Youssef', phone: '+201016000305', source: LeadSource.GOOGLE_ADS, interestArea: '6th of October', owner: 'KAREEM', score: 70, temperature: 'WARM' },
+    { firstName: 'Tarek', phone: '+201016000306', source: LeadSource.WEBSITE, interestArea: 'New Cairo', owner: 'OMAR', score: 66, temperature: 'WARM' },
   ];
   for (const l of demoLeads) {
     const phoneNormalized = l.phone.replace(/[^\d]/g, '').replace(/^20/, '0');
@@ -246,14 +273,14 @@ async function main(): Promise<void> {
       await prisma.lead.create({
         data: {
           companyId: company.id,
-          ownerId: consultant.id,
+          ownerId: ownerFor[l.owner],
           firstName: l.firstName,
           phone: l.phone,
           phoneNormalized,
           source: l.source,
           interestArea: l.interestArea,
-          score: 55,
-          temperature: 'WARM',
+          score: l.score,
+          temperature: l.temperature,
           currency: 'EGP',
         },
       });

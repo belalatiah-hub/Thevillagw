@@ -30,6 +30,7 @@ import { OrgModule } from './modules/org/org.module';
 import { AuditModule } from './modules/audit/audit.module';
 import { SettingsModule } from './modules/settings/settings.module';
 import { AuditInterceptor } from './common/interceptors/audit.interceptor';
+import { ScopeModule } from './common/scope/scope.module';
 
 @Module({
   imports: [
@@ -69,6 +70,7 @@ import { AuditInterceptor } from './common/interceptors/audit.interceptor';
     OrgModule,
     AuditModule,
     SettingsModule,
+    ScopeModule,
   ],
   providers: [
     // Order matters: authenticate → rate-limit → authorize.

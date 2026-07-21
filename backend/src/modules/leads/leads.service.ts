@@ -6,6 +6,7 @@ import { PaginatedResult } from '../../common/dto/pagination.dto';
 import { DOMAIN_EVENTS } from '../../common/events/domain-events';
 import { normalizePhone } from '../../common/util/phone';
 import { PrismaService } from '../../prisma/prisma.service';
+import { ScopeService } from '../../common/scope/scope.service';
 import {
   AssignLeadDto,
   CaptureLeadDto,
@@ -23,6 +24,7 @@ export class LeadsService {
     private readonly prisma: PrismaService,
     private readonly scoring: LeadScoringService,
     private readonly events: EventEmitter2,
+    private readonly scope: ScopeService,
   ) {}
 
   /**
@@ -216,12 +218,16 @@ export class LeadsService {
   }
 
   async findAll(user: AuthUser, query: QueryLeadsDto): Promise<PaginatedResult<Lead>> {
+    // Row-level visibility: agents see only their own leads, team leaders their
+    // team's, leadership/finance/marketing the whole company.
+    const scopeWhere = await this.scope.ownerWhere(user);
     const where: Prisma.LeadWhereInput = {
       companyId: user.companyId,
       status: query.status,
       source: query.source,
       temperature: query.temperature,
       ownerId: query.ownerId,
+      ...scopeWhere,
     };
 
     if (query.search) {
