@@ -31,17 +31,28 @@ enum Currency {
 enum SystemRole {
   SUPER_ADMIN
   CEO
+  GENERAL_MANAGER
   SALES_DIRECTOR
   SALES_MANAGER
+  SUPERVISOR
   TEAM_LEADER
+  SENIOR_SALES
+  SALES_AGENT
+  SALES_ADMIN
   PROPERTY_CONSULTANT
   INSIDE_SALES
   CALL_CENTER
   MARKETING
+  MARKETING_MANAGER
+  MEDIA_BUYER
+  GRAPHIC_DESIGNER
+  CUSTOMER_SERVICE
   HR
   FINANCE
+  OPERATIONS
   LEGAL
   DEVELOPER_REP
+  DEVELOPER_RELATIONS
   CUSTOMER
 }
 
@@ -279,6 +290,9 @@ model Company {
   automationRules AutomationRule[]
   automationRuns  AutomationRun[]
   notifications   Notification[]
+  departments     Department[]
+  positions       Position[]
+  teams           Team[]
 
   @@index([slug])
 }
@@ -306,6 +320,12 @@ model User {
   company        Company   @relation(fields: [companyId], references: [id], onDelete: Cascade)
   branchId       String?
   branch         Branch?   @relation(fields: [branchId], references: [id])
+  departmentId   String?
+  department     Department? @relation(fields: [departmentId], references: [id], onDelete: SetNull)
+  positionId     String?
+  position       Position?   @relation(fields: [positionId], references: [id], onDelete: SetNull)
+  teamId         String?
+  team           Team?       @relation("TeamMembers", fields: [teamId], references: [id], onDelete: SetNull)
   email          String
   passwordHash   String? // null for pure social-login accounts
   firstName      String
@@ -329,6 +349,7 @@ model User {
   commissions    Commission[]
   auditLogs      AuditLog[]
   notifications  Notification[]
+  ledTeams       Team[]         @relation("TeamLeader")
 
   @@unique([companyId, email])
   @@index([companyId])
@@ -893,4 +914,58 @@ model Notification {
 
   @@index([companyId, userId, read])
   @@index([userId, createdAt])
+}
+
+// ─── Organizational structure (departments, positions, teams) ────────────────
+
+model Department {
+  id          String   @id @default(cuid())
+  companyId   String
+  company     Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  name        String
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  positions Position[]
+  teams     Team[]
+  users     User[]
+
+  @@unique([companyId, name])
+  @@index([companyId])
+}
+
+model Position {
+  id           String      @id @default(cuid())
+  companyId    String
+  company      Company     @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  departmentId String?
+  department   Department? @relation(fields: [departmentId], references: [id], onDelete: SetNull)
+  title        String
+  level        Int         @default(0) // seniority ordering
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  users User[]
+
+  @@unique([companyId, title])
+  @@index([companyId])
+}
+
+model Team {
+  id           String      @id @default(cuid())
+  companyId    String
+  company      Company     @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  departmentId String?
+  department   Department? @relation(fields: [departmentId], references: [id], onDelete: SetNull)
+  name         String
+  leaderId     String?
+  leader       User?       @relation("TeamLeader", fields: [leaderId], references: [id], onDelete: SetNull)
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  members User[] @relation("TeamMembers")
+
+  @@unique([companyId, name])
+  @@index([companyId])
 }

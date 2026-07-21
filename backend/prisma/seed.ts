@@ -86,6 +86,73 @@ async function main(): Promise<void> {
   });
   console.log(`Users: ${admin.email}, ${consultant.email}`);
 
+  // Organizational structure: departments → positions & teams → people.
+  const salesDept = await prisma.department.upsert({
+    where: { companyId_name: { companyId: company.id, name: 'Sales' } },
+    update: {},
+    create: { companyId: company.id, name: 'Sales', description: 'Revenue-generating sales teams' },
+  });
+  const mktDept = await prisma.department.upsert({
+    where: { companyId_name: { companyId: company.id, name: 'Marketing' } },
+    update: {},
+    create: { companyId: company.id, name: 'Marketing', description: 'Demand generation & campaigns' },
+  });
+  await prisma.department.upsert({
+    where: { companyId_name: { companyId: company.id, name: 'Finance' } },
+    update: {},
+    create: { companyId: company.id, name: 'Finance', description: 'Collections, payouts, commissions' },
+  });
+
+  const consultantPosition = await prisma.position.upsert({
+    where: { companyId_title: { companyId: company.id, title: 'Property Consultant' } },
+    update: {},
+    create: { companyId: company.id, title: 'Property Consultant', level: 2, departmentId: salesDept.id },
+  });
+  await prisma.position.upsert({
+    where: { companyId_title: { companyId: company.id, title: 'Sales Manager' } },
+    update: {},
+    create: { companyId: company.id, title: 'Sales Manager', level: 5, departmentId: salesDept.id },
+  });
+
+  const teamA = await prisma.team.upsert({
+    where: { companyId_name: { companyId: company.id, name: 'New Cairo Team A' } },
+    update: {},
+    create: { companyId: company.id, name: 'New Cairo Team A', departmentId: salesDept.id, leaderId: consultant.id },
+  });
+
+  await prisma.user.update({
+    where: { id: consultant.id },
+    data: { departmentId: salesDept.id, positionId: consultantPosition.id, teamId: teamA.id },
+  });
+
+  // A few more demo team members spread across roles, so User Management and the
+  // Permission Test Report have realistic data to show.
+  const roleByKey = async (key: SystemRole) =>
+    prisma.role.findFirstOrThrow({ where: { companyId: company.id, key } });
+  const demoTeam: { email: string; first: string; last: string; role: SystemRole; dept: string; team?: string }[] = [
+    { email: 'manager@thevillageinvestment.com', first: 'Omar', last: 'Khaled', role: SystemRole.SALES_MANAGER, dept: salesDept.id, team: teamA.id },
+    { email: 'agent@thevillageinvestment.com', first: 'Fatma', last: 'Sayed', role: SystemRole.SALES_AGENT, dept: salesDept.id, team: teamA.id },
+    { email: 'marketing@thevillageinvestment.com', first: 'Layla', last: 'Adham', role: SystemRole.MARKETING_MANAGER, dept: mktDept.id },
+    { email: 'finance@thevillageinvestment.com', first: 'Hana', last: 'Mostafa', role: SystemRole.FINANCE, dept: undefined as unknown as string },
+  ];
+  for (const m of demoTeam) {
+    const role = await roleByKey(m.role);
+    await prisma.user.upsert({
+      where: { companyId_email: { companyId: company.id, email: m.email } },
+      update: {},
+      create: {
+        companyId: company.id,
+        email: m.email,
+        passwordHash: await argon2.hash('Village!2345'),
+        firstName: m.first,
+        lastName: m.last,
+        departmentId: m.dept ?? undefined,
+        teamId: m.team,
+        roles: { create: { roleId: role.id } },
+      },
+    });
+  }
+
   // Default pipeline
   const existingPipeline = await prisma.pipeline.findFirst({
     where: { companyId: company.id, name: 'Primary Sales' },

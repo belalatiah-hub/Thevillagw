@@ -44,6 +44,21 @@ export class CreateUserDto {
   @IsString()
   branchId?: string;
 
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  departmentId?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  positionId?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  teamId?: string;
+
   @ApiPropertyOptional({ type: [String], description: 'Role ids to assign' })
   @IsOptional()
   @IsArray()
@@ -78,6 +93,26 @@ export class UpdateUserDto extends PartialType(
   @IsOptional()
   @IsBoolean()
   isActive?: boolean;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  branchId?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  departmentId?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  positionId?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  teamId?: string;
 
   @ApiPropertyOptional({ type: [String], description: 'Replace the user’s role assignments' })
   @IsOptional()

@@ -63,4 +63,37 @@ export class UsersController {
   deactivate(@CurrentUser() user: AuthUser, @Param('id') id: string) {
     return this.users.deactivate(user, id);
   }
+
+  @Get(':id/sessions')
+  @RequirePermissions('user:read')
+  @ApiOperation({ summary: 'Device sessions for a user' })
+  sessions(@CurrentUser() user: AuthUser, @Param('id') id: string) {
+    return this.users.sessions(user, id);
+  }
+
+  @Delete(':id/sessions/:sessionId')
+  @HttpCode(HttpStatus.OK)
+  @RequirePermissions('user:update')
+  @ApiOperation({ summary: 'Revoke one device session' })
+  revokeSession(
+    @CurrentUser() user: AuthUser,
+    @Param('id') id: string,
+    @Param('sessionId') sessionId: string,
+  ) {
+    return this.users.revokeSession(user, id, sessionId);
+  }
+
+  @Get(':id/login-history')
+  @RequirePermissions('user:read')
+  @ApiOperation({ summary: 'Login / logout history' })
+  loginHistory(@CurrentUser() user: AuthUser, @Param('id') id: string) {
+    return this.users.loginHistory(user, id);
+  }
+
+  @Get(':id/activity')
+  @RequirePermissions('user:read')
+  @ApiOperation({ summary: 'Activity timeline (audited actions)' })
+  activity(@CurrentUser() user: AuthUser, @Param('id') id: string) {
+    return this.users.activity(user, id);
+  }
 }

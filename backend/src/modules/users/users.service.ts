@@ -16,9 +16,16 @@ const SAFE_SELECT = {
   avatarUrl: true,
   isActive: true,
   branchId: true,
+  departmentId: true,
+  positionId: true,
+  teamId: true,
   lastLoginAt: true,
   createdAt: true,
+  twoFactorEnabled: true,
   roles: { include: { role: { select: { id: true, name: true, key: true } } } },
+  department: { select: { id: true, name: true } },
+  position: { select: { id: true, title: true } },
+  team: { select: { id: true, name: true } },
 } satisfies Prisma.UserSelect;
 
 @Injectable()
@@ -41,6 +48,9 @@ export class UsersService {
         lastName: dto.lastName,
         phone: dto.phone,
         branchId: dto.branchId,
+        departmentId: dto.departmentId,
+        positionId: dto.positionId,
+        teamId: dto.teamId,
         roles: dto.roleIds?.length
           ? { create: dto.roleIds.map((roleId) => ({ roleId })) }
           : undefined,
@@ -101,9 +111,85 @@ export class UsersService {
           lastName: dto.lastName,
           phone: dto.phone,
           isActive: dto.isActive,
+          branchId: dto.branchId,
+          departmentId: dto.departmentId,
+          positionId: dto.positionId,
+          teamId: dto.teamId,
         },
         select: SAFE_SELECT,
       });
+    });
+  }
+
+  /** Active + historical device sessions for a user (from refresh tokens). */
+  async sessions(user: AuthUser, id: string) {
+    await this.ensureExists(user, id);
+    const tokens = await this.prisma.refreshToken.findMany({
+      where: { userId: id },
+      orderBy: { createdAt: 'desc' },
+      take: 50,
+      select: {
+        id: true,
+        userAgent: true,
+        ip: true,
+        createdAt: true,
+        expiresAt: true,
+        revokedAt: true,
+      },
+    });
+    const now = Date.now();
+    return tokens.map((t) => ({
+      id: t.id,
+      userAgent: t.userAgent,
+      ip: t.ip,
+      createdAt: t.createdAt,
+      expiresAt: t.expiresAt,
+      active: !t.revokedAt && t.expiresAt.getTime() > now,
+      revokedAt: t.revokedAt,
+    }));
+  }
+
+  /** Revoke a single device session. */
+  async revokeSession(user: AuthUser, id: string, sessionId: string) {
+    await this.ensureExists(user, id);
+    const result = await this.prisma.refreshToken.updateMany({
+      where: { id: sessionId, userId: id, revokedAt: null },
+      data: { revokedAt: new Date() },
+    });
+    if (result.count === 0) throw new NotFoundException('Active session not found');
+    return { revoked: result.count };
+  }
+
+  /** Login history — successful and failed auth events from the audit trail. */
+  async loginHistory(user: AuthUser, id: string) {
+    await this.ensureExists(user, id);
+    return this.prisma.auditLog.findMany({
+      where: {
+        companyId: user.companyId,
+        actorId: id,
+        action: { in: ['auth.login', 'auth.login.failed', 'auth.logout'] },
+      },
+      orderBy: { createdAt: 'desc' },
+      take: 50,
+      select: { id: true, action: true, ip: true, userAgent: true, createdAt: true },
+    });
+  }
+
+  /** Full activity timeline for a user (every audited action they performed). */
+  async activity(user: AuthUser, id: string) {
+    await this.ensureExists(user, id);
+    return this.prisma.auditLog.findMany({
+      where: { companyId: user.companyId, actorId: id },
+      orderBy: { createdAt: 'desc' },
+      take: 100,
+      select: {
+        id: true,
+        action: true,
+        entityType: true,
+        entityId: true,
+        createdAt: true,
+        metadata: true,
+      },
     });
   }
 

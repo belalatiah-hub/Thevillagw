@@ -25,6 +25,8 @@ import { FinanceModule } from './modules/finance/finance.module';
 import { IntegrationsModule } from './modules/integrations/integrations.module';
 import { AutomationModule } from './modules/automation/automation.module';
 import { NotificationsModule } from './modules/notifications/notifications.module';
+import { RolesModule } from './modules/roles/roles.module';
+import { OrgModule } from './modules/org/org.module';
 
 @Module({
   imports: [
@@ -60,6 +62,8 @@ import { NotificationsModule } from './modules/notifications/notifications.modul
     IntegrationsModule,
     AutomationModule,
     NotificationsModule,
+    RolesModule,
+    OrgModule,
   ],
   providers: [
     // Order matters: authenticate → rate-limit → authorize.
