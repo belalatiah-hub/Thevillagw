@@ -1,7 +1,8 @@
 # Cloudflare Workers deployment for The Village — a single-file static site.
 # The dashboard build runs `npx wrangler deploy`, which needs this config.
 # `name` MUST match the existing Worker that serves village.belalatiah.workers.dev.
-name = "village"
+# wrangler.toml
+name = 'black-shape-dfbe'
 compatibility_date = "2025-06-01"
 
 # Serve the repo as static assets (no Worker script needed). Unknown paths fall
