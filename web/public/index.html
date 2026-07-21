@@ -174,6 +174,7 @@
     <div class="topbar">
       <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg><input id="globalSearch" placeholder="Search leads, customers, units…"/></div>
       <div class="grow"></div>
+      <div style="position:relative"><button class="btn btn-ghost" id="personaBtn" title="View as role" style="padding:9px 12px;font-size:12.5px;gap:8px"><span id="personaLabel">Super Admin</span> <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div id="personaMenu" class="hide" style="position:absolute;top:46px;inset-inline-end:0;background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-m);padding:6px;width:250px;max-height:60vh;overflow-y:auto;z-index:40"></div></div>
       <button class="ic-btn" id="tLang" title="Language">🌐</button>
       <button class="ic-btn" id="tTheme" title="Theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg></button>
       <button class="ic-btn" id="tBell" title="Notifications"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg><span class="dot" id="bellDot"></span></button>
@@ -209,6 +210,7 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
       automation:"Automation", integrations:"Integrations", notifications:"Notifications", users:"Users",
       roles:"Roles & Permissions", audit:"Audit Log", reports:"Reports", settings:"Settings",
       grp_work:"Workspace", grp_admin:"Administration", grp_platform:"Platform",
+      map:"Map", projects_map:"Projects Map", projects:"Projects", all_areas:"All areas", available:"available", from:"from", find_leads:"Find matching leads", units:"units",
       welcome:"Welcome back", signin:"Sign in to Village CRM", email:"Email", password:"Password", signin_btn:"Sign in",
       hero:"The complete real-estate CRM for your team.", hero_sub:"Leads, pipeline, inventory, finance, automation and AI — one secure console for The Village Investment.",
       demo_note:"Demo mode — explore with sample data. Set API_BASE in the file to connect your live backend.",
@@ -230,6 +232,7 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
       automation:"الأتمتة", integrations:"التكاملات", notifications:"الإشعارات", users:"المستخدمون",
       roles:"الأدوار والصلاحيات", audit:"سجل التدقيق", reports:"التقارير", settings:"الإعدادات",
       grp_work:"مساحة العمل", grp_admin:"الإدارة", grp_platform:"المنصة",
+      map:"الخريطة", projects_map:"خريطة المشاريع", projects:"مشاريع", all_areas:"كل المناطق", available:"متاحة", from:"يبدأ من", find_leads:"عملاء مطابقون", units:"وحدة",
       welcome:"مرحباً بعودتك", signin:"سجّل الدخول إلى Village CRM", email:"البريد الإلكتروني", password:"كلمة المرور", signin_btn:"دخول",
       hero:"نظام CRM عقاري متكامل لفريقك.", hero_sub:"العملاء والمسار والمخزون والمالية والأتمتة والذكاء الاصطناعي — لوحة آمنة واحدة لـ The Village Investment.",
       demo_note:"وضع تجريبي — استكشف ببيانات نموذجية. اضبط API_BASE في الملف لربط الخادم الحقيقي.",
@@ -273,7 +276,9 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
     out:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h9"/></svg>',
     money:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="2" y="6" width="20" height="12" rx="3"/><circle cx="12" cy="12" r="2.6"/></svg>',
     target:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>',
-    fire:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3c1 3-2 4-2 7a2 2 0 0 0 4 0c2 2 3 3.5 3 6a5 5 0 0 1-10 0c0-3 2-4 2-6"/></svg>'
+    fire:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3c1 3-2 4-2 7a2 2 0 0 0 4 0c2 2 3 3.5 3 6a5 5 0 0 1-10 0c0-3 2-4 2-6"/></svg>',
+    map:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14M15 6v14"/></svg>',
+    pin:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>'
   };
 
   /* ── demo data (mirrors the backend seed) ── */
@@ -282,13 +287,28 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
     stats:{ totalLeads:3079, newToday:6, openPipeline:6.0, weighted:2.8, wonMonth:0.9, conversion:7, target:1.6 },
     stages:[["New",1180,"var(--cool)"],["Qualified",640,"var(--purple)"],["Meeting",320,"var(--amber)"],["Reservation",120,"var(--coral)"],["Won",64,"var(--green)"]],
     leads:[
-      {n:"Ashraf Hussein",src:"Facebook",agent:"Fatma Sayed",status:"Interested",score:88,budget:12,area:"Mostakbal City"},
-      {n:"Mona Adel",src:"Instagram",agent:"Omar Khaled",status:"Meeting set",score:81,budget:6.5,area:"Mostakbal City"},
-      {n:"Khaled Nabil",src:"Referral",agent:"Nour Hany",status:"Interested",score:79,budget:9.2,area:"Mostakbal City"},
-      {n:"Ahmed Shaher",src:"Facebook",agent:"Fatma Sayed",status:"No answer",score:74,budget:8.5,area:"New Cairo"},
-      {n:"Youssef Tarek",src:"Google",agent:"Nour Hany",status:"Meeting set",score:70,budget:7,area:"6th October"},
-      {n:"Sara Kamal",src:"Facebook",agent:"Omar Khaled",status:"No answer",score:62,budget:5.5,area:"Mostakbal City"},
-      {n:"Dina Fouad",src:"Instagram",agent:"Fatma Sayed",status:"Interested",score:58,budget:6,area:"Mostakbal City"}
+      {n:"Ashraf Hussein",src:"Facebook",owner:"Fatma Sayed",status:"Interested",score:88,budget:12,area:"Mostakbal City"},
+      {n:"Mona Adel",src:"Instagram",owner:"Fatma Sayed",status:"Meeting set",score:81,budget:6.5,area:"Mostakbal City"},
+      {n:"Dina Fouad",src:"Instagram",owner:"Fatma Sayed",status:"Interested",score:58,budget:6,area:"Mostakbal City"},
+      {n:"Khaled Nabil",src:"Referral",owner:"Kareem Fathy",status:"Interested",score:79,budget:9.2,area:"Mostakbal City"},
+      {n:"Youssef Tarek",src:"Google",owner:"Kareem Fathy",status:"Meeting set",score:70,budget:7,area:"6th October"},
+      {n:"Ahmed Shaher",src:"Facebook",owner:"Nour Hany",status:"No answer",score:74,budget:8.5,area:"New Cairo"},
+      {n:"Sara Kamal",src:"Facebook",owner:"Nour Hany",status:"No answer",score:62,budget:5.5,area:"Mostakbal City"},
+      {n:"Tarek Salah",src:"Website",owner:"Omar Khaled",status:"Interested",score:66,budget:7.5,area:"New Cairo"},
+      {n:"Heba Nabil",src:"TikTok",owner:"Omar Khaled",status:"Meeting set",score:72,budget:8,area:"6th October"}
+    ],
+    // Team structure for the demo scope engine (mirrors the seed).
+    teams:{ "Kareem Fathy":["Kareem Fathy","Fatma Sayed","Nour Hany"] },
+    // Projects plotted on the interactive map (x/y are % on the map canvas).
+    projects:[
+      {name:"IL Bosco City",dev:"Misr Italia",area:"Mostakbal City",from:6.1,avail:14,x:63,y:34},
+      {name:"Bloomfields",dev:"Tatweer Misr",area:"Mostakbal City",from:5.4,avail:9,x:52,y:46},
+      {name:"La Mirada",dev:"La Mirada Dev.",area:"Mostakbal City",from:5.2,avail:12,x:44,y:30},
+      {name:"HAPTOWN",dev:"Hassan Allam",area:"Mostakbal City",from:7.2,avail:11,x:58,y:58},
+      {name:"Aliva",dev:"Mountain View",area:"Mostakbal City",from:8.0,avail:7,x:72,y:66},
+      {name:"The Valleys",dev:"SODIC",area:"New Heliopolis",from:9.5,avail:5,x:78,y:24},
+      {name:"Badya",dev:"Palm Hills",area:"6th October",from:6.0,avail:16,x:20,y:70},
+      {name:"iCity",dev:"Mountain View",area:"New Cairo",from:7.8,avail:10,x:32,y:52}
     ],
     users:[
       {n:"Village Admin",email:"admin@thevillageinvestment.com",role:"Super Admin",dept:"—",active:true,c:"var(--coral)"},
@@ -322,6 +342,47 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
       ["🎉 Deal won: Youssef Tarek — Badya","EGP 7.0M · commission accrued","1h",true],
       ["Follow-up due: Khaled Nabil","HAPTOWN · send plan on WhatsApp","3h",false]]
   };
+  /* ── Personas: log in as any job function to see scope + permissions change ── */
+  var PERSONAS=[
+    {name:"Village Admin",role:"Super Admin",owner:"Village Admin",scope:"all",c:"var(--coral)",perms:["*"]},
+    {name:"Sherif Adel",role:"CEO",owner:"Sherif Adel",scope:"all",c:"#111",perms:["*"]},
+    {name:"Karim Nabil",role:"General Manager",owner:"Karim Nabil",scope:"all",c:"#8a5a3c",perms:["lead:read","lead:assign","report:read","report:export","finance:read","commission:approve","user:read","user:create","team:create","department:create","dashboard:read","ai:read","ai:use"]},
+    {name:"Rania Fouad",role:"Sales Director",owner:"Rania Fouad",scope:"all",c:"#b0417a",perms:["lead:read","lead:create","lead:update","lead:assign","lead:export","customer:read","opportunity:read","opportunity:approve","team:create","team:read","report:read","report:export","dashboard:read","ai:read","ai:use"]},
+    {name:"Omar Khaled",role:"Sales Manager",owner:"Omar Khaled",scope:"all",c:"#7c6fd6",perms:ROLE_PERMS_LOOKUP("Sales Manager")},
+    {name:"Kareem Fathy",role:"Team Leader",owner:"Kareem Fathy",scope:"team",c:"#3aa6a0",perms:["lead:read","lead:create","lead:update","lead:assign","lead:export","customer:read","customer:create","customer:update","activity:read","activity:create","activity:update","opportunity:read","opportunity:create","opportunity:update","team:read","dashboard:read","ai:read","ai:use"]},
+    {name:"Fatma Sayed",role:"Sales Agent",owner:"Fatma Sayed",scope:"own",c:"#4d84c0",perms:ROLE_PERMS_LOOKUP("Sales Agent")},
+    {name:"Nour Hany",role:"Property Consultant",owner:"Nour Hany",scope:"own",c:"#22b06b",perms:ROLE_PERMS_LOOKUP("Property Consultant")},
+    {name:"Layla Adham",role:"Marketing Manager",owner:"Layla Adham",scope:"all",c:"#c94f8f",perms:ROLE_PERMS_LOOKUP("Marketing Manager")},
+    {name:"Youssef Amr",role:"Media Buyer",owner:"Youssef Amr",scope:"all",c:"#d0603a",perms:["lead:read","report:read","report:export","integration:read","integration:update","dashboard:read","ai:read","ai:use"]},
+    {name:"Hana Mostafa",role:"Finance",owner:"Hana Mostafa",scope:"all",c:"#e0a12e",perms:ROLE_PERMS_LOOKUP("Finance")},
+    {name:"Mervat Saad",role:"HR",owner:"Mervat Saad",scope:"all",c:"#5b8a72",perms:["user:read","user:create","user:update","department:read","department:create","team:read","team:create","role:read","report:read","dashboard:read","audit:read"]},
+    {name:"Tamer Wael",role:"Operations",owner:"Tamer Wael",scope:"all",c:"#6b7a9c",perms:["project:read","project:create","unit:read","unit:create","report:read","dashboard:read","integration:read","audit:read"]},
+    {name:"Nadia Kamal",role:"Legal",owner:"Nadia Kamal",scope:"all",c:"#8a6d3b",perms:["contract:read","contract:approve","customer:read","audit:read","dashboard:read"]},
+    {name:"Sami Adel",role:"Customer Service",owner:"Sami Adel",scope:"own",c:"#4aa0c0",perms:["lead:read","lead:update","customer:read","activity:read","activity:create","dashboard:read","ai:read","ai:use"]}
+  ];
+  function ROLE_PERMS_LOOKUP(r){ return (typeof ROLE_PERMS!=="undefined"&&ROLE_PERMS[r])||[]; }
+  // Resolve a persona's effective permissions at use-time (ROLE_PERMS is defined later).
+  function personaPerms(p){ return (p.perms&&p.perms.length)?p.perms:(ROLE_PERMS[p.role]||[]); }
+  function setPersona(p){
+    state.persona=p; state.roleSel=null; state.view="dashboard";
+    state.me={ firstName:p.name.split(" ")[0], lastName:p.name.split(" ").slice(1).join(" "), email:"", role:p.role, permissions:personaPerms(p) };
+    render();
+    toast((state.lang==="ar"?"تم الدخول كـ ":"Viewing as ")+p.role);
+  }
+  function currentPersona(){ return state.persona||PERSONAS[0]; }
+  function personaScope(){ return currentPersona().scope; }
+  // Which owners the persona can see (demo mirror of backend ScopeService).
+  function visibleOwners(){
+    var p=currentPersona();
+    if(p.scope==="all") return null; // unrestricted
+    if(p.scope==="team"){ return demo.teams[p.owner]||[p.owner]; }
+    return [p.owner];
+  }
+  function visibleLeads(){
+    var ow=visibleOwners(); if(!ow) return demo.leads;
+    return demo.leads.filter(function(l){ return ow.indexOf(l.owner)>=0; });
+  }
+
   var permGroups=[
     {g:"Sales & Inventory",res:[["lead","Lead",["read","create","update","delete","assign","export","import"]],["customer","Customer",["read","create","update","delete","assign","export"]],["opportunity","Opportunity",["read","create","update","delete","approve"]],["activity","Activity",["read","create","update","delete"]]]},
     {g:"Finance",res:[["contract","Contract",["read","create","update","approve","export"]],["payment","Payment",["read","create","update","approve","export"]],["commission","Commission",["read","approve","export"]],["finance","Finance",["read","approve","export"]]]},
@@ -348,7 +409,7 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
 
   /* ── nav ── */
   var NAV=[
-    {grp:"grp_work",items:[["dashboard",I.dashboard],["leads",I.leads],["customers",I.customers],["pipeline",I.pipeline],["inventory",I.inventory]]},
+    {grp:"grp_work",items:[["dashboard",I.dashboard],["leads",I.leads],["customers",I.customers],["pipeline",I.pipeline],["inventory",I.inventory],["map",I.map]]},
     {grp:"grp_platform",items:[["automation",I.automation],["integrations",I.integrations],["notifications",I.notifications,"badge"],["reports",I.reports]]},
     {grp:"grp_admin",items:[["users",I.users],["roles",I.roles],["audit",I.audit],["settings",I.settings]]}
   ];
@@ -373,6 +434,13 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
       '<span style="color:var(--ink-3)">'+I.out+'</span>';
     $("#sideUser").onclick=logout;
     $("#bellDot").style.display=unread?"grid":"none"; $("#bellDot").textContent=unread;
+    var pl=$("#personaLabel"); if(pl) pl.textContent=(m.role||"—");
+  }
+  // Scope badge shown on scoped screens.
+  function scopeBadge(){
+    var sc=personaScope(); var lbl={all:state.lang==="ar"?"كل الشركة":"Whole company",team:state.lang==="ar"?"فريقي":"My team",own:state.lang==="ar"?"عملائي فقط":"My records only"}[sc];
+    var col=sc==="all"?"var(--purple)":sc==="team"?"var(--cool)":"var(--green)";
+    return '<span class="pill" style="background:'+col+'1f;color:'+col+'"><span class="dot-s" style="background:'+col+'"></span>'+lbl+'</span>';
   }
 
   /* ── screens ── */
@@ -381,32 +449,44 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
 
   var screens={
     dashboard:function(){
-      var s=demo.stats;
+      // Numbers re-scope to the current persona (own / team / all) — the visual
+      // proof of "رؤية الأرقام حسب الصلاحيات".
+      var vis=visibleLeads(), scale=personaScope()==="all"?1:personaScope()==="team"?0.42:0.16;
+      var openP=6.0*scale, weighted=2.8*scale, won=0.9*scale, target=1.6*scale;
+      var hot=vis.filter(function(l){return l.score>=75;}).length;
       var kpis=[
-        [t("total_leads"),s.totalLeads.toLocaleString(),"+"+s.newToday+" "+t("new_today"),"up",I.leads],
-        [t("open_pipeline"),money(s.openPipeline),money(s.weighted)+" "+t("weighted"),"",I.pipeline],
-        [t("won_month"),money(s.wonMonth),Math.round(s.wonMonth/s.target*100)+"% "+t("vs_target"),"up",I.money],
-        [t("conversion"),s.conversion+"%","lead → won","",I.target]
+        [t("total_leads"),vis.length.toLocaleString(),hot+" "+(state.lang==="ar"?"ساخن":"hot"),"up",I.leads],
+        [t("open_pipeline"),money(openP),money(weighted)+" "+t("weighted"),"",I.pipeline],
+        [t("won_month"),money(won),Math.round(won/target*100)+"% "+t("vs_target"),"up",I.money],
+        [t("conversion"),(vis.length?Math.round(vis.filter(function(l){return l.status==="Meeting set";}).length/vis.length*100):0)+"%","lead → won","",I.target]
       ];
-      var maxStage=Math.max.apply(null,demo.stages.map(function(x){return x[1];}));
-      var html=head(t("dashboard"),"The Village Investment")+
+      var order=["New","Qualified","Meeting","Reservation","Won"];
+      var stMap={"No answer":"New","Interested":"Qualified","Meeting set":"Meeting"};
+      var stageCounts=order.map(function(o){return 0;});
+      vis.forEach(function(l){ var idx=order.indexOf(stMap[l.status]||"Qualified"); if(idx>=0) stageCounts[idx]++; });
+      var stageCol=["var(--cool)","var(--purple)","var(--amber)","var(--coral)","var(--green)"];
+      var maxStage=Math.max(1,Math.max.apply(null,stageCounts));
+      var html=head(t("dashboard"),"The Village Investment",'<div class="row gap">'+scopeBadge()+'</div>')+
         '<div class="grid kpis" style="margin-bottom:16px">'+kpis.map(function(k){
           return '<div class="card kpi"><div class="l">'+k[4]+k[0]+'</div><div class="v tnum">'+k[1]+'</div><div class="d '+k[3]+'">'+k[2]+'</div></div>';
         }).join("")+'</div>'+
         '<div class="grid" style="grid-template-columns:1.6fr 1fr;align-items:start">'+
           '<div class="card" style="padding:20px"><div class="sec-title">'+t("recent_leads")+'</div><div style="overflow-x:auto"><table><thead><tr><th>'+t("name")+'</th><th>'+t("source")+'</th><th>'+t("agent")+'</th><th>'+t("status")+'</th><th>'+t("score")+'</th></tr></thead><tbody>'+
-            demo.leads.slice(0,6).map(function(l){ return leadRow(l); }).join("")+'</tbody></table></div></div>'+
+            (vis.length?vis.slice(0,6).map(function(l){ return leadRow(l); }).join(""):'<tr><td colspan="5" class="muted" style="text-align:center;padding:24px">'+(state.lang==="ar"?"لا عملاء ضمن نطاقك":"No leads in your scope")+'</td></tr>')+'</tbody></table></div></div>'+
           '<div><div class="card" style="padding:20px;margin-bottom:16px"><div class="sec-title">'+t("by_stage")+'</div>'+
-            demo.stages.map(function(st){ return '<div style="margin:11px 0"><div class="row between" style="font-size:12.5px;margin-bottom:5px"><span style="font-weight:600">'+st[0]+'</span><b class="tnum">'+st[1]+'</b></div><div class="bar"><i style="width:'+Math.round(st[1]/maxStage*100)+'%;background:'+st[2]+'"></i></div></div>'; }).join("")+'</div>'+
+            order.map(function(o,i){ return '<div style="margin:11px 0"><div class="row between" style="font-size:12.5px;margin-bottom:5px"><span style="font-weight:600">'+o+'</span><b class="tnum">'+stageCounts[i]+'</b></div><div class="bar"><i style="width:'+Math.round(stageCounts[i]/maxStage*100)+'%;background:'+stageCol[i]+'"></i></div></div>'; }).join("")+'</div>'+
             '<div class="card" style="padding:18px;background:linear-gradient(135deg,var(--purple-soft),var(--card))"><div class="row gap" style="gap:8px;margin-bottom:8px"><span style="color:var(--purple)">'+I.brain+'</span><b style="font-size:13.5px">'+t("ai_brief")+'</b></div>'+
               '<div style="font-size:13.5px;line-height:1.55">'+(state.lang==="ar"?"6 عملاء جدد اليوم، ومتابعتان متأخرتان. IL Bosco City به 14 وحدة متاحة تطابق عملاءك الساخنين. المسار المرجّح 2.8M ج.م.":"6 new leads today, 2 follow-ups overdue. IL Bosco City has 14 available units matching your hot leads. Weighted pipeline EGP 2.8M.")+'</div></div></div></div>';
       return html;
     },
     leads:function(){
-      return head(t("leads"),demo.stats.totalLeads.toLocaleString()+" "+t("leads").toLowerCase(),
-        '<div class="row gap"><button class="btn btn-ghost" data-act="export">'+I.dl+t("export")+'</button><button class="btn btn-coral" data-act="add">'+I.plus+t("add_lead")+'</button></div>')+
+      var vis=visibleLeads();
+      var actions='<div class="row gap">'+scopeBadge()+
+        (can("lead:export")?'<button class="btn btn-ghost" data-act="export">'+I.dl+t("export")+'</button>':'')+
+        (can("lead:create")?'<button class="btn btn-coral" data-act="add">'+I.plus+t("add_lead")+'</button>':'')+'</div>';
+      return head(t("leads"),vis.length+" "+t("leads").toLowerCase(),actions)+
         '<div class="card" style="padding:0;overflow:hidden"><div style="overflow-x:auto"><table><thead><tr><th>'+t("name")+'</th><th>'+t("source")+'</th><th>'+t("agent")+'</th><th>'+t("status")+'</th><th>'+t("value")+'</th><th>'+t("score")+'</th></tr></thead><tbody>'+
-          demo.leads.map(function(l){ return leadRow(l,true); }).join("")+'</tbody></table></div></div>';
+          (vis.length?vis.map(function(l){ return leadRow(l,true); }).join(""):'<tr><td colspan="6" class="muted" style="text-align:center;padding:28px">'+(state.lang==="ar"?"لا عملاء ضمن نطاق رؤيتك":"No leads in your visibility scope")+'</td></tr>')+'</tbody></table></div></div>';
     },
     customers:function(){
       return head(t("customers"),"")+listPlaceholder(t("customers"));
@@ -421,6 +501,32 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
         }).join("")+'</div>';
     },
     inventory:function(){ return head(t("inventory"),"")+listPlaceholder(t("inventory")); },
+    map:function(){
+      var areas=[]; demo.projects.forEach(function(p){ if(areas.indexOf(p.area)<0) areas.push(p.area); });
+      var f=state.mapArea||"all";
+      var shown=demo.projects.filter(function(p){ return f==="all"||p.area===f; });
+      var chips='<div class="row wrap gap" style="gap:8px;margin-bottom:14px"><button class="btn '+(f==="all"?"btn-coral":"btn-ghost")+'" data-area="all" style="padding:8px 14px;font-size:12.5px">'+t("all_areas")+'</button>'+
+        areas.map(function(a){ return '<button class="btn '+(f===a?"btn-coral":"btn-ghost")+'" data-area="'+a+'" style="padding:8px 14px;font-size:12.5px">'+a+'</button>'; }).join("")+'</div>';
+      // Original stylized map canvas (SVG) — roads, greenspace, water, plus project pins.
+      var pins=shown.map(function(p,i){
+        return '<button class="mappin" data-p="'+demo.projects.indexOf(p)+'" style="position:absolute;left:'+p.x+'%;top:'+p.y+'%;transform:translate(-50%,-100%);background:none;border:none;cursor:pointer;z-index:2" title="'+p.name+'">'+
+          '<span style="display:block;width:34px;height:34px;color:var(--coral);filter:drop-shadow(0 3px 5px rgba(0,0,0,.25))">'+I.pin+'</span>'+
+          '<span style="position:absolute;top:6px;left:50%;transform:translateX(-50%);color:#fff;font-size:10px;font-weight:800">'+p.avail+'</span>'+
+          '<span style="display:block;background:var(--card);border:1px solid var(--line);border-radius:8px;font-size:10.5px;font-weight:700;padding:2px 6px;margin-top:2px;white-space:nowrap;box-shadow:var(--shadow-s)">'+p.name+'</span></button>';
+      }).join("");
+      var canvas='<div class="card" style="position:relative;height:520px;overflow:hidden;padding:0">'+
+        '<svg viewBox="0 0 100 70" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%">'+
+          '<rect width="100" height="70" fill="var(--card-2)"/>'+
+          '<path d="M0 40 Q30 30 55 44 T100 42 V70 H0 Z" fill="var(--green-soft)" opacity=".7"/>'+
+          '<path d="M-2 12 Q25 20 48 12 T102 16" fill="none" stroke="var(--cool)" stroke-width="1.2" opacity=".5"/>'+
+          '<path d="M10 -2 L26 72" stroke="var(--line-2)" stroke-width="1.6" fill="none"/>'+
+          '<path d="M50 -2 L60 72" stroke="var(--line-2)" stroke-width="1.6" fill="none"/>'+
+          '<path d="M-2 50 L102 38" stroke="var(--line-2)" stroke-width="1.6" fill="none"/>'+
+          '<circle cx="80" cy="20" r="10" fill="var(--cool)" opacity=".18"/>'+
+        '</svg>'+pins+
+        '<div id="mapPop" class="hide" style="position:absolute;inset-inline-end:16px;top:16px;width:240px;z-index:5"></div></div>';
+      return head(t("projects_map"),shown.length+" "+t("projects").toLowerCase(),'<div class="row gap">'+scopeBadge()+'</div>')+chips+canvas;
+    },
     automation:function(){
       return head(t("automation"),"Automation Engine")+
         demo.rules.map(function(r){ return '<div class="card" style="padding:16px 18px;margin-bottom:12px"><div class="row between"><div><div class="row gap" style="gap:8px"><b style="font-size:15px">'+r[0]+'</b><span class="pill" style="background:'+(r[3]?"var(--green-soft);color:var(--green)":"var(--card-2);color:var(--ink-3)")+'">'+(r[3]?t("enabled"):t("disabled"))+'</span></div><div class="muted" style="font-size:12.5px;margin-top:4px">IF '+r[1]+' · '+r[2]+' '+t("runs")+'</div></div><span style="color:var(--purple)">'+I.automation+'</span></div></div>'; }).join("");
@@ -475,7 +581,7 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
   function leadRow(l,full){
     var st={ "Interested":"var(--green)","Meeting set":"var(--amber)","No answer":"var(--ink-3)" }[l.status]||"var(--ink-3)";
     var stbg={ "Interested":"var(--green-soft)","Meeting set":"var(--amber-soft)","No answer":"var(--card-2)" }[l.status]||"var(--card-2)";
-    return '<tr><td><b>'+l.n+'</b><div class="muted" style="font-size:11.5px">'+l.area+'</div></td><td class="muted">'+l.src+'</td><td class="muted">'+l.agent+'</td>'+
+    return '<tr><td><b>'+l.n+'</b><div class="muted" style="font-size:11.5px">'+l.area+'</div></td><td class="muted">'+l.src+'</td><td class="muted">'+(l.owner||l.agent||"—")+'</td>'+
       '<td><span class="tag" style="background:'+stbg+';color:'+st+'">'+l.status+'</span></td>'+(full?'<td class="tnum">'+money(l.budget)+'</td>':'')+
       '<td><div class="row gap" style="gap:8px"><div class="bar" style="width:52px"><i style="width:'+l.score+'%;background:'+(l.score>=75?"var(--green)":l.score>=60?"var(--amber)":"var(--ink-3)")+'"></i></div><b class="tnum" style="font-size:12px">'+l.score+'</b></div></td></tr>';
   }
@@ -503,10 +609,67 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
       b.onclick=function(){ var a=b.getAttribute("data-act");
         if(a==="backroles"){ state.roleSel=null; render(); }
         else if(a==="export"){ toast(state.lang==="ar"?"تم التصدير (تجريبي)":"Exported (demo)"); }
+        else if(a==="add"&&state.view==="users"){ openAddUser(); }
+        else if(a==="add"&&state.view==="leads"){ openAddLead(); }
         else toast(state.lang==="ar"?"إجراء تجريبي":"Demo action"); };
     });
     [].forEach.call(document.querySelectorAll(".rolecard"),function(c){ c.onclick=function(){ state.roleSel=c.getAttribute("data-role"); render(); }; });
+    // Map: area filters + clickable project pins
+    [].forEach.call(document.querySelectorAll("[data-area]"),function(b){ b.onclick=function(){ state.mapArea=b.getAttribute("data-area"); render(); }; });
+    [].forEach.call(document.querySelectorAll(".mappin"),function(b){ b.onclick=function(ev){ ev.stopPropagation(); openMapPop(demo.projects[+b.getAttribute("data-p")]); }; });
     $("#globalSearch").placeholder=t("search");
+  }
+  function openMapPop(p){
+    var pop=$("#mapPop"); if(!pop) return;
+    pop.classList.remove("hide");
+    pop.innerHTML='<div class="card" style="padding:16px;box-shadow:var(--shadow-m)"><div class="row between"><b style="font-size:15px">'+p.name+'</b><button class="ic-btn" id="popX" style="width:26px;height:26px;border:none">✕</button></div>'+
+      '<div class="muted" style="font-size:12px;margin-top:2px">'+p.dev+' · '+p.area+'</div>'+
+      '<div class="row gap" style="gap:10px;margin-top:12px"><div class="card" style="padding:10px;flex:1;box-shadow:none"><div class="muted" style="font-size:11px">'+t("from")+'</div><div class="tnum" style="font-weight:800">EGP '+p.from+'M</div></div>'+
+      '<div class="card" style="padding:10px;flex:1;box-shadow:none"><div class="muted" style="font-size:11px">'+t("available")+'</div><div class="tnum" style="font-weight:800">'+p.avail+' '+t("units")+'</div></div></div>'+
+      '<button class="btn btn-coral" id="popFind" style="width:100%;justify-content:center;margin-top:12px;font-size:12.5px">'+t("find_leads")+'</button></div>';
+    $("#popX").onclick=function(){ pop.classList.add("hide"); };
+    $("#popFind").onclick=function(){ toast((state.lang==="ar"?"عملاء مطابقون لـ ":"Matching leads for ")+p.name); };
+  }
+  /* ── modals (add user / add lead) — actually mutate the demo data ── */
+  function openModal(title,bodyHtml,onSave){
+    var ov=document.createElement("div"); ov.style.cssText="position:fixed;inset:0;z-index:150;background:rgba(20,15,40,.45);display:flex;align-items:center;justify-content:center;padding:20px";
+    ov.innerHTML='<div class="card" style="width:100%;max-width:440px;padding:22px;box-shadow:var(--shadow-m)"><div class="row between" style="margin-bottom:16px"><h3 style="font-size:19px;font-weight:800">'+title+'</h3><button class="ic-btn" id="mX" style="width:30px;height:30px;border:none">✕</button></div>'+bodyHtml+
+      '<div class="row gap" style="justify-content:flex-end;margin-top:18px"><button class="btn btn-ghost" id="mCancel">'+(state.lang==="ar"?"إلغاء":"Cancel")+'</button><button class="btn btn-coral" id="mSave">'+t("save")+'</button></div></div>';
+    document.body.appendChild(ov);
+    var close=function(){ document.body.removeChild(ov); };
+    ov.addEventListener("click",function(e){ if(e.target===ov) close(); });
+    ov.querySelector("#mX").onclick=close; ov.querySelector("#mCancel").onclick=close;
+    ov.querySelector("#mSave").onclick=function(){ if(onSave(ov)!==false) close(); };
+    return ov;
+  }
+  function field(id,label,val,opts){ return '<div class="field"><label>'+label+'</label>'+(opts?'<select id="'+id+'" style="width:100%;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;color:var(--ink);font-size:14px">'+opts.map(function(o){return '<option'+(o===val?" selected":"")+'>'+o+'</option>';}).join("")+'</select>':'<input id="'+id+'" value="'+(val||"")+'"/>')+'</div>'; }
+  function openAddUser(){
+    var roles=PERSONAS.map(function(p){return p.role;}).filter(function(v,i,a){return a.indexOf(v)===i;});
+    var depts=["Sales","Marketing","Finance","Operations","HR","—"];
+    openModal(t("add_user"),
+      field("nuName",t("name"),"")+field("nuEmail",t("email"),"")+field("nuRole",t("role"),"Sales Agent",roles)+field("nuDept",t("department"),"Sales",depts),
+      function(ov){
+        var name=ov.querySelector("#nuName").value.trim(); if(!name){ ov.querySelector("#nuName").focus(); return false; }
+        var cols=["#7c6fd6","#22b06b","#4d84c0","#c94f8f","#e0a12e","#3aa6a0"];
+        demo.users.unshift({ n:name, email:ov.querySelector("#nuEmail").value||name.toLowerCase().replace(/\s+/g,".")+"@thevillageinvestment.com",
+          role:ov.querySelector("#nuRole").value, dept:ov.querySelector("#nuDept").value, active:true, c:cols[demo.users.length%cols.length] });
+        demo.audit.unshift(["user.create","create",currentPersona().name,"user/new"+demo.users.length,"127.0.0.1","now"]);
+        toast(state.lang==="ar"?"تم إنشاء المستخدم ✓":"User created ✓"); render();
+      });
+  }
+  function openAddLead(){
+    var owners=Object.keys(demo.teams).length?["Fatma Sayed","Nour Hany","Kareem Fathy","Omar Khaled"]:["—"];
+    var srcs=["Website","Facebook","Instagram","TikTok","Referral","Google"];
+    openModal(t("add_lead"),
+      field("nlName",t("name"),"")+field("nlSrc",t("source"),"Facebook",srcs)+field("nlArea","Area","New Cairo",["New Cairo","Mostakbal City","6th October","New Heliopolis"])+field("nlOwner",t("agent"),currentPersona().owner,owners)+field("nlBudget",t("value")+" (M)","6"),
+      function(ov){
+        var name=ov.querySelector("#nlName").value.trim(); if(!name){ ov.querySelector("#nlName").focus(); return false; }
+        var score=60+Math.floor((name.length*7)%35);
+        demo.leads.unshift({ n:name, src:ov.querySelector("#nlSrc").value, owner:ov.querySelector("#nlOwner").value,
+          status:"Interested", score:score, budget:parseFloat(ov.querySelector("#nlBudget").value)||6, area:ov.querySelector("#nlArea").value });
+        demo.audit.unshift(["lead.create","create",currentPersona().name,"lead/new"+demo.leads.length,"127.0.0.1","now"]);
+        toast(state.lang==="ar"?"تم إضافة العميل ✓":"Lead added ✓"); render();
+      });
   }
   function go(v){ if(!allowedView(v)) return; if(v!=="roles") state.roleSel=null; state.view=v; render(); document.querySelector(".content").scrollTop=0; }
 
@@ -517,7 +680,7 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
   function doLogin(e){ e.preventDefault();
     var email=$("#email").value, pass=$("#password").value, err=$("#lErr");
     err.style.display="none";
-    if(!LIVE()){ state.me=demo.me; showApp(); return; }
+    if(!LIVE()){ state.persona=PERSONAS[0]; state.me={firstName:"Village",lastName:"Admin",email:email,role:"Super Admin",permissions:["*"]}; showApp(); return; }
     $("#lBtn").textContent="…";
     api("/auth/login",{method:"POST",body:{email:email,password:pass}}).then(function(r){
       state.token=r.accessToken; try{localStorage.setItem("village_token",r.accessToken);}catch(e){}
@@ -550,6 +713,17 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
   $("#lLang").onclick=toggleLang; $("#lTheme").onclick=toggleTheme;
   $("#tLang").onclick=toggleLang; $("#tTheme").onclick=toggleTheme;
   $("#tBell").onclick=function(){ go("notifications"); };
+  $("#personaBtn").onclick=function(e){ e.stopPropagation(); var m=$("#personaMenu"); if(m.classList.contains("hide")){ renderPersonaMenu(); m.classList.remove("hide"); } else m.classList.add("hide"); };
+  document.addEventListener("click",function(){ var m=$("#personaMenu"); if(m&&!m.classList.contains("hide")) m.classList.add("hide"); });
+  function renderPersonaMenu(){
+    var cur=currentPersona();
+    $("#personaMenu").innerHTML='<div style="font-size:10.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);padding:8px 10px 4px">'+(state.lang==="ar"?"جرّب كأي وظيفة":"View as any role")+'</div>'+
+      PERSONAS.map(function(p,i){ var on=p.role===cur.role;
+        var sc={all:state.lang==="ar"?"الكل":"all",team:state.lang==="ar"?"الفريق":"team",own:state.lang==="ar"?"الخاص":"own"}[p.scope];
+        return '<div class="prow" data-i="'+i+'" style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;cursor:pointer;'+(on?"background:var(--coral-soft)":"")+'"><span class="av" style="width:28px;height:28px;font-size:11px;background:'+p.c+'">'+p.name.split(" ").map(function(x){return x[0];}).join("").slice(0,2)+'</span><div class="grow" style="min-width:0"><div style="font-weight:700;font-size:12.5px;white-space:nowrap">'+p.role+'</div><div class="muted" style="font-size:11px">'+p.name+'</div></div><span class="permchip'+(p.scope==="all"?" on":"")+'" style="font-size:9.5px">'+sc+'</span></div>';
+      }).join("");
+    [].forEach.call(document.querySelectorAll("#personaMenu .prow"),function(r){ r.onclick=function(ev){ ev.stopPropagation(); $("#personaMenu").classList.add("hide"); setPersona(PERSONAS[+r.getAttribute("data-i")]); }; });
+  }
   applyLang();
   // Auto-resume live session if a token is stored.
   try{ var tok=localStorage.getItem("village_token"); if(tok&&LIVE()){ state.token=tok; api("/users/me").then(function(me){ state.me={firstName:me.firstName,lastName:me.lastName,email:me.email,role:(me.roles&&me.roles[0]&&me.roles[0].role.name)||"—",permissions:(me.roles||[]).reduce(function(a,ur){return a.concat(ur.role.permissions||[]);},[])}; showApp(); }).catch(function(){}); } }catch(e){}
