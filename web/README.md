@@ -5,8 +5,27 @@ Sidebar shell (Dashboard, Leads, Pipeline, Inventory, Automation, Integrations,
 Notifications, Users, Roles & Permissions, Audit Log, Reports, Settings),
 role-aware navigation, bilingual (English / Arabic RTL), light & dark themes.
 
-- **`public/index.html`** — the entire console (HTML + CSS + JS, no build step).
+- **`public/index.html`** — the desktop console (HTML + CSS + JS, no build step).
+- **`public/app.html`** — the mobile app (same backend, phone-sized UI).
 - **`wrangler.toml` / `worker.js`** — Cloudflare Workers deployment.
+
+## One deployment serves both frontends
+
+The desktop console and the mobile app are both static files that talk to the
+**same backend API**. A single `wrangler deploy` publishes both:
+
+| URL | Serves |
+|-----|--------|
+| `https://<your-worker>/` | Desktop web console (`index.html`) |
+| `https://<your-worker>/app` | Mobile app (`app.html`) |
+
+You do **not** need a separate deployment or a separate link per frontend — one
+static deployment hosts both, and both point at the one backend `API_BASE`.
+
+> Architecture: **two deployments total** — (1) this static frontend bundle
+> [console + mobile], and (2) the backend API (`../backend`, a Node server +
+> PostgreSQL — host it on Railway / Render / Fly / a VPS, not Cloudflare static).
+> Set `API_BASE` in **both** `index.html` and `app.html` to that one API URL.
 
 ---
 
