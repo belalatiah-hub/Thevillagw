@@ -219,6 +219,9 @@
   .autotag.when { color: var(--purple); background: var(--purple-soft); }
   .autotag.if { color: var(--cool, #4d84c0); background: rgba(77,132,192,.14); }
   .autotag.then { color: var(--green); background: var(--green-soft); align-self: flex-start; }
+  .permchip { min-width: 26px; text-align: center; font-size: 11px; font-weight: 800; padding: 4px 7px; border-radius: 8px;
+    background: var(--card-2); color: var(--ink-3); box-shadow: inset 0 0 0 1px var(--line); }
+  .permchip.on { background: var(--green-soft); color: var(--green); box-shadow: inset 0 0 0 1px transparent; }
   .rank { display: flex; align-items: center; gap: 12px; padding: 11px 4px; }
   .rank .pos { width: 26px; font-weight: 800; color: var(--ink-3); text-align: center; }
 
@@ -344,7 +347,15 @@
       notifications:"Notifications", notif_center:"Notifications", mark_all_read:"Mark all read", all_read:"You're all caught up",
       unread:"unread", f_all:"All", f_unread:"Unread", ago:"ago", h_ago:"h", d_ago:"d", m_ago:"m",
       nt_LEAD_ASSIGNED:"Lead assigned", nt_LEAD_CAPTURED:"New lead", nt_SLA_DUE:"SLA due", nt_FOLLOW_UP_DUE:"Follow-up due",
-      nt_OPPORTUNITY_MOVED:"Deal update", nt_MENTION:"Mention", nt_SYSTEM:"System" },
+      nt_OPPORTUNITY_MOVED:"Deal update", nt_MENTION:"Mention", nt_SYSTEM:"System",
+      users:"Users", user_mgmt:"User Management", roles_perms:"Roles & Permissions", perm_test:"Permission Test",
+      add_user:"Add user", active:"Active", disabled:"Disabled", members:"members", member:"member", permissions:"permissions",
+      department:"Department", position:"Position", team:"Team", no_dept:"No department", role:"Role", system_role:"System role", custom_role:"Custom",
+      sessions:"Device sessions", login_history:"Login history", activity_timeline:"Activity", revoke:"Revoke", this_device:"active", revoked:"revoked",
+      new_role:"New role", edit_perms:"Edit permissions", save:"Save", of_perms:"of", granted:"granted",
+      test_report:"Permission Test Report", run_tests:"Run tests", passed:"Passed", warnings:"Warnings", failed:"Failed",
+      all_secure:"All roles secure — separation of duties verified", sep_duties:"Separation of duties",
+      pass:"PASS", warn:"WARNING", fail:"FAILED", never_assume:"Never assume permissions work — test them." },
     ar: { dashboard:"الرئيسية", leads:"العملاء", efficiency:"الأداء", inventory:"المخزون", map:"الخريطة",
       good_evening:"مساء الخير", dash_sub:"العملاء والصفقات والخريطة في لمحة — عرض هادئ لما يحتاج انتباهك.",
       total_leads:"إجمالي العملاء", new_leads:"عملاء جدد", follow_up:"متابعة", updated:"آخر تحديث قبل ١٢ دقيقة",
@@ -378,7 +389,15 @@
       notifications:"الإشعارات", notif_center:"الإشعارات", mark_all_read:"تعليم الكل كمقروء", all_read:"لا إشعارات جديدة",
       unread:"غير مقروء", f_all:"الكل", f_unread:"غير مقروء", ago:"", h_ago:"س", d_ago:"ي", m_ago:"د",
       nt_LEAD_ASSIGNED:"عميل مُسند", nt_LEAD_CAPTURED:"عميل جديد", nt_SLA_DUE:"استحقاق SLA", nt_FOLLOW_UP_DUE:"متابعة مستحقة",
-      nt_OPPORTUNITY_MOVED:"تحديث صفقة", nt_MENTION:"إشارة", nt_SYSTEM:"النظام" }
+      nt_OPPORTUNITY_MOVED:"تحديث صفقة", nt_MENTION:"إشارة", nt_SYSTEM:"النظام",
+      users:"المستخدمون", user_mgmt:"إدارة المستخدمين", roles_perms:"الأدوار والصلاحيات", perm_test:"اختبار الصلاحيات",
+      add_user:"إضافة مستخدم", active:"نشط", disabled:"معطّل", members:"عضو", member:"عضو", permissions:"صلاحية",
+      department:"القسم", position:"المنصب", team:"الفريق", no_dept:"بدون قسم", role:"الدور", system_role:"دور نظام", custom_role:"مخصص",
+      sessions:"الأجهزة النشطة", login_history:"سجل الدخول", activity_timeline:"النشاط", revoke:"إلغاء", this_device:"نشط", revoked:"ملغى",
+      new_role:"دور جديد", edit_perms:"تعديل الصلاحيات", save:"حفظ", of_perms:"من", granted:"ممنوحة",
+      test_report:"تقرير اختبار الصلاحيات", run_tests:"تشغيل الاختبار", passed:"ناجح", warnings:"تحذيرات", failed:"فشل",
+      all_secure:"كل الأدوار آمنة — تم التحقق من فصل المهام", sep_duties:"فصل المهام",
+      pass:"ناجح", warn:"تحذير", fail:"فشل", never_assume:"لا تفترض أن الصلاحيات تعمل — اختبرها." }
   };
   function t(k){ return (T[S.lang] && T[S.lang][k]) || T.en[k] || k; }
 
@@ -488,6 +507,77 @@
     { id:"n6", type:"SYSTEM", pri:"LOW", title:"WhatsApp Cloud API connected", body:"Templates can now send automatically", when:"d1", read:true }
   ];
   function unreadN(){ return notifs.filter(function(n){return !n.read;}).length; }
+
+  // ── User Management + RBAC (mirrors backend /users, /roles, /roles/test-report) ──
+  var teamUsers = [
+    { first:"Village", last:"Admin", email:"admin@thevillageinvestment.com", role:"Super Admin", dept:null, team:null, active:true, initials:"VA", color:"var(--coral)" },
+    { first:"Omar", last:"Khaled", email:"manager@thevillageinvestment.com", role:"Sales Manager", dept:"Sales", team:"New Cairo Team A", active:true, initials:"OK", color:"#7c6fd6" },
+    { first:"Nour", last:"Hany", email:"sales@thevillageinvestment.com", role:"Property Consultant", dept:"Sales", team:"New Cairo Team A", active:true, initials:"NH", color:"#22b06b" },
+    { first:"Fatma", last:"Sayed", email:"agent@thevillageinvestment.com", role:"Sales Agent", dept:"Sales", team:"New Cairo Team A", active:true, initials:"FS", color:"#4d84c0" },
+    { first:"Layla", last:"Adham", email:"marketing@thevillageinvestment.com", role:"Marketing Manager", dept:"Marketing", team:null, active:true, initials:"LA", color:"#c94f8f" },
+    { first:"Hana", last:"Mostafa", email:"finance@thevillageinvestment.com", role:"Finance", dept:"Finance", team:null, active:true, initials:"HM", color:"#e0a12e" }
+  ];
+  // Permission catalogue (subset mirrors backend RESOURCE_GROUPS × RESOURCE_ACTIONS).
+  var permGroups = [
+    { group:"Sales & Inventory", resources:[
+      { key:"lead", label:"Lead", actions:["read","create","update","delete","assign","export","import"] },
+      { key:"customer", label:"Customer", actions:["read","create","update","delete","assign","export"] },
+      { key:"opportunity", label:"Opportunity", actions:["read","create","update","delete","approve"] },
+      { key:"activity", label:"Activity", actions:["read","create","update","delete"] } ] },
+    { group:"Finance", resources:[
+      { key:"contract", label:"Contract", actions:["read","create","update","approve","export"] },
+      { key:"payment", label:"Payment", actions:["read","create","update","approve","export"] },
+      { key:"commission", label:"Commission", actions:["read","approve","export"] },
+      { key:"finance", label:"Finance", actions:["read","approve","export"] } ] },
+    { group:"People & Org", resources:[
+      { key:"user", label:"User", actions:["read","create","update","delete"] },
+      { key:"role", label:"Role", actions:["read","create","update","delete"] },
+      { key:"department", label:"Department", actions:["read","create","update","delete"] },
+      { key:"team", label:"Team", actions:["read","create","update","delete"] } ] },
+    { group:"Platform", resources:[
+      { key:"dashboard", label:"Dashboard", actions:["read"] },
+      { key:"report", label:"Report", actions:["read","export"] },
+      { key:"ai", label:"AI", actions:["read","use","update"] },
+      { key:"automation", label:"Automation", actions:["read","create","update","delete","approve"] },
+      { key:"integration", label:"Integration", actions:["read","create","update","delete"] },
+      { key:"settings", label:"Settings", actions:["read","update"] } ] }
+  ];
+  // Granted permission sets per role (mirrors DEFAULT_ROLE_PERMISSIONS defaults).
+  var ROLE_PERMS = {
+    "Super Admin":["*"], "CEO":["*"],
+    "Sales Manager":["lead:read","lead:create","lead:update","lead:delete","lead:assign","lead:export","customer:read","customer:create","customer:update","customer:delete","opportunity:read","opportunity:create","opportunity:update","opportunity:delete","opportunity:approve","activity:read","activity:create","activity:update","activity:delete","dashboard:read","report:read","ai:read","ai:use"],
+    "Property Consultant":["lead:read","lead:create","lead:update","customer:read","customer:create","customer:update","customer:delete","opportunity:read","opportunity:create","opportunity:update","activity:read","activity:create","activity:update","activity:delete","dashboard:read","ai:read","ai:use"],
+    "Sales Agent":["lead:read","lead:create","lead:update","customer:read","customer:create","customer:update","customer:delete","opportunity:read","opportunity:create","opportunity:update","activity:read","activity:create","activity:update","activity:delete","dashboard:read","ai:read","ai:use"],
+    "Marketing Manager":["lead:read","lead:export","lead:import","lead:assign","report:read","report:export","dashboard:read","ai:read","ai:use","ai:update","integration:read","integration:create","integration:update","integration:delete","automation:read","automation:create","automation:update","automation:delete"],
+    "Finance":["finance:read","finance:approve","finance:export","payment:read","payment:create","payment:update","payment:approve","payment:export","commission:read","commission:approve","commission:export","contract:read","contract:approve","contract:export","report:read","report:export","dashboard:read","ai:read","ai:use"]
+  };
+  // Permission Test Report (mirrors backend evaluateRole output).
+  var permReport = {
+    summary:{ total:25, passed:25, warnings:0, failed:0 },
+    results:[
+      { role:"CEO", status:"PASS", passed:1, warnings:0, failed:0 },
+      { role:"Super Admin", status:"PASS", passed:1, warnings:0, failed:0 },
+      { role:"General Manager", status:"PASS", passed:7, warnings:0, failed:0 },
+      { role:"Sales Director", status:"PASS", passed:9, warnings:0, failed:0 },
+      { role:"Sales Manager", status:"PASS", passed:10, warnings:0, failed:0 },
+      { role:"Supervisor", status:"PASS", passed:7, warnings:0, failed:0 },
+      { role:"Team Leader", status:"PASS", passed:7, warnings:0, failed:0 },
+      { role:"Senior Sales", status:"PASS", passed:9, warnings:0, failed:0 },
+      { role:"Sales Agent", status:"PASS", passed:12, warnings:0, failed:0 },
+      { role:"Sales Admin", status:"PASS", passed:7, warnings:0, failed:0 },
+      { role:"Property Consultant", status:"PASS", passed:7, warnings:0, failed:0 },
+      { role:"Marketing Manager", status:"PASS", passed:10, warnings:0, failed:0 },
+      { role:"Media Buyer", status:"PASS", passed:7, warnings:0, failed:0 },
+      { role:"Finance", status:"PASS", passed:10, warnings:0, failed:0 },
+      { role:"HR", status:"PASS", passed:9, warnings:0, failed:0 },
+      { role:"Operations", status:"PASS", passed:8, warnings:0, failed:0 },
+      { role:"Legal", status:"PASS", passed:8, warnings:0, failed:0 },
+      { role:"Customer Service", status:"PASS", passed:7, warnings:0, failed:0 },
+      { role:"Developer Relations", status:"PASS", passed:7, warnings:0, failed:0 }
+    ]
+  };
+  function permCount(role){ var p=ROLE_PERMS[role]; if(!p) return 8; if(p.indexOf("*")>=0) return 119; return p.length; }
+  function roleHas(role, key){ var p=ROLE_PERMS[role]; if(!p) return false; return p.indexOf("*")>=0 || p.indexOf(key)>=0; }
   var NT_ICON = { LEAD_ASSIGNED:"people", LEAD_CAPTURED:"spark", SLA_DUE:"clock", FOLLOW_UP_DUE:"cal", OPPORTUNITY_MOVED:"money", MENTION:"chat", SYSTEM:"bolt" };
   var NT_COLOR = { LEAD_ASSIGNED:"var(--purple)", LEAD_CAPTURED:"var(--cool,#4d84c0)", SLA_DUE:"var(--red)", FOLLOW_UP_DUE:"var(--amber)", OPPORTUNITY_MOVED:"var(--green)", MENTION:"var(--purple)", SYSTEM:"var(--ink-3)" };
   function whenLabel(w){ var n=w.slice(1); var u=w[0]; return u==="m"? n+t("m_ago") : u==="h"? n+t("h_ago") : n+t("d_ago"); }
@@ -1114,6 +1204,123 @@
     return card;
   }
 
+  // ── Users screen ──
+  function vUsers(){
+    var c=el("div","fade");
+    c.appendChild(el("div","sub-head",
+      '<button class="hmb" id="uBack" style="width:42px;height:42px;border-radius:13px;transform:scaleX(-1)">'+I.arrow+'</button>'+
+      '<div class="grow"><div style="font-size:22px;font-weight:800;letter-spacing:-.5px">'+t("user_mgmt")+'</div>'+
+        '<div class="muted" style="font-size:13px">'+teamUsers.length+' '+t("users").toLowerCase()+'</div></div>'+
+      '<button class="btn-coral" id="uAdd" style="padding:10px 14px;font-size:13px">+ '+t("add_user")+'</button>'));
+    teamUsers.forEach(function(u){
+      var card=el("div","card"); card.style.cssText="padding:14px 15px;margin-bottom:10px;cursor:pointer";
+      card.innerHTML='<div class="row" style="gap:12px">'+
+        '<div class="av" style="width:46px;height:46px;flex:none;background:'+u.color+'">'+u.initials+'</div>'+
+        '<div class="grow" style="min-width:0"><div class="row between"><div style="font-weight:800;font-size:15px">'+u.first+' '+u.last+'</div>'+
+          '<span class="pill" style="background:'+(u.active?"var(--green-soft);color:var(--green)":"var(--card-2);color:var(--ink-3)")+'"><span class="dot" style="background:'+(u.active?"var(--green)":"var(--ink-3)")+'"></span>'+t(u.active?"active":"disabled")+'</span></div>'+
+          '<div class="muted" style="font-size:12.5px;margin-top:2px">'+u.role+(u.dept?' · '+u.dept:'')+(u.team?' · '+u.team:'')+'</div></div></div>';
+      card.onclick=function(){ openUser(u); };
+      c.appendChild(card);
+    });
+    setTimeout(function(){ var bk=$("#uBack"); if(bk) bk.onclick=function(){ go("dashboard"); }; var a=$("#uAdd"); if(a) a.onclick=function(){ toast(S.lang==="ar"?"نموذج إضافة مستخدم (تجريبي)":"Add-user form (demo)"); }; },0);
+    return c;
+  }
+  function openUser(u){
+    var sess=[["Chrome · macOS","New Cairo · now",true],["Village CRM · iOS","Cairo · 2h ago",true],["Safari · iOS","Cairo · 3d ago",false]];
+    var hist=[["auth.login","Today 09:12 · 197.35.x.x"],["auth.login","Yesterday 08:47"],["auth.logout","Yesterday 18:20"]];
+    var acts=[["lead.update","Ashraf Hussein","2h"],["activity.create","Call · Mona Adel","3h"],["opportunity.update","Badya deal → Reservation","5h"],["lead.assign","Karim Adel","1d"]];
+    sheet(
+      '<div class="row" style="gap:13px;margin-top:2px"><div class="av" style="width:52px;height:52px;background:'+u.color+'">'+u.initials+'</div>'+
+        '<div class="grow"><div style="font-size:19px;font-weight:800">'+u.first+' '+u.last+'</div><div class="muted" style="font-size:13px">'+u.email+'</div></div>'+
+        '<span class="pill" style="background:var(--green-soft);color:var(--green)"><span class="dot" style="background:var(--green)"></span>'+t(u.active?"active":"disabled")+'</span></div>'+
+      '<div class="row" style="gap:10px;margin:14px 0"><div class="card kpi grow"><div class="l">'+t("role")+'</div><div class="v" style="font-size:14px">'+u.role+'</div></div>'+
+        '<div class="card kpi grow"><div class="l">'+t("department")+'</div><div class="v" style="font-size:14px">'+(u.dept||t("no_dept"))+'</div></div></div>'+
+      '<div class="row" style="gap:7px;font-weight:800;font-size:14px;margin:14px 0 8px"><span style="display:inline-flex;width:16px;height:16px;color:var(--purple)">'+I.locate+'</span>'+t("sessions")+'</div>'+
+        sess.map(function(s){return '<div class="row between card" style="padding:11px 13px;margin-bottom:7px;box-shadow:none"><div><div style="font-weight:700;font-size:13px">'+s[0]+'</div><div class="muted" style="font-size:11.5px">'+s[1]+'</div></div>'+(s[2]?'<button class="btn-ghost" style="padding:6px 11px;font-size:12px;color:var(--red)">'+t("revoke")+'</button>':'<span class="muted" style="font-size:11.5px">'+t("revoked")+'</span>')+'</div>';}).join("")+
+      '<div class="row" style="gap:7px;font-weight:800;font-size:14px;margin:16px 0 8px"><span style="display:inline-flex;width:16px;height:16px;color:var(--cool,#4d84c0)">'+I.clock+'</span>'+t("login_history")+'</div>'+
+        hist.map(function(h){return '<div class="row between" style="padding:7px 2px"><span style="font-size:13px;font-weight:600">'+h[0]+'</span><span class="muted" style="font-size:12px">'+h[1]+'</span></div>';}).join("")+
+      '<div class="row" style="gap:7px;font-weight:800;font-size:14px;margin:16px 0 8px"><span style="display:inline-flex;width:16px;height:16px;color:var(--green)">'+I.spark+'</span>'+t("activity_timeline")+'</div><div class="tl">'+
+        acts.map(function(a){return '<div class="tl-i"><div class="t">'+a[0]+' — '+a[1]+'</div><div class="d">'+a[2]+'</div></div>';}).join("")+'</div>'
+    );
+  }
+
+  // ── Roles & Permissions screen ──
+  var roleSel=null;
+  function vRoles(){
+    var c=el("div","fade");
+    if(roleSel){ return vRoleMatrix(c); }
+    c.appendChild(el("div","sub-head",
+      '<button class="hmb" id="rpBack" style="width:42px;height:42px;border-radius:13px;transform:scaleX(-1)">'+I.arrow+'</button>'+
+      '<div class="grow"><div style="font-size:22px;font-weight:800;letter-spacing:-.5px">'+t("roles_perms")+'</div>'+
+        '<div class="muted" style="font-size:13px">'+permReport.results.length+(S.lang==="ar"?" دور":" roles")+' · 119 '+t("permissions")+'</div></div>'+
+      '<button class="btn-coral" id="rpAdd" style="padding:10px 14px;font-size:13px">+ '+t("new_role")+'</button>'));
+    var members={ "Sales Agent":1, "Property Consultant":1, "Sales Manager":1, "Marketing Manager":1, "Finance":1, "Super Admin":1 };
+    permReport.results.forEach(function(r){
+      var sys=r.role!=="QA Reviewer";
+      var card=el("div","card"); card.style.cssText="padding:14px 15px;margin-bottom:9px;cursor:pointer";
+      card.innerHTML='<div class="row between"><div class="grow"><div class="row" style="gap:8px"><span style="font-weight:800;font-size:15px">'+r.role+'</span>'+
+        '<span class="pill" style="background:var(--card-2);color:var(--ink-3);padding:3px 8px;font-size:10.5px">'+t(sys?"system_role":"custom_role")+'</span></div>'+
+        '<div class="muted" style="font-size:12.5px;margin-top:3px">'+permCount(r.role)+' '+t("permissions")+' · '+(members[r.role]||0)+' '+t("members")+'</div></div>'+
+        '<span style="color:var(--ink-3);transform:'+(S.lang==="ar"?"scaleX(-1)":"none")+'">'+I.arrow+'</span></div>';
+      card.onclick=function(){ roleSel=r.role; render(); };
+      c.appendChild(card);
+    });
+    setTimeout(function(){ var bk=$("#rpBack"); if(bk) bk.onclick=function(){ go("dashboard"); }; var a=$("#rpAdd"); if(a) a.onclick=function(){ toast(S.lang==="ar"?"إنشاء دور مخصص (تجريبي)":"Create custom role (demo)"); }; },0);
+    return c;
+  }
+  function vRoleMatrix(c){
+    var role=roleSel, wildcard=roleHas(role,"*")||(ROLE_PERMS[role]&&ROLE_PERMS[role].indexOf("*")>=0);
+    c.appendChild(el("div","sub-head",
+      '<button class="hmb" id="rmBack" style="width:42px;height:42px;border-radius:13px;transform:scaleX(-1)">'+I.arrow+'</button>'+
+      '<div class="grow"><div style="font-size:20px;font-weight:800;letter-spacing:-.5px">'+role+'</div>'+
+        '<div class="muted" style="font-size:12.5px">'+permCount(role)+' '+t("of_perms")+' 119 '+t("granted")+'</div></div>'));
+    if(wildcard){ var w=el("div","card"); w.style.cssText="padding:16px;margin-top:14px;background:linear-gradient(135deg,var(--purple-soft),var(--card))"; w.innerHTML='<div class="row" style="gap:10px"><span style="color:var(--purple)">'+I.bolt+'</span><div><div style="font-weight:800;font-size:15px">'+(S.lang==="ar"?"وصول كامل (*)":"Full access (*)")+'</div><div class="muted" style="font-size:12.5px;margin-top:2px">'+(S.lang==="ar"?"هذا الدور يملك كل الصلاحيات في النظام.":"This role holds every permission in the system.")+'</div></div></div>'; c.appendChild(w); }
+    var ACT_ABBR={read:"R",create:"C",update:"U","delete":"D",assign:"As",approve:"Ap",export:"Ex",import:"Im",use:"Us"};
+    permGroups.forEach(function(g){
+      c.appendChild(el("div","muted",g.group)).style.cssText="font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;margin:18px 2px 9px;color:var(--ink-3)";
+      g.resources.forEach(function(res){
+        var card=el("div","card"); card.style.cssText="padding:12px 14px;margin-bottom:8px";
+        var chips=res.actions.map(function(a){
+          var on=wildcard||roleHas(role,res.key+":"+a);
+          return '<span class="permchip'+(on?" on":"")+'" title="'+res.key+':'+a+'">'+(ACT_ABBR[a]||a)+'</span>';
+        }).join("");
+        card.innerHTML='<div class="row between" style="gap:10px"><span style="font-weight:800;font-size:13.5px;flex:none">'+res.label+'</span><div class="row" style="gap:5px;flex-wrap:wrap;justify-content:flex-end">'+chips+'</div></div>';
+        c.appendChild(card);
+      });
+    });
+    setTimeout(function(){ var bk=$("#rmBack"); if(bk) bk.onclick=function(){ roleSel=null; render(); }; },0);
+    return c;
+  }
+
+  // ── Permission Test Report screen ──
+  function vPermReport(){
+    var c=el("div","fade"), s=permReport.summary;
+    c.appendChild(el("div","sub-head",
+      '<button class="hmb" id="ptBack" style="width:42px;height:42px;border-radius:13px;transform:scaleX(-1)">'+I.arrow+'</button>'+
+      '<div class="grow"><div style="font-size:21px;font-weight:800;letter-spacing:-.5px">'+t("test_report")+'</div>'+
+        '<div class="muted" style="font-size:12.5px">'+t("never_assume")+'</div></div>'));
+    var banner=el("div","card"); banner.style.cssText="padding:16px;margin-top:14px;background:linear-gradient(135deg,var(--green-soft),var(--card))";
+    banner.innerHTML='<div class="row" style="gap:10px"><div style="width:44px;height:44px;border-radius:13px;flex:none;display:grid;place-items:center;background:var(--green);color:#fff">'+I.check+'</div>'+
+      '<div><div style="font-weight:800;font-size:15px">'+t("all_secure")+'</div><div class="muted" style="font-size:12.5px;margin-top:2px">'+t("sep_duties")+' ✓</div></div></div>';
+    c.appendChild(banner);
+    var row=el("div","row"); row.style.cssText="gap:10px;margin:14px 0";
+    [[t("passed"),s.passed,"var(--green)"],[t("warnings"),s.warnings,"var(--amber)"],[t("failed"),s.failed,"var(--red)"]].forEach(function(k){
+      var card=el("div","card kpi grow"); card.innerHTML='<div class="v tnum" style="color:'+k[2]+'">'+k[1]+'</div><div class="l">'+k[0]+'</div>'; row.appendChild(card);
+    });
+    c.appendChild(row);
+    permReport.results.forEach(function(r){
+      var col=r.status==="PASS"?"var(--green)":r.status==="WARNING"?"var(--amber)":"var(--red)";
+      var ic=r.status==="PASS"?I.check:r.status==="WARNING"?I.bolt:I.close;
+      var card=el("div","card"); card.style.cssText="padding:13px 15px;margin-bottom:8px";
+      card.innerHTML='<div class="row between"><div class="row" style="gap:10px"><span style="width:30px;height:30px;border-radius:9px;flex:none;display:grid;place-items:center;background:'+col+'1f;color:'+col+'">'+ic+'</span>'+
+        '<div><div style="font-weight:800;font-size:14px">'+r.role+'</div><div class="muted" style="font-size:11.5px">'+r.passed+' '+t("passed").toLowerCase()+' · '+r.failed+' '+t("failed").toLowerCase()+'</div></div></div>'+
+        '<span class="pill" style="background:'+col+'1f;color:'+col+'">'+t(r.status==="PASS"?"pass":r.status==="WARNING"?"warn":"fail")+'</span></div>';
+      c.appendChild(card);
+    });
+    setTimeout(function(){ var bk=$("#ptBack"); if(bk) bk.onclick=function(){ go("dashboard"); }; },0);
+    return c;
+  }
+
   /* ── overlays ── */
   function openLead(l){
     var sc=SRC[l.src]||{t:l.src}, prob=l.score;
@@ -1192,7 +1399,7 @@
   }
 
   function openMenu(){
-    var mods=[["notifications",I.bell],["commission",I.money],["reports",I.chart],["automation",I.flow],["integrations",I.bolt],["hr",I.users2],["marketing",I.mega],["settings",I.gear]];
+    var mods=[["notifications",I.bell],["users",I.users2],["roles_perms",I.gear],["perm_test",I.check],["commission",I.money],["reports",I.chart],["automation",I.flow],["integrations",I.bolt],["marketing",I.mega],["settings",I.gear]];
     var roleName = S.lang==="ar" ? (ROLES_AR[S.role]||S.role) : S.role;
     $("#menu").innerHTML=
       '<button class="hd" id="mRole" style="text-align:start;width:100%;cursor:pointer"><div class="row" style="gap:12px"><div class="av" style="background:linear-gradient(135deg,var(--coral),var(--coral-2))">A</div>'+
@@ -1203,7 +1410,7 @@
       '<button class="mi" id="mTheme">'+I.moon+'<span>Theme</span></button>'+
       '<button class="mi danger" style="margin-bottom:16px">'+I.out+'<span>'+t("logout")+'</span></button>';
     $("#scrim").classList.add("open"); $("#menu").classList.add("open");
-    var routable={ commission:1, reports:1, integrations:1, automation:1, notifications:1 };
+    var routable={ commission:1, reports:1, integrations:1, automation:1, notifications:1, users:1, roles_perms:1, perm_test:1 };
     [].forEach.call(document.querySelectorAll("#menu .mi[data-m]"),function(b){ b.onclick=function(){ var m=b.getAttribute("data-m"); closeSheet(); if(routable[m]){ go(m); } else { toast(t(m)+" — "+(S.lang==="ar"?"قريباً":"coming soon")); } }; });
     $("#mRole").onclick=function(){ var i=ROLES.indexOf(S.role); S.role=ROLES[(i+1)%ROLES.length]; openMenu(); if(S.view==="commission") render(); };
     $("#mLang").onclick=function(){ S.lang=S.lang==="en"?"ar":"en"; applyDir(); closeSheet(); render(); };
@@ -1219,7 +1426,7 @@
   /* ── chrome + tabs + router ── */
   var NAV=[["dashboard",I.grid],["leads",I.people],["efficiency",I.target],["inventory",I.box],["map",I.mapt]];
   function renderChrome(){
-    if(S.view==="map" || S.view==="commission" || S.view==="reports" || S.view==="integrations" || S.view==="automation" || S.view==="notifications"){ $("#chrome").innerHTML=""; return; }
+    if(["map","commission","reports","integrations","automation","notifications","users","roles_perms","perm_test"].indexOf(S.view)>=0){ $("#chrome").innerHTML=""; return; }
     $("#chrome").innerHTML=
       '<div class="appbar"><button class="hmb" id="hmb">'+I.menu+'</button>'+
       '<div class="logo"><img src="'+LOGO+'" alt="Village" style="height:25px;display:block"/><span class="name" style="font-size:15px;color:var(--ink-2);margin-inline-start:3px">CRM</span></div>'+
@@ -1232,10 +1439,10 @@
     $("#tabs").innerHTML=NAV.map(function(n){return '<button class="tab'+(S.view===n[0]?" on":"")+'" data-v="'+n[0]+'">'+n[1]+'<span>'+t(n[0])+'</span></button>';}).join("");
     [].forEach.call(document.querySelectorAll(".tab"),function(b){ b.onclick=function(){ go(b.getAttribute("data-v")); }; });
   }
-  function go(v){ S.view=v; closeSheet(); render(); var s=$("#view"); if(s) s.scrollTop=0; }
+  function go(v){ if(v==="roles_perms") roleSel=null; S.view=v; closeSheet(); render(); var s=$("#view"); if(s) s.scrollTop=0; }
   function render(){
     renderChrome(); renderTabs();
-    var fn={dashboard:vDashboard,leads:vLeads,efficiency:vEfficiency,inventory:vInventory,map:vMap,commission:vCommission,reports:vReports,integrations:vIntegrations,automation:vAutomation,notifications:vNotifs}[S.view]||vDashboard;
+    var fn={dashboard:vDashboard,leads:vLeads,efficiency:vEfficiency,inventory:vInventory,map:vMap,commission:vCommission,reports:vReports,integrations:vIntegrations,automation:vAutomation,notifications:vNotifs,users:vUsers,roles_perms:vRoles,perm_test:vPermReport}[S.view]||vDashboard;
     var v=$("#view"); v.innerHTML=""; v.style.padding=S.view==="map"?"0 0 118px":"6px 18px 118px"; v.appendChild(fn());
     $("#fab").style.display=S.view==="map"?"none":"grid";
   }
