@@ -211,6 +211,9 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
       roles:"Roles & Permissions", audit:"Audit Log", reports:"Reports", settings:"Settings",
       grp_work:"Workspace", grp_admin:"Administration", grp_platform:"Platform",
       map:"Map", projects_map:"Projects Map", projects:"Projects", all_areas:"All areas", available:"available", from:"from", find_leads:"Find matching leads", units:"units",
+      calls:"Calls", call_center:"Call Center", whatsapp:"WhatsApp", distribution:"Lead Distribution", log_call:"Log call", answered:"Answered", missed:"Missed", answer_rate:"Answer rate", avg_duration:"Avg duration", outcome:"Outcome", direction:"Direction", duration:"Duration", inbound:"Inbound", outbound:"Outbound",
+      conversations:"Conversations", type_message:"Type a message…", send:"Send", templates:"Templates", unread:"unread", reply:"Reply",
+      dist_rules:"Distribution rules", strategy:"Strategy", daily_cap:"Daily cap", conditions:"Conditions", new_rule:"New rule", uncapped:"uncapped", per_agent:"/agent/day",
       welcome:"Welcome back", signin:"Sign in to Village CRM", email:"Email", password:"Password", signin_btn:"Sign in",
       hero:"The complete real-estate CRM for your team.", hero_sub:"Leads, pipeline, inventory, finance, automation and AI — one secure console for The Village Investment.",
       demo_note:"Demo mode — explore with sample data. Set API_BASE in the file to connect your live backend.",
@@ -233,6 +236,9 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
       roles:"الأدوار والصلاحيات", audit:"سجل التدقيق", reports:"التقارير", settings:"الإعدادات",
       grp_work:"مساحة العمل", grp_admin:"الإدارة", grp_platform:"المنصة",
       map:"الخريطة", projects_map:"خريطة المشاريع", projects:"مشاريع", all_areas:"كل المناطق", available:"متاحة", from:"يبدأ من", find_leads:"عملاء مطابقون", units:"وحدة",
+      calls:"المكالمات", call_center:"مركز الاتصال", whatsapp:"واتساب", distribution:"توزيع العملاء", log_call:"تسجيل مكالمة", answered:"مُجابة", missed:"فائتة", answer_rate:"نسبة الرد", avg_duration:"متوسط المدة", outcome:"النتيجة", direction:"الاتجاه", duration:"المدة", inbound:"واردة", outbound:"صادرة",
+      conversations:"المحادثات", type_message:"اكتب رسالة…", send:"إرسال", templates:"القوالب", unread:"غير مقروء", reply:"رد",
+      dist_rules:"قواعد التوزيع", strategy:"الاستراتيجية", daily_cap:"الحد اليومي", conditions:"الشروط", new_rule:"قاعدة جديدة", uncapped:"بلا حد", per_agent:"/مندوب/يوم",
       welcome:"مرحباً بعودتك", signin:"سجّل الدخول إلى Village CRM", email:"البريد الإلكتروني", password:"كلمة المرور", signin_btn:"دخول",
       hero:"نظام CRM عقاري متكامل لفريقك.", hero_sub:"العملاء والمسار والمخزون والمالية والأتمتة والذكاء الاصطناعي — لوحة آمنة واحدة لـ The Village Investment.",
       demo_note:"وضع تجريبي — استكشف ببيانات نموذجية. اضبط API_BASE في الملف لربط الخادم الحقيقي.",
@@ -278,7 +284,10 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
     target:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>',
     fire:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3c1 3-2 4-2 7a2 2 0 0 0 4 0c2 2 3 3.5 3 6a5 5 0 0 1-10 0c0-3 2-4 2-6"/></svg>',
     map:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14M15 6v14"/></svg>',
-    pin:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>'
+    pin:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>',
+    phone:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5c0 9 6 15 15 15l-1.5-3.5-3.5-1-2 2c-2.2-1.2-4-3-5.2-5.2l2-2-1-3.5L4 5z"/></svg>',
+    chat:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16v11H9l-4 3V5z"/></svg>',
+    split:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M12 15.5V11M12 11c0-2 1.5-3 4-3.4M12 11c0-2-1.5-3-4-3.4"/></svg>'
   };
 
   /* ── demo data (mirrors the backend seed) ── */
@@ -337,6 +346,29 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
     ],
     providers:[["Facebook Lead Ads",true,"#1877F2","f"],["WhatsApp Cloud API",true,"#25D366","W"],["Firebase FCM",true,"#FFA000","▲"],
       ["Google Maps",true,"#34A853","◈"],["Meta Business",false,"#1877F2","M"],["Google Ads",false,"#EA4335","G"],["TikTok Lead Gen",false,"#111","♪"],["Twilio",false,"#F22F46","T"]],
+    calls:[
+      {lead:"Ashraf Hussein",agent:"Fatma Sayed",dir:"OUTBOUND",status:"ANSWERED",outcome:"INTERESTED",dur:95,when:"12m"},
+      {lead:"Mona Adel",agent:"Fatma Sayed",dir:"OUTBOUND",status:"ANSWERED",outcome:"MEETING_BOOKED",dur:210,when:"40m"},
+      {lead:"Ahmed Shaher",agent:"Nour Hany",dir:"OUTBOUND",status:"MISSED",outcome:"NO_ANSWER",dur:0,when:"1h"},
+      {lead:"Dina Fouad",agent:"Fatma Sayed",dir:"INBOUND",status:"ANSWERED",outcome:"CALLBACK",dur:64,when:"2h"},
+      {lead:"Sara Kamal",agent:"Nour Hany",dir:"OUTBOUND",status:"BUSY",outcome:"NO_ANSWER",dur:0,when:"3h"}
+    ],
+    callStats:{total:5,answered:3,missed:2,answerRate:60,avgDur:123},
+    convos:[
+      {name:"Ashraf Hussein",num:"+2010•••301",assignee:"Fatma Sayed",unread:2,last:"Yes, interested! When can I visit?",when:"3m",
+        msgs:[["out","Hi Ashraf 👋 thanks for your interest in The Village.","12m"],["out","I have a 4-bed in IL Bosco City that fits your budget.","11m"],["in","Yes, interested! When can I visit?","3m"]]},
+      {name:"Mona Adel",num:"+2010•••303",assignee:"Fatma Sayed",unread:0,last:"Great, see you Thursday.","when":"1h",
+        msgs:[["out","Would you like to book a site visit this week?","2h"],["in","Sure, Thursday works.","1h"],["out","Great, see you Thursday.","1h"]]},
+      {name:"Khaled Nabil",num:"+2010•••304",assignee:"Kareem Fathy",unread:1,last:"Can you send the payment plan?","when":"5h",
+        msgs:[["in","Can you send the payment plan?","5h"]]}
+    ],
+    templates:["welcome","hot_intro","payment_plan","site_visit","follow_up"],
+    distRules:[
+      {name:"Hot Facebook → New Cairo team",cond:"FACEBOOK · score ≥ 75",strategy:"ROUND_ROBIN",cap:20,enabled:true},
+      {name:"6th October leads → Kareem's team",cond:"area: 6th October",strategy:"SPECIFIC_TEAM",cap:15,enabled:true},
+      {name:"Referrals → senior consultant",cond:"REFERRAL",strategy:"SPECIFIC_USER",cap:null,enabled:true},
+      {name:"Overflow → least busy",cond:"Every lead",strategy:"LEAST_BUSY",cap:null,enabled:false}
+    ],
     notifs:[["🔥 New lead assigned: Ashraf Hussein","Facebook · Hot — respond within SLA","2m",true],
       ["SLA breach in 4 min: Mona Adel","First response overdue","8m",true],
       ["🎉 Deal won: Youssef Tarek — Badya","EGP 7.0M · commission accrued","1h",true],
@@ -409,11 +441,11 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
 
   /* ── nav ── */
   var NAV=[
-    {grp:"grp_work",items:[["dashboard",I.dashboard],["leads",I.leads],["customers",I.customers],["pipeline",I.pipeline],["inventory",I.inventory],["map",I.map]]},
-    {grp:"grp_platform",items:[["automation",I.automation],["integrations",I.integrations],["notifications",I.notifications,"badge"],["reports",I.reports]]},
+    {grp:"grp_work",items:[["dashboard",I.dashboard],["leads",I.leads],["calls",I.phone],["whatsapp",I.chat],["customers",I.customers],["pipeline",I.pipeline],["inventory",I.inventory],["map",I.map]]},
+    {grp:"grp_platform",items:[["automation",I.automation],["distribution",I.split],["integrations",I.integrations],["notifications",I.notifications,"badge"],["reports",I.reports]]},
     {grp:"grp_admin",items:[["users",I.users],["roles",I.roles],["audit",I.audit],["settings",I.settings]]}
   ];
-  var VIEW_PERM={ users:"user:read", roles:"role:read", audit:"audit:read", settings:"settings:read", automation:"automation:read", integrations:"integration:read", reports:"report:read" };
+  var VIEW_PERM={ users:"user:read", roles:"role:read", audit:"audit:read", settings:"settings:read", automation:"automation:read", integrations:"integration:read", reports:"report:read", calls:"call:read", whatsapp:"whatsapp:read", distribution:"distribution:read" };
   function can(key){ var p=(state.me&&state.me.permissions)||[]; return p.indexOf("*")>=0||p.indexOf(key)>=0; }
   function allowedView(v){ var need=VIEW_PERM[v]; return !need||can(need); }
 
@@ -527,6 +559,48 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
         '<div id="mapPop" class="hide" style="position:absolute;inset-inline-end:16px;top:16px;width:240px;z-index:5"></div></div>';
       return head(t("projects_map"),shown.length+" "+t("projects").toLowerCase(),'<div class="row gap">'+scopeBadge()+'</div>')+chips+canvas;
     },
+    calls:function(){
+      var scope=personaScope(), ow=visibleOwners();
+      var vis=demo.calls.filter(function(c){ return !ow||ow.indexOf(c.agent)>=0; });
+      var s={ total:vis.length, answered:vis.filter(function(c){return c.status==="ANSWERED";}).length,
+        missed:vis.filter(function(c){return ["MISSED","BUSY","FAILED"].indexOf(c.status)>=0;}).length };
+      s.rate=s.total?Math.round(s.answered/s.total*100):0;
+      var s2=demo.callStats;
+      var kpis=[[t("calls"),s.total,I.phone],[t("answered"),s.answered,I.check],[t("missed"),s.missed,I.phone],[t("answer_rate"),s.rate+"%",I.target]];
+      var oc={INTERESTED:"var(--green)",MEETING_BOOKED:"var(--green)",NO_ANSWER:"var(--ink-3)",CALLBACK:"var(--amber)",NOT_INTERESTED:"var(--red)"};
+      return head(t("call_center"),"",'<div class="row gap">'+scopeBadge()+(can("call:create")?'<button class="btn btn-coral" data-act="toast">'+I.phone+t("log_call")+'</button>':'')+'</div>')+
+        '<div class="grid kpis" style="margin-bottom:16px">'+kpis.map(function(k){return '<div class="card kpi"><div class="l">'+k[2]+k[0]+'</div><div class="v tnum">'+k[1]+'</div></div>';}).join("")+'</div>'+
+        '<div class="card" style="padding:0;overflow:hidden"><div style="overflow-x:auto"><table><thead><tr><th>'+t("name")+'</th><th>'+t("agent")+'</th><th>'+t("direction")+'</th><th>'+t("outcome")+'</th><th>'+t("duration")+'</th><th>'+t("time")+'</th></tr></thead><tbody>'+
+          (vis.length?vis.map(function(c){ var col=oc[c.outcome]||"var(--ink-3)"; var dur=c.dur?Math.floor(c.dur/60)+"m "+(c.dur%60)+"s":"—";
+            return '<tr><td><b>'+c.lead+'</b></td><td class="muted">'+c.agent+'</td><td><span class="tag" style="background:var(--card-2);color:var(--ink-2)">'+(c.dir==="INBOUND"?"↓ "+t("inbound"):"↑ "+t("outbound"))+'</span></td><td><span class="tag" style="background:'+col+'1f;color:'+col+'">'+c.outcome+'</span></td><td class="tnum muted">'+dur+'</td><td class="muted">'+c.when+'</td></tr>'; }).join(""):'<tr><td colspan="6" class="muted" style="text-align:center;padding:24px">'+(state.lang==="ar"?"لا مكالمات ضمن نطاقك":"No calls in your scope")+'</td></tr>')+'</tbody></table></div></div>';
+    },
+    whatsapp:function(){
+      var ow=visibleOwners();
+      var vis=demo.convos.filter(function(c){ return !ow||ow.indexOf(c.assignee)>=0; });
+      if(state.waSel==null||state.waSel>=vis.length) state.waSel=0;
+      var sel=vis[state.waSel];
+      var list=vis.map(function(c,i){ var on=i===state.waSel;
+        return '<div class="wconv" data-i="'+i+'" style="padding:12px 14px;border-bottom:1px solid var(--line);cursor:pointer;'+(on?"background:var(--coral-soft)":"")+'"><div class="row between"><b style="font-size:13.5px">'+c.name+'</b>'+(c.unread?'<span class="pill" style="background:var(--green);color:#fff;padding:1px 7px;font-size:10px">'+c.unread+'</span>':'<span class="muted" style="font-size:10.5px">'+c.when+'</span>')+'</div><div class="muted" style="font-size:12px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+c.last+'</div></div>'; }).join("");
+      var thread=sel?sel.msgs.map(function(m){ var out=m[0]==="out";
+        return '<div style="display:flex;justify-content:'+(out?"flex-end":"flex-start")+';margin-bottom:8px"><div style="max-width:75%;padding:9px 13px;border-radius:14px;font-size:13px;line-height:1.4;'+(out?"background:var(--green);color:#fff;border-bottom-right-radius:5px":"background:var(--card-2);border-bottom-left-radius:5px")+'">'+m[1]+'<div style="font-size:10px;opacity:.7;margin-top:3px;text-align:end">'+m[2]+'</div></div></div>'; }).join(""):"";
+      var chips=demo.templates.map(function(tp){return '<button class="btn btn-ghost wtmpl" data-tp="'+tp+'" style="padding:6px 11px;font-size:11.5px">'+tp+'</button>';}).join("");
+      return head(t("whatsapp"),vis.length+" "+t("conversations").toLowerCase())+
+        '<div class="card" style="display:grid;grid-template-columns:300px 1fr;height:540px;overflow:hidden">'+
+          '<div style="border-inline-end:1px solid var(--line);overflow-y:auto">'+(list||'<div class="muted" style="padding:20px;text-align:center">—</div>')+'</div>'+
+          '<div style="display:flex;flex-direction:column;min-width:0">'+
+            (sel?'<div style="padding:13px 16px;border-bottom:1px solid var(--line)"><b>'+sel.name+'</b><div class="muted" style="font-size:12px">'+sel.num+' · '+sel.assignee+'</div></div>'+
+            '<div style="flex:1;overflow-y:auto;padding:16px;background:var(--bg)">'+thread+'</div>'+
+            '<div style="padding:10px 12px;border-top:1px solid var(--line)"><div class="row wrap gap" style="gap:6px;margin-bottom:8px">'+chips+'</div><div class="row gap"><input id="waInput" placeholder="'+t("type_message")+'" style="flex:1;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 14px;color:var(--ink);outline:none"/><button class="btn btn-coral" id="waSend">'+t("send")+'</button></div></div>':'<div class="flex-c" style="flex:1;color:var(--ink-3)">—</div>')+
+          '</div></div>';
+    },
+    distribution:function(){
+      var STR={ROUND_ROBIN:state.lang==="ar"?"بالتناوب":"Round-robin",LEAST_BUSY:state.lang==="ar"?"الأقل انشغالاً":"Least busy",SPECIFIC_TEAM:state.lang==="ar"?"فريق محدد":"Specific team",SPECIFIC_USER:state.lang==="ar"?"مندوب محدد":"Specific user"};
+      var SC={ROUND_ROBIN:"var(--purple)",LEAST_BUSY:"var(--cool)",SPECIFIC_TEAM:"var(--amber)",SPECIFIC_USER:"var(--green)"};
+      return head(t("distribution"),state.lang==="ar"?"توزيع العملاء تلقائياً على المندوبين":"Auto-route incoming leads to agents",can("distribution:create")?'<button class="btn btn-coral" data-act="toast">'+I.plus+t("new_rule")+'</button>':'')+
+        demo.distRules.map(function(r,i){ return '<div class="card" style="padding:16px 18px;margin-bottom:12px'+(r.enabled?'':';opacity:.6')+'"><div class="row between" style="align-items:flex-start"><div class="grow"><div class="row gap" style="gap:9px"><b style="font-size:15px">'+r.name+'</b><span class="pill" style="background:'+SC[r.strategy]+'1f;color:'+SC[r.strategy]+'">'+STR[r.strategy]+'</span>'+(r.enabled?'':'<span class="pill" style="background:var(--card-2);color:var(--ink-3)">'+t("disabled")+'</span>')+'</div>'+
+          '<div class="row gap" style="gap:18px;margin-top:8px;flex-wrap:wrap"><span class="muted" style="font-size:12.5px"><b style="color:var(--ink-2)">'+t("conditions")+':</b> '+r.cond+'</span><span class="muted" style="font-size:12.5px"><b style="color:var(--ink-2)">'+t("daily_cap")+':</b> '+(r.cap?r.cap+" "+t("per_agent"):t("uncapped"))+'</span></div></div>'+
+          '<span style="color:'+SC[r.strategy]+'">'+I.split+'</span></div></div>'; }).join("");
+    },
     automation:function(){
       return head(t("automation"),"Automation Engine")+
         demo.rules.map(function(r){ return '<div class="card" style="padding:16px 18px;margin-bottom:12px"><div class="row between"><div><div class="row gap" style="gap:8px"><b style="font-size:15px">'+r[0]+'</b><span class="pill" style="background:'+(r[3]?"var(--green-soft);color:var(--green)":"var(--card-2);color:var(--ink-3)")+'">'+(r[3]?t("enabled"):t("disabled"))+'</span></div><div class="muted" style="font-size:12.5px;margin-top:4px">IF '+r[1]+' · '+r[2]+' '+t("runs")+'</div></div><span style="color:var(--purple)">'+I.automation+'</span></div></div>'; }).join("");
@@ -617,6 +691,10 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
     // Map: area filters + clickable project pins
     [].forEach.call(document.querySelectorAll("[data-area]"),function(b){ b.onclick=function(){ state.mapArea=b.getAttribute("data-area"); render(); }; });
     [].forEach.call(document.querySelectorAll(".mappin"),function(b){ b.onclick=function(ev){ ev.stopPropagation(); openMapPop(demo.projects[+b.getAttribute("data-p")]); }; });
+    // WhatsApp: select conversation, template chips, send
+    [].forEach.call(document.querySelectorAll(".wconv"),function(b){ b.onclick=function(){ state.waSel=+b.getAttribute("data-i"); var ow=visibleOwners(); var vis=demo.convos.filter(function(c){return !ow||ow.indexOf(c.assignee)>=0;}); if(vis[state.waSel])vis[state.waSel].unread=0; render(); }; });
+    [].forEach.call(document.querySelectorAll(".wtmpl"),function(b){ b.onclick=function(){ var inp=$("#waInput"); if(inp) inp.value="["+b.getAttribute("data-tp")+"] template"; }; });
+    var waSend=$("#waSend"); if(waSend) waSend.onclick=function(){ var inp=$("#waInput"); var txt=inp&&inp.value.trim(); if(!txt) return; var ow=visibleOwners(); var vis=demo.convos.filter(function(c){return !ow||ow.indexOf(c.assignee)>=0;}); var sel=vis[state.waSel]; if(sel){ sel.msgs.push(["out",txt,"now"]); sel.last=txt; toast(state.lang==="ar"?"تم الإرسال ✓":"Sent ✓"); render(); } };
     $("#globalSearch").placeholder=t("search");
   }
   function openMapPop(p){
