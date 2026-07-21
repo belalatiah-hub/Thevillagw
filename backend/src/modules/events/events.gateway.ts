@@ -13,6 +13,7 @@ import {
   DOMAIN_EVENTS,
   LeadAssignedEvent,
   LeadCapturedEvent,
+  NotificationCreatedEvent,
   OpportunityMovedEvent,
 } from '../../common/events/domain-events';
 import { JwtPayload } from '../auth/strategies/jwt.strategy';
@@ -47,6 +48,7 @@ export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
       client.data.companyId = payload.companyId;
       client.data.userId = payload.sub;
       await client.join(this.room(payload.companyId));
+      await client.join(this.userRoom(payload.sub));
       this.logger.debug(`socket ${client.id} joined company ${payload.companyId}`);
     } catch (err) {
       this.logger.debug(`socket ${client.id} rejected: ${(err as Error).message}`);
@@ -73,7 +75,19 @@ export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
     this.server.to(this.room(e.companyId)).emit(DOMAIN_EVENTS.OPPORTUNITY_MOVED, e);
   }
 
+  /** Deliver a notification only to the recipient's own sockets (live bell). */
+  @OnEvent(DOMAIN_EVENTS.NOTIFICATION_CREATED)
+  onNotificationCreated(e: NotificationCreatedEvent): void {
+    this.server
+      .to(this.userRoom(e.userId))
+      .emit(DOMAIN_EVENTS.NOTIFICATION_CREATED, e.notification);
+  }
+
   private room(companyId: string): string {
     return `company:${companyId}`;
+  }
+
+  private userRoom(userId: string): string {
+    return `user:${userId}`;
   }
 }

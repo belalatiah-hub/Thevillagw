@@ -9,6 +9,7 @@ export const DOMAIN_EVENTS = {
   LEAD_CREATED: 'lead.created',
   LEAD_ASSIGNED: 'lead.assigned',
   OPPORTUNITY_MOVED: 'opportunity.moved',
+  NOTIFICATION_CREATED: 'notification.created',
 } as const;
 
 export interface CompanyScopedEvent {
@@ -32,4 +33,19 @@ export interface OpportunityMovedEvent extends CompanyScopedEvent {
   opportunityId: string;
   stageId: string;
   status: string;
+}
+
+/** A notification was persisted — relayed to the recipient's socket for a live bell. */
+export interface NotificationCreatedEvent extends CompanyScopedEvent {
+  userId: string;
+  notification: {
+    id: string;
+    type: string;
+    priority: string;
+    title: string;
+    body?: string | null;
+    entityType?: string | null;
+    entityId?: string | null;
+    createdAt: Date;
+  };
 }

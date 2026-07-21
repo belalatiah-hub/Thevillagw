@@ -24,6 +24,7 @@ import { EventsModule } from './modules/events/events.module';
 import { FinanceModule } from './modules/finance/finance.module';
 import { IntegrationsModule } from './modules/integrations/integrations.module';
 import { AutomationModule } from './modules/automation/automation.module';
+import { NotificationsModule } from './modules/notifications/notifications.module';
 
 @Module({
   imports: [
@@ -58,6 +59,7 @@ import { AutomationModule } from './modules/automation/automation.module';
     FinanceModule,
     IntegrationsModule,
     AutomationModule,
+    NotificationsModule,
   ],
   providers: [
     // Order matters: authenticate → rate-limit → authorize.

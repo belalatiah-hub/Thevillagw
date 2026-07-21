@@ -222,6 +222,23 @@ enum AutomationTrigger {
   LEAD_CREATED
 }
 
+enum NotificationType {
+  LEAD_ASSIGNED
+  LEAD_CAPTURED
+  SLA_DUE
+  FOLLOW_UP_DUE
+  OPPORTUNITY_MOVED
+  MENTION
+  SYSTEM
+}
+
+enum NotificationPriority {
+  LOW
+  NORMAL
+  HIGH
+  URGENT
+}
+
 enum AutomationRunStatus {
   SUCCESS
   PARTIAL
@@ -261,6 +278,7 @@ model Company {
   integrations  Integration[]
   automationRules AutomationRule[]
   automationRuns  AutomationRun[]
+  notifications   Notification[]
 
   @@index([slug])
 }
@@ -310,6 +328,7 @@ model User {
   opportunities  Opportunity[]  @relation("OpportunityOwner")
   commissions    Commission[]
   auditLogs      AuditLog[]
+  notifications  Notification[]
 
   @@unique([companyId, email])
   @@index([companyId])
@@ -852,4 +871,26 @@ model AutomationRun {
 
   @@index([companyId, createdAt])
   @@index([ruleId])
+}
+
+model Notification {
+  id         String               @id @default(cuid())
+  companyId  String
+  company    Company              @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  userId     String
+  user       User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type       NotificationType     @default(SYSTEM)
+  priority   NotificationPriority @default(NORMAL)
+  title      String
+  body       String?
+  data       Json? // { leadId?, opportunityId?, url? } — deep-link payload
+  entityType String? // "lead" | "opportunity" | "activity" | ...
+  entityId   String?
+  read       Boolean              @default(false)
+  readAt     DateTime?
+  pushedAt   DateTime? // when an FCM push was dispatched (null = in-app only)
+  createdAt  DateTime             @default(now())
+
+  @@index([companyId, userId, read])
+  @@index([userId, createdAt])
 }
