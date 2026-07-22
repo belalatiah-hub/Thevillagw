@@ -368,6 +368,10 @@
   .cs-img{display:block;width:100%;height:auto;aspect-ratio:1/1;object-fit:cover}
   .cs-scrim{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(5,46,61,.5),rgba(5,46,61,0) 34%)}
   .cs-badge{position:absolute;inset-block-start:14px;inset-inline-start:14px;z-index:2;display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border-radius:var(--r-pill);background:rgba(5,46,61,.62);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.28);color:var(--bone);font-weight:700;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase}
+  a.cs-card--link{cursor:pointer;transition:transform .25s ease,box-shadow .25s ease}
+  a.cs-card--link:hover{transform:translateY(-3px);box-shadow:0 28px 62px -20px rgba(5,46,61,.5)}
+  a.cs-card--link .cs-img{transition:transform .5s ease}
+  a.cs-card--link:hover .cs-img{transform:scale(1.03)}
 
   .dev-card{display:flex;gap:14px;align-items:center;padding:16px;background:var(--paper);
     border:1px solid var(--line-2);border-radius:var(--r);transition:var(--t)}
@@ -1864,7 +1868,7 @@
   function newLaunchProjects(){ return PROJECTS.filter(isNewLaunch); }
   // Upcoming launch teaser — image-only "Coming Soon" card (no price/details).
   // (literal path: this runs before the media *_BASE vars below are assigned)
-  var COMING_SOON_LAUNCH = { img:'/project-media/launches/terrace-zayed.webp', name:'Terrace Zayed' };
+  var COMING_SOON_LAUNCH = { img:'/project-media/launches/giza-terraces.webp', name:'Giza Terraces', link:'ramla-ras-el-hekma' };
   function shade(hex,f){ hex=(hex||'#0d6e7d').replace('#',''); if(hex.length===3) hex=hex.replace(/(.)/g,'$1$1');
     var n=parseInt(hex,16), r=(n>>16)&255, g=(n>>8)&255, b=n&255, t=f<0?0:255, a=Math.abs(f);
     r=Math.round(r+(t-r)*a); g=Math.round(g+(t-g)*a); b=Math.round(b+(t-b)*a);
@@ -3212,14 +3216,18 @@
     sec.appendChild(h('div',{class:'wrap'}, row, track));
     return sec;
   }
-  // New Launches teaser — the upcoming project as an image-only "Coming Soon"
-  // card (no price, developer, or details), per the current launch strategy.
-  function comingSoonLaunch(){
-    var fig=h('figure',{class:'cs-card'},
-      h('img',{class:'cs-img', src:COMING_SOON_LAUNCH.img, alt:COMING_SOON_LAUNCH.name+' — '+t('coming_soon'), width:'1200', height:'1200', loading:'lazy', decoding:'async'}),
+  // New Launches teaser — the upcoming launch as an image-only "Coming Soon"
+  // card (no price, developer, or details). In the New Launch section it links
+  // to its parent project; on that project's own page it is a plain figure.
+  function comingSoonLaunch(asLink){
+    var kids=[
+      h('img',{class:'cs-img', src:COMING_SOON_LAUNCH.img, alt:COMING_SOON_LAUNCH.name+' — '+t('coming_soon'), width:'1000', height:'1000', loading:'lazy', decoding:'async'}),
       h('span',{class:'cs-scrim','aria-hidden':'true'}),
-      h('span',{class:'cs-badge'}, t('coming_soon')));
-    return h('div',{class:'cs-wrap'}, fig);
+      h('span',{class:'cs-badge'}, t('coming_soon'))];
+    var card = (asLink===false || !COMING_SOON_LAUNCH.link)
+      ? h('figure',{class:'cs-card'}, kids)
+      : h('a',{class:'cs-card cs-card--link', href:U(buildPath('project',{slug:COMING_SOON_LAUNCH.link})), 'aria-label':COMING_SOON_LAUNCH.name+' — '+t('coming_soon')}, kids);
+    return h('div',{class:'cs-wrap'}, card);
   }
   function field(kind,id,label,children){
     var control = kind==='select' ? h('select',{id:id,name:id}, children)
@@ -3946,6 +3954,14 @@
     top.appendChild(wrap); node.appendChild(top);
     track('project_viewed', {project:p.slug});
     if(typeof leadArm==='function') leadArm();   // a project view is a qualifying engagement
+
+    // Upcoming sub-launch teaser within this project (image + "Coming Soon").
+    if(COMING_SOON_LAUNCH.link === p.slug){
+      var lsec=h('section',{class:'section--tight'}), lsw=h('div',{class:'wrap'});
+      lsw.appendChild(sectionHead(t('nav_launches'), t('home_launch_h'), t('home_launch_p')));
+      lsw.appendChild(comingSoonLaunch(false));
+      lsec.appendChild(lsw); node.appendChild(lsec);
+    }
 
     // unit types (clear icons) + available units (image + specs)
     var typesEn=(p.types.en||'').split(' · ');
