@@ -362,6 +362,12 @@
   .area-banner__pin{position:absolute;inset-block-end:14px;inset-inline-start:16px;display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:var(--r-pill);background:rgba(5,46,61,.62);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);color:var(--bone);font-weight:600;font-size:.9rem}
   .area-banner__pin svg{width:17px;height:17px}
   @media (max-width:640px){ .area-banner{aspect-ratio:16/9} }
+  /* New Launches — image-only "Coming Soon" teaser (no price/details) */
+  .cs-wrap{display:flex;justify-content:center;margin-top:6px}
+  .cs-card{position:relative;margin:0;width:100%;max-width:560px;border-radius:var(--r-lg);overflow:hidden;background:var(--teal-900);box-shadow:var(--shadow-lg)}
+  .cs-img{display:block;width:100%;height:auto;aspect-ratio:1/1;object-fit:cover}
+  .cs-scrim{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(5,46,61,.5),rgba(5,46,61,0) 34%)}
+  .cs-badge{position:absolute;inset-block-start:14px;inset-inline-start:14px;z-index:2;display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border-radius:var(--r-pill);background:rgba(5,46,61,.62);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.28);color:var(--bone);font-weight:700;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase}
 
   .dev-card{display:flex;gap:14px;align-items:center;padding:16px;background:var(--paper);
     border:1px solid var(--line-2);border-radius:var(--r);transition:var(--t)}
@@ -1344,7 +1350,7 @@
       hero_s1:"Areas covered", hero_s2:"Developers tracked", hero_s3:"Curated projects",
       find_h:"Find your primary unit", find_p:"Filter the curated selection, then talk to an advisor for live availability.",
       home_ours_k:"Marketed by The Village", home_ours_h:"Our featured projects", home_ours_p:"Primary-sale launches we market directly on the Ras El Hekma North Coast. Figures are illustrative — talk to an advisor to confirm current prices and availability.",
-      home_launch_h:"New launches", home_launch_p:"Recently launched primary developments in our curated selection.",
+      home_launch_h:"New launches", home_launch_p:"Our next primary launch — coming soon.", coming_soon:"Coming Soon",
       home_devrail_h:"Browse by developer", home_devrail_p:"Tap a developer to explore their primary-sale projects.",
       home_feat_h:"Featured projects", home_feat_p:"A hand-picked look across areas and developers. Figures are illustrative pending advisor confirmation.",
       home_area_h:"Browse by area", home_area_p:"Egypt's most active primary-sale destinations.",
@@ -1461,7 +1467,7 @@
       hero_s1:"مناطق نغطّيها", hero_s2:"مطوّرون نتابعهم", hero_s3:"مشروعات مختارة",
       find_h:"اعثر على وحدتك الأولية", find_p:"صفِّ الاختيارات ثم تحدّث إلى مستشار لمعرفة الإتاحة الحالية.",
       home_ours_k:"مقدَّمة من The Village", home_ours_h:"مشروعاتنا المميّزة", home_ours_p:"مشروعات بيع أولي نسوّقها مباشرةً على ساحل رأس الحكمة الشمالي. الأرقام استرشادية — تواصل مع مستشار لتأكيد الأسعار والإتاحة الحالية.",
-      home_launch_h:"إطلاقات جديدة", home_launch_p:"مشروعات بيع أولي أُطلقت حديثاً ضمن اختياراتنا.",
+      home_launch_h:"إطلاقات جديدة", home_launch_p:"إطلاقنا الأولي القادم — قريباً.", coming_soon:"قريباً",
       home_devrail_h:"تصفّح حسب المطوّر", home_devrail_p:"اضغط على أي مطوّر لاستعراض مشروعاته للبيع الأولي.",
       home_feat_h:"مشروعات مميّزة", home_feat_p:"نظرة مختارة عبر المناطق والمطوّرين. الأرقام تقديرية لحين تأكيد المستشار.",
       home_area_h:"تصفّح حسب المنطقة", home_area_p:"أنشط وجهات البيع الأولي في مصر.",
@@ -1809,15 +1815,18 @@
   function areaCat(k){ return (k==='sahel'||k==='sokhna'||k==='raselhekma')?'coast':(k==='capital')?'capital':'urban'; }
 
   /* ===================================================================
-     NEW LAUNCH — manual selection (admin toggle), NOT automatic.
-     The New Launches section/page shows ONLY the projects whose slug is
-     listed here (and any project with newLaunch:true in its record). To
-     feature a project → add its slug (or set newLaunch:true). To hide it →
-     remove it. Nothing is auto-included from status any more.
+     NEW LAUNCH — the section/page now teases a single upcoming project
+     (Terrace Zayed) as a "Coming Soon" image, so no existing projects are
+     surfaced as new launches. To go back to featuring live projects, list
+     their slugs here (or set newLaunch:true on a record) and restore the
+     card carousel in V.home / V.projects('launch').
      =================================================================== */
-  var NEW_LAUNCH_SLUGS = ['ogami-north-coast','june-north-coast','caesar-north-coast','ramla-ras-el-hekma','modon-ras-el-hekma'];
+  var NEW_LAUNCH_SLUGS = [];
   function isNewLaunch(p){ return !!p && (p.newLaunch===true || NEW_LAUNCH_SLUGS.indexOf(p.slug)>-1); }
   function newLaunchProjects(){ return PROJECTS.filter(isNewLaunch); }
+  // Upcoming launch teaser — image-only "Coming Soon" card (no price/details).
+  // (literal path: this runs before the media *_BASE vars below are assigned)
+  var COMING_SOON_LAUNCH = { img:'/project-media/launches/terrace-zayed.webp', name:'Terrace Zayed' };
   function shade(hex,f){ hex=(hex||'#0d6e7d').replace('#',''); if(hex.length===3) hex=hex.replace(/(.)/g,'$1$1');
     var n=parseInt(hex,16), r=(n>>16)&255, g=(n>>8)&255, b=n&255, t=f<0?0:255, a=Math.abs(f);
     r=Math.round(r+(t-r)*a); g=Math.round(g+(t-g)*a); b=Math.round(b+(t-b)*a);
@@ -3001,7 +3010,6 @@
   var V = {};
 
   V.home = function(){
-    var launches = newLaunchProjects().slice(0,3);
     var node = h('div',null);
     // hero
     var hero = h('section',{class:'hero'});
@@ -3087,10 +3095,12 @@
         feature('check', t('why2_h'), t('why2_p')),
         feature('globe', t('why3_h'), t('why3_p')))));
     node.appendChild(why);
-    // new launches — horizontal, snap-scrolling carousel
-    var launchAll = newLaunchProjects().slice(0,10);
-    node.appendChild(carouselSection(t('nav_launches'), t('home_launch_h'), t('home_launch_p'),
-      (launchAll.length?launchAll:launches).map(projectCard), {label:t('cta_all'), path:buildPath('launches')}));
+    // new launches — single upcoming project teaser ("Coming Soon" image)
+    var launchSec=h('section',{class:'section'});
+    launchSec.appendChild(h('div',{class:'wrap'},
+      sectionHead(t('nav_launches'), t('home_launch_h'), t('home_launch_p')),
+      comingSoonLaunch()));
+    node.appendChild(launchSec);
     // top locations (Section 3) — premium cards + live compound counts
     var tlRow=h('div',{class:'sec-row'}, sectionHead('', t('top_loc_h'), t('top_loc_p')),
       h('a',{class:'btn btn--ghost btn--sm', href:U(buildPath('areas'))}, t('cta_all'), ic('arrow')));
@@ -3163,6 +3173,15 @@
     items.forEach(function(it){ var cell=h('div',{class:'hscroll__cell', role:'listitem'}, it); track.appendChild(cell); });
     sec.appendChild(h('div',{class:'wrap'}, row, track));
     return sec;
+  }
+  // New Launches teaser — the upcoming project as an image-only "Coming Soon"
+  // card (no price, developer, or details), per the current launch strategy.
+  function comingSoonLaunch(){
+    var fig=h('figure',{class:'cs-card'},
+      h('img',{class:'cs-img', src:COMING_SOON_LAUNCH.img, alt:COMING_SOON_LAUNCH.name+' — '+t('coming_soon'), width:'1200', height:'1200', loading:'lazy', decoding:'async'}),
+      h('span',{class:'cs-scrim','aria-hidden':'true'}),
+      h('span',{class:'cs-badge'}, t('coming_soon')));
+    return h('div',{class:'cs-wrap'}, fig);
   }
   function field(kind,id,label,children){
     var control = kind==='select' ? h('select',{id:id,name:id}, children)
@@ -3634,6 +3653,21 @@
 
   /* ---- Projects list (also serves /new-launches/) ---- */
   V.projects = function(preset){
+    // New Launches now teases a single upcoming project ("Coming Soon" image),
+    // so the launch view skips the finder toolbar/grid entirely.
+    if(preset==='launch'){
+      var lnode=h('div',null);
+      var lhead=h('section',{class:'section--tight'});
+      lhead.appendChild(h('div',{class:'wrap'},
+        crumbNode([{label:t('nav_home'), path:buildPath('home')},{label:t('nav_launches')}]),
+        sectionHead(t('hero_kicker'), t('nav_launches'), t('home_launch_p'), 'h1')));
+      lnode.appendChild(lhead);
+      var lmain=h('section',{style:'padding-bottom:clamp(48px,8vw,96px)'});
+      lmain.appendChild(h('div',{class:'wrap'}, comingSoonLaunch()));
+      lnode.appendChild(lmain);
+      return {node:lnode, title:t('nav_launches')+' · The Village Investment', desc:t('home_launch_p'), indexable:true,
+        crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_launches')}]};
+    }
     var qs = new URLSearchParams(CUR.search);
     var f = {
       area: qs.get('area')||'',
