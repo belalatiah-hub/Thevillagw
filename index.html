@@ -4657,6 +4657,13 @@
       var lbl=t(it[1]) + (it[0]==='compare' && compare.length ? (' ('+num(compare.length)+')') : '');
       var a=h('a',{href:U(buildPath(it[0])), class:'nav-item', title:t(it[1])}, ic(it[2],'nav-item__ic'), h('span',{class:'nav-item__lbl'}, lbl)); if(group===it[0]) a.setAttribute('aria-current','page'); pn.appendChild(a);
       var a2=h('a',{href:U(buildPath(it[0])), class:'nav-item'}, ic(it[2],'nav-item__ic'), h('span',null, lbl)); if(group===it[0]) a2.setAttribute('aria-current','page'); dn.appendChild(a2);
+      // "Search" pops the search box (command palette) rather than navigating. The href is
+      // kept as a no-JS fallback to the finder; stopPropagation prevents the global link
+      // interceptor from ALSO routing the click.
+      if(it[1]==='nav_search' && typeof searchOpen==='function'){
+        a.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); searchOpen(); });
+        a2.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); closeDrawer(); searchOpen(); });
+      }
     });
     dn.appendChild(h('a',{href:U(buildPath('investors')), class:'nav-item'}, ic('build','nav-item__ic'), h('span',null, t('nav_investors'))));
     dn.appendChild(h('a',{href:U(buildPath('faqs')), class:'nav-item'}, ic('info','nav-item__ic'), h('span',null, t('nav_faqs'))));
