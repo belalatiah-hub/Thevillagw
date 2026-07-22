@@ -217,6 +217,7 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
       efficiency:"Efficiency", eff_tracker:"Efficiency Tracker", total_actions:"Total Actions", delayed:"Delayed", total_delay:"Total Delay", won:"Won", lost:"Lost", actions:"Actions", agent2:"Agent",
       log_action:"Log action", next_action:"Next action", stage_date:"Stage date", after_1h:"After 1 hour", after_2h:"After 2 hours", tomorrow:"Tomorrow", next_week:"Next week", comment:"Comment", rating:"Rating", action_history:"Action history", stage:"Stage", planned:"Planned", done:"Done", save_action:"Save action", record:"Record voice note",
       lookups:"Lookups", channels:"Channels", comm_ways:"Comm. ways", stages:"Stages", cancel_reasons:"Cancel reasons", add_value:"Add value", reports_to:"Reports to",
+      property_details:"Property details", developer:"Developer", city:"City", unit_type:"Unit type", price:"Price", bedrooms:"Bedrooms", area_m:"Area", unit_code:"Unit code", delivery:"Delivery", finishing:"Finishing", pdf_offer:"PDF Offer", usp:"Unique selling points", available_u:"Available", reserved_u:"Reserved", sold_u:"Sold", all_cities:"All cities", cards_view:"Cards", table_view:"Table", kanban_view:"Kanban", feedback:"Feedback", add_feedback:"Add feedback", feedback_history:"Feedback history", offer_sent:"PDF offer generated ✓", ai_next_action:"AI next action", ai_suggest:"AI suggestion",
       welcome:"Welcome back", signin:"Sign in to Village CRM", email:"Email", password:"Password", signin_btn:"Sign in",
       hero:"The complete real-estate CRM for your team.", hero_sub:"Leads, pipeline, inventory, finance, automation and AI — one secure console for The Village Investment.",
       demo_note:"Demo mode — explore with sample data. Set API_BASE in the file to connect your live backend.",
@@ -245,6 +246,7 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
       efficiency:"الكفاءة", eff_tracker:"متتبّع الكفاءة", total_actions:"إجمالي الإجراءات", delayed:"متأخرة", total_delay:"إجمالي التأخير", won:"فائزة", lost:"خاسرة", actions:"إجراءات", agent2:"المندوب",
       log_action:"تسجيل إجراء", next_action:"الإجراء التالي", stage_date:"موعد المرحلة", after_1h:"بعد ساعة", after_2h:"بعد ساعتين", tomorrow:"غداً", next_week:"الأسبوع القادم", comment:"تعليق", rating:"التقييم", action_history:"سجل الإجراءات", stage:"المرحلة", planned:"مخطط", done:"تم", save_action:"حفظ الإجراء", record:"تسجيل ملاحظة صوتية",
       lookups:"القوائم", channels:"المصادر", comm_ways:"طرق التواصل", stages:"المراحل", cancel_reasons:"أسباب الإلغاء", add_value:"إضافة قيمة", reports_to:"يتبع",
+      property_details:"تفاصيل الوحدة", developer:"المطوّر", city:"المدينة", unit_type:"نوع الوحدة", price:"السعر", bedrooms:"غرف النوم", area_m:"المساحة", unit_code:"كود الوحدة", delivery:"التسليم", finishing:"التشطيب", pdf_offer:"عرض PDF", usp:"مميزات المشروع", available_u:"متاحة", reserved_u:"محجوزة", sold_u:"مباعة", all_cities:"كل المدن", cards_view:"بطاقات", table_view:"جدول", kanban_view:"كانبان", feedback:"ملاحظات", add_feedback:"إضافة ملاحظة", feedback_history:"سجل الملاحظات", offer_sent:"تم توليد عرض PDF ✓", ai_next_action:"إجراء ذكي مقترح", ai_suggest:"اقتراح ذكي",
       welcome:"مرحباً بعودتك", signin:"سجّل الدخول إلى Village CRM", email:"البريد الإلكتروني", password:"كلمة المرور", signin_btn:"دخول",
       hero:"نظام CRM عقاري متكامل لفريقك.", hero_sub:"العملاء والمسار والمخزون والمالية والأتمتة والذكاء الاصطناعي — لوحة آمنة واحدة لـ The Village Investment.",
       demo_note:"وضع تجريبي — استكشف ببيانات نموذجية. اضبط API_BASE في الملف لربط الخادم الحقيقي.",
@@ -304,8 +306,8 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
     leads:[
       {n:"Ashraf Hussein",src:"Facebook",owner:"Fatma Sayed",status:"Interested",score:88,budget:12,area:"Mostakbal City"},
       {n:"Mona Adel",src:"Instagram",owner:"Fatma Sayed",status:"Meeting set",score:81,budget:6.5,area:"Mostakbal City"},
-      {n:"Dina Fouad",src:"Instagram",owner:"Fatma Sayed",status:"Interested",score:58,budget:6,area:"Mostakbal City"},
-      {n:"Khaled Nabil",src:"Referral",owner:"Kareem Fathy",status:"Interested",score:79,budget:9.2,area:"Mostakbal City"},
+      {n:"Dina Fouad",src:"Instagram",owner:"Fatma Sayed",status:"Interested",score:58,budget:6,area:"Mostakbal City",dup:true},
+      {n:"Khaled Nabil",src:"Referral",owner:"Kareem Fathy",status:"Interested",score:79,budget:9.2,area:"Mostakbal City",resale:true},
       {n:"Youssef Tarek",src:"Google",owner:"Kareem Fathy",status:"Meeting set",score:70,budget:7,area:"6th October"},
       {n:"Ahmed Shaher",src:"Facebook",owner:"Nour Hany",status:"No answer",score:74,budget:8.5,area:"New Cairo"},
       {n:"Sara Kamal",src:"Facebook",owner:"Nour Hany",status:"No answer",score:62,budget:5.5,area:"Mostakbal City"},
@@ -324,6 +326,21 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
       {name:"The Valleys",dev:"SODIC",area:"New Heliopolis",from:9.5,avail:5,x:78,y:24},
       {name:"Badya",dev:"Palm Hills",area:"6th October",from:6.0,avail:16,x:20,y:70},
       {name:"iCity",dev:"Mountain View",area:"New Cairo",from:7.8,avail:10,x:32,y:52}
+    ],
+    // Unique selling points per project (for the property/USP modal).
+    usp:{ "IL Bosco City":["Fully integrated smart city","Central lagoon & green spine","Retail & business hub on-site","Delivery 2027 · 10% down / 8 yrs"],
+      "Badya":["Egypt's first walkable city","Sports & wellness district","Family clubhouse & schools","Delivery 2028 · flexible plans"] },
+    // Inventory units (derived from the projects).
+    units:[
+      {code:"BOSCO-A12",project:"IL Bosco City",dev:"Misr Italia",city:"Mostakbal City",type:"Apartment",beds:3,baths:3,area:165,price:7.4,delivery:"Nov 2027",finish:"Semi-finished",status:"available"},
+      {code:"BOSCO-A30",project:"IL Bosco City",dev:"Misr Italia",city:"Mostakbal City",type:"Apartment",beds:2,baths:2,area:128,price:6.1,delivery:"Nov 2027",finish:"Semi-finished",status:"available"},
+      {code:"HAP-V04",project:"HAPTOWN",dev:"Hassan Allam",city:"Mostakbal City",type:"Villa",beds:4,baths:4,area:245,price:11.8,delivery:"2028",finish:"Core & shell",status:"available"},
+      {code:"BLOOM-S07",project:"Bloomfields",dev:"Tatweer Misr",city:"Mostakbal City",type:"Studio",beds:1,baths:1,area:72,price:3.6,delivery:"2027",finish:"Finished",status:"reserved"},
+      {code:"ALIVA-TH2",project:"Aliva",dev:"Mountain View",city:"Mostakbal City",type:"Townhouse",beds:4,baths:4,area:220,price:10.4,delivery:"2028",finish:"Semi-finished",status:"available"},
+      {code:"BADYA-A30",project:"Badya",dev:"Palm Hills",city:"6th October",type:"Apartment",beds:3,baths:2,area:150,price:6.3,delivery:"2028",finish:"Semi-finished",status:"sold"},
+      {code:"MIRADA-A9",project:"La Mirada",dev:"La Mirada Dev.",city:"Mostakbal City",type:"Apartment",beds:2,baths:2,area:118,price:5.2,delivery:"2027",finish:"Finished",status:"available"},
+      {code:"VALLEY-V1",project:"The Valleys",dev:"SODIC",city:"New Heliopolis",type:"Villa",beds:5,baths:5,area:320,price:15.5,delivery:"2029",finish:"Core & shell",status:"available"},
+      {code:"ICITY-A5",project:"iCity",dev:"Mountain View",city:"New Cairo",type:"Apartment",beds:3,baths:3,area:175,price:7.8,delivery:"2027",finish:"Semi-finished",status:"available"}
     ],
     users:[
       {n:"Village Admin",email:"admin@thevillageinvestment.com",role:"Super Admin",dept:"—",active:true,c:"var(--coral)"},
@@ -393,6 +410,10 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
       {act:"Send offer",stage:"Hot Case",by:"Fatma Sayed",when:"2h",due:"tomorrow",comment:"Sent PDF for IL Bosco 4-bed",rating:5,status:"PLANNED"},
       {act:"Call",stage:"Potential",by:"Fatma Sayed",when:"1d",comment:"Interested, asked for payment plan",rating:4,status:"DONE"},
       {act:"WhatsApp follow-up",stage:"New Lead",by:"Fatma Sayed",when:"3d",comment:"First contact",status:"DONE"}
+    ] },
+    feedback:{ "Ashraf Hussein":[
+      {text:"Prefers a 4-bed with garden view; ready to reserve this week.",by:"Fatma Sayed",when:"2h"},
+      {text:"Budget confirmed at EGP 12M, needs 8-year plan.",by:"Fatma Sayed",when:"1d"}
     ] },
     notifs:[["🔥 New lead assigned: Ashraf Hussein","Facebook · Hot — respond within SLA","2m",true],
       ["SLA breach in 4 min: Mona Adel","First response overdue","8m",true],
@@ -538,12 +559,28 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
     },
     leads:function(){
       var vis=visibleLeads();
+      var lv=state.leadView||"table";
+      var vbtn=function(k,ic){ return '<button class="btn '+(lv===k?"btn-coral":"btn-ghost")+' lview" data-lv="'+k+'" style="padding:8px 12px;font-size:12.5px">'+ic+t(k+"_view")+'</button>'; };
       var actions='<div class="row gap">'+scopeBadge()+
         (can("lead:export")?'<button class="btn btn-ghost" data-act="export">'+I.dl+t("export")+'</button>':'')+
         (can("lead:create")?'<button class="btn btn-coral" data-act="add">'+I.plus+t("add_lead")+'</button>':'')+'</div>';
-      return head(t("leads"),vis.length+" "+t("leads").toLowerCase(),actions)+
-        '<div class="card" style="padding:0;overflow:hidden"><div style="overflow-x:auto"><table><thead><tr><th>'+t("name")+'</th><th>'+t("source")+'</th><th>'+t("agent")+'</th><th>'+t("status")+'</th><th>'+t("value")+'</th><th>'+t("score")+'</th></tr></thead><tbody>'+
-          (vis.length?vis.map(function(l){ return leadRow(l,true); }).join(""):'<tr><td colspan="6" class="muted" style="text-align:center;padding:28px">'+(state.lang==="ar"?"لا عملاء ضمن نطاق رؤيتك":"No leads in your visibility scope")+'</td></tr>')+'</tbody></table></div></div>';
+      var switcher='<div class="row wrap gap" style="gap:8px;margin-bottom:16px">'+vbtn("cards",I.leads)+vbtn("table",I.inventory)+vbtn("kanban",I.pipeline)+'</div>';
+      var empty='<div class="card muted" style="text-align:center;padding:28px">'+(state.lang==="ar"?"لا عملاء ضمن نطاق رؤيتك":"No leads in your visibility scope")+'</div>';
+      var body;
+      if(!vis.length){ body=empty; }
+      else if(lv==="cards"){
+        body='<div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr))">'+vis.map(function(l){ return leadCard(l); }).join("")+'</div>';
+      } else if(lv==="kanban"){
+        var cols=[["No answer","New","var(--cool)"],["Interested","Qualified","var(--purple)"],["Meeting set","Meeting","var(--amber)"]];
+        body='<div class="kanban" style="grid-template-columns:repeat(3,minmax(240px,1fr))">'+cols.map(function(c){ var items=vis.filter(function(l){return l.status===c[0];});
+          return '<div class="kcol"><h4><span><span class="dot-s" style="background:'+c[2]+';display:inline-block;margin-inline-end:6px"></span>'+c[1]+'</span><span class="muted">'+items.length+'</span></h4>'+
+            (items.length?items.map(function(l){ return '<div class="kcard leadrow" data-lead="'+l.n+'" style="cursor:pointer"><div class="row between"><div class="t">'+l.n+'</div><b class="tnum" style="font-size:11px;color:'+(l.score>=75?"var(--green)":"var(--amber)")+'">'+l.score+'</b></div><div class="m">'+l.area+' · '+money(l.budget)+'</div><div class="row gap" style="gap:6px;margin-top:8px">'+leadMini(l)+'</div></div>'; }).join(""):'<div class="muted" style="font-size:12px;padding:8px">—</div>')+'</div>';
+        }).join("")+'</div>';
+      } else {
+        body='<div class="card" style="padding:0;overflow:hidden"><div style="overflow-x:auto"><table><thead><tr><th>'+t("name")+'</th><th>'+t("source")+'</th><th>'+t("agent")+'</th><th>'+t("status")+'</th><th>'+t("value")+'</th><th>'+t("score")+'</th></tr></thead><tbody>'+
+          vis.map(function(l){ return leadRow(l,true); }).join("")+'</tbody></table></div></div>';
+      }
+      return head(t("leads"),vis.length+" "+t("leads").toLowerCase(),actions)+switcher+body;
     },
     customers:function(){
       return head(t("customers"),"")+listPlaceholder(t("customers"));
@@ -557,7 +594,24 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
             items.map(function(l){ return '<div class="kcard"><div class="t">'+l.n+'</div><div class="m">'+l.area+' · '+money(l.budget)+'</div></div>'; }).join("")+'</div>';
         }).join("")+'</div>';
     },
-    inventory:function(){ return head(t("inventory"),"")+listPlaceholder(t("inventory")); },
+    inventory:function(){
+      var cities=[]; demo.units.forEach(function(u){ if(cities.indexOf(u.city)<0) cities.push(u.city); });
+      var cf=state.invCity||"all";
+      var list=demo.units.filter(function(u){ return cf==="all"||u.city===cf; });
+      var SC={available:["var(--green-soft)","var(--green)",t("available_u")],reserved:["var(--amber-soft)","var(--amber)",t("reserved_u")],sold:["var(--card-2)","var(--ink-3)",t("sold_u")]};
+      var chips='<div class="row wrap gap" style="gap:8px;margin-bottom:16px"><button class="btn '+(cf==="all"?"btn-coral":"btn-ghost")+' invcity" data-city="all" style="padding:8px 14px;font-size:12.5px">'+t("all_cities")+'</button>'+
+        cities.map(function(c){ return '<button class="btn '+(cf===c?"btn-coral":"btn-ghost")+' invcity" data-city="'+c+'" style="padding:8px 14px;font-size:12.5px">'+c+'</button>'; }).join("")+'</div>';
+      return head(t("inventory"),list.length+" "+t("units").toLowerCase())+chips+
+        '<div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(250px,1fr))">'+list.map(function(u,i){ var s=SC[u.status];
+          return '<div class="card unitcard" data-u="'+demo.units.indexOf(u)+'" style="overflow:hidden;cursor:pointer">'+
+            '<div style="height:120px;background:linear-gradient(135deg,var(--purple-soft),var(--coral-soft));display:grid;place-items:center;position:relative"><span style="font-weight:800;font-size:15px;color:var(--ink-2);letter-spacing:1px">'+u.project+'</span>'+
+              '<span class="pill" style="position:absolute;top:10px;inset-inline-end:10px;background:'+s[0]+';color:'+s[1]+'"><span class="dot-s" style="background:'+s[1]+'"></span>'+s[2]+'</span></div>'+
+            '<div style="padding:14px"><div class="row between"><b style="font-size:14.5px">'+u.type+'</b><b class="tnum" style="color:var(--coral)">EGP '+u.price+'M</b></div>'+
+              '<div class="muted" style="font-size:12px;margin-top:2px">'+u.dev+' · '+u.city+'</div>'+
+              '<div class="row gap" style="gap:14px;margin-top:10px;font-size:12px" class="muted"><span>🛏 '+u.beds+'</span><span>🛁 '+u.baths+'</span><span>📐 '+u.area+' m²</span></div>'+
+              '<div class="muted tnum" style="font-size:11.5px;margin-top:8px">'+u.code+' · '+u.delivery+'</div></div></div>';
+        }).join("")+'</div>';
+    },
     map:function(){
       var areas=[]; demo.projects.forEach(function(p){ if(areas.indexOf(p.area)<0) areas.push(p.area); });
       var f=state.mapArea||"all";
@@ -726,6 +780,26 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
       '<td><span class="tag" style="background:'+stbg+';color:'+st+'">'+l.status+'</span></td>'+(full?'<td class="tnum">'+money(l.budget)+'</td>':'')+
       '<td><div class="row gap" style="gap:8px"><div class="bar" style="width:52px"><i style="width:'+l.score+'%;background:'+(l.score>=75?"var(--green)":l.score>=60?"var(--amber)":"var(--ink-3)")+'"></i></div><b class="tnum" style="font-size:12px">'+l.score+'</b></div></td></tr>';
   }
+  // Small quick-action icon buttons for a lead card (call / whatsapp / AI action).
+  function leadMini(l){
+    var b=function(cls,ic,tip){ return '<button class="ic-btn lact" data-la="'+cls+'" data-lead="'+l.n+'" title="'+tip+'" style="width:30px;height:30px" onclick="event.stopPropagation()">'+ic+'</button>'; };
+    return (can("call:create")?b("call",I.phone,t("call_center")):'')+(can("whatsapp:create")?b("wa",I.chat,"WhatsApp"):'')+b("ai",I.brain,t("ai_next_action"));
+  }
+  // Rich lead card (cards view) — score ring, stage tag, badges, quick actions.
+  function leadCard(l){
+    var st={ "Interested":"var(--green)","Meeting set":"var(--amber)","No answer":"var(--ink-3)" }[l.status]||"var(--ink-3)";
+    var stbg={ "Interested":"var(--green-soft)","Meeting set":"var(--amber-soft)","No answer":"var(--card-2)" }[l.status]||"var(--card-2)";
+    var sc=l.score>=75?"var(--green)":l.score>=60?"var(--amber)":"var(--ink-3)";
+    var badges=[];
+    if(l.score>=75) badges.push('<span class="pill" style="background:var(--coral-soft);color:var(--coral)">🔥 '+(state.lang==="ar"?"ساخن":"Hot")+'</span>');
+    if(l.dup) badges.push('<span class="pill" style="background:var(--amber-soft);color:var(--amber)">'+(state.lang==="ar"?"مكرر":"Duplicate")+'</span>');
+    if(l.resale) badges.push('<span class="pill" style="background:var(--purple-soft);color:var(--purple)">'+(state.lang==="ar"?"إعادة بيع":"Resale")+'</span>');
+    return '<div class="card leadrow" data-lead="'+l.n+'" style="padding:16px;cursor:pointer">'+
+      '<div class="row between" style="align-items:flex-start"><div><b style="font-size:15px">'+l.n+'</b><div class="muted" style="font-size:12px;margin-top:2px">'+l.area+' · '+money(l.budget)+'</div></div>'+
+        '<div style="width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:conic-gradient('+sc+' '+(l.score*3.6)+'deg,var(--card-2) 0)"><span style="width:32px;height:32px;border-radius:50%;background:var(--card);display:grid;place-items:center;font-weight:800;font-size:12px;color:'+sc+'" class="tnum">'+l.score+'</span></div></div>'+
+      '<div class="row wrap gap" style="gap:6px;margin-top:10px"><span class="tag" style="background:'+stbg+';color:'+st+'">'+l.status+'</span>'+badges.join("")+'</div>'+
+      '<div class="row between" style="margin-top:12px;align-items:center"><span class="muted" style="font-size:11.5px">'+l.src+' · '+(l.owner||l.agent||"—")+'</span><div class="row gap" style="gap:6px">'+leadMini(l)+'</div></div></div>';
+  }
   function roleMatrix(){
     var role=state.roleSel, wc=roleHas(role,"*");
     var ABBR={read:"R",create:"C",update:"U","delete":"D",assign:"As",approve:"Ap",export:"Ex",import:"Im",use:"Us"};
@@ -756,6 +830,12 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
     });
     [].forEach.call(document.querySelectorAll(".rolecard"),function(c){ c.onclick=function(){ state.roleSel=c.getAttribute("data-role"); render(); }; });
     [].forEach.call(document.querySelectorAll(".leadrow"),function(r){ r.onclick=function(){ var n=r.getAttribute("data-lead"); var l=demo.leads.filter(function(x){return x.n===n;})[0]; if(l) openLeadDrawer(l); }; });
+    // Leads: view switcher (cards/table/kanban) + quick-action icons on cards
+    [].forEach.call(document.querySelectorAll(".lview"),function(b){ b.onclick=function(){ state.leadView=b.getAttribute("data-lv"); render(); }; });
+    [].forEach.call(document.querySelectorAll(".lact"),function(b){ b.onclick=function(ev){ ev.stopPropagation(); var n=b.getAttribute("data-lead"); var l=demo.leads.filter(function(x){return x.n===n;})[0]; var a=b.getAttribute("data-la");
+      if(a==="call") toast((state.lang==="ar"?"جارٍ الاتصال بـ ":"Calling ")+n+" …");
+      else if(a==="wa") toast((state.lang==="ar"?"فتح واتساب لـ ":"WhatsApp → ")+n);
+      else if(a==="ai"){ var tip=l&&l.score>=75?(state.lang==="ar"?"عميل ساخن — احجز معاينة اليوم وأرسل عرض PDF":"Hot lead — book a viewing today & send the PDF offer"):(state.lang==="ar"?"تابع خلال ساعة برسالة واتساب مخصّصة":"Follow up within 1h with a tailored WhatsApp"); toast(I.brain?tip:tip); } }; });
     [].forEach.call(document.querySelectorAll(".lkadd"),function(b){ b.onclick=function(){ var type=b.getAttribute("data-type");
       openModal(t("add_value"), field("lkv",t("name"),""), function(ov){ var v=ov.querySelector("#lkv").value.trim(); if(!v) return false;
         if(type==="LEAD_STAGE"){ demo.leadStages.push([v,"#7c6fd6"]); } else { (demo.lookups[type]=demo.lookups[type]||[]).push(v); }
@@ -764,6 +844,9 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
     // Map: area filters + clickable project pins
     [].forEach.call(document.querySelectorAll("[data-area]"),function(b){ b.onclick=function(){ state.mapArea=b.getAttribute("data-area"); render(); }; });
     [].forEach.call(document.querySelectorAll(".mappin"),function(b){ b.onclick=function(ev){ ev.stopPropagation(); openMapPop(demo.projects[+b.getAttribute("data-p")]); }; });
+    // Inventory: city filter chips + unit cards -> property details
+    [].forEach.call(document.querySelectorAll(".invcity"),function(b){ b.onclick=function(){ state.invCity=b.getAttribute("data-city"); render(); }; });
+    [].forEach.call(document.querySelectorAll(".unitcard"),function(b){ b.onclick=function(){ var u=demo.units[+b.getAttribute("data-u")]; if(u) openUnit(u); }; });
     // WhatsApp: select conversation, template chips, send
     [].forEach.call(document.querySelectorAll(".wconv"),function(b){ b.onclick=function(){ state.waSel=+b.getAttribute("data-i"); var ow=visibleOwners(); var vis=demo.convos.filter(function(c){return !ow||ow.indexOf(c.assignee)>=0;}); if(vis[state.waSel])vis[state.waSel].unread=0; render(); }; });
     [].forEach.call(document.querySelectorAll(".wtmpl"),function(b){ b.onclick=function(){ var inp=$("#waInput"); if(inp) inp.value="["+b.getAttribute("data-tp")+"] template"; }; });
@@ -780,6 +863,26 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
       '<button class="btn btn-coral" id="popFind" style="width:100%;justify-content:center;margin-top:12px;font-size:12.5px">'+t("find_leads")+'</button></div>';
     $("#popX").onclick=function(){ pop.classList.add("hide"); };
     $("#popFind").onclick=function(){ toast((state.lang==="ar"?"عملاء مطابقون لـ ":"Matching leads for ")+p.name); };
+  }
+  // Property details modal (specs + PDF offer + unique selling points).
+  function openUnit(u){
+    var usp=demo.usp[u.project]||[];
+    var spec=function(k,v){ return '<div class="card" style="padding:11px 13px;box-shadow:none;background:var(--card-2)"><div class="muted" style="font-size:11px">'+k+'</div><div style="font-weight:700;font-size:13.5px;margin-top:2px">'+v+'</div></div>'; };
+    var ov=document.createElement("div"); ov.style.cssText="position:fixed;inset:0;z-index:150;background:rgba(20,15,40,.45);display:flex;align-items:center;justify-content:center;padding:20px";
+    ov.innerHTML='<div class="card" style="width:100%;max-width:520px;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow-m)">'+
+      '<div style="height:140px;background:linear-gradient(135deg,var(--purple-soft),var(--coral-soft));display:grid;place-items:center;position:relative"><span style="font-weight:800;font-size:20px;color:var(--ink-2);letter-spacing:1px">'+u.project+'</span><button class="ic-btn" id="uX" style="position:absolute;top:12px;inset-inline-end:12px;width:30px;height:30px;border:none">✕</button></div>'+
+      '<div style="padding:20px"><div class="row between"><div><h3 style="font-size:19px;font-weight:800">'+t("property_details")+'</h3><div class="muted" style="font-size:12.5px">'+u.dev+'</div></div><b class="tnum" style="font-size:20px;color:var(--coral)">EGP '+u.price+'M</b></div>'+
+        '<div class="grid" style="grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px">'+
+          spec(t("unit_type"),u.type)+spec(t("bedrooms"),u.beds)+spec(t("area_m"),u.area+" m²")+
+          spec(t("city"),u.city)+spec(t("unit_code"),u.code)+spec(t("delivery"),u.delivery)+
+          spec(t("finishing"),u.finish)+spec("Baths",u.baths)+spec(t("developer"),u.dev)+'</div>'+
+        (usp.length?'<div class="sec-title" style="font-size:14px;margin:20px 0 10px">'+t("usp")+'</div>'+usp.map(function(s){return '<div class="row gap" style="gap:9px;margin-bottom:7px"><span style="color:var(--green)">'+I.check+'</span><span style="font-size:13px">'+s+'</span></div>';}).join(""):'')+
+        '<button class="btn btn-coral" id="uPdf" style="width:100%;justify-content:center;margin-top:18px">'+I.dl+t("pdf_offer")+'</button></div></div>';
+    document.body.appendChild(ov);
+    var close=function(){ document.body.removeChild(ov); };
+    ov.addEventListener("click",function(e){ if(e.target===ov) close(); });
+    ov.querySelector("#uX").onclick=close;
+    ov.querySelector("#uPdf").onclick=function(){ toast(t("offer_sent")); };
   }
   /* ── modals (add user / add lead) — actually mutate the demo data ── */
   function openModal(title,bodyHtml,onSave){
@@ -826,6 +929,7 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
   function openLeadDrawer(lead){
     var due="after_1h", stage=(demo.leadStages[1]||["Potential"])[0], rating=0;
     var hist=(demo.actionHistory[lead.n]||[]).slice();
+    var fbk=(demo.feedback&&demo.feedback[lead.n]||[]).slice();
     var ov=document.createElement("div"); ov.style.cssText="position:fixed;inset:0;z-index:150;background:rgba(20,15,40,.45);display:flex;justify-content:flex-end";
     function draw(){
       var canAct=can("lead:update");
@@ -846,6 +950,9 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
               (h.comment?'<div class="muted" style="font-size:12.5px;margin-top:3px">'+h.comment+'</div>':'')+
               '<div class="row gap" style="gap:8px;margin-top:5px"><span class="muted" style="font-size:11px">'+h.by+'</span>'+(h.rating?'<span style="color:var(--amber);font-size:11px">'+"★".repeat(h.rating)+'</span>':'')+'<span class="pill" style="background:'+col+'1f;color:'+col+';padding:1px 8px;font-size:10px">'+t(h.status==="PLANNED"?"planned":"done")+'</span></div></div>';
           }).join(""):'<div class="muted" style="font-size:13px">—</div>')+
+          '<div class="sec-title" style="font-size:14px;margin-top:22px">'+t("feedback_history")+'</div>'+
+          (canAct?'<div class="row gap" style="gap:8px;margin-bottom:12px"><input id="dFbk" placeholder="'+t("add_feedback")+'…" style="flex:1;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px 13px;color:var(--ink);font-size:13px"/><button class="btn btn-coral" id="dFbkAdd" style="padding:11px 14px">'+I.plus+'</button></div>':'')+
+          (fbk.length?fbk.map(function(f){ return '<div class="card" style="padding:11px 14px;margin-bottom:8px;box-shadow:none;border-inline-start:3px solid var(--purple)"><div style="font-size:13px">'+f.text+'</div><div class="row gap" style="gap:8px;margin-top:4px"><span class="muted" style="font-size:11px">'+f.by+'</span><span class="muted" style="font-size:11px">'+f.when+'</span></div></div>'; }).join(""):'<div class="muted" style="font-size:13px">—</div>')+
         '</div></div>';
       ov.querySelector("#dX").onclick=close;
       [].forEach.call(ov.querySelectorAll("[data-d]"),function(b){ b.onclick=function(){ toast(b.getAttribute("data-d")==="call"?"Calling "+lead.n+"…":"WhatsApp "+lead.n); }; });
@@ -858,6 +965,10 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
         demo.audit.unshift(["lead.action","update",currentPersona().name,"lead/"+lead.n.split(" ")[0].toLowerCase(),"127.0.0.1","now"]);
         toast(state.lang==="ar"?"تم حفظ الإجراء ✓":"Action saved ✓"); rating=0; draw();
       };
+      var fa=ov.querySelector("#dFbkAdd"); if(fa) fa.onclick=function(){ var inp=ov.querySelector("#dFbk"); var v=inp&&inp.value.trim(); if(!v) return;
+        fbk.unshift({text:v,by:currentPersona().name,when:"now"}); (demo.feedback=demo.feedback||{})[lead.n]=fbk;
+        demo.audit.unshift(["lead.feedback","create",currentPersona().name,"lead/"+lead.n.split(" ")[0].toLowerCase(),"127.0.0.1","now"]);
+        toast(state.lang==="ar"?"تمت إضافة الملاحظة ✓":"Feedback added ✓"); draw(); };
     }
     var close=function(){ document.body.removeChild(ov); };
     ov.addEventListener("click",function(e){ if(e.target===ov) close(); });
