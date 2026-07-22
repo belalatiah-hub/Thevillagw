@@ -217,7 +217,7 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
       efficiency:"Efficiency", eff_tracker:"Efficiency Tracker", total_actions:"Total Actions", delayed:"Delayed", total_delay:"Total Delay", won:"Won", lost:"Lost", actions:"Actions", agent2:"Agent",
       log_action:"Log action", next_action:"Next action", stage_date:"Stage date", after_1h:"After 1 hour", after_2h:"After 2 hours", tomorrow:"Tomorrow", next_week:"Next week", comment:"Comment", rating:"Rating", action_history:"Action history", stage:"Stage", planned:"Planned", done:"Done", save_action:"Save action", record:"Record voice note",
       lookups:"Lookups", channels:"Channels", comm_ways:"Comm. ways", stages:"Stages", cancel_reasons:"Cancel reasons", add_value:"Add value", reports_to:"Reports to",
-      property_details:"Property details", developer:"Developer", city:"City", unit_type:"Unit type", price:"Price", bedrooms:"Bedrooms", area_m:"Area", unit_code:"Unit code", delivery:"Delivery", finishing:"Finishing", pdf_offer:"PDF Offer", usp:"Unique selling points", available_u:"Available", reserved_u:"Reserved", sold_u:"Sold", all_cities:"All cities", cards_view:"Cards", table_view:"Table", kanban_view:"Kanban", feedback:"Feedback", add_feedback:"Add feedback", feedback_history:"Feedback history", offer_sent:"PDF offer generated ✓", ai_next_action:"AI next action", ai_suggest:"AI suggestion",
+      property_details:"Property details", developer:"Developer", city:"City", unit_type:"Unit type", price:"Price", bedrooms:"Bedrooms", area_m:"Area", unit_code:"Unit code", delivery:"Delivery", finishing:"Finishing", pdf_offer:"PDF Offer", usp:"Unique selling points", available_u:"Available", reserved_u:"Reserved", sold_u:"Sold", all_cities:"All cities", cards_view:"Cards", table_view:"Table", kanban_view:"Kanban", feedback:"Feedback", add_feedback:"Add feedback", feedback_history:"Feedback history", offer_sent:"PDF offer generated ✓", ai_next_action:"AI next action", ai_suggest:"AI suggestion", ai_sales_coach:"AI Sales Coach", matched_units:"Matched units", match:"match", send_offer:"Send offer", no_matches:"No matching units in this budget & area", requirements:"Client requirements", best_match:"Best match",
       welcome:"Welcome back", signin:"Sign in to Village CRM", email:"Email", password:"Password", signin_btn:"Sign in",
       hero:"The complete real-estate CRM for your team.", hero_sub:"Leads, pipeline, inventory, finance, automation and AI — one secure console for The Village Investment.",
       demo_note:"Demo mode — explore with sample data. Set API_BASE in the file to connect your live backend.",
@@ -246,7 +246,7 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
       efficiency:"الكفاءة", eff_tracker:"متتبّع الكفاءة", total_actions:"إجمالي الإجراءات", delayed:"متأخرة", total_delay:"إجمالي التأخير", won:"فائزة", lost:"خاسرة", actions:"إجراءات", agent2:"المندوب",
       log_action:"تسجيل إجراء", next_action:"الإجراء التالي", stage_date:"موعد المرحلة", after_1h:"بعد ساعة", after_2h:"بعد ساعتين", tomorrow:"غداً", next_week:"الأسبوع القادم", comment:"تعليق", rating:"التقييم", action_history:"سجل الإجراءات", stage:"المرحلة", planned:"مخطط", done:"تم", save_action:"حفظ الإجراء", record:"تسجيل ملاحظة صوتية",
       lookups:"القوائم", channels:"المصادر", comm_ways:"طرق التواصل", stages:"المراحل", cancel_reasons:"أسباب الإلغاء", add_value:"إضافة قيمة", reports_to:"يتبع",
-      property_details:"تفاصيل الوحدة", developer:"المطوّر", city:"المدينة", unit_type:"نوع الوحدة", price:"السعر", bedrooms:"غرف النوم", area_m:"المساحة", unit_code:"كود الوحدة", delivery:"التسليم", finishing:"التشطيب", pdf_offer:"عرض PDF", usp:"مميزات المشروع", available_u:"متاحة", reserved_u:"محجوزة", sold_u:"مباعة", all_cities:"كل المدن", cards_view:"بطاقات", table_view:"جدول", kanban_view:"كانبان", feedback:"ملاحظات", add_feedback:"إضافة ملاحظة", feedback_history:"سجل الملاحظات", offer_sent:"تم توليد عرض PDF ✓", ai_next_action:"إجراء ذكي مقترح", ai_suggest:"اقتراح ذكي",
+      property_details:"تفاصيل الوحدة", developer:"المطوّر", city:"المدينة", unit_type:"نوع الوحدة", price:"السعر", bedrooms:"غرف النوم", area_m:"المساحة", unit_code:"كود الوحدة", delivery:"التسليم", finishing:"التشطيب", pdf_offer:"عرض PDF", usp:"مميزات المشروع", available_u:"متاحة", reserved_u:"محجوزة", sold_u:"مباعة", all_cities:"كل المدن", cards_view:"بطاقات", table_view:"جدول", kanban_view:"كانبان", feedback:"ملاحظات", add_feedback:"إضافة ملاحظة", feedback_history:"سجل الملاحظات", offer_sent:"تم توليد عرض PDF ✓", ai_next_action:"إجراء ذكي مقترح", ai_suggest:"اقتراح ذكي", ai_sales_coach:"مساعد المبيعات الذكي", matched_units:"وحدات مطابقة", match:"تطابق", send_offer:"إرسال عرض", no_matches:"لا توجد وحدات مطابقة ضمن الميزانية والمنطقة", requirements:"متطلبات العميل", best_match:"أفضل تطابق",
       welcome:"مرحباً بعودتك", signin:"سجّل الدخول إلى Village CRM", email:"البريد الإلكتروني", password:"كلمة المرور", signin_btn:"دخول",
       hero:"نظام CRM عقاري متكامل لفريقك.", hero_sub:"العملاء والمسار والمخزون والمالية والأتمتة والذكاء الاصطناعي — لوحة آمنة واحدة لـ The Village Investment.",
       demo_note:"وضع تجريبي — استكشف ببيانات نموذجية. اضبط API_BASE في الملف لربط الخادم الحقيقي.",
@@ -780,6 +780,21 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
       '<td><span class="tag" style="background:'+stbg+';color:'+st+'">'+l.status+'</span></td>'+(full?'<td class="tnum">'+money(l.budget)+'</td>':'')+
       '<td><div class="row gap" style="gap:8px"><div class="bar" style="width:52px"><i style="width:'+l.score+'%;background:'+(l.score>=75?"var(--green)":l.score>=60?"var(--amber)":"var(--ink-3)")+'"></i></div><b class="tnum" style="font-size:12px">'+l.score+'</b></div></td></tr>';
   }
+  // AI Sales Coach — score every inventory unit against a lead's requirements
+  // (budget fit + preferred area + availability). Returns matches sorted desc.
+  function matchUnits(lead){
+    return demo.units.map(function(u){
+      var s=8, r=u.price/lead.budget;
+      // Budget fit — peaks as the unit approaches (but stays within) budget.
+      if(r<=1) s+=28+Math.round(16*r);                       // ~28→44
+      else if(r<=1.12) s+=Math.round(24-(r-1)*120);          // ~24→10
+      else s+=Math.max(0,8-Math.round((r-1.12)*30));         // fades out
+      if(u.city===lead.area) s+=30;                          // preferred area
+      if(u.status==="available") s+=15; else if(u.status==="reserved") s+=4;
+      return { u:u, score:Math.max(4,Math.min(98,Math.round(s))) };
+    }).filter(function(m){ return m.u.status!=="sold"; })
+      .sort(function(a,b){ return b.score-a.score; });
+  }
   // Small quick-action icon buttons for a lead card (call / whatsapp / AI action).
   function leadMini(l){
     var b=function(cls,ic,tip){ return '<button class="ic-btn lact" data-la="'+cls+'" data-lead="'+l.n+'" title="'+tip+'" style="width:30px;height:30px" onclick="event.stopPropagation()">'+ic+'</button>'; };
@@ -835,7 +850,7 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
     [].forEach.call(document.querySelectorAll(".lact"),function(b){ b.onclick=function(ev){ ev.stopPropagation(); var n=b.getAttribute("data-lead"); var l=demo.leads.filter(function(x){return x.n===n;})[0]; var a=b.getAttribute("data-la");
       if(a==="call") toast((state.lang==="ar"?"جارٍ الاتصال بـ ":"Calling ")+n+" …");
       else if(a==="wa") toast((state.lang==="ar"?"فتح واتساب لـ ":"WhatsApp → ")+n);
-      else if(a==="ai"){ var tip=l&&l.score>=75?(state.lang==="ar"?"عميل ساخن — احجز معاينة اليوم وأرسل عرض PDF":"Hot lead — book a viewing today & send the PDF offer"):(state.lang==="ar"?"تابع خلال ساعة برسالة واتساب مخصّصة":"Follow up within 1h with a tailored WhatsApp"); toast(I.brain?tip:tip); } }; });
+      else if(a==="ai"){ if(l) openLeadDrawer(l); } }; });
     [].forEach.call(document.querySelectorAll(".lkadd"),function(b){ b.onclick=function(){ var type=b.getAttribute("data-type");
       openModal(t("add_value"), field("lkv",t("name"),""), function(ov){ var v=ov.querySelector("#lkv").value.trim(); if(!v) return false;
         if(type==="LEAD_STAGE"){ demo.leadStages.push([v,"#7c6fd6"]); } else { (demo.lookups[type]=demo.lookups[type]||[]).push(v); }
@@ -925,6 +940,20 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
         toast(state.lang==="ar"?"تم إضافة العميل ✓":"Lead added ✓"); render();
       });
   }
+  // AI Sales Coach block for the lead drawer — top inventory matches + one-click offer.
+  function coachBlock(lead){
+    var matches=matchUnits(lead).slice(0,3);
+    var rows=matches.length?matches.map(function(m,i){ var col=m.score>=75?"var(--green)":m.score>=55?"var(--amber)":"var(--ink-3)";
+      return '<div class="card matchunit" data-u="'+demo.units.indexOf(m.u)+'" style="padding:11px 13px;margin-bottom:8px;box-shadow:none;cursor:pointer;background:var(--card)">'+
+        '<div class="row between"><b style="font-size:13px">'+m.u.project+' · '+m.u.type+(i===0?' <span class="pill" style="background:var(--green-soft);color:var(--green);font-size:9.5px;padding:1px 7px">'+t("best_match")+'</span>':'')+'</b><b class="tnum" style="color:var(--coral);font-size:12.5px">EGP '+m.u.price+'M</b></div>'+
+        '<div class="muted" style="font-size:11px;margin-top:2px">'+m.u.city+' · '+m.u.beds+'BR · '+m.u.area+' m² · '+m.u.code+'</div>'+
+        '<div class="row between" style="margin-top:8px;align-items:center;gap:8px"><div class="row gap" style="gap:7px;flex:1"><div class="bar" style="flex:1;max-width:130px"><i style="width:'+m.score+'%;background:'+col+'"></i></div><b class="tnum" style="font-size:11px;color:'+col+'">'+m.score+'% '+t("match")+'</b></div>'+
+        (can("lead:update")?'<button class="btn btn-coral offerbtn" data-u="'+demo.units.indexOf(m.u)+'" style="padding:6px 12px;font-size:11.5px">'+I.dl+t("send_offer")+'</button>':'')+'</div></div>';
+    }).join(""):'<div class="muted" style="font-size:12.5px">'+t("no_matches")+'</div>';
+    return '<div class="card" style="padding:16px;margin-bottom:18px;background:linear-gradient(135deg,var(--purple-soft),var(--card));box-shadow:none">'+
+      '<div class="row gap" style="gap:8px;margin-bottom:3px"><span style="color:var(--purple)">'+I.brain+'</span><b style="font-size:14px">'+t("ai_sales_coach")+'</b></div>'+
+      '<div class="muted" style="font-size:11.5px;margin-bottom:12px">'+t("requirements")+': '+lead.area+' · EGP '+lead.budget+'M</div>'+rows+'</div>';
+  }
   // Lead detail drawer with the Next-Action loop + action history (mirrors the API).
   function openLeadDrawer(lead){
     var due="after_1h", stage=(demo.leadStages[1]||["Potential"])[0], rating=0;
@@ -937,6 +966,7 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
         '<div style="padding:18px 20px;border-bottom:1px solid var(--line)"><div class="row between"><div><h3 style="font-size:18px;font-weight:800">'+lead.n+'</h3><div class="muted" style="font-size:12.5px">'+lead.area+' · '+(lead.owner||lead.agent||"")+' · EGP '+lead.budget+'M</div></div><button class="ic-btn" id="dX" style="width:30px;height:30px;border:none">✕</button></div>'+
           '<div class="row gap" style="gap:8px;margin-top:12px">'+(can("call:create")?'<button class="btn btn-ghost" data-d="call" style="padding:8px 12px;font-size:12.5px">'+I.phone+'Call</button>':'')+(can("whatsapp:create")?'<button class="btn btn-ghost" data-d="wa" style="padding:8px 12px;font-size:12.5px">'+I.chat+'WhatsApp</button>':'')+'</div></div>'+
         '<div style="flex:1;overflow-y:auto;padding:18px 20px">'+
+          coachBlock(lead)+
           (canAct?'<div class="card" style="padding:16px;background:var(--card-2);box-shadow:none;margin-bottom:18px"><div class="sec-title" style="font-size:14px">'+t("log_action")+'</div>'+
             '<div class="field"><label>'+t("next_action")+'</label><select id="dAct" style="width:100%;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px 13px;color:var(--ink)">'+demo.nextActions.map(function(a){return '<option>'+a+'</option>';}).join("")+'</select></div>'+
             '<div class="field"><label>'+t("stage")+'</label><select id="dStage" style="width:100%;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px 13px;color:var(--ink)">'+demo.leadStages.map(function(s){return '<option'+(s[0]===stage?" selected":"")+'>'+s[0]+'</option>';}).join("")+'</select></div>'+
@@ -955,6 +985,13 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
           (fbk.length?fbk.map(function(f){ return '<div class="card" style="padding:11px 14px;margin-bottom:8px;box-shadow:none;border-inline-start:3px solid var(--purple)"><div style="font-size:13px">'+f.text+'</div><div class="row gap" style="gap:8px;margin-top:4px"><span class="muted" style="font-size:11px">'+f.by+'</span><span class="muted" style="font-size:11px">'+f.when+'</span></div></div>'; }).join(""):'<div class="muted" style="font-size:13px">—</div>')+
         '</div></div>';
       ov.querySelector("#dX").onclick=close;
+      // AI Sales Coach: open a matched unit, or send its PDF offer (logged to history+audit).
+      [].forEach.call(ov.querySelectorAll(".matchunit"),function(b){ b.onclick=function(){ var u=demo.units[+b.getAttribute("data-u")]; if(u) openUnit(u); }; });
+      [].forEach.call(ov.querySelectorAll(".offerbtn"),function(b){ b.onclick=function(ev){ ev.stopPropagation(); var u=demo.units[+b.getAttribute("data-u")];
+        hist.unshift({act:"Send offer",stage:(demo.leadStages[2]||["Hot Case"])[0],by:currentPersona().name,when:"now",comment:"PDF offer — "+u.project+" "+u.type+" · EGP "+u.price+"M",status:"PLANNED"});
+        demo.actionHistory[lead.n]=hist;
+        demo.audit.unshift(["lead.offer","create",currentPersona().name,"lead/"+lead.n.split(" ")[0].toLowerCase(),"127.0.0.1","now"]);
+        toast(t("offer_sent")); draw(); }; });
       [].forEach.call(ov.querySelectorAll("[data-d]"),function(b){ b.onclick=function(){ toast(b.getAttribute("data-d")==="call"?"Calling "+lead.n+"…":"WhatsApp "+lead.n); }; });
       [].forEach.call(ov.querySelectorAll(".ddue"),function(b){ b.onclick=function(){ due=b.getAttribute("data-due"); draw(); }; });
       [].forEach.call(ov.querySelectorAll(".dstar"),function(s){ s.onclick=function(){ rating=+s.getAttribute("data-n"); draw(); }; });
