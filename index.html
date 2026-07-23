@@ -1939,6 +1939,22 @@
     'stei8ht-there':'/project-media/lmd/cover-stei8ht-there.webp',
     'stei8ht-eastside':'/project-media/lmd/cover-stei8ht-eastside.webp'
   };
+  /* Project groups — a presentational sub-collection under one developer.
+     Members stay full projects (own pages/units); on the developer page they
+     are shown as ONE group card that opens a group page listing the members. */
+  var PROJECT_GROUPS = [
+    {slug:'stei8ht', dev:'lmd', name:'Stei8ht', name_ar:'ستيت',
+     cover:'/project-media/lmd/cover-stei8ht.webp',
+     members:['stei8ht-eastmed','stei8ht-there','stei8ht-eastside'],
+     blurb:{en:'LMD’s Stei8ht collection — business, medical and retail addresses in New Cairo, developer-direct primary units.',
+            ar:'مجموعة ستيت من LMD — مكاتب وعيادات ومحلات في القاهرة الجديدة، وحدات أولية من المطوّر مباشرة.'}}
+  ];
+  var GROUP_BY_SLUG = {}, GROUPED_PROJECT = {};
+  PROJECT_GROUPS.forEach(function(g){ GROUP_BY_SLUG[g.slug]=g; g.members.forEach(function(s){ GROUPED_PROJECT[s]=g.slug; }); });
+  function groupBySlug(s){ return GROUP_BY_SLUG[s]||null; }
+  function groupsByDev(k){ return PROJECT_GROUPS.filter(function(g){ return g.dev===k; }); }
+  function groupMembers(g){ return (g?g.members:[]).map(projBySlug).filter(Boolean); }
+  function groupFrom(g){ var m=groupMembers(g).map(function(p){return p.price;}).filter(function(x){return x!=null;}); return m.length?Math.min.apply(null,m):null; }
   var UNIT_IMAGES = {
     'V-A305':'/project-media/villette/apartment.webp', 'V-TH22':'/project-media/villette/town-house.webp', 'VL-IV3':'/project-media/villette/i-villa.webp',
     'SE-T12':'/project-media/sodic-east/town-house.webp', 'SE-A44':'/project-media/sodic-east/apartment.webp',
@@ -2837,6 +2853,7 @@
       case 'launches': return b+'new-launches/';
       case 'developers': return b+'developers/';
       case 'developer': return b+'developers/'+params.slug+'/';
+      case 'group': return b+'groups/'+params.slug+'/';
       case 'areas': return b+'areas/';
       case 'area': return b+'areas/'+params.slug+'/';
       case 'compare': return b+'compare/';
@@ -2869,6 +2886,7 @@
     else if(seg[0]==='search') name='search';
     else if(seg[0]==='new-launches') name='launches';
     else if(seg[0]==='developers'){ name = seg[1]?'developer':'developers'; if(seg[1]) params.slug=seg[1]; }
+    else if(seg[0]==='groups'){ name = seg[1]?'group':'404'; if(seg[1]) params.slug=seg[1]; }
     else if(seg[0]==='areas'){ name = seg[1]?'area':'areas'; if(seg[1]) params.slug=seg[1]; }
     else if(seg[0]==='compare') name='compare';
     else if(seg[0]==='insights'){ name = seg[1]?'insight':'insights'; if(seg[1]) params.slug=seg[1]; }
@@ -2882,6 +2900,7 @@
     // validate entity existence
     if(name==='project' && !projBySlug(params.slug)) name='404';
     if(name==='developer' && !devByKey(params.slug)) name='404';
+    if(name==='group' && !groupBySlug(params.slug)) name='404';
     if(name==='area' && !areaByKey(params.slug)) name='404';
     if(name==='insight' && !RESEARCH.some(function(r){return r.slug===params.slug;})) name='404';
     if(name==='unit' && !unitById(params.id)) name='404';
@@ -2965,6 +2984,28 @@
         h('a',{class:'btn btn--primary btn--sm', href:U(buildPath('project',{slug:p.slug}))}, t('cta_details')),
         CONFIG.whatsapp ? h('a',{class:'btn btn--wa btn--sm btn--icon', href:waLink(projWaMsg(p)), target:'_blank', rel:'noopener','aria-label':t('whatsapp')+' — '+(lang==='ar'?p.name_ar:p.name)}, ic('wa')) : null)
     ));
+    return card;
+  }
+  // Group card — one card standing for a whole project group (opens the group page).
+  function groupCard(g){
+    var dev=devByKey(g.dev), members=groupMembers(g), from=groupFrom(g), nm=L({en:g.name,ar:g.name_ar});
+    var fallback=function(){ return members[0]?projectMedia(members[0]):mediaBox(nm,'artsvg'); };
+    var cover=g.cover ? coverImg(g.cover, nm, fallback) : fallback();
+    var card=h('article',{class:'card'});
+    var media=h('div',{class:'card__media'}, cover,
+      h('div',{class:'tags'}, h('span',{class:'chip'}, ic('gallery'), ' '+num(members.length)+' '+(lang==='ar'?'مشروعات':'projects'))));
+    media.appendChild(devChip(dev));
+    var link=h('a',{href:U(buildPath('group',{slug:g.slug})), 'aria-label':nm});
+    link.appendChild(media); card.appendChild(link);
+    card.appendChild(h('div',{class:'card__body'},
+      h('div',{class:'card__dev'}, L(dev.name)),
+      h('h3',null, h('a',{href:U(buildPath('group',{slug:g.slug}))}, nm)),
+      h('div',{class:'card__facts'},
+        h('span',null, ic('build'), ' ', num(members.length)+' '+(lang==='ar'?'مشروعات داخل المجموعة':'projects in this group'))),
+      (from!=null ? h('div',{class:'card__price'}, h('small',null,t('from')), money(from)) : null),
+      provBadge(),
+      h('div',{class:'card__foot'},
+        h('a',{class:'btn btn--primary btn--sm', href:U(buildPath('group',{slug:g.slug}))}, (lang==='ar'?'عرض المجموعة':'View group')))));
     return card;
   }
   function projWaMsg(p){ return (lang==='ar'?'مهتم بمشروع: ':'Interested in project: ')+(lang==='ar'?p.name_ar:p.name)+' ('+t('conf_illustrative')+')'; }
@@ -4443,6 +4484,9 @@
   };
   V.developer = function(key){
     var d = devByKey(key), ps = projByDev(key), node=h('div',null);
+    // grouped members collapse into a single group card; count stays real (ps.length)
+    var grps = groupsByDev(key);
+    var devCards = ps.filter(function(p){ return !GROUPED_PROJECT[p.slug]; }).map(projectCard).concat(grps.map(groupCard));
     node.appendChild(sectionWrap(
       crumbNode([{label:t('nav_home'),path:buildPath('home')},{label:t('nav_developers'),path:buildPath('developers')},{label:L(d.name)}]),
       h('div',{class:'detail-hero'},
@@ -4459,7 +4503,7 @@
           h('div',{class:'price-lg', style:'font-size:2.4rem'}, num(ps.length)),
           h('div',{class:'prov'}, ic('info'), t('derived')),
           h('a',{class:'btn btn--primary btn--block mt-16', href:U(buildPath('contact'))}, t('cta_talk'))))));
-    if(ps.length) node.appendChild(listSection('', t('by_dev'), '', ps.map(projectCard), null, 'band'));
+    if(devCards.length) node.appendChild(listSection('', t('by_dev'), '', devCards, null, 'band'));
     else node.appendChild(h('section',{class:'section band'}, h('div',{class:'wrap'},
       h('div',{class:'empty-state'}, h('div',{class:'empty-ico'}, ic('home')),
         h('p',null, (lang==='ar'?'نضيف مشروعات '+L(d.name)+' حاليًا — تواصل مع مستشار لمعرفة المتاح الآن.':'We’re adding '+L(d.name)+'’s projects — talk to an advisor for current availability.')),
@@ -4467,6 +4511,35 @@
     node.appendChild(ctaBand());
     return {node:node, title:L(d.name)+' — '+t('nav_developers')+' · The Village Investment', desc:L(d.desc), indexable:true,
       crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_developers'),path:buildPath('developers')},{label:L(d.name)}]};
+  };
+
+  /* ---- Project group (e.g. Stei8ht) — a sub-collection under a developer ---- */
+  V.group = function(slug){
+    var g = groupBySlug(slug); if(!g) return V.notfound();
+    var dev = devByKey(g.dev), members = groupMembers(g), node=h('div',null);
+    var nm = L({en:g.name,ar:g.name_ar});
+    var cr = [{label:t('nav_home'),path:buildPath('home')},{label:t('nav_developers'),path:buildPath('developers')},{label:L(dev.name),path:buildPath('developer',{slug:dev.key})},{label:nm}];
+    var mediaFallback=function(){ return members[0]?projectMedia(members[0]):mediaBox(nm,'artsvg'); };
+    node.appendChild(sectionWrap(
+      crumbNode(cr),
+      h('div',{class:'detail-hero'},
+        h('div',null,
+          h('div',{class:'detail-media'}, g.cover?coverImg(g.cover, nm, mediaFallback):mediaFallback(),
+            h('div',{class:'tags'}, h('span',{class:'chip'}, L(dev.name)))),
+          h('h1',{style:'font-size:clamp(1.8rem,4vw,2.6rem);margin-top:16px'}, nm),
+          h('p',{class:'lead', style:'margin-top:10px'}, (lang==='ar'?'مجموعة مشاريع داخل ':'A project group within ')+L(dev.name)),
+          h('p',{class:'muted', style:'margin-top:14px;max-width:60ch'}, L(g.blurb)),
+          h('div',{style:'display:flex;gap:8px;flex-wrap:wrap;margin-top:16px'},
+            h('a',{class:'chip chip--muted', href:U(buildPath('developer',{slug:dev.key}))}, ic('build'), L(dev.name)),
+            h('span',{class:'chip chip--muted'}, num(members.length)+' '+(lang==='ar'?'مشروعات':'projects')))),
+        h('aside',{class:'aside-card'},
+          h('div',{class:'muted', style:'font-weight:700;font-size:.85rem'}, (lang==='ar'?'مشروعات المجموعة':'Projects in this group')),
+          h('div',{class:'price-lg', style:'font-size:2.4rem'}, num(members.length)),
+          h('div',{class:'prov'}, ic('info'), t('derived')),
+          h('a',{class:'btn btn--primary btn--block mt-16', href:U(buildPath('contact'))}, t('cta_talk'))))));
+    if(members.length) node.appendChild(listSection('', nm, '', members.map(projectCard), null, 'band'));
+    node.appendChild(ctaBand());
+    return {node:node, title:nm+' — '+L(dev.name)+' · The Village Investment', desc:L(g.blurb), indexable:true, crumbs:cr};
   };
 
   /* ---- Areas list + detail ---- */
@@ -4787,6 +4860,7 @@
       case 'unit': return V.unit(r.params.id);
       case 'developers': return V.developers();
       case 'developer': return V.developer(r.params.slug);
+      case 'group': return V.group(r.params.slug);
       case 'areas': return V.areas();
       case 'area': return V.area(r.params.slug);
       case 'compare': return V.compare();
