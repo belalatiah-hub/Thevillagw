@@ -548,6 +548,11 @@
   .card__media .artsvg,.detail-media .artsvg{position:absolute;inset:0;width:100%;height:100%;display:block}
   .card__media .tags,.detail-media .tags{position:absolute;inset-block-end:10px;inset-inline-start:10px;display:flex;gap:6px;flex-wrap:wrap;z-index:2}
   .card__media .tags .chip,.detail-media .tags .chip{background:rgba(7,61,82,.82);color:var(--bone);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+  .detail-media--gal{cursor:zoom-in}
+  .gal-badge{position:absolute;inset-block-end:10px;inset-inline-end:10px;z-index:2;display:inline-flex;align-items:center;gap:6px;
+    padding:6px 11px;border-radius:var(--r-pill);background:rgba(7,61,82,.82);color:var(--bone);font-size:.78rem;font-weight:700;
+    -webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);pointer-events:none}
+  .gal-badge__ic{width:15px;height:15px}
   .card__devmark{position:absolute;inset-block-start:10px;inset-inline-start:10px;z-index:2;box-shadow:0 2px 8px rgba(5,36,48,.4);border:1.5px solid rgba(243,239,230,.55)}
   /* ---- Unit-type cards ---- */
   .unit-card{background:var(--paper);border:1px solid var(--line-2);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;transition:var(--t)}
@@ -1258,6 +1263,7 @@
     /* unit feature-row + viewer controls */
     floorplan:['M3 4h18v16H3z','M13 4v16','M13 14h8','M3 11h10','M7 4v3'],
     masterplan:['M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z','M9 4v14','M15 6v14'],
+    gallery:['M3 5h18v14H3z','M3 16l5-5 4 4 3-3 6 6','M8.5 9h.01'],
     star:['M12 3.5l2.6 5.7 6.2.6-4.7 4.1 1.4 6.1L12 17l-5.5 3.1 1.4-6.1L3.2 9.8l6.2-.6z'],
     x:['M6 6l12 12','M18 6L6 18'],
     expand:['M8 4H4v4','M16 4h4v4','M8 20H4v-4','M16 20h4v-4'],
@@ -1603,7 +1609,12 @@
     {slug:'bloomfields', name:'Bloomfields', name_ar:'بلوم فيلدز', dev:'tatweer', area:'mostakbal', status:'launch', price:5400000, dp:5, years:9, delivery:'2028', finishing:{en:'Semi-finished',ar:'نصف تشطيب'}, types:{en:'Apartment · Townhouse',ar:'شقة · تاون هاوس'}, tags:{en:['Mostakbal City','5% DP'],ar:['مدينة المستقبل','مقدم ٥٪']}, blurb:{en:'A value-focused launch in Mostakbal City with a low down payment from the developer.',ar:'إطلاق اقتصادي بمدينة المستقبل بمقدم منخفض من المطوّر.'}},
     {slug:'il-bosco-city', name:'Il Bosco City', name_ar:'إل بوسكو سيتي', dev:'misritalia', area:'capital', status:'launch', price:6100000, dp:10, years:9, delivery:'2029', finishing:{en:'Semi-finished',ar:'نصف تشطيب'}, types:{en:'Apartment · Townhouse · Villa',ar:'شقة · تاون هاوس · فيلا'}, tags:{en:['New Capital','Green'],ar:['العاصمة الإدارية','أخضر']}, blurb:{en:'A biophilic community in the New Administrative Capital, primary units from Misr Italia.',ar:'مجتمع أخضر بالعاصمة الإدارية الجديدة، وحدات أولية من مصر إيطاليا.'}},
     {slug:'district-5', name:'District 5', name_ar:'ديستريكت ٥', dev:'marakez', area:'newcairo', status:'primary', price:7000000, dp:10, years:8, delivery:'2027', finishing:{en:'Semi-finished',ar:'نصف تشطيب'}, types:{en:'Apartment',ar:'شقق'}, tags:{en:['Mixed-use','Retail-led'],ar:['متعدد الاستخدامات','تجزئة']}, blurb:{en:'A walkable mixed-use district in New Cairo combining residences and destination retail.',ar:'حي متعدد الاستخدامات بالقاهرة الجديدة يجمع السكن والتجزئة.'}},
-    {slug:'three-sixty', name:'Three Sixty', name_ar:'ثري سيكستي', dev:'lmd', area:'newcairo', status:'primary', price:8600000, dp:10, years:8, delivery:'2027', finishing:{en:'Semi-finished',ar:'نصف تشطيب'}, types:{en:'Apartment',ar:'شقق'}, tags:{en:['Design-forward','New Cairo'],ar:['تصميم متقدّم','القاهرة الجديدة']}, blurb:{en:'A design-forward New Cairo community with developer-direct primary units.',ar:'مجتمع بتصميم متقدّم بالقاهرة الجديدة مع وحدات أولية من المطوّر مباشرة.'}},
+    {slug:'stei8ht-eastmed', name:'Stei8ht Eastmed', name_ar:'ستيت إيست ميد', dev:'lmd', area:'newcairo', status:'primary', price:9895200, dp:5, years:5, delivery:'2027', finishing:{en:'To confirm',ar:'تُؤكَّد'}, types:{en:'Clinic',ar:'عيادة'}, tags:{en:['New Cairo','Medical & business'],ar:['القاهرة الجديدة','طبي وتجاري']}, blurb:{en:'LMD\'s Stei8ht Eastmed medical and business address in New Cairo — developer-direct primary clinics and offices.',ar:'حي ستيت إيست ميد الطبي والتجاري من LMD في القاهرة الجديدة — عيادات ومكاتب أولية من المطوّر مباشرة.'}},
+    {slug:'three-sixty', name:'Three Sixty', name_ar:'ثري سيكستي', dev:'lmd', area:'newcairo', status:'primary', price:25076950, dp:10, years:5, delivery:'Ready', finishing:{en:'To confirm',ar:'تُؤكَّد'}, types:{en:'Administrative Office · Clinic · Office',ar:'مكتب إداري · عيادة · مكتب'}, tags:{en:['New Cairo','Business & medical'],ar:['القاهرة الجديدة','تجاري وطبي']}, blurb:{en:'LMD\'s Three Sixty business and medical hub in New Cairo — developer-direct primary offices, clinics and admin units.',ar:'مركز ثري سيكستي التجاري والطبي من LMD في القاهرة الجديدة — مكاتب وعيادات ووحدات إدارية أولية من المطوّر مباشرة.'}},
+    {slug:'stei8ht-there', name:'Stei8ht There', name_ar:'ستيت ذير', dev:'lmd', area:'newcairo', status:'primary', price:103950000, dp:10, years:7, delivery:'2028', finishing:{en:'To confirm',ar:'تُؤكَّد'}, types:{en:'Office',ar:'مكتب'}, tags:{en:['New Cairo','Offices'],ar:['القاهرة الجديدة','مكاتب']}, blurb:{en:'LMD\'s Stei8ht There office address in New Cairo — developer-direct primary office space.',ar:'وجهة ستيت ذير للمكاتب من LMD في القاهرة الجديدة — مساحات مكتبية أولية من المطوّر مباشرة.'}},
+    {slug:'stei8ht-eastside', name:'Stei8ht Eastside', name_ar:'ستيت إيست سايد', dev:'lmd', area:'newcairo', status:'primary', price:24827985, dp:10, years:8, delivery:'2028', finishing:{en:'To confirm',ar:'تُؤكَّد'}, types:{en:'Administrative Office',ar:'مكتب إداري'}, tags:{en:['New Cairo','Administrative'],ar:['القاهرة الجديدة','إداري']}, blurb:{en:'LMD\'s Stei8ht Eastside administrative address in New Cairo — developer-direct primary admin offices.',ar:'وجهة ستيت إيست سايد الإدارية من LMD في القاهرة الجديدة — مكاتب إدارية أولية من المطوّر مباشرة.'}},
+    {slug:'one-ninety', name:'One Ninety', name_ar:'ون ناينتي', dev:'lmd', area:'newcairo', status:'primary', price:72187500, dp:null, years:3.5, delivery:'2027', finishing:{en:'To confirm',ar:'تُؤكَّد'}, types:{en:'Retail',ar:'محل تجاري'}, tags:{en:['New Cairo','Retail'],ar:['القاهرة الجديدة','تجاري']}, blurb:{en:'LMD\'s One Ninety retail address in New Cairo — developer-direct primary retail space.',ar:'وجهة ون ناينتي التجارية من LMD في القاهرة الجديدة — محلات أولية من المطوّر مباشرة.'}},
+    {slug:'zoya', name:'ZOYA', name_ar:'زويا', dev:'lmd', area:'sahel', status:'primary', price:18100000, dp:20, years:4, delivery:'2027', finishing:{en:'To confirm',ar:'تُؤكَّد'}, types:{en:'Villa · Twin House · Chalet · Cabin',ar:'فيلا · توين هاوس · شاليه · كابين'}, tags:{en:['North Coast','Beachfront resort'],ar:['الساحل الشمالي','منتجع على البحر']}, blurb:{en:'LMD\'s ZOYA on Ghazala Bay, North Coast — a beachfront resort community of villas, chalets and cabanas; developer-direct primary units.',ar:'زويا من LMD في غزالة باي بالساحل الشمالي — مجتمع منتجعي على البحر من فيلات وشاليهات وكبائن، وحدات أولية من المطوّر مباشرة.'}},
     {slug:'hyde-park-new-cairo', name:'Hyde Park New Cairo', name_ar:'هايد بارك القاهرة الجديدة', dev:'hydepark', area:'newcairo', status:'primary', price:8600000, dp:10, years:8, delivery:'2027', finishing:{en:'Semi-finished',ar:'نصف تشطيب'}, types:{en:'Apartment · Townhouse · Villa',ar:'شقة · تاون هاوس · فيلا'}, tags:{en:['Central park','Family'],ar:['حديقة مركزية','عائلي']}, blurb:{en:'A large central-park community in New Cairo with developer-direct units.',ar:'مجتمع بحديقة مركزية كبيرة بالقاهرة الجديدة مع وحدات من المطوّر مباشرة.'}},
     {slug:'fifth-square', name:'Fifth Square', name_ar:'فيفث سكوير', dev:'marasem', area:'fifthsettlement', status:'primary', price:6200000, dp:10, years:8, delivery:'2027', finishing:{en:'Semi-finished',ar:'نصف تشطيب'}, types:{en:'Apartment · Duplex · Villa',ar:'شقة · دوبلكس · فيلا'}, tags:{en:['Fifth Settlement','Prime'],ar:['التجمع الخامس','موقع مميّز']}, blurb:{en:'A prime Fifth Settlement community with developer-direct primary units and long plans.',ar:'مجتمع مميّز بالتجمع الخامس مع وحدات أولية من المطوّر مباشرة وخطط طويلة.'}},
     {slug:'cairo-gate', name:'Cairo Gate', name_ar:'كايرو جيت', dev:'emaarmisr', area:'zayed', status:'launch', price:11500000, dp:10, years:8, delivery:'2027', finishing:{en:'Semi-finished',ar:'نصف تشطيب'}, types:{en:'Apartment · Townhouse',ar:'شقة · تاون هاوس'}, tags:{en:['Sheikh Zayed','Gateway'],ar:['الشيخ زايد','بوابة']}, blurb:{en:'A gateway West Cairo launch by Emaar Misr on the Cairo–Alexandria corridor.',ar:'إطلاق مميّز بغرب القاهرة من إعمار مصر على محور القاهرة–الإسكندرية.'}},
@@ -1657,7 +1668,21 @@
     {id:'IB-S02',  project:'il-bosco-city',       type:'Studio',           beds:0, baths:1, area:55,  price:3200000,  avail:'available'},
     {id:'D5-A22',  project:'district-5',          type:'Apartment',        beds:2, baths:2, area:140, price:7000000,  avail:'available'},
     {id:'D5-O11',  project:'district-5',          type:'Office',           beds:0, baths:1, area:90,  price:8100000,  avail:'to-confirm'},
-    {id:'TS-A07',  project:'three-sixty',         type:'Apartment',        beds:3, baths:3, area:175, price:8900000,  avail:'available'},
+    {id:'SEM-CL1', project:'stei8ht-eastmed', type:'Clinic', area:106, price:18120892, avail:'available'},
+    {id:'SEM-CL2', project:'stei8ht-eastmed', type:'Clinic', area:57, price:9895200, avail:'available'},
+    {id:'TS-AD1', project:'three-sixty', type:'Administrative Office', area:95, price:25076950, avail:'available'},
+    {id:'TS-AD2', project:'three-sixty', type:'Administrative Office', area:155, price:38341817, avail:'available'},
+    {id:'TS-CL3', project:'three-sixty', type:'Clinic', area:203, price:86625000, avail:'available'},
+    {id:'TS-AD4', project:'three-sixty', type:'Administrative Office', area:106, price:50250000, avail:'available'},
+    {id:'TS-OF5', project:'three-sixty', type:'Office', area:1064, price:238292000, avail:'available'},
+    {id:'STH-OF1', project:'stei8ht-there', type:'Office', area:630, price:103950000, avail:'available'},
+    {id:'SES-AD1', project:'stei8ht-eastside', type:'Administrative Office', area:141, price:24827985, avail:'available'},
+    {id:'ON-RT1', project:'one-ninety', type:'Retail', area:138, price:72187500, avail:'available'},
+    {id:'ZY-SV1', project:'zoya', type:'Villa', beds:4, area:520, price:151000000, avail:'available'},
+    {id:'ZY-HV2', project:'zoya', type:'Villa', beds:4, area:300, price:49400000, avail:'available'},
+    {id:'ZY-TW3', project:'zoya', type:'Twin House', beds:4, area:260, price:44100000, avail:'available'},
+    {id:'ZY-CH4', project:'zoya', type:'Chalet', beds:2, area:115, price:18100000, avail:'available'},
+    {id:'ZY-CB5', project:'zoya', type:'Cabin', area:66, price:21000000, avail:'available'},
     {id:'HP-P03',  project:'hyde-park-new-cairo', type:'Penthouse',        beds:3, baths:3, area:220, price:12900000, avail:'available'},
     {id:'HP-V15',  project:'hyde-park-new-cairo', type:'Villa',            beds:5, baths:5, area:340, price:27500000, avail:'reserved'},
     {id:'CG-A05',  project:'cairo-gate',          type:'Apartment',        beds:3, baths:2, area:168, price:9600000,  avail:'available'},
@@ -1920,7 +1945,33 @@
     'RM-CH1':'/project-media/ramla/chalet.webp', 'RM-CH2':'/project-media/ramla/chalet.webp', 'RM-CH3':'/project-media/ramla/chalet.webp', 'RM-CH4':'/project-media/ramla/chalet.webp',
     'RM-TW1':'/project-media/ramla/twin.webp', 'RM-TW2':'/project-media/ramla/twin.webp', 'RM-TW3':'/project-media/ramla/twin.webp',
     'RM-TH1':'/project-media/ramla/townhouse.webp', 'RM-TH2':'/project-media/ramla/townhouse.webp',
-    'RM-VL1':'/project-media/ramla/villa.webp', 'RM-VL2':'/project-media/ramla/villa.webp', 'RM-VL3':'/project-media/ramla/villa.webp'
+    'RM-VL1':'/project-media/ramla/villa.webp', 'RM-VL2':'/project-media/ramla/villa.webp', 'RM-VL3':'/project-media/ramla/villa.webp',
+    // LMD — unit cover = first render (full gallery in UNIT_GALLERY)
+    'SEM-CL1':'/project-media/lmd/sem-cl1-r1.webp', 'SEM-CL2':'/project-media/lmd/sem-cl2-r1.webp',
+    'TS-AD1':'/project-media/lmd/ts-ad1-r1.webp', 'TS-AD2':'/project-media/lmd/ts-ad2-r1.webp', 'TS-CL3':'/project-media/lmd/ts-cl3-r1.webp',
+    'TS-AD4':'/project-media/lmd/ts-ad4-r1.webp', 'TS-OF5':'/project-media/lmd/ts-of5-r1.webp',
+    'STH-OF1':'/project-media/lmd/sth-of1-r1.webp', 'SES-AD1':'/project-media/lmd/ses-ad1-r1.webp', 'ON-RT1':'/project-media/lmd/on-rt1-r1.webp',
+    'ZY-SV1':'/project-media/lmd/zy-sv1-r1.webp', 'ZY-HV2':'/project-media/lmd/zy-hv2-r1.webp', 'ZY-TW3':'/project-media/lmd/zy-tw3-r1.webp',
+    'ZY-CH4':'/project-media/lmd/zy-ch4-r1.webp', 'ZY-CB5':'/project-media/lmd/zy-cb5-r1.webp'
+  };
+  /* Per-unit render galleries (all photos for a unit) — opened as a numbered
+     carousel from the unit hero and the "Photos" chip. LMD-populated. */
+  var UNIT_GALLERY = {
+    'SEM-CL1':['/project-media/lmd/sem-cl1-r1.webp','/project-media/lmd/sem-cl1-r2.webp'],
+    'SEM-CL2':['/project-media/lmd/sem-cl2-r1.webp','/project-media/lmd/sem-cl2-r2.webp'],
+    'TS-AD1':['/project-media/lmd/ts-ad1-r1.webp','/project-media/lmd/ts-ad1-r2.webp','/project-media/lmd/ts-ad1-r3.webp'],
+    'TS-AD2':['/project-media/lmd/ts-ad2-r1.webp','/project-media/lmd/ts-ad2-r2.webp','/project-media/lmd/ts-ad2-r3.webp'],
+    'TS-CL3':['/project-media/lmd/ts-cl3-r1.webp','/project-media/lmd/ts-cl3-r2.webp','/project-media/lmd/ts-cl3-r3.webp'],
+    'TS-AD4':['/project-media/lmd/ts-ad4-r1.webp','/project-media/lmd/ts-ad4-r2.webp','/project-media/lmd/ts-ad4-r3.webp'],
+    'TS-OF5':['/project-media/lmd/ts-of5-r1.webp','/project-media/lmd/ts-of5-r2.webp'],
+    'STH-OF1':['/project-media/lmd/sth-of1-r1.webp','/project-media/lmd/sth-of1-r2.webp','/project-media/lmd/sth-of1-r3.webp'],
+    'SES-AD1':['/project-media/lmd/ses-ad1-r1.webp','/project-media/lmd/ses-ad1-r2.webp'],
+    'ON-RT1':['/project-media/lmd/on-rt1-r1.webp','/project-media/lmd/on-rt1-r2.webp'],
+    'ZY-SV1':['/project-media/lmd/zy-sv1-r1.webp','/project-media/lmd/zy-sv1-r2.webp','/project-media/lmd/zy-sv1-r3.webp'],
+    'ZY-HV2':['/project-media/lmd/zy-hv2-r1.webp','/project-media/lmd/zy-hv2-r2.webp'],
+    'ZY-TW3':['/project-media/lmd/zy-tw3-r1.webp','/project-media/lmd/zy-tw3-r2.webp','/project-media/lmd/zy-tw3-r3.webp'],
+    'ZY-CH4':['/project-media/lmd/zy-ch4-r1.webp','/project-media/lmd/zy-ch4-r2.webp','/project-media/lmd/zy-ch4-r3.webp'],
+    'ZY-CB5':['/project-media/lmd/zy-cb5-r1.webp','/project-media/lmd/zy-cb5-r2.webp','/project-media/lmd/zy-cb5-r3.webp']
   };
   /* Location aerials (per area) — reused as the unit "Location" viewer image and
      the Top-Locations card art. Drop <area-key>.webp into /project-media/locations. */
@@ -1939,18 +1990,45 @@
   var UNIT_MASTERPLANS = {
     'JN-CR1':['mp-JN-CR1.webp'], 'JN-OP1':['mp-JN-OP1.webp'],
     'OG-WC1':['mp-OG-WC1.webp'], 'OG-TH1':['mp-OG-TH1.webp'], 'OG-TW1':['mp-OG-TW1.webp'],
-    'CS-TW1':['mp-CS-TW1.webp'], 'AL-V03':['mp-AL-V03.webp']
+    'CS-TW1':['mp-CS-TW1.webp'], 'AL-V03':['mp-AL-V03.webp'],
+    // LMD (full paths under /project-media/lmd)
+    'SEM-CL1':['/project-media/lmd/sem-cl1-mp1.webp'], 'SEM-CL2':['/project-media/lmd/sem-cl2-mp1.webp'],
+    'TS-AD1':['/project-media/lmd/ts-ad1-mp1.webp'], 'TS-AD2':['/project-media/lmd/ts-ad2-mp1.webp'], 'TS-CL3':['/project-media/lmd/ts-cl3-mp1.webp'],
+    'TS-AD4':['/project-media/lmd/ts-ad4-mp1.webp'], 'TS-OF5':['/project-media/lmd/ts-of5-mp1.webp'],
+    'STH-OF1':['/project-media/lmd/sth-of1-mp1.webp'], 'SES-AD1':['/project-media/lmd/ses-ad1-mp1.webp'], 'ON-RT1':['/project-media/lmd/on-rt1-mp1.webp'],
+    'ZY-SV1':['/project-media/lmd/zy-sv1-mp1.webp'], 'ZY-HV2':['/project-media/lmd/zy-hv2-mp1.webp'], 'ZY-TW3':['/project-media/lmd/zy-tw3-mp1.webp'],
+    'ZY-CH4':['/project-media/lmd/zy-ch4-mp1.webp'], 'ZY-CB5':['/project-media/lmd/zy-cb5-mp1.webp']
   };
   var UNIT_FLOORPLANS = {
     'JN-CR1':['fp-JN-CR1-1.webp'], 'JN-OP1':['fp-JN-OP1-1.webp'],
     'OG-WC1':['fp-OG-WC1-1.webp','fp-OG-WC1-2.webp'],
     'OG-TH1':['fp-OG-TH1-1.webp','fp-OG-TH1-2.webp'],
     'OG-TW1':['fp-OG-TW1-1.webp','fp-OG-TW1-2.webp'],
-    'CS-TH1':['fp-CS-TH1-1.webp'], 'CS-TW1':['fp-CS-TW1-1.webp']
+    'CS-TH1':['fp-CS-TH1-1.webp'], 'CS-TW1':['fp-CS-TW1-1.webp'],
+    // LMD (full paths). ZY-CH4 has no floor plan in the source data → omitted.
+    'SEM-CL1':['/project-media/lmd/sem-cl1-fp1.webp','/project-media/lmd/sem-cl1-fp2.webp'], 'SEM-CL2':['/project-media/lmd/sem-cl2-fp1.webp'],
+    'TS-AD1':['/project-media/lmd/ts-ad1-fp1.webp'], 'TS-AD2':['/project-media/lmd/ts-ad2-fp1.webp'], 'TS-CL3':['/project-media/lmd/ts-cl3-fp1.webp'],
+    'TS-AD4':['/project-media/lmd/ts-ad4-fp1.webp'], 'TS-OF5':['/project-media/lmd/ts-of5-fp1.webp'],
+    'STH-OF1':['/project-media/lmd/sth-of1-fp1.webp'], 'SES-AD1':['/project-media/lmd/ses-ad1-fp1.webp'], 'ON-RT1':['/project-media/lmd/on-rt1-fp1.webp'],
+    'ZY-SV1':['/project-media/lmd/zy-sv1-fp1.webp'], 'ZY-HV2':['/project-media/lmd/zy-hv2-fp1.webp'], 'ZY-TW3':['/project-media/lmd/zy-tw3-fp1.webp'],
+    'ZY-CB5':['/project-media/lmd/zy-cb5-fp1.webp']
   };
-  function unitMasterplans(u){ var a=u&&UNIT_MASTERPLANS[u.id]; return a?a.map(function(f){return PLANS_BASE+f;}):[]; }
-  function unitFloorplans(u){ var a=u&&UNIT_FLOORPLANS[u.id]; return a?a.map(function(f){return PLANS_BASE+f;}):[]; }
-  function unitLocationImg(u){ var p=u&&projBySlug(u.project); return p?areaImageSrc(p.area):''; }
+  /* Per-unit location renders (LMD). When present, the Location viewer shows the
+     unit-specific aerial; otherwise it falls back to the area aerial. */
+  var UNIT_LOCATIONS = {
+    'TS-AD1':['/project-media/lmd/ts-ad1-loc1.webp'], 'TS-AD2':['/project-media/lmd/ts-ad2-loc1.webp'],
+    'TS-CL3':['/project-media/lmd/ts-cl3-loc1.webp'], 'TS-AD4':['/project-media/lmd/ts-ad4-loc1.webp'],
+    'TS-OF5':['/project-media/lmd/ts-of5-loc1.webp'], 'STH-OF1':['/project-media/lmd/sth-of1-loc1.webp']
+  };
+  function planUrl(f){ return f.charAt(0)==='/' ? f : PLANS_BASE+f; }
+  function unitMasterplans(u){ var a=u&&UNIT_MASTERPLANS[u.id]; return a?a.map(planUrl):[]; }
+  function unitFloorplans(u){ var a=u&&UNIT_FLOORPLANS[u.id]; return a?a.map(planUrl):[]; }
+  function unitLocationImg(u){ var a=u&&UNIT_LOCATIONS[u.id]; if(a&&a.length) return a[0]; var p=u&&projBySlug(u.project); return p?areaImageSrc(p.area):''; }
+  function unitGallery(u){ return (u&&UNIT_GALLERY[u.id])||[]; }
+  function unitGalleryItems(u){
+    var p=projBySlug(u.project), pnm=p?(lang==='ar'?p.name_ar:p.name):'', g=unitGallery(u), n=g.length;
+    return g.map(function(s,i){ return {src:s, cap:pnm+(n>1?(' · '+(lang==='ar'?'صورة ':'Photo ')+(i+1)+'/'+n):'')}; });
+  }
 
   /* Amenities — compound-level features, resolved per unit via its project.
      Each token carries its own outline icon + bilingual label (no i18n keys). */
@@ -2049,9 +2127,11 @@
   function unitFeatureRow(u){
     var p=projBySlug(u.project), area=p?areaByKey(p.area):null;
     var pnm=p?(lang==='ar'?p.name_ar:p.name):'';
-    var loc=unitLocationImg(u), fps=unitFloorplans(u), mps=unitMasterplans(u), ams=unitAmenities(u);
+    var loc=unitLocationImg(u), fps=unitFloorplans(u), mps=unitMasterplans(u), ams=unitAmenities(u), gal=unitGalleryItems(u);
     var row=h('div',{class:'ufeat-row'});
     function chip(icon, label, fn){ var b=h('button',{class:'ufeat', type:'button'}, ic(icon,'ufeat__ic'), h('span',null,label)); b.addEventListener('click', fn); return b; }
+    if(gal.length) row.appendChild(chip('gallery', (lang==='ar'?'صور الوحدة':'Photos'), function(){
+      mediaViewer(gal, (lang==='ar'?'صور · ':'Photos · ')+pnm); }));
     if(loc) row.appendChild(chip('pin', (lang==='ar'?'الموقع':'Location'), function(){
       mediaViewer([{src:loc, cap:(area?L(area.name):'')}], (lang==='ar'?'الموقع · ':'Location · ')+(area?L(area.name):pnm)); }));
     if(fps.length) row.appendChild(chip('floorplan', (lang==='ar'?'مخطط الوحدة':'Floor Plan'), function(){
@@ -4012,8 +4092,14 @@
     var title=uLabel+' · '+pnm;
     var node=h('div',null), top=h('section',{class:'section--tight'}), wrap=h('div',{class:'wrap'});
     wrap.appendChild(crumbNode([{label:t('nav_home'),path:buildPath('home')},{label:t('nav_units'),path:buildPath('units')},{label:title}]));
-    var media=h('div',{class:'detail-media'}, unitMedia(u),
+    var galItems=unitGalleryItems(u);
+    var media=h('div',{class:'detail-media'+(galItems.length?' detail-media--gal':'')}, unitMedia(u),
       h('div',{class:'tags'}, h('span',{class:'chip'}, typeIconC(unitCanon(u),'chip-ico'), tl)));
+    if(galItems.length){
+      media.addEventListener('click', function(){ mediaViewer(galItems, pnm); });
+      var gn=galItems.length, gw=(lang==='ar'?'صور':(gn>1?'photos':'photo'));
+      media.appendChild(h('span',{class:'gal-badge','aria-hidden':'true'}, ic('gallery','gal-badge__ic'), h('span',null, num(gn)+' '+gw)));
+    }
     var aside=h('aside',{class:'aside-card'},
       h('div',{class:'muted',style:'font-size:.8rem;font-weight:700'}, t('price')),
       h('div',{class:'price-lg'}, money(u.price)),
