@@ -553,6 +553,15 @@
     padding:6px 11px;border-radius:var(--r-pill);background:rgba(7,61,82,.82);color:var(--bone);font-size:.78rem;font-weight:700;
     -webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);pointer-events:none}
   .gal-badge__ic{width:15px;height:15px}
+  .gal-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:42px;height:42px;border-radius:50%;
+    background:rgba(7,61,82,.62);color:var(--bone);border:1px solid rgba(255,255,255,.25);display:grid;place-items:center;
+    cursor:pointer;-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);transition:background .15s,transform .15s}
+  .gal-nav:hover{background:rgba(7,61,82,.92);transform:translateY(-50%) scale(1.06)}
+  .gal-nav:active{transform:translateY(-50%) scale(.96)}
+  .gal-nav svg{width:24px;height:24px}
+  .gal-nav--prev{left:12px}
+  .gal-nav--next{right:12px}
+  @media(max-width:560px){ .gal-nav{width:36px;height:36px} .gal-nav svg{width:20px;height:20px} }
   .card__devmark{position:absolute;inset-block-start:10px;inset-inline-start:10px;z-index:2;box-shadow:0 2px 8px rgba(5,36,48,.4);border:1.5px solid rgba(243,239,230,.55)}
   /* ---- Unit-type cards ---- */
   .unit-card{background:var(--paper);border:1px solid var(--line-2);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;transition:var(--t)}
@@ -2105,7 +2114,7 @@
      items: [{src, cap}] . Wheel / +- buttons / double-click zoom;
      drag to pan when zoomed; arrows + ESC keyboard; a11y dialog.
      =================================================================== */
-  function mediaViewer(items, label){
+  function mediaViewer(items, label, start){
     if(!items || !items.length) return;
     var idx=0, scale=1, tx=0, ty=0, drag=false, ox=0, oy=0, moved=false;
     var img=h('img',{class:'viewer__img', src:items[0].src, alt:label||'', decoding:'async', draggable:'false'});
@@ -2141,7 +2150,7 @@
     overlay.addEventListener('click', function(e){ if((e.target===overlay||e.target===stage) && !moved) close(); });
     document.addEventListener('keydown', onKey);
     document.body.appendChild(overlay); document.body.classList.add('viewer-open');
-    show(0); if(closeB.focus){ closeB.focus(); }
+    show(start||0); if(closeB.focus){ closeB.focus(); }
     return overlay;
   }
 
@@ -4141,12 +4150,28 @@
     var node=h('div',null), top=h('section',{class:'section--tight'}), wrap=h('div',{class:'wrap'});
     wrap.appendChild(crumbNode([{label:t('nav_home'),path:buildPath('home')},{label:t('nav_units'),path:buildPath('units')},{label:title}]));
     var galItems=unitGalleryItems(u);
-    var media=h('div',{class:'detail-media'+(galItems.length?' detail-media--gal':'')}, unitMedia(u),
-      h('div',{class:'tags'}, h('span',{class:'chip'}, typeIconC(unitCanon(u),'chip-ico'), tl)));
+    var media=h('div',{class:'detail-media'+(galItems.length?' detail-media--gal':'')});
     if(galItems.length){
-      media.addEventListener('click', function(){ mediaViewer(galItems, pnm); });
-      var gn=galItems.length, gw=(lang==='ar'?'صور':(gn>1?'photos':'photo'));
-      media.appendChild(h('span',{class:'gal-badge','aria-hidden':'true'}, ic('gallery','gal-badge__ic'), h('span',null, num(gn)+' '+gw)));
+      var gidx=0, gn=galItems.length;
+      var gimg=h('img',{class:'artsvg proj-cover', src:galItems[0].src, alt:pnm+' — '+tl, loading:'lazy', decoding:'async'});
+      gimg.addEventListener('error', function(){ if(gimg.parentNode) gimg.parentNode.replaceChild(projectArt(p), gimg); });
+      var gnum=h('span',{class:'gal-badge__n'});
+      var gshow=function(i){ gidx=(i+gn)%gn; gimg.src=galItems[gidx].src; gnum.textContent = gn>1 ? ((gidx+1)+' / '+gn) : (num(gn)+' '+(lang==='ar'?'صورة':'photo')); };
+      media.appendChild(gimg);
+      media.appendChild(h('div',{class:'tags'}, h('span',{class:'chip'}, typeIconC(unitCanon(u),'chip-ico'), tl)));
+      media.appendChild(h('span',{class:'gal-badge','aria-hidden':'true'}, ic('gallery','gal-badge__ic'), gnum));
+      if(gn>1){
+        var gprev=h('button',{class:'gal-nav gal-nav--prev', type:'button','aria-label':(lang==='ar'?'الصورة السابقة':'Previous photo')}, ic('chevleft'));
+        var gnext=h('button',{class:'gal-nav gal-nav--next', type:'button','aria-label':(lang==='ar'?'الصورة التالية':'Next photo')}, ic('chevright'));
+        gprev.addEventListener('click', function(e){ e.stopPropagation(); e.preventDefault(); gshow(gidx-1); });
+        gnext.addEventListener('click', function(e){ e.stopPropagation(); e.preventDefault(); gshow(gidx+1); });
+        media.appendChild(gprev); media.appendChild(gnext);
+      }
+      gimg.addEventListener('click', function(){ mediaViewer(galItems, pnm, gidx); });
+      gshow(0);
+    } else {
+      media.appendChild(unitMedia(u));
+      media.appendChild(h('div',{class:'tags'}, h('span',{class:'chip'}, typeIconC(unitCanon(u),'chip-ico'), tl)));
     }
     var aside=h('aside',{class:'aside-card'},
       h('div',{class:'muted',style:'font-size:.8rem;font-weight:700'}, t('price')),
