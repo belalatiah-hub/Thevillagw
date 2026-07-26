@@ -7,7 +7,8 @@ role-aware navigation, bilingual (English / Arabic RTL), light & dark themes.
 
 - **`public/index.html`** — the desktop console (HTML + CSS + JS, no build step).
 - **`public/app.html`** — the mobile app (same backend, phone-sized UI).
-- **`wrangler.toml` / `worker.js`** — Cloudflare Workers deployment.
+- **`worker.js`** — the Worker script (clean `/app` route + security headers).
+  Its deploy config is the **root** `../wrangler.toml`, not one in this folder.
 
 ## One deployment serves both frontends
 
@@ -47,63 +48,59 @@ var API_BASE = ""; // ← empty = DEMO, or "https://<your-api-host>/api" = LIVE
 
 ---
 
-## Deploy automatically from GitHub (recommended)
+## Deploying
 
-`.github/workflows/deploy-crm.yml` publishes this folder to the **`village-crm`**
-Worker on every push that touches `web/**`. It is separate from the marketing
-site, which is a different Worker built from the repo root — this never touches it.
+Cloudflare deploys this automatically. Its Git integration runs
+`npx wrangler deploy` **from the repository root**, so the config it reads is the
+root [`../wrangler.toml`](../wrangler.toml) — Worker **`black-shape-dfbe`**:
 
-**One-time setup (2 minutes):**
-
-1. Create an API token at <https://dash.cloudflare.com/profile/api-tokens> →
-   **Create Token** → use the **"Edit Cloudflare Workers"** template.
-2. In GitHub: **Settings → Secrets and variables → Actions → New repository secret**
-   - Name: `CLOUDFLARE_API_TOKEN` — Value: the token you just created.
-   - Optional: `CLOUDFLARE_ACCOUNT_ID`, needed only if the token can reach more
-     than one Cloudflare account.
-3. Push any change under `web/` (or re-run the job from the **Actions** tab).
-
-The workflow refuses to ship a broken console: it parses the inline JavaScript of
-`index.html` and `app.html` first, and after deploying it fetches the live URL and
-fails unless it returns HTTP 200 and identifies as Village CRM. The resulting URLs
-are printed in the run summary.
-
-> `workflow_dispatch` (the manual "Run workflow" button) only appears once this
-> file exists on the repository's **default branch**. Until then, the push trigger
-> is what runs it.
-
-## Deploy manually from your machine
-
-Prerequisites: a Cloudflare account and the Wrangler CLI.
-
-```bash
-cd web
-npm install                 # installs wrangler locally
-npx wrangler login          # one-time auth
-npx wrangler deploy         # publishes to https://village-crm.<your-subdomain>.workers.dev
+```toml
+name = 'black-shape-dfbe'
+main = "web/worker.js"
+[assets]
+directory = "./web/public"      # console at "/", mobile app at "/app"
 ```
 
-`wrangler.toml` serves everything in `public/` as static assets, with SPA
-fallback and security headers from `worker.js`.
+> There is deliberately **no `wrangler.toml` inside `web/`**. A second config
+> here would declare a different Worker name, so `cd web && npx wrangler deploy`
+> would publish a stray duplicate Worker instead of updating the real one.
+> The root config is the single source of truth — keep it at the root, or
+> Cloudflare's build fails with *"Could not detect a directory containing static
+> files"*.
+
+`.github/workflows/deploy-crm.yml` runs on every push under `web/`: it parses the
+inline JavaScript of `index.html` and `app.html` so a syntax error can never ship
+a blank console, and checks the root config still points at files that exist. It
+does **not** deploy on push — Cloudflare already does that, and racing it would
+publish the same Worker twice.
+
+### Deploying by hand
+
+```bash
+# from the repository ROOT, not from web/
+npx wrangler login          # one-time auth
+npx wrangler deploy         # publishes Worker "black-shape-dfbe"
+npx wrangler deploy --dry-run   # validate without publishing
+```
+
+You can also trigger a deploy from the **Actions** tab → *CRM console — validate
+& deploy* → **Run workflow** → tick **deploy**. That path needs a
+`CLOUDFLARE_API_TOKEN` repository secret (create it at
+<https://dash.cloudflare.com/profile/api-tokens> with the "Edit Cloudflare
+Workers" template), plus `CLOUDFLARE_ACCOUNT_ID` if the token can reach more
+than one account.
 
 ### Custom domain
-To serve on `crm.thevillageinvestment.com` (zone must be on Cloudflare), uncomment
-the `routes` block in `wrangler.toml` and re-deploy.
-
-### Deploy alongside your existing Worker (`village.belalatiah.workers.dev`)
-Either:
-- give this its own Worker (`village-crm.<subdomain>.workers.dev`) — simplest; or
-- mount it under a path of your existing site by adding a route such as
-  `village.belalatiah.workers.dev/crm*` and stripping the `/crm` prefix in your
-  main Worker before delegating to this one.
+To serve on `crm.thevillageinvestment.com` (the zone must be on Cloudflare), add
+a `routes` block to the root `wrangler.toml` and redeploy.
 
 ---
 
 ## Alternative: Cloudflare Pages (no Worker)
 
 ```bash
-cd web
-npx wrangler pages deploy public --project-name village-crm
+# from the repository root
+npx wrangler pages deploy web/public --project-name village-crm
 ```
 
 Pages serves `public/` directly and gives you a `*.pages.dev` URL.

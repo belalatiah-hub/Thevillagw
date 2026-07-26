@@ -1,0 +1,20 @@
+# Cloudflare Workers deployment for the Village CRM.
+#
+# The Cloudflare build runs `npx wrangler deploy` from the REPOSITORY ROOT, so
+# this file is the one it reads — it must stay here, at the root.
+# `name` MUST match the existing Worker that serves the CRM.
+name = 'black-shape-dfbe'
+compatibility_date = "2025-06-01"
+
+# The Worker script adds the clean /app route for the mobile app plus security
+# headers. Paths are resolved relative to this file.
+main = "web/worker.js"
+
+# Serve the CRM front end. The console (index.html) is published at "/" and the
+# mobile app (app.html) at "/app". Only web/public is uploaded — backend/,
+# dashboard/ and docs/ are source, not published assets.
+[assets]
+directory = "./web/public"
+binding = "ASSETS"
+# Unknown paths fall back to index.html so client-side routing resolves.
+not_found_handling = "single-page-application"

@@ -42,9 +42,12 @@ row-level security in the database, not just in the UI.
 
 ## Deploying
 
-- **Front end** → Cloudflare Workers (`village-crm`). Pushing any change under
-  `web/` runs `.github/workflows/deploy-crm.yml`, which validates the console
-  and verifies the deploy is live. Setup: [`web/README.md`](web/README.md).
+- **Front end** → Cloudflare Workers. Cloudflare's Git integration builds this
+  repo automatically: it runs `npx wrangler deploy` **from the repository root**,
+  using the root [`wrangler.toml`](wrangler.toml) (Worker `black-shape-dfbe`),
+  which publishes `web/public/` — the console at `/` and the mobile app at
+  `/app`. `.github/workflows/deploy-crm.yml` validates the console on every push
+  so a broken build never reaches Cloudflare. Details: [`web/README.md`](web/README.md).
 - **Backend** → Supabase (already provisioned) or your own host per
   [`DEPLOYMENT.md`](DEPLOYMENT.md).
 
