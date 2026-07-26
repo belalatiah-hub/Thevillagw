@@ -1,4 +1,11 @@
 # Files that should not be published as part of the Cloudflare static deploy.
+# NOTE: `[assets] directory = "."` makes wrangler walk the whole repo, so the
+# repository's own metadata has to be excluded explicitly. Without this, wrangler
+# tries to upload .git/objects/pack/*.pack and the deploy fails once that pack
+# grows past Cloudflare's 25 MiB per-asset limit.
+.git/
+.gitignore
+.gitattributes
 .assetsignore
 wrangler.toml
 .github/
