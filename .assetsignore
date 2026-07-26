@@ -1,7 +1,24 @@
 # Files that should not be published as part of the Cloudflare static deploy.
+# NOTE: `[assets] directory = "."` makes wrangler walk the whole repo, so the
+# repository's own metadata has to be excluded explicitly. Without this, wrangler
+# tries to upload .git/objects/pack/*.pack and the deploy fails once that pack
+# grows past Cloudflare's 25 MiB per-asset limit.
+.git/
+.gitignore
+.gitattributes
 .assetsignore
 wrangler.toml
 .github/
 docs/
 README.txt
 .nojekyll
+# Internal data-entry templates — never part of the public website.
+data-import-kit/
+# Not part of the public marketing site. The CRM console is deployed as its own
+# Cloudflare Worker from web/ (see web/wrangler.toml, worker name "village-crm"),
+# and the API server is hosted separately — neither belongs in this asset upload.
+backend/
+web/
+dashboard/
+audit/
+DEPLOYMENT.md
