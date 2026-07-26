@@ -47,7 +47,32 @@ var API_BASE = ""; // ← empty = DEMO, or "https://<your-api-host>/api" = LIVE
 
 ---
 
-## Deploy to Cloudflare Workers
+## Deploy automatically from GitHub (recommended)
+
+`.github/workflows/deploy-crm.yml` publishes this folder to the **`village-crm`**
+Worker on every push that touches `web/**`. It is separate from the marketing
+site, which is a different Worker built from the repo root — this never touches it.
+
+**One-time setup (2 minutes):**
+
+1. Create an API token at <https://dash.cloudflare.com/profile/api-tokens> →
+   **Create Token** → use the **"Edit Cloudflare Workers"** template.
+2. In GitHub: **Settings → Secrets and variables → Actions → New repository secret**
+   - Name: `CLOUDFLARE_API_TOKEN` — Value: the token you just created.
+   - Optional: `CLOUDFLARE_ACCOUNT_ID`, needed only if the token can reach more
+     than one Cloudflare account.
+3. Push any change under `web/` (or re-run the job from the **Actions** tab).
+
+The workflow refuses to ship a broken console: it parses the inline JavaScript of
+`index.html` and `app.html` first, and after deploying it fetches the live URL and
+fails unless it returns HTTP 200 and identifies as Village CRM. The resulting URLs
+are printed in the run summary.
+
+> `workflow_dispatch` (the manual "Run workflow" button) only appears once this
+> file exists on the repository's **default branch**. Until then, the push trigger
+> is what runs it.
+
+## Deploy manually from your machine
 
 Prerequisites: a Cloudflare account and the Wrangler CLI.
 

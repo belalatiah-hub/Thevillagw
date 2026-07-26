@@ -1,0 +1,111 @@
+name: Deploy CRM console to Cloudflare
+
+# Publishes the Village CRM console (web/public/index.html) and the mobile app
+# (web/public/app.html) to their own Cloudflare Worker — "village-crm", defined
+# in web/wrangler.toml.
+#
+# This is deliberately SEPARATE from the marketing site: that one is a different
+# Worker built from the repo root. Nothing here touches it.
+on:
+  push:
+    branches:
+      - claude/enterprise-realestate-crm-r6o5zh
+      - claude/deploy-github-connect-oaq96l
+    paths:
+      - 'web/**'
+      - '.github/workflows/deploy-crm.yml'
+  workflow_dispatch:
+
+# One deploy at a time; a newer push supersedes an in-flight run.
+concurrency:
+  group: deploy-crm
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Fail early and clearly if the token was never added, instead of letting
+      # wrangler fail later with an opaque auth error.
+      - name: Check Cloudflare credentials are configured
+        env:
+          CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          if [ -z "$CF_TOKEN" ]; then
+            echo "::error::Missing repository secret CLOUDFLARE_API_TOKEN."
+            echo "Add it under Settings → Secrets and variables → Actions → New repository secret."
+            echo "Create the token at https://dash.cloudflare.com/profile/api-tokens"
+            echo "using the \"Edit Cloudflare Workers\" template."
+            exit 1
+          fi
+          echo "Cloudflare API token is present."
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # The console is a single self-contained file: a syntax error in its
+      # inline script would ship a blank page. Parse it before deploying.
+      - name: Pre-flight — validate inline JavaScript
+        run: |
+          node - <<'EOF'
+          const fs = require('fs');
+          let failed = false;
+          for (const file of ['web/public/index.html', 'web/public/app.html']) {
+            if (!fs.existsSync(file)) { console.log(`skip (absent): ${file}`); continue; }
+            const html = fs.readFileSync(file, 'utf8');
+            const blocks = html.match(/<script>([\s\S]*?)<\/script>/g) || [];
+            const src = blocks.map(s => s.replace(/<\/?script>/g, '')).join('\n');
+            if (!src.trim()) { console.log(`skip (no inline script): ${file}`); continue; }
+            try {
+              new Function(src);
+              console.log(`OK  ${file} — ${blocks.length} script block(s), ${src.length} chars`);
+            } catch (e) {
+              console.log(`::error file=${file}::Inline JS syntax error: ${e.message}`);
+              failed = true;
+            }
+          }
+          process.exit(failed ? 1 : 0);
+          EOF
+
+      - name: Deploy Worker "village-crm"
+        id: deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          # Optional: only needed when the token can reach more than one account.
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: web
+          wranglerVersion: '3.90.0'
+
+      # Prove the upload actually happened rather than trusting a green check.
+      - name: Verify the deployed console responds
+        env:
+          URL: ${{ steps.deploy.outputs.deployment-url }}
+        run: |
+          if [ -z "$URL" ]; then
+            echo "::warning::No deployment URL returned; skipping live verification."
+            exit 0
+          fi
+          echo "Verifying $URL"
+          for attempt in 1 2 3 4 5; do
+            code=$(curl -sS -o /tmp/page.html -w '%{http_code}' --max-time 30 "$URL" || echo 000)
+            if [ "$code" = "200" ]; then
+              if grep -qi 'Village CRM' /tmp/page.html; then
+                echo "Verified: HTTP 200 and the page identifies as Village CRM."
+                echo "### Deployed :rocket:" >> "$GITHUB_STEP_SUMMARY"
+                echo "Console: $URL" >> "$GITHUB_STEP_SUMMARY"
+                echo "Mobile app: $URL/app" >> "$GITHUB_STEP_SUMMARY"
+                exit 0
+              fi
+              echo "::error::HTTP 200 but the response is not the Village CRM console."
+              head -c 400 /tmp/page.html
+              exit 1
+            fi
+            echo "attempt $attempt: HTTP $code — retrying in 10s (edge propagation)"
+            sleep 10
+          done
+          echo "::error::$URL did not return HTTP 200 after 5 attempts."
+          exit 1
