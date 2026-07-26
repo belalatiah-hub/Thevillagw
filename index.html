@@ -1402,7 +1402,7 @@
       brand_note:"Identity derived from The Village master logo. Approved brand sign-off pending.",
       foot_blocker:"Launch note: verified contacts, live inventory, CRM lead delivery and legal review are pending owner input.",
       choose_lang:"العربية", metric_installments:"yr plan",
-      nav_units:"Units", avail_units:"Available units",
+      nav_units:"Units", avail_units:"Available units", no_units_type:"No available units found for this unit type.",
       home_units_h:"Featured units", home_units_p:"Illustrative sample units across our projects — bedrooms, area and price are examples to confirm with an advisor.",
       units_h:"Units", units_p:"Browse sample units by type. Figures are illustrative — confirm current availability and prices with an advisor.",
       filter_type:"Type", all_types:"All types",
@@ -1519,7 +1519,7 @@
       brand_note:"الهوية مستمدة من شعار The Village الرئيسي. اعتماد الهوية النهائي قيد الانتظار.",
       foot_blocker:"ملاحظة إطلاق: بيانات التواصل الموثّقة والمعروض الحيّ وتسليم الطلبات للـCRM والمراجعة القانونية قيد إدخال صاحب الموقع.",
       choose_lang:"English", metric_installments:"سنوات تقسيط",
-      nav_units:"الوحدات", avail_units:"وحدات متاحة",
+      nav_units:"الوحدات", avail_units:"وحدات متاحة", no_units_type:"لا توجد وحدات متاحة من هذا النوع.",
       home_units_h:"وحدات مميّزة", home_units_p:"وحدات نموذجية استرشادية عبر مشروعاتنا — الغرف والمساحة والسعر أمثلة للتأكيد مع المستشار.",
       units_h:"الوحدات", units_p:"تصفّح وحدات نموذجية حسب النوع. الأرقام استرشادية — أكّد الإتاحة والأسعار الحالية مع المستشار.",
       filter_type:"النوع", all_types:"كل الأنواع",
@@ -4681,8 +4681,22 @@
     top.appendChild(wrap); node.appendChild(top);
     var amen=amenitiesSection(u); if(amen) node.appendChild(amen);
     track('unit_viewed',{unit:u.id});
-    var sib=unitsIn(p.slug).filter(function(x){return x.id!==u.id;}).slice(0,3);
-    if(sib.length) node.appendChild(listSection('', t('avail_units'), '', sib.map(unitCard), null, 'band'));
+    // "Available Units" = a recommendation list keyed to THIS unit's type: every available
+    // unit of the SAME unit type across ALL projects and developers (never mixes types, and
+    // is not limited to the current developer). Sorted by closeness to this unit's price.
+    var recoType=unitCanon(u), recoTl=typeLabelC(recoType);
+    var recoTitle=(lang==='ar' ? ('وحدات '+recoTl+' متاحة') : ('Available '+recoTl+' units'));
+    var recos=UNITS.filter(function(x){ var a=unitAvail(x); return x.id!==u.id && unitCanon(x)===recoType && a!=='sold' && a!=='soldout' && a!=='sold-out'; });
+    recos.sort(function(a,b){ var pa=(a.price==null)?9e18:Math.abs(a.price-(u.price||0)); var pb=(b.price==null)?9e18:Math.abs(b.price-(u.price||0)); return pa-pb; });
+    recos=recos.slice(0,12);
+    if(recos.length){
+      node.appendChild(listSection('', recoTitle, '', recos.map(unitCard), null, 'band'));
+    } else {
+      var noSec=h('section',{class:'section--tight band'}), noW=h('div',{class:'wrap'});
+      noW.appendChild(sectionHead('', recoTitle, ''));
+      noW.appendChild(h('p',{class:'muted', style:'margin-top:4px'}, t('no_units_type')));
+      noSec.appendChild(noW); node.appendChild(noSec);
+    }
     node.appendChild(ctaBand());
     var desc=uLabel+' — '+pnm+', '+L(area.name)+'. '+(u.price!=null?(t('conf_illustrative')+' '+money(u.price)+'. '):'')+t('finder_p');
     return {node:node, title:title+' — The Village Investment', desc:desc, indexable:true, ld:unitListingLD(u),
