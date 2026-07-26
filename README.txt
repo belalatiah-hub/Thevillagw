@@ -27,11 +27,38 @@ WHAT CHANGED vs the earlier preview
     keyboard support, AA contrast, RTL parity, no horizontal overflow 320–1440.
 
 ------------------------------------------------------------------
-DEPLOY — pick ONE (this folder IS the deploy artifact)
+DEPLOY — SINGLE BRANCH (this folder IS the deploy artifact)
 ------------------------------------------------------------------
-A) Netlify:  drag this folder onto https://app.netlify.com/drop
-B) Vercel:   import the folder at https://vercel.com/new (preset "Other")
-C) GitHub Pages: push to a repo → Settings → Pages → deploy from branch → /(root)
+There is ONE branch for everything: work on it and publish from it. No
+develop-then-merge dance, no second branch to keep in sync.
+
+    claude/deploy-github-connect-oaq96l      ← the only branch (repo default)
+
+Pushing to it triggers BOTH publishers automatically:
+
+  • Cloudflare Workers  → https://village.belalatiah.workers.dev   (primary)
+        Worker "village", config in wrangler.toml, `[assets] directory = "."`.
+        Dashboard → Workers & Pages → village → Settings → Build:
+            Production branch ............... claude/deploy-github-connect-oaq96l
+            Builds for non-production ....... Disabled   (keeps it to one build)
+            Build command ................... (empty — it is a static site)
+            Deploy command .................. npx wrangler deploy
+  • GitHub Pages        → www.thevillageinvestment.com (once DNS is moved)
+        .github/workflows/deploy.yml, triggered on the same branch.
+
+  IMPORTANT — .assetsignore: because the assets directory is the repo root,
+  wrangler walks everything, so .git/ MUST stay excluded there. Without it the
+  deploy fails with "Asset too large" as soon as the repo's git pack exceeds
+  Cloudflare's 25 MiB per-file limit, and the Worker silently keeps serving an
+  old version. Same reason .github/, docs/ and data-import-kit/ are excluded.
+
+  DNS note: www.thevillageinvestment.com currently resolves to Bluehost
+  (162.241.225.147). To serve it from GitHub Pages instead, point the apex at
+  185.199.108-111.153 and www at belalatiah-hub.github.io (leave MX records
+  alone). Until then, verify changes on the workers.dev URL above.
+
+Other one-off options if you ever need them: drag this folder onto
+https://app.netlify.com/drop, or import it at https://vercel.com/new.
 
 OPENING / HOSTING
   • Double-click index.html to preview locally — it auto-detects that it is
