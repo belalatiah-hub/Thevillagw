@@ -68,14 +68,16 @@ precision. Currency is explicit per row (EGP/USD/AED/SAR/EUR/GBP).
 
 ---
 
-## Wiring the marketing website
+## Capturing leads from an external website
 
-The static site (`../index.html`) already has a `CONFIG.LEAD_ENDPOINT` hook and
-posts `{name, phone, source, page, locale, ts, site}` as `text/plain` with
-`mode: no-cors`. Point it at the CRM with **no front-end changes**:
+Public lead capture works with any external site — including The Village
+marketing website, which is maintained in its own branch/repo and is **not** part
+of this CRM tree. That site posts `{name, phone, source, page, locale, ts, site}`
+as `text/plain` with `mode: no-cors` from a `CONFIG.LEAD_ENDPOINT` hook, so it
+can be pointed at the CRM with **no front-end changes**:
 
 ```js
-// in index.html CONFIG
+// in the website's CONFIG
 LEAD_ENDPOINT: "https://api.thevillageinvestment.com/api/leads/site/the-village"
 ```
 

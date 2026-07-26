@@ -1,6 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /*/compare/
-Disallow: /*/search/
-
-Sitemap: https://www.thevillageinvestment.com/sitemap.xml

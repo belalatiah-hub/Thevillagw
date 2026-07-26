@@ -4,13 +4,12 @@ name: Deploy CRM console to Cloudflare
 # (web/public/app.html) to their own Cloudflare Worker — "village-crm", defined
 # in web/wrangler.toml.
 #
-# This is deliberately SEPARATE from the marketing site: that one is a different
-# Worker built from the repo root. Nothing here touches it.
+# This branch holds the CRM system only. The marketing website lives on its own
+# branch and is deployed by a different Worker; nothing here touches it.
 on:
   push:
     branches:
       - claude/enterprise-realestate-crm-r6o5zh
-      - claude/deploy-github-connect-oaq96l
     paths:
       - 'web/**'
       - '.github/workflows/deploy-crm.yml'
