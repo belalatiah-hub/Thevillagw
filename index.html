@@ -1479,7 +1479,7 @@
       hero_p:"The Village is a real-estate marketing and brokerage company. We help you compare new launches, developers and areas across New Cairo, Fifth Settlement, the New Administrative Capital and the coast — with honest advisory from your first question to unit handover.",
       hero_s1:"Areas covered", hero_s2:"Developers tracked", hero_s3:"Curated projects", hero_s4:"Clients served",
       find_h:"Find your primary unit", find_p:"Filter the curated selection, then talk to an advisor for live availability.",
-      home_ours_k:"Marketed by The Village", home_ours_h:"Our featured projects", home_ours_p:"Primary-sale launches we market directly across Ras El Hekma, the North Coast and Ain Sokhna. Figures are illustrative — talk to an advisor to confirm current prices and availability.",
+      home_ours_k:"Marketed by The Village", home_ours_h:"Our featured projects", home_ours_p:"Primary-sale launches we market directly across Ras El Hekma, the North Coast, Ain Sokhna and Greater Cairo. Figures are illustrative — talk to an advisor to confirm current prices and availability.",
       home_launch_h:"New launches", home_launch_p:"Our next primary launch — coming soon.", coming_soon:"Coming Soon",
       home_devrail_h:"Browse by developer", home_devrail_p:"Tap a developer to explore their primary-sale projects.",
       home_feat_h:"Featured projects", home_feat_p:"A hand-picked look across areas and developers. Figures are illustrative pending advisor confirmation.",
@@ -1597,7 +1597,7 @@
       hero_p:"The Village شركة تسويق ووساطة عقارية تساعدك على مقارنة الإطلاقات الجديدة والمطوّرين والمناطق في القاهرة الجديدة والتجمع الخامس والعاصمة الإدارية والساحل — باستشارة صادقة من أول سؤال حتى استلام وحدتك.",
       hero_s1:"مناطق نغطّيها", hero_s2:"مطوّرون نتابعهم", hero_s3:"مشروعات مختارة", hero_s4:"عميل خدمناهم",
       find_h:"اعثر على وحدتك الأولية", find_p:"صفِّ الاختيارات ثم تحدّث إلى مستشار لمعرفة الإتاحة الحالية.",
-      home_ours_k:"مقدَّمة من The Village", home_ours_h:"مشروعاتنا المميّزة", home_ours_p:"مشروعات بيع أولي نسوّقها مباشرةً في رأس الحكمة والساحل الشمالي والعين السخنة. الأرقام استرشادية — تواصل مع مستشار لتأكيد الأسعار والإتاحة الحالية.",
+      home_ours_k:"مقدَّمة من The Village", home_ours_h:"مشروعاتنا المميّزة", home_ours_p:"مشروعات بيع أولي نسوّقها مباشرةً في رأس الحكمة والساحل الشمالي والعين السخنة والقاهرة الكبرى. الأرقام استرشادية — تواصل مع مستشار لتأكيد الأسعار والإتاحة الحالية.",
       home_launch_h:"إطلاقات جديدة", home_launch_p:"إطلاقنا الأولي القادم — قريباً.", coming_soon:"قريباً",
       home_devrail_h:"تصفّح حسب المطوّر", home_devrail_p:"اضغط على أي مطوّر لاستعراض مشروعاته للبيع الأولي.",
       home_feat_h:"مشروعات مميّزة", home_feat_p:"نظرة مختارة عبر المناطق والمطوّرين. الأرقام تقديرية لحين تأكيد المستشار.",
@@ -4262,9 +4262,10 @@
 
     // our featured projects (The Village's own directly-marketed listings) — highlighted
     // first, flush to the top so it sits tight under the "Browse by developer" rail.
-    // One project per developer — five slots, five different companies.
+    // One project per developer — six slots, six different companies, so the
+    // grid fills two clean rows of three instead of leaving a hole.
     var ours = spreadByDev(['ogami-north-coast','ramla-ras-el-hekma','beach-plaza-premium',
-      'zoya','il-monte-galala'].map(projBySlug).filter(Boolean));
+      'zoya','il-monte-galala','swan-lake-west'].map(projBySlug).filter(Boolean));
     if(ours.length) node.appendChild(listSection(t('home_ours_k'), t('home_ours_h'), t('home_ours_p'), ours.map(projectCard),
       {label:t('nav_projects'), path:buildPath('projects')}, 'section--flush-t'));
     // why buyers choose The Village — moved up, directly below "Our featured projects"
