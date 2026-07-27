@@ -881,10 +881,32 @@
   /* Top Locations cards */
   .toploc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:18px;margin-top:8px}
   /* Browse-by-developer circular rail */
-  .dev-rail{display:flex;gap:20px;overflow-x:auto;padding:10px 2px 16px;margin-top:6px;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity;scrollbar-width:thin;scrollbar-color:var(--line-cool) transparent}
-  .dev-rail::-webkit-scrollbar{height:7px}
-  .dev-rail::-webkit-scrollbar-thumb{background:var(--line-cool);border-radius:8px}
-  .dev-circle{flex:0 0 auto;width:96px;display:flex;flex-direction:column;align-items:center;gap:9px;text-decoration:none;color:var(--ink);scroll-snap-align:start}
+  /* Auto-scrolling developer rail. The viewport holds two identical tracks and
+     slides one full track width, so the loop is seamless. Duration scales with
+     the number of developers to keep a constant speed as the roster grows. */
+  .dev-rail{overflow:hidden;padding:10px 2px 16px;margin-top:6px;--rail-n:12;
+    -webkit-mask-image:linear-gradient(to right,transparent,#000 6%,#000 94%,transparent);
+    mask-image:linear-gradient(to right,transparent,#000 6%,#000 94%,transparent)}
+  .dev-rail__vp{display:flex;width:max-content;animation:railScroll linear infinite;
+    animation-duration:calc(var(--rail-n) * 2.6s)}
+  .dev-rail__track{display:flex;gap:20px;padding-inline-end:20px}
+  @keyframes railScroll{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
+  /* RTL reads the other way, so the track travels the other way too. */
+  html[dir="rtl"] .dev-rail__vp{animation-name:railScrollRtl}
+  @keyframes railScrollRtl{ from{transform:translateX(0)} to{transform:translateX(50%)} }
+  /* Stop the moment a visitor engages — pointer, touch or keyboard. */
+  .dev-rail:hover .dev-rail__vp,
+  .dev-rail:focus-within .dev-rail__vp,
+  .dev-rail:active .dev-rail__vp{animation-play-state:paused}
+  @media (prefers-reduced-motion:reduce){
+    .dev-rail{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin;
+      scrollbar-color:var(--line-cool) transparent;-webkit-mask-image:none;mask-image:none}
+    .dev-rail::-webkit-scrollbar{height:7px}
+    .dev-rail::-webkit-scrollbar-thumb{background:var(--line-cool);border-radius:8px}
+    .dev-rail__vp{animation:none;width:auto}
+    .dev-rail__track[aria-hidden="true"]{display:none}
+  }
+  .dev-circle{flex:0 0 auto;width:96px;display:flex;flex-direction:column;align-items:center;gap:9px;text-decoration:none;color:var(--ink)}
   .dev-circle__av{width:78px;height:78px;border-radius:50%;display:grid;place-items:center;overflow:hidden;background:var(--paper);
     border:1px solid var(--line-2);box-shadow:var(--shadow-sm);transition:transform var(--t),box-shadow var(--t),border-color var(--t)}
   .dev-circle__av .dev-logo{border-radius:50%!important;width:74px!important;height:74px!important}
@@ -4253,17 +4275,29 @@
     return out;
   }
   // Circular developer avatar → opens the developer page (home "browse by developer" rail)
-  function devCircle(d){
-    return h('a',{class:'dev-circle', href:U(buildPath('developer',{slug:d.key})), 'aria-label':L(d.name), role:'listitem'},
+  function devCircle(d, inert){
+    // `inert` marks the duplicated marquee copy: not focusable, not announced.
+    var a=h('a',{class:'dev-circle', href:U(buildPath('developer',{slug:d.key})),
+      'aria-label':L(d.name), role:inert?false:'listitem', tabindex:inert?'-1':false},
       h('span',{class:'dev-circle__av'}, devBadge(d,74)),
       h('span',{class:'dev-circle__name'}, L(d.name)));
+    return a;
   }
   function developerRail(){
     var devs = DEVELOPERS.slice().sort(function(a,b){ return projByDev(b.key).length - projByDev(a.key).length; });
     var row=h('div',{class:'sec-row'}, sectionHead('', t('home_devrail_h'), t('home_devrail_p')),
       h('a',{class:'btn btn--ghost btn--sm', href:U(buildPath('developers'))}, t('cta_all'), ic('arrow')));
-    return h('section',{class:'section section--flush-b'}, h('div',{class:'wrap'}, row,
-      h('div',{class:'dev-rail', role:'list'}, devs.map(devCircle))));
+    /* The rail scrolls itself. The list is rendered twice so translating the
+       track by exactly -50% lands on an identical frame and the loop is
+       seamless; the second copy is aria-hidden so screen readers and crawlers
+       see each developer once. Motion is pure CSS, so it pauses on hover,
+       focus or touch without any JS, and stops entirely under
+       prefers-reduced-motion — where it stays a normal scrollable strip. */
+    var track=h('div',{class:'dev-rail__track'}, devs.map(function(d){ return devCircle(d,false); }));
+    var clone=h('div',{class:'dev-rail__track','aria-hidden':'true'}, devs.map(function(d){ return devCircle(d,true); }));
+    var rail=h('div',{class:'dev-rail', style:'--rail-n:'+devs.length},
+      h('div',{class:'dev-rail__vp', role:'list'}, track, clone));
+    return h('section',{class:'section section--flush-b'}, h('div',{class:'wrap'}, row, rail));
   }
 
   function ctaBand(){
