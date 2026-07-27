@@ -363,7 +363,21 @@
   .area-banner__pin svg{width:17px;height:17px}
   @media (max-width:640px){ .area-banner{aspect-ratio:16/9} }
   /* New Launches — image-only "Coming Soon" teaser (no price/details) */
-  .cs-wrap{display:flex;justify-content:center;margin-top:6px}
+  /* New-release: badge, teaser title, hero and the per-project spec table. */
+  .chip--rel,.card__media .tags .chip--rel{background:var(--warn-bg);color:var(--warn-ink);
+    border:1px solid rgba(138,90,18,.22);font-weight:800;letter-spacing:.06em;
+    text-transform:uppercase;font-size:.72rem;-webkit-backdrop-filter:none;backdrop-filter:none}
+  .cs-title{position:absolute;inset-block-end:16px;inset-inline-start:16px;z-index:2;
+    color:var(--bone);font-family:var(--serif);font-size:1.5rem;font-weight:700;letter-spacing:.02em;
+    text-shadow:0 2px 14px rgba(5,46,61,.55)}
+  .cs-card .cs-scrim{background:linear-gradient(180deg,rgba(5,46,61,.5),rgba(5,46,61,0) 34%,rgba(5,46,61,0) 60%,rgba(5,46,61,.62))}
+  .rel-hero{max-width:64ch}
+  .rel-table{width:100%;border-collapse:collapse;margin-top:12px;font-size:.85rem}
+  .rel-table th{text-align:start;font-weight:700;color:var(--ink-3);font-size:.72rem;
+    letter-spacing:.08em;text-transform:uppercase;padding:0 0 6px}
+  .rel-table td{padding:6px 0;border-top:1px solid var(--line-2);color:var(--ink-2)}
+  .rel-table__p{font-weight:700;color:var(--ink);white-space:nowrap;text-align:end}
+  .cs-wrap{display:flex;justify-content:center;gap:clamp(14px,2.4vw,26px);flex-wrap:wrap;margin-top:6px}
   .cs-card{position:relative;margin:0;width:100%;max-width:400px;border-radius:var(--r-lg);overflow:hidden;background:var(--teal-900);box-shadow:var(--shadow-lg)}
   .cs-img{display:block;width:100%;height:auto;aspect-ratio:1/1;object-fit:cover}
   .cs-scrim{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(5,46,61,.5),rgba(5,46,61,0) 34%)}
@@ -1446,7 +1460,7 @@
       brand_note:"Identity derived from The Village master logo. Approved brand sign-off pending.",
       foot_blocker:"Launch note: verified contacts, live inventory, CRM lead delivery and legal review are pending owner input.",
       choose_lang:"العربية", metric_installments:"yr plan",
-      nav_units:"Units", avail_units:"Available units", no_units_type:"No available units found for this unit type.",
+      nav_units:"Units", avail_units:"Available units", new_release:"New release", release_h:"New release price list", release_p:"Updated prices released by the developer for these projects. Primary sale, direct from the developer.", release_units:"Units in this release", no_units_type:"No available units found for this unit type.",
       home_units_h:"Featured units", home_units_p:"Illustrative sample units across our projects — bedrooms, area and price are examples to confirm with an advisor.",
       units_h:"Units", units_p:"Browse sample units by type. Figures are illustrative — confirm current availability and prices with an advisor.",
       filter_type:"Type", all_types:"All types",
@@ -1563,7 +1577,7 @@
       brand_note:"الهوية مستمدة من شعار The Village الرئيسي. اعتماد الهوية النهائي قيد الانتظار.",
       foot_blocker:"ملاحظة إطلاق: بيانات التواصل الموثّقة والمعروض الحيّ وتسليم الطلبات للـCRM والمراجعة القانونية قيد إدخال صاحب الموقع.",
       choose_lang:"English", metric_installments:"سنوات تقسيط",
-      nav_units:"الوحدات", avail_units:"وحدات متاحة", no_units_type:"لا توجد وحدات متاحة من هذا النوع.",
+      nav_units:"الوحدات", avail_units:"وحدات متاحة", new_release:"إطلاق جديد", release_h:"قائمة أسعار الإطلاق الجديد", release_p:"أسعار محدَّثة أصدرها المطوّر لهذه المشاريع. بيع أولي مباشر من المطوّر.", release_units:"وحدات هذا الإطلاق", no_units_type:"لا توجد وحدات متاحة من هذا النوع.",
       home_units_h:"وحدات مميّزة", home_units_p:"وحدات نموذجية استرشادية عبر مشروعاتنا — الغرف والمساحة والسعر أمثلة للتأكيد مع المستشار.",
       units_h:"الوحدات", units_p:"تصفّح وحدات نموذجية حسب النوع. الأرقام استرشادية — أكّد الإتاحة والأسعار الحالية مع المستشار.",
       filter_type:"النوع", all_types:"كل الأنواع",
@@ -3030,6 +3044,35 @@
     return photoFlipper(items, L(dev.name), 'dev-gal', 1280, 549, true);
   }
 
+  /* ---- New-release price lists ------------------------------------------
+     A developer's re-priced release, kept on its own page rather than mixed
+     into the main listings so the standing prices are never ambiguous. Every
+     figure is taken verbatim from the units sheet; images are the ones already
+     supplied for those units. --------------------------------------------- */
+  var RELEASES = [{
+    slug:'modon', dev:'modon', area:'raselhekma',
+    name:{en:'MODON', ar:'مدن'},
+    blurb:{en:'A new release of Modon Ras El Hekma apartments, re-priced by the developer. Primary sale, direct from Modon.',
+           ar:'إطلاق جديد لشقق مدن رأس الحكمة بأسعار محدَّثة من المطوّر. بيع أولي مباشر من مدن.'},
+    projects:[
+      {name:{en:'Boulevard', ar:'بوليفارد'}, img:'/project-media/modon/ap2-bl-0.webp',
+       dp:10, years:8, delivery:'2029',
+       units:[{beds:1, baths:2, size:93,  price:16100000},
+              {beds:2, baths:3, size:145, price:22500000},
+              {beds:3, baths:3, size:197, price:26700000}]},
+      {name:{en:'Beach Plaza Premium', ar:'بيتش بلازا بريميوم'}, img:'/project-media/modon/ap1-bp-03.webp',
+       dp:10, years:8, delivery:'2029',
+       units:[{beds:1, baths:2, size:93,  price:19000000},
+              {beds:2, baths:3, size:145, price:26000000},
+              {beds:3, baths:3, size:197, price:32000000}]}
+    ]
+  }];
+  function releaseBySlug(s){ for(var i=0;i<RELEASES.length;i++){ if(RELEASES[i].slug===s) return RELEASES[i]; } return null; }
+  function releaseFrom(r){
+    var all=[]; r.projects.forEach(function(p){ p.units.forEach(function(u){ if(u.price!=null) all.push(u.price); }); });
+    return all.length ? Math.min.apply(null, all) : null;
+  }
+
   /* Developer feature blocks — a masterplan and a row of themed cards, shown
      under the hero. Data-driven, so a developer without an entry gets nothing. */
   var MP = '/project-media/modon/';
@@ -3687,6 +3730,7 @@
       case 'investors': return b+'investors/';
       case 'search': return b+'search/';
       case 'launches': return b+'new-launches/';
+      case 'release': return b+'releases/'+params.slug+'/';
       case 'developers': return b+'developers/';
       case 'developer': return b+'developers/'+params.slug+'/';
       case 'group': return b+'groups/'+params.slug+'/';
@@ -3721,6 +3765,7 @@
     else if(seg[0]==='investors') name='investors';
     else if(seg[0]==='search') name='search';
     else if(seg[0]==='new-launches') name='launches';
+    else if(seg[0]==='releases'){ name = seg[1]?'release':'404'; if(seg[1]) params.slug=seg[1]; }
     else if(seg[0]==='developers'){ name = seg[1]?'developer':'developers'; if(seg[1]) params.slug=seg[1]; }
     else if(seg[0]==='groups'){ name = seg[1]?'group':'404'; if(seg[1]) params.slug=seg[1]; }
     else if(seg[0]==='areas'){ name = seg[1]?'area':'areas'; if(seg[1]) params.slug=seg[1]; }
@@ -3737,6 +3782,7 @@
     if(name==='project' && !projBySlug(params.slug)) name='404';
     if(name==='developer' && !devByKey(params.slug)) name='404';
     if(name==='group' && !groupBySlug(params.slug)) name='404';
+    if(name==='release' && !releaseBySlug(params.slug)) name='404';
     if(name==='area' && !areaByKey(params.slug)) name='404';
     if(name==='insight' && !RESEARCH.some(function(r){return r.slug===params.slug;})) name='404';
     if(name==='unit' && !unitById(params.id)) name='404';
@@ -4105,7 +4151,7 @@
     var launchSec=h('section',{class:'section'});
     launchSec.appendChild(h('div',{class:'wrap'},
       sectionHead(t('nav_launches'), t('home_launch_h'), t('home_launch_p')),
-      comingSoonLaunch()));
+      launchStrip()));
     node.appendChild(launchSec);
     // top locations (Section 3) — premium cards + live compound counts
     var tlRow=h('div',{class:'sec-row'}, sectionHead('', t('top_loc_h'), t('top_loc_p')),
@@ -4192,6 +4238,31 @@
       ? h('figure',{class:'cs-card'}, kids)
       : h('a',{class:'cs-card cs-card--link', href:U(buildPath('project',{slug:COMING_SOON_LAUNCH.link})), 'aria-label':COMING_SOON_LAUNCH.name+' — '+t('coming_soon')}, kids);
     return h('div',{class:'cs-wrap'}, card);
+  }
+  /* Release teaser — same card shell as the Coming Soon tile, badged NEW
+     RELEASE and opening that developer's release page. */
+  function releaseTeaser(r){
+    var nm = L(r.name);
+    return h('a',{class:'cs-card cs-card--link', href:U(buildPath('release',{slug:r.slug})),
+        'aria-label':nm+' — '+t('new_release')},
+      h('img',{class:'cs-img', src:r.projects[0].img, alt:nm+' — '+t('new_release'),
+        width:'1000', height:'1000', loading:'lazy', decoding:'async'}),
+      h('span',{class:'cs-scrim','aria-hidden':'true'}),
+      h('span',{class:'cs-badge'}, t('new_release')),
+      h('span',{class:'cs-title'}, nm));
+  }
+  // New Launches strip: the upcoming-project teaser plus any live releases.
+  function launchStrip(){
+    var wrap = h('div',{class:'cs-wrap'});
+    var kids=[
+      h('img',{class:'cs-img', src:COMING_SOON_LAUNCH.img, alt:COMING_SOON_LAUNCH.name+' — '+t('coming_soon'), width:'1000', height:'1000', loading:'lazy', decoding:'async'}),
+      h('span',{class:'cs-scrim','aria-hidden':'true'}),
+      h('span',{class:'cs-badge'}, t('coming_soon'))];
+    wrap.appendChild(COMING_SOON_LAUNCH.link
+      ? h('a',{class:'cs-card cs-card--link', href:U(buildPath('project',{slug:COMING_SOON_LAUNCH.link})), 'aria-label':COMING_SOON_LAUNCH.name+' — '+t('coming_soon')}, kids)
+      : h('figure',{class:'cs-card'}, kids));
+    RELEASES.forEach(function(r){ wrap.appendChild(releaseTeaser(r)); });
+    return wrap;
   }
   function field(kind,id,label,children){
     var control = kind==='select' ? h('select',{id:id,name:id}, children)
@@ -4673,7 +4744,7 @@
         sectionHead(t('hero_kicker'), t('nav_launches'), t('home_launch_p'), 'h1')));
       lnode.appendChild(lhead);
       var lmain=h('section',{style:'padding-bottom:clamp(48px,8vw,96px)'});
-      lmain.appendChild(h('div',{class:'wrap'}, comingSoonLaunch()));
+      lmain.appendChild(h('div',{class:'wrap'}, launchStrip()));
       lnode.appendChild(lmain);
       return {node:lnode, title:t('nav_launches')+' · The Village Investment', desc:t('home_launch_p'), indexable:true,
         crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_launches')}]};
@@ -5383,6 +5454,72 @@
       crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_developers'),path:buildPath('developers')},{label:L(d.name)}]};
   };
 
+  /* ---- Release page (e.g. MODON new release) ----------------------------
+     A developer's re-priced release. Same card shell as the rest of the site,
+     with a NEW RELEASE badge and the sheet's figures for each project. ---- */
+  function releaseCard(r, p){
+    var nm = L(p.name), dev = devByKey(r.dev), area = areaByKey(r.area);
+    var from = Math.min.apply(null, p.units.map(function(u){ return u.price; }));
+    var card = h('article',{class:'card'});
+    var img = h('img',{class:'artsvg proj-cover', src:p.img, alt:nm+' — '+L(r.name),
+      loading:'lazy', decoding:'async'});
+    var media = h('div',{class:'card__media'}, img,
+      h('div',{class:'tags'}, h('span',{class:'chip chip--rel'}, t('new_release'))));
+    media.appendChild(devChip(dev));
+    card.appendChild(media);
+    var specs = h('table',{class:'rel-table'});
+    specs.appendChild(h('tr',null,
+      h('th',{scope:'col'}, lang==='ar'?'الوحدة':'Unit'),
+      h('th',{scope:'col'}, lang==='ar'?'المساحة':'Area'),
+      h('th',{scope:'col'}, t('price'))));
+    p.units.forEach(function(u){
+      specs.appendChild(h('tr',null,
+        h('td',null, num(u.beds)+' '+(lang==='ar'?'غرف':'BR')
+          + (u.baths!=null ? (' · '+num(u.baths)+' '+(lang==='ar'?'حمام':'ba')) : '')),
+        h('td',null, num(u.size)+' m²'),
+        h('td',{class:'rel-table__p'}, money(u.price))));
+    });
+    card.appendChild(h('div',{class:'card__body'},
+      h('div',{class:'card__dev'}, L(dev.name)),
+      h('h3',null, nm),
+      h('div',{class:'card__facts'},
+        h('span',null, ic('pin'), ' ', L(area.name)),
+        h('span',null, ic('key'), ' ', (lang==='ar'?'تسليم ':'Delivery ')+p.delivery)),
+      h('div',{class:'card__price'}, h('small',null, t('from')), money(from)),
+      specs,
+      h('div',{class:'card__facts', style:'margin-top:10px'},
+        h('span',null, num(p.dp)+'% '+t('dp')),
+        h('span',null, num(p.years)+' '+(lang==='ar'?'سنوات':'years'))),
+      provBadge(),
+      h('div',{class:'card__foot'},
+        h('a',{class:'btn btn--primary btn--sm', href:U(buildPath('contact'))+'?p='+r.slug}, t('cta_talk')),
+        CONFIG.whatsapp ? h('a',{class:'btn btn--wa btn--sm btn--icon', href:waLink(
+            (lang==='ar'?'مهتم بـ ':'Interested in ')+nm+' — '+L(r.name)+' '+t('new_release')),
+          target:'_blank', rel:'noopener','aria-label':t('whatsapp')+' — '+nm}, ic('wa')) : null)));
+    return card;
+  }
+  V.release = function(slug){
+    var r = releaseBySlug(slug); if(!r) return V.notfound();
+    var nm = L(r.name), dev = devByKey(r.dev), node = h('div',null);
+    var cr = [{label:t('nav_home'),path:buildPath('home')},
+              {label:t('nav_launches'),path:buildPath('launches')},{label:nm}];
+    node.appendChild(sectionWrap(
+      crumbNode(cr),
+      h('div',{class:'rel-hero'},
+        h('span',{class:'chip chip--rel'}, t('new_release')),
+        h('h1',{style:'font-size:clamp(1.8rem,4vw,2.6rem);margin-top:12px'}, nm),
+        h('p',{class:'lead', style:'margin-top:10px'}, t('release_h')),
+        h('p',{class:'muted', style:'margin-top:12px;max-width:60ch'}, L(r.blurb)),
+        h('div',{style:'display:flex;gap:8px;flex-wrap:wrap;margin-top:16px'},
+          h('a',{class:'chip chip--muted', href:U(buildPath('developer',{slug:dev.key}))}, devLogoInline(dev,20), L(dev.name)),
+          h('span',{class:'chip chip--muted'}, ic('pin'), L(areaByKey(r.area).name))))));
+    node.appendChild(listSection('', t('release_units'), t('release_p'),
+      r.projects.map(function(p){ return releaseCard(r,p); }), null, 'band', 'grid--2'));
+    node.appendChild(ctaBand());
+    return {node:node, title:nm+' — '+t('new_release')+' · The Village Investment',
+      desc:L(r.blurb), indexable:true, crumbs:cr};
+  };
+
   /* ---- Project group (e.g. Stei8ht) — a sub-collection under a developer ---- */
   V.group = function(slug){
     var g = groupBySlug(slug); if(!g) return V.notfound();
@@ -5731,6 +5868,7 @@
       case 'developers': return V.developers();
       case 'developer': return V.developer(r.params.slug);
       case 'group': return V.group(r.params.slug);
+      case 'release': return V.release(r.params.slug);
       case 'areas': return V.areas();
       case 'area': return V.area(r.params.slug);
       case 'compare': return V.compare();
