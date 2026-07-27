@@ -398,6 +398,17 @@
     padding:18px;box-shadow:var(--shadow-sm)}
   .dev-feat img{width:100%;height:auto;display:block;border-radius:12px;
     background:var(--line-2);cursor:zoom-in}
+  /* Card copy with a chevron that reveals the rest. */
+  .feat-copy{margin-top:14px}
+  .feat-copy__p{color:var(--ink-2);font-size:.92rem;line-height:1.65;margin:0}
+  .feat-copy__more{margin-top:6px}
+  .feat-copy__sum{list-style:none;cursor:pointer;display:flex;align-items:center;gap:6px;
+    color:var(--teal-600);font-weight:700;font-size:.86rem;padding:6px 0}
+  .feat-copy__sum::-webkit-details-marker{display:none}
+  .feat-copy__sum:focus-visible{outline:2px solid var(--focus);outline-offset:3px;border-radius:8px}
+  .feat-copy__sum .accordion__chev{width:18px;height:18px}
+  .feat-copy__more[open] .accordion__chev{transform:rotate(180deg)}
+  .feat-copy__body{padding-top:2px}
   .dev-feat__flip{position:relative;aspect-ratio:3/2;border-radius:12px;overflow:hidden;
     background:var(--line-2);cursor:zoom-in}
   .dev-feat__flip img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:0}
@@ -2882,7 +2893,13 @@
     'modon': {
       masterplan: {en:'Masterplan', ar:'الماستر بلان', icon:'layers', src:MP+'masterplan.webp'},
       cards: [
-        {en:'About Partnership', ar:'عن الشراكة', icon:'shield', imgs:[MP+'partnership.webp']},
+        {en:'About Partnership', ar:'عن الشراكة', icon:'shield', imgs:[MP+'partnership.webp'],
+         copy:{
+           lead:{en:'In the presence of President His Highness Sheikh Mohamed bin Zayed Al Nahyan, and His Excellency Abdel Fattah El-Sisi, President of the Arab Republic of Egypt, ADQ, an Abu Dhabi-based investment and holding company, appointed Modon Holding PSC as the master planner for the Ras El Hekma megaproject.',
+                 ar:'بحضور رئيس دولة الإمارات صاحب السمو الشيخ محمد بن زايد آل نهيان، وفخامة الرئيس عبد الفتاح السيسي رئيس جمهورية مصر العربية، كلَّفت «ADQ» — شركة الاستثمار والقابضة ومقرّها أبوظبي — شركة «مدن القابضة» بوضع المخطط العام لمشروع رأس الحكمة.'},
+           more:{en:'Ras El Hekma is the largest ever international investment into Egypt. The project is expected to become a powerful transformative economic engine, with cumulative investments anticipated to reach US$110 billion by 2045, an annual GDP contribution of around US$25 billion, and approximately 750,000 jobs to be created, both directly and indirectly.',
+                 ar:'يُعد رأس الحكمة أكبر استثمار دولي في تاريخ مصر. ومن المتوقّع أن يتحوّل المشروع إلى محرّك اقتصادي هائل، باستثمارات تراكمية يُتوقّع أن تبلغ ١١٠ مليار دولار أمريكي بحلول عام ٢٠٤٥، ومساهمة سنوية في الناتج المحلي الإجمالي تُقدَّر بنحو ٢٥ مليار دولار، وتوفير ما يقارب ٧٥٠٬٠٠٠ فرصة عمل بشكل مباشر وغير مباشر.'}
+         }},
         {en:'Connected to the World', ar:'متصلة بالعالم', icon:'globe', imgs:[MP+'connected.webp']},
         {en:'Major Components', ar:'المكوّنات الرئيسية', icon:'build',
          imgs:[MP+'mc1.webp',MP+'mc2.webp',MP+'mc3.webp',MP+'mc4.webp',MP+'mc5.webp',MP+'mc6.webp']}
@@ -2908,6 +2925,25 @@
       h('div',{class:'wrap'}, head,
         h('div',{class:'dev-mp'}, featImg(m.src, items, 0, nm+' — '+label, 1395, 778))));
   }
+  /* Card copy: an opening paragraph always on show, the rest behind a chevron.
+     Uses <details> so the hidden half stays in the DOM for search engines. */
+  function featCopy(c){
+    if(!c.copy) return null;
+    var lead = L(c.copy.lead), more = c.copy.more ? L(c.copy.more) : '';
+    var wrap = h('div',{class:'feat-copy'}, h('p',{class:'feat-copy__p'}, lead));
+    if(!more) return wrap;
+    var chev = sEl('svg',{class:'accordion__chev',viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',
+      'stroke-width':'2','stroke-linecap':'round','stroke-linejoin':'round','aria-hidden':'true'},
+      sEl('path',{d:'M6 9l6 6 6-6'}));
+    var MORE = (lang==='ar'?'اقرأ المزيد':'Read more'), LESS = (lang==='ar'?'عرض أقل':'Show less');
+    var lbl = h('span',null, MORE);
+    var det = h('details',{class:'feat-copy__more'},
+      h('summary',{class:'feat-copy__sum'}, lbl, chev),
+      h('div',{class:'feat-copy__body'}, h('p',{class:'feat-copy__p'}, more)));
+    det.addEventListener('toggle', function(){ lbl.textContent = det.open ? LESS : MORE; });
+    wrap.appendChild(det);
+    return wrap;
+  }
   function devCardsSection(dev){
     var f = devFeatures(dev.key); if(!f || !f.cards || !f.cards.length) return null;
     var nm = L(dev.name);
@@ -2922,7 +2958,7 @@
         : featImg(c.imgs[0], items, 0, label, 926, 750);
       return h('article',{class:'dev-feat'},
         h('h3',{class:'dev-feat__title'}, ic(c.icon,'dev-feat__ico'), h('span',null,label)),
-        media);
+        media, featCopy(c));
     });
     return h('section',{class:'section--tight'},
       h('div',{class:'wrap'}, h('div',{class:'grid grid--3'}, cards)));
