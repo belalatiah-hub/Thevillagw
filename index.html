@@ -794,6 +794,16 @@
   .fsb__opt em{margin-inline-start:auto;font-style:normal;font-size:.72rem;font-weight:700;
     letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);flex:none}
   @media(max-width:560px){ .fsb__switch{width:100%} }
+  /* Facet lists peek at the first three options; the rest sit behind a toggle.
+     A selected chip is always peeked, wherever it falls in the list. */
+  .facet-row.is-clipped .fchip:not(.is-peek){display:none}
+  .facet-more{display:inline-flex;align-items:center;gap:5px;margin-top:9px;padding:0;background:none;
+    border:none;cursor:pointer;font:inherit;font-size:.78rem;font-weight:600;color:var(--teal-600)}
+  .facet-more:hover{color:var(--teal-800)}
+  .facet-more:focus-visible{outline:2px solid var(--focus);outline-offset:3px;border-radius:3px}
+  .facet-more__ic{width:15px;height:15px;flex:none;transition:transform .2s ease}
+  .facet-more.is-open .facet-more__ic{transform:rotate(180deg)}
+  @media (prefers-reduced-motion:reduce){ .facet-more__ic{transition:none} }
   .facet-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:10px}
   .facet-group h4{font-size:.74rem;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);margin:0;font-family:var(--sans);font-weight:700}
   .facet-reset{background:none;border:none;padding:0;cursor:pointer;font:inherit;font-size:.74rem;
@@ -1415,6 +1425,7 @@
     zoomin:['M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14z','M21 21l-4.3-4.3','M11 8v6','M8 11h6'],
     zoomout:['M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14z','M21 21l-4.3-4.3','M8 11h6'],
     chevleft:['M15 6l-6 6 6 6'],
+    chevdown:['M6 9l6 6 6-6'],
     chevright:['M9 6l6 6-6 6'],
     /* amenity icons */
     am_beach:['M12 3c4 0 8 3 8 7H4c0-4 4-7 8-7z','M12 3v18','M9 21h6'],
@@ -1503,7 +1514,7 @@
       filter_area:"Area", filter_dev:"Developer", filter_status:"Status", filter_price:"Max price", filter_sort:"Sort",
       any:"Any", sort_feat:"Featured", sort_price_a:"Price: low to high", sort_price_d:"Price: high to low",
       hero_kicker:"Primary-sale real estate · Egypt",
-      hero_h1a:"Invest in your real-estate future ", hero_h1b:"with confidence", hero_sig:"Invest with Belal Samy in your real estate",
+      hero_h1a:"Where Smart ", hero_h1b:"Investments Begin", hero_sig:"Invest with Belal Samy in your real estate",
       hero_p:"The Village is a real-estate marketing and brokerage company. We help you compare new launches, developers and areas across New Cairo, Fifth Settlement, the New Administrative Capital and the coast — with honest advisory from your first question to unit handover.",
       hero_s1:"Areas covered", hero_s2:"Developers tracked", hero_s3:"Curated projects", hero_s4:"Clients served",
       find_h:"Find your primary unit", find_p:"Filter the curated selection, then talk to an advisor for live availability.",
@@ -1568,6 +1579,7 @@
       launch_status:"Launch status", availability:"Availability", beds:"Bedrooms",
       sort_delivery:"Earliest delivery", sort_newest:"Newest launch",
       finder_q_ph:"Area, project or developer", switch_projects:"Switch to projects",
+      facet_more:"Show {n} more", facet_less:"Show less",
       nav_search:"Search", search_ph:"Search projects, units, developers, areas, guides…",
       search_hint:"Start typing to search across the whole site.", search_none:"No matches. Try a project, developer, area — or ask the assistant.",
       search_finder:"Open the unit finder", search_h:"Search results", search_p:"Results across projects, units, developers, areas, guides and questions.",
@@ -1622,7 +1634,7 @@
       filter_area:"المنطقة", filter_dev:"المطوّر", filter_status:"الحالة", filter_price:"أقصى سعر", filter_sort:"الترتيب",
       any:"الكل", sort_feat:"مميّز", sort_price_a:"السعر: من الأقل للأعلى", sort_price_d:"السعر: من الأعلى للأقل",
       hero_kicker:"عقارات البيع الأولي · مصر",
-      hero_h1a:"استثمر في مستقبلك العقاري ", hero_h1b:"بثقة", hero_sig:"استثمر مع بلال سامي",
+      hero_h1a:"من هنا يبدأ ", hero_h1b:"الاستثمار الذكي", hero_sig:"استثمر مع بلال سامي",
       hero_p:"The Village شركة تسويق ووساطة عقارية تساعدك على مقارنة الإطلاقات الجديدة والمطوّرين والمناطق في القاهرة الجديدة والتجمع الخامس والعاصمة الإدارية والساحل — باستشارة صادقة من أول سؤال حتى استلام وحدتك.",
       hero_s1:"مناطق نغطّيها", hero_s2:"مطوّرون نتابعهم", hero_s3:"مشروعات مختارة", hero_s4:"عميل خدمناهم",
       find_h:"اعثر على وحدتك الأولية", find_p:"صفِّ الاختيارات ثم تحدّث إلى مستشار لمعرفة الإتاحة الحالية.",
@@ -1687,6 +1699,7 @@
       launch_status:"حالة الإطلاق", availability:"الإتاحة", beds:"غرف النوم",
       sort_delivery:"الأقرب تسليماً", sort_newest:"الأحدث إطلاقاً",
       finder_q_ph:"منطقة أو مشروع أو مطوّر", switch_projects:"عرض المشروعات",
+      facet_more:"عرض {n} أخرى", facet_less:"عرض أقل",
       nav_search:"بحث", search_ph:"ابحث في المشروعات والوحدات والمطوّرين والمناطق والأدلة…",
       search_hint:"ابدأ الكتابة للبحث في كل الموقع.", search_none:"لا نتائج. جرّب مشروعاً أو مطوّراً أو منطقة — أو اسأل المساعد.",
       search_finder:"افتح محرّك البحث عن الوحدات", search_h:"نتائج البحث", search_p:"نتائج عبر المشروعات والوحدات والمطوّرين والمناطق والأدلة والأسئلة.",
@@ -5506,18 +5519,41 @@
   };
 
   /* ---- Relational Unit Finder (§42) ---- */
+  var FACET_PEEK = 3;   // options shown before "show more"
   function facetChips(group, opts){
     var row=h('div',{class:'facet-row'});
-    opts.forEach(function(o){
+    // Anything selected stays visible no matter where it sits in the list —
+    // a filter the visitor cannot see is a filter they cannot remove.
+    var live=opts.filter(function(o){ return o.count || FILTER[group].indexOf(o.v)>-1; });
+    var chips=live.map(function(o){
       var active=FILTER[group].indexOf(o.v)>-1;
-      if(!o.count && !active) return;                    // hide zero-match unless selected
       var b=h('button',{class:'fchip'+(active?' on':''), type:'button', id:'fchip-'+group+'-'+o.v, 'aria-pressed':active?'true':'false'},
         o.icon||null, h('span',null,o.label), h('small',null,'('+num(o.count||0)+')'));
       b.addEventListener('click', function(){ finderToggle(group, o.v); });
-      row.appendChild(b);
+      return {el:b, active:active};
     });
-    if(!row.childNodes.length) row.appendChild(h('span',{class:'muted',style:'font-size:.8rem'}, '—'));
-    return row;
+    if(!chips.length){ row.appendChild(h('span',{class:'muted',style:'font-size:.8rem'}, '—')); return row; }
+
+    var shown=0;
+    chips.forEach(function(c){ if(shown<FACET_PEEK || c.active){ c.el.classList.add('is-peek'); shown++; } });
+    var hidden=chips.filter(function(c){ return !c.el.classList.contains('is-peek'); }).length;
+    chips.forEach(function(c){ row.appendChild(c.el); });
+    if(!hidden) return row;
+
+    var wrap=h('div',null, row);
+    var more=h('button',{class:'facet-more', type:'button', id:'facet-more-'+group,
+      'aria-expanded':'false', 'aria-controls':'facet-row-'+group},
+      h('span',null, t('facet_more').replace('{n}', num(hidden))), ic('chevdown','facet-more__ic'));
+    row.setAttribute('id','facet-row-'+group);
+    row.classList.add('is-clipped');
+    more.addEventListener('click', function(){
+      var open=row.classList.toggle('is-clipped')===false;
+      more.setAttribute('aria-expanded', open?'true':'false');
+      more.firstChild.textContent = open ? t('facet_less') : t('facet_more').replace('{n}', num(hidden));
+      more.classList.toggle('is-open', open);
+    });
+    wrap.appendChild(more);
+    return wrap;
   }
   /* A filter group. Pass the FILTER key and the header grows a Reset that clears
      just that group — clearing "Developer" should not throw away the area and
