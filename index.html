@@ -555,7 +555,7 @@
   /* ===================================================================
      FOOTER
      =================================================================== */
-  footer.site{background:var(--teal-900);color:#cfe0e5;margin-top:auto;padding-block:clamp(28px,3.6vw,40px) 18px}
+  footer.site{background:var(--teal-900);color:#cfe0e5;margin-top:auto;padding-block:clamp(18px,2vw,24px) 16px}
   footer.site .cols{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
   @media(max-width:820px){footer.site .cols{grid-template-columns:1fr 1fr}}
   @media(max-width:480px){footer.site .cols{grid-template-columns:1fr;gap:14px}}
@@ -618,7 +618,11 @@
   .mt-24{margin-top:24px}.mt-16{margin-top:16px}.mb-8{margin-bottom:8px}
   .muted{color:var(--ink-3)}
   .band{background:var(--bone)}
-  .band-teal{background:var(--teal-900);color:var(--bone)}
+  /* The CTA band runs straight into the footer, so the two read as one navy
+     block. It keeps a tighter rhythm than a normal section — the full section
+     padding on both sides of that seam left a large empty band. */
+  .band-teal{background:var(--teal-900);color:var(--bone);
+    padding-block:clamp(30px,3.4vw,44px) clamp(24px,2.8vw,34px)}
   .band-teal h2{color:var(--bone)}
   .band-teal .lead{color:#cfe0e5}
 
@@ -4168,7 +4172,7 @@
     return h('section',{class:'section band-teal'},
       h('div',{class:'wrap center'},
         h('h2',null, t('enquire')),
-        h('p',{class:'lead', style:'margin:12px auto 24px;max-width:52ch'}, t('enquire_p')),
+        h('p',{class:'lead', style:'margin:10px auto 18px;max-width:52ch'}, t('enquire_p')),
         h('a',{class:'btn btn--light', href:U(buildPath('contact'))}, t('cta_talk'), ic('arrow'))));
   }
 
