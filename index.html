@@ -386,6 +386,17 @@
   .dev-lockup-wrap{display:inline-flex;align-items:center;justify-content:center;
     padding:14px 20px;background:#fff;border:1px solid var(--line-2);border-radius:16px;box-shadow:var(--shadow-sm)}
   .dev-lockup{max-width:230px;max-height:92px;width:auto;height:auto;object-fit:contain}
+  /* Developer feature blocks: masterplan + themed cards. */
+  .dev-feat__title{display:flex;align-items:center;gap:10px;margin:0 0 14px}
+  .dev-feat__ico{width:22px;height:22px;color:var(--teal-600);flex:none}
+  .dev-mp img{width:100%;height:auto;display:block;border-radius:var(--r-lg);
+    box-shadow:var(--shadow-sm);background:var(--line-2);cursor:zoom-in}
+  .dev-feat{background:#fff;border:1px solid var(--line-2);border-radius:var(--r-lg);
+    padding:18px;box-shadow:var(--shadow-sm)}
+  .dev-feat img{width:100%;height:auto;display:block;border-radius:12px;
+    background:var(--line-2);cursor:zoom-in}
+  .dev-feat__grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .dev-feat__grid img{aspect-ratio:3/2;object-fit:cover}
   /* Destination photo above the developer lockup — one image, arrows flip the rest. */
   .dev-gal{position:relative;aspect-ratio:21/9;border-radius:var(--r-lg);overflow:hidden;
     margin:6px 0 22px;background:var(--line-2);box-shadow:var(--shadow-sm);cursor:zoom-in}
@@ -2856,6 +2867,59 @@
     return box;
   }
 
+  /* Developer feature blocks — a masterplan and a row of themed cards, shown
+     under the hero. Data-driven, so a developer without an entry gets nothing. */
+  var MP = '/project-media/modon/';
+  var DEV_FEATURES = {
+    'modon': {
+      masterplan: {en:'Masterplan', ar:'الماستر بلان', icon:'layers', src:MP+'masterplan.webp'},
+      cards: [
+        {en:'About Partnership', ar:'عن الشراكة', icon:'shield', imgs:[MP+'partnership.webp']},
+        {en:'Connected to the World', ar:'متصلة بالعالم', icon:'globe', imgs:[MP+'connected.webp']},
+        {en:'Major Components', ar:'المكوّنات الرئيسية', icon:'build',
+         imgs:[MP+'mc1.webp',MP+'mc2.webp',MP+'mc3.webp',MP+'mc4.webp',MP+'mc5.webp',MP+'mc6.webp']}
+      ]
+    }
+  };
+  function devFeatures(key){ return DEV_FEATURES[key] || null; }
+
+  // One zoomable photo that opens the shared viewer on the image it belongs to.
+  function featImg(src, items, i, alt, w, hgt){
+    var img = h('img',{src:src, alt:alt, loading:'lazy', decoding:'async', width:w, height:hgt});
+    img.addEventListener('error', function(){ if(img.parentNode) img.parentNode.removeChild(img); });
+    img.addEventListener('click', function(){ mediaViewer(items, alt, i); });
+    return img;
+  }
+  function devMasterplanSection(dev){
+    var f = devFeatures(dev.key); if(!f || !f.masterplan) return null;
+    var m = f.masterplan, label = L({en:m.en, ar:m.ar}), nm = L(dev.name);
+    var items = [{src:m.src, cap:nm+' · '+label}];
+    var head = h('div',{class:'sec-head'},
+      h('h2',{class:'dev-feat__title'}, ic(m.icon,'dev-feat__ico'), h('span',null,label)));
+    return h('section',{class:'section--tight band'},
+      h('div',{class:'wrap'}, head,
+        h('div',{class:'dev-mp'}, featImg(m.src, items, 0, nm+' — '+label, 1395, 778))));
+  }
+  function devCardsSection(dev){
+    var f = devFeatures(dev.key); if(!f || !f.cards || !f.cards.length) return null;
+    var nm = L(dev.name);
+    var cards = f.cards.map(function(c){
+      var label = L({en:c.en, ar:c.ar}), n = c.imgs.length;
+      var items = c.imgs.map(function(s,i){
+        return {src:s, cap:nm+' · '+label+(n>1?(' ('+(i+1)+'/'+n+')'):'')};
+      });
+      var media = (n > 1)
+        ? h('div',{class:'dev-feat__grid'}, c.imgs.map(function(s,i){
+            return featImg(s, items, i, label+' '+(i+1), 900, 600); }))
+        : featImg(c.imgs[0], items, 0, label, 926, 750);
+      return h('article',{class:'dev-feat'},
+        h('h3',{class:'dev-feat__title'}, ic(c.icon,'dev-feat__ico'), h('span',null,label)),
+        media);
+    });
+    return h('section',{class:'section--tight'},
+      h('div',{class:'wrap'}, h('div',{class:'grid grid--3'}, cards)));
+  }
+
   // Larger horizontal lockup for hero/detail contexts (natural aspect ratio).
   function devLogoLockup(dev){
     var src=devLogoSrc(dev);
@@ -5060,6 +5124,9 @@
           h('div',{class:'price-lg', style:'font-size:2.4rem'}, num(ps.length)),
           h('div',{class:'prov'}, ic('info'), t('derived')),
           h('a',{class:'btn btn--primary btn--block mt-16', href:U(buildPath('contact'))}, t('cta_talk'))))));
+    // Destination story under the hero: masterplan, then the themed cards.
+    var mpSec = devMasterplanSection(d); if(mpSec) node.appendChild(mpSec);
+    var fcSec = devCardsSection(d);      if(fcSec) node.appendChild(fcSec);
     if(devCards.length) node.appendChild(listSection('', t('by_dev'), '', devCards, null, 'band'));
     else node.appendChild(h('section',{class:'section band'}, h('div',{class:'wrap'},
       h('div',{class:'empty-state'}, h('div',{class:'empty-ico'}, ic('home')),
