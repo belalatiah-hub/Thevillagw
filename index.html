@@ -409,6 +409,15 @@
   .feat-copy__sum .accordion__chev{width:18px;height:18px}
   .feat-copy__more[open] .accordion__chev{transform:rotate(180deg)}
   .feat-copy__body{padding-top:2px}
+  .feat-copy__body .feat-copy__p + .feat-copy__grp{margin-top:14px}
+  .feat-copy__grp{margin-top:12px}
+  .feat-copy__glabel{margin:0 0 4px;font-size:.7rem;font-weight:800;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--ink-3)}
+  .feat-copy__row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;
+    font-size:.86rem;padding:5px 0;border-bottom:1px dotted var(--line-2)}
+  .feat-copy__row:last-child{border-bottom:0}
+  .feat-copy__row b{font-weight:700;color:var(--ink)}
+  .feat-copy__row span{color:var(--ink-2);white-space:nowrap}
   .dev-feat__flip{position:relative;aspect-ratio:3/2;border-radius:12px;overflow:hidden;
     background:var(--line-2);cursor:zoom-in}
   .dev-feat__flip img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:0}
@@ -2900,7 +2909,30 @@
            more:{en:'Ras El Hekma is the largest ever international investment into Egypt. The project is expected to become a powerful transformative economic engine, with cumulative investments anticipated to reach US$110 billion by 2045, an annual GDP contribution of around US$25 billion, and approximately 750,000 jobs to be created, both directly and indirectly.',
                  ar:'يُعد رأس الحكمة أكبر استثمار دولي في تاريخ مصر. ومن المتوقّع أن يتحوّل المشروع إلى محرّك اقتصادي هائل، باستثمارات تراكمية يُتوقّع أن تبلغ ١١٠ مليار دولار أمريكي بحلول عام ٢٠٤٥، ومساهمة سنوية في الناتج المحلي الإجمالي تُقدَّر بنحو ٢٥ مليار دولار، وتوفير ما يقارب ٧٥٠٬٠٠٠ فرصة عمل بشكل مباشر وغير مباشر.'}
          }},
-        {en:'Connected to the World', ar:'متصلة بالعالم', icon:'globe', imgs:[MP+'connected.webp']},
+        {en:'Connected to the World', ar:'متصلة بالعالم', icon:'globe', imgs:[MP+'connected.webp'],
+         copy:{
+           lead:{en:'Strategically located near both Europe and the Gulf, Ras El Hekma will be accessible via a new international airport. 50% of the world will be within a 4-hour flight of the city, with seamless connectivity central to the city\'s ethos.',
+                 ar:'بموقع استراتيجي قريب من أوروبا والخليج، سيكون الوصول إلى رأس الحكمة عبر مطار دولي جديد. ٥٠٪ من العالم على بُعد رحلة طيران لا تتجاوز ٤ ساعات من المدينة، مع جعل سهولة الوصول محوراً أساسياً في فلسفة المدينة.'},
+           more:{en:'In addition, a fast road network, high speed rail and domestic and international marinas have all been embedded in the city\'s design.',
+                 ar:'كما جرى دمج شبكة طرق سريعة وقطار فائق السرعة ومارينات محلية ودولية ضمن تصميم المدينة.'},
+           groups:[
+             {label:{en:'By road', ar:'بالسيارة'}, rows:[
+               {k:{en:'Alexandria',ar:'الإسكندرية'}, v:{en:'Approx. 2 hrs',ar:'نحو ساعتين'}},
+               {k:{en:'Cairo',ar:'القاهرة'},         v:{en:'Approx. 3 hrs',ar:'نحو ٣ ساعات'}}]},
+             {label:{en:'By plane', ar:'بالطائرة'}, rows:[
+               {k:{en:'Abu Dhabi',ar:'أبوظبي'}, v:{en:'Approx. 4 hrs',ar:'نحو ٤ ساعات'}},
+               {k:{en:'Kuwait',ar:'الكويت'},    v:{en:'Approx. 3 hrs',ar:'نحو ٣ ساعات'}},
+               {k:{en:'Doha',ar:'الدوحة'},      v:{en:'Approx. 3 hrs 30 mins',ar:'نحو ٣ ساعات ونصف'}},
+               {k:{en:'Dubai',ar:'دبي'},        v:{en:'Approx. 4 hrs',ar:'نحو ٤ ساعات'}},
+               {k:{en:'Riyadh',ar:'الرياض'},    v:{en:'Approx. 4 hrs 30 mins',ar:'نحو ٤ ساعات ونصف'}},
+               {k:{en:'Paris',ar:'باريس'},      v:{en:'Approx. 4 hrs 30 mins',ar:'نحو ٤ ساعات ونصف'}},
+               {k:{en:'London',ar:'لندن'},      v:{en:'Approx. 5 hrs',ar:'نحو ٥ ساعات'}},
+               {k:{en:'Rome',ar:'روما'},        v:{en:'Approx. 3 hrs',ar:'نحو ٣ ساعات'}},
+               {k:{en:'Madrid',ar:'مدريد'},     v:{en:'Approx. 5 hrs',ar:'نحو ٥ ساعات'}},
+               {k:{en:'Moscow',ar:'موسكو'},     v:{en:'Approx. 4 hrs',ar:'نحو ٤ ساعات'}},
+               {k:{en:'New York',ar:'نيويورك'}, v:{en:'Approx. 13 hrs',ar:'نحو ١٣ ساعة'}}]}
+           ]
+         }},
         {en:'Major Components', ar:'المكوّنات الرئيسية', icon:'build',
          imgs:[MP+'mc1.webp',MP+'mc2.webp',MP+'mc3.webp',MP+'mc4.webp',MP+'mc5.webp',MP+'mc6.webp']}
       ]
@@ -2929,9 +2961,22 @@
      Uses <details> so the hidden half stays in the DOM for search engines. */
   function featCopy(c){
     if(!c.copy) return null;
-    var lead = L(c.copy.lead), more = c.copy.more ? L(c.copy.more) : '';
-    var wrap = h('div',{class:'feat-copy'}, h('p',{class:'feat-copy__p'}, lead));
-    if(!more) return wrap;
+    var cp = c.copy;
+    var wrap = h('div',{class:'feat-copy'}, h('p',{class:'feat-copy__p'}, L(cp.lead)));
+
+    // everything past the opening paragraph: an optional paragraph, then any
+    // labelled key/value groups (e.g. travel times by road and by plane)
+    var hidden = [];
+    if(cp.more) hidden.push(h('p',{class:'feat-copy__p'}, L(cp.more)));
+    (cp.groups||[]).forEach(function(g){
+      hidden.push(h('div',{class:'feat-copy__grp'},
+        h('p',{class:'feat-copy__glabel'}, L(g.label)),
+        g.rows.map(function(r){
+          return h('div',{class:'feat-copy__row'}, h('b',null, L(r.k)), h('span',null, L(r.v)));
+        })));
+    });
+    if(!hidden.length) return wrap;
+
     var chev = sEl('svg',{class:'accordion__chev',viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',
       'stroke-width':'2','stroke-linecap':'round','stroke-linejoin':'round','aria-hidden':'true'},
       sEl('path',{d:'M6 9l6 6 6-6'}));
@@ -2939,7 +2984,7 @@
     var lbl = h('span',null, MORE);
     var det = h('details',{class:'feat-copy__more'},
       h('summary',{class:'feat-copy__sum'}, lbl, chev),
-      h('div',{class:'feat-copy__body'}, h('p',{class:'feat-copy__p'}, more)));
+      h('div',{class:'feat-copy__body'}, hidden));
     det.addEventListener('toggle', function(){ lbl.textContent = det.open ? LESS : MORE; });
     wrap.appendChild(det);
     return wrap;
