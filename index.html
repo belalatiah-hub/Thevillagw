@@ -386,17 +386,11 @@
   .dev-lockup-wrap{display:inline-flex;align-items:center;justify-content:center;
     padding:14px 20px;background:#fff;border:1px solid var(--line-2);border-radius:16px;box-shadow:var(--shadow-sm)}
   .dev-lockup{max-width:230px;max-height:92px;width:auto;height:auto;object-fit:contain}
-  /* Destination photo strip above the developer lockup. */
-  .dev-gal{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin:6px 0 22px}
-  .dev-gal__i{padding:0;border:0;background:none;cursor:zoom-in;display:block;border-radius:14px;
-    line-height:0;transition:transform .16s ease,box-shadow .16s ease}
-  .dev-gal__i:hover{transform:translateY(-3px)}
-  .dev-gal__i:focus-visible{outline:2px solid var(--teal-600);outline-offset:3px}
-  .dev-gal img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;border-radius:14px;
-    background:var(--line-2);box-shadow:var(--shadow-sm)}
-  .dev-gal__i:hover img{box-shadow:0 10px 26px rgba(7,61,82,.16)}
-  @media(max-width:980px){.dev-gal{grid-template-columns:repeat(3,1fr)}}
-  @media(max-width:560px){.dev-gal{grid-template-columns:repeat(2,1fr);gap:8px}}
+  /* Destination photo above the developer lockup — one image, arrows flip the rest. */
+  .dev-gal{position:relative;aspect-ratio:21/9;border-radius:var(--r-lg);overflow:hidden;
+    margin:6px 0 22px;background:var(--line-2);box-shadow:var(--shadow-sm);cursor:zoom-in}
+  .dev-gal img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+  @media(max-width:760px){ .dev-gal{aspect-ratio:16/10} }
   /* Project-page wordmark lockup. */
   .proj-logo-wrap{display:inline-flex;margin-top:16px;padding:10px 16px;background:#fff;
     border:1px solid var(--line-2);border-radius:14px;box-shadow:var(--shadow-sm)}
@@ -2834,20 +2828,32 @@
     var g = devGallery(dev.key), n = g.length, nm = L(dev.name);
     return g.map(function(s,i){ return {src:s, cap:nm+(n>1?(' · '+(lang==='ar'?'صورة ':'Photo ')+(i+1)+'/'+n):'')}; });
   }
-  // Strip of destination photos; clicking one opens the shared fullscreen viewer.
+  /* One large destination photo with side arrows to flip through the rest.
+     Same interaction as the unit hero: arrows swap in place, the badge tracks
+     position, and clicking the photo opens the fullscreen viewer where you are. */
   function devGalleryStrip(dev){
     var items = devGalleryItems(dev); if(!items.length) return null;
-    var row = h('div',{class:'dev-gal'});
-    items.forEach(function(it,i){
-      var img = h('img',{src:it.src, alt:L(dev.name)+' — '+(lang==='ar'?'صورة ':'photo ')+(i+1),
-        loading:'lazy', decoding:'async', width:640, height:360});
-      img.addEventListener('error', function(){ if(img.parentNode) img.parentNode.removeChild(img); });
-      var btn = h('button',{class:'dev-gal__i', type:'button',
-        'aria-label':(lang==='ar'?'عرض الصورة ':'View photo ')+(i+1)}, img);
-      btn.addEventListener('click', function(){ mediaViewer(items, L(dev.name), i); });
-      row.appendChild(btn);
-    });
-    return row;
+    var nm = L(dev.name), n = items.length, idx = 0;
+    var box = h('div',{class:'dev-gal'+(n>1?' dev-gal--multi':'')});
+    var img = h('img',{src:items[0].src, alt:nm, decoding:'async', loading:'eager', width:1280, height:549});
+    img.addEventListener('error', function(){ if(box.parentNode) box.parentNode.removeChild(box); });
+    var count = h('span',{class:'gal-badge__n'});
+    function show(i){
+      idx = (i + n) % n; img.src = items[idx].src;
+      count.textContent = n>1 ? ((idx+1)+' / '+n) : (num(n)+' '+(lang==='ar'?'صورة':'photo'));
+    }
+    box.appendChild(img);
+    box.appendChild(h('span',{class:'gal-badge','aria-hidden':'true'}, ic('gallery','gal-badge__ic'), count));
+    if(n>1){
+      var prev = h('button',{class:'gal-nav gal-nav--prev', type:'button','aria-label':(lang==='ar'?'الصورة السابقة':'Previous photo')}, ic('chevleft'));
+      var next = h('button',{class:'gal-nav gal-nav--next', type:'button','aria-label':(lang==='ar'?'الصورة التالية':'Next photo')}, ic('chevright'));
+      prev.addEventListener('click', function(e){ e.stopPropagation(); e.preventDefault(); show(idx-1); });
+      next.addEventListener('click', function(e){ e.stopPropagation(); e.preventDefault(); show(idx+1); });
+      box.appendChild(prev); box.appendChild(next);
+    }
+    img.addEventListener('click', function(){ mediaViewer(items, nm, idx); });
+    show(0);
+    return box;
   }
 
   // Larger horizontal lockup for hero/detail contexts (natural aspect ratio).
