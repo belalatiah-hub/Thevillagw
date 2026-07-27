@@ -401,6 +401,10 @@
   /* Card copy with a chevron that reveals the rest. */
   .feat-copy{margin-top:14px}
   .feat-copy__p{color:var(--ink-2);font-size:.92rem;line-height:1.65;margin:0}
+  .feat-copy__list{list-style:none;margin:0;padding:0;display:grid;gap:7px}
+  .feat-copy__li{display:flex;align-items:flex-start;gap:8px;font-size:.9rem;
+    color:var(--ink);line-height:1.45}
+  .feat-copy__li svg{width:16px;height:16px;color:var(--teal-600);flex:none;margin-top:3px}
   .feat-copy__more{margin-top:6px}
   .feat-copy__sum{list-style:none;cursor:pointer;display:flex;align-items:center;gap:6px;
     color:var(--teal-600);font-weight:700;font-size:.86rem;padding:6px 0}
@@ -2934,7 +2938,15 @@
            ]
          }},
         {en:'Major Components', ar:'المكوّنات الرئيسية', icon:'build',
-         imgs:[MP+'mc1.webp',MP+'mc2.webp',MP+'mc3.webp',MP+'mc4.webp',MP+'mc5.webp',MP+'mc6.webp']}
+         imgs:[MP+'mc1.webp',MP+'mc2.webp',MP+'mc3.webp',MP+'mc4.webp',MP+'mc5.webp',MP+'mc6.webp'],
+         copy:{list:[
+           {en:'International Airport',              ar:'مطار دولي'},
+           {en:'3 Marinas & 1 Cruise Terminal',      ar:'٣ مارينات ومحطة رحلات بحرية'},
+           {en:'Rapid Transit Network',              ar:'شبكة نقل سريع'},
+           {en:'Central Business District',          ar:'منطقة أعمال مركزية'},
+           {en:'Private Sector Free Zone',           ar:'منطقة حرة للقطاع الخاص'},
+           {en:'Amphitheatre',                       ar:'مدرّج مسرحي'}
+         ]}}
       ]
     }
   };
@@ -2962,7 +2974,12 @@
   function featCopy(c){
     if(!c.copy) return null;
     var cp = c.copy;
-    var wrap = h('div',{class:'feat-copy'}, h('p',{class:'feat-copy__p'}, L(cp.lead)));
+    var wrap = h('div',{class:'feat-copy'});
+    if(cp.lead) wrap.appendChild(h('p',{class:'feat-copy__p'}, L(cp.lead)));
+    // a short checklist stays fully visible — nothing to hide behind a chevron
+    if(cp.list) wrap.appendChild(h('ul',{class:'feat-copy__list'}, cp.list.map(function(it){
+      return h('li',{class:'feat-copy__li'}, ic('check'), h('span',null, L(it)));
+    })));
 
     // everything past the opening paragraph: an optional paragraph, then any
     // labelled key/value groups (e.g. travel times by road and by plane)
