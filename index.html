@@ -386,6 +386,17 @@
   .dev-lockup-wrap{display:inline-flex;align-items:center;justify-content:center;
     padding:14px 20px;background:#fff;border:1px solid var(--line-2);border-radius:16px;box-shadow:var(--shadow-sm)}
   .dev-lockup{max-width:230px;max-height:92px;width:auto;height:auto;object-fit:contain}
+  /* Destination photo strip above the developer lockup. */
+  .dev-gal{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin:6px 0 22px}
+  .dev-gal__i{padding:0;border:0;background:none;cursor:zoom-in;display:block;border-radius:14px;
+    line-height:0;transition:transform .16s ease,box-shadow .16s ease}
+  .dev-gal__i:hover{transform:translateY(-3px)}
+  .dev-gal__i:focus-visible{outline:2px solid var(--teal-600);outline-offset:3px}
+  .dev-gal img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;border-radius:14px;
+    background:var(--line-2);box-shadow:var(--shadow-sm)}
+  .dev-gal__i:hover img{box-shadow:0 10px 26px rgba(7,61,82,.16)}
+  @media(max-width:980px){.dev-gal{grid-template-columns:repeat(3,1fr)}}
+  @media(max-width:560px){.dev-gal{grid-template-columns:repeat(2,1fr);gap:8px}}
   /* Project-page wordmark lockup. */
   .proj-logo-wrap{display:inline-flex;margin-top:16px;padding:10px 16px;background:#fff;
     border:1px solid var(--line-2);border-radius:14px;box-shadow:var(--shadow-sm)}
@@ -2812,6 +2823,33 @@
     }
     return devMonogram(dev,px);
   }
+  /* Developer hero gallery — real destination imagery shown above the logo on a
+     developer page. Keyed by developer, skipped entirely when there is none. */
+  var DEV_GALLERY = {
+    'modon':['/project-media/modon/m1.webp','/project-media/modon/m2.webp','/project-media/modon/m3.webp',
+             '/project-media/modon/m4.webp','/project-media/modon/m5.webp','/project-media/modon/m6.webp'],
+  };
+  function devGallery(key){ return DEV_GALLERY[key] || []; }
+  function devGalleryItems(dev){
+    var g = devGallery(dev.key), n = g.length, nm = L(dev.name);
+    return g.map(function(s,i){ return {src:s, cap:nm+(n>1?(' · '+(lang==='ar'?'صورة ':'Photo ')+(i+1)+'/'+n):'')}; });
+  }
+  // Strip of destination photos; clicking one opens the shared fullscreen viewer.
+  function devGalleryStrip(dev){
+    var items = devGalleryItems(dev); if(!items.length) return null;
+    var row = h('div',{class:'dev-gal'});
+    items.forEach(function(it,i){
+      var img = h('img',{src:it.src, alt:L(dev.name)+' — '+(lang==='ar'?'صورة ':'photo ')+(i+1),
+        loading:'lazy', decoding:'async', width:640, height:360});
+      img.addEventListener('error', function(){ if(img.parentNode) img.parentNode.removeChild(img); });
+      var btn = h('button',{class:'dev-gal__i', type:'button',
+        'aria-label':(lang==='ar'?'عرض الصورة ':'View photo ')+(i+1)}, img);
+      btn.addEventListener('click', function(){ mediaViewer(items, L(dev.name), i); });
+      row.appendChild(btn);
+    });
+    return row;
+  }
+
   // Larger horizontal lockup for hero/detail contexts (natural aspect ratio).
   function devLogoLockup(dev){
     var src=devLogoSrc(dev);
@@ -5001,6 +5039,7 @@
     var devCards = ps.filter(function(p){ return !GROUPED_PROJECT[p.slug]; }).map(projectCard).concat(grps.map(groupCard));
     node.appendChild(sectionWrap(
       crumbNode([{label:t('nav_home'),path:buildPath('home')},{label:t('nav_developers'),path:buildPath('developers')},{label:L(d.name)}]),
+      devGalleryStrip(d),        // destination photos sit above the logo; null when none
       h('div',{class:'detail-hero'},
         h('div',null,
           devLogoLockup(d),
@@ -5350,7 +5389,7 @@
     return {node:node, title:t('p404_h')+' · The Village Investment', desc:t('p404_p'), indexable:false, crumbs:[], is404:true};
   };
 
-  function sectionWrap(){ var w=h('div',{class:'wrap'}); for(var i=0;i<arguments.length;i++) w.appendChild(arguments[i]); return h('section',{class:'section--tight'}, w); }
+  function sectionWrap(){ var w=h('div',{class:'wrap'}); for(var i=0;i<arguments.length;i++){ if(arguments[i]) w.appendChild(arguments[i]); } return h('section',{class:'section--tight'}, w); }
 
   /* ==================================================================
      ROUTER + CHROME + HEAD
