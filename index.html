@@ -766,7 +766,12 @@
   }
   .facet-group{padding:13px 0;border-bottom:1px solid var(--line-2)}
   .facet-group:last-child{border-bottom:none}
-  .facet-group h4{font-size:.74rem;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);margin-bottom:10px;font-family:var(--sans);font-weight:700}
+  .facet-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:10px}
+  .facet-group h4{font-size:.74rem;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);margin:0;font-family:var(--sans);font-weight:700}
+  .facet-reset{background:none;border:none;padding:0;cursor:pointer;font:inherit;font-size:.74rem;
+    font-weight:600;color:var(--teal-600);text-decoration:underline;text-underline-offset:2px;flex:none}
+  .facet-reset:hover{color:var(--teal-800)}
+  .facet-reset:focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-radius:3px}
   .facet-row{display:flex;flex-wrap:wrap;gap:7px}
   .fchip{display:inline-flex;align-items:center;gap:5px;padding:7px 11px;border:1.5px solid var(--line-cool);border-radius:var(--r-pill);background:var(--bone-2);font-size:.82rem;font-weight:600;color:var(--ink-2);transition:var(--t);min-height:36px}
   .fchip svg{width:15px;height:15px}
@@ -1154,10 +1159,8 @@
         <a href="/en/compare/">Compare</a>
       </nav>
       <div class="nav-actions">
-        <button class="btn btn--ghost btn--sm search-btn" id="search-open" aria-label="Search" title="Search (Ctrl/⌘ + K)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14z"/><path d="M21 21l-4.3-4.3"/></svg>
-          <span class="sk">⌘K</span>
-        </button>
+        <!-- The ⌘K pill is gone: "Search" in the main nav is the search entry point.
+             The command palette still opens on Ctrl/⌘+K for keyboard users. -->
         <button class="btn btn--sm lang-btn icon-btn" id="lang-toggle" style="width:auto;padding:0 14px" aria-label="Switch language">ع</button>
         <a class="btn btn--primary btn--sm" href="/en/contact/" data-link data-i18n="cta_talk">Talk to an advisor</a>
         <button class="icon-btn burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">
@@ -1415,7 +1418,10 @@
     social: { facebook:"https://www.facebook.com/share/18vY47m3rz/", instagram:"https://www.instagram.com/thevillageinvestment", linkedin:"https://www.linkedin.com/company/the-village-investment/", tiktok:"https://www.tiktok.com/@thevillageinvestment" },
     leadEmail: "leads@thevillageinvestment.com", // lead notifications go here (Apps Script emails it; mailto fallback uses it)
     LEAD_ENDPOINT: "",                       // paste your Google Apps Script Web App URL here → leads append to a Sheet + email leadEmail. See docs/LEAD_CAPTURE_SETUP.md
-    origin: "https://www.thevillageinvestment.com"
+    origin: "https://www.thevillageinvestment.com",
+    // Owner-supplied. Unlike every other stat on the hero this one is not
+    // derived from the data maps, so it lives here and is edited here.
+    clientsServed: 899
   };
 
   /* Privacy-safe analytics dispatcher — pushes a versioned event to
@@ -1471,7 +1477,7 @@
       hero_kicker:"Primary-sale real estate · Egypt",
       hero_h1a:"Invest in your real-estate future ", hero_h1b:"with confidence", hero_sig:"Invest with Belal Samy in your real estate",
       hero_p:"The Village is a real-estate marketing and brokerage company. We help you compare new launches, developers and areas across New Cairo, Fifth Settlement, the New Administrative Capital and the coast — with honest advisory from your first question to unit handover.",
-      hero_s1:"Areas covered", hero_s2:"Developers tracked", hero_s3:"Curated projects",
+      hero_s1:"Areas covered", hero_s2:"Developers tracked", hero_s3:"Curated projects", hero_s4:"Clients served",
       find_h:"Find your primary unit", find_p:"Filter the curated selection, then talk to an advisor for live availability.",
       home_ours_k:"Marketed by The Village", home_ours_h:"Our featured projects", home_ours_p:"Primary-sale launches we market directly across Ras El Hekma, the North Coast and Ain Sokhna. Figures are illustrative — talk to an advisor to confirm current prices and availability.",
       home_launch_h:"New launches", home_launch_p:"Our next primary launch — coming soon.", coming_soon:"Coming Soon",
@@ -1589,7 +1595,7 @@
       hero_kicker:"عقارات البيع الأولي · مصر",
       hero_h1a:"استثمر في مستقبلك العقاري ", hero_h1b:"بثقة", hero_sig:"استثمر مع بلال سامي",
       hero_p:"The Village شركة تسويق ووساطة عقارية تساعدك على مقارنة الإطلاقات الجديدة والمطوّرين والمناطق في القاهرة الجديدة والتجمع الخامس والعاصمة الإدارية والساحل — باستشارة صادقة من أول سؤال حتى استلام وحدتك.",
-      hero_s1:"مناطق نغطّيها", hero_s2:"مطوّرون نتابعهم", hero_s3:"مشروعات مختارة",
+      hero_s1:"مناطق نغطّيها", hero_s2:"مطوّرون نتابعهم", hero_s3:"مشروعات مختارة", hero_s4:"عميل خدمناهم",
       find_h:"اعثر على وحدتك الأولية", find_p:"صفِّ الاختيارات ثم تحدّث إلى مستشار لمعرفة الإتاحة الحالية.",
       home_ours_k:"مقدَّمة من The Village", home_ours_h:"مشروعاتنا المميّزة", home_ours_p:"مشروعات بيع أولي نسوّقها مباشرةً في رأس الحكمة والساحل الشمالي والعين السخنة. الأرقام استرشادية — تواصل مع مستشار لتأكيد الأسعار والإتاحة الحالية.",
       home_launch_h:"إطلاقات جديدة", home_launch_p:"إطلاقنا الأولي القادم — قريباً.", coming_soon:"قريباً",
@@ -4246,7 +4252,8 @@
           h('div',{class:'hero-trust'},
             heroStat(AREAS.length, t('hero_s1')),
             heroStat(DEVELOPERS.length, t('hero_s2')),
-            heroStat(PROJECTS.length, t('hero_s3')))),
+            heroStat(PROJECTS.length, t('hero_s3')),
+            (CONFIG.clientsServed ? heroStat(CONFIG.clientsServed, t('hero_s4')) : null))),
         searchCard)));
     node.appendChild(hero);
 
@@ -5431,7 +5438,18 @@
     if(!row.childNodes.length) row.appendChild(h('span',{class:'muted',style:'font-size:.8rem'}, '—'));
     return row;
   }
-  function fgroup(title, node){ return h('div',{class:'facet-group'}, h('h4',null,title), node); }
+  /* A filter group. Pass the FILTER key and the header grows a Reset that clears
+     just that group — clearing "Developer" should not throw away the area and
+     budget the visitor already chose. */
+  function fgroup(title, node, key){
+    var head=h('div',{class:'facet-head'}, h('h4',null,title));
+    if(key && FILTER[key] && FILTER[key].length){
+      var r=h('button',{class:'facet-reset', type:'button'}, t('cta_reset'));
+      r.addEventListener('click', function(){ FILTER[key]=[]; finderApply(); });
+      head.appendChild(r);
+    }
+    return h('div',{class:'facet-group'}, head, node);
+  }
   function bedsLabel(v){ if(v==='tbc') return lang==='ar'?'قيد التأكيد':'To confirm'; if(v===0) return lang==='ar'?'استوديو':'Studio'; if(v===6) return lang==='ar'?'٦+ غرف':'6+ BR'; return num(v)+(lang==='ar'?' غرف':'BR'); }
 
   /* CRO-02 · saved searches + launch alerts (no CRM — hand off to WhatsApp/email). */
@@ -5467,11 +5485,11 @@
 
     // ---- filter panel ----
     var panel=h('div',{class:'finder-panel', id:'finder-panel'});
-    panel.appendChild(fgroup(t('filter_area'), facetChips('areas', AREAS.map(function(a){return {v:a.key,label:L(a.name),count:af[a.key]||0};}))));
-    panel.appendChild(fgroup(t('filter_dev'), facetChips('devs', DEVELOPERS.map(function(d){return {v:d.key,label:L(d.name),count:df[d.key]||0};}))));
-    panel.appendChild(fgroup(t('nav_projects'), facetChips('projects', PROJECTS.map(function(p){return {v:p.slug,label:(lang==='ar'?p.name_ar:p.name),count:pf[p.slug]||0};}))));
-    panel.appendChild(fgroup(t('filter_type'), facetChips('types', TYPES.map(function(tp){return {v:tp.c,label:typeLabelC(tp.c),icon:typeIconC(tp.c),count:tf[tp.c]||0};}))));
-    panel.appendChild(fgroup(t('beds'), facetChips('beds', [0,1,2,3,4,5,6,'tbc'].map(function(v){return {v:v,label:bedsLabel(v),count:bf[v]||0};}))));
+    panel.appendChild(fgroup(t('filter_area'), facetChips('areas', AREAS.map(function(a){return {v:a.key,label:L(a.name),count:af[a.key]||0};})), 'areas'));
+    panel.appendChild(fgroup(t('filter_dev'), facetChips('devs', DEVELOPERS.map(function(d){return {v:d.key,label:L(d.name),count:df[d.key]||0};})), 'devs'));
+    panel.appendChild(fgroup(t('nav_projects'), facetChips('projects', PROJECTS.map(function(p){return {v:p.slug,label:(lang==='ar'?p.name_ar:p.name),count:pf[p.slug]||0};})), 'projects'));
+    panel.appendChild(fgroup(t('filter_type'), facetChips('types', TYPES.map(function(tp){return {v:tp.c,label:typeLabelC(tp.c),icon:typeIconC(tp.c),count:tf[tp.c]||0};})), 'types'));
+    panel.appendChild(fgroup(t('beds'), facetChips('beds', [0,1,2,3,4,5,6,'tbc'].map(function(v){return {v:v,label:bedsLabel(v),count:bf[v]||0};})), 'beds'));
     // preferred floor (only meaningful for floor-based types) + avoid-ground
     if(Object.keys(ff).length){
       var fwrap=h('div',null);
@@ -5528,9 +5546,9 @@
     bwrap.appendChild(h('div',{class:'field',style:'margin-top:10px'}, h('label',{for:'finder-years',style:'font-size:.82rem;color:var(--ink-2);display:block;margin-bottom:5px'}, t('filter_years')), yrsSel));
     panel.appendChild(fgroup(t('filter_budget'), bwrap));
     // statuses
-    panel.appendChild(fgroup(t('launch_status'), facetChips('launch', ['newly-launched','available'].map(function(s){return {v:s,label:(lang==='ar'?LAUNCH_LABELS[s].ar:LAUNCH_LABELS[s].en),count:lf[s]||0};}))));
-    panel.appendChild(fgroup(t('availability'), facetChips('avail', ['available','limited','to-confirm'].map(function(s){return {v:s,label:(lang==='ar'?AVAIL_LABELS[s].ar:AVAIL_LABELS[s].en),count:avf[s]||0};}))));
-    panel.appendChild(fgroup(t('delivery'), facetChips('delivery', ['ready','within-1-year','within-2-years','within-3-4-years','later','to-confirm'].map(function(s){return {v:s,label:(lang==='ar'?DELIVERY_LABELS[s].ar:DELIVERY_LABELS[s].en),count:delf[s]||0};}))));
+    panel.appendChild(fgroup(t('launch_status'), facetChips('launch', ['newly-launched','available'].map(function(s){return {v:s,label:(lang==='ar'?LAUNCH_LABELS[s].ar:LAUNCH_LABELS[s].en),count:lf[s]||0};})), 'launch'));
+    panel.appendChild(fgroup(t('availability'), facetChips('avail', ['available','limited','to-confirm'].map(function(s){return {v:s,label:(lang==='ar'?AVAIL_LABELS[s].ar:AVAIL_LABELS[s].en),count:avf[s]||0};})), 'avail'));
+    panel.appendChild(fgroup(t('delivery'), facetChips('delivery', ['ready','within-1-year','within-2-years','within-3-4-years','later','to-confirm'].map(function(s){return {v:s,label:(lang==='ar'?DELIVERY_LABELS[s].ar:DELIVERY_LABELS[s].en),count:delf[s]||0};})), 'delivery'));
 
     // ---- results ----
     var results=h('div',null);
@@ -6227,13 +6245,11 @@
       var lbl=t(it[1]) + (it[0]==='compare' && compare.length ? (' ('+num(compare.length)+')') : '');
       var a=h('a',{href:U(buildPath(it[0])), class:'nav-item', title:t(it[1])}, ic(it[2],'nav-item__ic'), h('span',{class:'nav-item__lbl'}, lbl)); if(group===it[0]) a.setAttribute('aria-current','page'); pn.appendChild(a);
       var a2=h('a',{href:U(buildPath(it[0])), class:'nav-item'}, ic(it[2],'nav-item__ic'), h('span',null, lbl)); if(group===it[0]) a2.setAttribute('aria-current','page'); dn.appendChild(a2);
-      // "Search" pops the search box (command palette) rather than navigating. The href is
-      // kept as a no-JS fallback to the finder; stopPropagation prevents the global link
-      // interceptor from ALSO routing the click.
-      if(it[1]==='nav_search' && typeof searchOpen==='function'){
-        a.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); searchOpen(); });
-        a2.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); closeDrawer(); searchOpen(); });
-      }
+      // "Search" navigates to the finder — the real search page, with the filter
+      // sidebar and every developer's units — rather than popping a command
+      // palette over the page the visitor is already on. The palette stays
+      // available on Ctrl/⌘+K for people who want to jump by keyboard.
+      if(it[1]==='nav_search'){ a2.addEventListener('click', function(){ closeDrawer(); }); }
     });
     dn.appendChild(h('a',{href:U(buildPath('investors')), class:'nav-item'}, ic('build','nav-item__ic'), h('span',null, t('nav_investors'))));
     dn.appendChild(h('a',{href:U(buildPath('faqs')), class:'nav-item'}, ic('info','nav-item__ic'), h('span',null, t('nav_faqs'))));
