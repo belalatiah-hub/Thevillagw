@@ -395,8 +395,12 @@
     padding:18px;box-shadow:var(--shadow-sm)}
   .dev-feat img{width:100%;height:auto;display:block;border-radius:12px;
     background:var(--line-2);cursor:zoom-in}
-  .dev-feat__grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-  .dev-feat__grid img{aspect-ratio:3/2;object-fit:cover}
+  .dev-feat__flip{position:relative;aspect-ratio:3/2;border-radius:12px;overflow:hidden;
+    background:var(--line-2);cursor:zoom-in}
+  .dev-feat__flip img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:0}
+  .dev-feat__flip .gal-nav{width:34px;height:34px}
+  .dev-feat__flip .gal-nav svg{width:19px;height:19px}
+  .dev-feat__flip .gal-nav--prev{left:8px} .dev-feat__flip .gal-nav--next{right:8px}
   /* Destination photo above the developer lockup — one image, arrows flip the rest. */
   .dev-gal{position:relative;aspect-ratio:21/9;border-radius:var(--r-lg);overflow:hidden;
     margin:6px 0 22px;background:var(--line-2);box-shadow:var(--shadow-sm);cursor:zoom-in}
@@ -2839,32 +2843,33 @@
     var g = devGallery(dev.key), n = g.length, nm = L(dev.name);
     return g.map(function(s,i){ return {src:s, cap:nm+(n>1?(' · '+(lang==='ar'?'صورة ':'Photo ')+(i+1)+'/'+n):'')}; });
   }
-  /* One large destination photo with side arrows to flip through the rest.
-     Same interaction as the unit hero: arrows swap in place, the badge tracks
-     position, and clicking the photo opens the fullscreen viewer where you are. */
-  function devGalleryStrip(dev){
-    var items = devGalleryItems(dev); if(!items.length) return null;
-    var nm = L(dev.name), n = items.length, idx = 0;
-    var box = h('div',{class:'dev-gal'+(n>1?' dev-gal--multi':'')});
-    var img = h('img',{src:items[0].src, alt:nm, decoding:'async', loading:'eager', width:1280, height:549});
+  /* One photo at a time with side arrows to flip through the rest, and a click
+     to open it fullscreen on whichever photo is showing. Same interaction as
+     the unit hero, shared by the developer hero and the feature cards. */
+  function photoFlipper(items, label, cls, w, hgt, eager){
+    var n = items.length, idx = 0;
+    var box = h('div',{class:cls});
+    var img = h('img',{src:items[0].src, alt:label, decoding:'async',
+      loading:(eager?'eager':'lazy'), width:w, height:hgt});
     img.addEventListener('error', function(){ if(box.parentNode) box.parentNode.removeChild(box); });
     var count = h('span',{class:'gal-badge__n'});
-    function show(i){
-      idx = (i + n) % n; img.src = items[idx].src;
-      count.textContent = n>1 ? ((idx+1)+' / '+n) : (num(n)+' '+(lang==='ar'?'صورة':'photo'));
-    }
+    function show(i){ idx=(i+n)%n; img.src=items[idx].src; count.textContent=(idx+1)+' / '+n; }
     box.appendChild(img);
-    box.appendChild(h('span',{class:'gal-badge','aria-hidden':'true'}, ic('gallery','gal-badge__ic'), count));
     if(n>1){
+      box.appendChild(h('span',{class:'gal-badge','aria-hidden':'true'}, ic('gallery','gal-badge__ic'), count));
       var prev = h('button',{class:'gal-nav gal-nav--prev', type:'button','aria-label':(lang==='ar'?'الصورة السابقة':'Previous photo')}, ic('chevleft'));
       var next = h('button',{class:'gal-nav gal-nav--next', type:'button','aria-label':(lang==='ar'?'الصورة التالية':'Next photo')}, ic('chevright'));
       prev.addEventListener('click', function(e){ e.stopPropagation(); e.preventDefault(); show(idx-1); });
       next.addEventListener('click', function(e){ e.stopPropagation(); e.preventDefault(); show(idx+1); });
       box.appendChild(prev); box.appendChild(next);
+      show(0);
     }
-    img.addEventListener('click', function(){ mediaViewer(items, nm, idx); });
-    show(0);
+    img.addEventListener('click', function(){ mediaViewer(items, label, idx); });
     return box;
+  }
+  function devGalleryStrip(dev){
+    var items = devGalleryItems(dev); if(!items.length) return null;
+    return photoFlipper(items, L(dev.name), 'dev-gal', 1280, 549, true);
   }
 
   /* Developer feature blocks — a masterplan and a row of themed cards, shown
@@ -2908,9 +2913,9 @@
       var items = c.imgs.map(function(s,i){
         return {src:s, cap:nm+' · '+label+(n>1?(' ('+(i+1)+'/'+n+')'):'')};
       });
+      // several photos -> one at a time with arrows; a single photo stays as-is
       var media = (n > 1)
-        ? h('div',{class:'dev-feat__grid'}, c.imgs.map(function(s,i){
-            return featImg(s, items, i, label+' '+(i+1), 900, 600); }))
+        ? photoFlipper(items, label, 'dev-feat__flip', 900, 600)
         : featImg(c.imgs[0], items, 0, label, 926, 750);
       return h('article',{class:'dev-feat'},
         h('h3',{class:'dev-feat__title'}, ic(c.icon,'dev-feat__ico'), h('span',null,label)),
