@@ -916,7 +916,15 @@
   .ps-devrow{display:flex;align-items:center;gap:12px;margin-bottom:10px}
   .ps-devrow .dev-logo{flex:0 0 auto}
   .ps-media{position:relative;aspect-ratio:16/9;border-radius:10px;overflow:hidden;margin:8px 0 14px;background:#0a4a61}
-  .ps-media .artsvg{position:absolute;inset:0;width:100%;height:100%}
+  .ps-media .artsvg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  /* Floor plan: shown whole (contain) — a cropped plan is a useless plan. */
+  .ps-plan{margin:4px 0 14px;border:1px solid #ccc;border-radius:10px;overflow:hidden;background:#fff}
+  .ps-plan__k{font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+    color:#555;background:#f0ede6;padding:6px 10px;border-bottom:1px solid #ccc}
+  .ps-plan img{display:block;width:100%;max-height:340px;object-fit:contain;background:#fff;padding:8px}
+  .ps-contact{display:block;margin-top:6px}
+  .ps-contact a{color:#0a4a61;text-decoration:underline}
+  .ps-contact a + a::before{content:' · ';color:#555;text-decoration:none}
   /* On-screen factsheet preview overlay — guarantees the Print / Save-as-PDF
      action is always usable, even where window.print() is a no-op (in-app
      webviews, some Android WebViews, file://). The toolbar is hidden when the
@@ -1461,7 +1469,7 @@
       hero_p:"The Village is a real-estate marketing and brokerage company. We help you compare new launches, developers and areas across New Cairo, Fifth Settlement, the New Administrative Capital and the coast — with honest advisory from your first question to unit handover.",
       hero_s1:"Areas covered", hero_s2:"Developers tracked", hero_s3:"Curated projects",
       find_h:"Find your primary unit", find_p:"Filter the curated selection, then talk to an advisor for live availability.",
-      home_ours_k:"Marketed by The Village", home_ours_h:"Our featured projects", home_ours_p:"Primary-sale launches we market directly on the Ras El Hekma North Coast. Figures are illustrative — talk to an advisor to confirm current prices and availability.",
+      home_ours_k:"Marketed by The Village", home_ours_h:"Our featured projects", home_ours_p:"Primary-sale launches we market directly across Ras El Hekma, the North Coast and Ain Sokhna. Figures are illustrative — talk to an advisor to confirm current prices and availability.",
       home_launch_h:"New launches", home_launch_p:"Our next primary launch — coming soon.", coming_soon:"Coming Soon",
       home_devrail_h:"Browse by developer", home_devrail_p:"Tap a developer to explore their primary-sale projects.",
       home_feat_h:"Featured projects", home_feat_p:"A hand-picked look across areas and developers. Figures are illustrative pending advisor confirmation.",
@@ -1495,7 +1503,7 @@
       brand_note:"Identity derived from The Village master logo. Approved brand sign-off pending.",
       foot_blocker:"Launch note: verified contacts, live inventory, CRM lead delivery and legal review are pending owner input.",
       choose_lang:"العربية", metric_installments:"yr plan",
-      nav_units:"Units", avail_units:"Available units", new_release:"New release", release_h:"New release price list", release_p:"Updated prices released by the developer for these projects. Primary sale, direct from the developer.", release_units:"Units in this release", eoi:"EOI", eoi_note:"Expression of interest — refundable reservation to join the release.", no_units_type:"No available units found for this unit type.",
+      nav_units:"Units", avail_units:"Available units", new_release:"New release", release_h:"New release price list", release_p:"Updated prices released by the developer for these projects. Primary sale, direct from the developer.", release_units:"Units in this release", fs_installments:"Installments", fs_quarterly:"quarterly", fs_floorplan:"Floor plan", eoi:"EOI", eoi_note:"Expression of interest — refundable reservation to join the release.", no_units_type:"No available units found for this unit type.",
       home_units_h:"Featured units", home_units_p:"Illustrative sample units across our projects — bedrooms, area and price are examples to confirm with an advisor.",
       units_h:"Units", units_p:"Browse sample units by type. Figures are illustrative — confirm current availability and prices with an advisor.",
       filter_type:"Type", all_types:"All types",
@@ -1579,7 +1587,7 @@
       hero_p:"The Village شركة تسويق ووساطة عقارية تساعدك على مقارنة الإطلاقات الجديدة والمطوّرين والمناطق في القاهرة الجديدة والتجمع الخامس والعاصمة الإدارية والساحل — باستشارة صادقة من أول سؤال حتى استلام وحدتك.",
       hero_s1:"مناطق نغطّيها", hero_s2:"مطوّرون نتابعهم", hero_s3:"مشروعات مختارة",
       find_h:"اعثر على وحدتك الأولية", find_p:"صفِّ الاختيارات ثم تحدّث إلى مستشار لمعرفة الإتاحة الحالية.",
-      home_ours_k:"مقدَّمة من The Village", home_ours_h:"مشروعاتنا المميّزة", home_ours_p:"مشروعات بيع أولي نسوّقها مباشرةً على ساحل رأس الحكمة الشمالي. الأرقام استرشادية — تواصل مع مستشار لتأكيد الأسعار والإتاحة الحالية.",
+      home_ours_k:"مقدَّمة من The Village", home_ours_h:"مشروعاتنا المميّزة", home_ours_p:"مشروعات بيع أولي نسوّقها مباشرةً في رأس الحكمة والساحل الشمالي والعين السخنة. الأرقام استرشادية — تواصل مع مستشار لتأكيد الأسعار والإتاحة الحالية.",
       home_launch_h:"إطلاقات جديدة", home_launch_p:"إطلاقنا الأولي القادم — قريباً.", coming_soon:"قريباً",
       home_devrail_h:"تصفّح حسب المطوّر", home_devrail_p:"اضغط على أي مطوّر لاستعراض مشروعاته للبيع الأولي.",
       home_feat_h:"مشروعات مميّزة", home_feat_p:"نظرة مختارة عبر المناطق والمطوّرين. الأرقام تقديرية لحين تأكيد المستشار.",
@@ -1613,7 +1621,7 @@
       brand_note:"الهوية مستمدة من شعار The Village الرئيسي. اعتماد الهوية النهائي قيد الانتظار.",
       foot_blocker:"ملاحظة إطلاق: بيانات التواصل الموثّقة والمعروض الحيّ وتسليم الطلبات للـCRM والمراجعة القانونية قيد إدخال صاحب الموقع.",
       choose_lang:"English", metric_installments:"سنوات تقسيط",
-      nav_units:"الوحدات", avail_units:"وحدات متاحة", new_release:"إطلاق جديد", release_h:"قائمة أسعار الإطلاق الجديد", release_p:"أسعار محدَّثة أصدرها المطوّر لهذه المشاريع. بيع أولي مباشر من المطوّر.", release_units:"وحدات هذا الإطلاق", eoi:"EOI", eoi_note:"خطاب رغبة — حجز مسترد للدخول في الإطلاق.", no_units_type:"لا توجد وحدات متاحة من هذا النوع.",
+      nav_units:"الوحدات", avail_units:"وحدات متاحة", new_release:"إطلاق جديد", release_h:"قائمة أسعار الإطلاق الجديد", release_p:"أسعار محدَّثة أصدرها المطوّر لهذه المشاريع. بيع أولي مباشر من المطوّر.", release_units:"وحدات هذا الإطلاق", fs_installments:"عدد الأقساط", fs_quarterly:"قسط ربع سنوي", fs_floorplan:"مخطط الوحدة", eoi:"EOI", eoi_note:"خطاب رغبة — حجز مسترد للدخول في الإطلاق.", no_units_type:"لا توجد وحدات متاحة من هذا النوع.",
       home_units_h:"وحدات مميّزة", home_units_p:"وحدات نموذجية استرشادية عبر مشروعاتنا — الغرف والمساحة والسعر أمثلة للتأكيد مع المستشار.",
       units_h:"الوحدات", units_p:"تصفّح وحدات نموذجية حسب النوع. الأرقام استرشادية — أكّد الإتاحة والأسعار الحالية مع المستشار.",
       filter_type:"النوع", all_types:"كل الأنواع",
@@ -3361,6 +3369,31 @@
     fsPrintNow();   /* fast path: fire the print dialog where the browser honours it */
   }
   /* Print / Save-as-PDF factsheet (honest: uses the browser print pipeline) */
+  /* Sheet footer: the contact points as live links, so WhatsApp works from the
+     on-screen sheet and the URL still prints under the label in a PDF. */
+  function contactNote(waMsg){
+    var box=h('div',{class:'ps-note'}, t('illustrative'));
+    var row=h('span',{class:'ps-contact'});
+    if(CONFIG.phone) row.appendChild(h('a',{href:'tel:'+CONFIG.phone}, CONFIG.phoneDisplay||CONFIG.phone));
+    if(CONFIG.email) row.appendChild(h('a',{href:'mailto:'+CONFIG.email}, CONFIG.email));
+    if(CONFIG.whatsapp) row.appendChild(h('a',{href:waLink(waMsg||''), target:'_blank', rel:'noopener'}, 'WhatsApp'));
+    if(row.childNodes.length) box.appendChild(row);
+    return box;
+  }
+  // The first floor plan published by any unit in this project — the project
+  // sheet has no unit of its own, so it shows a representative layout.
+  function projFloorplan(p){
+    var out='';
+    UNITS.some(function(u){
+      if(u.project!==p.slug) return false;
+      var fps=unitFloorplans(u); if(!fps.length) return false;
+      out=fps[0]; return true;
+    });
+    return out;
+  }
+  // Installment count derived from the published plan: quarterly, matching how
+  // Egyptian primary plans are actually written.
+  function installmentCount(p){ return p.years ? Math.round(p.years*4) : null; }
   function printFactsheet(p){
     var dev=devByKey(p.dev), area=areaByKey(p.area), sheet=document.getElementById('print-sheet'); if(!sheet) return; clear(sheet);
     var bimg=document.querySelector('header .brand img'), logo=bimg?bimg.getAttribute('src'):'';
@@ -3369,16 +3402,23 @@
       h('div',{style:'text-align:end;font-size:.78rem;color:#555'}, t('fs_title'), h('div',null, t('fs_generated')+': '+new Date().toLocaleDateString(lang==='ar'?'ar-EG':'en-GB')))));
     sheet.appendChild(h('div',{class:'ps-title'}, lang==='ar'?p.name_ar:p.name));
     sheet.appendChild(h('div',{style:'color:#333;margin-bottom:8px'}, L(dev.name)+' · '+L(area.name)+' · '+statusLabel(p.status)));
-    sheet.appendChild(h('div',{class:'ps-media'}, projectArt(p)));
+    sheet.appendChild(h('div',{class:'ps-media'}, projectMedia(p)));
     var tbl=h('table',{class:'ps-table'});
-    // Payment Plan (down payment / installment years) intentionally excluded from print.
+    var ins=installmentCount(p);
     [[t('price'), money(p.price)+' — '+t('conf_illustrative')],[t('units'),L(p.types)],
-     [t('delivery'),p.delivery==='Ready'?t('ready'):(p.delivery||t('to_confirm'))],[t('finishing'),L(p.finishing)]]
-      .forEach(function(r){ tbl.appendChild(h('tr',null,h('th',null,r[0]),h('td',null,r[1]))); });
+     [t('delivery'),p.delivery==='Ready'?t('ready'):(p.delivery||t('to_confirm'))],[t('finishing'),L(p.finishing)],
+     (p.dp ? [t('dp'), num(p.dp)+'%'] : null),
+     (p.years ? [t('years'), num(p.years)+' '+(lang==='ar'?'سنوات':'years')] : null),
+     (ins ? [t('fs_installments'), num(ins)+' '+t('fs_quarterly')] : null)]
+      .forEach(function(r){ if(!r) return; tbl.appendChild(h('tr',null,h('th',null,r[0]),h('td',null,r[1]))); });
     sheet.appendChild(tbl);
+    var fp=projFloorplan(p);
+    if(fp) sheet.appendChild(h('div',{class:'ps-plan'},
+      h('div',{class:'ps-plan__k'}, t('fs_floorplan')),
+      h('img',{src:fp, alt:t('fs_floorplan')+' — '+(lang==='ar'?p.name_ar:p.name), loading:'lazy'})));
     sheet.appendChild(h('div',null, L(p.blurb)));
-    var contact=[]; if(CONFIG.phone) contact.push(CONFIG.phoneDisplay||CONFIG.phone); if(CONFIG.email) contact.push(CONFIG.email); if(CONFIG.whatsapp) contact.push('WhatsApp');
-    sheet.appendChild(h('div',{class:'ps-note'}, t('illustrative')+(contact.length?(' · '+contact.join(' · ')):'')));
+    sheet.appendChild(contactNote(lang==='ar'
+      ? ('مهتم بمشروع: '+p.name_ar) : ('Interested in project: '+p.name)));
     track('factsheet_requested',{project:p.slug});
     openFactsheet();
   }
@@ -3415,8 +3455,7 @@
     }
     row(lang==='ar'?'سعر الوحدة':'Unit price', money(u.price)+' — '+t('conf_illustrative'));
     page1.appendChild(tbl);
-    var contact=[]; if(CONFIG.phone) contact.push(CONFIG.phoneDisplay||CONFIG.phone); if(CONFIG.email) contact.push(CONFIG.email); if(CONFIG.whatsapp) contact.push('WhatsApp');
-    page1.appendChild(h('div',{class:'ps-note'}, t('illustrative')+(contact.length?(' · '+contact.join(' · ')):'')));
+    page1.appendChild(contactNote(unitWaMsg(u)));
     sheet.appendChild(page1);
     // Payment Plan section intentionally excluded from the print/PDF version.
     track('unit_factsheet_requested',{unit:u.id});
@@ -4212,8 +4251,9 @@
 
     // our featured projects (The Village's own directly-marketed listings) — highlighted
     // first, flush to the top so it sits tight under the "Browse by developer" rail.
-    var ours = spreadByDev(['ogami-north-coast','june-north-coast','caesar-north-coast',
-      'ramla-ras-el-hekma','beach-plaza-premium'].map(projBySlug).filter(Boolean));
+    // One project per developer — five slots, five different companies.
+    var ours = spreadByDev(['ogami-north-coast','ramla-ras-el-hekma','beach-plaza-premium',
+      'zoya','il-monte-galala'].map(projBySlug).filter(Boolean));
     if(ours.length) node.appendChild(listSection(t('home_ours_k'), t('home_ours_h'), t('home_ours_p'), ours.map(projectCard),
       {label:t('nav_projects'), path:buildPath('projects')}, 'section--flush-t'));
     // why buyers choose The Village — moved up, directly below "Our featured projects"
@@ -5225,9 +5265,7 @@
         })(),
         h('h2',{style:'font-size:1.3rem;margin-top:28px;margin-bottom:12px'}, t('facts')),
         facts, deliveryTimeline(p)),
-      h('div',null, aside, (p.price!=null ? paymentCalc(p) : h('div',{class:'aside-card',style:'margin-top:16px'},
-        h('div',{class:'muted',style:'font-weight:700;font-size:.85rem'}, t('pay_calc')),
-        h('div',{class:'notice notice--info',style:'margin-top:8px'}, ic('info'), h('div',null, t('price_tbc'))))))));
+      h('div',null, aside)));
     top.appendChild(wrap); node.appendChild(top);
     track('project_viewed', {project:p.slug});
     if(typeof leadArm==='function') leadArm();   // a project view is a qualifying engagement
