@@ -3061,6 +3061,13 @@
     name:{en:'MODON', ar:'مدن'},
     blurb:{en:'A new release of Modon Ras El Hekma apartments, re-priced by the developer. Primary sale, direct from Modon.',
            ar:'إطلاق جديد لشقق مدن رأس الحكمة بأسعار محدَّثة من المطوّر. بيع أولي مباشر من مدن.'},
+    /* Masterplan supplied for the release as a whole — the Ras El Hekma / Wadi
+       Yemm plan plus the zoomed plot view — so both project cards open the same
+       set rather than each claiming a plan of its own. */
+    masterplan:[
+      {src:'/project-media/modon/rk-masterplan-1.webp', cap:{en:'Ras El Hekma · Wadi Yemm masterplan', ar:'رأس الحكمة · الماستر بلان — وادي يم'}},
+      {src:'/project-media/modon/rk-masterplan-2.webp', cap:{en:'Ras El Hekma · plot detail', ar:'رأس الحكمة · تفاصيل القطع'}}
+    ],
     projects:[
       {name:{en:'Boulevard', ar:'بوليفارد'}, img:'/project-media/modon/ap2-bl-0.webp',
        dp:10, years:8, delivery:'2029', eoi:250000,
@@ -3078,6 +3085,9 @@
   function releaseFrom(r){
     var all=[]; r.projects.forEach(function(p){ p.units.forEach(function(u){ if(u.price!=null) all.push(u.price); }); });
     return all.length ? Math.min.apply(null, all) : null;
+  }
+  function releaseMasterplan(r){
+    return (r.masterplan||[]).map(function(m){ return {src:m.src, cap:L(m.cap)}; });
   }
 
   /* Developer feature blocks — a masterplan and a row of themed cards, shown
@@ -4053,6 +4063,22 @@
         h('p',null, L(d.tagline)),
         h('p',null, ps.length ? (num(ps.length)+' '+(lang==='ar'?'مشروع مُدرج':'listed projects')) : L(d.areas))));
   }
+  /* Round-robin a project list by developer: take one from each developer in
+     turn, then come back for their second, and so on. The curated order is kept
+     within each developer, so nothing is dropped or reordered arbitrarily — the
+     visible top row simply stops being three cards from the same company. */
+  function spreadByDev(list){
+    var order=[], byDev={};
+    list.forEach(function(p){
+      if(!byDev[p.dev]){ byDev[p.dev]=[]; order.push(p.dev); }
+      byDev[p.dev].push(p);
+    });
+    var out=[], left=list.length;
+    while(left){
+      order.forEach(function(k){ if(byDev[k].length){ out.push(byDev[k].shift()); left--; } });
+    }
+    return out;
+  }
   // Circular developer avatar → opens the developer page (home "browse by developer" rail)
   function devCircle(d){
     return h('a',{class:'dev-circle', href:U(buildPath('developer',{slug:d.key})), 'aria-label':L(d.name), role:'listitem'},
@@ -4154,7 +4180,8 @@
 
     // our featured projects (The Village's own directly-marketed listings) — highlighted
     // first, flush to the top so it sits tight under the "Browse by developer" rail.
-    var ours = ['ogami-north-coast','june-north-coast','caesar-north-coast','ramla-ras-el-hekma','beach-plaza-premium'].map(projBySlug).filter(Boolean);
+    var ours = spreadByDev(['ogami-north-coast','june-north-coast','caesar-north-coast',
+      'ramla-ras-el-hekma','beach-plaza-premium'].map(projBySlug).filter(Boolean));
     if(ours.length) node.appendChild(listSection(t('home_ours_k'), t('home_ours_h'), t('home_ours_p'), ours.map(projectCard),
       {label:t('nav_projects'), path:buildPath('projects')}, 'section--flush-t'));
     // why buyers choose The Village — moved up, directly below "Our featured projects"
@@ -5483,6 +5510,16 @@
   /* ---- Release page (e.g. MODON new release) ----------------------------
      A developer's re-priced release. Same card shell as the rest of the site,
      with a NEW RELEASE badge and the sheet's figures for each project. ---- */
+  // Opens the release masterplan in the full-screen viewer (pan + zoom), so the
+  // plan is read at full size instead of squeezed into the card.
+  function releaseMasterplanBtn(r, label){
+    var items = releaseMasterplan(r); if(!items.length) return null;
+    var mp = (lang==='ar'?'الماستر بلان':'Master Plan');
+    var b = h('button',{class:'ufeat', type:'button'},
+      ic('masterplan','ufeat__ic'), h('span',null, mp));
+    b.addEventListener('click', function(){ mediaViewer(items, mp+' · '+label); });
+    return h('div',{class:'ufeat-row', style:'margin-top:12px'}, b);
+  }
   function releaseCard(r, p){
     var nm = L(p.name), dev = devByKey(r.dev), area = areaByKey(r.area);
     var from = Math.min.apply(null, p.units.map(function(u){ return u.price; }));
@@ -5520,6 +5557,7 @@
       h('div',{class:'card__facts', style:'margin-top:10px'},
         h('span',null, num(p.dp)+'% '+t('dp')),
         h('span',null, num(p.years)+' '+(lang==='ar'?'سنوات':'years'))),
+      releaseMasterplanBtn(r, nm),
       provBadge(),
       h('div',{class:'card__foot'},
         h('a',{class:'btn btn--primary btn--sm', href:U(buildPath('contact'))+'?p='+r.slug}, t('cta_talk')),
