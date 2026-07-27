@@ -766,6 +766,34 @@
   }
   .facet-group{padding:13px 0;border-bottom:1px solid var(--line-2)}
   .facet-group:last-child{border-bottom:none}
+  /* Finder search bar — one line across the top of the results, matching the
+     pattern buyers already know from the big portals. */
+  .fsb-row{display:flex;gap:10px;align-items:center;margin-top:20px;flex-wrap:wrap}
+  .fsb{position:relative;flex:1 1 320px;display:flex;align-items:center;gap:10px;
+    background:var(--paper);border:1px solid var(--line-2);border-radius:var(--r-pill);
+    padding:0 18px;height:52px;transition:var(--t)}
+  .fsb:focus-within{border-color:var(--teal-500);box-shadow:0 0 0 3px rgba(26,123,160,.13)}
+  .fsb__ic{display:grid;place-items:center;color:var(--ink-3);flex:none}
+  .fsb__ic svg{width:19px;height:19px}
+  .fsb input{flex:1;border:none;background:none;outline:none;font:inherit;font-size:.96rem;
+    color:var(--ink);min-width:0;padding:0}
+  .fsb input::placeholder{color:var(--ink-3)}
+  .fsb input::-webkit-search-cancel-button{cursor:pointer}
+  .fsb__switch{flex:none;height:52px;border-radius:var(--r-pill);padding-inline:18px;white-space:nowrap}
+  .fsb__sug{position:absolute;inset-block-start:calc(100% + 6px);inset-inline:0;z-index:40;
+    background:var(--paper);border:1px solid var(--line-2);border-radius:var(--r);
+    box-shadow:var(--shadow-lg);overflow:hidden;max-height:320px;overflow-y:auto}
+  .fsb__sug[hidden]{display:none}
+  .fsb__opt{display:flex;align-items:center;gap:11px;width:100%;padding:11px 16px;background:none;
+    border:none;border-bottom:1px solid var(--line-2);cursor:pointer;font:inherit;text-align:start;color:var(--ink)}
+  .fsb__opt:last-child{border-bottom:none}
+  .fsb__opt:hover,.fsb__opt:focus-visible{background:var(--bone-2);outline:none}
+  /* ic(name, cls) sets the class on the <svg> itself, so size it directly — a
+     descendant selector here matches nothing and the icon renders full-bleed. */
+  .fsb__opt-ic{width:17px;height:17px;flex:none;color:var(--teal-600)}
+  .fsb__opt em{margin-inline-start:auto;font-style:normal;font-size:.72rem;font-weight:700;
+    letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);flex:none}
+  @media(max-width:560px){ .fsb__switch{width:100%} }
   .facet-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:10px}
   .facet-group h4{font-size:.74rem;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);margin:0;font-family:var(--sans);font-weight:700}
   .facet-reset{background:none;border:none;padding:0;cursor:pointer;font:inherit;font-size:.74rem;
@@ -1539,6 +1567,7 @@
       price_tbc:"Price & payment plan are being confirmed — talk to an advisor for the developer’s current terms.",
       launch_status:"Launch status", availability:"Availability", beds:"Bedrooms",
       sort_delivery:"Earliest delivery", sort_newest:"Newest launch",
+      finder_q_ph:"Area, project or developer", switch_projects:"Switch to projects",
       nav_search:"Search", search_ph:"Search projects, units, developers, areas, guides…",
       search_hint:"Start typing to search across the whole site.", search_none:"No matches. Try a project, developer, area — or ask the assistant.",
       search_finder:"Open the unit finder", search_h:"Search results", search_p:"Results across projects, units, developers, areas, guides and questions.",
@@ -1657,6 +1686,7 @@
       price_tbc:"يجري تأكيد السعر وخطة السداد — تواصل مع مستشار لمعرفة شروط المطوّر الحالية.",
       launch_status:"حالة الإطلاق", availability:"الإتاحة", beds:"غرف النوم",
       sort_delivery:"الأقرب تسليماً", sort_newest:"الأحدث إطلاقاً",
+      finder_q_ph:"منطقة أو مشروع أو مطوّر", switch_projects:"عرض المشروعات",
       nav_search:"بحث", search_ph:"ابحث في المشروعات والوحدات والمطوّرين والمناطق والأدلة…",
       search_hint:"ابدأ الكتابة للبحث في كل الموقع.", search_none:"لا نتائج. جرّب مشروعاً أو مطوّراً أو منطقة — أو اسأل المساعد.",
       search_finder:"افتح محرّك البحث عن الوحدات", search_h:"نتائج البحث", search_p:"نتائج عبر المشروعات والوحدات والمطوّرين والمناطق والأدلة والأسئلة.",
@@ -3629,7 +3659,56 @@
     else if(s==='price-desc') l.sort(function(a,b){ return (b.price||0)-(a.price||0); });
     else if(s==='earliest-delivery') l.sort(function(a,b){ return delOrder[deliveryBucket(projBySlug(a.project))]-delOrder[deliveryBucket(projBySlug(b.project))]; });
     else if(s==='newest') l.sort(function(a,b){ return (projBySlug(b.project).status==='launch'?1:0)-(projBySlug(a.project).status==='launch'?1:0); });
+    // "Featured" is the only order we are free to choose, so it spreads the
+    // developers instead of letting whichever one sits first in UNITS own the
+    // top of the page. An explicit sort is always respected as-is.
+    else l = rotateByDev(l);
     return l;
+  }
+  /* Which developer leads today. Deterministic per day rather than random, so
+     the page does not reshuffle under the visitor mid-session or between a
+     card and the unit page it links to — but every developer gets the top slot
+     over a cycle instead of one of them owning it permanently. */
+  function devRotationOffset(now){
+    var d = now || new Date();
+    var day = Math.floor(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()) / 86400000);
+    return day;
+  }
+  /* Round-robin the list by developer: one unit from each in turn, then back
+     for their second, and so on. The starting developer advances daily. */
+  function rotateByDev(list){
+    var order=[], byDev={};
+    list.forEach(function(u){
+      var p=projBySlug(u.project), k=p?p.dev:'~';
+      if(!byDev[k]){ byDev[k]=[]; order.push(k); }
+      byDev[k].push(u);
+    });
+    if(order.length<2) return list;
+    // Within a developer, lead with the units that actually have photography.
+    // 59 of the units have no image and fall back to generated art; rotating
+    // without this puts that art at the top of the page.
+    order.forEach(function(k){
+      byDev[k] = byDev[k].map(function(u,i){ return {u:u, i:i, shot:hasUnitImage(u)?0:1}; })
+        .sort(function(a,b){ return a.shot-b.shot || a.i-b.i; })
+        .map(function(x){ return x.u; });
+    });
+    // Seven of the thirteen developers have no unit photography at all, so a
+    // straight cycle would put generated art in the first row. Developers that
+    // do have photos take the front of each cycle; the rest follow, still one
+    // per developer. The daily offset rotates within each half.
+    var shot=order.filter(function(k){ return byDev[k].some(hasUnitImage); });
+    var flat=order.filter(function(k){ return shot.indexOf(k)<0; });
+    function spin(a){ if(a.length<2) return a; var o=devRotationOffset()%a.length; return a.slice(o).concat(a.slice(0,o)); }
+    order = spin(shot).concat(spin(flat));
+    var out=[], left=list.length;
+    while(left){
+      order.forEach(function(k){ if(byDev[k].length){ out.push(byDev[k].shift()); left--; } });
+    }
+    return out;
+  }
+  function hasUnitImage(u){
+    return !!((UNIT_GALLERY[u.id] && UNIT_GALLERY[u.id].length) || UNIT_IMAGES[u.id]
+      || PROJECT_COVERS[u.project]);
   }
 
   // URL contract (shareable, restorable)
@@ -4888,21 +4967,22 @@
       .replace(/\s+/g,' ').trim();
   }
   var SEARCH_TYPES=['project','unit','developer','area','article','faq','page'];
-  var SEARCH_TYPE_LABEL={project:{en:'Projects',ar:'مشروعات'},unit:{en:'Units',ar:'وحدات'},developer:{en:'Developers',ar:'مطوّرون'},area:{en:'Areas',ar:'مناطق'},article:{en:'Guides',ar:'أدلة'},faq:{en:'FAQs',ar:'أسئلة'},page:{en:'Pages',ar:'صفحات'}};
+  var SEARCH_TYPE_LABEL={project:{en:'Projects',ar:'مشروعات',one:{en:'Project',ar:'مشروع'}},unit:{en:'Units',ar:'وحدات',one:{en:'Unit',ar:'وحدة'}},developer:{en:'Developers',ar:'مطوّرون',one:{en:'Developer',ar:'مطوّر'}},area:{en:'Areas',ar:'مناطق',one:{en:'Area',ar:'منطقة'}},article:{en:'Guides',ar:'أدلة',one:{en:'Guide',ar:'دليل'}},faq:{en:'FAQs',ar:'أسئلة',one:{en:'FAQ',ar:'سؤال'}},page:{en:'Pages',ar:'صفحات',one:{en:'Page',ar:'صفحة'}}};
+  function searchTypeOne(ty){ var m=SEARCH_TYPE_LABEL[ty]; return m&&m.one?L(m.one):''; }
   function buildSearchIndex(){
     var idx=[];
-    function add(type,title,subtitle,href,aliases,extra,icon){
-      idx.push({type:type,title:title,subtitle:subtitle||'',href:href,aliases:aliases||[],icon:icon,
+    function add(type,title,subtitle,href,aliases,extra,icon,key){
+      idx.push({type:type,title:title,subtitle:subtitle||'',href:href,aliases:aliases||[],icon:icon,key:key||'',
         norm:arNorm([title,subtitle,(aliases||[]).join(' '),extra||''].join(' '))});
     }
     PROJECTS.forEach(function(p){ var d=devByKey(p.dev),a=areaByKey(p.area);
       add('project',(lang==='ar'?p.name_ar:p.name),L(d.name)+' · '+L(a.name),buildPath('project',{slug:p.slug}),
-        [p.name,p.name_ar],L(p.types)+' '+(lang==='ar'?p.tags.ar.join(' '):p.tags.en.join(' '))+' '+a.name.en+' '+a.name.ar+' '+d.name.en+' '+d.name.ar,'build'); });
+        [p.name,p.name_ar],L(p.types)+' '+(lang==='ar'?p.tags.ar.join(' '):p.tags.en.join(' '))+' '+a.name.en+' '+a.name.ar+' '+d.name.en+' '+d.name.ar,'build',p.slug); });
     UNITS.forEach(function(u){ var p=projBySlug(u.project),a=areaByKey(p.area);
       add('unit',typeLabelC(unitCanon(u))+' — '+(lang==='ar'?p.name_ar:p.name),L(a.name)+' · '+money(u.price),buildPath('project',{slug:p.slug}),
         [u.id,u.type],u.beds+' '+a.name.en+' '+a.name.ar,(TYPE_BY_CANON[unitCanon(u)]||{}).icon||'ty_apartment'); });
-    DEVELOPERS.forEach(function(d){ add('developer',L(d.name),L(d.tagline),buildPath('developer',{slug:d.key}),[d.name.en,d.name.ar],L(d.areas)+' '+d.areas.en+' '+d.areas.ar,'shield'); });
-    AREAS.forEach(function(a){ add('area',L(a.name),L(a.blurb),buildPath('area',{slug:a.key}),[a.name.en,a.name.ar],'','pin'); });
+    DEVELOPERS.forEach(function(d){ add('developer',L(d.name),L(d.tagline),buildPath('developer',{slug:d.key}),[d.name.en,d.name.ar],L(d.areas)+' '+d.areas.en+' '+d.areas.ar,'shield',d.key); });
+    AREAS.forEach(function(a){ add('area',L(a.name),L(a.blurb),buildPath('area',{slug:a.key}),[a.name.en,a.name.ar],'','pin',a.key); });
     RESEARCH.forEach(function(r){ add('article',L(r.title),L(r.cat),buildPath('insight',{slug:r.slug}),[],L(r.excerpt),'doc'); });
     FAQ.forEach(function(g){ g.items.forEach(function(it){ add('faq',L(it.q),L(g.label),buildPath('faqs'),[],L(it.a),'chat'); }); });
     [['units','finder_h'],['compare','cmp_h'],['insights','insights_h'],['faqs','faqs_h'],['about','about_h'],['contact','contact_h'],['launches','nav_launches']]
@@ -5472,6 +5552,54 @@
   function removeSearch(q){ store('tv_searches', savedSearches().filter(function(s){return s.q!==q;})); }
   function alertMsg(label){ return (lang==='ar'?'أرغب في تلقّي تنبيه عند توفّر وحدات أولية جديدة مطابقة لـ: ':'Please alert me when new primary units launch matching: ')+(label||searchLabel(FILTER)); }
 
+  /* One search bar across the top of the finder: type an area, project or
+     developer and it applies as a filter rather than leaving the page, so the
+     sidebar and the results stay in sync. Free text with no entity match falls
+     through to the site-wide search page. Beside it, the same switch Nawy
+     offers — jump between the unit view and the project view. */
+  function finderSearchBar(){
+    var inp=h('input',{type:'search', id:'finder-q', autocomplete:'off',
+      placeholder:t('finder_q_ph'), 'aria-label':t('finder_q_ph')});
+    var sug=h('div',{class:'fsb__sug', id:'finder-q-sug', role:'listbox', hidden:true});
+    function apply(d){
+      var f=defaultFilter();
+      if(d.type==='area') f.areas=[d.key];
+      else if(d.type==='developer') f.devs=[d.key];
+      else if(d.type==='project') f.projects=[d.key];
+      else { navigateTo(buildPath('search')+'?q='+encodeURIComponent(inp.value.trim())); return; }
+      f.mode=FILTER.mode; FILTER=f; finderApply();
+    }
+    function close(){ clear(sug); sug.hidden=true; }
+    inp.addEventListener('input', function(){
+      var q=inp.value.trim(); clear(sug);
+      if(q.length<2){ sug.hidden=true; return; }
+      var hits=searchAll(q).filter(function(d){
+        return d.type==='area'||d.type==='developer'||d.type==='project'; }).slice(0,6);
+      if(!hits.length){ sug.hidden=true; return; }
+      hits.forEach(function(d){
+        var b=h('button',{class:'fsb__opt', type:'button', role:'option'},
+          ic(d.icon||'search','fsb__opt-ic'),
+          h('span',null, d.title),
+          h('em',null, searchTypeOne(d.type)));
+        b.addEventListener('click', function(){ close(); apply(d); });
+        sug.appendChild(b);
+      });
+      sug.hidden=false;
+    });
+    inp.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
+    var form=h('form',{class:'fsb', role:'search'},
+      h('span',{class:'fsb__ic'}, ic('search')), inp, sug);
+    form.addEventListener('submit', function(e){
+      e.preventDefault(); var q=inp.value.trim(); if(!q) return;
+      var hit=searchAll(q).filter(function(d){
+        return d.type==='area'||d.type==='developer'||d.type==='project'; })[0];
+      close(); apply(hit || {type:'free'});
+    });
+    return h('div',{class:'fsb-row'}, form,
+      h('a',{class:'btn btn--ghost btn--sm fsb__switch', href:U(buildPath('projects'))},
+        ic('layers'), t('switch_projects')));
+  }
+
   V.units = function(){
     FILTER = filterFromQuery(CUR.search); reconcileFilter();
     var af=areaFacets(), df=devFacets(), pf=projFacets(), tf=typeFacets(), bf=bedFacets(), ff=floorFacets(), lf=launchFacets(), avf=availFacets(), delf=deliveryFacets();
@@ -5482,7 +5610,8 @@
     var node=h('div',null);
     node.appendChild(sectionWrap(
       crumbNode([{label:t('nav_home'),path:buildPath('home')},{label:t('nav_units')}]),
-      sectionHead(t('hero_kicker'), t('finder_h'), t('finder_p'), 'h1')));
+      sectionHead(t('hero_kicker'), t('finder_h'), t('finder_p'), 'h1'),
+      finderSearchBar()));
 
     // ---- filter panel ----
     var panel=h('div',{class:'finder-panel', id:'finder-panel'});
