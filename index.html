@@ -389,11 +389,8 @@
   /* Developer feature blocks: masterplan + themed cards. */
   .dev-feat__title{display:flex;align-items:center;gap:10px;margin:0 0 14px}
   .dev-feat__ico{width:22px;height:22px;color:var(--teal-600);flex:none}
-  /* Sized down from full-bleed; still wide enough to read the plan's figures.
-     margin-inline-end keeps it on the start edge under the heading in RTL too. */
-  .dev-mp{max-width:820px;margin-inline-end:auto}
-  .dev-mp img{width:100%;height:auto;display:block;border-radius:var(--r-lg);
-    box-shadow:var(--shadow-sm);background:var(--line-2);cursor:zoom-in}
+  /* The plan itself opens in the fullscreen viewer, so this only holds its button. */
+  .dev-mp{margin-top:-8px}
   .dev-feat{background:#fff;border:1px solid var(--line-2);border-radius:var(--r-lg);
     padding:18px;box-shadow:var(--shadow-sm)}
   .dev-feat img{width:100%;height:auto;display:block;border-radius:12px;
@@ -2959,15 +2956,24 @@
     img.addEventListener('click', function(){ mediaViewer(items, alt, i); });
     return img;
   }
+  /* Masterplan lives behind an icon rather than sitting open on the page:
+     the button opens the plan in the same fullscreen viewer used elsewhere,
+     where it can be zoomed and panned properly. */
   function devMasterplanSection(dev){
     var f = devFeatures(dev.key); if(!f || !f.masterplan) return null;
     var m = f.masterplan, label = L({en:m.en, ar:m.ar}), nm = L(dev.name);
     var items = [{src:m.src, cap:nm+' · '+label}];
     var head = h('div',{class:'sec-head'},
       h('h2',{class:'dev-feat__title'}, ic(m.icon,'dev-feat__ico'), h('span',null,label)));
+    var open = h('button',{class:'ufeat', type:'button'},
+      ic('masterplan','ufeat__ic'),
+      h('span',null, lang==='ar' ? 'عرض الماستر بلان' : 'View master plan'));
+    open.addEventListener('click', function(){ mediaViewer(items, nm+' · '+label, 0); });
+    // keep the plan in the DOM for crawlers without showing it on the page
+    var seo = h('img',{src:m.src, alt:nm+' — '+label, width:1395, height:778,
+      loading:'lazy', decoding:'async', class:'visually-hidden'});
     return h('section',{class:'section--tight band'},
-      h('div',{class:'wrap'}, head,
-        h('div',{class:'dev-mp'}, featImg(m.src, items, 0, nm+' — '+label, 1395, 778))));
+      h('div',{class:'wrap'}, head, h('div',{class:'dev-mp'}, open, seo)));
   }
   /* Card copy: an opening paragraph always on show, the rest behind a chevron.
      Uses <details> so the hidden half stays in the DOM for search engines. */
