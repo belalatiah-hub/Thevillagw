@@ -372,13 +372,11 @@
     text-shadow:0 2px 14px rgba(5,46,61,.55)}
   .cs-card .cs-scrim{background:linear-gradient(180deg,rgba(5,46,61,.5),rgba(5,46,61,0) 34%,rgba(5,46,61,0) 60%,rgba(5,46,61,.62))}
   .rel-hero{max-width:64ch}
-  /* Release cards carry a photo flipper in the card media slot; the arrows are
-     scaled down from the hero size so they sit comfortably on a card. */
-  .rel-gal{cursor:zoom-in}
-  .rel-gal img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-  .rel-gal .gal-nav{width:34px;height:34px}
-  .rel-gal .gal-nav svg{width:19px;height:19px}
-  .rel-gal .gal-nav--prev{left:8px} .rel-gal .gal-nav--next{right:8px}
+  .rel-table{width:100%;border-collapse:collapse;margin-top:12px;font-size:.85rem}
+  .rel-table th{text-align:start;font-weight:700;color:var(--ink-3);font-size:.72rem;
+    letter-spacing:.08em;text-transform:uppercase;padding:0 0 6px}
+  .rel-table td{padding:6px 0;border-top:1px solid var(--line-2);color:var(--ink-2)}
+  .rel-table__p{font-weight:700;color:var(--ink);white-space:nowrap;text-align:end}
   .cs-wrap{display:flex;justify-content:center;gap:clamp(14px,2.4vw,26px);flex-wrap:wrap;margin-top:6px}
   .cs-card{position:relative;margin:0;width:100%;max-width:400px;border-radius:var(--r-lg);overflow:hidden;background:var(--teal-900);box-shadow:var(--shadow-lg)}
   .cs-img{display:block;width:100%;height:auto;aspect-ratio:1/1;object-fit:cover}
@@ -3027,12 +3025,7 @@
       loading:(eager?'eager':'lazy'), width:w, height:hgt});
     img.addEventListener('error', function(){ if(box.parentNode) box.parentNode.removeChild(box); });
     var count = h('span',{class:'gal-badge__n'});
-    // An item may ask to be shown whole (fit:'contain') instead of cropped —
-    // plans and location maps lose their meaning when the edges are cut off.
-    function paint(i){ var it=items[i]; img.src=it.src;
-      img.style.objectFit = it.fit || ''; box.style.background = it.fit ? 'var(--bone)' : ''; }
-    function show(i){ idx=(i+n)%n; paint(idx); count.textContent=(idx+1)+' / '+n; }
-    paint(0);
+    function show(i){ idx=(i+n)%n; img.src=items[idx].src; count.textContent=(idx+1)+' / '+n; }
     box.appendChild(img);
     if(n>1){
       box.appendChild(h('span',{class:'gal-badge','aria-hidden':'true'}, ic('gallery','gal-badge__ic'), count));
@@ -3056,55 +3049,28 @@
      into the main listings so the standing prices are never ambiguous. Every
      figure is taken verbatim from the units sheet; images are the ones already
      supplied for those units. --------------------------------------------- */
-  var RM = '/project-media/modon/';
   var RELEASES = [{
     slug:'modon', dev:'modon', area:'raselhekma',
-    name:{en:'MODON', ar:'مدن'}, cover:'/project-media/modon/ap2-bl-0.webp',
+    name:{en:'MODON', ar:'مدن'},
     blurb:{en:'A new release of Modon Ras El Hekma apartments, re-priced by the developer. Primary sale, direct from Modon.',
            ar:'إطلاق جديد لشقق مدن رأس الحكمة بأسعار محدَّثة من المطوّر. بيع أولي مباشر من مدن.'},
-    /* One entry per released unit. Photos are listed in the order the sheet
-       writes them, resolved from that unit's own image codes — never borrowed
-       from a sibling unit, so a unit with no supplied render shows its plans
-       instead of someone else's apartment. */
-    units:[
-      {id:'BL-1', project:{en:'Boulevard', ar:'بوليفارد'}, beds:1, baths:2, size:93, price:16100000,
+    projects:[
+      {name:{en:'Boulevard', ar:'بوليفارد'}, img:'/project-media/modon/ap2-bl-0.webp',
        dp:10, years:8, delivery:'2029',
-       imgs:[], mp:[RM+'mp-ap1-bl.webp'], fp:[RM+'fp-ap1-bl.webp'], loc:RM+'location-modon.webp'},
-      {id:'BL-2', project:{en:'Boulevard', ar:'بوليفارد'}, beds:2, baths:3, size:145, price:22500000,
+       units:[{beds:1, baths:2, size:93,  price:16100000},
+              {beds:2, baths:3, size:145, price:22500000},
+              {beds:3, baths:3, size:197, price:26700000}]},
+      {name:{en:'Beach Plaza Premium', ar:'بيتش بلازا بريميوم'}, img:'/project-media/modon/ap1-bp-03.webp',
        dp:10, years:8, delivery:'2029',
-       imgs:[RM+'ap2-bl-0.webp', RM+'ap2-bl-01.webp', RM+'ap2-bl-02.webp', RM+'ap2-bl-03.webp'],
-       mp:[RM+'mp-ap1-bl.webp'], fp:[RM+'fp-ap2-bl.webp'], loc:RM+'location-modon.webp'},
-      {id:'BL-3', project:{en:'Boulevard', ar:'بوليفارد'}, beds:3, baths:3, size:197, price:26700000,
-       dp:10, years:8, delivery:'2029',
-       imgs:[RM+'ap3-bl-0.webp', RM+'ap3-bl-01.webp', RM+'ap3-bl-03.webp', RM+'ap3-bl-02.webp'],
-       mp:[RM+'mp-ap1-bl.webp'], fp:[RM+'fp-ap3-bl.webp'], loc:RM+'location-modon.webp'},
-      {id:'BP-1', project:{en:'Beach Plaza Premium', ar:'بيتش بلازا بريميوم'}, beds:1, baths:2, size:93, price:19000000,
-       dp:10, years:8, delivery:'2029',
-       imgs:[RM+'ap1-bp-03.webp', RM+'ap1-bp-04.webp'],
-       mp:[RM+'mp-ap1-bp-0.webp'], fp:[], loc:RM+'loc-beachplaza.webp'},
-      {id:'BP-2', project:{en:'Beach Plaza Premium', ar:'بيتش بلازا بريميوم'}, beds:2, baths:3, size:145, price:26000000,
-       dp:10, years:8, delivery:'2029',
-       imgs:[RM+'ap2-bp-01.webp', RM+'ap2-bp-02.webp', RM+'ap2-bp-03.webp', RM+'ap2-bp-04.webp', RM+'ap2-bp-05.webp'],
-       mp:[RM+'mp-ap1-bp-0.webp'], fp:[RM+'fp-ap2-bp.webp'], loc:RM+'loc-beachplaza.webp'},
-      {id:'BP-3', project:{en:'Beach Plaza Premium', ar:'بيتش بلازا بريميوم'}, beds:3, baths:3, size:197, price:32000000,
-       dp:10, years:8, delivery:'2029',
-       imgs:[RM+'ap3-bp-0.webp', RM+'ap3-bp-01.webp', RM+'ap3-bp-02.webp', RM+'ap3-bp-03.webp', RM+'ap3-bp-04.webp', RM+'ap3-bp-05.webp'],
-       mp:[RM+'mp-ap1-bp-0.webp'], fp:[RM+'fp-ap3-bp.webp'], loc:RM+'loc-beachplaza.webp'}
+       units:[{beds:1, baths:2, size:93,  price:19000000},
+              {beds:2, baths:3, size:145, price:26000000},
+              {beds:3, baths:3, size:197, price:32000000}]}
     ]
   }];
   function releaseBySlug(s){ for(var i=0;i<RELEASES.length;i++){ if(RELEASES[i].slug===s) return RELEASES[i]; } return null; }
   function releaseFrom(r){
-    var all=[]; r.units.forEach(function(u){ if(u.price!=null) all.push(u.price); });
+    var all=[]; r.projects.forEach(function(p){ p.units.forEach(function(u){ if(u.price!=null) all.push(u.price); }); });
     return all.length ? Math.min.apply(null, all) : null;
-  }
-  // Every picture the sheet attaches to a released unit: renders first, then the
-  // masterplan, floor plan and location, so the arrows walk the whole set.
-  function releaseUnitPhotos(u){
-    var pnm = L(u.project), items = u.imgs.map(function(s){ return {src:s, cap:pnm}; });
-    u.mp.forEach(function(s){ items.push({src:s, fit:'contain', cap:(lang==='ar'?'الماستر بلان':'Master plan')}); });
-    u.fp.forEach(function(s){ items.push({src:s, fit:'contain', cap:(lang==='ar'?'مخطط الوحدة':'Floor plan')}); });
-    if(u.loc) items.push({src:u.loc, fit:'contain', cap:(lang==='ar'?'الموقع':'Location')});
-    return items;
   }
 
   /* Developer feature blocks — a masterplan and a row of themed cards, shown
@@ -4291,7 +4257,7 @@
     var nm = L(r.name);
     return h('a',{class:'cs-card cs-card--link', href:U(buildPath('release',{slug:r.slug})),
         'aria-label':nm+' — '+t('new_release')},
-      h('img',{class:'cs-img', src:r.cover, alt:nm+' — '+t('new_release'),
+      h('img',{class:'cs-img', src:r.projects[0].img, alt:nm+' — '+t('new_release'),
         width:'1000', height:'1000', loading:'lazy', decoding:'async'}),
       h('span',{class:'cs-scrim','aria-hidden':'true'}),
       h('span',{class:'cs-badge'}, t('new_release')),
@@ -5510,45 +5476,45 @@
   /* ---- Release page (e.g. MODON new release) ----------------------------
      A developer's re-priced release. Same card shell as the rest of the site,
      with a NEW RELEASE badge and the sheet's figures for each project. ---- */
-  /* One card per released unit — its own photos, its own price, its own area.
-     Nothing is pooled at project level, so two units in the same project stay
-     independent listings. */
-  function releaseCard(r, u){
-    var pnm = L(u.project), dev = devByKey(r.dev), area = areaByKey(r.area);
-    var uLabel = num(u.beds)+' '+(lang==='ar'?'غرف':'BR');
-    var title = uLabel+' '+(lang==='ar'?'شقة':'Apartment');
-    var alt = title+' · '+pnm+' — '+L(r.name);
+  function releaseCard(r, p){
+    var nm = L(p.name), dev = devByKey(r.dev), area = areaByKey(r.area);
+    var from = Math.min.apply(null, p.units.map(function(u){ return u.price; }));
     var card = h('article',{class:'card'});
-    var photos = releaseUnitPhotos(u);
-    var media;
-    if(photos.length){
-      media = photoFlipper(photos, alt, 'card__media rel-gal', 960, 540, false);
-    } else {
-      media = h('div',{class:'card__media'}, mediaBox(pnm,'artsvg'));
-    }
-    media.appendChild(h('div',{class:'tags'}, h('span',{class:'chip chip--rel'}, t('new_release'))));
+    var img = h('img',{class:'artsvg proj-cover', src:p.img, alt:nm+' — '+L(r.name),
+      loading:'lazy', decoding:'async'});
+    var media = h('div',{class:'card__media'}, img,
+      h('div',{class:'tags'}, h('span',{class:'chip chip--rel'}, t('new_release'))));
     media.appendChild(devChip(dev));
     card.appendChild(media);
-    var waMsg = (lang==='ar'?'مهتم بـ ':'Interested in ')+title+' '+num(u.size)+' m² — '+pnm+' · '+L(r.name);
+    var specs = h('table',{class:'rel-table'});
+    specs.appendChild(h('tr',null,
+      h('th',{scope:'col'}, lang==='ar'?'الوحدة':'Unit'),
+      h('th',{scope:'col'}, lang==='ar'?'المساحة':'Area'),
+      h('th',{scope:'col'}, t('price'))));
+    p.units.forEach(function(u){
+      specs.appendChild(h('tr',null,
+        h('td',null, num(u.beds)+' '+(lang==='ar'?'غرف':'BR')
+          + (u.baths!=null ? (' · '+num(u.baths)+' '+(lang==='ar'?'حمام':'ba')) : '')),
+        h('td',null, num(u.size)+' m²'),
+        h('td',{class:'rel-table__p'}, money(u.price))));
+    });
     card.appendChild(h('div',{class:'card__body'},
-      h('div',{class:'card__dev'}, pnm),
-      h('h3',null, title),
-      h('div',{class:'spec-row'},
-        spec('bed', u.beds, lang==='ar'?'غرف':'beds'),
-        spec('bath', u.baths, lang==='ar'?'حمام':'baths'),
-        spec('area', u.size, 'm²')),
+      h('div',{class:'card__dev'}, L(dev.name)),
+      h('h3',null, nm),
       h('div',{class:'card__facts'},
         h('span',null, ic('pin'), ' ', L(area.name)),
-        h('span',null, ic('key'), ' ', (lang==='ar'?'تسليم ':'Delivery ')+u.delivery)),
-      h('div',{class:'card__price'}, h('small',null, t('from')), money(u.price)),
+        h('span',null, ic('key'), ' ', (lang==='ar'?'تسليم ':'Delivery ')+p.delivery)),
+      h('div',{class:'card__price'}, h('small',null, t('from')), money(from)),
+      specs,
       h('div',{class:'card__facts', style:'margin-top:10px'},
-        h('span',null, num(u.dp)+'% '+t('dp')),
-        h('span',null, num(u.years)+' '+(lang==='ar'?'سنوات':'years'))),
+        h('span',null, num(p.dp)+'% '+t('dp')),
+        h('span',null, num(p.years)+' '+(lang==='ar'?'سنوات':'years'))),
       provBadge(),
       h('div',{class:'card__foot'},
-        h('a',{class:'btn btn--primary btn--sm', href:U(buildPath('contact'))+'?p='+r.slug+'&u='+encodeURIComponent(u.id)}, t('cta_talk')),
-        CONFIG.whatsapp ? h('a',{class:'btn btn--wa btn--sm btn--icon', href:waLink(waMsg),
-          target:'_blank', rel:'noopener','aria-label':t('whatsapp')+' — '+title}, ic('wa')) : null)));
+        h('a',{class:'btn btn--primary btn--sm', href:U(buildPath('contact'))+'?p='+r.slug}, t('cta_talk')),
+        CONFIG.whatsapp ? h('a',{class:'btn btn--wa btn--sm btn--icon', href:waLink(
+            (lang==='ar'?'مهتم بـ ':'Interested in ')+nm+' — '+L(r.name)+' '+t('new_release')),
+          target:'_blank', rel:'noopener','aria-label':t('whatsapp')+' — '+nm}, ic('wa')) : null)));
     return card;
   }
   V.release = function(slug){
@@ -5567,7 +5533,7 @@
           h('a',{class:'chip chip--muted', href:U(buildPath('developer',{slug:dev.key}))}, devLogoInline(dev,20), L(dev.name)),
           h('span',{class:'chip chip--muted'}, ic('pin'), L(areaByKey(r.area).name))))));
     node.appendChild(listSection('', t('release_units'), t('release_p'),
-      r.units.map(function(u){ return releaseCard(r,u); }), null, 'band', 'grid--3'));
+      r.projects.map(function(p){ return releaseCard(r,p); }), null, 'band', 'grid--2'));
     node.appendChild(ctaBand());
     return {node:node, title:nm+' — '+t('new_release')+' · The Village Investment',
       desc:L(r.blurb), indexable:true, crumbs:cr};
