@@ -1000,6 +1000,14 @@
 
   /* Amenities section */
   .amen-sec{padding:clamp(28px,5vw,52px) 0;background:var(--bone)}
+  /* The amenities accordion sits on the section's own band, so it drops the
+     rules the in-page Overview accordion needs to separate itself from body
+     copy, and keeps the star + heading as one clickable row. */
+  .amen-acc{margin:0;border-block:none}
+  .amen-sum{padding:0}
+  .amen-acc .amen-head{margin-bottom:0}
+  .amen-acc[open] .amen-head{margin-bottom:20px}
+  .amen-acc .accordion__body{padding:0}
   .amen-head{display:flex;align-items:center;gap:11px;margin-bottom:20px}
   .amen-head h2{font-size:clamp(1.3rem,2.6vw,1.7rem)}
   .amen-head__ic{width:26px;height:26px;color:var(--teal-600)}

@@ -941,6 +941,22 @@ try {
       return qsa(t,'.amen__ic').length===1 && qsa(t,'.amen__lb').length===1; });
     return everyTileHasBoth && txt(n).indexOf('Amenities & Finishing')>-1;
   })(), 'ok');
+  ck('sumou: the amenities grid folds behind a chevron, collapsed by default', (function(){
+    var n=api.V.developer('sumou').node;
+    var det=qsa(n,'.amen-acc')[0];
+    if(!det || det.tagName!=='details') return false;
+    // collapsed on arrival, one summary, and a chevron to open it
+    return det.getAttribute('open')==null
+      && qsa(det,'summary').length===1
+      && qsa(det,'.accordion__chev').length===1;
+  })(), 'ok');
+  ck('sumou: collapsing keeps the amenities in the DOM for crawlers', (function(){
+    // <details> hides its body visually but never removes it, unlike a JS
+    // show/hide — the 18 tiles and the finishing note stay readable to bots.
+    var n=api.V.developer('sumou').node;
+    var det=qsa(n,'.amen-acc')[0];
+    return qsa(det,'.amen').length===18 && /core & shell/.test(txt(det));
+  })(), 'ok');
   ck('sumou: every amenity token resolves to a real icon', (function(){
     var toks=api.DEV_AMENITIES.sumou||[];
     return toks.length===18 && toks.every(function(k){

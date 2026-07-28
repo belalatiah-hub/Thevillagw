@@ -1525,11 +1525,17 @@ h('span',{class:'amen__ic'}, ic(a.icon)),
 h('span',{class:'amen__lb'}, lang==='ar'?a.ar:a.en));
 }));
 var fin = DEV_FINISHING[dev.key];
+var chev = sEl('svg',{class:'accordion__chev',viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',
+'stroke-width':'2','stroke-linecap':'round','stroke-linejoin':'round','aria-hidden':'true'},
+sEl('path',{d:'M6 9l6 6 6-6'}));
+var sum = h('summary',{class:'accordion__sum amen-sum'},
+h('span',{class:'amen-head'}, ic('star','amen-head__ic'),
+h('h2',{class:'accordion__title'}, lang==='ar'?'المرافق والتشطيب':'Amenities & Finishing')),
+chev);
 return h('section',{class:'amen-sec', id:'amenities'}, h('div',{class:'wrap'},
-h('div',{class:'amen-head'}, ic('star','amen-head__ic'),
-h('h2',null, lang==='ar'?'المرافق والتشطيب':'Amenities & Finishing')),
-grid,
-fin ? h('p',{class:'amen-note'}, ic('info'), h('span',null, L(fin))) : null));
+h('details',{class:'accordion amen-acc'}, sum,
+h('div',{class:'accordion__body'}, grid,
+fin ? h('p',{class:'amen-note'}, ic('info'), h('span',null, L(fin))) : null))));
 }
 var PROJECT_AMENITIES = {};
 function amenityDefaults(cat){
