@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <!-- frame-ancestors/HSTS belong in HTTP response headers (see deploy runbook), not meta. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'unsafe-inline'; connect-src 'self' https://script.google.com https://script.googleusercontent.com; base-uri 'self'; form-action 'self'" />
+  <meta name="theme-color" content="#073D52" />
+  <meta name="color-scheme" content="light" />
+  <meta name="format-detection" content="telephone=no" />
+
+  <!-- SEO (defaults for English home; the router rewrites these per route) -->
+  <title>The Village Investment — Primary-Sale Property &amp; New Launches in Egypt</title>
+  <meta name="description" content="The Village Investment is a real-estate marketing and brokerage company in Egypt, focused on primary-sale and new-launch property across New Cairo, Fifth Settlement, the New Administrative Capital and the coast. Compare projects, developers and areas, and speak to an advisor." />
+  <link rel="canonical" href="https://www.thevillageinvestment.com/en/" id="lnk-canonical" />
+  <link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/" id="lnk-alt-en" />
+  <link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/" id="lnk-alt-ar" />
+  <link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/" id="lnk-alt-x" />
+  <meta name="robots" content="index,follow,max-image-preview:large" id="meta-robots" />
+
+  <!-- Open Graph / Twitter (router keeps title/description/url/locale in sync) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="The Village Investment" />
+  <meta property="og:title" content="Primary-Sale Property &amp; New Launches in Egypt — The Village Investment" id="og-title" />
+  <meta property="og:description" content="Developer-focused new launches and primary units in Egypt. Compare projects, developers and areas, and speak to an advisor." id="og-desc" />
+  <meta property="og:url" content="https://www.thevillageinvestment.com/en/" id="og-url" />
+  <meta property="og:locale" content="en_US" id="og-locale" />
+  <meta property="og:locale:alternate" content="ar_EG" id="og-locale-alt" />
+  <meta property="og:image" content="https://www.thevillageinvestment.com/og-cover.png" id="og-image" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:alt" content="The Village Investment — primary-sale property and new launches in Egypt" id="og-image-alt" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="The Village Investment — Primary-Sale Property in Egypt" id="tw-title" />
+  <meta name="twitter:description" content="Compare Egypt new launches, developers and areas. Speak to a property advisor." id="tw-desc" />
+  <meta name="twitter:image" content="https://www.thevillageinvestment.com/og-cover.png" id="tw-image" />
+  <meta name="twitter:image:alt" content="The Village Investment — primary-sale property and new launches in Egypt" />
+
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png?v=4" />
+  <link rel="shortcut icon" type="image/png" href="/favicon.png?v=4" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=4" />
+
+  <!-- PERF · Fonts are self-hosted. They used to come from fonts.googleapis.com,
+       which put a third-party DNS + TLS + CSS round-trip on the critical path
+       before a single glyph could paint, and sent every visitor's IP to a third
+       party. Only the subsets this site renders are shipped (Latin, Latin-ext,
+       Arabic) — 250 KB for ten files, versus the full family set.
+       Fraunces and Plus Jakarta Sans are variable: ONE file each covers 400-700,
+       so an English page pulls 94 KB of type rather than re-downloading the same
+       bytes once per weight. The two above-the-fold faces are preloaded; the rest
+       arrive with the stylesheet. font-display:swap keeps text visible throughout.
+
+       The preload is language-aware. One index.html serves both /en/ and /ar/,
+       so a static preload of the Latin faces made every Arabic visitor download
+       94 KB of type their headline never renders in — ahead of the Tajawal it
+       does. This runs before the parser reaches the stylesheet, so the injected
+       hints are still discovered early. -->
+  <script>
+  (function () {
+    var ar = /^\/ar(\/|$)/.test(location.pathname);
+    var faces = ar
+      ? ['tajawal-400-arabic', 'tajawal-500-arabic']
+      : ['fraunces-latin', 'plus-jakarta-sans-latin'];
+    for (var i = 0; i < faces.length; i++) {
+      var l = document.createElement('link');
+      l.rel = 'preload'; l.as = 'font'; l.type = 'font/woff2';
+      l.href = '/fonts/' + faces[i] + '.woff2'; l.crossOrigin = 'anonymous';
+      document.head.appendChild(l);
+    }
+
+    // The home hero's first slide is the LCP element, and it is a CSS
+    // background applied by the app script — a URL no preload scanner can
+    // see. Without this hint the fetch could not even begin until the bundle
+    // had parsed and laid the element out. 'beach' and the 700px breakpoint
+    // must match HERO_SLIDES[0] and heroSrc(); domtest asserts that they do.
+    if (/^\/(en|ar)\/?$/.test(location.pathname)) {
+      var hero = document.createElement('link');
+      hero.rel = 'preload'; hero.as = 'image'; hero.type = 'image/webp';
+      hero.href = '/project-media/hero/beach' +
+        ((window.innerWidth || 1200) <= 700 ? '-800' : '') + '.webp';
+      hero.setAttribute('fetchpriority', 'high');
+      document.head.appendChild(hero);
+    }
+  })();
+  </script>
+  <style>
+/* latin-ext */
+@font-face { font-family: 'Fraunces'; font-style: normal; font-weight: 400 700; font-display: swap; src: url(/fonts/fraunces-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* latin */
+@font-face { font-family: 'Fraunces'; font-style: normal; font-weight: 400 700; font-display: swap; src: url(/fonts/fraunces-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* latin-ext */
+@font-face { font-family: 'Plus Jakarta Sans'; font-style: normal; font-weight: 400 700; font-display: swap; src: url(/fonts/plus-jakarta-sans-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* latin */
+@font-face { font-family: 'Plus Jakarta Sans'; font-style: normal; font-weight: 400 700; font-display: swap; src: url(/fonts/plus-jakarta-sans-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* arabic */
+@font-face { font-family: 'Tajawal'; font-style: normal; font-weight: 400; font-display: swap; src: url(/fonts/tajawal-400-arabic.woff2) format('woff2'); unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC, U+102E0-102FB, U+10E60-10E7E, U+10EC2-10EC4, U+10EFC-10EFF, U+1EE00-1EE03, U+1EE05-1EE1F, U+1EE21-1EE22, U+1EE24, U+1EE27, U+1EE29-1EE32, U+1EE34-1EE37, U+1EE39, U+1EE3B, U+1EE42, U+1EE47, U+1EE49, U+1EE4B, U+1EE4D-1EE4F, U+1EE51-1EE52, U+1EE54, U+1EE57, U+1EE59, U+1EE5B, U+1EE5D, U+1EE5F, U+1EE61-1EE62, U+1EE64, U+1EE67-1EE6A, U+1EE6C-1EE72, U+1EE74-1EE77, U+1EE79-1EE7C, U+1EE7E, U+1EE80-1EE89, U+1EE8B-1EE9B, U+1EEA1-1EEA3, U+1EEA5-1EEA9, U+1EEAB-1EEBB, U+1EEF0-1EEF1;
+}
+
+/* latin */
+@font-face { font-family: 'Tajawal'; font-style: normal; font-weight: 400; font-display: swap; src: url(/fonts/tajawal-400-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* arabic */
+@font-face { font-family: 'Tajawal'; font-style: normal; font-weight: 500; font-display: swap; src: url(/fonts/tajawal-500-arabic.woff2) format('woff2'); unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC, U+102E0-102FB, U+10E60-10E7E, U+10EC2-10EC4, U+10EFC-10EFF, U+1EE00-1EE03, U+1EE05-1EE1F, U+1EE21-1EE22, U+1EE24, U+1EE27, U+1EE29-1EE32, U+1EE34-1EE37, U+1EE39, U+1EE3B, U+1EE42, U+1EE47, U+1EE49, U+1EE4B, U+1EE4D-1EE4F, U+1EE51-1EE52, U+1EE54, U+1EE57, U+1EE59, U+1EE5B, U+1EE5D, U+1EE5F, U+1EE61-1EE62, U+1EE64, U+1EE67-1EE6A, U+1EE6C-1EE72, U+1EE74-1EE77, U+1EE79-1EE7C, U+1EE7E, U+1EE80-1EE89, U+1EE8B-1EE9B, U+1EEA1-1EEA3, U+1EEA5-1EEA9, U+1EEAB-1EEBB, U+1EEF0-1EEF1;
+}
+
+/* latin */
+@font-face { font-family: 'Tajawal'; font-style: normal; font-weight: 500; font-display: swap; src: url(/fonts/tajawal-500-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* arabic */
+@font-face { font-family: 'Tajawal'; font-style: normal; font-weight: 700; font-display: swap; src: url(/fonts/tajawal-700-arabic.woff2) format('woff2'); unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC, U+102E0-102FB, U+10E60-10E7E, U+10EC2-10EC4, U+10EFC-10EFF, U+1EE00-1EE03, U+1EE05-1EE1F, U+1EE21-1EE22, U+1EE24, U+1EE27, U+1EE29-1EE32, U+1EE34-1EE37, U+1EE39, U+1EE3B, U+1EE42, U+1EE47, U+1EE49, U+1EE4B, U+1EE4D-1EE4F, U+1EE51-1EE52, U+1EE54, U+1EE57, U+1EE59, U+1EE5B, U+1EE5D, U+1EE5F, U+1EE61-1EE62, U+1EE64, U+1EE67-1EE6A, U+1EE6C-1EE72, U+1EE74-1EE77, U+1EE79-1EE7C, U+1EE7E, U+1EE80-1EE89, U+1EE8B-1EE9B, U+1EEA1-1EEA3, U+1EEA5-1EEA9, U+1EEAB-1EEBB, U+1EEF0-1EEF1;
+}
+
+/* latin */
+@font-face { font-family: 'Tajawal'; font-style: normal; font-weight: 700; font-display: swap; src: url(/fonts/tajawal-700-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+  </style>
+
+  <!-- Organization identity. NOTE: contact points intentionally omitted until
+       verified; adding fabricated NAP data is forbidden by the contract. -->
+  <script type="application/ld+json" id="ld-org">
+  {
+    "@context": "https://schema.org",
+    "@type": "RealEstateAgent",
+    "@id": "https://www.thevillageinvestment.com/#org",
+    "name": "The Village Investment",
+    "description": "Real-estate marketing and brokerage for primary-sale property in Egypt.",
+    "areaServed": "Egypt",
+    "knowsLanguage": ["en", "ar"],
+    "url": "https://www.thevillageinvestment.com/en/",
+    "telephone": "+201016000201",
+    "email": "info@thevillageinvestment.com",
+    "sameAs": [
+      "https://www.facebook.com/share/18vY47m3rz/",
+      "https://www.instagram.com/thevillageinvestment",
+      "https://www.linkedin.com/company/the-village-investment/",
+      "https://www.tiktok.com/@thevillageinvestment"
+    ]
+  }
+  </script>
+  <!-- The site's own identity, and the search endpoint. potentialAction is what
+       lets a search engine offer a sitelinks search box straight in the result,
+       and it tells an answer engine there is a queryable index here rather than
+       a set of flat pages. The URL template matches the real route: /en/search?q= -->
+  <script type="application/ld+json" id="ld-site">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": "https://www.thevillageinvestment.com/#website",
+    "name": "The Village Investment",
+    "alternateName": "ذا فيلاج انفستمنت",
+    "url": "https://www.thevillageinvestment.com/",
+    "inLanguage": ["en", "ar"],
+    "publisher": { "@id": "https://www.thevillageinvestment.com/#org" },
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://www.thevillageinvestment.com/en/search?q={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+  <script type="application/ld+json" id="ld-page">{}</script>

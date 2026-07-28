@@ -1,0 +1,788 @@
+  /* ==================================================================
+     STATE + LOOKUPS
+     ================================================================== */
+  var lang = document.documentElement.getAttribute('data-lang') || 'en';
+  var BASE = (function(){
+    // Auto-detect the app root so the file works served at a domain root, in a
+    // sub-directory, OR opened directly via file:// (double-click).
+    var p = location.pathname;
+    var m = p.match(/^(.*?\/)(en|ar)(\/|$)/);   // locale already in the path
+    if (m) return m[1];
+    return p.replace(/[^\/]*$/, '');            // else: directory of index.html
+  })();
+  // Progressive enhancement: real History-API routes when served over http(s);
+  // hash-routing fallback when opened via file:// (Chromium blocks pushState there).
+  var FILEMODE = location.protocol === 'file:';
+  var CUR = { search: '' };                      // current query string (mode-agnostic)
+  function replaceURL(u){ try{ history.replaceState(null,'',u); }catch(e){} }
+  function pushURL(u){ try{ history.pushState(null,'',u); }catch(e){} }
+  function stripBase(pn){ if(BASE!=='/' && pn.indexOf(BASE)===0) return '/'+pn.slice(BASE.length); return pn.charAt(0)==='/'?pn:'/'+pn; }
+  var saved = new Set(load('tv_saved', []));
+  // Compare is UNIT-only (unit ids). New storage key so any old project-slug
+  // compare lists are dropped, and invalid ids are purged on load.
+  var compare = load('tv_compare_u', []).filter(function(x){ return !!unitById(x); });
+  function load(k, d){ try{ var v = JSON.parse(localStorage.getItem(k)); return v==null?d:v; }catch(e){ return d; } }
+  function store(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+
+  function t(k){ return (I18N[lang] && I18N[lang][k]) || (I18N.en[k]) || k; }
+  function L(o){ return o ? (o[lang]!=null ? o[lang] : o.en) : ''; }
+  function devByKey(k){ for(var i=0;i<DEVELOPERS.length;i++) if(DEVELOPERS[i].key===k) return DEVELOPERS[i]; }
+  function areaByKey(k){ for(var i=0;i<AREAS.length;i++) if(AREAS[i].key===k) return AREAS[i]; }
+  function projBySlug(s){ for(var i=0;i<PROJECTS.length;i++) if(PROJECTS[i].slug===s) return PROJECTS[i]; }
+  function projInArea(k){ return PROJECTS.filter(function(p){ return p.area===k; }); }
+  function projByDev(k){ return PROJECTS.filter(function(p){ return p.dev===k; }); }
+  function areaFrom(k){ var ps=projInArea(k); return ps.length?Math.min.apply(null,ps.map(function(p){return p.price;})):null; }
+
+  function money(n){
+    if(n==null) return t('tba');
+    var loc = lang==='ar' ? 'ar-EG' : 'en-US';
+    try{ return new Intl.NumberFormat(loc,{maximumFractionDigits:0}).format(n) + ' ' + t('egp'); }
+    catch(e){ return n + ' ' + t('egp'); }
+  }
+  function statusLabel(s){ return s==='launch'?t('launch'):s==='ready'?t('ready'):t('primary'); }
+  function num(n){ try{ return new Intl.NumberFormat(lang==='ar'?'ar-EG':'en-US').format(n); }catch(e){ return String(n); } }
+  function U(p){ return BASE + p.replace(/^\//,''); } // locale path -> href with base
+
+  /* ==================================================================
+     PATH BUILDER + PARSER
+     ================================================================== */
+  function buildPath(name, params, lg){
+    lg = lg||lang; params = params||{}; var b='/'+lg+'/';
+    switch(name){
+      case 'home': return b;
+      case 'projects': return b+'projects/';
+      case 'project': return b+'projects/'+params.slug+'/';
+      case 'units': return b+'units/';
+      case 'unit': return b+'units/'+String(params.id).toLowerCase()+'/';
+      case 'investors': return b+'investors/';
+      case 'search': return b+'search/';
+      case 'launches': return b+'new-launches/';
+      case 'release': return b+'releases/'+params.slug+'/';
+      case 'developers': return b+'developers/';
+      case 'developer': return b+'developers/'+params.slug+'/';
+      case 'group': return b+'groups/'+params.slug+'/';
+      case 'areas': return b+'areas/';
+      case 'area': return b+'areas/'+params.slug+'/';
+      case 'compare': return b+'compare/';
+      case 'insights': return b+'insights/';
+      case 'insight': return b+'insights/'+params.slug+'/';
+      case 'faqs': return b+'faqs/';
+      case 'about': return b+'about/';
+      case 'favorites': return b+'favorites/';
+      case 'contact': return b+'contact/';
+      case 'privacy': return b+'privacy/';
+      case 'terms': return b+'terms/';
+      default: return b;
+    }
+  }
+  function parse(pathname){
+    var p = pathname;
+    if(BASE!=='/' && p.indexOf(BASE)===0) p = '/' + p.slice(BASE.length);
+    p = p.replace(/index\.html$/,'');
+    if(p==='' || p==='/') return {name:'home', lang:'en', params:{}, redirect:true};
+    var m = p.match(/^\/(en|ar)(\/.*)?$/);
+    if(!m) return {name:'404', lang:lang, params:{}};
+    var lg = m[1], rest = m[2]||'/';
+    if(rest.charAt(rest.length-1)!=='/') rest += '/';
+    var seg = rest.split('/').filter(Boolean); // e.g. ['projects','villette']
+    var params = {}, name;
+    if(seg.length===0) name='home';
+    else if(seg[0]==='projects') { name = seg[1]?'project':'projects'; if(seg[1]) params.slug=seg[1]; }
+    else if(seg[0]==='units'){ name = seg[1]?'unit':'units'; if(seg[1]) params.id=seg[1]; }
+    else if(seg[0]==='investors') name='investors';
+    else if(seg[0]==='search') name='search';
+    else if(seg[0]==='new-launches') name='launches';
+    else if(seg[0]==='releases'){ name = seg[1]?'release':'404'; if(seg[1]) params.slug=seg[1]; }
+    else if(seg[0]==='developers'){ name = seg[1]?'developer':'developers'; if(seg[1]) params.slug=seg[1]; }
+    else if(seg[0]==='groups'){ name = seg[1]?'group':'404'; if(seg[1]) params.slug=seg[1]; }
+    else if(seg[0]==='areas'){ name = seg[1]?'area':'areas'; if(seg[1]) params.slug=seg[1]; }
+    else if(seg[0]==='compare') name='compare';
+    else if(seg[0]==='insights'){ name = seg[1]?'insight':'insights'; if(seg[1]) params.slug=seg[1]; }
+    else if(seg[0]==='faqs') name='faqs';
+    else if(seg[0]==='about') name='about';
+    else if(seg[0]==='favorites') name='favorites';
+    else if(seg[0]==='contact') name='contact';
+    else if(seg[0]==='privacy') name='privacy';
+    else if(seg[0]==='terms') name='terms';
+    else name='404';
+    // validate entity existence
+    if(name==='project' && !projBySlug(params.slug)) name='404';
+    if(name==='developer' && !devByKey(params.slug)) name='404';
+    if(name==='group' && !groupBySlug(params.slug)) name='404';
+    if(name==='release' && !releaseBySlug(params.slug)) name='404';
+    if(name==='area' && !areaByKey(params.slug)) name='404';
+    if(name==='insight' && !RESEARCH.some(function(r){return r.slug===params.slug;})) name='404';
+    if(name==='unit' && !unitById(params.id)) name='404';
+    return {name:name, lang:lg, params:params};
+  }
+
+  /* ==================================================================
+     REUSABLE COMPONENTS
+     ================================================================== */
+  function provBadge(){ return h('div',{class:'prov'}, ic('info'), t('illustrative_short')); }
+  function sectionHead(kick, title, desc, as){
+    return h('div',{class:'sec-head'},
+      kick && h('div',{class:'eyebrow'}, kick),
+      h(as||'h2',null,title),
+      desc && h('p',null,desc));
+  }
+  function crumbNode(arr){
+    var c = h('nav',{class:'breadcrumb','aria-label':'Breadcrumb'});
+    arr.forEach(function(it,i){
+      if(i) c.appendChild(h('span',{class:'sep','aria-hidden':'true'},'›'));
+      if(it.path && i<arr.length-1) c.appendChild(h('a',{href:U(it.path)}, it.label));
+      else c.appendChild(h('span',{'aria-current':'page'}, it.label));
+    });
+    return c;
+  }
+  function gradIdx(seed){ var s=0; for(var i=0;i<seed.length;i++) s+=seed.charCodeAt(i); return s%3; }
+  function mediaBox(name, cls, tags){
+    var g = gradIdx(name);
+    var grad = ['linear-gradient(150deg,var(--teal-700),var(--teal-900))',
+                'linear-gradient(150deg,var(--teal-600),var(--teal-800))',
+                'linear-gradient(150deg,var(--teal-800),var(--teal-900) 70%,var(--teal-700))'][g];
+    var box = h('div',{class:cls, style:'background:'+grad});
+    box.appendChild(h('div',{class:'pat'}));
+    box.appendChild(h('div',{class:'mono','aria-hidden':'true'}, initials(name)));
+    if(tags && tags.length){
+      var tw = h('div',{class:'tags'});
+      tags.forEach(function(x){ tw.appendChild(h('span',{class:'chip'},x)); });
+      box.appendChild(tw);
+    }
+    return box;
+  }
+  function initials(s){ var w=String(s).trim().split(/\s+/); return (w.length>1 ? w.slice(0,2).map(function(x){return x.charAt(0);}).join('') : w[0].slice(0,2)).toUpperCase(); }
+
+  function saveBtn(slug){
+    var on = saved.has(slug);
+    var b = h('button',{class:'card__save', type:'button','aria-pressed':on?'true':'false',
+      'aria-label':(on?t('saved'):t('save'))+' — '+(projBySlug(slug)?projBySlug(slug).name:'')});
+    b.appendChild(ic('heart'));
+    b.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); toggleSave(slug, b); });
+    return b;
+  }
+  function toggleSave(slug, btn){
+    if(saved.has(slug)) saved.delete(slug); else saved.add(slug);
+    store('tv_saved', Array.from(saved));
+    var on = saved.has(slug);
+    if(btn){ btn.setAttribute('aria-pressed', on?'true':'false'); }
+    if(on) track('save_project', {project:slug});
+    toast(on?t('saved'):t('save'), 'heart');
+  }
+
+  function projectCard(p){
+    var dev = devByKey(p.dev), area = areaByKey(p.area);
+    var card = h('article',{class:'card'});
+    var media = h('div',{class:'card__media'}, projectMedia(p),
+      h('div',{class:'tags'}, h('span',{class:'chip'}, statusLabel(p.status))));
+    media.appendChild(devChip(dev));
+    media.appendChild(saveBtn(p.slug));
+    // No aria-label: the accessible name is computed from the card's own
+    // text, which keeps it a superset of the visible label (WCAG 2.5.3).
+    var link = h('a',{href:U(buildPath('project',{slug:p.slug}))});
+    link.appendChild(media); card.appendChild(link);
+    card.appendChild(h('div',{class:'card__body'},
+      h('div',{class:'card__dev'}, L(dev.name)),
+      h('h3',null, h('a',{href:U(buildPath('project',{slug:p.slug}))}, lang==='ar'?p.name_ar:p.name)),
+      h('div',{class:'card__facts'},
+        h('span',null, ic('pin'), ' ', L(area.name)),
+        h('span',null, L(p.finishing))),
+      h('div',{class:'card__price'},
+        h('small',null, t('from')),
+        money(p.price)),
+      provBadge(),
+      h('div',{class:'card__foot'},
+        h('a',{class:'btn btn--primary btn--sm', href:U(buildPath('project',{slug:p.slug}))}, t('cta_details')),
+        CONFIG.whatsapp ? h('a',{class:'btn btn--wa btn--sm btn--icon', href:waLink(projWaMsg(p)), target:'_blank', rel:'noopener','aria-label':t('whatsapp')+' — '+(lang==='ar'?p.name_ar:p.name)}, ic('wa')) : null)
+    ));
+    return card;
+  }
+  // Group card — one card standing for a whole project group (opens the group page).
+  function groupCard(g){
+    var dev=devByKey(g.dev), members=groupMembers(g), from=groupFrom(g), nm=L({en:g.name,ar:g.name_ar});
+    var fallback=function(){ return members[0]?projectMedia(members[0]):mediaBox(nm,'artsvg'); };
+    var cover=g.cover ? coverImg(g.cover, nm, fallback) : fallback();
+    var card=h('article',{class:'card'});
+    var media=h('div',{class:'card__media'}, cover,
+      h('div',{class:'tags'}, h('span',{class:'chip'}, ic('gallery'), ' '+num(members.length)+' '+(lang==='ar'?'مشروعات':'projects'))));
+    media.appendChild(devChip(dev));
+    var link=h('a',{href:U(buildPath('group',{slug:g.slug}))});
+    link.appendChild(media); card.appendChild(link);
+    card.appendChild(h('div',{class:'card__body'},
+      h('div',{class:'card__dev'}, L(dev.name)),
+      h('h3',null, h('a',{href:U(buildPath('group',{slug:g.slug}))}, nm)),
+      h('div',{class:'card__facts'},
+        h('span',null, ic('build'), ' ', num(members.length)+' '+(lang==='ar'?'مشروعات داخل المجموعة':'projects in this group'))),
+      (from!=null ? h('div',{class:'card__price'}, h('small',null,t('from')), money(from)) : null),
+      provBadge(),
+      h('div',{class:'card__foot'},
+        h('a',{class:'btn btn--primary btn--sm', href:U(buildPath('group',{slug:g.slug}))}, (lang==='ar'?'عرض المجموعة':'View group')))));
+    return card;
+  }
+  function projWaMsg(p){ return (lang==='ar'?'مهتم بمشروع: ':'Interested in project: ')+(lang==='ar'?p.name_ar:p.name)+' ('+t('conf_illustrative')+')'; }
+  // Compare button for a UNIT (id). Comparison is available only between units.
+  function compareBtn(id){
+    var on = compare.indexOf(id)>-1;
+    var b = h('button',{class:'btn btn--ghost btn--sm cmp-btn'+(on?' is-on':''), type:'button','aria-pressed':on?'true':'false'},
+      ic('scale'), on?t('incompare'):t('compare'));
+    b.addEventListener('click', function(e){ e.preventDefault(); toggleCompare(id); render(currentRoute,{keep:true}); });
+    return b;
+  }
+  function toggleCompare(id){
+    var i = compare.indexOf(id);
+    if(i>-1) compare.splice(i,1);
+    else { if(compare.length>=3){ toast(lang==='ar'?'الحد الأقصى ٣ وحدات':'Up to 3 units','scale'); return; } compare.push(id); track('compare_unit', {unit:id}); }
+    store('tv_compare_u', compare);
+    if(typeof updateCompareFab==='function') updateCompareFab();
+  }
+
+  /* Unit card — image + type/compound eyebrow + specs (beds/baths/area icons) + price */
+  function spec(icon, val, label){ return h('span',{class:'spec'}, ic(icon), h('b',null, (val==null?'—':num(val))), h('span',{class:'spec-lbl'}, label)); }
+  function unitWaMsg(u){ var p=projBySlug(u.project); return (lang==='ar'?'مهتم بوحدة: ':'Interested in unit: ')+typeLabel(u.type)+' — '+(lang==='ar'?p.name_ar:p.name)+' ('+u.id+')'; }
+  // RE-04 · honest availability signal (from the units' avail field; badged illustrative + as-of date)
+  var AVAIL_MAP={available:['avail-b--ok','avail_available'],limited:['avail-b--lim','avail_limited'],reserved:['avail-b--res','avail_reserved'],'to-confirm':['avail-b--tbc','avail_tbc']};
+  function availBadge(u){ var m=AVAIL_MAP[u.avail]||AVAIL_MAP['to-confirm']; return h('span',{class:'avail-b '+m[0]}, t(m[1])); }
+  function availSummary(units){
+    var c={available:0,limited:0,reserved:0}; units.forEach(function(u){ if(c[u.avail]!=null) c[u.avail]++; });
+    var parts=[];
+    if(c.available) parts.push(num(c.available)+' '+t('avail_available'));
+    if(c.limited)   parts.push(num(c.limited)+' '+t('avail_limited'));
+    if(c.reserved)  parts.push(num(c.reserved)+' '+t('avail_reserved'));
+    if(!parts.length) return null;
+    var d=new Date().toLocaleDateString(lang==='ar'?'ar-EG':'en-GB');
+    return h('div',{class:'avail-summary'}, ic('info'), h('span',null, parts.join(' · ')+' · '+t('avail_asof')+' '+d+' — '+t('conf_illustrative')));
+  }
+  // RE-03 · delivery timeline (launch → construction → delivery), derived honestly from status + delivery year
+  function deliveryTimeline(p){
+    var ready=(p.status==='ready'||p.delivery==='Ready');
+    var yr=(p.delivery && p.delivery!=='Ready')?p.delivery:null;
+    var stages = ready
+      ? [{l:t('tl_launched'),done:true},{l:t('tl_construction'),done:true},{l:t('tl_ready'),done:true,active:true}]
+      : [{l:t('tl_launched'),done:true,active:(p.status==='launch')},
+         {l:t('tl_construction'),done:false,active:(p.status!=='launch')},
+         {l:t('tl_delivery')+(yr?(' '+yr):''),done:false}];
+    var row=h('div',{class:'timeline'});
+    stages.forEach(function(s,i){
+      if(i>0) row.appendChild(h('div',{class:'tl-bar'+(stages[i-1].done?' tl-bar--done':'')}));
+      row.appendChild(h('div',{class:'tl-node'+(s.done?' tl-done':'')+(s.active?' tl-active':'')},
+        h('span',{class:'tl-dot'}), h('span',{class:'tl-lbl'}, s.l)));
+    });
+    return h('div',{class:'timeline-wrap'}, h('h2',{class:'tl-h'}, t('timeline_h')), row);
+  }
+
+  function unitCard(u){
+    var p=projBySlug(u.project), area=areaByKey(p.area), dev=devByKey(p.dev);
+    var href=U(buildPath('unit',{id:u.id}));
+    var card=h('article',{class:'card'});
+    var uc=unitCanon(u), tl=typeLabelC(uc);
+    var media=h('div',{class:'card__media'}, unitMedia(u),
+      h('div',{class:'tags'}, h('span',{class:'chip'}, typeIconC(uc,'chip-ico'), tl)));
+    media.appendChild(devChip(dev));
+    media.appendChild(saveBtn(p.slug));
+    var link=h('a',{href:href,'aria-label':tl+' — '+(lang==='ar'?p.name_ar:p.name)}); link.appendChild(media); card.appendChild(link);
+    card.appendChild(h('div',{class:'card__body'},
+      h('div',{class:'card__dev'}, tl+' · '+(lang==='ar'?p.name_ar:p.name)),
+      h('h3',null, h('a',{href:href}, tl)),
+      h('div',{class:'card__facts',style:'gap:4px 10px'}, h('span',null, ic('pin'), ' ', L(area.name)), availBadge(u)),
+      h('div',{class:'spec-row'}, unitIsCommercial(u)?null:spec('bed',u.beds, lang==='ar'?'غرف':'beds'), unitIsCommercial(u)?null:spec('bath',u.baths, lang==='ar'?'حمام':'baths'), spec('area',u.area,'m²')),
+      h('div',{class:'card__price'}, money(u.price)),
+      provBadge(),
+      h('div',{class:'card__foot'},
+        h('a',{class:'btn btn--primary btn--sm', href:href}, t('cta_details')),
+        compareBtn(u.id),
+        CONFIG.whatsapp ? h('a',{class:'btn btn--wa btn--sm btn--icon', href:waLink(unitWaMsg(u)), target:'_blank', rel:'noopener','aria-label':t('whatsapp')}, ic('wa')) : null)
+    ));
+    return card;
+  }
+
+  function areaTile(a){
+    var ps = projInArea(a.key), from = areaFrom(a.key), locSrc = areaImageSrc(a.key);
+    var grad = ['linear-gradient(160deg,var(--teal-700),var(--teal-900))','linear-gradient(160deg,var(--teal-600),var(--teal-800))','linear-gradient(160deg,var(--teal-800),var(--teal-900))'][gradIdx(a.key)];
+    var tile = h('a',{class:'tile'+(locSrc?' tile--photo':''), href:U(buildPath('area',{slug:a.key})), style: locSrc?'':('background:'+grad)});
+    if(locSrc){
+      tile.appendChild(coverImg(locSrc, L(a.name), function(){ return h('div',{class:'pat'}); }));
+      tile.appendChild(h('div',{class:'tile__scrim'}));
+    } else {
+      tile.appendChild(h('div',{class:'pat'}));
+    }
+    tile.appendChild(h('div',{class:'tile__body'},
+      h('h3',null, L(a.name)),
+      h('p',null, L(a.blurb)),
+      h('div',{class:'cnt'}, num(ps.length)+' '+(lang==='ar'?'مشروع':'projects') + (from?(' · '+t('from')+' '+money(from)):'')),
+      from ? h('div',{class:'tile-note'}, t('illustrative_short')) : null
+    ));
+    return tile;
+  }
+  // Top Locations (Section 3) — premium cards with original representative art + a live compound count.
+  function locArt(cat){
+    var gid='la'+(ART_ID++), top = cat==='redsea'?'#0e8fa3':cat==='coast'?'#0e6f86':'#0f5a70', i;
+    var s=sEl('svg',{viewBox:'0 0 400 200', class:'artsvg', preserveAspectRatio:'xMidYMid slice','aria-hidden':'true'});
+    var defs=sEl('defs'), lg=sEl('linearGradient',{id:gid,x1:'0',y1:'0',x2:'0',y2:'1'});
+    lg.appendChild(sEl('stop',{offset:'0','stop-color':top})); lg.appendChild(sEl('stop',{offset:'1','stop-color':'#05303f'}));
+    defs.appendChild(lg); s.appendChild(defs);
+    s.appendChild(sEl('rect',{width:'400',height:'200',fill:'url(#'+gid+')'}));
+    s.appendChild(sEl('circle',{cx:'322',cy:'48',r:'24',fill:'#F3EFE6',opacity:'0.88'}));
+    if(cat==='coast'||cat==='redsea'){
+      s.appendChild(sEl('rect',{x:'0',y:'128',width:'400',height:'72',fill:'#0e6f86',opacity:'0.45'}));
+      for(i=0;i<3;i++) s.appendChild(sEl('path',{d:'M0 '+(132+i*20)+' q 50 -9 100 0 t 100 0 t 100 0 t 100 0', stroke:'#bfe3ef', fill:'none','stroke-width':'3', opacity:(0.4-i*0.1).toFixed(2)}));
+      s.appendChild(palm(56,150)); s.appendChild(palm(330,150));
+    } else {
+      for(i=0;i<6;i++){ var bw=42+((i*37)%18), bx=8+i*66, bh=74+((i*53)%78), by=200-bh;
+        s.appendChild(sEl('rect',{x:bx,y:by,width:bw,height:bh,rx:'2',fill:i%2?'#F3EFE6':'#cfe0e5',opacity:(0.9-i*0.07).toFixed(2)})); }
+    }
+    return s;
+  }
+  var TOP_LOCS=[
+    {key:'newcairo'},{key:'zayed'},{key:'sahel'},{key:'raselhekma'},{key:'capital'},
+    {coming:true, art:'redsea', locKey:'somabay', name:{en:'Soma Bay',ar:'سوما باي'}},
+    {coming:true, art:'redsea', locKey:'elgouna', name:{en:'El Gouna',ar:'الجونة'}}
+  ];
+  function topLocationCard(loc){
+    var coming=!!loc.coming, key=loc.key, area=key?areaByKey(key):null;
+    var name=coming?L(loc.name):L(area.name);
+    var cat=loc.art || (key==='raselhekma'?'coast':areaCat(key));
+    var count=key?projInArea(key).length:0, from=key?areaFrom(key):null;
+    var href=coming?U(buildPath('contact')):U(buildPath('area',{slug:key}));
+    var locSrc=areaImageSrc(key||loc.locKey);
+    var art=locSrc ? coverImg(locSrc, name, function(){ return locArt(cat); }) : locArt(cat);
+    var media=h('div',{class:'toploc__media'}, art, h('span',{class:'toploc__pin'}, ic('pin')));
+    if(coming) media.appendChild(h('span',{class:'toploc__badge'}, t('coming_soon')));
+    var meta = coming ? t('register_interest')
+      : (num(count)+' '+(lang==='ar'?'كمبوند':(count===1?'compound':'compounds')) + (from?(' · '+t('from')+' '+moneyM(from)):''));
+    // No aria-label: it used to be just the area name, which under WCAG 2.5.3
+    // *replaced* the richer visible text instead of containing it. Letting the
+    // name compute from the contents announces "New Cairo, 18 compounds, from
+    // EGP 5M" — everything a sighted user reads, in the same order.
+    return h('a',{class:'toploc'+(coming?' toploc--soon':''), href:href},
+      media, h('div',{class:'toploc__body'}, h('h3',null,name), h('div',{class:'toploc__meta'}, meta)));
+  }
+  function devCard(d){
+    var ps = projByDev(d.key);
+    var lg = devLogoInline(d,34);
+    var mark = lg ? h('div',{class:'dev-card__logo'}, lg) : devBadge(d,52);
+    return h('a',{class:'dev-card', href:U(buildPath('developer',{slug:d.key}))},
+      mark,
+      h('div',{class:'meta'},
+        h('h3',null, L(d.name)),
+        h('p',null, L(d.tagline)),
+        h('p',null, ps.length ? (num(ps.length)+' '+(lang==='ar'?'مشروع مُدرج':'listed projects')) : L(d.areas))));
+  }
+  /* Round-robin a project list by developer: take one from each developer in
+     turn, then come back for their second, and so on. The curated order is kept
+     within each developer, so nothing is dropped or reordered arbitrarily — the
+     visible top row simply stops being three cards from the same company. */
+  function spreadByDev(list){
+    var order=[], byDev={};
+    list.forEach(function(p){
+      if(!byDev[p.dev]){ byDev[p.dev]=[]; order.push(p.dev); }
+      byDev[p.dev].push(p);
+    });
+    var out=[], left=list.length;
+    while(left){
+      order.forEach(function(k){ if(byDev[k].length){ out.push(byDev[k].shift()); left--; } });
+    }
+    return out;
+  }
+  // Circular developer avatar → opens the developer page (home "browse by developer" rail)
+  function devCircle(d, inert){
+    // `inert` marks the duplicated marquee copy: not focusable, not announced.
+    var a=h('a',{class:'dev-circle', href:U(buildPath('developer',{slug:d.key})),
+      'aria-label':L(d.name), role:inert?false:'listitem', tabindex:inert?'-1':false},
+      h('span',{class:'dev-circle__av'}, devBadge(d,74)),
+      h('span',{class:'dev-circle__name'}, L(d.name)));
+    return a;
+  }
+  function developerRail(){
+    var devs = DEVELOPERS.slice().sort(function(a,b){ return projByDev(b.key).length - projByDev(a.key).length; });
+    var row=h('div',{class:'sec-row'}, sectionHead('', t('home_devrail_h'), t('home_devrail_p')),
+      h('a',{class:'btn btn--ghost btn--sm', href:U(buildPath('developers'))}, t('cta_all'), ic('arrow')));
+    /* The rail drifts on its own but stays a real scroller underneath, so a
+       swipe or a mouse drag moves it directly and native momentum still
+       applies on touch. The list is rendered twice: once the scroll passes one
+       track width it wraps back by exactly that width, landing on an identical
+       frame, so the loop has no seam in either direction. The second copy is
+       aria-hidden and unfocusable — 23 developers, not 46. */
+    var track=h('div',{class:'dev-rail__track'}, devs.map(function(d){ return devCircle(d,false); }));
+    var clone=h('div',{class:'dev-rail__track','aria-hidden':'true'}, devs.map(function(d){ return devCircle(d,true); }));
+    var rail=h('div',{class:'dev-rail', role:'list'}, track, clone);
+    railInit(rail, track);
+    return h('section',{class:'section section--flush-b'}, h('div',{class:'wrap'}, row, rail));
+  }
+
+  /* Auto-scroll + grab-to-drag for a duplicated-track rail.
+     Everything is feature-guarded: with no rAF, no IntersectionObserver or no
+     pointer events the rail is still a plain scrollable strip. */
+  function railInit(rail, track){
+    if(typeof requestAnimationFrame==='undefined' || !rail.addEventListener) return;
+    var SPEED = 0.45;                 // px per frame ≈ 27px/s at 60fps
+    var reduce = (typeof matchMedia!=='undefined') && matchMedia('(prefers-reduced-motion:reduce)').matches;
+    var held = false, dragging = false, idleUntil = 0, startX = 0, startScroll = 0, moved = 0, raf = 0;
+    // Sub-pixel position kept in JS. Reading scrollLeft back rounds, so
+    // "scrollLeft += 0.45" reads 0, writes 0.45, reads 0 again — the drift
+    // would never accumulate. Accumulate here and assign once per frame.
+    var pos = 0;
+    function sync(){ pos = rail.scrollLeft; }
+
+    // In RTL the engine reports scrollLeft as negative, so the drift has to run
+    // the other way. Read the direction off the document — deriving it from
+    // scrollLeft fails at rest, where LTR also sits at 0.
+    function rtl(){ return (document.documentElement.getAttribute('dir')||'') === 'rtl'; }
+    function dir(){ return rtl() ? -1 : 1; }
+    function span(){ return track.offsetWidth || (rail.scrollWidth / 2); }
+    function wrap(){
+      var w = span(); if(w <= 0) return;
+      if(rail.scrollLeft >=  w) rail.scrollLeft -= w;
+      else if(rail.scrollLeft <= -w) rail.scrollLeft += w;
+    }
+    function tick(){
+      raf = requestAnimationFrame(tick);
+      if(reduce || held || dragging) return;
+      if(Date.now() < idleUntil) return;         // let a manual scroll settle
+      pos += SPEED * dir();
+      var w = span();
+      if(w > 0){ if(pos >= w) pos -= w; else if(pos <= -w) pos += w; }
+      rail.scrollLeft = pos;
+    }
+    function start(){ if(!raf) raf = requestAnimationFrame(tick); }
+    function stop(){ if(raf){ cancelAnimationFrame(raf); raf = 0; } }
+
+    // Hover / focus hold it still, exactly as before.
+    rail.addEventListener('mouseenter', function(){ held = true; });
+    rail.addEventListener('mouseleave', function(){ held = false; });
+    rail.addEventListener('focusin',    function(){ held = true; });
+    rail.addEventListener('focusout',   function(){ held = false; });
+    // A manual wheel or touch fling pauses briefly, then the drift resumes.
+    rail.addEventListener('scroll', function(){ if(!dragging){ wrap(); sync(); } }, {passive:true});
+    rail.addEventListener('wheel',  function(){ idleUntil = Date.now() + 1200; }, {passive:true});
+    rail.addEventListener('touchstart', function(){ held = true; }, {passive:true});
+    rail.addEventListener('touchend',   function(){ held = false; idleUntil = Date.now() + 1200; }, {passive:true});
+
+    // Mouse drag. Touch keeps native scrolling — it already feels better than
+    // anything we would synthesise.
+    var pending = false;
+    rail.addEventListener('pointerdown', function(e){
+      if(e.pointerType === 'touch' || e.button !== 0) return;
+      pending = true; dragging = false; moved = 0;
+      startX = e.clientX; startScroll = rail.scrollLeft;
+    });
+    rail.addEventListener('dragstart', function(e){ e.preventDefault(); });
+    rail.addEventListener('pointermove', function(e){
+      if(!pending) return;
+      var dx = e.clientX - startX;
+      moved = Math.max(moved, Math.abs(dx));
+      // Capture only once this is genuinely a drag. Capturing on pointerdown
+      // retargets the click to the rail, and a plain click on a logo would
+      // never reach the link.
+      if(!dragging){
+        if(moved <= 4) return;
+        dragging = true;
+        rail.classList.add('is-drag');
+        try{ rail.setPointerCapture(e.pointerId); }catch(err){}
+      }
+      rail.scrollLeft = startScroll - dx;
+      wrap(); sync();
+    });
+    function endDrag(e){
+      pending = false;
+      if(!dragging) return;
+      dragging = false; idleUntil = Date.now() + 1200; sync();
+      rail.classList.remove('is-drag');
+      try{ rail.releasePointerCapture(e.pointerId); }catch(err){}
+    }
+    rail.addEventListener('pointerup', endDrag);
+    rail.addEventListener('pointercancel', endDrag);
+    // A drag that crossed a few pixels must not also open the developer page.
+    rail.addEventListener('click', function(e){
+      if(moved > 6){ e.preventDefault(); e.stopPropagation(); moved = 0; }
+    }, true);
+
+    // Start straight away — railInit runs while the node is still detached, and
+    // an observer registered on a detached element cannot be relied on to fire
+    // the first time. The observer is then only an optimisation: it parks the
+    // loop while the rail is scrolled out of view.
+    sync(); start();
+    if(typeof IntersectionObserver!=='undefined'){
+      var io = new IntersectionObserver(function(en){
+        en.forEach(function(x){ x.isIntersecting ? start() : stop(); });
+      }, {threshold:0});
+      io.observe(rail);
+    }
+  }
+
+  function ctaBand(){
+    return h('section',{class:'section band-teal'},
+      h('div',{class:'wrap center'},
+        h('h2',null, t('enquire')),
+        h('p',{class:'lead', style:'margin:10px auto 18px;max-width:52ch'}, t('enquire_p')),
+        h('a',{class:'btn btn--light', href:U(buildPath('contact'))}, t('cta_talk'), ic('arrow'))));
+  }
+
+  /* ---- Hero backdrop -------------------------------------------------
+     The first slide is the page's Largest Contentful Paint. It used to be a
+     plain CSS background on one of five slides, all painted at once: the
+     preload scanner cannot see a URL inside a style attribute, so the browser
+     only started fetching the hero after the stylesheet had been parsed and
+     the element laid out — and then fetched five 1600px images in parallel.
+
+     HERO_SLIDES is exported so the <head> preload can point at slide zero;
+     domtest asserts the two stay in step. -------------------------------- */
+  var HERO_SLIDES = ['beach','sunset','lagoon','town','clubhouse'];
+
+  function heroSrc(nm){
+    // A phone gets the 800px cut. It sits behind a 94%-opacity teal scrim, so
+    // the slight upscale on a 3x screen is invisible, while the file is a
+    // quarter of the size on exactly the connections that need it most.
+    var small = (window.innerWidth || 1200) <= 700;
+    return '/project-media/hero/' + nm + (small ? '-800' : '') + '.webp';
+  }
+
+  function heroDeferred(bg){
+    // Slides 2-5 are not visible until 6s+. Attach them once the page has
+    // settled so they compete with nothing.
+    function paint(){
+      var els = bg.querySelectorAll('[data-bg]');
+      for (var i = 0; i < els.length; i++){
+        els[i].style.backgroundImage = "url('" + els[i].getAttribute('data-bg') + "')";
+        els[i].removeAttribute('data-bg');
+      }
+    }
+    if (window.requestIdleCallback) requestIdleCallback(paint, {timeout: 4000});
+    else setTimeout(paint, 2000);
+  }
+
+  /* ==================================================================
+     VIEWS  — each returns {node, title, desc, indexable, crumbs, ld}
+     ================================================================== */
+  var V = {};
+
+  V.home = function(){
+    var node = h('div',null);
+    // hero
+    var hero = h('section',{class:'hero'});
+    // animated render backdrop behind the search/filter (slow crossfade + subtle
+    // zoom; a teal scrim keeps the text and finder fully legible; static for
+    // reduced-motion users).
+    var heroBg = h('div',{class:'hero__bg','aria-hidden':'true'});
+    // Slide 1 is the LCP element, so it is the ONLY one on the critical path —
+    // it carries its background inline and is preloaded from <head>. Slides 2-5
+    // do not appear until 6, 12, 18 and 24 seconds into the loop, so fetching
+    // them during first paint bought nothing and cost ~800 KB of contention.
+    HERO_SLIDES.forEach(function(nm,i){
+      var el = h('div',{class:'hero__slide', style:'animation-delay:'+(i*6)+'s'});
+      if(i===0) el.style.backgroundImage = "url('"+heroSrc(nm)+"')";
+      else el.setAttribute('data-bg', heroSrc(nm));
+      heroBg.appendChild(el);
+    });
+    heroDeferred(heroBg);
+    heroBg.appendChild(h('div',{class:'hero__scrim'}));
+    hero.appendChild(heroBg);
+    var typeOpts = [opt('',t('all_types'))].concat(TYPES.map(function(tp){ return opt(tp.c, typeLabelC(tp.c)); }));
+    var budgetOpts = [opt('',t('any'))].concat(BUDGET_PRESETS.map(function(pr,i){
+      return opt(i, pr[0]==null?(lang==='ar'?'أقل من ٣ م':'Under 3M'):pr[1]==null?(lang==='ar'?'٢٠ م+':'20M+'):moneyM(pr[0])+'–'+moneyM(pr[1])); }));
+    var bedOpts = [opt('',t('any'))].concat([1,2,3,4,5].map(function(n){ return opt(n, bedsLabel(n)); }));
+    var floorOpts = [opt('',t('any'))].concat(FLOOR_BANDS.map(function(b){ return opt(b, L(FLOOR_LABELS[b])); }));
+    var projSorted = PROJECTS.slice().sort(function(a,b){ return (lang==='ar'?a.name_ar:a.name).localeCompare(lang==='ar'?b.name_ar:b.name); });
+    var projOpts = [opt('',t('any'))].concat(projSorted.map(function(p){ return opt(p.slug, (lang==='ar'?p.name_ar:p.name)); }));
+    var searchCard = h('form',{class:'search-card', role:'search'},
+      h('h2',null, t('find_h')),
+      h('p',{class:'muted'}, t('find_p')),
+      // primary, always-visible fields: Area · Developer · Unit
+      h('div',{class:'search-grid'},
+        field('select','f-area', t('filter_area'), areaOptions()),
+        field('select','f-dev', t('filter_dev'), devOptions())),
+      field('select','f-type', t('filter_type'), typeOpts),
+      // secondary fields, collapsed by default — revealed on expand
+      h('details',{class:'search-adv'},
+        h('summary',null, t('more_filters')),
+        h('div',{class:'search-grid', style:'margin-top:12px'},
+          field('select','f-project', t('filter_project'), projOpts),
+          field('select','f-beds', t('filter_beds'), bedOpts),
+          field('select','f-floor', t('filter_floor'), floorOpts),
+          field('select','f-budget', t('filter_budget'), budgetOpts))),
+      h('button',{class:'btn btn--primary btn--block', type:'submit'}, ic('search'), t('cta_explore')));
+    searchCard.addEventListener('submit', function(e){
+      e.preventDefault();
+      var q = [];
+      function val(id){ var el=$(id,searchCard); return el?el.value:''; }
+      var a=val('#f-area'), dv=val('#f-dev'), pj=val('#f-project'), ty=val('#f-type'), bd=val('#f-beds'), fl=val('#f-floor'), bi=val('#f-budget');
+      if(a) q.push('areas='+a);
+      if(dv) q.push('developers='+dv);
+      if(pj) q.push('projects='+pj);
+      if(ty) q.push('types='+ty);
+      if(bd) q.push('beds='+bd);
+      if(fl) q.push('floors='+fl);
+      if(bi!==''){ var pr=BUDGET_PRESETS[+bi]; if(pr[0]!=null) q.push('minPrice='+pr[0]); if(pr[1]!=null) q.push('maxPrice='+pr[1]); }
+      navigateTo(buildPath('units') + (q.length?('?'+q.join('&')):''));
+    });
+    hero.appendChild(h('div',{class:'wrap'},
+      h('div',{class:'hero-grid'},
+        h('div',null,
+          h('div',{class:'eyebrow', style:'color:#bfe3ef'}, t('hero_kicker')),
+          h('h1',{style:'margin-top:14px'}, t('hero_h1a'), h('em',null,t('hero_h1b'))),
+          h('p',{class:'hero-sig'}, h('span',null, t('hero_sig'))),
+          h('p',{class:'lead'}, t('hero_p')),
+          h('div',{class:'hero-cta'},
+            h('a',{class:'btn btn--light', href:U(buildPath('projects'))}, t('cta_explore')),
+            h('a',{class:'btn btn--ghost', href:U(buildPath('contact')), style:'color:var(--bone);border-color:rgba(243,239,230,.35)'}, t('cta_talk'))),
+          h('div',{class:'hero-trust'},
+            heroStat(AREAS.length, t('hero_s1')),
+            heroStat(DEVELOPERS.length, t('hero_s2')),
+            heroStat(PROJECTS.length, t('hero_s3')),
+            (CONFIG.clientsServed ? heroStat(CONFIG.clientsServed, t('hero_s4')) : null))),
+        searchCard)));
+    node.appendChild(hero);
+
+    // browse by developer — prominent brand strip right under the hero (above the listings/filters)
+    node.appendChild(developerRail());
+
+    // our featured projects (The Village's own directly-marketed listings) — highlighted
+    // first, flush to the top so it sits tight under the "Browse by developer" rail.
+    // One project per developer — six slots, six different companies, so the
+    // grid fills two clean rows of three instead of leaving a hole.
+    var ours = spreadByDev(['ogami-north-coast','ramla-ras-el-hekma','beach-plaza-premium',
+      'zoya','il-monte-galala','swan-lake-west'].map(projBySlug).filter(Boolean));
+    if(ours.length) node.appendChild(listSection(t('home_ours_k'), t('home_ours_h'), t('home_ours_p'), ours.map(projectCard),
+      {label:t('nav_projects'), path:buildPath('projects')}, 'section--flush-t'));
+    // why buyers choose The Village — moved up, directly below "Our featured projects"
+    var why = h('section',{class:'section band'});
+    why.appendChild(h('div',{class:'wrap'},
+      sectionHead('', t('home_why_h'), ''),
+      h('div',{class:'grid grid--3'},
+        feature('shield', t('why1_h'), t('why1_p')),
+        feature('check', t('why2_h'), t('why2_p')),
+        feature('globe', t('why3_h'), t('why3_p')))));
+    node.appendChild(why);
+    // new launches — single upcoming project teaser ("Coming Soon" image)
+    var launchSec=h('section',{class:'section'});
+    launchSec.appendChild(h('div',{class:'wrap'},
+      sectionHead(t('nav_launches'), t('home_launch_h'), t('home_launch_p')),
+      launchStrip()));
+    node.appendChild(launchSec);
+    // top locations (Section 3) — premium cards + live compound counts
+    var tlRow=h('div',{class:'sec-row'}, sectionHead('', t('top_loc_h'), t('top_loc_p')),
+      h('a',{class:'btn btn--ghost btn--sm', href:U(buildPath('areas'))}, t('cta_all'), ic('arrow')));
+    node.appendChild(h('section',{class:'section band'}, h('div',{class:'wrap'}, tlRow,
+      h('div',{class:'toploc-grid'}, TOP_LOCS.map(topLocationCard)))));
+    // trust / honesty
+    var trust = h('section',{class:'section'});
+    trust.appendChild(h('div',{class:'wrap'},
+      h('div',{class:'notice notice--info', style:'max-width:80ch;margin-inline:auto'},
+        ic('info'),
+        h('div',null, h('strong',null, t('home_trust_h')+' — '), t('home_trust_p')))));
+    node.appendChild(trust);
+    node.appendChild(ctaBand());
+
+    return {node:node, title:t('nav_about')==='من نحن'?'The Village Investment — عقارات البيع الأولي في مصر':'The Village Investment — Primary-Sale Property & New Launches in Egypt',
+      desc:t('hero_p'), indexable:true, crumbs:[], name:'home'};
+  };
+  V.favorites = function(){
+    var ps=[]; saved.forEach(function(s){ var p=projBySlug(s); if(p) ps.push(p); });
+    var node=h('div',null);
+    node.appendChild(sectionWrap(
+      crumbNode([{label:t('nav_home'),path:buildPath('home')},{label:t('nav_favorites')}]),
+      sectionHead(t('hero_kicker'), t('fav_h'), t('fav_p'), 'h1')));
+    var sec=h('section',{style:'padding-bottom:clamp(40px,7vw,80px)'}), w=h('div',{class:'wrap'});
+    if(ps.length){ w.appendChild(h('div',{class:'grid grid--3'}, ps.map(projectCard))); }
+    else { w.appendChild(h('div',{class:'empty-state'}, h('div',{class:'empty-ico'}, ic('heart')),
+      h('p',null, t('fav_empty')), h('a',{class:'btn btn--primary', href:U(buildPath('projects'))}, t('cta_explore')))); }
+    sec.appendChild(w); node.appendChild(sec);
+    return {node:node, title:t('nav_favorites')+' · The Village Investment', desc:t('fav_p'), indexable:false,
+      crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_favorites')}]};
+  };
+  function stat(b,s){ return h('div',{class:'stat'}, h('b',null,b), h('span',null,s)); }
+  // Home hero stat with a count-up animation (0 → N, then append "+").
+  function heroStat(target, label){
+    var b=h('b',{class:'stat__n'}, num(0));
+    var box=h('div',{class:'stat stat--count'}, b, h('span',null,label));
+    var reduce=(typeof matchMedia!=='undefined') && matchMedia('(prefers-reduced-motion:reduce)').matches;
+    if(typeof requestAnimationFrame==='undefined' || typeof IntersectionObserver==='undefined' || reduce){
+      b.textContent=num(target)+'+'; return box;
+    }
+    var ran=false;
+    function run(){ if(ran) return; ran=true; var dur=1200, t0=null;
+      function frame(ts){ if(t0===null) t0=ts; var p=Math.min(1,(ts-t0)/dur), e=1-Math.pow(1-p,3);
+        b.textContent=num(Math.round(target*e)); if(p<1) requestAnimationFrame(frame); else b.textContent=num(target)+'+'; }
+      requestAnimationFrame(frame);
+    }
+    var io=new IntersectionObserver(function(es){ for(var i=0;i<es.length;i++){ if(es[i].isIntersecting){ run(); io.disconnect(); break; } } }, {threshold:0.35});
+    requestAnimationFrame(function(){ io.observe(b); });
+    return box;
+  }
+  function feature(icon,title,txt){
+    return h('div',{class:'card', style:'padding:22px'},
+      h('div',{style:'width:46px;height:46px;border-radius:12px;display:grid;place-items:center;background:var(--teal-050);color:var(--teal-700);margin-bottom:14px'}, ic(icon)),
+      h('h3',{style:'font-size:1.15rem;margin-bottom:8px'},title),
+      h('p',{class:'muted'},txt));
+  }
+  /* Names a results region for assistive tech without adding visible chrome.
+     List pages otherwise jump h1 -> h3 across the card grid. */
+  function resultsHeading(label){
+    return h('h2',{class:'visually-hidden'}, label || t('results_h'));
+  }
+  function listSection(kick,title,desc,items,cta,band,gridCls){
+    var sec = h('section',{class:'section'+(band?(' '+band):'')});
+    var head = sectionHead(kick,title,desc);
+    if(cta){ var row=h('div',{style:'display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap'}, head, h('a',{class:'btn btn--ghost btn--sm', href:U(cta.path)}, cta.label, ic('arrow'))); sec.appendChild(h('div',{class:'wrap'}, row, h('div',{class:'grid '+(gridCls||'grid--3'), style:'margin-top:8px'}, items))); }
+    else sec.appendChild(h('div',{class:'wrap'}, head, h('div',{class:'grid '+(gridCls||'grid--3')}, items)));
+    return sec;
+  }
+  // Horizontal, snap-scrolling carousel (New Launches) — premium portal pattern
+  function carouselSection(kick,title,desc,items,cta,band){
+    var sec=h('section',{class:'section'+(band?(' '+band):'')});
+    var head=sectionHead(kick,title,desc);
+    var row=cta ? h('div',{class:'sec-row'}, head, h('a',{class:'btn btn--ghost btn--sm', href:U(cta.path)}, cta.label, ic('arrow'))) : head;
+    var track=h('div',{class:'hscroll', role:'list', 'aria-label':title});
+    items.forEach(function(it){ var cell=h('div',{class:'hscroll__cell', role:'listitem'}, it); track.appendChild(cell); });
+    sec.appendChild(h('div',{class:'wrap'}, row, track));
+    return sec;
+  }
+  // New Launches teaser — the upcoming launch as an image-only "Coming Soon"
+  // card (no price, developer, or details). In the New Launch section it links
+  // to its parent project; on that project's own page it is a plain figure.
+  function comingSoonLaunch(asLink){
+    var kids=[
+      h('img',{class:'cs-img', src:COMING_SOON_LAUNCH.img, alt:COMING_SOON_LAUNCH.name+' — '+t('coming_soon'), width:'1000', height:'1000', loading:'lazy', decoding:'async'}),
+      h('span',{class:'cs-scrim','aria-hidden':'true'}),
+      h('span',{class:'cs-badge'}, t('coming_soon'))];
+    var card = (asLink===false || !COMING_SOON_LAUNCH.link)
+      ? h('figure',{class:'cs-card'}, kids)
+      : h('a',{class:'cs-card cs-card--link', href:U(buildPath('project',{slug:COMING_SOON_LAUNCH.link})), 'aria-label':COMING_SOON_LAUNCH.name+' — '+t('coming_soon')}, kids);
+    return h('div',{class:'cs-wrap'}, card);
+  }
+  /* Release teaser — same card shell as the Coming Soon tile, badged NEW
+     RELEASE and opening that developer's release page. */
+  function releaseTeaser(r){
+    var nm = L(r.name);
+    // The badge and title below already name this card, so the artwork is
+    // decorative (alt="") and the link takes its accessible name from its
+    // contents — "New release, MODON", exactly the visible text. An aria-label
+    // here reordered those words and tripped WCAG 2.5.3 Label in Name.
+    return h('a',{class:'cs-card cs-card--link', href:U(buildPath('release',{slug:r.slug}))},
+      h('img',{class:'cs-img', src:r.projects[0].img, alt:'',
+        width:'1000', height:'1000', loading:'lazy', decoding:'async'}),
+      h('span',{class:'cs-scrim','aria-hidden':'true'}),
+      h('span',{class:'cs-badge'}, t('new_release')),
+      h('span',{class:'cs-title'}, nm));
+  }
+  // New Launches strip: the upcoming-project teaser plus any live releases.
+  function launchStrip(){
+    var wrap = h('div',{class:'cs-wrap'});
+    var kids=[
+      h('img',{class:'cs-img', src:COMING_SOON_LAUNCH.img, alt:COMING_SOON_LAUNCH.name+' — '+t('coming_soon'), width:'1000', height:'1000', loading:'lazy', decoding:'async'}),
+      h('span',{class:'cs-scrim','aria-hidden':'true'}),
+      h('span',{class:'cs-badge'}, t('coming_soon'))];
+    wrap.appendChild(COMING_SOON_LAUNCH.link
+      ? h('a',{class:'cs-card cs-card--link', href:U(buildPath('project',{slug:COMING_SOON_LAUNCH.link})), 'aria-label':COMING_SOON_LAUNCH.name+' — '+t('coming_soon')}, kids)
+      : h('figure',{class:'cs-card'}, kids));
+    RELEASES.forEach(function(r){ wrap.appendChild(releaseTeaser(r)); });
+    return wrap;
+  }
+  function field(kind,id,label,children){
+    var control = kind==='select' ? h('select',{id:id,name:id}, children)
+      : h('input',{id:id,name:id,type:kind});
+    return h('div',{class:'field'}, h('label',{for:id},label), control);
+  }
+  function opt(v,l,sel){ return h('option', sel?{value:v,selected:true}:{value:v}, l); }
+  function areaOptions(sel){ return [opt('',t('any'))].concat(AREAS.map(function(a){return opt(a.key,L(a.name),sel===a.key);})); }
+  function devOptions(sel){ return [opt('',t('any'))].concat(DEVELOPERS.map(function(d){return opt(d.key,L(d.name),sel===d.key);})); }
+  function statusOptions(sel){ return [opt('',t('any')),opt('launch',t('launch'),sel==='launch'),opt('primary',t('primary'),sel==='primary'),opt('ready',t('ready'),sel==='ready')]; }

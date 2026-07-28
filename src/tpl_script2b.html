@@ -1,0 +1,1382 @@
+  /* ==================================================================
+     ILLUSTRATION ENGINE — original, on-brand SVG art (no photos, no
+     third-party logos). Every project & unit type gets a unique,
+     deterministic, decorative cover. Clearly illustrative, not a claim
+     of real photography.
+     ================================================================== */
+  function sEl(t,a){ var e=document.createElementNS('http://www.w3.org/2000/svg',t); if(a) for(var k in a) e.setAttribute(k,a[k]);
+    for(var i=2;i<arguments.length;i++){ if(arguments[i]) e.appendChild(arguments[i]); } return e; }
+  var ART_ID=0;
+  function hashN(s){ var n=5381; s=String(s); for(var i=0;i<s.length;i++) n=((n<<5)+n+s.charCodeAt(i))>>>0; return n; }
+  function rng(seed){ return function(){ seed=(seed*1664525+1013904223)>>>0; return seed/4294967296; }; }
+  function areaCat(k){ return (k==='sahel'||k==='sokhna'||k==='raselhekma')?'coast':(k==='capital')?'capital':'urban'; }
+
+  /* ===================================================================
+     NEW LAUNCH — the section/page now teases a single upcoming project
+     (Terrace Zayed) as a "Coming Soon" image, so no existing projects are
+     surfaced as new launches. To go back to featuring live projects, list
+     their slugs here (or set newLaunch:true on a record) and restore the
+     card carousel in V.home / V.projects('launch').
+     =================================================================== */
+  var NEW_LAUNCH_SLUGS = [];
+  function isNewLaunch(p){ return !!p && (p.newLaunch===true || NEW_LAUNCH_SLUGS.indexOf(p.slug)>-1); }
+  function newLaunchProjects(){ return PROJECTS.filter(isNewLaunch); }
+  // Upcoming launch teaser — image-only "Coming Soon" card (no price/details).
+  // (literal path: this runs before the media *_BASE vars below are assigned)
+  var COMING_SOON_LAUNCH = { img:'/project-media/launches/giza-terraces.webp', name:'Giza Terraces', link:'ramla-ras-el-hekma' };
+  function shade(hex,f){ hex=(hex||'#0d6e7d').replace('#',''); if(hex.length===3) hex=hex.replace(/(.)/g,'$1$1');
+    var n=parseInt(hex,16), r=(n>>16)&255, g=(n>>8)&255, b=n&255, t=f<0?0:255, a=Math.abs(f);
+    r=Math.round(r+(t-r)*a); g=Math.round(g+(t-g)*a); b=Math.round(b+(t-b)*a);
+    return '#'+((1<<24)+(r<<16)+(g<<8)+b).toString(16).slice(1); }
+
+  function winGrid(svg, bx, by, bw, bh, rand){
+    for(var y=by+7; y<by+bh-6; y+=13){ for(var x=bx+5; x<bx+bw-5; x+=11){
+      if(rand()<0.62) svg.appendChild(sEl('rect',{x:x,y:y,width:'5',height:'7',rx:'1',fill:'#F3EFE6',opacity:(0.28+rand()*0.5).toFixed(2)})); } } }
+  function palm(x,y){ var g=sEl('g',{opacity:'0.92'});
+    g.appendChild(sEl('path',{d:'M'+x+' '+y+' q 3 -20 0 -34', stroke:'#093a4c','stroke-width':'3', fill:'none'}));
+    for(var f=0; f<5; f++){ var a=(-150+f*30)*Math.PI/180, ex=x+Math.cos(a)*24, ey=(y-34)+Math.sin(a)*15;
+      g.appendChild(sEl('path',{d:'M'+x+' '+(y-34)+' Q '+((x+ex)/2)+' '+((y-34+ey)/2-7)+' '+ex+' '+ey, stroke:'#1e7a5a','stroke-width':'3', fill:'none'})); }
+    return g; }
+  function tree(x,y){ return sEl('g',{opacity:'0.95'},
+    sEl('rect',{x:x-2,y:y-13,width:'4',height:'15',fill:'#093a4c'}),
+    sEl('circle',{cx:x,cy:y-19,r:'12',fill:'#1e7a5a'}),
+    sEl('circle',{cx:x-7,cy:y-13,r:'8',fill:'#20855f'}),
+    sEl('circle',{cx:x+7,cy:y-13,r:'8',fill:'#20855f'})); }
+
+  /* Real project media (WebP renders under /project-media). PROJECT_COVERS is the
+     main cover per project (cards + hero); UNIT_IMAGES is the render per unit
+     (keyed by unit id). A missing entry falls back to the branded art, so nothing
+     is ever broken. To add more: drop the WebP in /project-media/<slug>/ and add
+     one line below. */
+  // Marakez Ramla renders are now self-hosted (extracted from the official Ramla
+  // "Sacred Summers" renders deck) under /project-media/ramla — no external hotlinking.
+  var PROJECT_COVERS = {
+    'beach-plaza-premium':'/project-media/modon/ap1-bp-03.webp',
+    'beach-plaza-luxury':'/project-media/modon/ap1-bpl-0.webp',
+    'lighthouse-village-luxury':'/project-media/modon/ap1-lh-0.webp',
+    'lighthouse-village-ultra-luxury':'/project-media/modon/ap1-lhu-0.webp',
+    'wadi-east':'/project-media/modon/th-wd-01.webp',
+    'montage':'/project-media/modon/v1-mon-0.webp',
+    'modon-boulevard':'/project-media/modon/ap2-bl-0.webp',
+    'il-monte-galala':'/project-media/tatweer/tm-sv-il-0.webp',
+    'bloomfields':'/project-media/tatweer/ap1-bl-0.webp',
+    'salt':'/project-media/tatweer/ch-sl-0.webp',
+    'rivers':'/project-media/tatweer/r-0.webp',
+    'fouka-bay':'/project-media/tatweer/f-0.webp',
+    'd-bay':'/project-media/tatweer/ch-dp-0.webp',
+    'scenes':'/project-media/tatweer/th-sc-0.webp',
+    'villette':'/project-media/villette/i-villa.webp',
+    'sodic-east':'/project-media/sodic-east/apartment.webp',
+    'eastown':'/project-media/eastown/apartment.webp',
+    'allegria':'/project-media/allegria/standalone.webp',
+    'ogami-north-coast':'/project-media/ogami/apartment.webp',
+    'caesar-north-coast':'/project-media/caesar/villa.webp',
+    'june-north-coast':'/project-media/june/standalone-june.webp',
+    'the-estates-zayed':'/project-media/the-estates/villa.webp',
+    // Ramla cover is now self-hosted (real Marakez masterplan render)
+    'ramla-ras-el-hekma':'/project-media/hero/promenade.webp',
+    // LMD project covers (dedicated per-project render — shown on cards + project hero)
+    'three-sixty':'/project-media/lmd/cover-three-sixty.webp',
+    'one-ninety':'/project-media/lmd/cover-one-ninety.webp',
+    'zoya':'/project-media/lmd/cover-zoya.webp',
+    'stei8ht-eastmed':'/project-media/lmd/cover-stei8ht-eastmed.webp',
+    'stei8ht-there':'/project-media/lmd/cover-stei8ht-there.webp',
+    'stei8ht-eastside':'/project-media/lmd/cover-stei8ht-eastside.webp',
+    'phonix-swanlake':'/project-media/hassan-allam/px-ap1-r1.webp',
+    'ampm-swanlake':'/project-media/hassan-allam/ap-of1-r1.webp',
+    'the-valleys':'/project-media/hassan-allam/vl-th1-r1.webp',
+    'park-central':'/project-media/hassan-allam/pc-ap1-r1.webp',
+    'the-great-lawn':'/project-media/hassan-allam/gl-ap1-r1.webp',
+    'swan-lake-west':'/project-media/hassan-allam/sl-ap1-r1.webp',
+  };
+  /* Project groups — a presentational sub-collection under one developer.
+     Members stay full projects (own pages/units); on the developer page they
+     are shown as ONE group card that opens a group page listing the members. */
+  var PROJECT_GROUPS = [
+    {slug:'stei8ht', dev:'lmd', name:'Stei8ht', name_ar:'ستيت',
+     cover:'/project-media/lmd/cover-stei8ht.webp',
+     members:['stei8ht-eastmed','stei8ht-there','stei8ht-eastside'],
+     blurb:{en:'LMD’s Stei8ht collection — business, medical and retail addresses in New Cairo, developer-direct primary units.',
+            ar:'مجموعة ستيت من LMD — مكاتب وعيادات ومحلات في القاهرة الجديدة، وحدات أولية من المطوّر مباشرة.'}}
+  ];
+  var GROUP_BY_SLUG = {}, GROUPED_PROJECT = {};
+  PROJECT_GROUPS.forEach(function(g){ GROUP_BY_SLUG[g.slug]=g; g.members.forEach(function(s){ GROUPED_PROJECT[s]=g.slug; }); });
+  function groupBySlug(s){ return GROUP_BY_SLUG[s]||null; }
+  function groupsByDev(k){ return PROJECT_GROUPS.filter(function(g){ return g.dev===k; }); }
+  function groupMembers(g){ return (g?g.members:[]).map(projBySlug).filter(Boolean); }
+  function groupFrom(g){ var m=groupMembers(g).map(function(p){return p.price;}).filter(function(x){return x!=null;}); return m.length?Math.min.apply(null,m):null; }
+  var UNIT_IMAGES = {
+    'MD-BP-01':'/project-media/modon/ap1-bp-03.webp',
+    'MD-BP-02':'/project-media/modon/ap2-bp-01.webp',
+    'MD-BP-03':'/project-media/modon/ap3-bp-0.webp',
+    'MD-BPL-01':'/project-media/modon/ap1-bpl-0.webp',
+    'MD-BPL-02':'/project-media/modon/ap2-bpl-0.webp',
+    'MD-BPL-03':'/project-media/modon/ap3-bpl-0.webp',
+    'MD-LH-01':'/project-media/modon/ap1-lh-0.webp',
+    'MD-LH-02':'/project-media/modon/ap2-lh-0.webp',
+    'MD-LH-03':'/project-media/modon/ap3-lh-0.webp',
+    'MD-LHU-01':'/project-media/modon/ap1-lhu-0.webp',
+    'MD-LHU-02':'/project-media/modon/ap2-lhu-0.webp',
+    'MD-LHU-03':'/project-media/modon/ap3-lhu-0.webp',
+    'MD-WD-01':'/project-media/modon/th-wd-01.webp',
+    'MD-WD-02':'/project-media/modon/th2-wd-0.webp',
+    'MD-WD-03':'/project-media/modon/v-wd-0.webp',
+    'MD-WD-04':'/project-media/modon/v2-wd-0.webp',
+    'MD-WD-05':'/project-media/modon/v2-wd-0.webp',
+    'MD-MON-01':'/project-media/modon/v1-mon-0.webp',
+    'MD-MON-02':'/project-media/modon/v2-mon-0.webp',
+    'MD-MON-03':'/project-media/modon/v1-mon-0.webp',
+    'MD-BL-02':'/project-media/modon/ap2-bl-0.webp',
+    'MD-BL-03':'/project-media/modon/ap3-bl-0.webp',
+    'TM-IM-01':'/project-media/tatweer/tm-sv-il-0.webp',
+    'TM-IM-02':'/project-media/tatweer/tm-st-il-0.webp',
+    'TM-IM-03':'/project-media/tatweer/tm-ch1-il-0.webp',
+    'TM-IM-04':'/project-media/tatweer/tm-ap1-il-0.webp',
+    'TM-IM-05':'/project-media/tatweer/tm-ap2-il-0.webp',
+    'TM-IM-06':'/project-media/tatweer/tm-ch2-il-0.webp',
+    'TM-IM-07':'/project-media/tatweer/tm-ch3-il-0.webp',
+    'TM-IM-08':'/project-media/tatweer/tm-ch4-il-0.webp',
+    'TM-IM-09':'/project-media/tatweer/tm-lo-il-0.webp',
+    'TM-IM-10':'/project-media/tatweer/tm-lo2-il-0.webp',
+    'TM-IM-11':'/project-media/tatweer/tm-lo3-il-0.webp',
+    'TM-IM-12':'/project-media/tatweer/tm-th1-il-0.webp',
+    'TM-IM-13':'/project-media/tatweer/tm-sv2-il-0.webp',
+    'TM-IM-14':'/project-media/tatweer/tm-ca1-il-0.webp',
+    'TM-IM-15':'/project-media/tatweer/tm-ch5-il-0.webp',
+    'TM-IM-16':'/project-media/tatweer/tm-ch6-il-0.webp',
+    'TM-IM-17':'/project-media/tatweer/tm-pe1-il-0.webp',
+    'TM-IM-18':'/project-media/tatweer/tm-st2-il-01.webp',
+    'TM-IM-19':'/project-media/tatweer/tm-ap3-il-0.webp',
+    'TM-IM-20':'/project-media/tatweer/tm-ap4-il-0.webp',
+    'TM-IM-21':'/project-media/tatweer/tm-ap5-il-0.webp',
+    'TM-BL-01':'/project-media/tatweer/ap1-bl-0.webp',
+    'TM-BL-02':'/project-media/tatweer/ap2-bl-0.webp',
+    'TM-BL-03':'/project-media/tatweer/ap3-blo-0.webp',
+    'TM-BL-04':'/project-media/tatweer/du-bl-0.webp',
+    'TM-BL-05':'/project-media/tatweer/ap4-bl-0.webp',
+    'TM-BL-06':'/project-media/tatweer/ap5-bl-0.webp',
+    'TM-BL-07':'/project-media/tatweer/ap6-bl-0.webp',
+    'TM-BL-08':'/project-media/tatweer/ap6-bl-01.webp',
+    'TM-SL-01':'/project-media/tatweer/ch-sl-0.webp',
+    'TM-SL-02':'/project-media/tatweer/ch-sl-0.webp',
+    'TM-SL-03':'/project-media/tatweer/ch3-0.webp',
+    'TM-SL-04':'/project-media/tatweer/sl-th-0.webp',
+    'TM-SL-05':'/project-media/tatweer/sl-tw1-0.webp',
+    'TM-SL-06':'/project-media/tatweer/sl-v-0.webp',
+    'TM-RV-01':'/project-media/tatweer/r-0.webp',
+    'TM-RV-02':'/project-media/tatweer/r-ap2-0.webp',
+    'TM-RV-03':'/project-media/tatweer/du-r-0.webp',
+    'TM-RV-04':'/project-media/tatweer/sv-r-0.webp',
+    'TM-RV-05':'/project-media/tatweer/sv-r-0.webp',
+    'TM-FK-01':'/project-media/tatweer/f-0.webp',
+    'TM-FK-02':'/project-media/tatweer/f2-0.webp',
+    'TM-FK-03':'/project-media/tatweer/fouka-8.webp',
+    'TM-FK-04':'/project-media/tatweer/f4-0.webp',
+    'TM-DB-01':'/project-media/tatweer/ch-dp-0.webp',
+    'TM-DB-02':'/project-media/tatweer/tw-dbay-0.webp',
+    'TM-DB-03':'/project-media/tatweer/d-bay6.webp',
+    'TM-SC-01':'/project-media/tatweer/th-sc-0.webp',
+    'TM-SC-02':'/project-media/tatweer/tw-sc-0.webp',
+    'TM-SC-03':'/project-media/tatweer/sv-sc-0.webp',
+    'V-A305':'/project-media/villette/apartment.webp', 'V-TH22':'/project-media/villette/town-house.webp', 'VL-IV3':'/project-media/villette/i-villa.webp',
+    'SE-T12':'/project-media/sodic-east/town-house.webp', 'SE-A44':'/project-media/sodic-east/apartment.webp',
+    'ET-D07':'/project-media/eastown/duplex.webp', 'ET-A12':'/project-media/eastown/apartment.webp',
+    'AL-V03':'/project-media/allegria/standalone.webp', 'AL-TW6':'/project-media/allegria/twin-house.webp', 'AL-TV2':'/project-media/allegria/town-house.webp',
+    'OG-WC1':'/project-media/ogami/chalet.webp', 'OG-TH1':'/project-media/ogami/town-house.webp', 'OG-TW1':'/project-media/ogami/twin-house.webp',
+    'CS-TH1':'/project-media/caesar/town-house.webp', 'CS-TW1':'/project-media/caesar/twin-house.webp', 'CS-SV1':'/project-media/caesar/standalone.webp',
+    'JN-CR1':'/project-media/june/standalone-june.webp', 'JN-OP1':'/project-media/june/standalone-254.webp',
+    'ES-AP1':'/project-media/the-estates/apartment.webp', 'ES-VL1':'/project-media/the-estates/villa.webp',
+    // Marakez Ramla — self-hosted per-type renders (from the official renders deck)
+    'RM-CH1':'/project-media/ramla/chalet.webp', 'RM-CH2':'/project-media/ramla/chalet.webp', 'RM-CH3':'/project-media/ramla/chalet.webp', 'RM-CH4':'/project-media/ramla/chalet.webp',
+    'RM-TW1':'/project-media/ramla/twin.webp', 'RM-TW2':'/project-media/ramla/twin.webp', 'RM-TW3':'/project-media/ramla/twin.webp',
+    'RM-TH1':'/project-media/ramla/townhouse.webp', 'RM-TH2':'/project-media/ramla/townhouse.webp',
+    'RM-VL1':'/project-media/ramla/villa.webp', 'RM-VL2':'/project-media/ramla/villa.webp', 'RM-VL3':'/project-media/ramla/villa.webp',
+    // LMD — unit cover = first render (full gallery in UNIT_GALLERY)
+    'SEM-CL1':'/project-media/lmd/sem-cl1-r1.webp', 'SEM-CL2':'/project-media/lmd/sem-cl2-r1.webp',
+    'TS-AD1':'/project-media/lmd/ts-ad1-r1.webp', 'TS-AD2':'/project-media/lmd/ts-ad2-r1.webp', 'TS-CL3':'/project-media/lmd/ts-cl3-r1.webp',
+    'TS-AD4':'/project-media/lmd/ts-ad4-r1.webp', 'TS-OF5':'/project-media/lmd/ts-of5-r1.webp',
+    'STH-OF1':'/project-media/lmd/sth-of1-r1.webp', 'SES-AD1':'/project-media/lmd/ses-ad1-r1.webp', 'ON-RT1':'/project-media/lmd/on-rt1-r1.webp',
+    'ZY-SV1':'/project-media/lmd/zy-sv1-r1.webp', 'ZY-HV2':'/project-media/lmd/zy-hv2-r1.webp', 'ZY-TW3':'/project-media/lmd/zy-tw3-r1.webp',
+    'ZY-CH4':'/project-media/lmd/zy-ch4-r1.webp', 'ZY-CB5':'/project-media/lmd/zy-cb5-r1.webp',
+    'PX-AP1':'/project-media/hassan-allam/px-ap1-r1.webp',
+    'PX-AP2':'/project-media/hassan-allam/px-ap2-r1.webp',
+    'PX-AP3':'/project-media/hassan-allam/px-ap3-r1.webp',
+    'PX-AP4':'/project-media/hassan-allam/px-ap4-r1.webp',
+    'PX-AP5':'/project-media/hassan-allam/px-ap5-r1.webp',
+    'AP-OF1':'/project-media/hassan-allam/ap-of1-r1.webp',
+    'AP-OF2':'/project-media/hassan-allam/ap-of2-r1.webp',
+    'AP-OF3':'/project-media/hassan-allam/ap-of3-r1.webp',
+    'VL-TH1':'/project-media/hassan-allam/vl-th1-r1.webp',
+    'VL-TW2':'/project-media/hassan-allam/vl-tw2-r1.webp',
+    'VL-SV3':'/project-media/hassan-allam/vl-sv3-r1.webp',
+    'VL-SV4':'/project-media/hassan-allam/vl-sv4-r1.webp',
+    'PC-AP1':'/project-media/hassan-allam/pc-ap1-r1.webp',
+    'PC-AP2':'/project-media/hassan-allam/pc-ap2-r1.webp',
+    'PC-AP3':'/project-media/hassan-allam/pc-ap3-r1.webp',
+    'PC-AP4':'/project-media/hassan-allam/pc-ap4-r1.webp',
+    'PC-AP5':'/project-media/hassan-allam/pc-ap5-r1.webp',
+    'PC-AP6':'/project-media/hassan-allam/pc-ap6-r1.webp',
+    'PC-AP7':'/project-media/hassan-allam/pc-ap7-r1.webp',
+    'GL-AP1':'/project-media/hassan-allam/gl-ap1-r1.webp',
+    'GL-AP2':'/project-media/hassan-allam/gl-ap2-r1.webp',
+    'GL-AP3':'/project-media/hassan-allam/gl-ap3-r1.webp',
+    'SL-AP1':'/project-media/hassan-allam/sl-ap1-r1.webp',
+    'SL-AP2':'/project-media/hassan-allam/sl-ap2-r1.webp',
+    'SL-AP3':'/project-media/hassan-allam/sl-ap3-r1.webp',
+    'SL-AP4':'/project-media/hassan-allam/sl-ap4-r1.webp',
+    'SL-AP5':'/project-media/hassan-allam/sl-ap5-r1.webp',
+    'SL-AP6':'/project-media/hassan-allam/sl-ap6-r1.webp',
+    'SL-AP7':'/project-media/hassan-allam/sl-ap7-r1.webp',
+    'SL-TW8':'/project-media/hassan-allam/sl-tw8-r1.webp',
+    'SL-SV9':'/project-media/hassan-allam/sl-sv9-r1.webp',
+    'SL-TW10':'/project-media/hassan-allam/sl-tw10-r1.webp',
+    'SL-TW11':'/project-media/hassan-allam/sl-tw11-r1.webp',
+    'SL-SV12':'/project-media/hassan-allam/sl-sv12-r1.webp',
+    'SL-SV13':'/project-media/hassan-allam/sl-sv13-r1.webp',
+    'SL-SV14':'/project-media/hassan-allam/sl-sv14-r1.webp',
+    'SL-SV15':'/project-media/hassan-allam/sl-sv15-r1.webp',
+  };
+  /* Per-unit render galleries (all photos for a unit) — opened as a numbered
+     carousel from the unit hero and the "Photos" chip. LMD-populated. */
+  var UNIT_GALLERY = {
+    'MD-BP-01':['/project-media/modon/ap1-bp-03.webp','/project-media/modon/ap1-bp-04.webp'],
+    'MD-BP-02':['/project-media/modon/ap2-bp-01.webp','/project-media/modon/ap2-bp-02.webp','/project-media/modon/ap2-bp-03.webp','/project-media/modon/ap2-bp-04.webp','/project-media/modon/ap2-bp-05.webp'],
+    'MD-BP-03':['/project-media/modon/ap3-bp-0.webp','/project-media/modon/ap3-bp-01.webp','/project-media/modon/ap3-bp-02.webp','/project-media/modon/ap3-bp-03.webp','/project-media/modon/ap3-bp-04.webp','/project-media/modon/ap3-bp-05.webp'],
+    'MD-BPL-01':['/project-media/modon/ap1-bpl-0.webp','/project-media/modon/ap1-bpl-01.webp','/project-media/modon/ap1-bpl-04.webp','/project-media/modon/ap1-bpl-05.webp'],
+    'MD-BPL-02':['/project-media/modon/ap2-bpl-0.webp','/project-media/modon/ap2-bpl-01.webp','/project-media/modon/ap2-bpl-02.webp','/project-media/modon/ap2-bpl-03.webp','/project-media/modon/ap2-bpl-04.webp'],
+    'MD-BPL-03':['/project-media/modon/ap3-bpl-0.webp','/project-media/modon/ap3-bpl-01.webp','/project-media/modon/ap3-bpl-02.webp','/project-media/modon/ap3-bpl-03.webp','/project-media/modon/ap3-bpl-04.webp','/project-media/modon/ap3-bpl-05.webp','/project-media/modon/ap3-bpl-06.webp'],
+    'MD-LH-01':['/project-media/modon/ap1-lh-0.webp','/project-media/modon/ap1-lh-01.webp','/project-media/modon/ap1-lh-02.webp','/project-media/modon/ap1-lh-03.webp','/project-media/modon/ap1-lh-04.webp','/project-media/modon/ap1-lh-05.webp'],
+    'MD-LH-02':['/project-media/modon/ap2-lh-0.webp','/project-media/modon/ap2-lh-01.webp','/project-media/modon/ap2-lh-02.webp','/project-media/modon/ap2-lh-03.webp','/project-media/modon/ap2-lh-04.webp','/project-media/modon/ap2-lh-05.webp'],
+    'MD-LH-03':['/project-media/modon/ap3-lh-0.webp','/project-media/modon/ap3-lh-01.webp','/project-media/modon/ap3-lh-02.webp','/project-media/modon/ap3-lh-03.webp','/project-media/modon/ap3-lh-04.webp','/project-media/modon/ap3-lh-05.webp','/project-media/modon/ap3-lh-06.webp'],
+    'MD-LHU-01':['/project-media/modon/ap1-lhu-0.webp','/project-media/modon/ap1-lhu-01.webp','/project-media/modon/ap1-lhu-02.webp','/project-media/modon/ap1-lhu-03.webp','/project-media/modon/ap1-lhu-04.webp','/project-media/modon/ap1-lhu-05.webp','/project-media/modon/ap1-lhu-06.webp'],
+    'MD-LHU-02':['/project-media/modon/ap2-lhu-0.webp','/project-media/modon/ap2-lhu-01.webp','/project-media/modon/ap2-lhu-02.webp','/project-media/modon/ap2-lhu-03.webp','/project-media/modon/ap2-lhu-04.webp','/project-media/modon/ap2-lhu-05.webp'],
+    'MD-LHU-03':['/project-media/modon/ap3-lhu-0.webp','/project-media/modon/ap3-lhu-01.webp','/project-media/modon/ap3-lhu-02.webp','/project-media/modon/ap3-lhu-03.webp','/project-media/modon/ap3-lhu-04.webp','/project-media/modon/ap3-lhu-05.webp','/project-media/modon/ap3-lhu-06.webp'],
+    'MD-WD-01':['/project-media/modon/th-wd-01.webp','/project-media/modon/th-wd-02.webp','/project-media/modon/th-wd-03.webp','/project-media/modon/th-wd-04.webp','/project-media/modon/th-wd-05.webp','/project-media/modon/th-wd-06.webp'],
+    'MD-WD-02':['/project-media/modon/th2-wd-0.webp','/project-media/modon/th2-wd-01.webp','/project-media/modon/th2-wd-02.webp','/project-media/modon/th2-wd-03.webp','/project-media/modon/th2-wd-04.webp','/project-media/modon/th2-wd-05.webp'],
+    'MD-WD-03':['/project-media/modon/v-wd-0.webp','/project-media/modon/v-wd-01.webp','/project-media/modon/v-wd-02.webp','/project-media/modon/v-wd-03.webp','/project-media/modon/v-wd-04.webp'],
+    'MD-WD-04':['/project-media/modon/v2-wd-0.webp','/project-media/modon/v2-wd-01.webp','/project-media/modon/v2-wd-03.webp','/project-media/modon/v2-wd-02.webp','/project-media/modon/v2-wd-04.webp'],
+    'MD-WD-05':['/project-media/modon/v2-wd-0.webp','/project-media/modon/v2-wd-01.webp','/project-media/modon/v2-wd-03.webp','/project-media/modon/v2-wd-04.webp','/project-media/modon/v2-wd-02.webp'],
+    'MD-MON-01':['/project-media/modon/v1-mon-0.webp','/project-media/modon/v1-mon-01.webp','/project-media/modon/v1-mon-02.webp','/project-media/modon/v1-mon-03.webp','/project-media/modon/v1-mon-04.webp'],
+    'MD-MON-02':['/project-media/modon/v2-mon-0.webp','/project-media/modon/v1-mon-01.webp','/project-media/modon/v1-mon-02.webp','/project-media/modon/v1-mon-03.webp','/project-media/modon/v1-mon-04.webp','/project-media/modon/v1-mon-0.webp'],
+    'MD-MON-03':['/project-media/modon/v1-mon-0.webp','/project-media/modon/v1-mon-03.webp','/project-media/modon/v1-mon-04.webp','/project-media/modon/v1-mon-01.webp'],
+    'MD-BL-02':['/project-media/modon/ap2-bl-0.webp','/project-media/modon/ap2-bl-01.webp','/project-media/modon/ap2-bl-02.webp','/project-media/modon/ap2-bl-03.webp'],
+    'MD-BL-03':['/project-media/modon/ap3-bl-0.webp','/project-media/modon/ap3-bl-01.webp','/project-media/modon/ap3-bl-03.webp','/project-media/modon/ap3-bl-02.webp'],
+    'TM-IM-01':['/project-media/tatweer/tm-sv-il-0.webp','/project-media/tatweer/tm-sv-il-01.webp','/project-media/tatweer/tm-sv-il-02.webp'],
+    'TM-IM-02':['/project-media/tatweer/tm-st-il-0.webp','/project-media/tatweer/tm-st-il-01.webp','/project-media/tatweer/tm-st-il-02.webp'],
+    'TM-IM-03':['/project-media/tatweer/tm-ch1-il-0.webp','/project-media/tatweer/tm-ch1-il-01.webp','/project-media/tatweer/tm-ch1-il-02.webp'],
+    'TM-IM-04':['/project-media/tatweer/tm-ap1-il-0.webp','/project-media/tatweer/tm-ap1-il-01.webp'],
+    'TM-IM-05':['/project-media/tatweer/tm-ap2-il-0.webp','/project-media/tatweer/tm-ap2-il-01.webp','/project-media/tatweer/tm-ap2-il-02.webp'],
+    'TM-IM-06':['/project-media/tatweer/tm-ch2-il-0.webp','/project-media/tatweer/tm-ch2-il-01.webp','/project-media/tatweer/tm-ch2-il-02.webp'],
+    'TM-IM-07':['/project-media/tatweer/tm-ch3-il-0.webp','/project-media/tatweer/tm-ch3-il-01.webp','/project-media/tatweer/tm-ch3-il-02.webp','/project-media/tatweer/tm-ch3-il-03.webp'],
+    'TM-IM-08':['/project-media/tatweer/tm-ch4-il-0.webp','/project-media/tatweer/tm-ch4-il-01.webp','/project-media/tatweer/tm-ch4-il-02.webp'],
+    'TM-IM-09':['/project-media/tatweer/tm-lo-il-0.webp','/project-media/tatweer/tm-lo-il-01.webp','/project-media/tatweer/tm-lo-il-02.webp','/project-media/tatweer/tm-lo-il-03.webp'],
+    'TM-IM-10':['/project-media/tatweer/tm-lo2-il-0.webp','/project-media/tatweer/tm-lo2-il-01.webp','/project-media/tatweer/tm-lo2-il-02.webp','/project-media/tatweer/tm-lo2-il-03.webp'],
+    'TM-IM-11':['/project-media/tatweer/tm-lo3-il-0.webp','/project-media/tatweer/tm-lo3-il-01.webp','/project-media/tatweer/tm-lo3-il-02.webp'],
+    'TM-IM-12':['/project-media/tatweer/tm-th1-il-0.webp','/project-media/tatweer/tm-th1-il-01.webp','/project-media/tatweer/tm-th1-il-02.webp'],
+    'TM-IM-13':['/project-media/tatweer/tm-sv2-il-0.webp','/project-media/tatweer/tm-sv2-il-01.webp','/project-media/tatweer/tm-sv2-il-02.webp'],
+    'TM-IM-14':['/project-media/tatweer/tm-ca1-il-0.webp','/project-media/tatweer/tm-ca1-il-01.webp','/project-media/tatweer/tm-ca1-il-02.webp','/project-media/tatweer/tm-ca1-il-03.webp'],
+    'TM-IM-15':['/project-media/tatweer/tm-ch5-il-0.webp','/project-media/tatweer/tm-ch5-il-01.webp','/project-media/tatweer/tm-ch5-il-02.webp','/project-media/tatweer/tm-ch5-il-03.webp','/project-media/tatweer/tm-ch5-il-04.webp'],
+    'TM-IM-16':['/project-media/tatweer/tm-ch6-il-0.webp','/project-media/tatweer/tm-ch6-il-01.webp','/project-media/tatweer/tm-ch6-il-02.webp','/project-media/tatweer/tm-ch6-il-03.webp'],
+    'TM-IM-17':['/project-media/tatweer/tm-pe1-il-0.webp','/project-media/tatweer/tm-pe1-il-01.webp','/project-media/tatweer/tm-pe1-il-02.webp'],
+    'TM-IM-18':['/project-media/tatweer/tm-st2-il-01.webp'],
+    'TM-IM-19':['/project-media/tatweer/tm-ap3-il-0.webp','/project-media/tatweer/tm-ap3-il-01.webp','/project-media/tatweer/tm-ap3-il-02.webp'],
+    'TM-IM-20':['/project-media/tatweer/tm-ap4-il-0.webp','/project-media/tatweer/tm-ap4-il-01.webp'],
+    'TM-IM-21':['/project-media/tatweer/tm-ap5-il-0.webp','/project-media/tatweer/tm-ap5-il-01.webp'],
+    'TM-BL-01':['/project-media/tatweer/ap1-bl-0.webp','/project-media/tatweer/ap1-bl-01.webp','/project-media/tatweer/ap1-bl-02.webp','/project-media/tatweer/ap1-bl-03.webp'],
+    'TM-BL-02':['/project-media/tatweer/ap2-bl-0.webp','/project-media/tatweer/ap2-bl-01.webp','/project-media/tatweer/ap2-bl-02.webp'],
+    'TM-BL-03':['/project-media/tatweer/ap3-blo-0.webp','/project-media/tatweer/ap3-blo-01.webp','/project-media/tatweer/ap3-blo-02.webp'],
+    'TM-BL-04':['/project-media/tatweer/du-bl-0.webp','/project-media/tatweer/du-bl-01.webp','/project-media/tatweer/du-bl-02.webp'],
+    'TM-BL-05':['/project-media/tatweer/ap4-bl-0.webp','/project-media/tatweer/ap4-bl-01.webp','/project-media/tatweer/ap4-bl-02.webp'],
+    'TM-BL-06':['/project-media/tatweer/ap5-bl-0.webp','/project-media/tatweer/ap5-bl-01.webp','/project-media/tatweer/ap5-bl-02.webp'],
+    'TM-BL-07':['/project-media/tatweer/ap6-bl-0.webp','/project-media/tatweer/ap6-bl-01.webp','/project-media/tatweer/ap6-bl-02.webp'],
+    'TM-BL-08':['/project-media/tatweer/ap6-bl-01.webp'],
+    'TM-SL-01':['/project-media/tatweer/ch-sl-0.webp','/project-media/tatweer/ch-sl-01.webp','/project-media/tatweer/ch-sl-02.webp'],
+    'TM-SL-02':['/project-media/tatweer/ch-sl-0.webp','/project-media/tatweer/ch-sl-01.webp','/project-media/tatweer/ch-sl-02.webp'],
+    'TM-SL-03':['/project-media/tatweer/ch3-0.webp','/project-media/tatweer/ch3-01.webp'],
+    'TM-SL-04':['/project-media/tatweer/sl-th-0.webp','/project-media/tatweer/sl-th-01.webp','/project-media/tatweer/sl-th-02.webp'],
+    'TM-SL-05':['/project-media/tatweer/sl-tw1-0.webp','/project-media/tatweer/sl-tw1-01.webp'],
+    'TM-SL-06':['/project-media/tatweer/sl-v-0.webp','/project-media/tatweer/sl-v-01.webp','/project-media/tatweer/sl-v-02.webp'],
+    'TM-RV-01':['/project-media/tatweer/r-0.webp','/project-media/tatweer/r-01.webp','/project-media/tatweer/r-02.webp','/project-media/tatweer/r-03.webp','/project-media/tatweer/r-ap2-0.webp','/project-media/tatweer/r-ap2-01.webp'],
+    'TM-RV-02':['/project-media/tatweer/r-ap2-0.webp','/project-media/tatweer/r-ap2-01.webp'],
+    'TM-RV-03':['/project-media/tatweer/du-r-0.webp','/project-media/tatweer/du-r-01.webp','/project-media/tatweer/du-r-02.webp'],
+    'TM-RV-04':['/project-media/tatweer/sv-r-0.webp','/project-media/tatweer/sv-r-01.webp','/project-media/tatweer/sv-r-02.webp'],
+    'TM-RV-05':['/project-media/tatweer/sv-r-0.webp','/project-media/tatweer/sv-r-01.webp','/project-media/tatweer/sv-r-02.webp'],
+    'TM-FK-01':['/project-media/tatweer/f-0.webp','/project-media/tatweer/f-01.webp','/project-media/tatweer/f-02.webp','/project-media/tatweer/fouka-serviced-apt.webp'],
+    'TM-FK-02':['/project-media/tatweer/f2-0.webp','/project-media/tatweer/f2-01.webp','/project-media/tatweer/f2-02.webp'],
+    'TM-FK-03':['/project-media/tatweer/fouka-8.webp'],
+    'TM-FK-04':['/project-media/tatweer/f4-0.webp','/project-media/tatweer/f4-01.webp'],
+    'TM-DB-01':['/project-media/tatweer/ch-dp-0.webp','/project-media/tatweer/ch-dp-01.webp','/project-media/tatweer/ch-dp-02.webp','/project-media/tatweer/d-b-2.webp','/project-media/tatweer/d-bay-villa.webp','/project-media/tatweer/d-bay4.webp'],
+    'TM-DB-02':['/project-media/tatweer/tw-dbay-0.webp','/project-media/tatweer/tw-dbay-01.webp','/project-media/tatweer/tw-dbay-02.webp'],
+    'TM-DB-03':['/project-media/tatweer/d-bay6.webp'],
+    'TM-SC-01':['/project-media/tatweer/th-sc-0.webp','/project-media/tatweer/th-sc-01.webp','/project-media/tatweer/th-sc-02.webp'],
+    'TM-SC-02':['/project-media/tatweer/tw-sc-0.webp','/project-media/tatweer/tw-sc-01.webp','/project-media/tatweer/tw-sc-02.webp'],
+    'TM-SC-03':['/project-media/tatweer/sv-sc-0.webp','/project-media/tatweer/sv-sc-01.webp','/project-media/tatweer/sv-sc-02.webp'],
+    'SEM-CL1':['/project-media/lmd/sem-cl1-r1.webp','/project-media/lmd/sem-cl1-r2.webp'],
+    'SEM-CL2':['/project-media/lmd/sem-cl2-r1.webp','/project-media/lmd/sem-cl2-r2.webp'],
+    'TS-AD1':['/project-media/lmd/ts-ad1-r1.webp','/project-media/lmd/ts-ad1-r2.webp','/project-media/lmd/ts-ad1-r3.webp'],
+    'TS-AD2':['/project-media/lmd/ts-ad2-r1.webp','/project-media/lmd/ts-ad2-r2.webp','/project-media/lmd/ts-ad2-r3.webp'],
+    'TS-CL3':['/project-media/lmd/ts-cl3-r1.webp','/project-media/lmd/ts-cl3-r2.webp','/project-media/lmd/ts-cl3-r3.webp'],
+    'TS-AD4':['/project-media/lmd/ts-ad4-r1.webp','/project-media/lmd/ts-ad4-r2.webp','/project-media/lmd/ts-ad4-r3.webp'],
+    'TS-OF5':['/project-media/lmd/ts-of5-r1.webp','/project-media/lmd/ts-of5-r2.webp'],
+    'STH-OF1':['/project-media/lmd/sth-of1-r1.webp','/project-media/lmd/sth-of1-r2.webp','/project-media/lmd/sth-of1-r3.webp'],
+    'SES-AD1':['/project-media/lmd/ses-ad1-r1.webp','/project-media/lmd/ses-ad1-r2.webp'],
+    'ON-RT1':['/project-media/lmd/on-rt1-r1.webp','/project-media/lmd/on-rt1-r2.webp'],
+    'ZY-SV1':['/project-media/lmd/zy-sv1-r1.webp','/project-media/lmd/zy-sv1-r2.webp','/project-media/lmd/zy-sv1-r3.webp'],
+    'ZY-HV2':['/project-media/lmd/zy-hv2-r1.webp','/project-media/lmd/zy-hv2-r2.webp'],
+    'ZY-TW3':['/project-media/lmd/zy-tw3-r1.webp','/project-media/lmd/zy-tw3-r2.webp','/project-media/lmd/zy-tw3-r3.webp'],
+    'ZY-CH4':['/project-media/lmd/zy-ch4-r1.webp','/project-media/lmd/zy-ch4-r2.webp','/project-media/lmd/zy-ch4-r3.webp'],
+    'ZY-CB5':['/project-media/lmd/zy-cb5-r1.webp','/project-media/lmd/zy-cb5-r2.webp','/project-media/lmd/zy-cb5-r3.webp'],
+    'PX-AP1':['/project-media/hassan-allam/px-ap1-r1.webp','/project-media/hassan-allam/px-ap1-r2.webp','/project-media/hassan-allam/px-ap1-r3.webp'],
+    'PX-AP2':['/project-media/hassan-allam/px-ap2-r1.webp','/project-media/hassan-allam/px-ap2-r2.webp','/project-media/hassan-allam/px-ap2-r3.webp'],
+    'PX-AP3':['/project-media/hassan-allam/px-ap3-r1.webp','/project-media/hassan-allam/px-ap3-r2.webp','/project-media/hassan-allam/px-ap3-r3.webp'],
+    'PX-AP4':['/project-media/hassan-allam/px-ap4-r1.webp','/project-media/hassan-allam/px-ap4-r2.webp'],
+    'PX-AP5':['/project-media/hassan-allam/px-ap5-r1.webp','/project-media/hassan-allam/px-ap5-r2.webp','/project-media/hassan-allam/px-ap5-r3.webp'],
+    'AP-OF1':['/project-media/hassan-allam/ap-of1-r1.webp'],
+    'AP-OF2':['/project-media/hassan-allam/ap-of2-r1.webp'],
+    'AP-OF3':['/project-media/hassan-allam/ap-of3-r1.webp'],
+    'VL-TH1':['/project-media/hassan-allam/vl-th1-r1.webp','/project-media/hassan-allam/vl-th1-r2.webp','/project-media/hassan-allam/vl-th1-r3.webp'],
+    'VL-TW2':['/project-media/hassan-allam/vl-tw2-r1.webp','/project-media/hassan-allam/vl-tw2-r2.webp'],
+    'VL-SV3':['/project-media/hassan-allam/vl-sv3-r1.webp','/project-media/hassan-allam/vl-sv3-r2.webp'],
+    'VL-SV4':['/project-media/hassan-allam/vl-sv4-r1.webp','/project-media/hassan-allam/vl-sv4-r2.webp','/project-media/hassan-allam/vl-sv4-r3.webp','/project-media/hassan-allam/vl-sv4-r4.webp'],
+    'PC-AP1':['/project-media/hassan-allam/pc-ap1-r1.webp','/project-media/hassan-allam/pc-ap1-r2.webp','/project-media/hassan-allam/pc-ap1-r3.webp'],
+    'PC-AP2':['/project-media/hassan-allam/pc-ap2-r1.webp','/project-media/hassan-allam/pc-ap2-r2.webp','/project-media/hassan-allam/pc-ap2-r3.webp'],
+    'PC-AP3':['/project-media/hassan-allam/pc-ap3-r1.webp','/project-media/hassan-allam/pc-ap3-r2.webp'],
+    'PC-AP4':['/project-media/hassan-allam/pc-ap4-r1.webp','/project-media/hassan-allam/pc-ap4-r2.webp','/project-media/hassan-allam/pc-ap4-r3.webp'],
+    'PC-AP5':['/project-media/hassan-allam/pc-ap5-r1.webp','/project-media/hassan-allam/pc-ap5-r2.webp'],
+    'PC-AP6':['/project-media/hassan-allam/pc-ap6-r1.webp','/project-media/hassan-allam/pc-ap6-r2.webp'],
+    'PC-AP7':['/project-media/hassan-allam/pc-ap7-r1.webp','/project-media/hassan-allam/pc-ap7-r2.webp'],
+    'GL-AP1':['/project-media/hassan-allam/gl-ap1-r1.webp','/project-media/hassan-allam/gl-ap1-r2.webp','/project-media/hassan-allam/gl-ap1-r3.webp'],
+    'GL-AP2':['/project-media/hassan-allam/gl-ap2-r1.webp','/project-media/hassan-allam/gl-ap2-r2.webp','/project-media/hassan-allam/gl-ap2-r3.webp'],
+    'GL-AP3':['/project-media/hassan-allam/gl-ap3-r1.webp','/project-media/hassan-allam/gl-ap3-r2.webp','/project-media/hassan-allam/gl-ap3-r3.webp'],
+    'SL-AP1':['/project-media/hassan-allam/sl-ap1-r1.webp','/project-media/hassan-allam/sl-ap1-r2.webp','/project-media/hassan-allam/sl-ap1-r3.webp'],
+    'SL-AP2':['/project-media/hassan-allam/sl-ap2-r1.webp','/project-media/hassan-allam/sl-ap2-r2.webp','/project-media/hassan-allam/sl-ap2-r3.webp'],
+    'SL-AP3':['/project-media/hassan-allam/sl-ap3-r1.webp','/project-media/hassan-allam/sl-ap3-r2.webp','/project-media/hassan-allam/sl-ap3-r3.webp'],
+    'SL-AP4':['/project-media/hassan-allam/sl-ap4-r1.webp','/project-media/hassan-allam/sl-ap4-r2.webp','/project-media/hassan-allam/sl-ap4-r3.webp','/project-media/hassan-allam/sl-ap4-r4.webp'],
+    'SL-AP5':['/project-media/hassan-allam/sl-ap5-r1.webp','/project-media/hassan-allam/sl-ap5-r2.webp','/project-media/hassan-allam/sl-ap5-r3.webp','/project-media/hassan-allam/sl-ap5-r4.webp'],
+    'SL-AP6':['/project-media/hassan-allam/sl-ap6-r1.webp','/project-media/hassan-allam/sl-ap6-r2.webp','/project-media/hassan-allam/sl-ap6-r3.webp','/project-media/hassan-allam/sl-ap6-r4.webp'],
+    'SL-AP7':['/project-media/hassan-allam/sl-ap7-r1.webp','/project-media/hassan-allam/sl-ap7-r2.webp','/project-media/hassan-allam/sl-ap7-r3.webp'],
+    'SL-TW8':['/project-media/hassan-allam/sl-tw8-r1.webp','/project-media/hassan-allam/sl-tw8-r2.webp','/project-media/hassan-allam/sl-tw8-r3.webp','/project-media/hassan-allam/sl-tw8-r4.webp','/project-media/hassan-allam/sl-tw8-r5.webp'],
+    'SL-SV9':['/project-media/hassan-allam/sl-sv9-r1.webp','/project-media/hassan-allam/sl-sv9-r2.webp','/project-media/hassan-allam/sl-sv9-r3.webp'],
+    'SL-TW10':['/project-media/hassan-allam/sl-tw10-r1.webp','/project-media/hassan-allam/sl-tw10-r2.webp','/project-media/hassan-allam/sl-tw10-r3.webp'],
+    'SL-TW11':['/project-media/hassan-allam/sl-tw11-r1.webp','/project-media/hassan-allam/sl-tw11-r2.webp','/project-media/hassan-allam/sl-tw11-r3.webp'],
+    'SL-SV12':['/project-media/hassan-allam/sl-sv12-r1.webp','/project-media/hassan-allam/sl-sv12-r2.webp'],
+    'SL-SV13':['/project-media/hassan-allam/sl-sv13-r1.webp','/project-media/hassan-allam/sl-sv13-r2.webp','/project-media/hassan-allam/sl-sv13-r3.webp','/project-media/hassan-allam/sl-sv13-r4.webp'],
+    'SL-SV14':['/project-media/hassan-allam/sl-sv14-r1.webp','/project-media/hassan-allam/sl-sv14-r2.webp','/project-media/hassan-allam/sl-sv14-r3.webp'],
+    'SL-SV15':['/project-media/hassan-allam/sl-sv15-r1.webp','/project-media/hassan-allam/sl-sv15-r2.webp'],
+  };
+  /* Location aerials (per area) — reused as the unit "Location" viewer image and
+     the Top-Locations card art. Drop <area-key>.webp into /project-media/locations. */
+  var LOC_BASE = '/project-media/locations/';
+  var AREA_IMAGES = {
+    newcairo:'newcairo.webp', capital:'capital.webp', sahel:'sahel.webp',
+    raselhekma:'raselhekma.webp', zayed:'zayed.webp',
+    elgouna:'elgouna.webp', somabay:'somabay.webp'
+  };
+  function areaImageSrc(key){ return (key && AREA_IMAGES[key]) ? (LOC_BASE+AREA_IMAGES[key]) : ''; }
+
+  /* Master-plan & floor-plan renders (per unit) — opened in the plan lightbox.
+     Values are arrays (a unit can carry several sheets). Drop files in
+     /project-media/plans and add one line here keyed by the unit id. */
+  var PLANS_BASE = '/project-media/plans/';
+  var UNIT_MASTERPLANS = {
+    'MD-BP-01':['/project-media/modon/mp-ap1-bp-0.webp'],
+    'MD-BP-02':['/project-media/modon/mp-ap1-bp-0.webp'],
+    'MD-BP-03':['/project-media/modon/mp-ap1-bp-0.webp'],
+    'MD-BPL-01':['/project-media/modon/mp-ap1-bp-0.webp'],
+    'MD-BPL-02':['/project-media/modon/mp-ap1-bp-0.webp'],
+    'MD-BPL-03':['/project-media/modon/mp-ap1-bp-0.webp'],
+    'MD-LH-01':['/project-media/modon/mp-lh.webp'],
+    'MD-LH-02':['/project-media/modon/mp-lh.webp'],
+    'MD-LH-03':['/project-media/modon/mp-lh.webp'],
+    'MD-LHU-01':['/project-media/modon/mp-lh.webp'],
+    'MD-LHU-02':['/project-media/modon/mp-lh.webp'],
+    'MD-LHU-03':['/project-media/modon/mp-lh.webp'],
+    'MD-WD-01':['/project-media/modon/mp-wd.webp'],
+    'MD-WD-02':['/project-media/modon/mp-wd.webp'],
+    'MD-WD-03':['/project-media/modon/mp-wd.webp'],
+    'MD-WD-04':['/project-media/modon/mp-wd.webp'],
+    'MD-WD-05':['/project-media/modon/mp-wd.webp'],
+    'MD-MON-01':['/project-media/modon/mp-mon.webp'],
+    'MD-MON-02':['/project-media/modon/mp-mon.webp'],
+    'MD-MON-03':['/project-media/modon/mp-mon.webp'],
+    'MD-BL-01':['/project-media/modon/mp-ap1-bl.webp'],
+    'MD-BL-02':['/project-media/modon/mp-ap1-bl.webp'],
+    'MD-BL-03':['/project-media/modon/mp-ap1-bl.webp'],
+    'TM-IM-01':['/project-media/tatweer/mp-tm-sv-il.webp'],
+    'TM-IM-02':['/project-media/tatweer/mp-st-sv-il.webp'],
+    'TM-IM-03':['/project-media/tatweer/mp-tm-ch1-il.webp'],
+    'TM-IM-04':['/project-media/tatweer/mp-tm-ap1-il.webp'],
+    'TM-IM-05':['/project-media/tatweer/mp-ap2-il-tm.webp'],
+    'TM-IM-06':['/project-media/tatweer/mp-tm-ch2-il.webp'],
+    'TM-IM-07':['/project-media/tatweer/mp-tm-ch3-il.webp'],
+    'TM-IM-08':['/project-media/tatweer/mp-tm-ch4-il.webp'],
+    'TM-IM-09':['/project-media/tatweer/mp-tm-lo-il.webp'],
+    'TM-IM-10':['/project-media/tatweer/mp-lo2-tm-il.webp'],
+    'TM-IM-11':['/project-media/tatweer/mp-lo3-tm-il.webp'],
+    'TM-IM-12':['/project-media/tatweer/mp-tm-th1-il.webp'],
+    'TM-IM-13':['/project-media/tatweer/mp-tm-sv2-il.webp'],
+    'TM-IM-14':['/project-media/tatweer/mp-tm-ca1-il.webp'],
+    'TM-IM-15':['/project-media/tatweer/mp-tm-ch5-il.webp','/project-media/tatweer/mp-tm-ch5-il-copy.webp','/project-media/tatweer/mp-tm-ch5-il-copy-copy.webp'],
+    'TM-IM-16':['/project-media/tatweer/mp-tm-ch5-il-copy.webp','/project-media/tatweer/mp-tm-ch5-il-copy-copy.webp'],
+    'TM-IM-17':['/project-media/tatweer/mp-tm-ch5-il-copy-copy.webp'],
+    'TM-IM-18':['/project-media/tatweer/mp-tm-st2-il.webp'],
+    'TM-BL-01':['/project-media/tatweer/mp-ap-b.webp'],
+    'TM-BL-02':['/project-media/tatweer/mp-ap-b.webp'],
+    'TM-BL-03':['/project-media/tatweer/mp-ap-b.webp'],
+    'TM-BL-04':['/project-media/tatweer/mp-ap-b.webp'],
+    'TM-BL-05':['/project-media/tatweer/mp-ap-b.webp'],
+    'TM-BL-06':['/project-media/tatweer/mp-ap-b.webp'],
+    'TM-BL-07':['/project-media/tatweer/mp-ap-b.webp'],
+    'TM-BL-08':['/project-media/tatweer/mp-ap-b.webp'],
+    'TM-SL-01':['/project-media/tatweer/open-salt-scape-masterplan.webp'],
+    'TM-SL-02':['/project-media/tatweer/open-salt-scape-masterplan.webp'],
+    'TM-SL-03':['/project-media/tatweer/open-salt-scape-masterplan.webp'],
+    'TM-SL-04':['/project-media/tatweer/mp-sl-th.webp'],
+    'TM-SL-05':['/project-media/tatweer/mp-sl-th.webp'],
+    'TM-SL-06':['/project-media/tatweer/mp-sl-th.webp'],
+    'TM-RV-01':['/project-media/tatweer/mp-ap-r.webp'],
+    'TM-RV-02':['/project-media/tatweer/mp-ap-r.webp'],
+    'TM-RV-03':['/project-media/tatweer/mp-ap-r.webp'],
+    'TM-RV-04':['/project-media/tatweer/mp-ap-r.webp'],
+    'TM-RV-05':['/project-media/tatweer/mp-ap-r.webp'],
+    'TM-FK-01':['/project-media/tatweer/mp-f.webp'],
+    'TM-FK-02':['/project-media/tatweer/mp-f.webp'],
+    'TM-FK-03':['/project-media/tatweer/mp-f.webp'],
+    'TM-FK-04':['/project-media/tatweer/mp-f.webp'],
+    'TM-DB-01':['/project-media/tatweer/mp-dbay.webp'],
+    'TM-DB-02':['/project-media/tatweer/mp-dbay.webp'],
+    'TM-DB-03':['/project-media/tatweer/mp-dbay.webp'],
+    'TM-SC-01':['/project-media/tatweer/mp-scene.webp'],
+    'TM-SC-02':['/project-media/tatweer/mp-scene.webp'],
+    'TM-SC-03':['/project-media/tatweer/mp-scene.webp'],
+    'JN-CR1':['mp-JN-CR1.webp'], 'JN-OP1':['mp-JN-OP1.webp'],
+    'OG-WC1':['mp-OG-WC1.webp'], 'OG-TH1':['mp-OG-TH1.webp'], 'OG-TW1':['mp-OG-TW1.webp'],
+    'CS-TW1':['mp-CS-TW1.webp'], 'AL-V03':['mp-AL-V03.webp'],
+    // LMD (full paths under /project-media/lmd)
+    'SEM-CL1':['/project-media/lmd/sem-cl1-mp1.webp'], 'SEM-CL2':['/project-media/lmd/sem-cl2-mp1.webp'],
+    'TS-AD1':['/project-media/lmd/ts-ad1-mp1.webp'], 'TS-AD2':['/project-media/lmd/ts-ad2-mp1.webp'], 'TS-CL3':['/project-media/lmd/ts-cl3-mp1.webp'],
+    'TS-AD4':['/project-media/lmd/ts-ad4-mp1.webp'], 'TS-OF5':['/project-media/lmd/ts-of5-mp1.webp'],
+    'STH-OF1':['/project-media/lmd/sth-of1-mp1.webp'], 'SES-AD1':['/project-media/lmd/ses-ad1-mp1.webp'], 'ON-RT1':['/project-media/lmd/on-rt1-mp1.webp'],
+    'ZY-SV1':['/project-media/lmd/zy-sv1-mp1.webp'], 'ZY-HV2':['/project-media/lmd/zy-hv2-mp1.webp'], 'ZY-TW3':['/project-media/lmd/zy-tw3-mp1.webp'],
+    'ZY-CH4':['/project-media/lmd/zy-ch4-mp1.webp'], 'ZY-CB5':['/project-media/lmd/zy-cb5-mp1.webp'],
+    'PX-AP1':['/project-media/hassan-allam/px-ap1-mp1.webp'],
+    'PX-AP2':['/project-media/hassan-allam/px-ap2-mp1.webp'],
+    'PX-AP3':['/project-media/hassan-allam/px-ap3-mp1.webp'],
+    'PX-AP4':['/project-media/hassan-allam/px-ap4-mp1.webp'],
+    'PX-AP5':['/project-media/hassan-allam/px-ap5-mp1.webp'],
+    'AP-OF1':['/project-media/hassan-allam/ap-of1-mp1.webp'],
+    'AP-OF2':['/project-media/hassan-allam/ap-of2-mp1.webp'],
+    'AP-OF3':['/project-media/hassan-allam/ap-of3-mp1.webp'],
+    'VL-TH1':['/project-media/hassan-allam/vl-th1-mp1.webp'],
+    'VL-TW2':['/project-media/hassan-allam/vl-tw2-mp1.webp'],
+    'VL-SV3':['/project-media/hassan-allam/vl-sv3-mp1.webp'],
+    'VL-SV4':['/project-media/hassan-allam/vl-sv4-mp1.webp'],
+    'PC-AP1':['/project-media/hassan-allam/pc-ap1-mp1.webp'],
+    'PC-AP2':['/project-media/hassan-allam/pc-ap2-mp1.webp'],
+    'PC-AP3':['/project-media/hassan-allam/pc-ap3-mp1.webp'],
+    'PC-AP4':['/project-media/hassan-allam/pc-ap4-mp1.webp'],
+    'PC-AP5':['/project-media/hassan-allam/pc-ap5-mp1.webp'],
+    'PC-AP6':['/project-media/hassan-allam/pc-ap6-mp1.webp'],
+    'PC-AP7':['/project-media/hassan-allam/pc-ap7-mp1.webp'],
+    'GL-AP1':['/project-media/hassan-allam/gl-ap1-mp1.webp'],
+    'GL-AP2':['/project-media/hassan-allam/gl-ap2-mp1.webp'],
+    'GL-AP3':['/project-media/hassan-allam/gl-ap3-mp1.webp'],
+    'SL-AP1':['/project-media/hassan-allam/sl-ap1-mp1.webp'],
+    'SL-AP2':['/project-media/hassan-allam/sl-ap2-mp1.webp'],
+    'SL-AP3':['/project-media/hassan-allam/sl-ap3-mp1.webp'],
+    'SL-AP4':['/project-media/hassan-allam/sl-ap4-mp1.webp'],
+    'SL-AP5':['/project-media/hassan-allam/sl-ap5-mp1.webp'],
+    'SL-AP6':['/project-media/hassan-allam/sl-ap6-mp1.webp'],
+    'SL-AP7':['/project-media/hassan-allam/sl-ap7-mp1.webp'],
+    'SL-TW8':['/project-media/hassan-allam/sl-tw8-mp1.webp'],
+    'SL-SV9':['/project-media/hassan-allam/sl-sv9-mp1.webp'],
+    'SL-TW10':['/project-media/hassan-allam/sl-tw10-mp1.webp'],
+    'SL-TW11':['/project-media/hassan-allam/sl-tw11-mp1.webp'],
+    'SL-SV12':['/project-media/hassan-allam/sl-sv12-mp1.webp'],
+    'SL-SV13':['/project-media/hassan-allam/sl-sv13-mp1.webp'],
+    'SL-SV14':['/project-media/hassan-allam/sl-sv14-mp1.webp'],
+    'SL-SV15':['/project-media/hassan-allam/sl-sv15-mp1.webp'],
+  };
+  var UNIT_FLOORPLANS = {
+    'MD-BP-01':['/project-media/modon/fp-ap1-bp.webp'],
+    'MD-BP-02':['/project-media/modon/fp-ap2-bp.webp'],
+    'MD-BP-03':['/project-media/modon/fp-ap3-bp.webp'],
+    'MD-LH-01':['/project-media/modon/fp-ap1-lh.webp'],
+    'MD-LH-02':['/project-media/modon/fp-ap2-lh.webp'],
+    'MD-LH-03':['/project-media/modon/fp-ap3-lh.webp'],
+    'MD-LHU-01':['/project-media/modon/fp-ap1-lhu-0.webp','/project-media/modon/fp-ap1-lhu-01.webp'],
+    'MD-LHU-02':['/project-media/modon/fp-ap2-lhu-0.webp','/project-media/modon/fp-ap2-lhu-01.webp','/project-media/modon/fp-ap2-lhu-02.webp'],
+    'MD-LHU-03':['/project-media/modon/fp-ap3-lhu-0.webp','/project-media/modon/fp-ap3-lhu-01.webp'],
+    'MD-WD-01':['/project-media/modon/fp-th-wd-0.webp','/project-media/modon/fp-th-wd-01.webp'],
+    'MD-WD-02':['/project-media/modon/fp-th2-wd-01.webp'],
+    'MD-WD-03':['/project-media/modon/fp-v-wd-0.webp','/project-media/modon/fp-v-wd-01.webp','/project-media/modon/fp-v-wd-02.webp','/project-media/modon/fp-v-wd-03.webp'],
+    'MD-WD-05':['/project-media/modon/fp-v2.webp','/project-media/modon/fp-v2-01.webp','/project-media/modon/fp-v2-02.webp','/project-media/modon/fp-v2-03.webp'],
+    'MD-MON-01':['/project-media/modon/fp-v1-mon-0.webp','/project-media/modon/fp-v1-mon-01.webp'],
+    'MD-MON-02':['/project-media/modon/fp-v2-mod-0.webp','/project-media/modon/fp-v2-mod-01.webp'],
+    'MD-MON-03':['/project-media/modon/fp-v3-0.webp','/project-media/modon/fp-v3-01.webp'],
+    'MD-BL-01':['/project-media/modon/fp-ap1-bl.webp'],
+    'MD-BL-02':['/project-media/modon/fp-ap2-bl.webp'],
+    'MD-BL-03':['/project-media/modon/fp-ap3-bl.webp'],
+    'TM-IM-01':['/project-media/tatweer/fp-tm-sv-il.webp'],
+    'TM-IM-02':['/project-media/tatweer/fp-st-sv-il.webp'],
+    'TM-IM-03':['/project-media/tatweer/fp-tm-ch1-il.webp'],
+    'TM-IM-06':['/project-media/tatweer/fp-tm-ch2-il.webp'],
+    'TM-IM-07':['/project-media/tatweer/fp-tm-ch3-il-0.webp','/project-media/tatweer/fp-tm-ch3-il-01.webp'],
+    'TM-IM-08':['/project-media/tatweer/fp-tm-ch4-il.webp'],
+    'TM-IM-09':['/project-media/tatweer/fp-tm-lo-il-0.webp','/project-media/tatweer/fp-tm-lo-il-01.webp'],
+    'TM-IM-10':['/project-media/tatweer/fp-tm-lo2-il.webp'],
+    'TM-IM-11':['/project-media/tatweer/fp-tm-lo3-il.webp'],
+    'TM-IM-12':['/project-media/tatweer/fp-tm-th-il-0.webp','/project-media/tatweer/fp-tm-th-il-01.webp'],
+    'TM-IM-13':['/project-media/tatweer/fp-tm-sv2-il-0.webp','/project-media/tatweer/fp-tm-sv2-il-01.webp'],
+    'TM-IM-14':['/project-media/tatweer/fp-tm-ca1-il.webp'],
+    'TM-IM-15':['/project-media/tatweer/fp-tm-ch5-il.webp'],
+    'TM-IM-16':['/project-media/tatweer/fp-tm-ch6-il.webp'],
+    'TM-IM-17':['/project-media/tatweer/fp-m-pen1-il.webp'],
+    'TM-IM-18':['/project-media/tatweer/fp-st2-il.webp'],
+    'TM-IM-19':['/project-media/tatweer/fp-tm-ap3-il.webp'],
+    'TM-IM-20':['/project-media/tatweer/fp-tm-ap4-il.webp'],
+    'TM-IM-21':['/project-media/tatweer/fp-tm-ap4-il.webp'],
+    'TM-BL-01':['/project-media/tatweer/fp-ap1-b.webp'],
+    'TM-BL-02':['/project-media/tatweer/fp-ap2-bl.webp'],
+    'TM-BL-03':['/project-media/tatweer/fp-ap3-bl.webp'],
+    'TM-BL-04':['/project-media/tatweer/fp-du-bl.webp'],
+    'TM-BL-05':['/project-media/tatweer/fp-ap4-bl.webp'],
+    'TM-BL-06':['/project-media/tatweer/fp-ap5-b.webp'],
+    'TM-SL-01':['/project-media/tatweer/fp-ch1-sl-0.webp','/project-media/tatweer/fp-ch1-sl-01.webp','/project-media/tatweer/fp-ch1-sl-02.webp','/project-media/tatweer/fp-ch1-sl-03.webp'],
+    'TM-SL-02':['/project-media/tatweer/fp-ch1-sl-0.webp','/project-media/tatweer/fp-ch1-sl-01.webp','/project-media/tatweer/fp-ch1-sl-02.webp','/project-media/tatweer/fp-ch1-sl-03.webp'],
+    'TM-SL-03':['/project-media/tatweer/fp-ch1-sl-0.webp','/project-media/tatweer/fp-ch1-sl-01.webp','/project-media/tatweer/fp-ch1-sl-02.webp','/project-media/tatweer/fp-ch1-sl-03.webp'],
+    'TM-SL-04':['/project-media/tatweer/fp-th-sl.webp'],
+    'TM-SL-05':['/project-media/tatweer/fp-sl-tw.webp'],
+    'TM-SL-06':['/project-media/tatweer/fp-sl-v.webp'],
+    'TM-RV-01':['/project-media/tatweer/fp-ap1-r.webp'],
+    'TM-RV-02':['/project-media/tatweer/fp-r-ap2-0.webp'],
+    'TM-RV-03':['/project-media/tatweer/fp-d-r.webp'],
+    'TM-RV-04':['/project-media/tatweer/fp-v-r.webp'],
+    'TM-RV-05':['/project-media/tatweer/fp-sv-r.webp'],
+    'TM-FK-01':['/project-media/tatweer/fp-f-0.webp','/project-media/tatweer/80.webp'],
+    'TM-FK-02':['/project-media/tatweer/fp-f2.webp'],
+    'TM-FK-03':['/project-media/tatweer/80-b.webp'],
+    'TM-FK-04':['/project-media/tatweer/110.webp'],
+    'TM-DB-01':['/project-media/tatweer/fp-ch-dpay.webp','/project-media/tatweer/280-floor-plan.webp'],
+    'TM-DB-02':['/project-media/tatweer/fp-tw-db-0.webp','/project-media/tatweer/fp-tw-db-01.webp'],
+    'TM-DB-03':['/project-media/tatweer/280-s.webp'],
+    'TM-SC-01':['/project-media/tatweer/fp-th-sc.webp','/project-media/tatweer/fp-th-sc1.webp','/project-media/tatweer/villa-210-scenes-first-floor.webp','/project-media/tatweer/villa-second-floor-scenes.webp'],
+    'TM-SC-02':['/project-media/tatweer/fp-tw-sc-0.webp','/project-media/tatweer/fp-tw-sc-01.webp','/project-media/tatweer/fp-tw-sc-02.webp','/project-media/tatweer/fp-tw-sc-03.webp'],
+    'TM-SC-03':['/project-media/tatweer/fp-v-sc-0.webp'],
+    'JN-CR1':['fp-JN-CR1-1.webp'], 'JN-OP1':['fp-JN-OP1-1.webp'],
+    'OG-WC1':['fp-OG-WC1-1.webp','fp-OG-WC1-2.webp'],
+    'OG-TH1':['fp-OG-TH1-1.webp','fp-OG-TH1-2.webp'],
+    'OG-TW1':['fp-OG-TW1-1.webp','fp-OG-TW1-2.webp'],
+    'CS-TH1':['fp-CS-TH1-1.webp'], 'CS-TW1':['fp-CS-TW1-1.webp'],
+    // LMD (full paths). ZY-CH4 has no floor plan in the source data → omitted.
+    'SEM-CL1':['/project-media/lmd/sem-cl1-fp1.webp','/project-media/lmd/sem-cl1-fp2.webp'], 'SEM-CL2':['/project-media/lmd/sem-cl2-fp1.webp'],
+    'TS-AD1':['/project-media/lmd/ts-ad1-fp1.webp'], 'TS-AD2':['/project-media/lmd/ts-ad2-fp1.webp'], 'TS-CL3':['/project-media/lmd/ts-cl3-fp1.webp'],
+    'TS-AD4':['/project-media/lmd/ts-ad4-fp1.webp'], 'TS-OF5':['/project-media/lmd/ts-of5-fp1.webp'],
+    'STH-OF1':['/project-media/lmd/sth-of1-fp1.webp'], 'SES-AD1':['/project-media/lmd/ses-ad1-fp1.webp'], 'ON-RT1':['/project-media/lmd/on-rt1-fp1.webp'],
+    'ZY-SV1':['/project-media/lmd/zy-sv1-fp1.webp'], 'ZY-HV2':['/project-media/lmd/zy-hv2-fp1.webp'], 'ZY-TW3':['/project-media/lmd/zy-tw3-fp1.webp'],
+    'ZY-CB5':['/project-media/lmd/zy-cb5-fp1.webp'],
+    'PX-AP1':['/project-media/hassan-allam/px-ap1-fp1.webp'],
+    'PX-AP2':['/project-media/hassan-allam/px-ap2-fp1.webp'],
+    'PX-AP3':['/project-media/hassan-allam/px-ap3-fp1.webp'],
+    'PX-AP4':['/project-media/hassan-allam/px-ap4-fp1.webp'],
+    'PX-AP5':['/project-media/hassan-allam/px-ap5-fp1.webp'],
+    'VL-TH1':['/project-media/hassan-allam/vl-th1-fp1.webp','/project-media/hassan-allam/vl-th1-fp2.webp'],
+    'VL-TW2':['/project-media/hassan-allam/vl-tw2-fp1.webp'],
+    'PC-AP1':['/project-media/hassan-allam/pc-ap1-fp1.webp'],
+    'PC-AP2':['/project-media/hassan-allam/pc-ap2-fp1.webp'],
+    'PC-AP4':['/project-media/hassan-allam/pc-ap4-fp1.webp'],
+    'PC-AP5':['/project-media/hassan-allam/pc-ap5-fp1.webp'],
+    'PC-AP7':['/project-media/hassan-allam/pc-ap7-fp1.webp'],
+    'GL-AP1':['/project-media/hassan-allam/gl-ap1-fp1.webp'],
+    'GL-AP2':['/project-media/hassan-allam/gl-ap2-fp1.webp'],
+    'GL-AP3':['/project-media/hassan-allam/gl-ap3-fp1.webp'],
+    'SL-AP1':['/project-media/hassan-allam/sl-ap1-fp1.webp'],
+    'SL-AP2':['/project-media/hassan-allam/sl-ap2-fp1.webp'],
+    'SL-AP3':['/project-media/hassan-allam/sl-ap3-fp1.webp'],
+    'SL-AP4':['/project-media/hassan-allam/sl-ap4-fp1.webp'],
+    'SL-AP5':['/project-media/hassan-allam/sl-ap5-fp1.webp'],
+    'SL-AP6':['/project-media/hassan-allam/sl-ap6-fp1.webp'],
+    'SL-AP7':['/project-media/hassan-allam/sl-ap7-fp1.webp'],
+    'SL-TW8':['/project-media/hassan-allam/sl-tw8-fp1.webp'],
+    'SL-SV9':['/project-media/hassan-allam/sl-sv9-fp1.webp'],
+    'SL-TW10':['/project-media/hassan-allam/sl-tw10-fp1.webp'],
+    'SL-TW11':['/project-media/hassan-allam/sl-tw11-fp1.webp'],
+    'SL-SV12':['/project-media/hassan-allam/sl-sv12-fp1.webp'],
+    'SL-SV13':['/project-media/hassan-allam/sl-sv13-fp1.webp'],
+    'SL-SV14':['/project-media/hassan-allam/sl-sv14-fp1.webp'],
+    'SL-SV15':['/project-media/hassan-allam/sl-sv15-fp1.webp'],
+  };
+  /* Per-unit location renders (LMD). When present, the Location viewer shows the
+     unit-specific aerial; otherwise it falls back to the area aerial. */
+  var UNIT_LOCATIONS = {
+    'MD-BP-01':['/project-media/modon/loc-beachplaza.webp'],
+    'MD-BP-02':['/project-media/modon/loc-beachplaza.webp'],
+    'MD-BP-03':['/project-media/modon/loc-beachplaza.webp'],
+    'MD-BPL-01':['/project-media/modon/loc-beachplaza.webp'],
+    'MD-BPL-02':['/project-media/modon/loc-beachplaza.webp'],
+    'MD-BPL-03':['/project-media/modon/loc-beachplaza.webp'],
+    'MD-WD-01':['/project-media/modon/location-wd.webp'],
+    'MD-WD-02':['/project-media/modon/location-wd.webp'],
+    'MD-WD-03':['/project-media/modon/location-wd.webp'],
+    'MD-WD-04':['/project-media/modon/location-wd.webp'],
+    'MD-WD-05':['/project-media/modon/location-wd.webp'],
+    'MD-MON-01':['/project-media/modon/loc-mo.webp'],
+    'MD-MON-02':['/project-media/modon/loc-mo.webp'],
+    'MD-MON-03':['/project-media/modon/loc-mo.webp'],
+    'MD-BL-01':['/project-media/modon/location-modon.webp'],
+    'MD-BL-02':['/project-media/modon/location-modon.webp'],
+    'MD-BL-03':['/project-media/modon/location-modon.webp'],
+    'TM-BL-01':['/project-media/tatweer/lo-bloom.webp'],
+    'TM-BL-02':['/project-media/tatweer/lo-bloom.webp'],
+    'TM-BL-03':['/project-media/tatweer/lo-bloom.webp'],
+    'TM-BL-04':['/project-media/tatweer/lo-bloom.webp'],
+    'TM-BL-05':['/project-media/tatweer/lo-bloom.webp'],
+    'TM-BL-06':['/project-media/tatweer/lo-bloom.webp'],
+    'TM-BL-07':['/project-media/tatweer/lo-bloom.webp'],
+    'TM-BL-08':['/project-media/tatweer/lo-bloom.webp'],
+    'TM-SL-01':['/project-media/tatweer/location-salt.webp'],
+    'TM-SL-02':['/project-media/tatweer/location-salt.webp'],
+    'TM-SL-03':['/project-media/tatweer/location-salt.webp'],
+    'TM-SL-04':['/project-media/tatweer/location-salt.webp'],
+    'TM-SL-05':['/project-media/tatweer/location-salt.webp'],
+    'TM-SL-06':['/project-media/tatweer/location-salt.webp'],
+    'TM-RV-01':['/project-media/tatweer/lo-river.webp'],
+    'TM-RV-02':['/project-media/tatweer/lo-river.webp'],
+    'TM-RV-03':['/project-media/tatweer/lo-river.webp'],
+    'TM-RV-04':['/project-media/tatweer/lo-river.webp'],
+    'TM-RV-05':['/project-media/tatweer/lo-river.webp'],
+    'TM-DB-01':['/project-media/tatweer/lo-dbay.webp'],
+    'TM-DB-02':['/project-media/tatweer/lo-dbay.webp'],
+    'TM-DB-03':['/project-media/tatweer/lo-dbay.webp'],
+    'TM-SC-01':['/project-media/tatweer/lo-sc.webp'],
+    'TM-SC-02':['/project-media/tatweer/lo-sc.webp'],
+    'TM-SC-03':['/project-media/tatweer/lo-sc.webp'],
+    'TS-AD1':['/project-media/lmd/ts-ad1-loc1.webp'], 'TS-AD2':['/project-media/lmd/ts-ad2-loc1.webp'],
+    'TS-CL3':['/project-media/lmd/ts-cl3-loc1.webp'], 'TS-AD4':['/project-media/lmd/ts-ad4-loc1.webp'],
+    'TS-OF5':['/project-media/lmd/ts-of5-loc1.webp'], 'STH-OF1':['/project-media/lmd/sth-of1-loc1.webp'],
+    'VL-TH1':['/project-media/hassan-allam/vl-th1-loc1.webp'],
+    'VL-TW2':['/project-media/hassan-allam/vl-tw2-loc1.webp'],
+    'VL-SV3':['/project-media/hassan-allam/vl-sv3-loc1.webp','/project-media/hassan-allam/vl-sv3-loc2.webp'],
+    'PC-AP1':['/project-media/hassan-allam/pc-ap1-loc1.webp'],
+    'PC-AP2':['/project-media/hassan-allam/pc-ap2-loc1.webp'],
+    'PC-AP3':['/project-media/hassan-allam/pc-ap3-loc1.webp'],
+    'PC-AP4':['/project-media/hassan-allam/pc-ap4-loc1.webp'],
+    'PC-AP5':['/project-media/hassan-allam/pc-ap5-loc1.webp'],
+    'PC-AP6':['/project-media/hassan-allam/pc-ap6-loc1.webp'],
+    'PC-AP7':['/project-media/hassan-allam/pc-ap7-loc1.webp'],
+    'GL-AP1':['/project-media/hassan-allam/gl-ap1-loc1.webp'],
+    'GL-AP2':['/project-media/hassan-allam/gl-ap2-loc1.webp'],
+    'GL-AP3':['/project-media/hassan-allam/gl-ap3-loc1.webp'],
+  };
+  function planUrl(f){ return f.charAt(0)==='/' ? f : PLANS_BASE+f; }
+  function unitMasterplans(u){ var a=u&&UNIT_MASTERPLANS[u.id]; return a?a.map(planUrl):[]; }
+  function unitFloorplans(u){ var a=u&&UNIT_FLOORPLANS[u.id]; return a?a.map(planUrl):[]; }
+  function unitLocationImg(u){ var a=u&&UNIT_LOCATIONS[u.id]; if(a&&a.length) return a[0]; var p=u&&projBySlug(u.project); return p?areaImageSrc(p.area):''; }
+  function unitGallery(u){ return (u&&UNIT_GALLERY[u.id])||[]; }
+  function unitGalleryItems(u){
+    var p=projBySlug(u.project), pnm=p?(lang==='ar'?p.name_ar:p.name):'', g=unitGallery(u), n=g.length;
+    return g.map(function(s,i){ return {src:s, cap:pnm+(n>1?(' · '+(lang==='ar'?'صورة ':'Photo ')+(i+1)+'/'+n):'')}; });
+  }
+
+  /* Amenities — compound-level features, resolved per unit via its project.
+     Each token carries its own outline icon + bilingual label (no i18n keys). */
+  var AMENITY_CAT = {
+    beach:{icon:'am_beach', en:'Private beach', ar:'شاطئ خاص'},
+    lagoon:{icon:'am_lagoon', en:'Crystal lagoons', ar:'بحيرات كريستالية'},
+    pool:{icon:'am_pool', en:'Swimming pools', ar:'حمامات سباحة'},
+    clubhouse:{icon:'am_club', en:'Clubhouse', ar:'كلوب هاوس'},
+    gym:{icon:'am_gym', en:'Gym & fitness', ar:'جيم ولياقة'},
+    security:{icon:'am_security', en:'24/7 security', ar:'أمن على مدار الساعة'},
+    landscape:{icon:'am_landscape', en:'Green landscapes', ar:'مساحات خضراء'},
+    retail:{icon:'am_retail', en:'Retail & dining', ar:'محلات ومطاعم'},
+    sports:{icon:'am_sports', en:'Sports & tracks', ar:'ملاعب ومسارات'},
+    kids:{icon:'am_kids', en:'Kids areas', ar:'مناطق أطفال'},
+    clinic:{icon:'am_clinic', en:'Medical center', ar:'مركز طبي'},
+    mosque:{icon:'am_mosque', en:'Mosque', ar:'مسجد'}
+  };
+  var PROJECT_AMENITIES = {}; // optional per-project overrides (slug -> [tokens])
+  function amenityDefaults(cat){
+    return (cat==='coast'||cat==='redsea')
+      ? ['beach','lagoon','pool','clubhouse','landscape','sports','retail','security']
+      : ['clubhouse','pool','gym','landscape','sports','kids','retail','security'];
+  }
+  function unitAmenities(u){
+    var p=u&&projBySlug(u.project); if(!p) return [];
+    var list = PROJECT_AMENITIES[u.project] || amenityDefaults(areaCat(p.area));
+    return list.filter(function(k){ return AMENITY_CAT[k]; });
+  }
+
+  function projectCoverSrc(p){ return (p && PROJECT_COVERS[p.slug]) || ''; }
+  function unitImageSrc(u){ return (u && UNIT_IMAGES[u.id]) || ''; }
+  function coverImg(src, alt, fallbackFn){
+    var img=h('img',{class:'artsvg proj-cover', src:src, alt:alt, loading:'lazy', decoding:'async'});
+    img.addEventListener('error', function(){ if(img.parentNode) img.parentNode.replaceChild(fallbackFn(), img); });
+    return img;
+  }
+  // Project card / hero media: the cover photo when available, else branded art.
+  function projectMedia(p){
+    var src=projectCoverSrc(p);
+    return src ? coverImg(src, (lang==='ar'?p.name_ar:p.name), function(){ return projectArt(p); }) : projectArt(p);
+  }
+  // Unit card / detail media: the unit's own render, else its project cover, else art.
+  function unitMedia(u){
+    var p=projBySlug(u.project);
+    var src=unitImageSrc(u) || projectCoverSrc(p);
+    return src ? coverImg(src, (lang==='ar'?p.name_ar:p.name)+' — '+u.type, function(){ return projectArt(p); }) : projectArt(p);
+  }
+
+  /* ===================================================================
+     Fullscreen media / plan viewer (lightbox) with zoom + pan.
+     items: [{src, cap}] . Wheel / +- buttons / double-click zoom;
+     drag to pan when zoomed; arrows + ESC keyboard; a11y dialog.
+     =================================================================== */
+  function mediaViewer(items, label, start){
+    if(!items || !items.length) return;
+    var idx=0, scale=1, tx=0, ty=0, drag=false, ox=0, oy=0, moved=false;
+    var img=h('img',{class:'viewer__img', src:items[0].src, alt:label||'', decoding:'async', draggable:'false'});
+    var cap=h('div',{class:'viewer__cap'});
+    var counter=h('span',{class:'viewer__count'});
+    function apply(){ img.style.transform='translate('+tx+'px,'+ty+'px) scale('+scale+')'; img.style.cursor=scale>1?'grab':'default'; }
+    function setZoom(s){ scale=Math.max(1, Math.min(5, Math.round(s*100)/100)); if(scale===1){tx=0;ty=0;} apply(); }
+    function show(i){ idx=(i+items.length)%items.length; img.src=items[idx].src; scale=1;tx=0;ty=0; apply();
+      cap.textContent=items[idx].cap||''; cap.style.display=items[idx].cap?'':'none';
+      counter.textContent=items.length>1?((idx+1)+' / '+items.length):''; }
+    var stage=h('div',{class:'viewer__stage'}, img);
+    stage.addEventListener('wheel', function(e){ e.preventDefault(); setZoom(scale+(e.deltaY<0?0.3:-0.3)); }, {passive:false});
+    img.addEventListener('dblclick', function(e){ e.preventDefault(); setZoom(scale>1?1:2.2); });
+    img.addEventListener('pointerdown', function(e){ if(scale<=1) return; drag=true; moved=false; ox=e.clientX-tx; oy=e.clientY-ty; if(img.setPointerCapture){ try{img.setPointerCapture(e.pointerId);}catch(_e){} } img.style.cursor='grabbing'; });
+    img.addEventListener('pointermove', function(e){ if(!drag) return; tx=e.clientX-ox; ty=e.clientY-oy; moved=true; apply(); });
+    function endDrag(){ drag=false; img.style.cursor=scale>1?'grab':'default'; }
+    img.addEventListener('pointerup', endDrag); img.addEventListener('pointercancel', endDrag);
+    function vbtn(icon, aria, fn){ var b=h('button',{class:'viewer__btn', type:'button','aria-label':aria}, ic(icon)); b.addEventListener('click', function(e){ e.stopPropagation(); fn(); }); return b; }
+    var lastFocus = (typeof document!=='undefined') ? document.activeElement : null;
+    function onKey(e){ if(e.key==='Escape') close(); else if(e.key==='ArrowLeft'&&items.length>1) show(idx-1); else if(e.key==='ArrowRight'&&items.length>1) show(idx+1); else if(e.key==='+'||e.key==='=') setZoom(scale+0.4); else if(e.key==='-'||e.key==='_') setZoom(scale-0.4); }
+    function close(){ document.removeEventListener('keydown', onKey); document.body.classList.remove('viewer-open'); if(overlay.parentNode) overlay.parentNode.removeChild(overlay); if(lastFocus&&lastFocus.focus){ try{lastFocus.focus();}catch(_e){} } }
+    var closeB=vbtn('x', (lang==='ar'?'إغلاق':'Close'), close);
+    var prev=vbtn('chevleft', (lang==='ar'?'السابق':'Previous'), function(){ show(idx-1); });
+    var next=vbtn('chevright', (lang==='ar'?'التالي':'Next'), function(){ show(idx+1); });
+    var bar=h('div',{class:'viewer__bar'},
+      vbtn('zoomout', (lang==='ar'?'تصغير':'Zoom out'), function(){ setZoom(scale-0.4); }),
+      vbtn('zoomin', (lang==='ar'?'تكبير':'Zoom in'), function(){ setZoom(scale+0.4); }));
+    var overlay=h('div',{class:'viewer', role:'dialog','aria-modal':'true','aria-label':label||'Viewer'},
+      h('div',{class:'viewer__top'}, h('span',{class:'viewer__title'}, label||''), counter, closeB),
+      items.length>1 ? h('div',{class:'viewer__nav'}, prev, next) : null,
+      stage,
+      h('div',{class:'viewer__foot'}, cap, bar));
+    overlay.addEventListener('click', function(e){ if((e.target===overlay||e.target===stage) && !moved) close(); });
+    document.addEventListener('keydown', onKey);
+    document.body.appendChild(overlay); document.body.classList.add('viewer-open');
+    show(start||0); if(closeB.focus){ closeB.focus(); }
+    return overlay;
+  }
+
+  /* Unit feature row (below the unit title): Location · Floor Plan · Master
+     Plan · Amenities — each shown only when data exists. */
+  function unitFeatureRow(u){
+    var p=projBySlug(u.project), area=p?areaByKey(p.area):null;
+    var pnm=p?(lang==='ar'?p.name_ar:p.name):'';
+    var loc=unitLocationImg(u), fps=unitFloorplans(u), mps=unitMasterplans(u), ams=unitAmenities(u), gal=unitGalleryItems(u);
+    var row=h('div',{class:'ufeat-row'});
+    function chip(icon, label, fn){ var b=h('button',{class:'ufeat', type:'button'}, ic(icon,'ufeat__ic'), h('span',null,label)); b.addEventListener('click', fn); return b; }
+    if(gal.length) row.appendChild(chip('gallery', (lang==='ar'?'صور الوحدة':'Photos'), function(){
+      mediaViewer(gal, (lang==='ar'?'صور · ':'Photos · ')+pnm); }));
+    if(loc) row.appendChild(chip('pin', (lang==='ar'?'الموقع':'Location'), function(){
+      mediaViewer([{src:loc, cap:(area?L(area.name):'')}], (lang==='ar'?'الموقع · ':'Location · ')+(area?L(area.name):pnm)); }));
+    if(fps.length) row.appendChild(chip('floorplan', (lang==='ar'?'مخطط الوحدة':'Floor Plan'), function(){
+      mediaViewer(fps.map(function(s,i){ return {src:s, cap:(lang==='ar'?'مخطط الوحدة':'Floor plan')+(fps.length>1?(' '+(i+1)):'')}; }), (lang==='ar'?'مخطط الوحدة · ':'Floor Plan · ')+pnm); }));
+    if(mps.length) row.appendChild(chip('masterplan', (lang==='ar'?'الماستر بلان':'Master Plan'), function(){
+      mediaViewer(mps.map(function(s,i){ return {src:s, cap:(lang==='ar'?'الماستر بلان':'Master plan')+(mps.length>1?(' '+(i+1)):'')}; }), (lang==='ar'?'الماستر بلان · ':'Master Plan · ')+pnm); }));
+    if(ams.length) row.appendChild(chip('star', (lang==='ar'?'المرافق':'Amenities'), function(){
+      var el=document.getElementById('amenities'); if(el&&el.scrollIntoView){ el.scrollIntoView({behavior:'smooth', block:'start'}); } }));
+    return row.childNodes.length ? row : null;
+  }
+
+  /* Amenities section (compound-level features) for the unit page. */
+  function amenitiesSection(u){
+    var ams=unitAmenities(u); if(!ams.length) return null;
+    var grid=h('div',{class:'amen-grid'}, ams.map(function(k){ var a=AMENITY_CAT[k];
+      return h('div',{class:'amen'}, h('span',{class:'amen__ic'}, ic(a.icon)), h('span',{class:'amen__lb'}, lang==='ar'?a.ar:a.en)); }));
+    return h('section',{class:'amen-sec', id:'amenities'}, h('div',{class:'wrap'},
+      h('div',{class:'amen-head'}, ic('star','amen-head__ic'), h('h2',null, lang==='ar'?'المرافق والخدمات':'Amenities')),
+      grid,
+      h('p',{class:'amen-note'}, ic('info'), h('span',null, lang==='ar'?'مرافق على مستوى الكمبوند — تُؤكَّد تفاصيلها مع المستشار.':'Compound-level amenities — confirm details with an advisor.'))));
+  }
+
+  function projectArt(p){
+    var cat=areaCat(p.area), dev=devByKey(p.dev)||{}, accent=dev.c1||'#1a7ba0';
+    var rand=rng(hashN(p.slug)), id=(ART_ID++);
+    var svg=sEl('svg',{viewBox:'0 0 400 250', class:'artsvg', preserveAspectRatio:'xMidYMid slice', role:'img', 'aria-label':(lang==='ar'?p.name_ar:p.name)});
+    var defs=sEl('defs'), g=sEl('linearGradient',{id:'sk'+id,x1:'0',y1:'0',x2:'0',y2:'1'});
+    g.appendChild(sEl('stop',{offset:'0','stop-color':cat==='coast'?'#0c5f76':'#0a4a61'}));
+    g.appendChild(sEl('stop',{offset:'1','stop-color':'#05303f'}));
+    defs.appendChild(g); svg.appendChild(defs);
+    svg.appendChild(sEl('rect',{x:'0',y:'0',width:'400',height:'250',fill:'url(#sk'+id+')'}));
+    var sx=290+rand()*70, sy=44+rand()*26;
+    svg.appendChild(sEl('circle',{cx:sx,cy:sy,r:'44',fill:accent,opacity:'0.16'}));
+    svg.appendChild(sEl('circle',{cx:sx,cy:sy,r:'28',fill:accent,opacity:'0.92'}));
+    var i,bx,bw,bh,by;
+    if(cat==='coast'){
+      svg.appendChild(sEl('rect',{x:'0',y:'172',width:'400',height:'78',fill:'#0e6f86',opacity:'0.5'}));
+      for(i=0;i<3;i++) svg.appendChild(sEl('path',{d:'M0 '+(192+i*15)+' q 50 -8 100 0 t 100 0 t 100 0 t 100 0', stroke:'#bfe3ef', fill:'none','stroke-width':'2', opacity:(0.22-i*0.05).toFixed(2)}));
+      for(i=0;i<4;i++){ bx=34+i*92+rand()*8; bw=56; by=150;
+        svg.appendChild(sEl('rect',{x:bx,y:by,width:bw,height:'24',fill:'#F3EFE6',opacity:'0.94'}));
+        svg.appendChild(sEl('path',{d:'M'+(bx-6)+' '+by+' L'+(bx+bw/2)+' '+(by-19)+' L'+(bx+bw+6)+' '+by+' Z',fill:shade(accent,-0.08)}));
+        svg.appendChild(sEl('rect',{x:bx+bw/2-5,y:by+8,width:'10',height:'16',fill:shade(accent,-0.2)})); }
+      for(i=0;i<3;i++) svg.appendChild(palm(72+i*128,150));
+    } else if(cat==='capital'){
+      for(i=0;i<6;i++){ bw=32+rand()*12; bx=18+i*63; bh=95+rand()*105; by=250-bh;
+        svg.appendChild(sEl('rect',{x:bx,y:by,width:bw,height:bh,rx:'2',fill:i%2?shade(accent,-0.18):'#0f5a70',opacity:'0.96'}));
+        svg.appendChild(sEl('rect',{x:bx+bw/2-2,y:by-12,width:'4',height:'12',fill:accent}));
+        winGrid(svg,bx,by,bw,bh,rand); }
+    } else {
+      for(i=0;i<5;i++){ bw=46+rand()*16; bx=16+i*76; bh=62+rand()*72; by=250-bh;
+        svg.appendChild(sEl('rect',{x:bx,y:by,width:bw,height:bh,rx:'3',fill:i%2?'#0f5a70':shade(accent,-0.14),opacity:'0.96'}));
+        winGrid(svg,bx,by,bw,bh,rand); }
+      for(i=0;i<4;i++) svg.appendChild(tree(52+i*98,236));
+    }
+    svg.appendChild(sEl('rect',{x:'0',y:'238',width:'400',height:'12',fill:'#052430'}));
+    return svg;
+  }
+
+  function unitArt(name){
+    var n=String(name||'').toLowerCase();
+    var svg=sEl('svg',{viewBox:'0 0 120 90', class:'unitsvg', preserveAspectRatio:'xMidYMid meet','aria-hidden':'true'});
+    svg.appendChild(sEl('rect',{x:'0',y:'0',width:'120',height:'90',rx:'10',fill:'#e7f0f3'}));
+    var teal='#0d6270';
+    function grid(x0,y0,x1,y1){ for(var y=y0;y<y1-6;y+=10) for(var x=x0;x<x1-6;x+=10) svg.appendChild(sEl('rect',{x:x,y:y,width:'5',height:'6',rx:'1',fill:'#F3EFE6',opacity:'0.9'})); }
+    if(/villa|twin|town/.test(n)){
+      svg.appendChild(sEl('rect',{x:'20',y:'70',width:'80',height:'6',fill:'#cfe0e5'}));
+      svg.appendChild(sEl('rect',{x:'34',y:'44',width:'52',height:'30',fill:teal}));
+      svg.appendChild(sEl('path',{d:'M28 44 L60 24 L92 44 Z',fill:'#115F7D'}));
+      svg.appendChild(sEl('rect',{x:'54',y:'54',width:'13',height:'20',fill:'#F3EFE6'}));
+      svg.appendChild(sEl('circle',{cx:'104',cy:'66',r:'7',fill:'#20855f'}));
+    } else if(/chalet|cabin/.test(n)){
+      svg.appendChild(sEl('circle',{cx:'98',cy:'22',r:'9',fill:'#f0b429'}));
+      svg.appendChild(sEl('rect',{x:'36',y:'42',width:'48',height:'26',fill:teal}));
+      svg.appendChild(sEl('path',{d:'M30 42 L60 26 L90 42 Z',fill:'#115F7D'}));
+      svg.appendChild(sEl('rect',{x:'0',y:'72',width:'120',height:'18',fill:'#0e6f86',opacity:'0.5'}));
+      svg.appendChild(palmSm(20,72));
+    } else if(/duplex|penthouse|loft/.test(n)){
+      svg.appendChild(sEl('rect',{x:'36',y:'24',width:'48',height:'52',fill:teal}));
+      svg.appendChild(sEl('rect',{x:'36',y:'49',width:'48',height:'3',fill:'#e7f0f3'}));
+      grid(42,30,80,74);
+    } else {
+      svg.appendChild(sEl('rect',{x:'42',y:'18',width:'36',height:'58',rx:'3',fill:teal}));
+      grid(48,24,74,72);
+      svg.appendChild(sEl('rect',{x:'56',y:'66',width:'8',height:'10',fill:'#F3EFE6'}));
+    }
+    svg.appendChild(sEl('rect',{x:'0',y:'76',width:'120',height:'4',fill:'#cfe0e5'}));
+    return svg;
+  }
+  function palmSm(x,y){ return sEl('g',{opacity:'0.9'},
+    sEl('path',{d:'M'+x+' '+y+' q 2 -12 0 -20',stroke:'#093a4c','stroke-width':'2',fill:'none'}),
+    sEl('circle',{cx:x,cy:y-20,r:'6',fill:'#1e7a5a'})); }
+
+  /* ===========================================================================
+     CENTRALISED LOGO REGISTRY
+     ---------------------------------------------------------------------------
+     One place maps a developer/project to its PNG in /logos. Components never
+     hardcode a path — they call devBadge()/devLogoLockup()/projectLogoSrc(),
+     which resolve here and fall back to a branded monogram, so an image is
+     never broken. To add a developer logo later: drop <name>.png into /logos
+     and add one line to DEV_LOGOS (key = the developer's `key`). Project logos
+     go in /logos/projects and one line in PROJECT_LOGOS (key = project slug).
+     =========================================================================== */
+  // Root-absolute (matches how /favicon.png is referenced) so logos resolve
+  // correctly from any History-API route depth.
+  var LOGO_BASE = '/logos/';
+  var DEV_LOGOS = {
+    sodic:'sodic.png', palmhills:'palm-hills.png', mountainview:'mountain-view.png',
+    ora:'ora.png', tatweer:'tatweer-misr.png', misritalia:'misr-italia.png',
+    marakez:'marakez.png', lmd:'lmd.png', hydepark:'hyde-park.png',
+    marasem:'al-marasem.png', modon:'modon.png',
+    emaarmisr:'emaar-misr.png', orascom:'orascom.png', tmg:'tmg.png',
+    alahlysabbour:'al-ahly-sabbour.png', hassanallam:'hassan-allam.png',
+    ilcazar:'il-cazar.png', inertia:'inertia.png', lavista:'la-vista.png',
+    cityedge:'city-edge.png', madinetmasr:'madinet-masr.png',
+    qataridiar:'qatari-diar.png', saudiegyptian:'saudi-egyptian.png'
+  };
+  var PROJECT_LOGOS = {
+    'villette':'villette.png', 'sodic-east':'sodic-east.png', 'eastown':'eastown.png',
+    'allegria':'allegria.png', 'ogami-north-coast':'ogami.png',
+    'caesar-north-coast':'caesar.png', 'june-north-coast':'june.png',
+    'the-estates-zayed':'the-estates.png'
+  };
+  // Normalise any free text to a compact token, so slightly different spellings
+  // of a developer's name still resolve to the same logo.
+  function logoNorm(s){ return String(s==null?'':s).toLowerCase().replace(/[^a-z0-9]+/g,''); }
+  var DEV_ALIAS = {};
+  // Never register an empty token: Arabic names normalise to '' (all non-latin
+  // chars are stripped), which would otherwise map '' to the last developer and
+  // make every unknown developer resolve to that logo.
+  function setAlias(tok, key){ if(tok) DEV_ALIAS[tok] = key; }
+  function aliasGet(tok){ return tok ? DEV_ALIAS[tok] : undefined; }
+  (function(){
+    for(var i=0;i<DEVELOPERS.length;i++){
+      var d=DEVELOPERS[i];
+      setAlias(logoNorm(d.key), d.key);
+      if(d.name){ setAlias(logoNorm(d.name.en), d.key); setAlias(logoNorm(d.name.ar), d.key); }
+    }
+    // a few short-form / variant spellings pointing at the canonical key
+    var extra = { almarasem:'marasem', marasem:'marasem', oradevelopers:'ora',
+      palmhillsdevelopments:'palmhills', hydeparkdevelopments:'hydepark',
+      misritaliaproperties:'misritalia', tatweermisr:'tatweer', mountainview:'mountainview' };
+    for(var k in extra){ if(extra.hasOwnProperty(k) && DEV_ALIAS[k]===undefined) DEV_ALIAS[k]=extra[k]; }
+  })();
+  function devKeyFor(dev){
+    if(!dev) return '';
+    if(DEV_LOGOS[dev.key]) return dev.key;
+    var k = aliasGet(logoNorm(dev.key))
+         || (dev.name && (aliasGet(logoNorm(dev.name.en)) || aliasGet(logoNorm(dev.name.ar))));
+    return (k && DEV_LOGOS[k]) ? k : '';
+  }
+  // Logos ship as WebP alongside the PNG originals, plus a 160px cut. The maps
+  // above hold the base filename; the format and size are chosen here so no
+  // call site has to repeat the rule. The 512px source drawn into a 60px circle
+  // was ~8x the pixels it painted, in a format with no modern compression —
+  // 751 KB of logos became 309 KB, and a circle now costs about 4 KB.
+  function logoFile(name, small){
+    return String(name).replace(/\.(png|jpe?g)$/i, (small ? '-160' : '') + '.webp');
+  }
+  function devLogoSrc(dev, small){
+    var k=devKeyFor(dev);
+    return k ? (LOGO_BASE+logoFile(DEV_LOGOS[k], small)) : '';
+  }
+  function projectLogoSrc(p){
+    return (p && PROJECT_LOGOS[p.slug]) ? (LOGO_BASE+'projects/'+logoFile(PROJECT_LOGOS[p.slug])) : '';
+  }
+  function logoAlt(name){ return lang==='ar' ? ('شعار '+name) : (name+' logo'); }
+
+  // Branded monogram fallback (also used if a logo file ever fails to load).
+  function devMonogram(dev, px){
+    var c=(dev&&dev.c1)?dev.c1:'#0d6e7d';
+    return h('div',{class:'dev-logo', 'aria-hidden':'true',
+      style:'width:'+px+'px;height:'+px+'px;border-radius:'+Math.round(px*0.26)+'px;font-size:'+Math.round(px*0.4)+'px;background:linear-gradient(150deg,'+c+','+shade(c,-0.5)+')'},
+      initials(L(dev.name)));
+  }
+  // Developer identity badge — official logo when available, else the monogram.
+  // Fixed square box (width/height reserved → no layout shift), aspect preserved.
+  function devBadge(dev, px){
+    px=px||44;
+    var src=devLogoSrc(dev, px<=120);
+    if(src){
+      var img=h('img',{class:'dev-logo dev-logo--img', src:src, alt:logoAlt(L(dev.name)),
+        loading:'lazy', decoding:'async', width:px, height:px,
+        style:'width:'+px+'px;height:'+px+'px;border-radius:'+Math.round(px*0.22)+'px'});
+      img.addEventListener('error', function(){ if(img.parentNode) img.parentNode.replaceChild(devMonogram(dev,px), img); });
+      return img;
+    }
+    return devMonogram(dev,px);
+  }
+  /* Developer hero gallery — real destination imagery shown above the logo on a
+     developer page. Keyed by developer, skipped entirely when there is none. */
+  var DEV_GALLERY = {
+    'modon':['/project-media/modon/m1.webp','/project-media/modon/m2.webp','/project-media/modon/m3.webp',
+             '/project-media/modon/m4.webp','/project-media/modon/m5.webp','/project-media/modon/m6.webp'],
+  };
+  function devGallery(key){ return DEV_GALLERY[key] || []; }
+  function devGalleryItems(dev){
+    var g = devGallery(dev.key), n = g.length, nm = L(dev.name);
+    return g.map(function(s,i){ return {src:s, cap:nm+(n>1?(' · '+(lang==='ar'?'صورة ':'Photo ')+(i+1)+'/'+n):'')}; });
+  }
+  /* One photo at a time with side arrows to flip through the rest, and a click
+     to open it fullscreen on whichever photo is showing. Same interaction as
+     the unit hero, shared by the developer hero and the feature cards. */
+  function photoFlipper(items, label, cls, w, hgt, eager){
+    var n = items.length, idx = 0;
+    var box = h('div',{class:cls});
+    var img = h('img',{src:items[0].src, alt:label, decoding:'async',
+      loading:(eager?'eager':'lazy'), width:w, height:hgt});
+    img.addEventListener('error', function(){ if(box.parentNode) box.parentNode.removeChild(box); });
+    var count = h('span',{class:'gal-badge__n'});
+    function show(i){ idx=(i+n)%n; img.src=items[idx].src; count.textContent=(idx+1)+' / '+n; }
+    box.appendChild(img);
+    if(n>1){
+      box.appendChild(h('span',{class:'gal-badge','aria-hidden':'true'}, ic('gallery','gal-badge__ic'), count));
+      var prev = h('button',{class:'gal-nav gal-nav--prev', type:'button','aria-label':(lang==='ar'?'الصورة السابقة':'Previous photo')}, ic('chevleft'));
+      var next = h('button',{class:'gal-nav gal-nav--next', type:'button','aria-label':(lang==='ar'?'الصورة التالية':'Next photo')}, ic('chevright'));
+      prev.addEventListener('click', function(e){ e.stopPropagation(); e.preventDefault(); show(idx-1); });
+      next.addEventListener('click', function(e){ e.stopPropagation(); e.preventDefault(); show(idx+1); });
+      box.appendChild(prev); box.appendChild(next);
+      show(0);
+    }
+    img.addEventListener('click', function(){ mediaViewer(items, label, idx); });
+    return box;
+  }
+  function devGalleryStrip(dev){
+    var items = devGalleryItems(dev); if(!items.length) return null;
+    return photoFlipper(items, L(dev.name), 'dev-gal', 1280, 549, true);
+  }
+
+  /* ---- New-release price lists ------------------------------------------
+     A developer's re-priced release, kept on its own page rather than mixed
+     into the main listings so the standing prices are never ambiguous. Every
+     figure is taken verbatim from the units sheet; images are the ones already
+     supplied for those units. --------------------------------------------- */
+  var RELEASES = [{
+    slug:'modon', dev:'modon', area:'raselhekma',
+    name:{en:'MODON', ar:'مدن'},
+    blurb:{en:'A new release of Modon Ras El Hekma apartments, re-priced by the developer. Primary sale, direct from Modon.',
+           ar:'إطلاق جديد لشقق مدن رأس الحكمة بأسعار محدَّثة من المطوّر. بيع أولي مباشر من مدن.'},
+    /* Masterplan supplied for the release as a whole — the Ras El Hekma / Wadi
+       Yemm plan plus the zoomed plot view — so both project cards open the same
+       set rather than each claiming a plan of its own. */
+    masterplan:[
+      {src:'/project-media/modon/rk-masterplan-1.webp', cap:{en:'Ras El Hekma · Wadi Yemm masterplan', ar:'رأس الحكمة · الماستر بلان — وادي يم'}},
+      {src:'/project-media/modon/rk-masterplan-2.webp', cap:{en:'Ras El Hekma · plot detail', ar:'رأس الحكمة · تفاصيل القطع'}}
+    ],
+    projects:[
+      {name:{en:'Boulevard', ar:'بوليفارد'}, img:'/project-media/modon/ap2-bl-0.webp',
+       dp:10, years:8, delivery:'2029', eoi:250000,
+       units:[{beds:1, baths:2, size:93,  price:16100000},
+              {beds:2, baths:3, size:145, price:22500000},
+              {beds:3, baths:3, size:197, price:26700000}]},
+      {name:{en:'Beach Plaza Premium', ar:'بيتش بلازا بريميوم'}, img:'/project-media/modon/ap1-bp-03.webp',
+       dp:10, years:8, delivery:'2029', eoi:250000,
+       units:[{beds:1, baths:2, size:93,  price:19000000},
+              {beds:2, baths:3, size:145, price:26000000},
+              {beds:3, baths:3, size:197, price:32000000}]}
+    ]
+  }];
+  function releaseBySlug(s){ for(var i=0;i<RELEASES.length;i++){ if(RELEASES[i].slug===s) return RELEASES[i]; } return null; }
+  function releaseFrom(r){
+    var all=[]; r.projects.forEach(function(p){ p.units.forEach(function(u){ if(u.price!=null) all.push(u.price); }); });
+    return all.length ? Math.min.apply(null, all) : null;
+  }
+  function releaseMasterplan(r){
+    return (r.masterplan||[]).map(function(m){ return {src:m.src, cap:L(m.cap)}; });
+  }
+
+  /* Developer feature blocks — a masterplan and a row of themed cards, shown
+     under the hero. Data-driven, so a developer without an entry gets nothing. */
+  var MP = '/project-media/modon/';
+  var DEV_FEATURES = {
+    'modon': {
+      masterplan: {en:'Masterplan', ar:'الماستر بلان', icon:'layers', src:MP+'masterplan.webp'},
+      cards: [
+        {en:'About Partnership', ar:'عن الشراكة', icon:'shield', imgs:[MP+'partnership.webp'],
+         copy:{
+           lead:{en:'In the presence of President His Highness Sheikh Mohamed bin Zayed Al Nahyan, and His Excellency Abdel Fattah El-Sisi, President of the Arab Republic of Egypt, ADQ, an Abu Dhabi-based investment and holding company, appointed Modon Holding PSC as the master planner for the Ras El Hekma megaproject.',
+                 ar:'بحضور رئيس دولة الإمارات صاحب السمو الشيخ محمد بن زايد آل نهيان، وفخامة الرئيس عبد الفتاح السيسي رئيس جمهورية مصر العربية، كلَّفت «ADQ» — شركة الاستثمار والقابضة ومقرّها أبوظبي — شركة «مدن القابضة» بوضع المخطط العام لمشروع رأس الحكمة.'},
+           more:{en:'Ras El Hekma is the largest ever international investment into Egypt. The project is expected to become a powerful transformative economic engine, with cumulative investments anticipated to reach US$110 billion by 2045, an annual GDP contribution of around US$25 billion, and approximately 750,000 jobs to be created, both directly and indirectly.',
+                 ar:'يُعد رأس الحكمة أكبر استثمار دولي في تاريخ مصر. ومن المتوقّع أن يتحوّل المشروع إلى محرّك اقتصادي هائل، باستثمارات تراكمية يُتوقّع أن تبلغ ١١٠ مليار دولار أمريكي بحلول عام ٢٠٤٥، ومساهمة سنوية في الناتج المحلي الإجمالي تُقدَّر بنحو ٢٥ مليار دولار، وتوفير ما يقارب ٧٥٠٬٠٠٠ فرصة عمل بشكل مباشر وغير مباشر.'}
+         }},
+        {en:'Connected to the World', ar:'متصلة بالعالم', icon:'globe', imgs:[MP+'connected.webp'],
+         copy:{
+           lead:{en:'Strategically located near both Europe and the Gulf, Ras El Hekma will be accessible via a new international airport. 50% of the world will be within a 4-hour flight of the city, with seamless connectivity central to the city\'s ethos.',
+                 ar:'بموقع استراتيجي قريب من أوروبا والخليج، سيكون الوصول إلى رأس الحكمة عبر مطار دولي جديد. ٥٠٪ من العالم على بُعد رحلة طيران لا تتجاوز ٤ ساعات من المدينة، مع جعل سهولة الوصول محوراً أساسياً في فلسفة المدينة.'},
+           more:{en:'In addition, a fast road network, high speed rail and domestic and international marinas have all been embedded in the city\'s design.',
+                 ar:'كما جرى دمج شبكة طرق سريعة وقطار فائق السرعة ومارينات محلية ودولية ضمن تصميم المدينة.'},
+           groups:[
+             {label:{en:'By road', ar:'بالسيارة'}, rows:[
+               {k:{en:'Alexandria',ar:'الإسكندرية'}, v:{en:'Approx. 2 hrs',ar:'نحو ساعتين'}},
+               {k:{en:'Cairo',ar:'القاهرة'},         v:{en:'Approx. 3 hrs',ar:'نحو ٣ ساعات'}}]},
+             {label:{en:'By plane', ar:'بالطائرة'}, rows:[
+               {k:{en:'Abu Dhabi',ar:'أبوظبي'}, v:{en:'Approx. 4 hrs',ar:'نحو ٤ ساعات'}},
+               {k:{en:'Kuwait',ar:'الكويت'},    v:{en:'Approx. 3 hrs',ar:'نحو ٣ ساعات'}},
+               {k:{en:'Doha',ar:'الدوحة'},      v:{en:'Approx. 3 hrs 30 mins',ar:'نحو ٣ ساعات ونصف'}},
+               {k:{en:'Dubai',ar:'دبي'},        v:{en:'Approx. 4 hrs',ar:'نحو ٤ ساعات'}},
+               {k:{en:'Riyadh',ar:'الرياض'},    v:{en:'Approx. 4 hrs 30 mins',ar:'نحو ٤ ساعات ونصف'}},
+               {k:{en:'Paris',ar:'باريس'},      v:{en:'Approx. 4 hrs 30 mins',ar:'نحو ٤ ساعات ونصف'}},
+               {k:{en:'London',ar:'لندن'},      v:{en:'Approx. 5 hrs',ar:'نحو ٥ ساعات'}},
+               {k:{en:'Rome',ar:'روما'},        v:{en:'Approx. 3 hrs',ar:'نحو ٣ ساعات'}},
+               {k:{en:'Madrid',ar:'مدريد'},     v:{en:'Approx. 5 hrs',ar:'نحو ٥ ساعات'}},
+               {k:{en:'Moscow',ar:'موسكو'},     v:{en:'Approx. 4 hrs',ar:'نحو ٤ ساعات'}},
+               {k:{en:'New York',ar:'نيويورك'}, v:{en:'Approx. 13 hrs',ar:'نحو ١٣ ساعة'}}]}
+           ]
+         }},
+        {en:'Major Components', ar:'المكوّنات الرئيسية', icon:'build',
+         imgs:[MP+'mc1.webp',MP+'mc2.webp',MP+'mc3.webp',MP+'mc4.webp',MP+'mc5.webp',MP+'mc6.webp'],
+         copy:{list:[
+           {en:'International Airport',              ar:'مطار دولي'},
+           {en:'3 Marinas & 1 Cruise Terminal',      ar:'٣ مارينات ومحطة رحلات بحرية'},
+           {en:'Rapid Transit Network',              ar:'شبكة نقل سريع'},
+           {en:'Central Business District',          ar:'منطقة أعمال مركزية'},
+           {en:'Private Sector Free Zone',           ar:'منطقة حرة للقطاع الخاص'},
+           {en:'Amphitheatre',                       ar:'مدرّج مسرحي'}
+         ]}}
+      ]
+    }
+  };
+  function devFeatures(key){ return DEV_FEATURES[key] || null; }
+
+  // One zoomable photo that opens the shared viewer on the image it belongs to.
+  function featImg(src, items, i, alt, w, hgt){
+    var img = h('img',{src:src, alt:alt, loading:'lazy', decoding:'async', width:w, height:hgt});
+    img.addEventListener('error', function(){ if(img.parentNode) img.parentNode.removeChild(img); });
+    img.addEventListener('click', function(){ mediaViewer(items, alt, i); });
+    return img;
+  }
+  /* Masterplan lives behind an icon rather than sitting open on the page:
+     the button opens the plan in the same fullscreen viewer used elsewhere,
+     where it can be zoomed and panned properly. */
+  function devMasterplanSection(dev){
+    var f = devFeatures(dev.key); if(!f || !f.masterplan) return null;
+    var m = f.masterplan, label = L({en:m.en, ar:m.ar}), nm = L(dev.name);
+    var items = [{src:m.src, cap:nm+' · '+label}];
+    var head = h('div',{class:'sec-head'},
+      h('h2',{class:'dev-feat__title'}, ic(m.icon,'dev-feat__ico'), h('span',null,label)));
+    var open = h('button',{class:'ufeat', type:'button'},
+      ic('masterplan','ufeat__ic'),
+      h('span',null, lang==='ar' ? 'عرض الماستر بلان' : 'View master plan'));
+    open.addEventListener('click', function(){ mediaViewer(items, nm+' · '+label, 0); });
+    // keep the plan in the DOM for crawlers without showing it on the page
+    var seo = h('img',{src:m.src, alt:nm+' — '+label, width:1395, height:778,
+      loading:'lazy', decoding:'async', class:'visually-hidden'});
+    return h('section',{class:'section--tight band'},
+      h('div',{class:'wrap'}, head, h('div',{class:'dev-mp'}, open, seo)));
+  }
+  /* Card copy: an opening paragraph always on show, the rest behind a chevron.
+     Uses <details> so the hidden half stays in the DOM for search engines. */
+  function featCopy(c){
+    if(!c.copy) return null;
+    var cp = c.copy;
+    var wrap = h('div',{class:'feat-copy'});
+    if(cp.lead) wrap.appendChild(h('p',{class:'feat-copy__p'}, L(cp.lead)));
+    // a short checklist stays fully visible — nothing to hide behind a chevron
+    if(cp.list) wrap.appendChild(h('ul',{class:'feat-copy__list'}, cp.list.map(function(it){
+      return h('li',{class:'feat-copy__li'}, ic('check'), h('span',null, L(it)));
+    })));
+
+    // everything past the opening paragraph: an optional paragraph, then any
+    // labelled key/value groups (e.g. travel times by road and by plane)
+    var hidden = [];
+    if(cp.more) hidden.push(h('p',{class:'feat-copy__p'}, L(cp.more)));
+    (cp.groups||[]).forEach(function(g){
+      hidden.push(h('div',{class:'feat-copy__grp'},
+        h('p',{class:'feat-copy__glabel'}, L(g.label)),
+        g.rows.map(function(r){
+          return h('div',{class:'feat-copy__row'}, h('b',null, L(r.k)), h('span',null, L(r.v)));
+        })));
+    });
+    if(!hidden.length) return wrap;
+
+    var chev = sEl('svg',{class:'accordion__chev',viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',
+      'stroke-width':'2','stroke-linecap':'round','stroke-linejoin':'round','aria-hidden':'true'},
+      sEl('path',{d:'M6 9l6 6 6-6'}));
+    var MORE = (lang==='ar'?'اقرأ المزيد':'Read more'), LESS = (lang==='ar'?'عرض أقل':'Show less');
+    var lbl = h('span',null, MORE);
+    var det = h('details',{class:'feat-copy__more'},
+      h('summary',{class:'feat-copy__sum'}, lbl, chev),
+      h('div',{class:'feat-copy__body'}, hidden));
+    det.addEventListener('toggle', function(){ lbl.textContent = det.open ? LESS : MORE; });
+    wrap.appendChild(det);
+    return wrap;
+  }
+  function devCardsSection(dev){
+    var f = devFeatures(dev.key); if(!f || !f.cards || !f.cards.length) return null;
+    var nm = L(dev.name);
+    var cards = f.cards.map(function(c){
+      var label = L({en:c.en, ar:c.ar}), n = c.imgs.length;
+      var items = c.imgs.map(function(s,i){
+        return {src:s, cap:nm+' · '+label+(n>1?(' ('+(i+1)+'/'+n+')'):'')};
+      });
+      // several photos -> one at a time with arrows; a single photo stays as-is
+      var media = (n > 1)
+        ? photoFlipper(items, label, 'dev-feat__flip', 900, 600)
+        : featImg(c.imgs[0], items, 0, label, 926, 750);
+      return h('article',{class:'dev-feat'},
+        h('h3',{class:'dev-feat__title'}, ic(c.icon,'dev-feat__ico'), h('span',null,label)),
+        media, featCopy(c));
+    });
+    return h('section',{class:'section--tight'},
+      h('div',{class:'wrap'}, h('div',{class:'grid grid--3'}, cards)));
+  }
+
+  // Larger horizontal lockup for hero/detail contexts (natural aspect ratio).
+  function devLogoLockup(dev){
+    var src=devLogoSrc(dev);
+    if(!src) return devBadge(dev,72);
+    var img=h('img',{class:'dev-lockup', src:src, alt:logoAlt(L(dev.name)), decoding:'async',
+      width:220, height:88});
+    img.addEventListener('error', function(){ var b=devBadge(dev,72); if(img.parentNode) img.parentNode.replaceChild(b, img); });
+    return h('div',{class:'dev-lockup-wrap'}, img);
+  }
+  // Small horizontal logo (natural aspect ratio) for inline "logo + name" rows.
+  // Returns null when the developer has no logo, so callers fall back to text.
+  function devLogoInline(dev, hpx){
+    var src=devLogoSrc(dev, true); if(!src) return null;
+    hpx=hpx||22;
+    var img=h('img',{class:'dev-logo-inline', src:src, alt:logoAlt(L(dev.name)), loading:'lazy',
+      decoding:'async', style:'height:'+hpx+'px'});
+    img.addEventListener('error', function(){ if(img.parentNode) img.parentNode.removeChild(img); });
+    return img;
+  }
+  // Round white developer avatar for the card-image corner — the logo inside a
+  // circle, matching the home "browse by developer" rail. Falls back to the
+  // branded monogram so it is never empty.
+  function devChip(dev){
+    var src=devLogoSrc(dev, true);
+    var av=h('div',{class:'card__devcircle', title:L(dev.name)});
+    if(src){
+      var img=h('img',{class:'dev-logo dev-logo--img', src:src, alt:logoAlt(L(dev.name)), loading:'lazy', decoding:'async', width:60, height:60});
+      img.addEventListener('error', function(){ if(img.parentNode) img.parentNode.replaceChild(devMonogram(dev,60), img); });
+      av.appendChild(img);
+    } else {
+      av.appendChild(devMonogram(dev,60));
+    }
+    return av;
+  }
+  function waLink(text){ return CONFIG.whatsapp ? ('https://wa.me/'+CONFIG.whatsapp+(text?('?text='+encodeURIComponent(text)):'')) : ''; }
+  function typeMeta(t){ return TYPE_META[t] || {ar:t, icon:'ty_apartment'}; }
+  function typeIcon(t, cls){ return ic(typeMeta(t).icon, cls); }
+  function typeLabel(t){ return lang==='ar' ? typeMeta(t).ar : t; }
+  function unitsIn(slug){ return UNITS.filter(function(u){ return u.project===slug; }); }
+  function unitById(id){ if(id==null) return null; var s=String(id).toLowerCase(); for(var i=0;i<UNITS.length;i++){ if(String(UNITS[i].id).toLowerCase()===s) return UNITS[i]; } return null; }
+
+  /* Payment estimator (indicative only) */
+  function field2(label, input){ return h('div',{class:'field',style:'margin:0'}, h('label',{style:'font-size:.72rem'},label), input); }
+  function paymentCalc(p){
+    var price=h('input',{type:'number',inputmode:'numeric',value:p.price,'aria-label':t('calc_price')});
+    // Down payment: restricted options only (2.5 / 5 / 10 / 15 / 20 %)
+    var DP_OPTS=[2.5,5,10,15,20], MAX_Y=15;
+    var startDp = DP_OPTS.indexOf(p.dp)>-1 ? p.dp : 10;
+    var dp=h('select',{'aria-label':t('calc_dp')}, DP_OPTS.map(function(v){ return opt(String(v), num(v)+'%', v===startDp); }));
+    // Installment years: hard maximum of 15
+    var startY=Math.min(MAX_Y, Math.max(1, p.years||8));
+    var yrs=h('input',{type:'number',inputmode:'numeric',min:'1',max:String(MAX_Y),value:startY,'aria-label':t('calc_years')});
+    var out=h('div',{style:'margin-top:10px'});
+    function calc(){ var P=+price.value||0, D=+dp.value||0;
+      if(+yrs.value>MAX_Y){ yrs.value=MAX_Y; }
+      var Y=Math.min(MAX_Y, Math.max(1, Math.round(+yrs.value)||1));
+      var dpAmt=Math.round(P*D/100), monthly=Y>0?Math.round((P-dpAmt)/(Y*12)):0; clear(out);
+      out.appendChild(h('div',{class:'spec-row'},
+        h('span',{class:'spec'}, h('span',{class:'spec-lbl'}, t('calc_dp_amt')+': '), h('b',null, money(dpAmt))),
+        h('span',{class:'spec'}, h('span',{class:'spec-lbl'}, t('calc_monthly')+': '), h('b',null, money(monthly))))); }
+    price.addEventListener('input', calc);
+    yrs.addEventListener('input', calc);
+    dp.addEventListener('change', calc);
+    calc();
+    return h('div',{class:'aside-card',style:'margin-top:16px'},
+      h('div',{class:'muted',style:'font-weight:700;font-size:.85rem'}, t('pay_calc')),
+      field2(t('calc_price'), price),
+      h('div',{class:'field-row',style:'margin-top:8px'}, field2(t('calc_dp'), dp), field2(t('calc_years_max'), yrs)),
+      out, h('div',{class:'prov',style:'margin-top:8px'}, ic('info'), t('calc_note')));
+  }
+  /* Factsheet preview overlay. Rendering the sheet as a visible, full-screen
+     panel means the "Print / Save as PDF" action ALWAYS produces a result the
+     user can act on — even inside in-app webviews (Instagram/Facebook/etc.) and
+     file:// previews where window.print() is silently ignored. Capable browsers
+     still get the print dialog immediately; everyone else can print from the
+     toolbar, use the browser menu, or screenshot the page. */
+  function fsEsc(e){ if(e && (e.key==='Escape'||e.keyCode===27)) closeFactsheet(); }
+  function fsPrintNow(){ try{ window.print(); }catch(e){} }
+  function closeFactsheet(){
+    var sheet=document.getElementById('print-sheet'); if(!sheet) return;
+    sheet.classList.remove('print-sheet--open'); sheet.setAttribute('aria-hidden','true');
+    sheet.removeAttribute('role'); sheet.removeAttribute('aria-modal');
+    try{ document.body.classList.remove('fs-lock'); }catch(e){}
+    document.removeEventListener('keydown', fsEsc);
+  }
+  function openFactsheet(){
+    var sheet=document.getElementById('print-sheet'); if(!sheet) return;
+    var stale=sheet.querySelector('.fs-toolbar'); if(stale && stale.parentNode) stale.parentNode.removeChild(stale);
+    var body=h('div',{class:'fs-body'});
+    while(sheet.firstChild){ body.appendChild(sheet.firstChild); }
+    var printB=h('button',{type:'button', class:'fs-btn fs-btn--primary'}, ic('doc'), t('print_sheet'));
+    var closeB=h('button',{type:'button', class:'fs-btn', 'aria-label':t('a_close')}, t('a_close'));
+    printB.addEventListener('click', fsPrintNow);
+    closeB.addEventListener('click', closeFactsheet);
+    var tb=h('div',{class:'fs-toolbar'}, h('span',{class:'fs-hint'}, t('fs_hint')), printB, closeB);
+    sheet.appendChild(tb); sheet.appendChild(body);
+    sheet.classList.add('print-sheet--open'); sheet.setAttribute('aria-hidden','false');
+    sheet.setAttribute('role','dialog'); sheet.setAttribute('aria-modal','true'); sheet.setAttribute('aria-label', t('fs_preview'));
+    try{ document.body.classList.add('fs-lock'); }catch(e){}
+    try{ sheet.scrollTop=0; }catch(e){}
+    document.addEventListener('keydown', fsEsc);
+    try{ printB.focus(); }catch(e){}
+    fsPrintNow();   /* fast path: fire the print dialog where the browser honours it */
+  }
+  /* Print / Save-as-PDF factsheet (honest: uses the browser print pipeline) */
+  /* Sheet footer: the contact points as live links, so WhatsApp works from the
+     on-screen sheet and the URL still prints under the label in a PDF. */
+  function contactNote(waMsg){
+    var box=h('div',{class:'ps-note'}, t('illustrative'));
+    var row=h('span',{class:'ps-contact'});
+    if(CONFIG.phone) row.appendChild(h('a',{href:'tel:'+CONFIG.phone}, CONFIG.phoneDisplay||CONFIG.phone));
+    if(CONFIG.email) row.appendChild(h('a',{href:'mailto:'+CONFIG.email}, CONFIG.email));
+    if(CONFIG.whatsapp) row.appendChild(h('a',{href:waLink(waMsg||''), target:'_blank', rel:'noopener'}, 'WhatsApp'));
+    if(row.childNodes.length) box.appendChild(row);
+    return box;
+  }
+  // The first floor plan published by any unit in this project — the project
+  // sheet has no unit of its own, so it shows a representative layout.
+  function projFloorplan(p){
+    var out='';
+    UNITS.some(function(u){
+      if(u.project!==p.slug) return false;
+      var fps=unitFloorplans(u); if(!fps.length) return false;
+      out=fps[0]; return true;
+    });
+    return out;
+  }
+  // Installment count derived from the published plan: quarterly, matching how
+  // Egyptian primary plans are actually written.
+  function installmentCount(p){ return p.years ? Math.round(p.years*4) : null; }
+  function printFactsheet(p){
+    var dev=devByKey(p.dev), area=areaByKey(p.area), sheet=document.getElementById('print-sheet'); if(!sheet) return; clear(sheet);
+    var bimg=document.querySelector('header .brand img'), logo=bimg?bimg.getAttribute('src'):'';
+    sheet.appendChild(h('div',{class:'ps-head'},
+      logo?h('img',{src:logo,alt:'The Village'}):h('strong',null,'The Village'),
+      h('div',{style:'text-align:end;font-size:.78rem;color:#555'}, t('fs_title'), h('div',null, t('fs_generated')+': '+new Date().toLocaleDateString(lang==='ar'?'ar-EG':'en-GB')))));
+    sheet.appendChild(h('div',{class:'ps-title'}, lang==='ar'?p.name_ar:p.name));
+    sheet.appendChild(h('div',{style:'color:#333;margin-bottom:8px'}, L(dev.name)+' · '+L(area.name)+' · '+statusLabel(p.status)));
+    sheet.appendChild(h('div',{class:'ps-media'}, projectMedia(p)));
+    var tbl=h('table',{class:'ps-table'});
+    var ins=installmentCount(p);
+    [[t('price'), money(p.price)+' — '+t('conf_illustrative')],[t('units'),L(p.types)],
+     [t('delivery'),p.delivery==='Ready'?t('ready'):(p.delivery||t('to_confirm'))],[t('finishing'),L(p.finishing)],
+     (p.dp ? [t('dp'), num(p.dp)+'%'] : null),
+     (p.years ? [t('years'), num(p.years)+' '+(lang==='ar'?'سنوات':'years')] : null),
+     (ins ? [t('fs_installments'), num(ins)+' '+t('fs_quarterly')] : null)]
+      .forEach(function(r){ if(!r) return; tbl.appendChild(h('tr',null,h('th',null,r[0]),h('td',null,r[1]))); });
+    sheet.appendChild(tbl);
+    var fp=projFloorplan(p);
+    if(fp) sheet.appendChild(h('div',{class:'ps-plan'},
+      h('div',{class:'ps-plan__k'}, t('fs_floorplan')),
+      h('img',{src:fp, alt:t('fs_floorplan')+' — '+(lang==='ar'?p.name_ar:p.name), loading:'lazy'})));
+    sheet.appendChild(h('div',null, L(p.blurb)));
+    sheet.appendChild(contactNote(lang==='ar'
+      ? ('مهتم بمشروع: '+p.name_ar) : ('Interested in project: '+p.name)));
+    track('factsheet_requested',{project:p.slug});
+    openFactsheet();
+  }
+  /* Per-unit factsheet: page 1 = developer logo + unit image + spec table;
+     page 2 = payment plan with quarterly (every-3-months) installments. */
+  function printUnitFactsheet(u){
+    var p=projBySlug(u.project), dev=devByKey(p.dev), area=areaByKey(p.area);
+    var sheet=document.getElementById('print-sheet'); if(!sheet) return; clear(sheet);
+    var tl=typeLabelC(unitCanon(u));
+    var unitName=unitDisplayName(u, tl);
+    var pnm=(lang==='ar'?p.name_ar:p.name);
+    var bimg=document.querySelector('header .brand img'), logo=bimg?bimg.getAttribute('src'):'';
+    sheet.appendChild(h('div',{class:'ps-head'},
+      logo?h('img',{src:logo,alt:'The Village'}):h('strong',null,'The Village'),
+      h('div',{style:'text-align:end;font-size:.78rem;color:#555'}, t('fs_title'), h('div',null, t('fs_generated')+': '+new Date().toLocaleDateString(lang==='ar'?'ar-EG':'en-GB')))));
+    var page1=h('div',{class:'ps-page'});
+    page1.appendChild(h('div',{class:'ps-devrow'}, (devLogoInline(dev,40) || devBadge(dev,46)),
+      h('div',null, h('div',{class:'ps-title',style:'margin:0'}, unitName+' · '+pnm),
+        h('div',{style:'color:#555;font-size:.9rem'}, L(dev.name)+' · '+L(area.name)))));
+    page1.appendChild(h('div',{class:'ps-media'}, projectArt(p)));
+    var tbl=h('table',{class:'ps-table'});
+    function row(k,v){ tbl.appendChild(h('tr',null,h('th',null,k),h('td',null,v))); }
+    row(lang==='ar'?'المشروع':'Project', pnm);
+    row(lang==='ar'?'المطوّر':'Developer', L(dev.name));
+    row(lang==='ar'?'موقع المشروع':'Location', L(area.name));
+    row(lang==='ar'?'نوع الوحدة':'Unit type', tl);
+    var areaStr=(u.area!=null?num(u.area)+' m²':'—');
+    if(u.garden) areaStr+=' · '+(lang==='ar'?'بحديقة':'with garden');
+    if(u.roof)   areaStr+=' · '+(lang==='ar'?'بروف':'with roof');
+    row(lang==='ar'?'المساحة':'Area', areaStr);
+    if(!unitIsCommercial(u)){
+      row(lang==='ar'?'عدد الغرف':'Bedrooms', u.beds!=null?num(u.beds):'—');
+      row(lang==='ar'?'عدد الحمامات':'Bathrooms', u.baths!=null?num(u.baths):'—');
+    }
+    row(lang==='ar'?'سعر الوحدة':'Unit price', money(u.price)+' — '+t('conf_illustrative'));
+    page1.appendChild(tbl);
+    page1.appendChild(contactNote(unitWaMsg(u)));
+    sheet.appendChild(page1);
+    // Payment Plan section intentionally excluded from the print/PDF version.
+    track('unit_factsheet_requested',{unit:u.id});
+    openFactsheet();
+  }

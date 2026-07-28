@@ -1,0 +1,23 @@
+<!--
+  ============================================================================
+  THE VILLAGE INVESTMENT  ·  Primary-sale real estate, Egypt
+  Production-grade bilingual (EN/AR · LTR/RTL) static application.
+  ----------------------------------------------------------------------------
+  Engineering notes (per V2.1 implementation contract):
+   · Brand: derived from the approved master logo (teal #073D52 / #115F7D +
+     warm bone #F3EFE6 + ink). Legacy royal-blue/yellow/olive residue removed.
+   · Routing: History API, clean locale-prefixed paths (/en/… /ar/…), real
+     Back/Forward, deep links, and a genuine branded 404 view. No hash routes.
+   · Security: no inline event handlers, no innerHTML sinks for dynamic/user
+     content (DOM built via safe helpers), CSP meta, no eval.
+   · Honesty: every commercial figure carries a provenance badge and is clearly
+     labelled illustrative pending advisor confirmation. No fake success states.
+     Phone/WhatsApp CTAs stay hidden until verified numbers are configured.
+   · Counts shown are computed from the on-page dataset (curated selection),
+     never presented as "all live inventory".
+   · a11y: semantic landmarks, skip link, focus management on route change,
+     keyboard operable, visible focus, AA contrast, reduced-motion, RTL parity.
+  Public facts (developer names, area names) are used as-is; all descriptive
+  copy is original to The Village. No competitor code/text/imagery is used.
+  ============================================================================
+-->

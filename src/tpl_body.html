@@ -1,0 +1,142 @@
+<body>
+  <!-- Brand page-load splash: pure-white ground, logo revealed directly (no frame),
+       premium fade/settle, self-dismissing once per session, reduced-motion safe. -->
+  <div id="intro" class="intro">
+    <img class="intro__logo" src="__LOGO_DARK__" width="278" height="88" alt="The Village Investment" />
+    <button type="button" id="intro-skip" class="intro__skip" aria-label="Skip intro" data-i18n="intro_skip">Skip</button>
+  </div>
+
+  <a class="skip" href="#main" data-i18n="skip">Skip to main content</a>
+
+  <!-- ============================ HEADER ============================ -->
+  <header class="site">
+    <div class="wrap nav">
+      <a class="brand" href="/en/" data-link aria-label="The Village Investment — home">
+        <img src="__LOGO_DARK__" width="278" height="88" alt="The Village" />
+        <span class="sub" data-i18n="invest">Investment</span>
+      </a>
+      <nav class="nav-links" id="primary-nav" aria-label="Primary">
+        <!-- Crawlable defaults (progressive enhancement): the app clears and re-renders
+             these on hydration. They guarantee real <a href> nav in the initial HTML. -->
+        <a href="/en/">Home</a>
+        <a href="/en/units/">Search</a>
+        <a href="/en/new-launches/">New launches</a>
+        <a href="/en/about/">About</a>
+        <a href="/en/favorites/">Favorites</a>
+        <a href="/en/compare/">Compare</a>
+      </nav>
+      <div class="nav-actions">
+        <!-- The ⌘K pill is gone: "Search" in the main nav is the search entry point.
+             The command palette still opens on Ctrl/⌘+K for keyboard users. -->
+        <button class="btn btn--sm lang-btn icon-btn" id="lang-toggle" style="width:auto;padding:0 14px" aria-label="Switch language">ع</button>
+        <a class="btn btn--primary btn--sm" href="/en/contact/" data-link data-i18n="cta_talk">Talk to an advisor</a>
+        <button class="icon-btn burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile drawer -->
+  <div class="drawer-back" id="drawer-back"></div>
+  <aside class="drawer" id="drawer" aria-label="Menu" aria-hidden="true">
+    <div class="drawer-head">
+      <img src="__LOGO_DARK__" width="278" height="88" alt="The Village" style="height:26px;width:auto" />
+      <button class="icon-btn" id="drawer-close" aria-label="Close menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <nav id="drawer-nav" aria-label="Mobile"></nav>
+    <div style="margin-top:auto;padding-top:20px">
+      <button class="btn btn--ghost btn--block" id="lang-toggle-2" style="margin-bottom:10px">العربية</button>
+      <a class="btn btn--primary btn--block" href="/en/contact/" data-link data-i18n="cta_talk">Talk to an advisor</a>
+    </div>
+  </aside>
+
+  <!-- ============================ MAIN (router target) ============================ -->
+  <main id="main" tabindex="-1">
+    <!-- No-JS / pre-hydration content: the SPA clears this and renders the route view
+         on boot. It guarantees a real H1, primary-sale summary, and crawlable links in
+         the initial HTML for search engines and AI agents that don't execute JavaScript.
+         Full per-route pre-rendering (SSG) is the recommended next architecture step. -->
+    <section class="prerender" aria-label="The Village Investment">
+      <p class="eyebrow">Primary-sale real estate · Egypt</p>
+      <h1>Invest in your real-estate future with confidence</h1>
+      <p>The Village Investment is a primary-sale real-estate marketing and brokerage company.
+         We help buyers in Egypt, the GCC and overseas compare new launches, developer-direct
+         projects and primary-market units across New Cairo, Fifth Settlement, the New
+         Administrative Capital and the North Coast — with honest advisory from the first
+         question to unit handover. Primary sale only — never resale.</p>
+      <nav aria-label="Explore The Village Investment">
+        <a href="/en/projects/">Explore projects</a>
+        <a href="/en/new-launches/">New launches</a>
+        <a href="/en/units/">Find your primary unit</a>
+        <a href="/en/developers/">Developers</a>
+        <a href="/en/areas/">Areas</a>
+        <a href="/en/compare/">Compare units</a>
+        <a href="/en/insights/">Research &amp; insights</a>
+        <a href="/en/faqs/">FAQs</a>
+        <a href="/en/about/">About</a>
+        <a href="/en/contact/">Talk to an advisor</a>
+      </nav>
+      <p>Primary-sale property only · New launches &amp; developer-direct units · Prices and
+         availability are illustrative and subject to developer confirmation.</p>
+    </section>
+  </main>
+
+  <!-- ============================ FOOTER ============================ -->
+  <footer class="site">
+    <div class="wrap">
+      <div class="cols">
+        <div class="facc">
+          <button class="facc__head" type="button" aria-expanded="false" aria-controls="foot-explore">
+            <h2 data-i18n="f_explore">Explore</h2>
+            <svg class="facc__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+          </button>
+          <div class="facc__body"><div class="facc__inner" id="foot-explore"><a href="/en/projects/">Projects</a><a href="/en/units/">Units</a><a href="/en/new-launches/">New launches</a><a href="/en/areas/">Areas</a><a href="/en/developers/">Developers</a><a href="/en/compare/">Compare</a></div></div>
+        </div>
+        <div class="facc">
+          <button class="facc__head" type="button" aria-expanded="false" aria-controls="foot-company">
+            <h2 data-i18n="f_company">Company</h2>
+            <svg class="facc__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+          </button>
+          <div class="facc__body"><div class="facc__inner" id="foot-company"><a href="/en/about/">About</a><a href="/en/investors/">Investors</a><a href="/en/insights/">Insights</a><a href="/en/faqs/">FAQs</a><a href="/en/contact/">Contact</a></div></div>
+        </div>
+        <div class="facc">
+          <button class="facc__head" type="button" aria-expanded="false" aria-controls="foot-legal">
+            <h2 data-i18n="f_legal">Legal</h2>
+            <svg class="facc__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+          </button>
+          <div class="facc__body"><div class="facc__inner" id="foot-legal"><a href="/en/privacy/">Privacy</a><a href="/en/terms/">Terms</a></div></div>
+        </div>
+      </div>
+      <!-- The Village's own details run full width UNDER the link columns -->
+      <div class="fbrand">
+        <img class="flogo" src="__LOGO_BONE__" width="278" height="88" alt="The Village" />
+        <div class="fbrand__contact" id="foot-contact"></div>
+        <div class="fbrand__social">
+          <h3 data-i18n="social_h">Follow us</h3>
+          <div class="social" id="foot-social"></div>
+        </div>
+      </div>
+      <p class="disc" id="foot-tag"></p>
+      <p class="disc" id="foot-blocker"></p>
+      <div class="fbtm">
+        <span id="foot-copy"></span>
+        <span data-i18n="f_primary">Primary-sale property only · New launches &amp; developer-direct units</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================ MOBILE ACTION BAR ============================ -->
+  <div class="mobile-bar" id="mobile-bar">
+    <a class="btn btn--wa" id="wa-mobile" href="#" target="_blank" rel="noopener" style="flex:1">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 0 1-11.9 7L4 20l1.1-4A8 8 0 1 1 20 12z"/><path d="M9 9c0 4 2 6 6 6"/></svg>
+      <span data-i18n="whatsapp">WhatsApp</span>
+    </a>
+    <a class="btn btn--primary" href="/en/contact/" data-link style="flex:1" data-i18n="cta_talk">Talk to an advisor</a>
+  </div>
+
+  <div class="toast-host" id="toast-host" aria-live="polite"></div>
+  <div id="sr-live" class="visually-hidden" aria-live="polite" role="status"></div>
+  <div id="print-sheet" aria-hidden="true"></div>

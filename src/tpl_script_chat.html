@@ -1,0 +1,467 @@
+  /* ==================================================================
+     GUIDED SITE ASSISTANT
+     A deterministic assistant grounded ONLY in this site's real content
+     (projects, developers, areas, units, payment info, FAQs). It never
+     invents facts; when it can't answer it hands off to WhatsApp or the
+     client registration form. (A real LLM would need a backend + the AI
+     governance in the contract; this is the approved guided fallback.)
+     ================================================================== */
+  var chatEls = null;
+  function chatBuild(){
+    if(chatEls) return;
+    var fab=h('button',{class:'chat-fab', type:'button','aria-label':t('chat_open')},
+      svg(ICON.chat), h('span',{class:'lbl'}, t('chat_open')));
+    var panel=h('aside',{class:'chat-panel', role:'dialog','aria-label':t('chat_title'),'aria-hidden':'true'});
+    var titleEl=h('h3',null,t('chat_title')), subEl=h('p',null,t('chat_sub'));
+    var closeB=h('button',{class:'x', type:'button','aria-label':t('a_close')}, svg('M6 6l12 12M18 6L6 18'));
+    var head=h('div',{class:'chat-head'}, h('div',{class:'av'}, svg(ICON.spark)), h('div',null, titleEl, subEl), closeB);
+    var body=h('div',{class:'chat-body'});
+    var chips=h('div',{class:'chat-chips'});
+    var input=h('input',{type:'text','aria-label':t('chat_ph'), placeholder:t('chat_ph'), autocomplete:'off'});
+    var sendB=h('button',{type:'submit','aria-label':t('a_send')}, svg(ICON.send));
+    var form=h('form',{class:'chat-input'}, input, sendB);
+    panel.appendChild(head); panel.appendChild(body); panel.appendChild(chips); panel.appendChild(form);
+    document.body.appendChild(fab); document.body.appendChild(panel);
+    chatEls={fab:fab, fabLbl:fab.querySelector('.lbl'), panel:panel, title:titleEl, sub:subEl, body:body, chips:chips, input:input, closeB:closeB, sendB:sendB};
+    fab.addEventListener('click', chatOpen);
+    closeB.addEventListener('click', chatClose);
+    form.addEventListener('submit', function(e){ e.preventDefault(); chatUserSend(input.value); });
+    panel.addEventListener('click', function(e){ if(e.target.closest('a')) chatClose(); });
+    document.addEventListener('keydown', function(e){ if(e.key==='Escape' && panel.classList.contains('open')) chatClose(); });
+    chatRefresh();
+  }
+  /* Floating "Compare" pill — sits above the Ask-us FAB, hidden until at least
+     one unit is in the compare tray, then fades/slides in (glass + hover lift). */
+  var compareFabEl=null;
+  function updateCompareFab(){
+    if(typeof document==='undefined' || !document.body) return;
+    var n=(typeof compare!=='undefined' && compare)?compare.length:0;
+    if(!compareFabEl){
+      compareFabEl=h('a',{class:'compare-fab', href:U(buildPath('compare')), 'aria-label':t('nav_compare')},
+        ic('scale','compare-fab__ic'), h('span',{class:'compare-fab__lbl'}, t('nav_compare')),
+        h('span',{class:'compare-fab__badge'}, ''));
+      document.body.appendChild(compareFabEl);
+    }
+    compareFabEl.setAttribute('href', U(buildPath('compare')));
+    compareFabEl.setAttribute('aria-label', t('nav_compare')+(n?(' ('+num(n)+')'):''));
+    var lbl=compareFabEl.querySelector('.compare-fab__lbl'); if(lbl) lbl.textContent=t('nav_compare');
+    var badge=compareFabEl.querySelector('.compare-fab__badge'); if(badge) badge.textContent=n?num(n):'';
+    compareFabEl.classList.toggle('is-visible', n>0);
+  }
+  function chatOpen(){ if(!chatEls) return; chatEls.panel.classList.add('open'); chatEls.panel.setAttribute('aria-hidden','false'); chatEls.fab.style.display='none'; if(compareFabEl) compareFabEl.classList.add('is-hidden-by-chat'); chatRefresh(); track('ai_advisor_open'); setTimeout(function(){ chatEls.input.focus(); },50); }
+  function chatClose(){ if(!chatEls) return; chatEls.panel.classList.remove('open'); chatEls.panel.setAttribute('aria-hidden','true'); chatEls.fab.style.display=''; if(compareFabEl) compareFabEl.classList.remove('is-hidden-by-chat'); try{ chatEls.fab.focus(); }catch(e){} }
+  function chatRefresh(){
+    if(!chatEls) return;
+    chatEls.fabLbl.textContent=t('chat_open'); chatEls.title.textContent=t('chat_title');
+    chatEls.sub.textContent=t('chat_sub'); chatEls.input.setAttribute('placeholder', t('chat_ph'));
+    chatEls.fab.setAttribute('aria-label', t('chat_open')); chatEls.closeB.setAttribute('aria-label', t('a_close')); chatEls.sendB.setAttribute('aria-label', t('a_send'));
+    chatEls.input.setAttribute('aria-label', t('chat_ph'));
+    clear(chatEls.chips);
+    if(hasSelection(FILTER)){
+      var rb=h('button',{type:'button', class:'chip-key'}, t('chat_reco'));
+      rb.addEventListener('click', function(){ chatPush(h('div',{class:'msg user'}, t('chat_reco'))); chatPush(chatRecommend()); });
+      chatEls.chips.appendChild(rb);
+    }
+    ['chat_c1','chat_c2','chat_c3','chat_c4'].forEach(function(k){
+      var b=h('button',{type:'button'}, t(k)); b.addEventListener('click', function(){ chatUserSend(t(k)); }); chatEls.chips.appendChild(b); });
+    if(!chatEls.body.children.length){
+      chatPush(chatMsg(t('chat_hello')));
+      if(hasSelection(FILTER)) chatPush(chatMsg((lang==='ar'?'أرى أنك تبحث عن: ':'I can see you’re looking at: ')+selectionSummary(FILTER)+(lang==='ar'?' — اضغط «رشّح من اختياري».':' — tap “Recommend from my selection”.')));
+    }
+  }
+  function chatPush(node){ chatEls.body.appendChild(node); chatEls.body.scrollTop=chatEls.body.scrollHeight; }
+  function chatMsg(){ var m=h('div',{class:'msg bot'}); for(var i=0;i<arguments.length;i++){ if(arguments[i]!=null && arguments[i]!==false) append(m, arguments[i]); } return m; }
+  function chatLink(label, path){ return h('a',{href:U(path)}, label); }
+  function chatList(title, items){
+    var box=chatMsg(title);
+    if(!items.length){ box.appendChild(document.createTextNode(' '+t('chat_none'))); return box; }
+    var ul=h('div',{style:'margin-top:6px;display:flex;flex-direction:column;gap:5px'});
+    items.slice(0,6).forEach(function(it){ ul.appendChild(h('a',{class:'unit-mini', href:U(it.href)}, it.label)); });
+    box.appendChild(ul); return box;
+  }
+  function chatActions(intro){
+    var box=chatMsg(intro);
+    var row=h('div',{style:'display:flex;gap:6px;flex-wrap:wrap;margin-top:9px'});
+    row.appendChild(h('a',{class:'btn btn--primary btn--sm', href:U(buildPath('contact'))}, t('chat_leave')));
+    if(CONFIG.whatsapp) row.appendChild(h('a',{class:'btn btn--wa btn--sm', href:waLink(lang==='ar'?'مرحباً، أرغب في التحدث إلى مستشار':'Hello, I would like to talk to an advisor'), target:'_blank', rel:'noopener'}, svg(ICON.wa), t('chat_send_wa')));
+    if(CONFIG.phone) row.appendChild(h('a',{class:'btn btn--ghost btn--sm', href:'tel:'+CONFIG.phone}, svg(ICON.phone), CONFIG.phoneDisplay||CONFIG.phone));
+    box.appendChild(row); return box;
+  }
+  /* ---- Selection-aware advisor: recommend from the user's finder selection ---- */
+  function chatBriefText(f, recs){
+    var loc=lang==='ar', lines=[loc?'استفسار من موقع The Village':'Enquiry via The Village website'];
+    if(hasSelection(f)) lines.push((loc?'المطلوب: ':'Looking for: ')+selectionSummary(f));
+    if(recs && recs.length){ lines.push(loc?'قائمة مختارة (استرشادية):':'Shortlist (illustrative):');
+      recs.forEach(function(u){ var p=projBySlug(u.project); lines.push('• '+typeLabelC(unitCanon(u))+' — '+(loc?p.name_ar:p.name)+' · '+money(u.price)); }); }
+    lines.push(loc?'برجاء تأكيد الأسعار والإتاحة الحالية.':'Please confirm current prices and availability.');
+    return lines.join('\n');
+  }
+  function chatAskPrefs(){
+    var box=chatMsg(lang==='ar'?'لأرشّح لك وحدات مناسبة، اختر منطقة للبداية:':'To shortlist units for you, pick an area to start:');
+    var row=h('div',{class:'chat-chips',style:'margin-top:8px'});
+    AREAS.slice(0,5).forEach(function(a){ var b=h('button',{type:'button'}, L(a.name));
+      b.addEventListener('click', function(){ var f=defaultFilter(); f.areas=[a.key]; f.mode='balanced'; FILTER=f; navigateTo(buildPath('units')+'?areas='+a.key+'&mode=balanced'); chatClose(); }); row.appendChild(b); });
+    box.appendChild(row);
+    box.appendChild(h('div',{style:'margin-top:8px'}, h('a',{class:'btn btn--ghost btn--sm', href:U(buildPath('units'))}, svg(ICON.search), t('finder_h'))));
+    return box;
+  }
+  function chatRecommend(){
+    var f=FILTER;
+    if(!hasSelection(f)) return chatAskPrefs();
+    var recs=recommendUnits(f,'balanced').slice(0,5);
+    var box=chatMsg((lang==='ar'?'حسب اختيارك — ':'Based on your selection — ')+selectionSummary(f)+':');
+    if(!recs.length){
+      box.appendChild(h('div',{style:'margin-top:6px'}, lang==='ar'?'لم أجد تطابقاً قريباً؛ يمكن توسيع النطاق أو التحدث مع مستشار.':'No close matches yet — try widening your criteria or talk to an advisor.'));
+      var pr=relaxationPlan(f);
+      if(pr.length) box.appendChild(h('div',{class:'chat-illus',style:'margin-top:6px'}, (lang==='ar'?'جرّب تخفيف: ':'Try loosening: ')+pr.slice(0,2).map(function(s){return s.label;}).join('، ')));
+      box.appendChild(chatRecoActions(f, recs)); return box;
+    }
+    var ul=h('div',{style:'margin-top:8px;display:flex;flex-direction:column;gap:5px'});
+    recs.forEach(function(u){ var p=projBySlug(u.project);
+      ul.appendChild(h('a',{class:'unit-mini', href:U(buildPath('project',{slug:p.slug}))},
+        typeLabelC(unitCanon(u))+' — '+(lang==='ar'?p.name_ar:p.name)+' · '+money(u.price)+' · '+t('conf_illustrative'))); });
+    box.appendChild(ul);
+    box.appendChild(h('div',{class:'chat-illus',style:'margin-top:6px'}, lang==='ar'?'مرتّبة حسب قربها من اختيارك — أكّد التفاصيل مع مستشار.':'Ranked by closeness to your selection — confirm details with an advisor.'));
+    box.appendChild(chatRecoActions(f, recs));
+    return box;
+  }
+  function chatRecoActions(f, recs){
+    var row=h('div',{style:'display:flex;gap:6px;flex-wrap:wrap;margin-top:9px'});
+    var brief=chatBriefText(f, recs);
+    if(CONFIG.whatsapp) row.appendChild(h('a',{class:'btn btn--wa btn--sm', href:waLink(brief), target:'_blank', rel:'noopener'}, svg(ICON.wa), lang==='ar'?'أرسل القائمة لمستشار':'Send shortlist to advisor'));
+    row.appendChild(h('a',{class:'btn btn--primary btn--sm', href:U(buildPath('contact'))}, t('chat_leave')));
+    return row;
+  }
+  function chatUserSend(text){
+    text=(text||'').trim(); if(!text || !chatEls) return;
+    chatPush(h('div',{class:'msg user'}, text));
+    chatEls.input.value='';
+    chatPush(chatRespond(text) || chatActions(t('chat_noanswer')));
+  }
+  /* ==================================================================
+     INSTANT OFFER
+     Ask about a project, a developer, an area or a unit type and the
+     assistant answers from the site's own data and hands back a ready-to-send
+     price list. Every figure is read from PROJECTS / UNITS / DEVELOPERS —
+     nothing is generated — so an offer can never quote a number the site does
+     not publish. The offer is one tap from WhatsApp or the clipboard.
+     ================================================================== */
+  function offerUrl(path){ return (CONFIG.origin||'') + U(path); }
+  // A zero down payment or zero years means "not published for this project",
+  // not a real offer of 0% — so those are dropped rather than quoted.
+  function planLine(p){
+    var bits=[];
+    if(p.dp)    bits.push(num(p.dp)+'% '+t('dp'));
+    if(p.years) bits.push(num(p.years)+' '+(lang==='ar'?'سنوات':'years'));
+    return bits.join(' · ');
+  }
+  function projMetaLine(p){
+    var area=areaByKey(p.area), bits=[L(area.name)];
+    if(p.delivery) bits.push((lang==='ar'?'تسليم ':'Delivery ')+(p.delivery==='Ready'?t('ready'):p.delivery));
+    if(p.finishing) bits.push(L(p.finishing));
+    return bits.join(' · ');
+  }
+  // One line per unit: "2 BR Apartment · 145 m² · 37,600,000 EGP"
+  function offerUnitRows(p, cap){
+    return UNITS.filter(function(u){ return u.project===p.slug; }).slice(0, cap||8).map(function(u){
+      var bits=[unitDisplayName(u)];
+      if(u.area!=null)  bits.push(num(u.area)+' m²');
+      if(u.price!=null) bits.push(money(u.price));
+      return {text:bits.join(' · '), href:buildPath('unit',{id:u.id})};
+    });
+  }
+  function offerProjectRows(list){
+    return list.map(function(p){
+      var bits=[(lang==='ar'?p.name_ar:p.name)];
+      if(p.price!=null) bits.push(t('from')+' '+money(p.price));
+      var pl=planLine(p); if(pl) bits.push(pl);
+      return {text:bits.join(' · '), href:buildPath('project',{slug:p.slug})};
+    });
+  }
+  /* Plain text for WhatsApp / clipboard — the same content the card shows. */
+  function offerText(o){
+    var ar=(lang==='ar'), out=[];
+    out.push(ar?'ذا فيليدج للاستثمار — عرض':'The Village Investment — Offer');
+    out.push(o.title);
+    if(o.sub) out.push(o.sub);
+    if(o.price!=null) out.push('');
+    if(o.price!=null) out.push((ar?'يبدأ من: ':'Starting from: ')+money(o.price));
+    if(o.plan) out.push((ar?'نظام السداد: ':'Payment plan: ')+o.plan);
+    if(o.rows && o.rows.length){
+      out.push('');
+      out.push((o.rowsTitle||(ar?'الوحدات المتاحة':'Available units'))+':');
+      o.rows.forEach(function(r){ out.push('• '+r.text); });
+    }
+    out.push('');
+    out.push(ar?'بيع أولي — مباشر من المطوّر.':'Primary sale — direct from the developer.');
+    out.push(ar?'الأرقام استرشادية؛ برجاء تأكيد الأسعار والإتاحة الحالية.'
+               :'Figures are illustrative; please confirm current prices and availability.');
+    if(o.href) out.push(offerUrl(o.href));
+    var contact=[]; if(CONFIG.phone) contact.push(CONFIG.phoneDisplay||CONFIG.phone);
+    if(CONFIG.email) contact.push(CONFIG.email);
+    if(contact.length) out.push(contact.join(' · '));
+    return out.join('\n');
+  }
+  function copyOffer(text, btn){
+    var done=function(){ toast(lang==='ar'?'تم نسخ العرض':'Offer copied','check'); };
+    try{
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(done, function(){ copyFallback(text, done); });
+      } else copyFallback(text, done);
+    }catch(e){ copyFallback(text, done); }
+  }
+  function copyFallback(text, done){
+    // execCommand still covers in-app webviews where the async clipboard is blocked
+    var ta=h('textarea',{style:'position:fixed;top:-2000px;opacity:0','aria-hidden':'true'});
+    ta.value=text; document.body.appendChild(ta);
+    try{ ta.select(); document.execCommand('copy'); done(); }
+    catch(e){ toast(lang==='ar'?'تعذّر النسخ':'Could not copy','info'); }
+    if(ta.parentNode) ta.parentNode.removeChild(ta);
+  }
+  function chatOffer(o){
+    var box=chatMsg();
+    box.appendChild(h('div',{class:'offer__h'}, o.title));
+    if(o.sub) box.appendChild(h('div',{class:'offer__sub'}, o.sub));
+    if(o.price!=null) box.appendChild(h('div',{class:'offer__price'},
+      h('small',null, t('from')), money(o.price)));
+    if(o.plan) box.appendChild(h('div',{class:'offer__plan'}, ic('doc'), o.plan));
+    if(o.rows && o.rows.length){
+      if(o.rowsTitle) box.appendChild(h('div',{class:'offer__rt'}, o.rowsTitle));
+      var ul=h('div',{style:'margin-top:4px'});
+      o.rows.forEach(function(r){ ul.appendChild(h('a',{class:'unit-mini', href:U(r.href)}, r.text)); });
+      box.appendChild(ul);
+    }
+    box.appendChild(h('div',{class:'chat-illus',style:'margin-top:8px'}, t('conf_illustrative')));
+    var text=offerText(o);
+    var row=h('div',{class:'offer__acts'});
+    if(CONFIG.whatsapp) row.appendChild(h('a',{class:'btn btn--wa btn--sm', href:waLink(text),
+      target:'_blank', rel:'noopener'}, svg(ICON.wa), t('offer_send')));
+    var cp=h('button',{class:'btn btn--ghost btn--sm', type:'button'}, ic('doc'), t('offer_copy'));
+    cp.addEventListener('click', function(){ copyOffer(text, cp); track('offer_copied',{k:o.kind}); });
+    row.appendChild(cp);
+    if(o.href) row.appendChild(h('a',{class:'btn btn--ghost btn--sm', href:U(o.href)}, t('offer_open')));
+    box.appendChild(row);
+    track('offer_shown',{k:o.kind});
+    return box;
+  }
+  function projectOffer(p){
+    var dev=devByKey(p.dev), rows=offerUnitRows(p);
+    return chatOffer({kind:'project',
+      title:(lang==='ar'?p.name_ar:p.name)+' · '+L(dev.name),
+      sub:projMetaLine(p), price:p.price, plan:planLine(p),
+      rows:rows, rowsTitle:rows.length?t('offer_units'):null,
+      href:buildPath('project',{slug:p.slug})});
+  }
+  function listOffer(kind, title, sub, list, href){
+    if(!list.length) return null;
+    var prices=list.map(function(p){ return p.price; }).filter(function(v){ return v!=null; });
+    return chatOffer({kind:kind, title:title, sub:sub,
+      price:prices.length?Math.min.apply(null,prices):null,
+      rows:offerProjectRows(list.slice(0,8)),
+      rowsTitle:t('offer_projects'), href:href});
+  }
+  function typeOffer(tk){
+    var us=UNITS.filter(function(u){ return u.type===tk; });
+    if(!us.length) return null;
+    var prices=us.map(function(u){ return u.price; }).filter(function(v){ return v!=null; });
+    var rows=us.slice().sort(function(a,b){ return (a.price||0)-(b.price||0); }).slice(0,8).map(function(u){
+      var p=projBySlug(u.project), bits=[unitDisplayName(u), (lang==='ar'?p.name_ar:p.name)];
+      if(u.area!=null)  bits.push(num(u.area)+' m²');
+      if(u.price!=null) bits.push(money(u.price));
+      return {text:bits.join(' · '), href:buildPath('unit',{id:u.id})};
+    });
+    return chatOffer({kind:'type', title:typeLabel(tk),
+      sub:(lang==='ar'?'عبر ':'Across ')+num(new_Set(us.map(function(u){return u.project;})))+' '+(lang==='ar'?'مشروعات':'projects'),
+      price:prices.length?Math.min.apply(null,prices):null,
+      rows:rows, rowsTitle:t('offer_units'), href:buildPath('units')});
+  }
+  function new_Set(arr){ var s={},n=0; arr.forEach(function(v){ if(!s[v]){s[v]=1;n++;} }); return n; }
+  /* Name matching: normalise both sides so "بيتش بلازا" and "beach plaza"
+     both land, and prefer the LONGEST match so "Beach Plaza Premium" is not
+     swallowed by a shorter sibling. */
+  function bestNameMatch(nq, list, names){
+    var best=null, bestLen=0;
+    list.forEach(function(o){
+      names(o).forEach(function(nm){
+        var n=arNorm(nm); if(!n || n.length<3) return;
+        if(nq.indexOf(n)>-1 && n.length>bestLen){ best=o; bestLen=n.length; }
+      });
+    });
+    return best;
+  }
+  function chatRespond(raw){
+    var q=raw.trim(), ql=q.toLowerCase(), nq=arNorm(q);
+    if(/(recommend|suggest|shortlist|best fit|match me|for me|رشّ?ح|اقترح|الأنسب|المناسب|قائمة مختارة)/.test(ql)) return chatRecommend();
+    if(/(advisor|agent|human|call|phone|whatsapp|contact|register|مستشار|اتصال|تواصل|واتساب|واتس|كلم|سجل|بيانات)/.test(ql)) return chatActions(lang==='ar'?'يسعدنا مساعدتك مباشرة:':'Happy to help you directly:');
+    if(/(payment|install|plan|deposit|قسط|تقسيط|سداد|دفعة|مقدم)/.test(ql)){
+      var maxY=Math.max.apply(null, PROJECTS.map(function(p){ return p.years||0; }))||7;   // derived from data, never overstated
+      return chatMsg((lang==='ar'
+        ? ('توفّر The Village خطط سداد مرنة تصل حتى '+num(maxY)+' سنوات على وحدات مختارة، ويختلف المقدم والمدة حسب المشروع والمطوّر. ')
+        : ('The Village offers flexible payment plans up to '+maxY+' years on selected units; the down payment and duration vary by project and developer. ')),
+        h('em',{class:'chat-illus'}, t('illustrative_short')), ' ',
+        chatLink(t('nav_faqs'), buildPath('faqs')));
+    }
+    // Most specific first: a project name beats the developer or area it sits in.
+    var proj=bestNameMatch(nq, PROJECTS, function(p){ return [p.name, p.name_ar]; });
+    if(proj) return projectOffer(proj);
+    var dev=bestNameMatch(nq, DEVELOPERS, function(d){ return [d.name.en, d.name.ar]; });
+    if(dev){
+      var dl=projByDev(dev.key);
+      var off=listOffer('dev', L(dev.name), num(dl.length)+' '+(lang==='ar'?'مشروعات':'projects'),
+        dl, buildPath('developer',{slug:dev.key}));
+      if(off) return off;
+    }
+    var area=bestNameMatch(nq, AREAS, function(a){ return [a.name.en, a.name.ar]; });
+    if(area){
+      var al=projInArea(area.key);
+      var aoff=listOffer('area', L(area.name), num(al.length)+' '+(lang==='ar'?'مشروعات':'projects'),
+        al, buildPath('area',{slug:area.key}));
+      if(aoff) return aoff;
+    }
+    var tk=Object.keys(TYPE_META).filter(function(k){ return ql.indexOf(k.toLowerCase())>-1 || q.indexOf(TYPE_META[k].ar)>-1; })[0];
+    if(tk){ var toff=typeOffer(tk); if(toff) return toff; }
+    if(/(launch|new launch|newly|إطلاق|اطلاق|جديد)/.test(ql)) return chatList(t('chat_found'), newLaunchProjects().map(function(p){ return {label:(lang==='ar'?p.name_ar:p.name), href:buildPath('project',{slug:p.slug})}; }));
+    var m=(ql.replace(/[,\s]/g,'').match(/(\d{5,})/)||[])[1];
+    if(m){ var b=parseInt(m,10); var under=PROJECTS.filter(function(p){return p.price<=b;}); if(under.length) return chatList(lang==='ar'?'مشروعات ضمن ميزانيتك:':'Projects within your budget:', under.map(function(p){ return {label:(lang==='ar'?p.name_ar:p.name)+' · '+t('from')+' '+money(p.price)+' · '+t('conf_illustrative'), href:buildPath('project',{slug:p.slug})}; })); }
+    if(/(who|about|company|من نحن|من انتم|عنكم|شركة)/.test(ql)) return chatMsg(ABOUT[lang][0]+' ', chatLink(t('nav_about'), buildPath('about')));
+    if(/(area|location|where|مناطق|منطقة|مكان|فين|وين)/.test(ql)) return chatList(t('chat_found'), AREAS.map(function(a){ return {label:L(a.name), href:buildPath('area',{slug:a.key})}; }));
+    if(/(unit|units|apartment|villa|وحدات|وحدة|شقق|شقة)/.test(ql)) return chatList(t('chat_found'), UNITS.slice(0,6).map(function(u){ var p=projBySlug(u.project); return {label:typeLabel(u.type)+' — '+(lang==='ar'?p.name_ar:p.name)+' · '+money(u.price)+' · '+t('conf_illustrative'), href:buildPath('project',{slug:p.slug})}; }));
+    if(/(developer|مطور|مطوّر|مطورين)/.test(ql)) return chatList(t('chat_found'), DEVELOPERS.map(function(d){ return {label:L(d.name), href:buildPath('developer',{slug:d.key})}; }));
+    return chatActions(t('chat_noanswer'));
+  }
+
+  /* ==================================================================
+     FLOATING CONTACT RAIL + periodic direct-contact nudge
+     A sticky phone / email / WhatsApp rail on the trailing edge, plus a
+     WhatsApp callout that surfaces every 30s (dismissible, and paused while
+     the chat/search/drawer is open or a form field is focused). Uses only
+     the real, verified CONFIG channels.
+     ================================================================== */
+  var railEls=null, railNudge={el:null, dismissed:false, timer:null, hideT:null};
+  function railWaMsg(){ return lang==='ar'?'مرحباً، أرغب في الاستفسار عن عقارات The Village':'Hello, I would like to enquire about The Village properties'; }
+  function nudgeText(){ return lang==='ar'?'محتاج مساعدة؟ كلّم مستشار الآن':'Need help? Talk to an advisor'; }
+  function contactRailBuild(){
+    if(railEls) return;
+    var rail=h('div',{class:'contact-rail', id:'contact-rail', role:'group'});
+    var phoneB = CONFIG.phone ? h('a',{class:'cr-btn'}, ic('phone')) : null;
+    var emailB = CONFIG.email ? h('a',{class:'cr-btn'}, ic('mail')) : null;
+    var waB    = CONFIG.whatsapp ? h('a',{class:'cr-btn cr-btn--wa', target:'_blank', rel:'noopener'}, svgSolid(ICON.wa_solid)) : null;
+    [waB,phoneB,emailB].forEach(function(b){ if(b) rail.appendChild(b); });
+    if(!rail.childNodes.length) return;
+    document.body.appendChild(rail);
+    railEls={rail:rail, phone:phoneB, email:emailB, wa:waB};
+    contactNudgeInit();
+    railRefresh();
+  }
+  function contactNudgeInit(){
+    if(!CONFIG.whatsapp || railNudge.el) return;
+    var link=h('a',{class:'rail-nudge', target:'_blank', rel:'noopener', 'aria-hidden':'true', tabindex:'-1'},
+      h('span',{class:'rail-nudge__ic'}, svgSolid(ICON.wa_solid)), h('span',{class:'rail-nudge__t'}, nudgeText()));
+    var x=h('button',{class:'rail-nudge__x', type:'button', 'aria-label':t('a_close')}, '×');
+    link.appendChild(x);
+    x.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); railNudge.dismissed=true; clearTimeout(railNudge.timer); clearInterval(railNudge.timer); railNudgeHide(); track('contact_nudge_dismissed'); });
+    link.addEventListener('click', function(){ track('contact_nudge_click'); });
+    document.body.appendChild(link);
+    railNudge.el=link;
+    // first nudge after 30s, then repeat every 60s
+    railNudge.timer=setTimeout(function(){ railNudgeMaybe(); railNudge.timer=setInterval(railNudgeMaybe, 60000); }, 30000);
+  }
+  function railNudgeMaybe(){
+    if(railNudge.dismissed || !railNudge.el) return;
+    if(document.querySelector('.chat-panel.open, .pal-back.open, .drawer.open')) return;   // don't interrupt an open surface
+    var ae=document.activeElement; if(ae && /^(INPUT|TEXTAREA|SELECT)$/.test(ae.tagName||'')) return;  // don't interrupt form entry
+    railNudgeShow();
+  }
+  function railNudgeShow(){
+    var n=railNudge.el; if(!n) return;
+    n.classList.add('show'); n.setAttribute('aria-hidden','false'); n.setAttribute('tabindex','0');
+    track('contact_nudge_shown');
+    clearTimeout(railNudge.hideT); railNudge.hideT=setTimeout(railNudgeHide, 6500);
+  }
+  function railNudgeHide(){ var n=railNudge.el; if(!n) return; n.classList.remove('show'); n.setAttribute('aria-hidden','true'); n.setAttribute('tabindex','-1'); }
+  function railRefresh(){
+    if(!railEls) return;
+    railEls.rail.setAttribute('aria-label', lang==='ar'?'قنوات التواصل':'Contact channels');
+    if(railEls.phone){ railEls.phone.setAttribute('href','tel:'+CONFIG.phone); railEls.phone.setAttribute('aria-label', t('call')+' '+(CONFIG.phoneDisplay||CONFIG.phone)); }
+    if(railEls.email){ railEls.email.setAttribute('href','mailto:'+CONFIG.email+'?subject='+encodeURIComponent(lang==='ar'?'استفسار عقاري':'Property enquiry')); railEls.email.setAttribute('aria-label', t('email_label')); }
+    if(railEls.wa){ railEls.wa.setAttribute('href', waLink(railWaMsg())); railEls.wa.setAttribute('aria-label', t('whatsapp')); }
+    if(railNudge.el){ var tEl=railNudge.el.querySelector('.rail-nudge__t'); if(tEl) tEl.textContent=nudgeText();
+      railNudge.el.setAttribute('href', waLink(lang==='ar'?'مرحباً، أحتاج مساعدة مستشار':'Hello, I need help from an advisor'));
+      var x=railNudge.el.querySelector('.rail-nudge__x'); if(x) x.setAttribute('aria-label', t('a_close')); }
+  }
+
+  /* =====================================================================
+     LEAD-CAPTURE POPUP
+     Armed by a contact-icon click or a project view; shows up to twice per
+     session, ~1 minute apart. On submit it records the lead locally, POSTs to
+     CONFIG.LEAD_ENDPOINT (a Google Apps Script that appends to a Sheet AND emails
+     CONFIG.leadEmail), and falls back to a prefilled email so nothing is lost.
+     ===================================================================== */
+  var LEAD = { shown:0, armed:false, open:false, lastFocus:null };
+  function leadDone(){ try{ return !!(window.sessionStorage && window.sessionStorage.getItem('tvi_lead')==='done'); }catch(e){ return false; } }
+  function leadShouldRun(){ return !leadDone() && LEAD.shown<2; }
+  function leadArm(){ if(LEAD.armed || !leadShouldRun()) return; LEAD.armed=true; setTimeout(leadTryOpen, 2500); }
+  function leadTryOpen(){
+    if(!leadShouldRun() || LEAD.open) return;
+    var ae=document.activeElement;
+    if(ae && /^(INPUT|TEXTAREA|SELECT)$/.test(ae.tagName||'')){ setTimeout(leadTryOpen, 10000); return; }   // don't interrupt typing
+    if(document.querySelector('.drawer.open, .chat-panel.open, .pal-back.open')){ setTimeout(leadTryOpen, 10000); return; }
+    leadOpenModal();
+    if(LEAD.shown<2) setTimeout(leadTryOpen, 60000);   // the second pop, one minute later
+  }
+  function leadMarkDone(){ try{ if(window.sessionStorage) window.sessionStorage.setItem('tvi_lead','done'); }catch(e){} }
+  function leadEsc(e){ if(e.key==='Escape'||e.keyCode===27) leadCloseModal(); }
+  function leadCloseModal(){
+    var b=document.getElementById('lead-back'); if(b && b.parentNode) b.parentNode.removeChild(b);
+    LEAD.open=false; document.removeEventListener('keydown', leadEsc);
+    if(LEAD.lastFocus){ try{ LEAD.lastFocus.focus(); }catch(e){} }
+  }
+  function leadOpenModal(){
+    if(document.getElementById('lead-back') || !leadShouldRun()) return;
+    LEAD.open=true; LEAD.shown++; LEAD.lastFocus=document.activeElement;
+    track('lead_popup_shown', {n:LEAD.shown});
+    var nameI=h('input',{type:'text', id:'lead-name', autocomplete:'name', placeholder:t('lead_name'), 'aria-label':t('lead_name')});
+    var phoneI=h('input',{type:'tel', id:'lead-phone', inputmode:'tel', autocomplete:'tel', placeholder:t('lead_phone'), 'aria-label':t('lead_phone')});
+    var err=h('div',{class:'lead-err', role:'alert', style:'display:none'});
+    var send=h('button',{type:'submit', class:'lead-send'}, t('lead_send'));
+    var form=h('form',{class:'lead-form'}, nameI, phoneI, err, send);
+    var closeB=h('button',{type:'button', class:'lead-x', 'aria-label':t('a_close')}, '×');
+    var card=h('div',{class:'lead-card', role:'dialog', 'aria-modal':'true', 'aria-label':t('lead_title')},
+      closeB, h('h2',{class:'lead-h'}, t('lead_title')), h('p',{class:'lead-sub'}, t('lead_sub')),
+      form, h('div',{class:'lead-note'}, ic('info'), h('span',null, t('conf_illustrative'))));
+    var back=h('div',{class:'lead-back', id:'lead-back'}, card);
+    document.body.appendChild(back);
+    try{ requestAnimationFrame(function(){ back.classList.add('show'); }); }catch(e){ back.classList.add('show'); }
+    setTimeout(function(){ try{ nameI.focus(); }catch(e){} }, 60);
+    closeB.addEventListener('click', leadCloseModal);
+    back.addEventListener('click', function(e){ if(e.target===back) leadCloseModal(); });
+    document.addEventListener('keydown', leadEsc);
+    form.addEventListener('submit', function(e){ e.preventDefault();
+      var nm=(nameI.value||'').trim(), ph=(phoneI.value||'').trim(), digits=ph.replace(/[^0-9]/g,'');
+      if(nm.length<2 || digits.length<7){ err.textContent=t('lead_err'); err.style.display='block'; return; }
+      err.style.display='none'; send.disabled=true; send.textContent=t('lead_sending');
+      leadSubmit(nm, ph).then(function(){ leadMarkDone(); leadThanks(card); });
+    });
+  }
+  function leadThanks(card){
+    clear(card);
+    card.appendChild(h('div',{class:'lead-thanks'}, h('div',{class:'lead-check'}, '✓'), h('h2',{class:'lead-h'}, t('lead_thanks'))));
+    setTimeout(leadCloseModal, 2800);
+  }
+  function leadSubmit(name, phone){
+    var data={ name:name, phone:phone, source:'popup', page:(typeof currentRoute!=='undefined'&&currentRoute?currentRoute.name:''), locale:lang, ts:new Date().toISOString(), site:'thevillageinvestment.com' };
+    try{ var arr=load('tv_leads',[]); arr.push(data); store('tv_leads', arr.slice(-50)); }catch(e){}
+    track('lead_submitted', {source:'popup'});
+    if(CONFIG.LEAD_ENDPOINT && typeof fetch!=='undefined'){
+      return fetch(CONFIG.LEAD_ENDPOINT, {method:'POST', mode:'no-cors', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify(data)})
+        .then(function(){ return true; }).catch(function(){ leadMailFallback(data); return false; });
+    }
+    leadMailFallback(data);
+    return Promise.resolve(null);
+  }
+  function leadMailFallback(d){
+    var to=CONFIG.leadEmail||CONFIG.email; if(!to) return;
+    var subj=(lang==='ar'?'عميل جديد من الموقع':'New website lead')+' — '+d.name;
+    var body=(lang==='ar'?'الاسم: ':'Name: ')+d.name+'\n'+(lang==='ar'?'الهاتف: ':'Phone: ')+d.phone+'\n'+(lang==='ar'?'الصفحة: ':'Page: ')+d.page+'\n'+d.ts;
+    try{ window.open('mailto:'+to+'?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(body), '_blank'); }catch(e){}
+  }

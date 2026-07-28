@@ -1,0 +1,407 @@
+  <script>
+  "use strict";
+  /* ==================================================================
+     THE VILLAGE — application core
+     No inline handlers. No innerHTML for dynamic content. Single data
+     source of truth. All commercial figures are illustrative + badged.
+     ================================================================== */
+
+  /* ---- SPA deep-link restore (static-host friendly, rafgraph pattern) ---- */
+  (function(){
+    var s = window.location.search;
+    if (s && s.charAt(1) === '/') {
+      var decoded = s.slice(1).split('&').map(function(p){
+        return p.replace(/~and~/g,'&');
+      }).join('?');
+      try {
+        window.history.replaceState(null,null,
+          window.location.pathname.slice(0,-1) + decoded + window.location.hash);
+      } catch (e) { /* file:// blocks history API — hash fallback handles it */ }
+    }
+  })();
+
+  /* ---- safe DOM builder (hyperscript) ---- */
+  function h(tag, props){
+    var e = document.createElement(tag), i, k;
+    if (props) for (k in props){
+      if (k === 'class') e.className = props[k];
+      else if (k === 'text') e.textContent = props[k];
+      else if (k === 'html') { /* intentionally unsupported: no raw HTML sink */ }
+      else if (k.slice(0,2) === 'on' && typeof props[k] === 'function') e.addEventListener(k.slice(2), props[k]);
+      else if (k === 'dataset') { for (var d in props[k]) e.dataset[d] = props[k][d]; }
+      else if (props[k] === true) e.setAttribute(k,'');
+      else if (props[k] !== false && props[k] != null) e.setAttribute(k, props[k]);
+    }
+    for (i = 2; i < arguments.length; i++) append(e, arguments[i]);
+    return e;
+  }
+  function append(parent, child){
+    if (child == null || child === false) return;
+    if (Array.isArray(child)) { child.forEach(function(c){ append(parent, c); }); return; }
+    if (child.nodeType) { parent.appendChild(child); return; }
+    parent.appendChild(document.createTextNode(String(child)));
+  }
+  function svg(path, vb){
+    var s = document.createElementNS('http://www.w3.org/2000/svg','svg');
+    s.setAttribute('viewBox', vb||'0 0 24 24'); s.setAttribute('fill','none');
+    s.setAttribute('stroke','currentColor'); s.setAttribute('stroke-width','1.9');
+    s.setAttribute('stroke-linecap','round'); s.setAttribute('stroke-linejoin','round');
+    s.setAttribute('aria-hidden','true');
+    var arr = Array.isArray(path) ? path : [path];
+    arr.forEach(function(d){ var p = document.createElementNS('http://www.w3.org/2000/svg','path'); p.setAttribute('d', d); s.appendChild(p); });
+    return s;
+  }
+  function svgSolid(path, vb){ var s=document.createElementNS('http://www.w3.org/2000/svg','svg');
+    s.setAttribute('viewBox', vb||'0 0 24 24'); s.setAttribute('fill','currentColor'); s.setAttribute('aria-hidden','true');
+    var p=document.createElementNS('http://www.w3.org/2000/svg','path'); p.setAttribute('d', path); s.appendChild(p); return s; }
+  var ICON = {
+    pin:'M12 21s-7-5.7-7-11a7 7 0 0 1 14 0c0 5.3-7 11-7 11z M12 10a2 2 0 1 0 0-.01',
+    build:'M4 21V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v16 M14 21V9h4a2 2 0 0 1 2 2v10 M7 7h2M7 11h2M7 15h2',
+    heart:'M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z',
+    home:'M3 10.7 12 3.5l9 7.2 M5 9.5V20a1 1 0 0 0 1 1h3v-6h6v6h3a1 1 0 0 0 1-1V9.5',
+    scale:'M12 3v18 M7 8l-4 7a3 3 0 0 0 8 0zM17 8l-4 7a3 3 0 0 0 8 0z M4 7h16',
+    check:'M20 6L9 17l-5-5',
+    search:'M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14z M21 21l-4.3-4.3',
+    plus:'M12 5v14M5 12h14',
+    info:'M12 8h.01M11 12h1v5h1 M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z',
+    shield:'M12 3l7 3v6c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V6z M9 12l2 2 4-4',
+    doc:'M7 3h7l4 4v14H7z M14 3v4h4 M9 13h6M9 17h6',
+    chat:'M4 5h16v11H8l-4 4z',
+    arrow:'M5 12h14M13 6l6 6-6 6',
+    globe:'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z M3 12h18 M12 3c3 3.5 3 14.5 0 18 M12 3c-3 3.5-3 14.5 0 18',
+    spark:'M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z',
+    key:'M14 7a3 3 0 1 1-3 3 M13 9l-9 9v3h3l1-1h2v-2h2l2-2 M14.5 8.5',
+    ban:'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z M5.6 5.6l12.8 12.8',
+    phone:'M6.6 3.5 4 4.2C3 4.5 2.6 5.6 3 6.6a17 17 0 0 0 14.4 14.4c1 .4 2.1 0 2.4-1l.7-2.6-4.6-2-1.6 2A13 13 0 0 1 8.6 9.1l2-1.6-2-4z',
+    wa:'M20 12a8 8 0 0 1-11.9 7L4 20l1.1-4A8 8 0 1 1 20 12z M9 9c0 4 2 6 6 6',
+    mail:'M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z M22 6 12 13 2 6',
+    filter:'M22 3H2l8 9.46V19l4 2v-8.54z',
+    wa_solid:'M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z',
+    send:'M22 2 11 13 M22 2 15 22l-4-9-9-4z',
+    pin:'M12 21s-6-5.7-6-10a6 6 0 1 1 12 0c0 4.3-6 10-6 10z M12 11a2 2 0 1 0 0-4 2 2 0 0 0 0 4z',
+    target:'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z M12 1v3M12 20v3M1 12h3M20 12h3',
+    layers:'M12 3l9 5-9 5-9-5z M3 13l9 5 9-5 M3 17l9 5 9-5',
+    /* spec icons */
+    bed:['M3 18v-6h13a4 4 0 0 1 4 4v2','M3 12V8h7a3 3 0 0 1 3 3v1','M3 18h18','M20 18v2M4 18v2'],
+    bath:['M4 12h16v3a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4z','M6 12V6a2 2 0 0 1 3.9-.6','M3 12h18','M7 19l-1 2M18 19l1 2'],
+    area:['M4 9V4h5','M20 15v5h-5','M4 4l6 6','M20 20l-6-6'],
+    /* property-type icons */
+    ty_apartment:['M6 21V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v17','M9 7h2M9 11h2M9 15h2','M3 21h18'],
+    ty_villa:['M3 11l9-7 9 7','M5 10v10h14V10','M10 20v-6h4v6'],
+    ty_townhouse:['M4 21V8l4-3 4 3v13','M12 21V10l4-3 4 3v11','M3 21h18'],
+    ty_twinhouse:['M2 21V9l5-4 5 4v12','M12 21V9l5-4 5 4v12','M1 21h22'],
+    ty_duplex:['M5 21V7l7-4 7 4v14','M5 13h14','M3 21h18'],
+    ty_penthouse:['M5 21v-8l7-4 7 4v8','M9 21v-5h6v5','M3 21h18'],
+    ty_studio:['M4 5h16v14H4z','M4 12h16M12 5v7'],
+    ty_chalet:['M3 12l9-7 9 7','M6 10v9h12v-9','M10 19v-5h4v5','M18 4v3'],
+    ty_cabin:['M4 12l8-6 8 6','M6 11v8h12v-8','M6 15h12'],
+    ty_office:['M4 21V4h10v17','M14 9h6v12','M7 8h2M7 12h2M7 16h2','M3 21h18'],
+    /* social icons */
+    facebook:['M14 4h-2a4 4 0 0 0-4 4v3H5v4h3v6h4v-6h3l1-4h-4V8a1 1 0 0 1 1-1h2z'],
+    instagram:['M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4z','M12 8.2a3.8 3.8 0 1 0 0 7.6 3.8 3.8 0 0 0 0-7.6z','M17.4 6.6h.01'],
+    linkedin:['M4.5 4.5h15a0 0 0 0 1 0 0v15a0 0 0 0 1 0 0h-15a0 0 0 0 1 0 0v-15a0 0 0 0 1 0 0z','M8 10v7','M8 7v.01','M12 17v-4a2 2 0 0 1 4 0v4','M12 12v5'],
+    tiktok:['M14 4v10a4 4 0 1 1-4-4','M14 4c.5 2.5 2.5 4.3 5 4.5'],
+    /* unit feature-row + viewer controls */
+    floorplan:['M3 4h18v16H3z','M13 4v16','M13 14h8','M3 11h10','M7 4v3'],
+    masterplan:['M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z','M9 4v14','M15 6v14'],
+    gallery:['M3 5h18v14H3z','M3 16l5-5 4 4 3-3 6 6','M8.5 9h.01'],
+    star:['M12 3.5l2.6 5.7 6.2.6-4.7 4.1 1.4 6.1L12 17l-5.5 3.1 1.4-6.1L3.2 9.8l6.2-.6z'],
+    x:['M6 6l12 12','M18 6L6 18'],
+    expand:['M8 4H4v4','M16 4h4v4','M8 20H4v-4','M16 20h4v-4'],
+    zoomin:['M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14z','M21 21l-4.3-4.3','M11 8v6','M8 11h6'],
+    zoomout:['M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14z','M21 21l-4.3-4.3','M8 11h6'],
+    chevleft:['M15 6l-6 6 6 6'],
+    chevdown:['M6 9l6 6 6-6'],
+    chevright:['M9 6l6 6-6 6'],
+    /* amenity icons */
+    am_beach:['M12 3c4 0 8 3 8 7H4c0-4 4-7 8-7z','M12 3v18','M9 21h6'],
+    am_lagoon:['M3 8c2-1.5 4-1.5 6 0s4 1.5 6 0 4-1.5 6 0','M3 13c2-1.5 4-1.5 6 0s4 1.5 6 0 4-1.5 6 0','M3 18c2-1.5 4-1.5 6 0s4 1.5 6 0 4-1.5 6 0'],
+    am_pool:['M2 16c2-1.4 4-1.4 6 0s4 1.4 6 0 4-1.4 6 0','M2 20c2-1.4 4-1.4 6 0s4 1.4 6 0 4-1.4 6 0','M8 14V5a2 2 0 0 1 4 0','M8 9h4'],
+    am_club:['M4 20V9l8-5 8 5v11','M4 20h16','M10 20v-5h4v5','M9 10h.01','M15 10h.01'],
+    am_gym:['M6 9v6','M18 9v6','M4 7v10','M20 7v10','M6 12h12'],
+    am_security:['M12 3l7 3v6c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V6z','M9.5 12l1.8 1.8 3.5-3.5'],
+    am_landscape:['M12 3c3 2 4 5 4 8a4 4 0 0 1-8 0c0-3 1-6 4-8z','M12 11v10'],
+    am_retail:['M6 8h12l-1 12H7z','M9 8V6a3 3 0 0 1 6 0v2'],
+    am_sports:['M3 12h4l2 6 4-14 2 8h6'],
+    am_kids:['M12 3a4 4 0 0 1 4 4c0 3-4 6-4 6s-4-3-4-6a4 4 0 0 1 4-4z','M12 13v5','M10 21h4'],
+    am_clinic:['M12 4a8 8 0 1 0 0 16 8 8 0 0 0 0-16z','M12 8v8','M8 12h8'],
+    am_mosque:['M5 20V11c0-3 3-5 7-5s7 2 7 5v9','M4 20h16','M12 6V3','M9 20v-4a3 3 0 0 1 6 0v4']
+  };
+  function ic(name, cls){ var s = svg(ICON[name]); if(cls) s.setAttribute('class',cls); return s; }
+  var $ = function(s, r){ return (r||document).querySelector(s); };
+
+  /* ==================================================================
+     CONFIG — public contact points intentionally EMPTY until verified.
+     Contract: hide call/WhatsApp CTAs and never publish placeholders.
+     Fill these (and LEAD_ENDPOINT) at go-live; the UI adapts automatically.
+     ================================================================== */
+  var CONFIG = {
+    phone: "+201016000201",                 // verified business line (owner-provided)
+    phoneDisplay: "+20 101 600 0201",
+    whatsapp: "201016000201",               // same number, WhatsApp
+    email: "info@thevillageinvestment.com", // verified business inbox
+    social: { facebook:"https://www.facebook.com/share/18vY47m3rz/", instagram:"https://www.instagram.com/thevillageinvestment", linkedin:"https://www.linkedin.com/company/the-village-investment/", tiktok:"https://www.tiktok.com/@thevillageinvestment" },
+    leadEmail: "leads@thevillageinvestment.com", // lead notifications go here (Apps Script emails it; mailto fallback uses it)
+    LEAD_ENDPOINT: "",                       // paste your Google Apps Script Web App URL here → leads append to a Sheet + email leadEmail. See docs/LEAD_CAPTURE_SETUP.md
+    origin: "https://www.thevillageinvestment.com",
+    // Owner-supplied. Unlike every other stat on the hero this one is not
+    // derived from the data maps, so it lives here and is edited here.
+    clientsServed: 899
+  };
+
+  /* Privacy-safe analytics dispatcher — pushes a versioned event to
+     window.dataLayer (GA4/GTM-ready). Only primitive, non-PII props allowed. */
+  function track(ev, props){
+    try{
+      window.dataLayer = window.dataLayer || [];
+      var o={ event:ev, v:1, locale:(typeof lang!=='undefined'?lang:'en'), route:(typeof currentRoute!=='undefined'&&currentRoute?currentRoute.name:'') };
+      if(props) for(var k in props){ var val=props[k]; if(val!=null && (typeof val==='string'||typeof val==='number'||typeof val==='boolean')) o[k]=val; }
+      window.dataLayer.push(o);
+    }catch(e){}
+  }
+
+  /* ==================================================================
+     i18n — UI chrome + page copy
+     ================================================================== */
+  var I18N = {
+    en: {
+      invest:"Investment", skip:"Skip to main content", intro_skip:"Skip",
+      nav_home:"Home", nav_projects:"Projects", nav_developers:"Developers", nav_areas:"Areas",
+      nav_insights:"Insights", nav_about:"About", nav_launches:"New launches", nav_search:"Search", nav_favorites:"Favorites", nav_maps:"Maps",
+      maps_kicker:"The Village Maps", maps_h:"The Village Maps",
+      maps_p:"Explore primary-sale projects across Egypt on one interactive map — filter by area, developer and budget, and read each project's investment signal at a glance.",
+      map_search_ph:"Search a project or developer…", map_style:"Map style", map_reset:"Reset view",
+      map_invest:"Investment signal", map_invest_note:"Indicative only — not financial advice.",
+      score_excellent:"Excellent", score_strong:"Strong", score_solid:"Solid", score_fair:"Fair",
+      map_view_details:"View project", map_directions:"Directions", map_no_results:"No projects match these filters.",
+      map_note_h:"About this map", map_note_p:"Marker positions are approximate and schematic, for orientation only. Prices and the investment signal are illustrative — confirm current figures and availability with an advisor.",
+      price_from:"From", all_areas:"All areas", all_developers:"All developers", any_budget:"Any budget", budget:"Budget", cta_call:"Call", cmp_add:"Compare",
+      fav_h:"Your favorites", fav_p:"Projects you've saved — kept on this device.", fav_empty:"No favorites yet. Tap the heart on any project to save it here.",
+      nav_faqs:"FAQs", nav_contact:"Contact", nav_compare:"Compare",
+      cta_talk:"Talk to an advisor", cta_explore:"Explore projects", cta_details:"View details",
+      cta_more:"Learn more", cta_all:"View all", cta_reset:"Reset filters", cta_apply:"Apply",
+      egp:"EGP", from:"Starting From", tba:"On request", perm:"/ month (illustrative)",
+      f_explore:"Explore", f_company:"Company", f_legal:"Legal",
+      f_primary:"Primary-sale property only · New launches & developer-direct units",
+      illustrative:"Illustrative figure — confirm current price & availability with an advisor",
+      illustrative_short:"Illustrative — confirm with advisor",
+      call:"Call", whatsapp:"WhatsApp", email_label:"Email",
+      send_wa:"Send on WhatsApp", send_email:"Send by email",
+      unit_types_h:"Unit types", unit_types_p:"Unit types available in this project. Layouts are illustrative — confirm current availability and prices with an advisor.",
+      art_note:"Images are original brand illustrations, not photographs of the actual project. Real photography can replace them once supplied with usage rights.",
+      devmark_note:"Official developer logos are shown where provided with usage rights; the remaining developers use original placeholder marks until their logos are supplied.",
+      lead_handoff:"Your enquiry is ready. Send it to an advisor on WhatsApp, or by email.",
+      derived:"Count derived from projects shown on this site — not full live inventory",
+      dp:"Down payment", years:"Installment period", delivery:"Delivery", finishing:"Finishing",
+      status:"Status", area:"Area", developer:"Developer", type:"Type", price:"Starting from", units:"Unit types",
+      launch:"New launch", primary:"Primary", ready:"Ready to move",
+      save:"Save", saved:"Saved", compare:"Compare", incompare:"In compare",
+      results:"results", noresults:"No matching projects", noresults_p:"Try widening your filters or reset to see all primary-sale projects.",
+      filter_area:"Area", filter_dev:"Developer", filter_status:"Status", filter_price:"Max price", filter_sort:"Sort",
+      any:"Any", sort_feat:"Featured", sort_price_a:"Price: low to high", sort_price_d:"Price: high to low",
+      hero_kicker:"Primary-sale real estate · Egypt",
+      hero_h1a:"Where Smart ", hero_h1b:"Investments Begin", hero_sig:"Invest with Belal Samy in your real estate",
+      hero_p:"The Village is a real-estate marketing and brokerage company. We help you compare new launches, developers and areas across New Cairo, Fifth Settlement, the New Administrative Capital and the coast — with honest advisory from your first question to unit handover.",
+      hero_s1:"Areas covered", hero_s2:"Developers tracked", hero_s3:"Curated projects", hero_s4:"Clients served",
+      find_h:"Find your primary unit", find_p:"Filter the curated selection, then talk to an advisor for live availability.",
+      home_ours_k:"Marketed by The Village", home_ours_h:"Our featured projects", home_ours_p:"Primary-sale launches we market directly across Ras El Hekma, the North Coast, Ain Sokhna and Greater Cairo. Figures are illustrative — talk to an advisor to confirm current prices and availability.",
+      home_launch_h:"New launches", home_launch_p:"Our next primary launch — coming soon.", coming_soon:"Coming Soon",
+      home_devrail_h:"Browse by developer", home_devrail_p:"Tap a developer to explore their primary-sale projects.",
+      home_feat_h:"Featured projects", home_feat_p:"A hand-picked look across areas and developers. Figures are illustrative pending advisor confirmation.",
+      home_area_h:"Browse by area", home_area_p:"Egypt's most active primary-sale destinations.",
+      top_loc_h:"Top locations", top_loc_p:"Egypt's most sought-after primary-sale destinations — updated live from our inventory.", coming_soon:"Coming soon", register_interest:"Register interest",
+      home_dev_h:"Developers we track", home_dev_p:"Public developer names with original summaries. We show a relationship only when it is documented and approved.",
+      home_why_h:"Why buyers choose The Village",
+      why1_h:"Primary sale, done right", why1_p:"New launches, off-plan and developer-direct units only — never resale or owner listings.",
+      why2_h:"Honest, source-aware advice", why2_p:"Every price and plan is confirmed with the developer before you commit. Illustrative figures are always labelled.",
+      why3_h:"Built for buyers abroad", why3_p:"Compare, shortlist and reach an advisor in your timezone — from the Gulf, Europe or anywhere Egyptians invest.",
+      home_trust_h:"How we handle facts",
+      home_trust_p:"Developer and area names are public facts. Prices, payment plans, delivery dates and availability change often — so we treat every figure on this site as illustrative until an advisor confirms the current developer terms with you. We never invent inventory, contacts, or success messages.",
+      insights_h:"Buyer guides & insights", insights_p:"Plain-language guidance on buying primary-sale property in Egypt. General educational content — not financial, legal or tax advice.",
+      about_h:"About The Village", faqs_h:"Frequently asked questions", faqs_p:"Answers about how The Village works, areas, payment plans and advisory.",
+      contact_h:"Talk to an advisor", contact_p:"Leave your details and preferred area. An advisor follows up to arrange a viewing, answer questions and suggest suitable primary units.",
+      cmp_h:"Compare units", cmp_p:"Add up to 3 primary-sale units to compare side by side. Figures are illustrative pending advisor confirmation.",
+      cmp_empty:"No units added yet", cmp_empty_p:"Open any unit and choose “Compare”, or add from the units list.",
+      form_name:"Full name", form_phone:"Phone (with country code)", form_email:"Email", form_area:"Preferred area", form_msg:"What are you looking for?",
+      form_consent:"I agree to be contacted about my enquiry and accept the privacy notice.",
+      form_send:"Request a callback", form_sending:"Checking…",
+      err_req:"This field is required", err_email:"Enter a valid email", err_phone:"Enter a valid phone with country code", err_consent:"Please accept the privacy notice to continue",
+      lead_not_connected:"This preview build is not connected to a live CRM yet, so nothing was sent. Your details are shown below to copy — or configure a lead endpoint to go live.",
+      lead_copy:"Copy my details", copied:"Copied to clipboard",
+      contact_blocked:"Verified phone, WhatsApp and email are pending confirmation and are intentionally not shown. This is a launch blocker recorded for the owner.",
+      p404_h:"Page not found", p404_p:"The page you’re looking for doesn’t exist or may have moved. Explore primary-sale projects instead.",
+      p404_home:"Back to home", back:"Back",
+      related:"Related projects", by_dev:"Projects by this developer", in_area:"Projects in this area",
+      overview:"Overview", facts:"Key facts", enquire:"Enquire about this project", enquire_p:"Ask an advisor for the current price list, payment plan and availability.",
+      guide_note:"General educational guidance for buyers. Not financial, legal or tax advice. Confirm current terms with an advisor and the developer.",
+      readmin:"min read", legal_priv:"Privacy notice", legal_terms:"Terms of use",
+      brand_note:"Identity derived from The Village master logo. Approved brand sign-off pending.",
+      foot_blocker:"Launch note: verified contacts, live inventory, CRM lead delivery and legal review are pending owner input.",
+      choose_lang:"العربية", metric_installments:"yr plan",
+      nav_units:"Units", avail_units:"Available units", new_release:"New release", release_h:"New release price list", release_p:"Updated prices released by the developer for these projects. Primary sale, direct from the developer.", release_units:"Units in this release", fs_installments:"Installments", fs_quarterly:"quarterly", fs_floorplan:"Floor plan", eoi:"EOI", eoi_note:"Expression of interest — refundable reservation to join the release.", no_units_type:"No available units found for this unit type.",
+      home_units_h:"Featured units", home_units_p:"Illustrative sample units across our projects — bedrooms, area and price are examples to confirm with an advisor.",
+      units_h:"Units", units_p:"Browse sample units by type. Figures are illustrative — confirm current availability and prices with an advisor.",
+      filter_type:"Type", all_types:"All types",
+      social_h:"Follow us",
+      chat_open:"Ask us", chat_title:"Village Assistant", chat_sub:"Answers from this site",
+      a_close:"Close", a_send:"Send", chat_reco:"Recommend from my selection",
+      chat_hello:"Hi! I’m the Village assistant. Name any project, developer or area and I’ll build the price list from our data — ready to send to your client on WhatsApp.",
+      chat_ph:"Type your question…",
+      chat_c1:"New launches", chat_c2:"Payment plans", chat_c3:"Browse areas", chat_c4:"Talk to an advisor",
+      chat_noanswer:"I don’t have a verified answer to that from the site. Would you like to leave your details so an advisor can help?",
+      chat_leave:"Leave your details", chat_send_wa:"Ask on WhatsApp",
+      offer_send:"Send offer on WhatsApp", offer_copy:"Copy offer", offer_open:"Open page", offer_units:"Available units", offer_projects:"Projects in this offer",
+      chat_found:"Here’s what I found:", chat_none:"I couldn’t find a matching project for that. Try an area or developer name, or leave your details.",
+      reg_h:"Register your details", reg_p:"Leave your details and an advisor will contact you. Your information is used only to respond to your enquiry.",
+      finder_h:"Find your primary unit", finder_p:"One relational finder across verified primary-sale inventory — every result matches all your selected filters at once. Figures are illustrative; confirm with an advisor.",
+      finder_none:"No units match all your filters together. Remove a filter, widen your budget, or talk to an advisor.",
+      filter_budget:"Budget (total price)", min_price:"Min EGP", max_price:"Max EGP", inc_tbc:"Include units with price to confirm",
+      filter_floor:"Preferred floor", avoid_ground:"Avoid ground floor", filter_years:"Installment period", years_any:"Any length", years_min_n:"At least {n} years",
+      filter_project:"Project", filter_beds:"Bedrooms", more_filters:"More filters", fewer_filters:"Fewer filters",
+      filters:"Filters", hide_filters:"Hide filters",
+      reco_mode:"Match", reco_balanced_note:"Balanced view: your closest matches, ranked — a few criteria may be relaxed. Each card shows what it matches.", reco_flexible_note:"Flexible view: a wider ranked shortlist to explore — verify the details that matter with an advisor.",
+      reco_zero_h:"No exact match", reco_few_h:"Only a few exact matches", reco_relax_p:"Loosen one preference to see more (extra units shown):", reco_see_near:"See nearest matches",
+      price_tbc:"Price & payment plan are being confirmed — talk to an advisor for the developer’s current terms.",
+      launch_status:"Launch status", availability:"Availability", beds:"Bedrooms",
+      sort_delivery:"Earliest delivery", sort_newest:"Newest launch", results_h:"Results",
+      finder_q_ph:"Area, project or developer", switch_projects:"Switch to projects",
+      facet_more:"Show {n} more", facet_less:"Show less",
+      nav_search:"Search", search_ph:"Search projects, units, developers, areas, guides…",
+      search_hint:"Start typing to search across the whole site.", search_none:"No matches. Try a project, developer, area — or ask the assistant.",
+      search_finder:"Open the unit finder", search_h:"Search results", search_p:"Results across projects, units, developers, areas, guides and questions.",
+      pay_calc:"Payment estimator", calc_price:"Unit price (EGP)", calc_dp:"Down payment %", calc_years:"Installment years",
+      calc_dp_amt:"Down payment", calc_monthly:"Est. monthly", calc_total:"Financed",
+      calc_note:"Indicative estimate only — confirm the developer's current plan with an advisor.",
+      afford_h:"What can I afford?", afford_monthly:"Monthly budget (EGP)", afford_apply:"Show homes in my budget", afford_upto:"You could consider homes up to",
+      save_search:"Save search", saved_searches:"Saved searches", get_alerts:"Alerts on new launches", search_saved:"Search saved — get a WhatsApp alert when new matches launch", rm_search:"Remove saved search",
+      avail_available:"Available", avail_limited:"Limited", avail_reserved:"Reserved", avail_tbc:"To confirm",
+      timeline_h:"Delivery timeline", tl_launched:"Launched", tl_construction:"Under construction", tl_delivery:"Delivery", tl_ready:"Ready to move", avail_asof:"as of",
+      lead_title:"Register your interest", lead_sub:"Leave your details and a property advisor will contact you shortly — primary-sale, developer-direct.", lead_name:"Full name", lead_phone:"Phone number", lead_send:"Send request", lead_sending:"Sending…", lead_thanks:"Thank you — an advisor will be in touch shortly.", lead_err:"Please enter your name and a valid phone number.",
+      print_sheet:"Print / Save as PDF", fs_generated:"Generated", fs_title:"Project factsheet", data_conf:"Data confidence", calc_years_max:"Installment years (max 15)",
+      fs_hint:"Tap “Print / Save as PDF”. If your app blocks printing, you can also screenshot this page.", fs_preview:"Factsheet preview",
+      conf_illustrative:"Illustrative", verified:"Verified", to_confirm:"To confirm",
+      nav_investors:"Investors", investors_h:"GCC & overseas buyers",
+      investors_p:"Buying Egypt primary-sale property from abroad — a plain, honest view of the process for Gulf, overseas and Egyptian-expatriate buyers.",
+      invest_note:"General guidance only, not legal, tax or immigration advice. Confirm transfer, power-of-attorney, residency and tax questions with a licensed professional and the developer."
+    },
+    ar: {
+      invest:"للاستثمار العقاري", skip:"تخطَّ إلى المحتوى", intro_skip:"تخطّي",
+      nav_home:"الرئيسية", nav_projects:"المشروعات", nav_developers:"المطوّرون", nav_areas:"المناطق",
+      nav_insights:"مقالات", nav_about:"من نحن", nav_launches:"إطلاقات جديدة", nav_search:"بحث", nav_favorites:"المفضّلة", nav_maps:"الخرائط",
+      maps_kicker:"خرائط ذا فيلدج", maps_h:"خرائط ذا فيلدج",
+      maps_p:"استكشف مشروعات البيع الأولي في مصر على خريطة تفاعلية واحدة — رشّح حسب المنطقة والمطوّر والميزانية، واقرأ مؤشر الاستثمار لكل مشروع بنظرة.",
+      map_search_ph:"ابحث عن مشروع أو مطوّر…", map_style:"نمط الخريطة", map_reset:"إعادة الضبط",
+      map_invest:"مؤشر استثماري", map_invest_note:"مؤشر استرشادي فقط — وليس نصيحة مالية.",
+      score_excellent:"ممتاز", score_strong:"قوي", score_solid:"جيّد", score_fair:"مقبول",
+      map_view_details:"عرض المشروع", map_directions:"الاتجاهات", map_no_results:"لا مشروعات تطابق هذه الفلاتر.",
+      map_note_h:"عن هذه الخريطة", map_note_p:"مواقع العلامات تقريبية وتخطيطية للاسترشاد فقط. الأسعار ومؤشر الاستثمار استرشادية — تأكّد من الأرقام والإتاحة الحالية مع المستشار.",
+      price_from:"يبدأ من", all_areas:"كل المناطق", all_developers:"كل المطوّرين", any_budget:"أي ميزانية", budget:"الميزانية", cta_call:"اتصال", cmp_add:"قارن",
+      fav_h:"مفضّلتك", fav_p:"المشروعات التي حفظتها — تُحفظ على هذا الجهاز.", fav_empty:"لا توجد مفضّلة بعد. اضغط القلب على أي مشروع لحفظه هنا.",
+      nav_faqs:"الأسئلة الشائعة", nav_contact:"تواصل معنا", nav_compare:"المقارنة",
+      cta_talk:"تحدّث إلى مستشار", cta_explore:"استكشف المشروعات", cta_details:"عرض التفاصيل",
+      cta_more:"اعرف أكثر", cta_all:"عرض الكل", cta_reset:"مسح الفلاتر", cta_apply:"تطبيق",
+      egp:"ج.م", from:"يبدأ من", tba:"عند الطلب", perm:"/ شهرياً (تقديري)",
+      f_explore:"استكشف", f_company:"الشركة", f_legal:"قانوني",
+      f_primary:"بيع أولي فقط · إطلاقات جديدة ووحدات من المطوّر مباشرة",
+      illustrative:"رقم تقديري — تأكّد من السعر والإتاحة الحالية مع المستشار",
+      illustrative_short:"تقديري — تأكّد مع المستشار",
+      call:"اتصال", whatsapp:"واتساب", email_label:"البريد",
+      send_wa:"أرسل عبر واتساب", send_email:"أرسل عبر البريد",
+      unit_types_h:"أنواع الوحدات", unit_types_p:"أنواع الوحدات المتاحة في هذا المشروع. التصاميم استرشادية — أكّد الإتاحة والأسعار الحالية مع المستشار.",
+      art_note:"الصور رسوم أصلية للعلامة وليست صوراً فوتوغرافية للمشروع الفعلي. يمكن استبدالها بتصوير حقيقي عند توفيره بحقوق الاستخدام.",
+      devmark_note:"تُعرض شعارات المطوّرين الرسمية حيثما تم توفيرها بحقوق الاستخدام؛ وتظهر بقية المطوّرين بعلامات أصلية مؤقتة لحين توفير شعاراتهم.",
+      lead_handoff:"استفسارك جاهز. أرسله إلى مستشار عبر واتساب أو البريد.",
+      derived:"العدد محسوب من المشروعات المعروضة على الموقع — وليس كامل المعروض الفعلي",
+      dp:"الدفعة المقدمة", years:"مدة التقسيط", delivery:"التسليم", finishing:"التشطيب",
+      status:"الحالة", area:"المنطقة", developer:"المطوّر", type:"النوع", price:"يبدأ من", units:"أنواع الوحدات",
+      launch:"إطلاق جديد", primary:"بيع أولي", ready:"استلام فوري",
+      save:"حفظ", saved:"محفوظ", compare:"قارن", incompare:"في المقارنة",
+      results:"نتيجة", noresults:"لا توجد مشروعات مطابقة", noresults_p:"جرّب توسيع الفلاتر أو امسحها لعرض كل مشروعات البيع الأولي.",
+      filter_area:"المنطقة", filter_dev:"المطوّر", filter_status:"الحالة", filter_price:"أقصى سعر", filter_sort:"الترتيب",
+      any:"الكل", sort_feat:"مميّز", sort_price_a:"السعر: من الأقل للأعلى", sort_price_d:"السعر: من الأعلى للأقل",
+      hero_kicker:"عقارات البيع الأولي · مصر",
+      hero_h1a:"من هنا يبدأ ", hero_h1b:"الاستثمار الذكي", hero_sig:"استثمر مع بلال سامي",
+      hero_p:"The Village شركة تسويق ووساطة عقارية تساعدك على مقارنة الإطلاقات الجديدة والمطوّرين والمناطق في القاهرة الجديدة والتجمع الخامس والعاصمة الإدارية والساحل — باستشارة صادقة من أول سؤال حتى استلام وحدتك.",
+      hero_s1:"مناطق نغطّيها", hero_s2:"مطوّرون نتابعهم", hero_s3:"مشروعات مختارة", hero_s4:"عميل خدمناهم",
+      find_h:"اعثر على وحدتك الأولية", find_p:"صفِّ الاختيارات ثم تحدّث إلى مستشار لمعرفة الإتاحة الحالية.",
+      home_ours_k:"مقدَّمة من The Village", home_ours_h:"مشروعاتنا المميّزة", home_ours_p:"مشروعات بيع أولي نسوّقها مباشرةً في رأس الحكمة والساحل الشمالي والعين السخنة والقاهرة الكبرى. الأرقام استرشادية — تواصل مع مستشار لتأكيد الأسعار والإتاحة الحالية.",
+      home_launch_h:"إطلاقات جديدة", home_launch_p:"إطلاقنا الأولي القادم — قريباً.", coming_soon:"قريباً",
+      home_devrail_h:"تصفّح حسب المطوّر", home_devrail_p:"اضغط على أي مطوّر لاستعراض مشروعاته للبيع الأولي.",
+      home_feat_h:"مشروعات مميّزة", home_feat_p:"نظرة مختارة عبر المناطق والمطوّرين. الأرقام تقديرية لحين تأكيد المستشار.",
+      home_area_h:"تصفّح حسب المنطقة", home_area_p:"أنشط وجهات البيع الأولي في مصر.",
+      top_loc_h:"أهم المناطق", top_loc_p:"أكثر وجهات البيع الأولي طلبًا في مصر — تُحدَّث مباشرةً من مخزوننا.", coming_soon:"قريبًا", register_interest:"سجّل اهتمامك",
+      home_dev_h:"مطوّرون نتابعهم", home_dev_p:"أسماء مطوّرين معروفة مع ملخصات أصلية. لا نذكر شراكة إلا عند توثيقها واعتمادها.",
+      home_why_h:"لماذا يختار المشترون The Village",
+      why1_h:"بيع أولي كما يجب", why1_p:"إطلاقات جديدة ووحدات من المطوّر مباشرة فقط — دون إعادة بيع أو عروض مُلّاك.",
+      why2_h:"نصيحة صادقة وواعية بالمصدر", why2_p:"كل سعر وخطة يُؤكَّد مع المطوّر قبل أي التزام، والأرقام التقديرية موضّحة دائماً.",
+      why3_h:"مصمَّم للمشترين بالخارج", why3_p:"قارن ورشّح وتواصل مع مستشار بتوقيتك — من الخليج أو أوروبا أو أينما يستثمر المصريون.",
+      home_trust_h:"كيف نتعامل مع الحقائق",
+      home_trust_p:"أسماء المطوّرين والمناطق حقائق عامة، أمّا الأسعار وخطط السداد ومواعيد التسليم والإتاحة فتتغيّر كثيراً — لذلك نعتبر كل رقم على الموقع تقديرياً حتى يؤكّد المستشار الشروط الحالية للمطوّر معك. لا نختلق وحدات أو بيانات تواصل أو رسائل نجاح.",
+      insights_h:"أدلة ومقالات للمشتري", insights_p:"إرشادات مبسّطة لشراء عقارات البيع الأولي في مصر. محتوى تثقيفي عام — وليس استشارة مالية أو قانونية أو ضريبية.",
+      about_h:"من نحن", faqs_h:"الأسئلة الشائعة", faqs_p:"إجابات عن طريقة عمل The Village والمناطق وخطط السداد والاستشارة.",
+      contact_h:"تحدّث إلى مستشار", contact_p:"اترك بياناتك والمنطقة المفضّلة، وسيتواصل معك مستشار لترتيب معاينة والإجابة عن أسئلتك واقتراح وحدات أولية مناسبة.",
+      cmp_h:"قارن الوحدات", cmp_p:"أضف حتى 3 وحدات بيع أولي للمقارنة جنباً إلى جنب. الأرقام تقديرية لحين تأكيد المستشار.",
+      cmp_empty:"لم تُضِف وحدات بعد", cmp_empty_p:"افتح أي وحدة واختر «قارن»، أو أضِف من قائمة الوحدات.",
+      form_name:"الاسم الكامل", form_phone:"الهاتف (مع كود الدولة)", form_email:"البريد الإلكتروني", form_area:"المنطقة المفضّلة", form_msg:"عمّا تبحث؟",
+      form_consent:"أوافق على التواصل معي بخصوص طلبي وأقبل إشعار الخصوصية.",
+      form_send:"اطلب معاودة الاتصال", form_sending:"جارٍ التحقق…",
+      err_req:"هذا الحقل مطلوب", err_email:"أدخل بريداً صحيحاً", err_phone:"أدخل رقماً صحيحاً مع كود الدولة", err_consent:"يرجى قبول إشعار الخصوصية للمتابعة",
+      lead_not_connected:"هذه النسخة التجريبية غير متصلة بنظام CRM بعد، لذلك لم يُرسَل شيء. بياناتك معروضة أدناه لنسخها — أو اضبط نقطة استقبال للطلبات للتشغيل الفعلي.",
+      lead_copy:"انسخ بياناتي", copied:"تم النسخ",
+      contact_blocked:"لم تُعرَض أرقام الهاتف وواتساب والبريد لأنها قيد التأكيد عمداً، وهذا عائق إطلاق مسجَّل لصاحب الموقع.",
+      p404_h:"الصفحة غير موجودة", p404_p:"الصفحة المطلوبة غير موجودة أو ربما نُقلت. استكشف مشروعات البيع الأولي بدلاً من ذلك.",
+      p404_home:"العودة للرئيسية", back:"رجوع",
+      related:"مشروعات ذات صلة", by_dev:"مشروعات هذا المطوّر", in_area:"مشروعات في هذه المنطقة",
+      overview:"نظرة عامة", facts:"حقائق أساسية", enquire:"استفسر عن هذا المشروع", enquire_p:"اطلب من المستشار قائمة الأسعار الحالية وخطة السداد والإتاحة.",
+      guide_note:"إرشاد تثقيفي عام للمشترين. ليس استشارة مالية أو قانونية أو ضريبية. تأكّد من الشروط الحالية مع المستشار والمطوّر.",
+      readmin:"دقائق قراءة", legal_priv:"إشعار الخصوصية", legal_terms:"شروط الاستخدام",
+      brand_note:"الهوية مستمدة من شعار The Village الرئيسي. اعتماد الهوية النهائي قيد الانتظار.",
+      foot_blocker:"ملاحظة إطلاق: بيانات التواصل الموثّقة والمعروض الحيّ وتسليم الطلبات للـCRM والمراجعة القانونية قيد إدخال صاحب الموقع.",
+      choose_lang:"English", metric_installments:"سنوات تقسيط",
+      nav_units:"الوحدات", avail_units:"وحدات متاحة", new_release:"إطلاق جديد", release_h:"قائمة أسعار الإطلاق الجديد", release_p:"أسعار محدَّثة أصدرها المطوّر لهذه المشاريع. بيع أولي مباشر من المطوّر.", release_units:"وحدات هذا الإطلاق", fs_installments:"عدد الأقساط", fs_quarterly:"قسط ربع سنوي", fs_floorplan:"مخطط الوحدة", eoi:"EOI", eoi_note:"خطاب رغبة — حجز مسترد للدخول في الإطلاق.", no_units_type:"لا توجد وحدات متاحة من هذا النوع.",
+      home_units_h:"وحدات مميّزة", home_units_p:"وحدات نموذجية استرشادية عبر مشروعاتنا — الغرف والمساحة والسعر أمثلة للتأكيد مع المستشار.",
+      units_h:"الوحدات", units_p:"تصفّح وحدات نموذجية حسب النوع. الأرقام استرشادية — أكّد الإتاحة والأسعار الحالية مع المستشار.",
+      filter_type:"النوع", all_types:"كل الأنواع",
+      social_h:"تابعنا",
+      chat_open:"اسألنا", chat_title:"مساعد The Village", chat_sub:"إجابات من محتوى الموقع",
+      a_close:"إغلاق", a_send:"إرسال", chat_reco:"رشّح من اختياري",
+      chat_hello:"أهلاً! أنا مساعد The Village. اكتب اسم أي مشروع أو مطوّر أو منطقة وأجهّز لك قائمة الأسعار من بياناتنا — جاهزة تبعتها لعميلك على واتساب.",
+      chat_ph:"اكتب سؤالك…",
+      chat_c1:"إطلاقات جديدة", chat_c2:"خطط السداد", chat_c3:"تصفّح المناطق", chat_c4:"تحدّث إلى مستشار",
+      chat_noanswer:"لا أملك إجابة مؤكّدة لذلك من الموقع. هل تحب ترك بياناتك ليتواصل معك مستشار؟",
+      chat_leave:"سجّل بياناتك", chat_send_wa:"اسأل عبر واتساب",
+      offer_send:"أرسل العرض على واتساب", offer_copy:"نسخ العرض", offer_open:"فتح الصفحة", offer_units:"الوحدات المتاحة", offer_projects:"مشروعات هذا العرض",
+      chat_found:"إليك ما وجدته:", chat_none:"لم أجد مشروعاً مطابقاً. جرّب اسم منطقة أو مطوّر، أو اترك بياناتك.",
+      reg_h:"سجّل بياناتك", reg_p:"اترك بياناتك وسيتواصل معك مستشار. تُستخدم بياناتك فقط للردّ على استفسارك.",
+      finder_h:"اعثر على وحدتك الأولية", finder_p:"محرّك بحث علائقي واحد عبر معروض البيع الأولي — كل نتيجة تطابق جميع الفلاتر المختارة معاً. الأرقام استرشادية؛ أكّد مع المستشار.",
+      finder_none:"لا توجد وحدات تطابق كل الفلاتر معاً. أزِل فلتراً أو وسّع الميزانية أو تحدّث إلى مستشار.",
+      filter_budget:"الميزانية (السعر الكلي)", min_price:"أدنى ج.م", max_price:"أقصى ج.م", inc_tbc:"تضمين وحدات سعرها قيد التأكيد",
+      filter_floor:"الدور المفضّل", avoid_ground:"تجنّب الدور الأرضي", filter_years:"مدة التقسيط", years_any:"أي مدة", years_min_n:"{n} سنوات على الأقل",
+      filter_project:"المشروع", filter_beds:"غرف النوم", more_filters:"فلاتر إضافية", fewer_filters:"فلاتر أقل",
+      filters:"الفلاتر", hide_filters:"إخفاء الفلاتر",
+      reco_mode:"المطابقة", reco_balanced_note:"عرض متوازن: أقرب النتائج مرتّبة حسب المطابقة — قد تُخفَّف بعض المعايير. كل بطاقة توضّح ما يطابقه.", reco_flexible_note:"عرض مرن: قائمة أوسع مرتّبة للاستكشاف — تأكّد من التفاصيل المهمة مع المستشار.",
+      reco_zero_h:"لا توجد مطابقة تامة", reco_few_h:"مطابقات تامة قليلة فقط", reco_relax_p:"خفِّف أحد التفضيلات لرؤية المزيد (الوحدات الإضافية):", reco_see_near:"اعرض أقرب النتائج",
+      price_tbc:"يجري تأكيد السعر وخطة السداد — تواصل مع مستشار لمعرفة شروط المطوّر الحالية.",
+      launch_status:"حالة الإطلاق", availability:"الإتاحة", beds:"غرف النوم",
+      sort_delivery:"الأقرب تسليماً", sort_newest:"الأحدث إطلاقاً", results_h:"النتائج",
+      finder_q_ph:"منطقة أو مشروع أو مطوّر", switch_projects:"عرض المشروعات",
+      facet_more:"عرض {n} أخرى", facet_less:"عرض أقل",
+      nav_search:"بحث", search_ph:"ابحث في المشروعات والوحدات والمطوّرين والمناطق والأدلة…",
+      search_hint:"ابدأ الكتابة للبحث في كل الموقع.", search_none:"لا نتائج. جرّب مشروعاً أو مطوّراً أو منطقة — أو اسأل المساعد.",
+      search_finder:"افتح محرّك البحث عن الوحدات", search_h:"نتائج البحث", search_p:"نتائج عبر المشروعات والوحدات والمطوّرين والمناطق والأدلة والأسئلة.",
+      pay_calc:"حاسبة السداد", calc_price:"سعر الوحدة (ج.م)", calc_dp:"الدفعة المقدمة %", calc_years:"سنوات التقسيط",
+      calc_dp_amt:"الدفعة المقدمة", calc_monthly:"القسط الشهري التقديري", calc_total:"المموَّل",
+      calc_note:"تقدير استرشادي فقط — أكّد خطة المطوّر الحالية مع المستشار.",
+      afford_h:"ما الذي يناسب ميزانيتي؟", afford_monthly:"القسط الشهري (ج.م)", afford_apply:"اعرض ما يناسب ميزانيتي", afford_upto:"يمكنك النظر في وحدات حتى",
+      save_search:"احفظ البحث", saved_searches:"عمليات بحث محفوظة", get_alerts:"تنبيهات عند الإطلاقات الجديدة", search_saved:"تم حفظ البحث — ستصلك رسالة واتساب عند توفّر وحدات جديدة مطابقة", rm_search:"إزالة البحث المحفوظ",
+      avail_available:"متاحة", avail_limited:"محدودة", avail_reserved:"محجوزة", avail_tbc:"قيد التأكيد",
+      timeline_h:"الجدول الزمني للتسليم", tl_launched:"أُطلق", tl_construction:"قيد الإنشاء", tl_delivery:"التسليم", tl_ready:"جاهزة للاستلام", avail_asof:"حتى",
+      lead_title:"سجّل اهتمامك", lead_sub:"اترك بياناتك وسيتواصل معك مستشار عقاري قريبًا — بيع أولي من المطوّر مباشرةً.", lead_name:"الاسم الكامل", lead_phone:"رقم الهاتف", lead_send:"إرسال الطلب", lead_sending:"جارٍ الإرسال…", lead_thanks:"شكرًا لك — سيتواصل معك مستشار قريبًا.", lead_err:"من فضلك أدخل اسمك ورقم هاتف صحيح.",
+      print_sheet:"طباعة / حفظ PDF", fs_generated:"تاريخ الإصدار", fs_title:"ملف المشروع", data_conf:"موثوقية البيانات", calc_years_max:"سنوات التقسيط (بحد أقصى ١٥)",
+      fs_hint:"اضغط «طباعة / حفظ PDF». وإذا كان التطبيق يمنع الطباعة، يمكنك أيضًا تصوير الشاشة لهذه الصفحة.", fs_preview:"معاينة ملف الوحدة",
+      conf_illustrative:"استرشادي", verified:"موثّق", to_confirm:"قيد التأكيد",
+      nav_investors:"المستثمرون", investors_h:"مشترو الخليج والخارج",
+      investors_p:"شراء عقارات البيع الأولي في مصر من الخارج — نظرة واضحة وصادقة للإجراء لمشتري الخليج والخارج والمصريين المغتربين.",
+      invest_note:"إرشاد عام فقط، وليس استشارة قانونية أو ضريبية أو خاصة بالهجرة. أكّد مسائل التحويل والتوكيل والإقامة والضرائب مع مختصّ مرخّص ومع المطوّر."
+    }
+  };

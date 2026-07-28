@@ -1,0 +1,1548 @@
+  /* ---- Projects list (also serves /new-launches/) ---- */
+  V.projects = function(preset){
+    // New Launches now teases a single upcoming project ("Coming Soon" image),
+    // so the launch view skips the finder toolbar/grid entirely.
+    if(preset==='launch'){
+      var lnode=h('div',null);
+      var lhead=h('section',{class:'section--tight'});
+      lhead.appendChild(h('div',{class:'wrap'},
+        crumbNode([{label:t('nav_home'), path:buildPath('home')},{label:t('nav_launches')}]),
+        sectionHead(t('hero_kicker'), t('nav_launches'), t('home_launch_p'), 'h1')));
+      lnode.appendChild(lhead);
+      var lmain=h('section',{style:'padding-bottom:clamp(48px,8vw,96px)'});
+      lmain.appendChild(h('div',{class:'wrap'}, launchStrip()));
+      lnode.appendChild(lmain);
+      return {node:lnode, title:t('nav_launches')+' · The Village Investment', desc:t('home_launch_p'), indexable:true,
+        crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_launches')}]};
+    }
+    var qs = new URLSearchParams(CUR.search);
+    var f = {
+      area: qs.get('area')||'',
+      dev: qs.get('dev')||'',
+      status: preset==='launch' ? 'launch' : (qs.get('status')||''),
+      max: qs.get('max')||'',
+      sort: qs.get('sort')||'feat',
+      saved: qs.get('saved')==='1'
+    };
+    var list = PROJECTS.filter(function(p){
+      if(preset==='launch' && !isNewLaunch(p)) return false;   // New Launch = manual selection
+      if(f.area && p.area!==f.area) return false;
+      if(f.dev && p.dev!==f.dev) return false;
+      if(f.status && p.status!==f.status) return false;
+      if(f.max && p.price>Number(f.max)) return false;
+      if(f.saved && !saved.has(p.slug)) return false;
+      return true;
+    });
+    if(f.sort==='price_a') list = list.slice().sort(function(a,b){return a.price-b.price;});
+    if(f.sort==='price_d') list = list.slice().sort(function(a,b){return b.price-a.price;});
+
+    var node = h('div',null);
+    var head = h('section',{class:'section--tight'});
+    head.appendChild(h('div',{class:'wrap'},
+      crumbNode([{label:t('nav_home'), path:buildPath('home')},{label: preset==='launch'?t('nav_launches'):t('nav_projects')}]),
+      sectionHead(t('hero_kicker'), preset==='launch'?t('nav_launches'):t('nav_projects'),
+        preset==='launch'?t('home_launch_p'):t('home_feat_p'), 'h1')));
+    node.appendChild(head);
+
+    var main = h('section',{style:'padding-bottom:clamp(40px,7vw,80px)'});
+    var wrap = h('div',{class:'wrap'});
+    // toolbar
+    var tb = h('form',{class:'toolbar', role:'search'});
+    tb.appendChild(field('select','tb-area', t('filter_area'), areaOptions(f.area)));
+    tb.appendChild(field('select','tb-dev', t('filter_dev'), devOptions(f.dev)));
+    if(preset!=='launch') tb.appendChild(field('select','tb-status', t('filter_status'), statusOptions(f.status)));
+    tb.appendChild(field('select','tb-sort', t('filter_sort'), [opt('feat',t('sort_feat'),f.sort==='feat'),opt('price_a',t('sort_price_a'),f.sort==='price_a'),opt('price_d',t('sort_price_d'),f.sort==='price_d')]));
+    // Results update IN PLACE on filter change — the toolbar/selects are never
+    // rebuilt, so a mobile <select> can't reopen after a pick (fixes the
+    // "have to choose twice" bug). The URL still syncs for deep links.
+    var resultsHost = h('div');
+    function readFilters(){
+      return { a:$('#tb-area',tb).value, d:$('#tb-dev',tb).value,
+               s:$('#tb-sort',tb).value, st:$('#tb-status',tb)?$('#tb-status',tb).value:'' };
+    }
+    function computeList(cq){
+      var lst = PROJECTS.filter(function(p){
+        if(preset==='launch'){ if(!isNewLaunch(p)) return false; }   // manual New Launch selection
+        else if(cq.st && p.status!==cq.st) return false;
+        if(cq.a && p.area!==cq.a) return false;
+        if(cq.d && p.dev!==cq.d) return false;
+        if(f.max && p.price>Number(f.max)) return false;
+        if(f.saved && !saved.has(p.slug)) return false;
+        return true;
+      });
+      if(cq.s==='price_a') lst=lst.slice().sort(function(a,b){return a.price-b.price;});
+      if(cq.s==='price_d') lst=lst.slice().sort(function(a,b){return b.price-a.price;});
+      return lst;
+    }
+    function resetAll(){
+      $('#tb-area',tb).value=''; $('#tb-dev',tb).value='';
+      if($('#tb-status',tb)) $('#tb-status',tb).value=''; $('#tb-sort',tb).value='feat';
+      renderResults();
+    }
+    function ftag(label, selId){
+      var tag=h('span',{class:'filter-tag'}, label, h('button',{type:'button','aria-label':t('cta_reset')+': '+label},'×'));
+      tag.querySelector('button').addEventListener('click', function(){ var el=$('#'+selId,tb); if(el) el.value=''; renderResults(); });
+      return tag;
+    }
+    function renderResults(){
+      var cq=readFilters(), lst=computeList(cq);
+      clear(resultsHost);
+      var rb=h('div',{class:'result-bar'});
+      rb.appendChild(h('span',{class:'count','aria-live':'polite'}, num(lst.length)+' '+t('results')));
+      var af=h('div',{class:'active-filters'});
+      if(cq.a) af.appendChild(ftag(L(areaByKey(cq.a).name),'tb-area'));
+      if(cq.d) af.appendChild(ftag(L(devByKey(cq.d).name),'tb-dev'));
+      if(cq.st && preset!=='launch') af.appendChild(ftag(statusLabel(cq.st),'tb-status'));
+      if(f.saved) af.appendChild(h('span',{class:'filter-tag'}, t('saved')));
+      rb.appendChild(af);
+      if(cq.a||cq.d||(cq.st&&preset!=='launch')||f.saved||cq.s!=='feat')
+        rb.appendChild(h('button',{class:'btn btn--ghost btn--sm', type:'button', onclick:resetAll}, t('cta_reset')));
+      resultsHost.appendChild(rb);
+      if(lst.length){ resultsHost.appendChild(resultsHeading());
+        resultsHost.appendChild(h('div',{class:'grid grid--3'}, lst.map(projectCard))); }
+      else resultsHost.appendChild(h('div',{class:'state'}, ic('search'), h('h3',null,t('noresults')), h('p',null,t('noresults_p')),
+        h('button',{class:'btn btn--primary mt-16', type:'button', onclick:resetAll}, t('cta_reset'))));
+      // sync the URL without a re-render (keeps deep-linking + the selects intact)
+      var q=[];
+      if(cq.a) q.push('area='+cq.a); if(cq.d) q.push('dev='+cq.d);
+      if(cq.st && preset!=='launch') q.push('status='+cq.st);
+      if(cq.s && cq.s!=='feat') q.push('sort='+cq.s);
+      if(f.saved) q.push('saved=1');
+      var qs=q.length?('?'+q.join('&')):''; CUR.search=qs;
+      try{ history.replaceState(history.state,'', U(buildPath(preset==='launch'?'launches':'projects'))+qs); }catch(e){}
+    }
+    tb.addEventListener('change', function(){ renderResults(); });
+    tb.addEventListener('submit', function(e){ e.preventDefault(); renderResults(); });
+    wrap.appendChild(tb);
+    wrap.appendChild(resultsHost);
+    renderResults();
+    main.appendChild(wrap); node.appendChild(main);
+
+    var items = list.map(function(p){ return {name:(lang==='ar'?p.name_ar:p.name), url:CONFIG.origin+buildPath('project',{slug:p.slug})}; });
+    return {node:node, title:(preset==='launch'?t('nav_launches'):t('nav_projects'))+' · The Village Investment',
+      desc:preset==='launch'?t('home_launch_p'):t('home_feat_p'), indexable:true,
+      crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:preset==='launch'?t('nav_launches'):t('nav_projects')}],
+      ld:{'@type':'CollectionPage','name':(preset==='launch'?t('nav_launches'):t('nav_projects')),
+        'mainEntity':{'@type':'ItemList','numberOfItems':items.length,'itemListElement':items.map(function(it,i){return {'@type':'ListItem','position':i+1,'name':it.name,'url':it.url};})}}};
+  };
+
+  /* ---- Project detail ---- */
+  /* ==================================================================
+     SEO-01 · Per-listing structured data (schema.org Product/Residence + Offer)
+     Every commercial figure mirrors what is shown on the page (Google requires
+     structured data to match visible content); the "illustrative" badge is the
+     UI disclosure. Prices are emitted only when present; TBC units carry
+     availability without a price. Primary/off-plan sale maps to PreOrder.
+     ================================================================== */
+  function unitAccType(u){
+    var c = normalizeUnitType(u.type);
+    if(c==='apartment'||c==='studio'||c==='duplex'||c==='penthouse') return 'Apartment';
+    if(c==='chalet'||c==='townhouse'||c==='twinhouse'||c==='twin'||c==='villa'||c==='standalone') return 'House';
+    return 'Accommodation';
+  }
+  function offerAvailability(p, u){
+    if(u && u.avail==='sold') return 'https://schema.org/SoldOut';
+    if(u && u.avail==='reserved') return 'https://schema.org/LimitedAvailability';
+    return (p && (p.delivery==='Ready' || p.status==='ready')) ? 'https://schema.org/InStock' : 'https://schema.org/PreOrder';
+  }
+  function unitOfferLD(p, u){
+    var acc = { '@type': unitAccType(u),
+      'name': L({en:p.name,ar:p.name_ar}) + ' · ' + typeLabelC(normalizeUnitType(u.type)) };
+    if(!unitIsCommercial(u)){   // rooms/baths are not part of a commercial listing
+      if(u.beds!=null)  acc.numberOfRooms = u.beds;
+      if(u.baths!=null) acc.numberOfBathroomsTotal = u.baths;
+    }
+    if(u.area!=null)  acc.floorSize = {'@type':'QuantitativeValue','value':u.area,'unitCode':'MTK'};
+    var off = { '@type':'Offer', 'priceCurrency':'EGP', 'availability': offerAvailability(p,u),
+      'itemOffered': acc, 'seller': {'@id': CONFIG.origin + '/#org'} };
+    if(u.price!=null) off.price = u.price;
+    return off;
+  }
+  function listingLD(p){
+    var dev = devByKey(p.dev), area = areaByKey(p.area), us = unitsIn(p.slug);
+    var nm = L({en:p.name,ar:p.name_ar});
+    var node = {
+      '@type': ['Product','Residence'],
+      'name': nm,
+      'description': L(p.blurb),
+      'category': 'Primary-sale residential development',
+      'brand': {'@type':'Organization','name': L(dev.name)},
+      'address': {'@type':'PostalAddress','addressRegion': L(area.name),'addressCountry':'EG'},
+      'areaServed': L(area.name),
+      'additionalProperty': [
+        {'@type':'PropertyValue','name':(lang==='ar'?'المطوّر':'Developer'),'value': L(dev.name)},
+        {'@type':'PropertyValue','name':(lang==='ar'?'المنطقة':'Area'),'value': L(area.name)},
+        {'@type':'PropertyValue','name':(lang==='ar'?'التسليم':'Delivery'),'value':(p.delivery==='Ready'?t('ready'):(p.delivery||t('to_confirm')))}
+      ]
+    };
+    var prices = us.map(function(u){return u.price;}).filter(function(x){return x!=null;});
+    var low = (p.price!=null) ? p.price : (prices.length?Math.min.apply(null,prices):null);
+    if(low!=null){
+      var ao = {'@type':'AggregateOffer','priceCurrency':'EGP','lowPrice':low,
+        'availability': offerAvailability(p,null), 'seller':{'@id':CONFIG.origin+'/#org'}};
+      if(prices.length){ ao.highPrice = Math.max.apply(null,prices); ao.offerCount = prices.length; }
+      node.offers = ao;
+    }
+    var out = [node];
+    if(us.length){
+      out.push({'@type':'ItemList','name': nm + ' — ' + (lang==='ar'?'الوحدات':'units'),
+        'numberOfItems': us.length,
+        'itemListElement': us.map(function(u,i){ return {'@type':'ListItem','position':i+1,'item':unitOfferLD(p,u)}; })});
+    }
+    return out;
+  }
+  function unitsCollectionLD(){
+    var valid = UNITS.filter(function(u){ return !!projBySlug(u.project); });
+    return [{'@type':'CollectionPage','name': t('finder_h'),
+      'mainEntity': {'@type':'ItemList','numberOfItems': valid.length,
+        'itemListElement': valid.slice(0,60).map(function(u,i){
+          return {'@type':'ListItem','position':i+1,'item':unitOfferLD(projBySlug(u.project),u)}; })}}];
+  }
+
+  V.project = function(slug){
+    var p = projBySlug(slug), dev = devByKey(p.dev), area = areaByKey(p.area);
+    var nm = lang==='ar'?p.name_ar:p.name;
+    var node = h('div',null);
+    var top = h('section',{class:'section--tight'});
+    var wrap = h('div',{class:'wrap'});
+    wrap.appendChild(crumbNode([{label:t('nav_home'),path:buildPath('home')},{label:t('nav_projects'),path:buildPath('projects')},{label:nm}]));
+    var media = h('div',{class:'detail-media'}, projectMedia(p),
+      h('div',{class:'tags'}, h('span',{class:'chip'}, statusLabel(p.status))));
+    var facts = h('table',{class:'fact-table'});
+    [[t('developer'),L(dev.name)],[t('area'),L(area.name)],[t('status'),statusLabel(p.status)],
+     [t('units'),L(p.types)],[t('finishing'),L(p.finishing)],[t('delivery'), p.delivery==='Ready'?t('ready'):(p.delivery||t('to_confirm'))]]
+     .forEach(function(r){ if(r[2]) return; facts.appendChild(h('tr',null,h('th',{scope:'row'},r[0]),h('td',null,r[1]))); });
+    if(p.dp) facts.appendChild(h('tr',null,h('th',{scope:'row'},t('dp')),h('td',null,num(p.dp)+'%')));
+    if(p.years) facts.appendChild(h('tr',null,h('th',{scope:'row'},t('years')),h('td',null,num(p.years)+' '+(lang==='ar'?'سنوات':'years'))));
+
+    var aside = h('aside',{class:'aside-card'},
+      h('div',{class:'muted', style:'font-size:.8rem;font-weight:700'}, t('price')),
+      h('div',{class:'price-lg'}, money(p.price)),
+      provBadge(),
+      h('div',{class:'card__foot', style:'margin-top:16px;flex-wrap:wrap'},
+        h('a',{class:'btn btn--primary', href:U(buildPath('contact'))+'?p='+p.slug}, t('cta_talk'))),
+      h('div',{style:'display:flex;gap:8px;flex-wrap:wrap;margin-top:10px'},
+        h('button',{class:'btn btn--ghost btn--sm', type:'button', onclick:function(e){toggleSave(p.slug,null); render(currentRoute,{keep:true});}}, ic('heart'), saved.has(p.slug)?t('saved'):t('save')),
+        h('button',{class:'btn btn--ghost btn--sm', type:'button', onclick:function(){ printFactsheet(p); }}, ic('doc'), t('print_sheet'))),
+      h('div',{class:'notice notice--warn', style:'margin-top:16px'}, ic('info'), h('div',null, t('illustrative'))));
+
+    var plogoSrc = projectLogoSrc(p);
+    var plogo = null;
+    if(plogoSrc){
+      var plimg = h('img',{class:'proj-logo', src:plogoSrc, alt:logoAlt(nm), decoding:'async', loading:'eager', width:200, height:64});
+      plimg.addEventListener('error', function(){ if(plimg.parentNode) plimg.parentNode.removeChild(plimg); });
+      plogo = h('div',{class:'proj-logo-wrap'}, plimg);
+    }
+    wrap.appendChild(h('div',{class:'detail-hero'},
+      h('div',null,
+        media,
+        plogo,
+        h('h1',{style:'font-size:clamp(1.7rem,4vw,2.6rem);margin-top:'+(plogo?'12px':'20px')}, nm),
+        h('div',{class:'card__dev card__dev--logo', style:'margin-top:8px'},
+          devLogoInline(dev,26),
+          h('span',null, h('a',{href:U(buildPath('developer',{slug:dev.key}))}, L(dev.name)), ' · ', h('a',{href:U(buildPath('area',{slug:area.key}))}, L(area.name)))),
+        h('div',{style:'display:flex;gap:8px;flex-wrap:wrap;margin-top:14px'}, (lang==='ar'?p.tags.ar:p.tags.en).map(function(x){return h('span',{class:'chip'},x);})),
+        (function(){
+          // Overview as an accordion — collapsed by default, smooth open, arrow.
+          // Content stays in the DOM (<details>) so SEO/crawlers still read it.
+          var chev=sEl('svg',{class:'accordion__chev',viewBox:'0 0 24 24',fill:'none',stroke:'currentColor','stroke-width':'2','stroke-linecap':'round','stroke-linejoin':'round','aria-hidden':'true'}, sEl('path',{d:'M6 9l6 6 6-6'}));
+          var sum=h('summary',{class:'accordion__sum'}, h('h2',{class:'accordion__title'}, t('overview')), chev);
+          return h('details',{class:'accordion'}, sum,
+            h('div',{class:'accordion__body'}, h('p',{class:'muted', style:'max-width:60ch'}, L(p.blurb))));
+        })(),
+        h('h2',{style:'font-size:1.3rem;margin-top:28px;margin-bottom:12px'}, t('facts')),
+        facts, deliveryTimeline(p)),
+      h('div',null, aside)));
+    top.appendChild(wrap); node.appendChild(top);
+    track('project_viewed', {project:p.slug});
+    if(typeof leadArm==='function') leadArm();   // a project view is a qualifying engagement
+
+    // Upcoming sub-launch teaser within this project (image + "Coming Soon").
+    if(COMING_SOON_LAUNCH.link === p.slug){
+      var lsec=h('section',{class:'section--tight'}), lsw=h('div',{class:'wrap'});
+      lsw.appendChild(sectionHead(t('nav_launches'), t('home_launch_h'), t('home_launch_p')));
+      lsw.appendChild(comingSoonLaunch(false));
+      lsec.appendChild(lsw); node.appendChild(lsec);
+    }
+
+    // unit types (clear icons) + available units (image + specs)
+    var typesEn=(p.types.en||'').split(' · ');
+    var utsec=h('section',{class:'section--tight band'}), utw=h('div',{class:'wrap'});
+    utw.appendChild(sectionHead('', t('unit_types_h'), t('unit_types_p')));
+    var trow=h('div',{class:'type-row'});
+    typesEn.forEach(function(te){ var c=normalizeUnitType(te); trow.appendChild(h('div',{class:'type-chip'}, typeIconC(c), h('span',null, typeLabelC(c)))); });
+    utw.appendChild(trow);
+    var us=unitsIn(p.slug);
+    if(us.length){
+      utw.appendChild(h('h3',{style:'font-size:1.25rem;margin:28px 0 10px'}, t('avail_units')));
+      var asum=availSummary(us); if(asum) utw.appendChild(asum);
+      utw.appendChild(h('div',{class:'grid grid--3'}, us.map(unitCard)));
+    }
+    utw.appendChild(h('p',{class:'muted',style:'font-size:.78rem;margin-top:16px'}, t('art_note')));
+    utsec.appendChild(utw); node.appendChild(utsec);
+
+    // related
+    var rel = projInArea(p.area).filter(function(x){return x.slug!==p.slug;}).slice(0,3);
+    if(rel.length) node.appendChild(listSection('', t('related'), '', rel.map(projectCard), null, 'band'));
+    node.appendChild(ctaBand());
+    return {node:node, title:nm+' — '+L(dev.name)+' · The Village Investment', desc:L(p.blurb),
+      indexable:true, ld:listingLD(p),
+      crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_projects'),path:buildPath('projects')},{label:nm}]};
+  };
+
+  // SEO-03 · Individual, indexable, shareable unit page (/units/:id) + its own Product/Offer schema.
+  function unitListingLD(u){
+    var p=projBySlug(u.project), dev=devByKey(p.dev), area=areaByKey(p.area);
+    var acc={ '@type':['Product', unitAccType(u)],
+      'name': L({en:p.name,ar:p.name_ar})+' · '+typeLabelC(unitCanon(u)),
+      'category': u.type, 'brand':{'@type':'Organization','name':L(dev.name)},
+      'address':{'@type':'PostalAddress','addressRegion':L(area.name),'addressCountry':'EG'},
+      'isPartOf':{'@type':'Residence','name':L({en:p.name,ar:p.name_ar}),'url':CONFIG.origin+buildPath('project',{slug:p.slug},lang)} };
+    if(!unitIsCommercial(u)){
+      if(u.beds!=null)  acc.numberOfRooms=u.beds;
+      if(u.baths!=null) acc.numberOfBathroomsTotal=u.baths;
+    }
+    if(u.area!=null)  acc.floorSize={'@type':'QuantitativeValue','value':u.area,'unitCode':'MTK'};
+    var off={ '@type':'Offer','priceCurrency':'EGP','availability':offerAvailability(p,u),'seller':{'@id':CONFIG.origin+'/#org'} };
+    if(u.price!=null) off.price=u.price;
+    acc.offers=off;
+    return acc;
+  }
+  V.unit = function(id){
+    var u=unitById(id); if(!u) return V.notfound();
+    var p=projBySlug(u.project), dev=devByKey(p.dev), area=areaByKey(p.area);
+    var pnm=lang==='ar'?p.name_ar:p.name, tl=typeLabelC(unitCanon(u));
+    var uLabel=unitDisplayName(u, tl);
+    var title=uLabel+' · '+pnm;
+    var node=h('div',null), top=h('section',{class:'section--tight'}), wrap=h('div',{class:'wrap'});
+    wrap.appendChild(crumbNode([{label:t('nav_home'),path:buildPath('home')},{label:t('nav_units'),path:buildPath('units')},{label:title}]));
+    var galItems=unitGalleryItems(u);
+    var media=h('div',{class:'detail-media'+(galItems.length?' detail-media--gal':'')});
+    if(galItems.length){
+      var gidx=0, gn=galItems.length;
+      var gimg=h('img',{class:'artsvg proj-cover', src:galItems[0].src, alt:pnm+' — '+tl, loading:'lazy', decoding:'async'});
+      gimg.addEventListener('error', function(){ if(gimg.parentNode) gimg.parentNode.replaceChild(projectArt(p), gimg); });
+      var gnum=h('span',{class:'gal-badge__n'});
+      var gshow=function(i){ gidx=(i+gn)%gn; gimg.src=galItems[gidx].src; gnum.textContent = gn>1 ? ((gidx+1)+' / '+gn) : (num(gn)+' '+(lang==='ar'?'صورة':'photo')); };
+      media.appendChild(gimg);
+      media.appendChild(h('div',{class:'tags'}, h('span',{class:'chip'}, typeIconC(unitCanon(u),'chip-ico'), tl)));
+      media.appendChild(h('span',{class:'gal-badge','aria-hidden':'true'}, ic('gallery','gal-badge__ic'), gnum));
+      if(gn>1){
+        var gprev=h('button',{class:'gal-nav gal-nav--prev', type:'button','aria-label':(lang==='ar'?'الصورة السابقة':'Previous photo')}, ic('chevleft'));
+        var gnext=h('button',{class:'gal-nav gal-nav--next', type:'button','aria-label':(lang==='ar'?'الصورة التالية':'Next photo')}, ic('chevright'));
+        gprev.addEventListener('click', function(e){ e.stopPropagation(); e.preventDefault(); gshow(gidx-1); });
+        gnext.addEventListener('click', function(e){ e.stopPropagation(); e.preventDefault(); gshow(gidx+1); });
+        media.appendChild(gprev); media.appendChild(gnext);
+      }
+      gimg.addEventListener('click', function(){ mediaViewer(galItems, pnm, gidx); });
+      gshow(0);
+    } else {
+      media.appendChild(unitMedia(u));
+      media.appendChild(h('div',{class:'tags'}, h('span',{class:'chip'}, typeIconC(unitCanon(u),'chip-ico'), tl)));
+    }
+    var aside=h('aside',{class:'aside-card'},
+      h('div',{class:'muted',style:'font-size:.8rem;font-weight:700'}, t('price')),
+      h('div',{class:'price-lg'}, money(u.price)),
+      provBadge(),
+      h('div',{style:'margin-top:10px'}, availBadge(u)),
+      h('div',{class:'spec-row',style:'margin-top:12px'},
+        unitIsCommercial(u)?null:spec('bed',u.beds, lang==='ar'?'غرف':'beds'), unitIsCommercial(u)?null:spec('bath',u.baths, lang==='ar'?'حمام':'baths'), spec('area',u.area,'m²')),
+      h('div',{class:'card__foot',style:'margin-top:16px;flex-wrap:wrap'},
+        h('a',{class:'btn btn--primary',href:U(buildPath('contact'))+'?p='+p.slug+'&u='+encodeURIComponent(u.id)}, t('cta_talk')),
+        CONFIG.whatsapp ? h('a',{class:'btn btn--wa',href:waLink(unitWaMsg(u)),target:'_blank',rel:'noopener'}, ic('wa'), t('whatsapp')) : null),
+      h('div',{style:'display:flex;gap:8px;flex-wrap:wrap;margin-top:10px'},
+        h('a',{class:'btn btn--ghost btn--sm',href:U(buildPath('project',{slug:p.slug}))}, (lang==='ar'?'عرض المشروع':'View project')),
+        compareBtn(u.id),
+        h('button',{class:'btn btn--ghost btn--sm', type:'button', onclick:function(){ printUnitFactsheet(u); }}, ic('doc'), t('print_sheet'))),
+      h('div',{class:'notice notice--warn',style:'margin-top:16px'}, ic('info'), h('div',null, t('illustrative'))));
+    var facts=h('table',{class:'fact-table'});
+    [[(lang==='ar'?'النوع':'Type'), tl],[t('developer'),L(dev.name)],[t('area'),L(area.name)],
+     [(lang==='ar'?'غرف النوم':'Bedrooms'), u.beds!=null?num(u.beds):'—', unitIsCommercial(u)],
+     [(lang==='ar'?'الحمامات':'Bathrooms'), u.baths!=null?num(u.baths):'—', unitIsCommercial(u)],
+     [(lang==='ar'?'المساحة':'Area'), u.area!=null?num(u.area)+' m²':'—'],
+     [t('delivery'), p.delivery==='Ready'?t('ready'):(p.delivery||t('to_confirm'))]]
+     // r[2] flags a row that only makes sense for a home; offices, clinics,
+     // admin units and retail drop it rather than reporting an em dash.
+     .forEach(function(r){ if(r[2]) return;
+       facts.appendChild(h('tr',null,h('th',{scope:'row'},r[0]),h('td',null,r[1]))); });
+    wrap.appendChild(h('div',{class:'detail-hero'},
+      h('div',null, media,
+        h('h1',{style:'font-size:clamp(1.6rem,3.6vw,2.4rem);margin-top:20px'}, title),
+        h('div',{class:'umeta',style:'margin-top:10px'},
+          h('a',{class:'umeta__item', href:U(buildPath('area',{slug:area.key})), title:t('area')}, ic('pin','umeta__ic'), h('span',null,L(area.name))),
+          h('a',{class:'umeta__item', href:U(buildPath('developer',{slug:dev.key})), title:t('developer')}, ic('build','umeta__ic'), h('span',null,L(dev.name))),
+          h('span',{class:'umeta__item', title:t('type')}, typeIconC(unitCanon(u),'umeta__ic'), h('span',null,tl))),
+        unitFeatureRow(u),
+        h('h2',{style:'font-size:1.3rem;margin-top:28px;margin-bottom:12px'}, t('facts')), facts),
+      h('div',null, aside)));
+    top.appendChild(wrap); node.appendChild(top);
+    var amen=amenitiesSection(u); if(amen) node.appendChild(amen);
+    track('unit_viewed',{unit:u.id});
+    // "Available Units" = a recommendation list keyed to THIS unit's type: every available
+    // unit of the SAME unit type across ALL projects and developers (never mixes types, and
+    // is not limited to the current developer). Sorted by closeness to this unit's price.
+    var recoType=unitCanon(u), recoTl=typeLabelC(recoType);
+    var recoTitle=(lang==='ar' ? ('وحدات '+recoTl+' متاحة') : ('Available '+recoTl+' units'));
+    var recos=UNITS.filter(function(x){ var a=unitAvail(x); return x.id!==u.id && unitCanon(x)===recoType && a!=='sold' && a!=='soldout' && a!=='sold-out'; });
+    recos.sort(function(a,b){ var pa=(a.price==null)?9e18:Math.abs(a.price-(u.price||0)); var pb=(b.price==null)?9e18:Math.abs(b.price-(u.price||0)); return pa-pb; });
+    recos=recos.slice(0,12);
+    if(recos.length){
+      node.appendChild(listSection('', recoTitle, '', recos.map(unitCard), null, 'band'));
+    } else {
+      var noSec=h('section',{class:'section--tight band'}), noW=h('div',{class:'wrap'});
+      noW.appendChild(sectionHead('', recoTitle, ''));
+      noW.appendChild(h('p',{class:'muted', style:'margin-top:4px'}, t('no_units_type')));
+      noSec.appendChild(noW); node.appendChild(noSec);
+    }
+    node.appendChild(ctaBand());
+    var desc=uLabel+' — '+pnm+', '+L(area.name)+'. '+(u.price!=null?(t('conf_illustrative')+' '+money(u.price)+'. '):'')+t('finder_p');
+    return {node:node, title:title+' — The Village Investment', desc:desc, indexable:true, ld:unitListingLD(u),
+      crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_units'),path:buildPath('units')},{label:title}]};
+  };
+
+  /* ---- Relational Unit Finder (§42) ---- */
+  var FACET_PEEK = 3;   // options shown before "show more"
+  function facetChips(group, opts){
+    var row=h('div',{class:'facet-row'});
+    // Anything selected stays visible no matter where it sits in the list —
+    // a filter the visitor cannot see is a filter they cannot remove.
+    var live=opts.filter(function(o){ return o.count || FILTER[group].indexOf(o.v)>-1; });
+    var chips=live.map(function(o){
+      var active=FILTER[group].indexOf(o.v)>-1;
+      var b=h('button',{class:'fchip'+(active?' on':''), type:'button', id:'fchip-'+group+'-'+o.v, 'aria-pressed':active?'true':'false'},
+        o.icon||null, h('span',null,o.label), h('small',null,'('+num(o.count||0)+')'));
+      b.addEventListener('click', function(){ finderToggle(group, o.v); });
+      return {el:b, active:active};
+    });
+    if(!chips.length){ row.appendChild(h('span',{class:'muted',style:'font-size:.8rem'}, '—')); return row; }
+
+    var shown=0;
+    chips.forEach(function(c){ if(shown<FACET_PEEK || c.active){ c.el.classList.add('is-peek'); shown++; } });
+    var hidden=chips.filter(function(c){ return !c.el.classList.contains('is-peek'); }).length;
+    chips.forEach(function(c){ row.appendChild(c.el); });
+    if(!hidden) return row;
+
+    var wrap=h('div',null, row);
+    var more=h('button',{class:'facet-more', type:'button', id:'facet-more-'+group,
+      'aria-expanded':'false', 'aria-controls':'facet-row-'+group},
+      h('span',null, t('facet_more').replace('{n}', num(hidden))), ic('chevdown','facet-more__ic'));
+    row.setAttribute('id','facet-row-'+group);
+    row.classList.add('is-clipped');
+    more.addEventListener('click', function(){
+      var open=row.classList.toggle('is-clipped')===false;
+      more.setAttribute('aria-expanded', open?'true':'false');
+      more.firstChild.textContent = open ? t('facet_less') : t('facet_more').replace('{n}', num(hidden));
+      more.classList.toggle('is-open', open);
+    });
+    wrap.appendChild(more);
+    return wrap;
+  }
+  /* A filter group. Pass the FILTER key and the header grows a Reset that clears
+     just that group — clearing "Developer" should not throw away the area and
+     budget the visitor already chose. */
+  function fgroup(title, node, key){
+    var head=h('div',{class:'facet-head'}, h('h4',null,title));
+    if(key && FILTER[key] && FILTER[key].length){
+      var r=h('button',{class:'facet-reset', type:'button'}, t('cta_reset'));
+      r.addEventListener('click', function(){ FILTER[key]=[]; finderApply(); });
+      head.appendChild(r);
+    }
+    return h('div',{class:'facet-group'}, head, node);
+  }
+  function bedsLabel(v){ if(v==='tbc') return lang==='ar'?'قيد التأكيد':'To confirm'; if(v===0) return lang==='ar'?'استوديو':'Studio'; if(v===6) return lang==='ar'?'٦+ غرف':'6+ BR'; return num(v)+(lang==='ar'?' غرف':'BR'); }
+
+  /* CRO-02 · saved searches + launch alerts (no CRM — hand off to WhatsApp/email). */
+  function searchLabel(f){
+    var parts=[];
+    if(f.areas&&f.areas.length) parts.push(f.areas.map(function(k){var a=areaByKey(k);return a?L(a.name):k;}).join(' / '));
+    if(f.types&&f.types.length) parts.push(f.types.map(function(c){return typeLabelC(c);}).join(' / '));
+    if(f.beds&&f.beds.length) parts.push(f.beds.map(bedsLabel).join(' / '));
+    if(f.maxPrice) parts.push('≤ '+moneyM(f.maxPrice));
+    if(f.devs&&f.devs.length) parts.push(f.devs.map(function(k){var d=devByKey(k);return d?L(d.name):k;}).join(' / '));
+    return parts.length ? parts.join(' · ') : (lang==='ar'?'كل الوحدات الأولية':'All primary units');
+  }
+  function savedSearches(){ var v=load('tv_searches',[]); return Array.isArray(v)?v:[]; }
+  function saveCurrentSearch(){
+    var q=filterToQuery(FILTER)||'', list=savedSearches();
+    if(list.some(function(s){return s.q===q;})) return false;
+    list.unshift({q:q, label:searchLabel(FILTER)}); store('tv_searches', list.slice(0,8)); return true;
+  }
+  function removeSearch(q){ store('tv_searches', savedSearches().filter(function(s){return s.q!==q;})); }
+  function alertMsg(label){ return (lang==='ar'?'أرغب في تلقّي تنبيه عند توفّر وحدات أولية جديدة مطابقة لـ: ':'Please alert me when new primary units launch matching: ')+(label||searchLabel(FILTER)); }
+
+  /* One search bar across the top of the finder: type an area, project or
+     developer and it applies as a filter rather than leaving the page, so the
+     sidebar and the results stay in sync. Free text with no entity match falls
+     through to the site-wide search page. Beside it, the same switch Nawy
+     offers — jump between the unit view and the project view. */
+  function finderSearchBar(){
+    var inp=h('input',{type:'search', id:'finder-q', autocomplete:'off',
+      placeholder:t('finder_q_ph'), 'aria-label':t('finder_q_ph')});
+    var sug=h('div',{class:'fsb__sug', id:'finder-q-sug', role:'listbox', hidden:true});
+    function apply(d){
+      var f=defaultFilter();
+      if(d.type==='area') f.areas=[d.key];
+      else if(d.type==='developer') f.devs=[d.key];
+      else if(d.type==='project') f.projects=[d.key];
+      else { navigateTo(buildPath('search')+'?q='+encodeURIComponent(inp.value.trim())); return; }
+      f.mode=FILTER.mode; FILTER=f; finderApply();
+    }
+    function close(){ clear(sug); sug.hidden=true; }
+    inp.addEventListener('input', function(){
+      var q=inp.value.trim(); clear(sug);
+      if(q.length<2){ sug.hidden=true; return; }
+      var hits=searchAll(q).filter(function(d){
+        return d.type==='area'||d.type==='developer'||d.type==='project'; }).slice(0,6);
+      if(!hits.length){ sug.hidden=true; return; }
+      hits.forEach(function(d){
+        var b=h('button',{class:'fsb__opt', type:'button', role:'option'},
+          ic(d.icon||'search','fsb__opt-ic'),
+          h('span',null, d.title),
+          h('em',null, searchTypeOne(d.type)));
+        b.addEventListener('click', function(){ close(); apply(d); });
+        sug.appendChild(b);
+      });
+      sug.hidden=false;
+    });
+    inp.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
+    var form=h('form',{class:'fsb', role:'search'},
+      h('span',{class:'fsb__ic'}, ic('search')), inp, sug);
+    form.addEventListener('submit', function(e){
+      e.preventDefault(); var q=inp.value.trim(); if(!q) return;
+      var hit=searchAll(q).filter(function(d){
+        return d.type==='area'||d.type==='developer'||d.type==='project'; })[0];
+      close(); apply(hit || {type:'free'});
+    });
+    return h('div',{class:'fsb-row'}, form,
+      h('a',{class:'btn btn--ghost btn--sm fsb__switch', href:U(buildPath('projects'))},
+        ic('layers'), t('switch_projects')));
+  }
+
+  V.units = function(){
+    FILTER = filterFromQuery(CUR.search); reconcileFilter();
+    var af=areaFacets(), df=devFacets(), pf=projFacets(), tf=typeFacets(), bf=bedFacets(), ff=floorFacets(), lf=launchFacets(), avf=availFacets(), delf=deliveryFacets();
+    var mode=FILTER.mode||'strict';
+    var strictList=filterUnits(FILTER);
+    var list = (mode==='strict') ? sortUnits(strictList) : recommendUnits(FILTER, mode);
+    var projSet={}; list.forEach(function(u){ projSet[u.project]=1; }); var projCount=Object.keys(projSet).length;
+    var node=h('div',null);
+    node.appendChild(sectionWrap(
+      crumbNode([{label:t('nav_home'),path:buildPath('home')},{label:t('nav_units')}]),
+      sectionHead(t('hero_kicker'), t('finder_h'), t('finder_p'), 'h1'),
+      finderSearchBar()));
+
+    // ---- filter panel ----
+    var panel=h('div',{class:'finder-panel', id:'finder-panel'});
+    panel.appendChild(fgroup(t('filter_area'), facetChips('areas', AREAS.map(function(a){return {v:a.key,label:L(a.name),count:af[a.key]||0};})), 'areas'));
+    panel.appendChild(fgroup(t('filter_dev'), facetChips('devs', DEVELOPERS.map(function(d){return {v:d.key,label:L(d.name),count:df[d.key]||0};})), 'devs'));
+    panel.appendChild(fgroup(t('nav_projects'), facetChips('projects', PROJECTS.map(function(p){return {v:p.slug,label:(lang==='ar'?p.name_ar:p.name),count:pf[p.slug]||0};})), 'projects'));
+    panel.appendChild(fgroup(t('filter_type'), facetChips('types', TYPES.map(function(tp){return {v:tp.c,label:typeLabelC(tp.c),icon:typeIconC(tp.c),count:tf[tp.c]||0};})), 'types'));
+    panel.appendChild(fgroup(t('beds'), facetChips('beds', [0,1,2,3,4,5,6,'tbc'].map(function(v){return {v:v,label:bedsLabel(v),count:bf[v]||0};})), 'beds'));
+    // preferred floor (only meaningful for floor-based types) + avoid-ground
+    if(Object.keys(ff).length){
+      var fwrap=h('div',null);
+      fwrap.appendChild(facetChips('floors', FLOOR_BANDS.map(function(fb){return {v:fb,label:(lang==='ar'?FLOOR_LABELS[fb].ar:FLOOR_LABELS[fb].en),count:ff[fb]||0};})));
+      var ag=h('input',{type:'checkbox', id:'avoid-ground', style:'width:18px;height:18px'}); if(FILTER.avoidGround) ag.checked=true;
+      ag.addEventListener('change', function(){ FILTER.avoidGround=ag.checked; pendingFocusId='avoid-ground'; finderApply(); });
+      fwrap.appendChild(h('label',{class:'toggle-line', for:'avoid-ground', style:'margin-top:8px'}, ag, t('avoid_ground')));
+      panel.appendChild(fgroup(t('filter_floor'), fwrap));
+    }
+    // budget
+    var bwrap=h('div',null);
+    var brow=h('div',{class:'facet-row'});
+    BUDGET_PRESETS.forEach(function(pr){
+      var on=FILTER.minPrice===pr[0] && FILTER.maxPrice===pr[1];
+      var lab = pr[0]==null ? (lang==='ar'?'أقل من ٣ م':'Under 3M') : pr[1]==null ? (lang==='ar'?'٢٠ م+':'20M+') : (moneyM(pr[0])+'–'+moneyM(pr[1]));
+      var b=h('button',{class:'fchip'+(on?' on':''), type:'button'}, lab);
+      b.addEventListener('click', function(){ if(on){FILTER.minPrice=null;FILTER.maxPrice=null;} else {FILTER.minPrice=pr[0];FILTER.maxPrice=pr[1];} finderApply(); });
+      brow.appendChild(b);
+    });
+    bwrap.appendChild(brow);
+    var minI=h('input',{type:'number',inputmode:'numeric',placeholder:t('min_price'),value:FILTER.minPrice!=null?FILTER.minPrice:'','aria-label':t('min_price')});
+    var maxI=h('input',{type:'number',inputmode:'numeric',placeholder:t('max_price'),value:FILTER.maxPrice!=null?FILTER.maxPrice:'','aria-label':t('max_price')});
+    function commitBudget(){ FILTER.minPrice=minI.value?+minI.value:null; FILTER.maxPrice=maxI.value?+maxI.value:null; finderApply(); }
+    minI.addEventListener('change', commitBudget); maxI.addEventListener('change', commitBudget);
+    bwrap.appendChild(h('div',{class:'budget-inputs'}, minI, maxI));
+    // CRO-01 · affordability estimator — turn a monthly budget into a max price and apply it as a filter
+    var afM=h('input',{type:'number',inputmode:'numeric',placeholder:t('afford_monthly'),'aria-label':t('afford_monthly')});
+    var afD=h('input',{type:'number',inputmode:'numeric',value:'10','aria-label':t('calc_dp')});
+    var afY=h('input',{type:'number',inputmode:'numeric',value:'8','aria-label':t('calc_years')});
+    var afOut=h('div',{class:'afford-out','aria-live':'polite'});
+    function afMax(){ var m=+afM.value||0, D=Math.min(90,Math.max(0,+afD.value||0)), Y=Math.max(1,+afY.value||1);
+      return m>0 ? Math.round(m*Y*12/(1-D/100)) : null; }
+    function afRender(){ clear(afOut); var mx=afMax();
+      if(mx){ afOut.appendChild(h('span',{class:'muted'}, t('afford_upto')+' ')); afOut.appendChild(h('b',null, money(mx))); } }
+    [afM,afD,afY].forEach(function(i){ i.addEventListener('input', afRender); });
+    var afBtn=h('button',{type:'button', class:'btn btn--ghost btn--sm btn--block', style:'margin-top:10px'}, t('afford_apply'));
+    afBtn.addEventListener('click', function(){ var mx=afMax(); if(mx){ FILTER.maxPrice=mx; finderApply(); } });
+    afRender();
+    bwrap.appendChild(h('details',{class:'afford'},
+      h('summary',null, t('afford_h')),
+      h('div',{class:'afford-body'},
+        field2(t('afford_monthly'), afM),
+        h('div',{class:'field-row',style:'margin-top:8px'}, field2(t('calc_dp'), afD), field2(t('calc_years'), afY)),
+        afOut, afBtn,
+        h('div',{class:'prov',style:'margin-top:8px'}, ic('info'), t('calc_note')))));
+    var tbc=h('input',{type:'checkbox', id:'inc-tbc', style:'width:18px;height:18px'}); if(FILTER.includeUnverified) tbc.checked=true;
+    tbc.addEventListener('change', function(){ FILTER.includeUnverified=tbc.checked; finderApply(); });
+    bwrap.appendChild(h('label',{class:'toggle-line', for:'inc-tbc'}, tbc, t('inc_tbc')));
+    // installment period (min years) — a financial preference filtering project payment plans
+    var yrsSel=h('select',{id:'finder-years','aria-label':t('filter_years')},
+      [h('option',{value:''}, t('years_any'))].concat(YEARS_PRESETS.map(function(n){
+        return h('option', FILTER.minYears===n?{value:String(n),selected:true}:{value:String(n)}, t('years_min_n').replace('{n}', num(n))); })));
+    yrsSel.addEventListener('change', function(){ FILTER.minYears=yrsSel.value?+yrsSel.value:null; pendingFocusId='finder-years'; finderApply(); });
+    bwrap.appendChild(h('div',{class:'field',style:'margin-top:10px'}, h('label',{for:'finder-years',style:'font-size:.82rem;color:var(--ink-2);display:block;margin-bottom:5px'}, t('filter_years')), yrsSel));
+    panel.appendChild(fgroup(t('filter_budget'), bwrap));
+    // statuses
+    panel.appendChild(fgroup(t('launch_status'), facetChips('launch', ['newly-launched','available'].map(function(s){return {v:s,label:(lang==='ar'?LAUNCH_LABELS[s].ar:LAUNCH_LABELS[s].en),count:lf[s]||0};})), 'launch'));
+    panel.appendChild(fgroup(t('availability'), facetChips('avail', ['available','limited','to-confirm'].map(function(s){return {v:s,label:(lang==='ar'?AVAIL_LABELS[s].ar:AVAIL_LABELS[s].en),count:avf[s]||0};})), 'avail'));
+    panel.appendChild(fgroup(t('delivery'), facetChips('delivery', ['ready','within-1-year','within-2-years','within-3-4-years','later','to-confirm'].map(function(s){return {v:s,label:(lang==='ar'?DELIVERY_LABELS[s].ar:DELIVERY_LABELS[s].en),count:delf[s]||0};})), 'delivery'));
+
+    // ---- results ----
+    var results=h('div',null);
+    var rhead=h('div',{class:'results-head'});
+    rhead.appendChild(h('div',{class:'rc','aria-live':'polite'}, num(list.length)+' '+(lang==='ar'?'وحدة':'units')+' · '+num(projCount)+' '+(lang==='ar'?'مشروع':'projects')));
+    var sortSel=h('select',{id:'finder-sort','aria-label':t('filter_sort')},
+      [['recommended','sort_feat'],['price-asc','sort_price_a'],['price-desc','sort_price_d'],['earliest-delivery','sort_delivery'],['newest','sort_newest']]
+        .map(function(o){ return h('option', FILTER.sort===o[0]?{value:o[0],selected:true}:{value:o[0]}, t(o[1])); }));
+    sortSel.addEventListener('change', function(){ FILTER.sort=sortSel.value; pendingFocusId='finder-sort'; finderApply(); });
+    if(mode==='strict') rhead.appendChild(sortSel);            // reco modes rank by match, so sort is hidden
+    var rActions=h('div',{class:'rhead-actions'});
+    var saveSearchBtn=h('button',{class:'btn btn--ghost btn--sm', type:'button'}, ic('heart'), t('save_search'));
+    saveSearchBtn.addEventListener('click', function(){ if(saveCurrentSearch()) toast(t('search_saved')); finderApply(); });
+    rActions.appendChild(saveSearchBtn);
+    if(CONFIG.whatsapp) rActions.appendChild(h('a',{class:'btn btn--wa btn--sm', href:waLink(alertMsg()), target:'_blank', rel:'noopener'}, ic('wa'), t('get_alerts')));
+    rhead.appendChild(rActions);
+    results.appendChild(rhead);
+    // recommendation mode selector (Exact / Balanced / Flexible)
+    results.appendChild(modeSelector(mode));
+    // active chips
+    var active=activeFilterChips();
+    if(active.length){
+      var af2=h('div',{class:'active-filters',style:'margin-bottom:16px'});
+      active.forEach(function(a){ af2.appendChild(a); });
+      af2.appendChild(h('button',{class:'btn btn--ghost btn--sm', type:'button', onclick:function(){ FILTER=defaultFilter(); finderApply(); }}, t('cta_reset')));
+      results.appendChild(af2);
+    }
+    // saved searches (revisit / remove) — persisted locally
+    var ss=savedSearches();
+    if(ss.length){
+      var ssWrap=h('div',{class:'saved-searches'});
+      ssWrap.appendChild(h('span',{class:'ss-lbl'}, ic('heart'), t('saved_searches')));
+      ss.forEach(function(s){
+        var chip=h('span',{class:'ss-chip'});
+        chip.appendChild(h('a',{href:U(buildPath('units'))+(s.q?('?'+s.q):'')}, s.label));
+        var rm=h('button',{class:'ss-x', type:'button','aria-label':t('rm_search')}, '×');
+        rm.addEventListener('click', function(e){ e.preventDefault(); removeSearch(s.q); finderApply(); });
+        chip.appendChild(rm); ssWrap.appendChild(chip);
+      });
+      results.appendChild(ssWrap);
+    }
+    // relaxation planner: strict mode with a thin/empty result AND active criteria -> offer the biggest single loosen + nearest matches
+    if(mode==='strict' && activeCriteriaCount(FILTER)>0 && strictList.length<4){
+      var plan=relaxationPlan(FILTER);
+      if(plan.length || strictList.length===0) results.appendChild(relaxPanel(plan, strictList.length));
+    }
+    if(mode!=='strict') results.appendChild(h('div',{class:'notice notice--info',style:'margin-bottom:16px'}, ic('spark'),
+      h('div',null, mode==='balanced'?t('reco_balanced_note'):t('reco_flexible_note'))));
+    if(list.length){
+      var grid=h('div',{class:'grid grid--2'});
+      list.forEach(function(u){ grid.appendChild(mode==='strict'?unitCard(u):recoCard(u)); });
+      results.appendChild(grid);
+    } else results.appendChild(h('div',{class:'state'}, ic('search'), h('h3',null,t('noresults')), h('p',null,t('finder_none')),
+      h('div',{style:'display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px'},
+        h('button',{class:'btn btn--primary', type:'button', onclick:function(){ FILTER=defaultFilter(); finderApply(); }}, t('cta_reset')),
+        h('a',{class:'btn btn--ghost', href:U(buildPath('contact'))}, t('cta_talk')))));
+    results.appendChild(h('p',{class:'muted',style:'font-size:.78rem;margin-top:16px'}, t('art_note')));
+
+    var sec=h('section',{style:'padding-bottom:clamp(40px,7vw,80px)'});
+    // mobile-only toggle: keep the unit results (with their bed/bath/area specs) visible first, not buried under the filter panel
+    var fToggle=h('button',{class:'finder-toggle', id:'finder-toggle', type:'button', 'aria-controls':'finder-panel', 'aria-expanded':finderFiltersOpen?'true':'false'},
+      ic('filter'), h('span',null, t('filters')+(active.length?(' · '+num(active.length)):'')), h('span',{class:'ft-caret','aria-hidden':'true'}, '⌄'));
+    var finderEl=h('div',{class:'finder'+(finderFiltersOpen?' finder--open':'')}, fToggle, panel, results);
+    fToggle.addEventListener('click', function(){ finderFiltersOpen=!finderFiltersOpen; finderEl.classList.toggle('finder--open', finderFiltersOpen); fToggle.setAttribute('aria-expanded', finderFiltersOpen?'true':'false'); });
+    sec.appendChild(h('div',{class:'wrap'}, finderEl));
+    node.appendChild(sec);
+    return {node:node, title:t('finder_h')+' · The Village Investment', desc:t('finder_p'), indexable:true,
+      ld: unitsCollectionLD(),
+      announce: num(list.length)+' '+(lang==='ar'?'وحدة':'units')+' · '+num(projCount)+' '+(lang==='ar'?'مشروع':'projects'),
+      crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_units')}]};
+  };
+  // ---- recommendation UI helpers ----
+  function modeSelector(mode){
+    var wrap=h('div',{class:'mode-seg', role:'group','aria-label':t('reco_mode')});
+    wrap.appendChild(h('span',{class:'mode-seg__lbl'}, t('reco_mode')));
+    RECO_MODES.forEach(function(m){
+      var on=(mode===m);
+      var b=h('button',{class:'mode-seg__btn'+(on?' on':''), id:'mode-'+m, type:'button','aria-pressed':on?'true':'false'}, lang==='ar'?RECO_LABELS[m].ar:RECO_LABELS[m].en);
+      b.addEventListener('click', function(){ if(!on) setMode(m); });
+      wrap.appendChild(b);
+    });
+    return wrap;
+  }
+  function recoCard(u){
+    var card=unitCard(u);
+    var sc=scoreUnit(u, FILTER);
+    if(sc.crit.length){
+      var strip=h('div',{class:'reco-explain'});
+      sc.matched.slice(0,4).forEach(function(c){ if(c.label) strip.appendChild(h('span',{class:'rx rx--ok'}, ic('check'), c.label)); });
+      sc.missed.slice(0,2).forEach(function(c){ if(c.label) strip.appendChild(h('span',{class:'rx rx--no'}, c.label)); });
+      var body=card.querySelector('.card__body'); if(body) body.appendChild(strip);
+    }
+    return card;
+  }
+  function relaxPanel(plan, strictN){
+    var box=h('div',{class:'relax-panel'});
+    box.appendChild(h('div',{class:'relax-h'}, ic('spark'), h('strong',null, strictN===0?t('reco_zero_h'):t('reco_few_h'))));
+    if(plan.length){
+      box.appendChild(h('p',{class:'muted',style:'font-size:.85rem;margin:6px 0 10px'}, t('reco_relax_p')));
+      var row=h('div',{class:'facet-row'});
+      plan.slice(0,4).forEach(function(s){
+        var b=h('button',{class:'fchip', type:'button'}, ic('close'), h('span',null, s.label), h('small',null,'+'+num(s.gain)));
+        b.addEventListener('click', function(){ clearFilterKey(s.key); });
+        row.appendChild(b);
+      });
+      box.appendChild(row);
+    }
+    box.appendChild(h('button',{class:'btn btn--primary btn--sm', type:'button', style:'margin-top:12px', onclick:function(){ setMode('balanced'); }}, ic('spark'), t('reco_see_near')));
+    return box;
+  }
+  function activeFilterChips(){
+    var out=[];
+    function push(group, v, label){ var tag=h('span',{class:'filter-tag'}, label, h('button',{type:'button','aria-label':t('cta_reset')+': '+label},'×'));
+      tag.querySelector('button').addEventListener('click', function(){ finderToggle(group, v); }); out.push(tag); }
+    FILTER.areas.forEach(function(v){ push('areas', v, L(areaByKey(v).name)); });
+    FILTER.devs.forEach(function(v){ push('devs', v, L(devByKey(v).name)); });
+    FILTER.projects.forEach(function(v){ var p=projBySlug(v); push('projects', v, lang==='ar'?p.name_ar:p.name); });
+    FILTER.types.forEach(function(v){ push('types', v, typeLabelC(v)); });
+    FILTER.beds.forEach(function(v){ push('beds', v, bedsLabel(v)); });
+    FILTER.floors.forEach(function(v){ push('floors', v, lang==='ar'?FLOOR_LABELS[v].ar:FLOOR_LABELS[v].en); });
+    FILTER.launch.forEach(function(v){ push('launch', v, lang==='ar'?LAUNCH_LABELS[v].ar:LAUNCH_LABELS[v].en); });
+    FILTER.avail.forEach(function(v){ push('avail', v, lang==='ar'?AVAIL_LABELS[v].ar:AVAIL_LABELS[v].en); });
+    FILTER.delivery.forEach(function(v){ push('delivery', v, lang==='ar'?DELIVERY_LABELS[v].ar:DELIVERY_LABELS[v].en); });
+    if(FILTER.minPrice!=null||FILTER.maxPrice!=null){ var lab=(FILTER.minPrice!=null?moneyM(FILTER.minPrice):'0')+'–'+(FILTER.maxPrice!=null?moneyM(FILTER.maxPrice):'∞');
+      var tag=h('span',{class:'filter-tag'}, lab, h('button',{type:'button','aria-label':t('cta_reset')},'×'));
+      tag.querySelector('button').addEventListener('click', function(){ FILTER.minPrice=null; FILTER.maxPrice=null; finderApply(); }); out.push(tag); }
+    function pushOne(label, onRemove){ var tag=h('span',{class:'filter-tag'}, label, h('button',{type:'button','aria-label':t('cta_reset')+': '+label},'×'));
+      tag.querySelector('button').addEventListener('click', onRemove); out.push(tag); }
+    if(FILTER.avoidGround) pushOne(t('avoid_ground'), function(){ FILTER.avoidGround=false; finderApply(); });
+    if(FILTER.minYears!=null) pushOne(t('years_min_n').replace('{n}', num(FILTER.minYears)), function(){ FILTER.minYears=null; finderApply(); });
+    if(FILTER.maxDp!=null) pushOne((lang==='ar'?'مقدم حتى ':'Down ≤ ')+moneyM(FILTER.maxDp), function(){ FILTER.maxDp=null; finderApply(); });
+    return out;
+  }
+
+  /* ---- Investors / audience guidance (one consolidated page) ---- */
+  V.investors = function(){
+    var AUD=[
+      {t:{en:'GCC investors',ar:'مستثمرو الخليج'}, i:{en:'Buyers across Saudi Arabia, the UAE, Kuwait, Qatar, Bahrain and Oman shortlist Egypt primary-sale units and reserve remotely. We compare options in your timezone and confirm figures with the developer before you commit.',ar:'يرشّح مشترون من السعودية والإمارات والكويت وقطر والبحرين وعُمان وحدات البيع الأولي في مصر ويحجزون عن بُعد. نقارن الخيارات بتوقيتك ونؤكّد الأرقام مع المطوّر قبل أي التزام.'},
+        s:{en:['Shortlist projects and unit types that fit your goal and budget.','Ask an advisor for the developer’s current price list and payment plan in writing.','Confirm reservation terms and the developer’s process before any payment.','Review transfer, power-of-attorney and residency questions with a licensed professional.'],ar:['رشّح المشروعات وأنواع الوحدات المناسبة لهدفك وميزانيتك.','اطلب من المستشار قائمة أسعار المطوّر الحالية وخطة السداد كتابةً.','أكّد شروط الحجز وإجراء المطوّر قبل أي دفعة.','راجع مسائل التحويل والتوكيل والإقامة مع مختصّ مرخّص.']}},
+      {t:{en:'Overseas buyers',ar:'المشترون بالخارج'}, i:{en:'Investors in Europe, the UK, North America and beyond can compare Egypt areas, developers and payment plans remotely, then reserve under the developer’s process. Legal and tax questions depend on your country and should be reviewed with a professional.',ar:'يستطيع المستثمرون في أوروبا والمملكة المتحدة وأمريكا الشمالية وغيرها مقارنة مناطق مصر والمطوّرين وخطط السداد عن بُعد، ثم الحجز وفق إجراء المطوّر. وتعتمد المسائل القانونية والضريبية على بلدك وتُراجَع مع مختصّ.'},
+        s:{en:['Compare areas and developers using the finder and developer pages.','Request current figures and a written reservation offer from an advisor.','Arrange payment and reservation under the developer’s documented process.','Confirm ownership, transfer and tax steps with a licensed professional for your country.'],ar:['قارن المناطق والمطوّرين عبر المحرّك وصفحات المطوّرين.','اطلب الأرقام الحالية وعرض حجز مكتوباً من المستشار.','رتّب الدفع والحجز وفق إجراء المطوّر الموثّق.','أكّد خطوات الملكية والتحويل والضرائب مع مختصّ مرخّص في بلدك.']}},
+      {t:{en:'Egyptians abroad',ar:'المصريون بالخارج'}, i:{en:'Egyptians living abroad often reserve primary units to hold or for family. A power of attorney can let a trusted person or professional complete local steps on your behalf; the exact method should be confirmed with the developer and a professional.',ar:'يحجز المصريون بالخارج غالباً وحدات أولية للاحتفاظ أو للعائلة. ويتيح التوكيل لشخص موثوق أو مختصّ إتمام الخطوات محلياً نيابةً عنك، وتُؤكَّد الطريقة الدقيقة مع المطوّر ومختصّ.'},
+        s:{en:['Shortlist and confirm current developer terms with an advisor.','Prepare a power of attorney if someone will complete steps locally.','Reserve under the developer’s process and keep written confirmations.','Confirm transfer and documentation with a licensed professional.'],ar:['رشّح وأكّد شروط المطوّر الحالية مع المستشار.','جهّز توكيلاً إن كان أحد سيُتمّ الخطوات محلياً.','احجز وفق إجراء المطوّر واحتفظ بالتأكيدات المكتوبة.','أكّد التحويل والمستندات مع مختصّ مرخّص.']}}
+    ];
+    var node=h('div',null);
+    node.appendChild(sectionWrap(crumbNode([{label:t('nav_home'),path:buildPath('home')},{label:t('investors_h')}]),
+      sectionHead(t('hero_kicker'), t('investors_h'), t('investors_p'), 'h1')));
+    var sec=h('section',{style:'padding-bottom:clamp(40px,7vw,80px)'}), w=h('div',{class:'wrap'});
+    AUD.forEach(function(a){
+      var ol=h('ol',{class:'prose',style:'padding-inline-start:22px;margin-top:12px'});
+      (lang==='ar'?a.s.ar:a.s.en).forEach(function(s){ ol.appendChild(h('li',null,s)); });
+      w.appendChild(h('div',{class:'card',style:'padding:24px;margin-bottom:18px'},
+        h('div',{style:'display:flex;gap:12px;align-items:center'},
+          h('div',{style:'width:44px;height:44px;border-radius:12px;background:var(--teal-050);color:var(--teal-700);display:grid;place-items:center'}, ic('globe')),
+          h('h2',{style:'font-size:1.35rem'}, L(a.t))),
+        h('p',{class:'muted',style:'margin-top:12px;max-width:66ch'}, L(a.i)),
+        ol,
+        h('a',{class:'btn btn--primary btn--sm', href:U(buildPath('contact'))}, t('cta_talk'))));
+    });
+    w.appendChild(h('div',{class:'notice notice--warn'}, ic('info'), h('div',null, t('invest_note'))));
+    sec.appendChild(w); node.appendChild(sec); node.appendChild(ctaBand());
+    track('country_page_view');
+    return {node:node, title:t('investors_h')+' · The Village Investment', desc:t('investors_p'), indexable:true,
+      crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('investors_h')}]};
+  };
+
+  /* ---- Developers list + detail ---- */
+  V.developers = function(){
+    var node=h('div',null);
+    node.appendChild(sectionWrap(crumbNode([{label:t('nav_home'),path:buildPath('home')},{label:t('nav_developers')}]),
+      sectionHead(t('hero_kicker'), t('home_dev_h'), t('home_dev_p'), 'h1')));
+    node.appendChild(h('section',{style:'padding-bottom:clamp(40px,7vw,80px)'}, h('div',{class:'wrap'},
+      h('div',{class:'grid grid--2'}, DEVELOPERS.map(devCard)),
+      h('p',{class:'muted',style:'font-size:.78rem;margin-top:20px'}, t('devmark_note')))));
+    return {node:node, title:t('nav_developers')+' · The Village Investment', desc:t('home_dev_p'), indexable:true,
+      crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_developers')}]};
+  };
+  V.developer = function(key){
+    var d = devByKey(key), ps = projByDev(key), node=h('div',null);
+    // grouped members collapse into a single group card; count stays real (ps.length)
+    var grps = groupsByDev(key);
+    var devCards = ps.filter(function(p){ return !GROUPED_PROJECT[p.slug]; }).map(projectCard).concat(grps.map(groupCard));
+    node.appendChild(sectionWrap(
+      crumbNode([{label:t('nav_home'),path:buildPath('home')},{label:t('nav_developers'),path:buildPath('developers')},{label:L(d.name)}]),
+      devGalleryStrip(d),        // destination photos sit above the logo; null when none
+      h('div',{class:'detail-hero'},
+        h('div',null,
+          devLogoLockup(d),
+          h('h1',{style:'font-size:clamp(1.8rem,4vw,2.6rem);margin-top:16px'}, L(d.name)),
+          h('p',{class:'lead', style:'margin-top:10px'}, L(d.tagline)),
+          h('p',{class:'muted', style:'margin-top:14px;max-width:60ch'}, L(d.desc)),
+          h('div',{style:'display:flex;gap:8px;flex-wrap:wrap;margin-top:16px'},
+            h('span',{class:'chip chip--muted'}, ic('pin'), L(d.areas)),
+            h('span',{class:'chip chip--muted'}, (lang==='ar'?'منذ ':'Since ')+d.since))),
+        h('aside',{class:'aside-card'},
+          h('div',{class:'muted', style:'font-weight:700;font-size:.85rem'}, t('by_dev')),
+          h('div',{class:'price-lg', style:'font-size:2.4rem'}, num(ps.length)),
+          h('div',{class:'prov'}, ic('info'), t('derived')),
+          h('a',{class:'btn btn--primary btn--block mt-16', href:U(buildPath('contact'))}, t('cta_talk'))))));
+    // Destination story under the hero: masterplan, then the themed cards.
+    var mpSec = devMasterplanSection(d); if(mpSec) node.appendChild(mpSec);
+    var fcSec = devCardsSection(d);      if(fcSec) node.appendChild(fcSec);
+    if(devCards.length) node.appendChild(listSection('', t('by_dev'), '', devCards, null, 'band'));
+    else node.appendChild(h('section',{class:'section band'}, h('div',{class:'wrap'},
+      h('div',{class:'empty-state'}, h('div',{class:'empty-ico'}, ic('home')),
+        h('p',null, (lang==='ar'?'نضيف مشروعات '+L(d.name)+' حاليًا — تواصل مع مستشار لمعرفة المتاح الآن.':'We’re adding '+L(d.name)+'’s projects — talk to an advisor for current availability.')),
+        h('a',{class:'btn btn--primary', href:U(buildPath('contact'))}, t('cta_talk'))))));
+    node.appendChild(ctaBand());
+    return {node:node, title:L(d.name)+' — '+t('nav_developers')+' · The Village Investment', desc:L(d.desc), indexable:true,
+      crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_developers'),path:buildPath('developers')},{label:L(d.name)}]};
+  };
+
+  /* ---- Release page (e.g. MODON new release) ----------------------------
+     A developer's re-priced release. Same card shell as the rest of the site,
+     with a NEW RELEASE badge and the sheet's figures for each project. ---- */
+  // Opens the release masterplan in the full-screen viewer (pan + zoom), so the
+  // plan is read at full size instead of squeezed into the card.
+  function releaseMasterplanBtn(r, label){
+    var items = releaseMasterplan(r); if(!items.length) return null;
+    var mp = (lang==='ar'?'الماستر بلان':'Master Plan');
+    var b = h('button',{class:'ufeat', type:'button'},
+      ic('masterplan','ufeat__ic'), h('span',null, mp));
+    b.addEventListener('click', function(){ mediaViewer(items, mp+' · '+label); });
+    return h('div',{class:'ufeat-row', style:'margin-top:12px'}, b);
+  }
+  function releaseCard(r, p){
+    var nm = L(p.name), dev = devByKey(r.dev), area = areaByKey(r.area);
+    var from = Math.min.apply(null, p.units.map(function(u){ return u.price; }));
+    var card = h('article',{class:'card'});
+    var img = h('img',{class:'artsvg proj-cover', src:p.img, alt:nm+' — '+L(r.name),
+      loading:'lazy', decoding:'async'});
+    var media = h('div',{class:'card__media'}, img,
+      h('div',{class:'tags'}, h('span',{class:'chip chip--rel'}, t('new_release'))));
+    media.appendChild(devChip(dev));
+    card.appendChild(media);
+    var specs = h('table',{class:'rel-table'});
+    specs.appendChild(h('tr',null,
+      h('th',{scope:'col'}, lang==='ar'?'الوحدة':'Unit'),
+      h('th',{scope:'col'}, lang==='ar'?'المساحة':'Area'),
+      h('th',{scope:'col'}, t('price'))));
+    p.units.forEach(function(u){
+      specs.appendChild(h('tr',null,
+        h('td',null, num(u.beds)+' '+(lang==='ar'?'غرف':'BR')
+          + (u.baths!=null ? (' · '+num(u.baths)+' '+(lang==='ar'?'حمام':'ba')) : '')),
+        h('td',null, num(u.size)+' m²'),
+        h('td',{class:'rel-table__p'}, money(u.price))));
+    });
+    card.appendChild(h('div',{class:'card__body'},
+      h('div',{class:'card__dev'}, L(dev.name)),
+      h('h3',null, nm),
+      h('div',{class:'card__facts'},
+        h('span',null, ic('pin'), ' ', L(area.name)),
+        h('span',null, ic('key'), ' ', (lang==='ar'?'تسليم ':'Delivery ')+p.delivery)),
+      h('div',{class:'card__price'}, h('small',null, t('from')), money(from)),
+      // Expression of interest — the cheque that books a place in the release,
+      // shown next to the price because it is what the buyer actually pays now.
+      (p.eoi!=null ? h('div',{class:'eoi', title:t('eoi_note')},
+        h('span',{class:'eoi__k'}, t('eoi')), h('b',{class:'eoi__v'}, money(p.eoi))) : null),
+      specs,
+      h('div',{class:'card__facts', style:'margin-top:10px'},
+        h('span',null, num(p.dp)+'% '+t('dp')),
+        h('span',null, num(p.years)+' '+(lang==='ar'?'سنوات':'years'))),
+      releaseMasterplanBtn(r, nm),
+      provBadge(),
+      h('div',{class:'card__foot'},
+        h('a',{class:'btn btn--primary btn--sm', href:U(buildPath('contact'))+'?p='+r.slug}, t('cta_talk')),
+        CONFIG.whatsapp ? h('a',{class:'btn btn--wa btn--sm btn--icon', href:waLink(
+            (lang==='ar'?'مهتم بـ ':'Interested in ')+nm+' — '+L(r.name)+' '+t('new_release')),
+          target:'_blank', rel:'noopener','aria-label':t('whatsapp')+' — '+nm}, ic('wa')) : null)));
+    return card;
+  }
+  V.release = function(slug){
+    var r = releaseBySlug(slug); if(!r) return V.notfound();
+    var nm = L(r.name), dev = devByKey(r.dev), node = h('div',null);
+    var cr = [{label:t('nav_home'),path:buildPath('home')},
+              {label:t('nav_launches'),path:buildPath('launches')},{label:nm}];
+    node.appendChild(sectionWrap(
+      crumbNode(cr),
+      h('div',{class:'rel-hero'},
+        h('span',{class:'chip chip--rel'}, t('new_release')),
+        h('h1',{style:'font-size:clamp(1.8rem,4vw,2.6rem);margin-top:12px'}, nm),
+        h('p',{class:'lead', style:'margin-top:10px'}, t('release_h')),
+        h('p',{class:'muted', style:'margin-top:12px;max-width:60ch'}, L(r.blurb)),
+        h('div',{style:'display:flex;gap:8px;flex-wrap:wrap;margin-top:16px'},
+          h('a',{class:'chip chip--muted', href:U(buildPath('developer',{slug:dev.key}))}, devLogoInline(dev,20), L(dev.name)),
+          h('span',{class:'chip chip--muted'}, ic('pin'), L(areaByKey(r.area).name))))));
+    node.appendChild(listSection('', t('release_units'), t('release_p'),
+      r.projects.map(function(p){ return releaseCard(r,p); }), null, 'band', 'grid--2'));
+    node.appendChild(ctaBand());
+    return {node:node, title:nm+' — '+t('new_release')+' · The Village Investment',
+      desc:L(r.blurb), indexable:true, crumbs:cr};
+  };
+
+  /* ---- Project group (e.g. Stei8ht) — a sub-collection under a developer ---- */
+  V.group = function(slug){
+    var g = groupBySlug(slug); if(!g) return V.notfound();
+    var dev = devByKey(g.dev), members = groupMembers(g), node=h('div',null);
+    var nm = L({en:g.name,ar:g.name_ar});
+    var cr = [{label:t('nav_home'),path:buildPath('home')},{label:t('nav_developers'),path:buildPath('developers')},{label:L(dev.name),path:buildPath('developer',{slug:dev.key})},{label:nm}];
+    var mediaFallback=function(){ return members[0]?projectMedia(members[0]):mediaBox(nm,'artsvg'); };
+    node.appendChild(sectionWrap(
+      crumbNode(cr),
+      h('div',{class:'detail-hero'},
+        h('div',null,
+          h('div',{class:'detail-media'}, g.cover?coverImg(g.cover, nm, mediaFallback):mediaFallback(),
+            h('div',{class:'tags'}, h('span',{class:'chip'}, L(dev.name)))),
+          h('h1',{style:'font-size:clamp(1.8rem,4vw,2.6rem);margin-top:16px'}, nm),
+          h('p',{class:'lead', style:'margin-top:10px'}, (lang==='ar'?'مجموعة مشاريع داخل ':'A project group within ')+L(dev.name)),
+          h('p',{class:'muted', style:'margin-top:14px;max-width:60ch'}, L(g.blurb)),
+          h('div',{style:'display:flex;gap:8px;flex-wrap:wrap;margin-top:16px'},
+            h('a',{class:'chip chip--muted', href:U(buildPath('developer',{slug:dev.key}))}, ic('build'), L(dev.name)),
+            h('span',{class:'chip chip--muted'}, num(members.length)+' '+(lang==='ar'?'مشروعات':'projects')))),
+        h('aside',{class:'aside-card'},
+          h('div',{class:'muted', style:'font-weight:700;font-size:.85rem'}, (lang==='ar'?'مشروعات المجموعة':'Projects in this group')),
+          h('div',{class:'price-lg', style:'font-size:2.4rem'}, num(members.length)),
+          h('div',{class:'prov'}, ic('info'), t('derived')),
+          h('a',{class:'btn btn--primary btn--block mt-16', href:U(buildPath('contact'))}, t('cta_talk'))))));
+    if(members.length) node.appendChild(listSection('', nm, '', members.map(projectCard), null, 'band'));
+    node.appendChild(ctaBand());
+    return {node:node, title:nm+' — '+L(dev.name)+' · The Village Investment', desc:L(g.blurb), indexable:true, crumbs:cr};
+  };
+
+  /* ---- Areas list + detail ---- */
+  V.areas = function(){
+    var node=h('div',null);
+    node.appendChild(sectionWrap(crumbNode([{label:t('nav_home'),path:buildPath('home')},{label:t('nav_areas')}]),
+      sectionHead(t('hero_kicker'), t('home_area_h'), t('home_area_p'), 'h1')));
+    node.appendChild(h('section',{style:'padding-bottom:clamp(40px,7vw,80px)'}, h('div',{class:'wrap'},
+      resultsHeading(t('nav_areas')), h('div',{class:'grid grid--3'}, AREAS.map(areaTile)))));
+    return {node:node, title:t('nav_areas')+' · The Village Investment', desc:t('home_area_p'), indexable:true,
+      crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_areas')}]};
+  };
+  V.area = function(key){
+    var a=areaByKey(key), ps=projInArea(key), from=areaFrom(key), node=h('div',null);
+    var locSrc=areaImageSrc(key);
+    node.appendChild(sectionWrap(
+      crumbNode([{label:t('nav_home'),path:buildPath('home')},{label:t('nav_areas'),path:buildPath('areas')},{label:L(a.name)}]),
+      h('div',null,
+        locSrc ? h('div',{class:'area-banner'}, coverImg(locSrc, L(a.name), function(){return h('div',{class:'pat'});}), h('div',{class:'area-banner__pin'}, ic('pin'), L(a.name))) : null,
+        h('h1',{style:'font-size:clamp(1.8rem,4vw,2.6rem)'}, L(a.name)),
+        h('p',{class:'lead', style:'margin-top:12px;max-width:62ch'}, L(a.blurb)),
+        h('div',{style:'display:flex;gap:8px;flex-wrap:wrap;margin-top:16px'},
+          h('span',{class:'chip chip--muted'}, num(ps.length)+' '+(lang==='ar'?'مشروع':'projects')),
+          from&&h('span',{class:'chip chip--muted'}, t('from')+' '+money(from))),
+        from&&h('div',{class:'prov', style:'margin-top:8px'}, ic('info'), t('derived')))));
+    var sec=h('section',{style:'padding-bottom:clamp(40px,7vw,80px)'}); var w=h('div',{class:'wrap'});
+    if(ps.length){ w.appendChild(resultsHeading()); w.appendChild(h('div',{class:'grid grid--3'}, ps.map(projectCard))); }
+    else w.appendChild(h('div',{class:'state'}, ic('pin'), h('h3',null,lang==='ar'?'لا مشروعات مُدرجة بعد':'No projects listed yet'), h('p',null,lang==='ar'?'تحدّث إلى مستشار لمعرفة الإطلاقات الحالية في هذه المنطقة.':'Talk to an advisor for current launches in this area.'), h('a',{class:'btn btn--primary mt-16', href:U(buildPath('contact'))}, t('cta_talk'))));
+    sec.appendChild(w); node.appendChild(sec);
+    return {node:node, title:L(a.name)+' — '+t('nav_areas')+' · The Village Investment', desc:L(a.blurb), indexable:true,
+      crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_areas'),path:buildPath('areas')},{label:L(a.name)}]};
+  };
+
+  /* ---- Compare ---- */
+  V.compare = function(){
+    // Comparison is UNIT-only. Items are units; developer/project comparison is disabled.
+    var items = compare.map(unitById).filter(Boolean), node=h('div',null);
+    node.appendChild(sectionWrap(
+      crumbNode([{label:t('nav_home'),path:buildPath('home')},{label:t('nav_compare')}]),
+      sectionHead('', t('cmp_h'), t('cmp_p'), 'h1')));
+    var sec=h('section',{style:'padding-bottom:clamp(40px,7vw,80px)'}); var w=h('div',{class:'wrap'});
+    if(!items.length){
+      w.appendChild(h('div',{class:'state'}, ic('scale'), h('h3',null,t('cmp_empty')), h('p',null,t('cmp_empty_p')),
+        h('a',{class:'btn btn--primary mt-16', href:U(buildPath('units'))}, t('cta_explore'))));
+    } else {
+      var pOf=function(u){ return projBySlug(u.project); };
+      var rows = [
+        {k:(lang==='ar'?'المشروع':'Project'), f:function(u){var p=pOf(u);return lang==='ar'?p.name_ar:p.name;}},
+        {k:t('developer'), f:function(u){return L(devByKey(pOf(u).dev).name);}},
+        {k:t('area'), f:function(u){return L(areaByKey(pOf(u).area).name);}},
+        {k:t('type'), f:function(u){return typeLabelC(unitCanon(u));}},
+        {k:(lang==='ar'?'غرف النوم':'Bedrooms'), com:true, f:function(u){return u.beds!=null?num(u.beds):'—';}},
+        {k:(lang==='ar'?'الحمامات':'Bathrooms'), com:true, f:function(u){return u.baths!=null?num(u.baths):'—';}},
+        {k:(lang==='ar'?'المساحة':'Area'), f:function(u){return u.area!=null?(num(u.area)+' m²'):'—';}},
+        {k:t('price'), f:function(u){return money(u.price);}},
+        {k:(lang==='ar'?'الإتاحة':'Availability'), f:function(u){return t((AVAIL_MAP[u.avail]||AVAIL_MAP['to-confirm'])[1]);}},
+        {k:t('dp'), f:function(u){var p=pOf(u);return p.dp?num(p.dp)+'%':'—';}},
+        {k:t('years'), f:function(u){var p=pOf(u);return p.years?(num(p.years)+' '+(lang==='ar'?'سنوات':'years')):'—';}},
+        {k:t('delivery'), f:function(u){var p=pOf(u);return p.delivery==='Ready'?t('ready'):(p.delivery||t('to_confirm'));}}
+      ];
+      var table=h('table',{class:'cmp'});
+      var thead=h('tr',null,h('th',{scope:'col'},''));
+      items.forEach(function(u){
+        var p=pOf(u), nm=unitDisplayName(u);
+        var rm=h('button',{class:'btn btn--ghost btn--sm', type:'button', style:'margin-top:8px'}, '× '+t('back'));
+        rm.addEventListener('click', function(){ toggleCompare(u.id); render(parse(readLoc().path),{keep:false}); });
+        var th=h('th',{scope:'col'}, h('a',{href:U(buildPath('unit',{id:u.id}))}, nm),
+          h('div',{class:'muted', style:'font-size:.8rem;font-weight:500'}, lang==='ar'?p.name_ar:p.name), rm);
+        thead.appendChild(th);
+      });
+      table.appendChild(h('thead',null,thead));
+      var tb=h('tbody',null);
+      // bedrooms/bathrooms are meaningless when every unit compared is commercial
+      var allCom = items.length>0 && items.every(unitIsCommercial);
+      rows.forEach(function(r){
+        if(r.com && allCom) return;
+        var vals = items.map(r.f);
+        var differ = vals.some(function(v){return v!==vals[0];});
+        var tr=h('tr',null,h('th',{scope:'row'},r.k));
+        items.forEach(function(u,i){ tr.appendChild(h('td', differ?{class:'diff'}:null, vals[i])); });
+        tb.appendChild(tr);
+      });
+      table.appendChild(tb);
+      w.appendChild(h('div',{class:'cmp-wrap'}, table));
+      w.appendChild(h('div',{class:'prov', style:'margin-top:12px'}, ic('info'), t('illustrative')));
+    }
+    sec.appendChild(w); node.appendChild(sec);
+    return {node:node, title:t('cmp_h')+' · The Village Investment', desc:t('cmp_p'), indexable:false,
+      crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_compare')}]};
+  };
+
+  /* ---- Insights list + detail ---- */
+  V.insights = function(){
+    var node=h('div',null);
+    node.appendChild(sectionWrap(crumbNode([{label:t('nav_home'),path:buildPath('home')},{label:t('nav_insights')}]),
+      sectionHead('', t('insights_h'), t('insights_p'), 'h1')));
+    node.appendChild(h('section',{style:'padding-bottom:clamp(40px,7vw,80px)'}, h('div',{class:'wrap'},
+      h('div',{class:'grid grid--3'}, RESEARCH.map(function(r){
+        return h('a',{class:'card', href:U(buildPath('insight',{slug:r.slug})), style:'padding:20px'},
+          h('span',{class:'chip', style:'align-self:flex-start'}, L(r.cat)),
+          h('h3',{style:'margin-top:12px;font-size:1.15rem'}, L(r.title)),
+          h('p',{class:'muted', style:'margin-top:8px'}, L(r.excerpt)),
+          h('div',{class:'card__dev', style:'margin-top:14px'}, num(r.read)+' '+t('readmin')));
+      })))));
+    return {node:node, title:t('insights_h')+' · The Village Investment', desc:t('insights_p'), indexable:true,
+      crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_insights')}]};
+  };
+  V.insight = function(slug){
+    var r=null; RESEARCH.forEach(function(x){ if(x.slug===slug) r=x; });
+    var node=h('div',null);
+    var body=h('div',{class:'prose'});
+    L(r.body).forEach(function(par){ body.appendChild(h('p',null,par)); });
+    node.appendChild(sectionWrap(
+      crumbNode([{label:t('nav_home'),path:buildPath('home')},{label:t('nav_insights'),path:buildPath('insights')},{label:L(r.title)}]),
+      h('div',null,
+        h('span',{class:'chip'}, L(r.cat)),
+        h('h1',{style:'font-size:clamp(1.7rem,4vw,2.5rem);margin-top:14px;max-width:22ch'}, L(r.title)),
+        h('p',{class:'lead', style:'margin-top:12px'}, L(r.excerpt)),
+        h('hr',{class:'divider'}),
+        body,
+        h('div',{class:'notice notice--info mt-24'}, ic('info'), h('div',null,t('guide_note'))))));
+    node.appendChild(ctaBand());
+    // Guides carry no verified author/date -> not indexed (honest E-E-A-T stance)
+    return {node:node, title:L(r.title)+' · The Village Investment', desc:L(r.excerpt), indexable:false,
+      crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_insights'),path:buildPath('insights')},{label:L(r.title)}]};
+  };
+
+  /* ---- FAQs ---- */
+  // SEO-02 · FAQPage structured data built from the same visible FAQ content (AEO: AI answer engines).
+  function faqPageLD(){
+    var qs=[];
+    FAQ.forEach(function(g){ g.items.forEach(function(it){
+      qs.push({'@type':'Question','name':L(it.q),'acceptedAnswer':{'@type':'Answer','text':L(it.a)}});
+    }); });
+    return qs.length ? {'@type':'FAQPage','mainEntity':qs} : null;
+  }
+  V.faqs = function(){
+    var node=h('div',null);
+    node.appendChild(sectionWrap(crumbNode([{label:t('nav_home'),path:buildPath('home')},{label:t('nav_faqs')}]),
+      sectionHead('', t('faqs_h'), t('faqs_p'), 'h1')));
+    var sec=h('section',{style:'padding-bottom:clamp(40px,7vw,80px)'}); var w=h('div',{class:'wrap', style:'max-width:820px'});
+    FAQ.forEach(function(g){
+      w.appendChild(h('h2',{style:'font-size:1.3rem;margin:26px 0 12px'}, L(g.label)));
+      g.items.forEach(function(it){ w.appendChild(accordion(L(it.q), L(it.a))); });
+    });
+    sec.appendChild(w); node.appendChild(sec);
+    return {node:node, title:t('faqs_h')+' · The Village Investment', desc:t('faqs_p'), indexable:true,
+      ld:faqPageLD(),
+      crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_faqs')}]};
+  };
+  function accordion(q,a){
+    var panel=h('div',{class:'panel'}, h('div',null,h('p',null,a)));
+    var btn=h('button',{type:'button','aria-expanded':'false'}, h('span',null,q), h('span',{class:'ico','aria-hidden':'true'}, ic('plus')));
+    btn.addEventListener('click', function(){
+      var open = btn.getAttribute('aria-expanded')==='true';
+      btn.setAttribute('aria-expanded', open?'false':'true');
+      panel.style.maxHeight = open?'0':(panel.scrollHeight+30)+'px';
+    });
+    return h('div',{class:'acc'}, btn, panel);
+  }
+
+  /* ---- About ---- */
+  V.about = function(){
+    var node=h('div',null); var body=h('div',{class:'prose'});
+    ABOUT[lang].forEach(function(p){ body.appendChild(h('p',null,p)); });
+    node.appendChild(sectionWrap(crumbNode([{label:t('nav_home'),path:buildPath('home')},{label:t('nav_about')}]),
+      h('div',null, h('h1',{style:'font-size:clamp(1.9rem,4.4vw,2.8rem)'}, t('about_h')), h('hr',{class:'divider'}), body,
+        h('div',{class:'notice notice--info mt-24'}, ic('shield'), h('div',null, t('brand_note'))))));
+    node.appendChild(ctaBand());
+    return {node:node, title:t('about_h')+' · The Village Investment', desc:ABOUT[lang][0], indexable:true,
+      crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_about')}]};
+  };
+
+  /* ---- Contact (honest — no fake success) ---- */
+  V.contact = function(){
+    var node=h('div',null);
+    var qs=new URLSearchParams(CUR.search), pre=qs.get('p');
+    var w=h('div',{class:'wrap', style:'max-width:720px'});
+    w.appendChild(crumbNode([{label:t('nav_home'),path:buildPath('home')},{label:t('nav_contact')}]));
+    w.appendChild(sectionHead('', t('contact_h'), t('contact_p'), 'h1'));
+    // gated contact channels (no placeholders)
+    var channels=h('div',{style:'display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px'});
+    if(CONFIG.phone) channels.appendChild(h('a',{class:'btn btn--ghost', href:'tel:'+CONFIG.phone}, ic('phone'), CONFIG.phoneDisplay||CONFIG.phone));
+    if(CONFIG.whatsapp) channels.appendChild(h('a',{class:'btn btn--wa', href:waLink(lang==='ar'?'مرحباً، أرغب في الاستفسار عن عقارات The Village':'Hello, I would like to enquire about The Village properties'), target:'_blank', rel:'noopener'}, ic('wa'), t('whatsapp')));
+    if(CONFIG.email) channels.appendChild(h('a',{class:'btn btn--ghost', href:'mailto:'+CONFIG.email}, ic('doc'), CONFIG.email));
+    if(channels.childNodes.length) w.appendChild(channels);
+    else w.appendChild(h('div',{class:'notice notice--warn', style:'margin-bottom:18px'}, ic('info'), h('div',null,t('contact_blocked'))));
+
+    var summary=h('div',{class:'notice notice--warn', role:'alert', style:'display:none;margin-bottom:16px'});
+    var form=h('form',{novalidate:true});
+    form.appendChild(summary);
+    if(pre && projBySlug(pre)) form.appendChild(h('input',{type:'hidden',name:'project',value:pre}));
+    var fName=inputField('name', t('form_name'), 'text', {autocomplete:'name', required:true});
+    var fPhone=inputField('phone', t('form_phone'), 'tel', {autocomplete:'tel', inputmode:'tel', required:true});
+    var fEmail=inputField('email', t('form_email'), 'email', {autocomplete:'email', inputmode:'email'});
+    var fArea=h('div',{class:'field'}, h('label',{for:'c-area'},t('form_area')), h('select',{id:'c-area',name:'area'}, areaOptions(pre&&projBySlug(pre)?projBySlug(pre).area:'')));
+    var fMsg=h('div',{class:'field'}, h('label',{for:'c-message'},t('form_msg')), h('textarea',{id:'c-message',name:'message'}, pre&&projBySlug(pre)?((lang==='ar'?'مهتم بمشروع ':'Interested in ')+ (lang==='ar'?projBySlug(pre).name_ar:projBySlug(pre).name)):''));
+    var consentWrap=h('label',{class:'field', style:'flex-direction:row;align-items:flex-start;gap:10px;cursor:pointer'},
+      h('input',{type:'checkbox', id:'c-consent', name:'consent', 'aria-describedby':'err-consent', style:'width:20px;height:20px;margin-top:3px;flex:none'}),
+      h('span',{style:'font-size:.9rem;color:var(--ink-2)'}, t('form_consent'), ' ', h('a',{href:U(buildPath('privacy')), style:'color:var(--teal-700);text-decoration:underline'}, t('legal_priv'))));
+    var submit=h('button',{class:'btn btn--primary btn--block', type:'submit', style:'margin-top:8px'}, t('form_send'));
+    form.appendChild(fName.wrap); form.appendChild(h('div',{class:'field-row'}, fPhone.wrap, fEmail.wrap));
+    var consentErr=h('div',{class:'field-err', id:'err-consent', style:'color:var(--danger);font-size:.8rem;display:none'});
+    form.appendChild(fArea); form.appendChild(fMsg); form.appendChild(consentWrap); form.appendChild(consentErr); form.appendChild(submit);
+    form.addEventListener('submit', function(e){ e.preventDefault(); handleLead(form, {name:fName,phone:fPhone,email:fEmail}, summary, submit); });
+    w.appendChild(form);
+    node.appendChild(h('section',{class:'section--tight'}, w));
+    return {node:node, title:t('contact_h')+' · The Village Investment', desc:t('contact_p'), indexable:true,
+      crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_contact')}]};
+  };
+  function inputField(id, label, type, attrs){
+    var input=h('input', Object.assign({id:'c-'+id, name:id, type:type}, attrs||{}));
+    var err=h('div',{class:'field-err', id:'err-'+id, style:'color:var(--danger);font-size:.8rem;display:none'});
+    input.setAttribute('aria-describedby','err-'+id);
+    var wrap=h('div',{class:'field'}, h('label',{for:'c-'+id}, label), input, err);
+    return {wrap:wrap, input:input, err:err};
+  }
+  function handleLead(form, fields, summary, submit){
+    var errs=[];
+    function setErr(f, msg){ if(msg){ f.err.textContent=msg; f.err.style.display='block'; f.input.setAttribute('aria-invalid','true'); errs.push(msg);} else { f.err.style.display='none'; f.input.removeAttribute('aria-invalid'); } }
+    setErr(fields.name, fields.name.input.value.trim()?'':t('err_req'));
+    var phone=fields.phone.input.value.trim();
+    setErr(fields.phone, !phone?t('err_req'):(/^[+]?[\d\s()-]{7,}$/.test(phone)?'':t('err_phone')));
+    var email=fields.email.input.value.trim();
+    setErr(fields.email, !email?'':(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)?'':t('err_email')));
+    var consentInput=form.querySelector('#c-consent'), consentErr=form.querySelector('#err-consent');
+    var consent=consentInput.checked, cerr=consentInput.closest('label');
+    if(!consent){ errs.push(t('err_consent')); consentInput.setAttribute('aria-invalid','true'); cerr.style.color='var(--danger)';
+      if(consentErr){ consentErr.textContent=t('err_consent'); consentErr.style.display='block'; } }
+    else { consentInput.removeAttribute('aria-invalid'); cerr.style.color=''; if(consentErr) consentErr.style.display='none'; }
+    if(errs.length){
+      summary.style.display='flex'; while(summary.firstChild) summary.removeChild(summary.firstChild);
+      summary.appendChild(ic('info'));
+      if(errs.length===1){ summary.appendChild(document.createTextNode(errs[0])); }
+      else { var ul=h('ul',{style:'margin:0;padding-inline-start:18px'}); errs.forEach(function(m){ ul.appendChild(h('li',null,m)); }); summary.appendChild(ul); }
+      var first=form.querySelector('[aria-invalid="true"]')||consentInput; if(first) first.focus();
+      return;
+    }
+    summary.style.display='none';
+    // Honest submission: only claim success if a real endpoint accepts it.
+    if(CONFIG.LEAD_ENDPOINT){
+      submit.disabled=true; submit.textContent=t('form_sending');
+      var data={name:fields.name.input.value.trim(),phone:phone,email:email,area:form.querySelector('#c-area').value,message:form.querySelector('#c-message').value,locale:lang};
+      fetch(CONFIG.LEAD_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)})
+        .then(function(r){ if(!r.ok) throw new Error('bad'); return r; })
+        .then(function(){ leadResult(form, true); })
+        .catch(function(){ submit.disabled=false; submit.textContent=t('form_send'); leadResult(form, false); });
+    } else {
+      leadResult(form, null, {name:fields.name.input.value.trim(),phone:phone,email:email,area:form.querySelector('#c-area').value,message:form.querySelector('#c-message').value});
+    }
+  }
+  function leadResult(form, ok, details){
+    track(ok===false?'lead_failed':'lead_submitted');
+    var box=h('div',{class:'notice '+(ok===true?'notice--ok':ok===false?'notice--warn':'notice--info'), role:'status', style:'margin-top:16px'});
+    if(ok===true){ box.appendChild(ic('check')); box.appendChild(h('div',null, lang==='ar'?'تم استلام طلبك بنجاح. سيتواصل معك مستشار قريباً.':'Your request was received. An advisor will be in touch shortly.')); form.reset(); }
+    else if(ok===false){ box.appendChild(ic('info')); box.appendChild(h('div',null, lang==='ar'?'تعذّر إرسال الطلب الآن. برجاء المحاولة لاحقاً — لم نعرض رسالة نجاح زائفة.':'We could not send your request right now. Please try again later — we won’t show a fake success message.')); }
+    else {
+      // No CRM (by request): hand the enquiry to the real WhatsApp / email channels.
+      var loc=lang==='ar';
+      var msg=(loc?'استفسار من موقع The Village':'Enquiry via The Village website')
+        +'\n'+(loc?'الاسم':'Name')+': '+details.name
+        +'\n'+(loc?'الهاتف':'Phone')+': '+details.phone
+        +(details.email?('\n'+(loc?'البريد':'Email')+': '+details.email):'')
+        +(details.area?('\n'+(loc?'المنطقة':'Area')+': '+details.area):'')
+        +(details.message?('\n'+(loc?'الطلب':'Message')+': '+details.message):'');
+      // handoff is NOT a confirmed send — keep the neutral info styling (notice--info from above), never the green success box
+      box.appendChild(ic('info'));
+      var row=h('div',{style:'display:flex;gap:8px;flex-wrap:wrap;margin-top:10px'});
+      if(CONFIG.whatsapp) row.appendChild(h('a',{class:'btn btn--wa btn--sm', href:waLink(msg), target:'_blank', rel:'noopener'}, ic('wa'), t('send_wa')));
+      if(CONFIG.email) row.appendChild(h('a',{class:'btn btn--ghost btn--sm', href:'mailto:'+CONFIG.email+'?subject='+encodeURIComponent(loc?'استفسار عقاري':'Property enquiry')+'&body='+encodeURIComponent(msg)}, ic('doc'), t('send_email')));
+      row.appendChild(h('button',{class:'btn btn--ghost btn--sm', type:'button', onclick:function(){ copy(msg); }}, ic('doc'), t('lead_copy')));
+      box.appendChild(h('div',null, h('div',null, t('lead_handoff')), row));
+    }
+    form.appendChild(box); box.scrollIntoView({behavior:'smooth',block:'center'});
+  }
+  function copy(txt){ try{ navigator.clipboard.writeText(txt).then(function(){toast(t('copied'),'check');}); }catch(e){ toast(t('copied'),'check'); } }
+
+  /* ---- Legal (privacy / terms) ---- */
+  V.privacy = function(){ return legalView('privacy'); };
+  V.terms = function(){ return legalView('terms'); };
+  function legalView(kind){
+    var L2=LEGAL[kind], node=h('div',null), body=h('div',{class:'prose'});
+    L2.body[lang].forEach(function(b){ body.appendChild(b[0]==='h'?h('h2',null,b[1]):h('p',null,b[1])); });
+    node.appendChild(sectionWrap(crumbNode([{label:t('nav_home'),path:buildPath('home')},{label:L(L2.title)}]),
+      h('div',null, h('h1',{style:'font-size:clamp(1.8rem,4vw,2.5rem)'}, L(L2.title)), h('hr',{class:'divider'}), body)));
+    return {node:node, title:L(L2.title)+' · The Village Investment', desc:L2.summary?L(L2.summary):L(L2.title), indexable:true,
+      crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:L(L2.title)}]};
+  }
+
+  /* ---- 404 ---- */
+  V.notfound = function(){
+    var node=h('section',{class:'section', style:'min-height:52vh;display:grid;place-items:center;text-align:center'},
+      h('div',{class:'wrap', style:'max-width:520px'},
+        h('div',{class:'eyebrow'}, '404'),
+        h('h1',{style:'font-size:clamp(1.8rem,5vw,3rem);margin-top:10px'}, t('p404_h')),
+        h('p',{class:'lead', style:'margin-top:14px'}, t('p404_p')),
+        h('div',{style:'display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px'},
+          h('a',{class:'btn btn--primary', href:U(buildPath('home'))}, t('p404_home')),
+          h('a',{class:'btn btn--ghost', href:U(buildPath('projects'))}, t('cta_explore')))));
+    return {node:node, title:t('p404_h')+' · The Village Investment', desc:t('p404_p'), indexable:false, crumbs:[], is404:true};
+  };
+
+  function sectionWrap(){ var w=h('div',{class:'wrap'}); for(var i=0;i<arguments.length;i++){ if(arguments[i]) w.appendChild(arguments[i]); } return h('section',{class:'section--tight'}, w); }
+
+  /* ==================================================================
+     ROUTER + CHROME + HEAD
+     ================================================================== */
+  var currentRoute=null;
+  // Each primary-nav item carries an outline icon (3rd field), like Home.
+  var NAV=[['units','nav_search','search'],['launches','nav_launches','spark'],['about','nav_about','info'],['favorites','nav_favorites','heart'],['compare','nav_compare','scale']];
+  var NAV_GROUP={home:'',units:'units',unit:'units',project:'units',projects:'units',launches:'launches',developers:'developers',developer:'developers',areas:'areas',area:'areas',insights:'',insight:'',about:'about',favorites:'favorites',compare:'compare'};
+
+  function viewFor(r){
+    switch(r.name){
+      case 'home': return V.home();
+      case 'projects': return V.projects(null);
+      case 'units': return V.units();
+      case 'investors': return V.investors();
+      case 'search': return V.search();
+      case 'launches': return V.projects('launch');
+      case 'project': return V.project(r.params.slug);
+      case 'unit': return V.unit(r.params.id);
+      case 'developers': return V.developers();
+      case 'developer': return V.developer(r.params.slug);
+      case 'group': return V.group(r.params.slug);
+      case 'release': return V.release(r.params.slug);
+      case 'areas': return V.areas();
+      case 'area': return V.area(r.params.slug);
+      case 'compare': return V.compare();
+      case 'insights': return V.insights();
+      case 'insight': return V.insight(r.params.slug);
+      case 'faqs': return V.faqs();
+      case 'about': return V.about();
+      case 'favorites': return V.favorites();
+      case 'contact': return V.contact();
+      case 'privacy': return V.privacy();
+      case 'terms': return V.terms();
+      default: return V.notfound();
+    }
+  }
+
+  // Footer columns behave as expandable accordions (mobile-first: collapsed on
+  // small screens, expanded on desktop; a chevron toggles either way). Wired once.
+  var footAccInit=false;
+  function setupFooterAccordions(){
+    if(footAccInit || typeof document==='undefined') return; footAccInit=true;
+    var faccs=document.querySelectorAll('.facc'); if(!faccs.length){ footAccInit=false; return; }
+    var openByDefault=(typeof matchMedia!=='undefined') ? matchMedia('(min-width:720px)').matches : true;
+    Array.prototype.forEach.call(faccs, function(fa){
+      var head=fa.querySelector('.facc__head'); if(!head) return;
+      if(openByDefault){ fa.classList.add('is-open'); head.setAttribute('aria-expanded','true'); }
+      head.addEventListener('click', function(){
+        var open=fa.classList.toggle('is-open'); head.setAttribute('aria-expanded', open?'true':'false');
+      });
+    });
+  }
+
+  function updateChrome(r){
+    setupFooterAccordions();
+    // [data-i18n] persistent text
+    Array.prototype.forEach.call(document.querySelectorAll('[data-i18n]'), function(el){ el.textContent=t(el.getAttribute('data-i18n')); });
+    // primary nav
+    var pn=document.getElementById('primary-nav'); clear(pn);
+    var dn=document.getElementById('drawer-nav'); clear(dn);
+    var group=NAV_GROUP[r.name]||'';
+    // Home icon link (professional outline, active state on the home route).
+    var onHome=(r.name==='home');
+    var homeA=h('a',{href:U(buildPath('home')), class:'nav-home'+(onHome?' is-active':''), 'aria-label':t('nav_home'), title:t('nav_home')}, ic('home'), h('span',{class:'nav-home__lbl'}, t('nav_home')));
+    if(onHome) homeA.setAttribute('aria-current','page');
+    pn.appendChild(homeA);
+    var homeA2=h('a',{href:U(buildPath('home')), class:'nav-home nav-home--drawer'+(onHome?' is-active':'')}, ic('home'), h('span',null, t('nav_home')));
+    if(onHome) homeA2.setAttribute('aria-current','page');
+    dn.appendChild(homeA2);
+    NAV.forEach(function(it){
+      var lbl=t(it[1]) + (it[0]==='compare' && compare.length ? (' ('+num(compare.length)+')') : '');
+      var a=h('a',{href:U(buildPath(it[0])), class:'nav-item', title:t(it[1])}, ic(it[2],'nav-item__ic'), h('span',{class:'nav-item__lbl'}, lbl)); if(group===it[0]) a.setAttribute('aria-current','page'); pn.appendChild(a);
+      var a2=h('a',{href:U(buildPath(it[0])), class:'nav-item'}, ic(it[2],'nav-item__ic'), h('span',null, lbl)); if(group===it[0]) a2.setAttribute('aria-current','page'); dn.appendChild(a2);
+      // "Search" navigates to the finder — the real search page, with the filter
+      // sidebar and every developer's units — rather than popping a command
+      // palette over the page the visitor is already on. The palette stays
+      // available on Ctrl/⌘+K for people who want to jump by keyboard.
+      if(it[1]==='nav_search'){ a2.addEventListener('click', function(){ closeDrawer(); }); }
+    });
+    dn.appendChild(h('a',{href:U(buildPath('investors')), class:'nav-item'}, ic('build','nav-item__ic'), h('span',null, t('nav_investors'))));
+    dn.appendChild(h('a',{href:U(buildPath('faqs')), class:'nav-item'}, ic('info','nav-item__ic'), h('span',null, t('nav_faqs'))));
+    // footer columns
+    fill('foot-explore',[['projects','nav_projects'],['units','nav_units'],['launches','nav_launches'],['areas','nav_areas'],['developers','nav_developers'],['compare','nav_compare']]);
+    fill('foot-company',[['about','nav_about'],['investors','nav_investors'],['insights','nav_insights'],['faqs','nav_faqs'],['contact','nav_contact']]);
+    fill('foot-legal',[['privacy','legal_priv'],['terms','legal_terms']]);
+    // brand_note / foot_blocker are INTERNAL pre-launch notes. They must never
+    // reach a customer — the footer told every visitor the site was unfinished.
+    // The strings stay in I18N so the team can surface them in a staging build.
+    var ftag=document.getElementById('foot-tag'); if(ftag) ftag.remove();
+    var fblk=document.getElementById('foot-blocker'); if(fblk) fblk.remove();
+    document.getElementById('foot-copy').textContent='© '+new Date().getFullYear()+' The Village Investment';
+    // lang toggles + static CTAs
+    var lt=document.getElementById('lang-toggle'); lt.textContent=lang==='en'?'ع':'EN'; lt.setAttribute('aria-label', lang==='en'?'التبديل إلى العربية':'Switch to English');
+    document.getElementById('lang-toggle-2').textContent=t('choose_lang');
+    setHref(document.querySelector('header .brand'), buildPath('home'));
+    setHref(document.querySelector('.nav-actions a.btn--primary'), buildPath('contact'));
+    setHref(document.querySelector('#drawer a.btn--primary'), buildPath('contact'));
+    var mbContact=document.querySelector('#mobile-bar a.btn--primary'); if(mbContact) mbContact.setAttribute('href', U(buildPath('contact')));
+    // WhatsApp quick actions
+    var waMsg = lang==='ar' ? 'مرحباً، أرغب في الاستفسار عن عقارات The Village' : 'Hello, I would like to enquire about The Village properties';
+    var waH=document.getElementById('wa-header'), waM=document.getElementById('wa-mobile');
+    if(CONFIG.whatsapp){ if(waH){ waH.setAttribute('href', waLink(waMsg)); waH.style.display=''; } if(waM){ waM.setAttribute('href', waLink(waMsg)); waM.style.display=''; } }
+    else { if(waH) waH.style.display='none'; if(waM) waM.style.display='none'; }
+    renderSocial();
+    if(chatEls) chatRefresh();
+  }
+  function renderSocial(){
+    var fc=document.getElementById('foot-contact');
+    if(fc){ clear(fc);
+      if(CONFIG.phone) fc.appendChild(h('a',{href:'tel:'+CONFIG.phone}, ic('phone'), h('span',null, CONFIG.phoneDisplay||CONFIG.phone)));
+      if(CONFIG.email) fc.appendChild(h('a',{href:'mailto:'+CONFIG.email}, ic('mail'), h('span',null, CONFIG.email))); }
+    var host=document.getElementById('foot-social'); if(!host) return; clear(host);
+    var nets=[['facebook','Facebook'],['instagram','Instagram'],['linkedin','LinkedIn'],['tiktok','TikTok']];
+    nets.forEach(function(n){
+      var url=CONFIG.social && CONFIG.social[n[0]];
+      var el = url ? h('a',{href:url, target:'_blank', rel:'noopener','aria-label':n[1]}, ic(n[0]))
+                   : h('span',{class:'off','aria-label':n[1]+' — '+(lang==='ar'?'قيد الإضافة':'link pending'), title:n[1]}, ic(n[0]));
+      host.appendChild(el);
+    });
+  }
+  function fill(id, arr){ var c=document.getElementById(id); if(!c) return; clear(c); arr.forEach(function(it){ c.appendChild(h('a',{href:U(buildPath(it[0]))}, t(it[1]))); }); }
+  function clear(n){ while(n && n.firstChild) n.removeChild(n.firstChild); }
+  function setHref(a,p){ if(a) a.setAttribute('href', U(p)); }
+
+  function setHead(r, view){
+    document.title=view.title;
+    setMeta('description', view.desc);
+    var canonLg=r.lang||lang;
+    var canonical=CONFIG.origin+buildPath(r.name,r.params,canonLg);
+    if(view.is404){
+      // A not-found URL must not claim the homepage as its canonical — make it self-referential (still noindex).
+      var cur = FILEMODE ? (location.hash?location.hash.slice(1):('/'+canonLg+'/')) : (stripBase(location.pathname)+(location.search||''));
+      if(cur.charAt(0)!=='/') cur='/'+cur;
+      canonical = CONFIG.origin+cur;
+      setAttr('lnk-canonical','href',canonical);
+      setAttr('lnk-alt-en','href',canonical); setAttr('lnk-alt-ar','href',canonical); setAttr('lnk-alt-x','href',canonical);
+    } else {
+      setAttr('lnk-canonical','href',canonical);
+      setAttr('lnk-alt-en','href',CONFIG.origin+buildPath(r.name,r.params,'en'));
+      setAttr('lnk-alt-ar','href',CONFIG.origin+buildPath(r.name,r.params,'ar'));
+      setAttr('lnk-alt-x','href',CONFIG.origin+buildPath(r.name,r.params,'en'));
+    }
+    setAttr('meta-robots','content', view.indexable?'index,follow,max-image-preview:large':'noindex,follow');
+    setAttr('og-title','content',view.title); setAttr('og-desc','content',view.desc);
+    setAttr('og-url','content',canonical);
+    setAttr('og-locale','content',lang==='ar'?'ar_EG':'en_US');
+    setAttr('og-locale-alt','content',lang==='ar'?'en_US':'ar_EG');
+    setAttr('tw-title','content',view.title); setAttr('tw-desc','content',view.desc);
+    // JSON-LD: breadcrumb (+ optional page ld)
+    var graph=[];
+    if(view.crumbs && view.crumbs.length){
+      graph.push({'@type':'BreadcrumbList','itemListElement':view.crumbs.map(function(c,i){
+        var o={'@type':'ListItem','position':i+1,'name':c.label}; if(c.path) o.item=CONFIG.origin+c.path; return o; })});
+    }
+    if(view.ld){
+      // view.ld may be a single node or an array of nodes; the first (primary) node carries the page URL.
+      var lds = Array.isArray(view.ld) ? view.ld : [view.ld];
+      lds.forEach(function(o,i){ if(o) graph.push(i===0 ? Object.assign({'url':canonical}, o) : o); });
+    }
+    setLD({'@context':'https://schema.org','@graph':graph});
+  }
+  function setMeta(name,val){ var m=document.querySelector('meta[name="'+name+'"]'); if(m) m.setAttribute('content',val||''); }
+  function setAttr(id,attr,val){ var e=document.getElementById(id); if(e) e.setAttribute(attr,val); }
+  function setLD(obj){ var s=document.getElementById('ld-page'); if(s) s.textContent=JSON.stringify(obj); }
+
+  function routeKey(r){ return r ? (r.name+'|'+JSON.stringify(r.params||{})) : ''; }
+  function render(r, opts){
+    opts=opts||{};
+    // Distinguish an IN-PLACE update (filters, sort, search, favourites, compare, language — same logical
+    // page, only query/state changed) from a real page NAVIGATION. In-place updates must preserve the user's
+    // exact scroll position (never jump to top); navigations start at the top. This is independent of how the
+    // `keep` flag threads through History vs the file:// hashchange path, so it is always correct.
+    var samePage = opts.keep===true || (currentRoute!=null && routeKey(currentRoute)===routeKey(r));
+    var keepY = window.pageYOffset || (document.documentElement && document.documentElement.scrollTop) || 0;
+    currentRoute=r; lang=r.lang||lang;
+    var de=document.documentElement;
+    de.setAttribute('lang',lang); de.setAttribute('dir', lang==='ar'?'rtl':'ltr'); de.setAttribute('data-lang',lang);
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', r.name==='home'?'#073D52':'#faf7f0');
+    var view=viewFor(r);
+    var main=document.getElementById('main'); clear(main); main.appendChild(view.node);
+    updateChrome(r); setHead(r, view);
+    closeDrawer();
+    if(view.announce){ var sr=document.getElementById('sr-live'); if(sr) sr.textContent=view.announce; }   // persistent live region (survives view swap)
+    if(typeof railRefresh==='function') railRefresh();   // keep the contact rail/nudge localized
+    if(typeof updateCompareFab==='function') updateCompareFab();   // floating compare pill (units)
+    if(pendingFocusId){ var fe=document.getElementById(pendingFocusId); pendingFocusId=null; if(fe){ try{ fe.focus({preventScroll:true}); }catch(e){ fe.focus(); } } }
+    if(samePage){
+      try{ window.scrollTo(0, keepY); }catch(e){}          // seamless: hold the viewport exactly where the user was
+    } else {
+      try{ window.scrollTo(0, 0); }catch(e){}
+      try{ main.focus({preventScroll:true}); }catch(e){ try{ main.focus(); }catch(_){} }
+    }
+  }
+
+  function readLoc(){
+    if(FILEMODE){
+      var hs=location.hash.slice(1);
+      if(!hs) return {path:'/en/', search:''};
+      var qi=hs.indexOf('?');
+      return qi<0?{path:hs,search:''}:{path:hs.slice(0,qi),search:hs.slice(qi)};
+    }
+    return {path:location.pathname, search:location.search};
+  }
+  function route(){
+    var loc=readLoc(); CUR.search=loc.search;
+    var r=parse(loc.path);
+    if(r.redirect){
+      if(FILEMODE){ CUR.search=''; if(location.hash!=='#/en/'){ location.hash='#/en/'; return; } }
+      else { replaceURL(U('/en/')); }
+      r={name:'home',lang:'en',params:{}};
+    }
+    render(r);
+  }
+  // dest = locale-absolute path (+optional query), e.g. "/en/projects/?area=x"
+  function navigateTo(dest, replace){
+    var qi=dest.indexOf('?'); var pathOnly=qi<0?dest:dest.slice(0,qi); var search=qi<0?'':dest.slice(qi);
+    var r=parse(pathOnly); var keep=replace===true && r.name===(currentRoute&&currentRoute.name);
+    if(FILEMODE){
+      CUR.search=search;
+      var nh='#'+pathOnly+search;
+      if(location.hash===nh){ render(r,{keep:keep}); } else { location.hash=nh; } // hashchange -> route()
+      return;
+    }
+    var url=U(pathOnly)+search;
+    if(replace) replaceURL(url); else pushURL(url);
+    CUR.search=search; render(r,{keep:keep});
+  }
+
+  /* ==================================================================
+     GLOBAL INTERACTIONS
+     ================================================================== */
+  // Decide whether an href points off-site (social/external/WhatsApp) and must be opened
+  // directly instead of routed by the SPA. Pure + testable.
+  function isExternalLink(href, target){
+    if(!href || href.charAt(0)==='#') return false;
+    if(/^(mailto:|tel:)/.test(href)) return false;                 // OS handles these
+    if(!/^https?:\/\//i.test(href)) return false;                  // relative app routes
+    if(/wa\.me|whatsapp/i.test(href)) return true;                 // WhatsApp always opens out
+    var appOrigin = (typeof location!=='undefined' && location.origin) ? location.origin : '';
+    if(target!=='_blank' && appOrigin && href.indexOf(appOrigin)===0) return false; // same-origin internal
+    return true;
+  }
+  function openExternal(href){
+    // Open a real new tab and return its handle so we can detect success. We do NOT pass
+    // 'noopener' in the features string (that makes window.open always return null, which
+    // previously forced the same-tab fallback to ALSO fire → the site got navigated away
+    // on every social click). Instead we null the opener on the returned window for safety.
+    var win=null; try{ win=window.open(href, '_blank'); }catch(e){}
+    if(win){ try{ win.opener=null; }catch(e2){} }
+    else { try{ window.location.href=href; }catch(e3){} }             // webview/popup-blocked fallback
+  }
+  document.addEventListener('click', function(e){
+    var a=e.target.closest && e.target.closest('a'); if(!a) return;
+    var href=a.getAttribute('href'); if(!href) return;
+    if(a.hasAttribute('download')) return;                       // let the browser handle downloads
+    var isWa=/wa\.me|whatsapp/i.test(href);
+    if(isWa){ track('whatsapp_clicked'); if(typeof leadArm==='function') leadArm(); }
+    else if(href.indexOf('tel:')===0){ track('phone_clicked'); if(typeof leadArm==='function') leadArm(); }
+    else if(href.indexOf('mailto:')===0){ track('email_clicked'); if(typeof leadArm==='function') leadArm(); }
+    // OS-handled schemes and in-page anchors: let the browser/OS do its thing.
+    if(/^(mailto:|tel:)/.test(href) || href.charAt(0)==='#') return;
+    // Absolute external URL (social profiles, WhatsApp, any off-site link): open it explicitly
+    // so it works even inside constrained webviews / file previews where target="_blank" is
+    // silently ignored (that is why the social icons appeared to "do nothing").
+    if(isExternalLink(href, a.target)){ e.preventDefault(); openExternal(href); return; }
+    e.preventDefault(); navigateTo(stripBase(a.pathname) + (a.search||''));
+  });
+  if(FILEMODE) window.addEventListener('hashchange', route);
+  else window.addEventListener('popstate', route);
+
+  // language toggle (preserves the current route)
+  function switchLang(){ var r=parse(readLoc().path); var other=lang==='en'?'ar':'en';
+    navigateTo(buildPath(r.name==='404'?'home':r.name, r.params, other) + (CUR.search||'')); }
+  document.getElementById('lang-toggle').addEventListener('click', switchLang);
+  document.getElementById('lang-toggle-2').addEventListener('click', switchLang);
+
+  // drawer
+  var drawer=document.getElementById('drawer'), dback=document.getElementById('drawer-back'), burger=document.getElementById('burger');
+  function openDrawer(){ drawer.classList.add('open'); dback.classList.add('open'); drawer.setAttribute('aria-hidden','false'); burger.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; document.getElementById('drawer-close').focus(); }
+  function closeDrawer(){ var wasOpen=drawer.classList.contains('open'), hadFocus=drawer.contains(document.activeElement); drawer.classList.remove('open'); dback.classList.remove('open'); drawer.setAttribute('aria-hidden','true'); burger.setAttribute('aria-expanded','false'); document.body.style.overflow=''; if(wasOpen && hadFocus){ try{ burger.focus(); }catch(e){} } }
+  burger.addEventListener('click', openDrawer);
+  document.getElementById('drawer-close').addEventListener('click', closeDrawer);
+  dback.addEventListener('click', closeDrawer);
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape' && drawer.classList.contains('open')) closeDrawer(); });
+
+  // toast
+  var toastTimer=null;
+  function toast(msg, icon){
+    var host=document.getElementById('toast-host'); clear(host);
+    var el=h('div',{class:'toast'}, icon?ic(icon):null, msg); host.appendChild(el);
+    requestAnimationFrame(function(){ el.classList.add('show'); });
+    clearTimeout(toastTimer); toastTimer=setTimeout(function(){ el.classList.remove('show'); setTimeout(function(){ clear(host); },250); }, 3000);
+  }
+
+  /* ==================================================================
+     BOOT
+     ================================================================== */
+  route();
+  chatBuild();
+  searchInit();
+  contactRailBuild();
+
+  /* Brand page-load splash: pure-white ground, the logo reveals with a premium
+     fade/settle, then everything fades out. Plays once per session, fully
+     skippable, and is disabled entirely under reduced-motion. */
+  (function intro(){
+    var el=document.getElementById('intro'); if(!el || !el.classList) return;
+    var reduce=false; try{ reduce=window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches; }catch(e){}
+    var seen=false; try{ seen=window.sessionStorage && window.sessionStorage.getItem('tvi_intro')==='1'; }catch(e){}
+    var closed=false;
+    function done(){
+      if(closed) return; closed=true;
+      try{ if(window.sessionStorage) window.sessionStorage.setItem('tvi_intro','1'); }catch(e){}
+      el.classList.add('intro--hide');
+      setTimeout(function(){ if(el && el.parentNode) el.parentNode.removeChild(el); }, 700);
+    }
+    if(reduce || seen){ done(); return; }
+    setTimeout(done, 1750);   // logo animation (~1.5s) then a smooth fade-out
+    var skip=document.getElementById('intro-skip');
+    if(skip && skip.addEventListener) skip.addEventListener('click', done);
+    try{ document.addEventListener('keydown', function(ev){ if(ev.key==='Escape'||ev.keyCode===27) done(); }); }catch(e){}
+  })();
+  </script>
+</body>
+</html>
