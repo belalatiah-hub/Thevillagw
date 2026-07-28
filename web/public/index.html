@@ -36,6 +36,17 @@
 
   /* App shell */
   .app{display:grid;grid-template-columns:var(--sb) 1fr;min-height:100vh}
+  .sb-scrim{display:none}
+  .menu-btn{display:none;background:none;border:none;cursor:pointer;color:var(--ink);padding:6px;margin-inline-end:6px}
+  @media(max-width:820px){
+    .app{grid-template-columns:1fr}
+    .sidebar{position:fixed;inset-inline-start:0;top:0;z-index:60;width:var(--sb);transform:translateX(-105%);transition:transform .22s ease;box-shadow:var(--shadow-m)}
+    :root[dir="rtl"] .sidebar,[dir="rtl"] .sidebar{transform:translateX(105%)}
+    body.nav-open .sidebar{transform:translateX(0)}
+    body.nav-open .sb-scrim{display:block;position:fixed;inset:0;z-index:55;background:rgba(20,15,40,.4)}
+    .menu-btn{display:inline-grid;place-items:center}
+    .content{padding:16px}
+  }
   .sidebar{background:var(--card);border-inline-end:1px solid var(--line);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow:hidden}
   .brand{display:flex;align-items:center;gap:10px;padding:20px 20px 16px}
   .brand img{height:26px;display:block}
@@ -150,8 +161,8 @@
       <div class="s" id="lSignin">Sign in to Village CRM</div>
       <div class="demo-note" id="lDemo"></div>
       <div class="err" id="lErr"></div>
-      <div class="field"><label id="lEmail">Email</label><input type="email" id="email" autocomplete="username" required/></div>
-      <div class="field"><label id="lPass">Password</label><input type="password" id="password" autocomplete="current-password" required/></div>
+      <div class="field"><label id="lEmail" for="email">Email</label><input type="email" id="email" autocomplete="username" required/></div>
+      <div class="field"><label id="lPass" for="password">Password</label><input type="password" id="password" autocomplete="current-password" required/></div>
       <button class="btn btn-coral" id="lBtn" type="submit" style="width:100%;justify-content:center;padding:13px;margin-top:6px">Sign in</button>
       <div class="row between" style="margin-top:16px">
         <button type="button" class="btn btn-ghost" id="lLang" style="padding:8px 12px;font-size:12.5px">العربية</button>
@@ -162,7 +173,7 @@
 </div>
 
 <!-- App shell -->
-<div class="app hide" id="app">
+<div class="app hide" id="app"><div class="sb-scrim" id="sbScrim"></div>
   <aside class="sidebar">
     <div class="brand"><img id="sbLogo" alt="Village"/><span class="nm">CRM</span></div>
     <nav class="nav" id="nav"></nav>
@@ -172,7 +183,8 @@
   </aside>
   <div class="main">
     <div class="topbar">
-      <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg><input id="globalSearch" placeholder="Search leads, customers, units…"/></div>
+      <button class="menu-btn" id="hmb" aria-label="Open menu" aria-controls="nav" title="Menu"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+      <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg><input id="globalSearch" aria-label="Search" placeholder="Search leads, customers, units…"/></div>
       <div class="grow"></div>
       <div style="position:relative"><button class="btn btn-ghost" id="personaBtn" title="View as role" style="padding:9px 12px;font-size:12.5px;gap:8px"><span id="personaLabel">Super Admin</span> <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div id="personaMenu" class="hide" style="position:absolute;top:46px;inset-inline-end:0;background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-m);padding:6px;width:250px;max-height:60vh;overflow-y:auto;z-index:40"></div></div>
       <button class="ic-btn" id="tLang" title="Language">🌐</button>
@@ -524,6 +536,13 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
     "Meeting Scheduled":"Meeting set","Meeting Done":"Meeting set","Closed Deal":"Won",
     "Non Potential":"No answer","Low Budget":"No answer","No Answer":"No answer" };
   var STAGE_BUCKETS=["New","Qualified","Meeting","Reservation","Won"];
+  function aiBrief(vis,hot,openP){
+    var overdue=vis.filter(function(l){ return l.next_action_at && new Date(l.next_action_at)<new Date(); }).length;
+    if(state.lang==="ar"){
+      return vis.length+" عميل ضمن نطاقك، منهم "+hot+" ساخن"+(overdue?"، و"+overdue+" متابعة متأخرة":"")+". إجمالي المسار المفتوح "+money(openP)+". ابدأ بالعملاء الساخنين واعرض عليهم معاينة هذا الأسبوع.";
+    }
+    return vis.length+" leads in your scope, "+hot+" hot"+(overdue?", "+overdue+" follow-ups overdue":"")+". Open pipeline "+money(openP)+". Start with the hot leads and offer a viewing this week.";
+  }
   function stageBucket(l){
     var explicit={ "New Lead":"New","Potential":"Qualified","Hot Case":"Qualified","Meeting Scheduled":"Meeting",
       "Meeting Done":"Meeting","Reservation":"Reservation","Closed Deal":"Won" }[l.stage];
@@ -663,7 +682,7 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
         return '<a data-v="'+it[0]+'" class="'+(state.view===it[0]?"on":"")+'">'+it[1]+'<span>'+t(it[0])+'</span>'+badge+'</a>';
       }).join("");
     }).join("");
-    [].forEach.call(document.querySelectorAll("#nav a"),function(a){ a.onclick=function(){ go(a.getAttribute("data-v")); }; });
+    [].forEach.call(document.querySelectorAll("#nav a"),function(a){ a.onclick=function(){ go(a.getAttribute("data-v")); document.body.classList.remove("nav-open"); }; });
     var m=state.me||demo.me, init=(m.firstName[0]||"V")+(m.lastName?m.lastName[0]:"");
     $("#sideUser").innerHTML='<div class="av" style="width:38px;height:38px;background:var(--coral)">'+init+'</div>'+
       '<div class="grow" style="min-width:0"><div style="font-weight:700;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+m.firstName+' '+(m.lastName||"")+'</div><div class="muted" style="font-size:11.5px">'+(m.role||"—")+'</div></div>'+
@@ -687,19 +706,29 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
     dashboard:function(){
       // Numbers re-scope to the current persona (own / team / all) — the visual
       // proof of "رؤية الأرقام حسب الصلاحيات".
-      var vis=visibleLeads(), scale=personaScope()==="all"?1:personaScope()==="team"?0.42:0.16;
-      var openP=6.0*scale, weighted=2.8*scale, won=0.9*scale, target=1.6*scale;
+      var vis=visibleLeads();
+      // Pipeline weighted by stage — real figures from the scoped leads, not
+      // constants scaled by role (which showed every live user invented money).
+      var W={New:0.1,Qualified:0.3,Meeting:0.55,Reservation:0.8,Won:1};
+      var sum=function(fn){ var tot=0; vis.forEach(function(l){ tot+=fn(l)||0; }); return tot; };
+      var openP=sum(function(l){ return stageBucket(l)!=="Won"?(+l.budget||0):0; });
+      var weighted=sum(function(l){ var bk=stageBucket(l); return bk!=="Won"?(+l.budget||0)*(W[bk]||0.2):0; });
+      var won=sum(function(l){ return stageBucket(l)==="Won"?(+l.budget||0):0; });
       var hot=vis.filter(function(l){return l.score>=75;}).length;
+      var wonRow=vis.filter(function(l){return stageBucket(l)==="Won";}).length;
+      // Target: the tenant's configured monthly target if set, else derived from
+      // the current pipeline. Shown as a ratio only when we actually have one.
+      var target=(state.me&&+state.me.monthlyTarget)|| (won>0?won*1.4:(openP*0.3));
+      var conv=vis.length?Math.round(wonRow/vis.length*100):0;
       var kpis=[
         [t("total_leads"),vis.length.toLocaleString(),hot+" "+(state.lang==="ar"?"ساخن":"hot"),"up",I.leads],
         [t("open_pipeline"),money(openP),money(weighted)+" "+t("weighted"),"",I.pipeline],
-        [t("won_month"),money(won),Math.round(won/target*100)+"% "+t("vs_target"),"up",I.money],
-        [t("conversion"),(vis.length?Math.round(vis.filter(function(l){return l.status==="Meeting set";}).length/vis.length*100):0)+"%","lead → won","",I.target]
+        [t("won_month"),money(won),(target>0?Math.round(won/target*100)+"% "+t("vs_target"):"—"),"up",I.money],
+        [t("conversion"),conv+"%","lead → won","",I.target]
       ];
       var order=["New","Qualified","Meeting","Reservation","Won"];
-      var stMap={"No answer":"New","Interested":"Qualified","Meeting set":"Meeting"};
       var stageCounts=order.map(function(o){return 0;});
-      vis.forEach(function(l){ var idx=order.indexOf(stMap[l.status]||"Qualified"); if(idx>=0) stageCounts[idx]++; });
+      vis.forEach(function(l){ var idx=order.indexOf(stageBucket(l)); if(idx>=0) stageCounts[idx]++; });
       var stageCol=["var(--cool)","var(--purple)","var(--amber)","var(--coral)","var(--green)"];
       var maxStage=Math.max(1,Math.max.apply(null,stageCounts));
       var html=head(t("dashboard"),"The Village Investment",'<div class="row gap">'+scopeBadge()+'</div>')+
@@ -712,7 +741,7 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
           '<div><div class="card" style="padding:20px;margin-bottom:16px"><div class="sec-title">'+t("by_stage")+'</div>'+
             order.map(function(o,i){ return '<div style="margin:11px 0"><div class="row between" style="font-size:12.5px;margin-bottom:5px"><span style="font-weight:600">'+o+'</span><b class="tnum">'+stageCounts[i]+'</b></div><div class="bar"><i style="width:'+Math.round(stageCounts[i]/maxStage*100)+'%;background:'+stageCol[i]+'"></i></div></div>'; }).join("")+'</div>'+
             '<div class="card" style="padding:18px;background:linear-gradient(135deg,var(--purple-soft),var(--card))"><div class="row gap" style="gap:8px;margin-bottom:8px"><span style="color:var(--purple)">'+I.brain+'</span><b style="font-size:13.5px">'+t("ai_brief")+'</b></div>'+
-              '<div style="font-size:13.5px;line-height:1.55">'+(state.lang==="ar"?"6 عملاء جدد اليوم، ومتابعتان متأخرتان. IL Bosco City به 14 وحدة متاحة تطابق عملاءك الساخنين. المسار المرجّح 2.8M ج.م.":"6 new leads today, 2 follow-ups overdue. IL Bosco City has 14 available units matching your hot leads. Weighted pipeline EGP 2.8M.")+'</div></div></div></div>';
+              '<div style="font-size:13.5px;line-height:1.55">'+esc(aiBrief(vis,hot,openP))+'</div></div></div></div>';
       return html;
     },
     leads:function(){
@@ -1141,7 +1170,7 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
     ov.querySelector("#mSave").onclick=function(){ if(onSave(ov)!==false) close(); };
     return ov;
   }
-  function field(id,label,val,opts){ return '<div class="field"><label>'+label+'</label>'+(opts?'<select id="'+id+'" style="width:100%;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;color:var(--ink);font-size:14px">'+opts.map(function(o){return '<option'+(o===val?" selected":"")+'>'+o+'</option>';}).join("")+'</select>':'<input id="'+id+'" value="'+(val||"")+'"/>')+'</div>'; }
+  function field(id,label,val,opts){ return '<div class="field"><label for="'+id+'">'+label+'</label>'+(opts?'<select id="'+id+'" style="width:100%;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;color:var(--ink);font-size:14px">'+opts.map(function(o){return '<option'+(o===val?" selected":"")+'>'+o+'</option>';}).join("")+'</select>':'<input id="'+id+'" value="'+(val||"")+'"/>')+'</div>'; }
   function openAddUser(){
     var roles=PERSONAS.map(function(p){return p.role;}).filter(function(v,i,a){return a.indexOf(v)===i;});
     var depts=["Sales","Marketing","Finance","Operations","HR","—"];
@@ -1353,6 +1382,11 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
   /* ── boot ── */
   $("#loginLogo").src=LOGO; $("#sbLogo").src=LOGO;
   $("#loginForm").addEventListener("submit",doLogin);
+  // Mobile nav: hamburger toggles the slide-over; scrim and any nav click close it.
+  var setNav=function(open){ document.body.classList.toggle("nav-open",open); var h=$("#hmb"); if(h) h.setAttribute("aria-expanded",open?"true":"false"); };
+  var hmb=$("#hmb"); if(hmb) hmb.onclick=function(e){ e.stopPropagation(); setNav(!document.body.classList.contains("nav-open")); };
+  var scrim=$("#sbScrim"); if(scrim) scrim.onclick=function(){ setNav(false); };
+  document.addEventListener("keydown",function(e){ if(e.key==="Escape") setNav(false); });
   $("#lLang").onclick=toggleLang; $("#lTheme").onclick=toggleTheme;
   $("#tLang").onclick=toggleLang; $("#tTheme").onclick=toggleTheme;
   $("#tBell").onclick=function(){ go("notifications"); };
