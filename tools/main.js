@@ -881,7 +881,7 @@ function groupMembers(g){ return (g?g.members:[]).map(projBySlug).filter(Boolean
 function groupFrom(g){ var m=groupMembers(g).map(function(p){return p.price;}).filter(function(x){return x!=null;}); return m.length?Math.min.apply(null,m):null; }
 var UNIT_IMAGES = {
 'SB-ST-01':'/project-media/sumou/st-0.webp',
-'SB-SP-01':'/project-media/sumou/st-05.webp',
+'SB-SP-01':'/project-media/sumou/st-04.webp',
 'SB-AP-01':'/project-media/sumou/ap2-0.webp',
 'SB-AP-02':'/project-media/sumou/ap3-0.webp',
 'SB-AP-03':'/project-media/sumou/ap4-0.webp',
@@ -1018,7 +1018,7 @@ var UNIT_IMAGES = {
 };
 var UNIT_GALLERY = {
 'SB-ST-01':['/project-media/sumou/st-0.webp','/project-media/sumou/st-01.webp','/project-media/sumou/st-02.webp','/project-media/sumou/st-03.webp','/project-media/sumou/st-04.webp','/project-media/sumou/st-06.webp'],
-'SB-SP-01':['/project-media/sumou/st-05.webp','/project-media/sumou/st-04.webp','/project-media/sumou/st-06.webp','/project-media/sumou/st-0.webp','/project-media/sumou/st-01.webp'],
+'SB-SP-01':['/project-media/sumou/st-04.webp','/project-media/sumou/st-05.webp','/project-media/sumou/st-06.webp','/project-media/sumou/st-0.webp','/project-media/sumou/st-01.webp'],
 'SB-AP-01':['/project-media/sumou/ap2-0.webp','/project-media/sumou/ap2-01.webp','/project-media/sumou/ap2-02.webp','/project-media/sumou/ap2-03.webp','/project-media/sumou/ap2-04.webp'],
 'SB-AP-02':['/project-media/sumou/ap3-0.webp','/project-media/sumou/ap3-01.webp'],
 'SB-AP-03':['/project-media/sumou/ap4-0.webp'],
