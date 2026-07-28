@@ -807,7 +807,21 @@
     // Amenities are a specification, not a mood shot: an icon per item with its
     // label underneath, the way the developer's own brochure lays them out.
     var amSec = devAmenitiesSection(d);  if(amSec) node.appendChild(amSec);
-    if(devCards.length) node.appendChild(listSection('', t('by_dev'), '', devCards, null, 'band'));
+    // A developer with a single project put one card here, and everything a
+    // visitor actually came for — the units, their sizes and their prices — one
+    // click behind it. When there is only one project, its units are shown here
+    // directly and the project page is reachable from the section's own link.
+    var devUnits = UNITS.filter(function(u){ var p=projBySlug(u.project); return p && p.dev===key; });
+    if(ps.length===1 && devUnits.length){
+      var only = ps[0];
+      // Naming the section after the project alone repeated the page title
+      // verbatim in Arabic, where the developer and the project share a name.
+      var onlyNm = L({en:only.name, ar:only.name_ar});
+      node.appendChild(listSection('', (lang==='ar' ? ('وحدات '+onlyNm) : ('Units in '+onlyNm)),
+        L(only.blurb), sortUnits(devUnits).map(unitCard),
+        {path:buildPath('project',{slug:only.slug}), label:t('cta_details')}, 'band'));
+    }
+    else if(devCards.length) node.appendChild(listSection('', t('by_dev'), '', devCards, null, 'band'));
     else node.appendChild(h('section',{class:'section band'}, h('div',{class:'wrap'},
       h('div',{class:'empty-state'}, h('div',{class:'empty-ico'}, ic('home')),
         h('p',null, (lang==='ar'?'نضيف مشروعات '+L(d.name)+' حاليًا — تواصل مع مستشار لمعرفة المتاح الآن.':'We’re adding '+L(d.name)+'’s projects — talk to an advisor for current availability.')),

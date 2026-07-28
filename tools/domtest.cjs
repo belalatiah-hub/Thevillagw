@@ -908,6 +908,28 @@ try {
     }); });
     return ok && seen>50;
   })(), 'ok');
+  ck('devpage: a single-project developer lists its units, not one project card', (function(){
+    var n=api.V.developer('sumou').node;
+    var cards=qsa(n,'.card');
+    // every card is a unit card (it carries a spec row), and the project card is gone
+    return cards.length===8 && cards.every(function(c){ return qsa(c,'.spec-row').length===1; });
+  })(), 'ok');
+  ck('devpage: the project page is still reachable from that section', (function(){
+    var n=api.V.developer('sumou').node;
+    return qsa(n,'a').some(function(a){
+      return (a.getAttribute('href')||'').indexOf('/projects/sumou-boulevard/')>-1; });
+  })(), 'ok');
+  ck('devpage: a multi-project developer still lists projects', (function(){
+    var n=api.V.developer('sodic').node;
+    var cards=qsa(n,'.card');
+    return cards.length>1 && cards.every(function(c){ return qsa(c,'.spec-row').length===0; });
+  })(), 'ok');
+  ck('sumou: the developer is named after its logo', (function(){
+    var d=api.devByKey('sumou');
+    return d.name.en==='SumouBlvd.' && d.name.ar==='سمو بوليفارد'
+      && txt(api.V.developer('sumou').node).indexOf('Investment is a leading')>-1;  // parent company still described
+  })(), 'ok');
+
   ck('sumou: amenities are an icon grid, not a photo card', (function(){
     var n=api.V.developer('sumou').node;
     var sec=qsa(n,'.amen-sec')[0];

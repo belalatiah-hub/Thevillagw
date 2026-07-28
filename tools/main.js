@@ -424,7 +424,7 @@ var DEVELOPERS = [
 {key:'inertia', c1:'#3f7d3a', name:{en:'Inertia',ar:'إينرشيا'}, since:2007, areas:{en:'North Coast · New Cairo · West Cairo',ar:'الساحل الشمالي · القاهرة الجديدة · غرب القاهرة'}, tagline:{en:'Lifestyle communities & coast',ar:'مجتمعات لايف ستايل ووجهات ساحلية'}, desc:{en:'A developer known for lifestyle-led communities and North Coast destinations.',ar:'مطوّر معروف بمجتمعات لايف ستايل ووجهات على الساحل الشمالي.'}},
 {key:'alahlysabbour', c1:'#8a6d33', name:{en:'Al Ahly Sabbour',ar:'الأهلي صبور'}, since:1994, areas:{en:'New Cairo · North Coast · Ain Sokhna',ar:'القاهرة الجديدة · الساحل الشمالي · العين السخنة'}, tagline:{en:'Broad residential portfolio',ar:'محفظة سكنية واسعة'}, desc:{en:'A major developer with a broad residential portfolio across Cairo and the coast.',ar:'مطوّر كبير بمحفظة سكنية واسعة في القاهرة والساحل.'}},
 {key:'saudiegyptian', c1:'#26315f', name:{en:'Saudi Egyptian Developers',ar:'السعودية المصرية للتعمير'}, since:1975, areas:{en:'New Cairo · New Capital',ar:'القاهرة الجديدة · العاصمة الإدارية'}, tagline:{en:'Large-scale urban development',ar:'تطوير حضري واسع النطاق'}, desc:{en:'A long-standing developer active in large-scale urban development in Egypt.',ar:'مطوّر عريق نشط في التطوير الحضري واسع النطاق في مصر.'}},
-{key:'sumou', c1:'#0077fe', name:{en:'Sumou Investment',ar:'سمو للاستثمار'}, areas:{en:'Mostakbal City · East Cairo',ar:'مدينة المستقبل · شرق القاهرة'}, tagline:{en:'Hospitality, culture and innovation districts',ar:'وجهات الضيافة والثقافة والابتكار'}, desc:{en:'A leading Saudi developer of hospitality, entertainment and real-estate projects, focused on innovation, luxury and culture. It enters Egypt with Sumou Boulevard in Mostakbal City.',ar:'مطوّر سعودي رائد في مشروعات الضيافة والترفيه والعقارات، يركّز على الابتكار والفخامة والثقافة. يدخل السوق المصري بمشروع سمو بوليفارد في مدينة المستقبل.'}}
+{key:'sumou', c1:'#0077fe', name:{en:'SumouBlvd.',ar:'سمو بوليفارد'}, areas:{en:'Mostakbal City · East Cairo',ar:'مدينة المستقبل · شرق القاهرة'}, tagline:{en:'Hospitality, culture and innovation districts',ar:'وجهات الضيافة والثقافة والابتكار'}, desc:{en:'A leading Saudi developer of hospitality, entertainment and real-estate projects, focused on innovation, luxury and culture. It enters Egypt with Sumou Boulevard in Mostakbal City.',ar:'مطوّر سعودي رائد في مشروعات الضيافة والترفيه والعقارات، يركّز على الابتكار والفخامة والثقافة. يدخل السوق المصري بمشروع سمو بوليفارد في مدينة المستقبل.'}}
 ];
 var PROJECTS = [
 {slug:'beach-plaza-premium', name:'Beach Plaza Premium', name_ar:'بيتش بلازا بريميوم', dev:'modon', area:'raselhekma', status:'launch', price:19900000, dp:10, years:8, delivery:'2029', finishing:{en:'Fully finished',ar:'تشطيب كامل'}, types:{en:'Apartment',ar:'شقة'}, tags:{en:['Ras El Hekma','Beachfront'],ar:['رأس الحكمة','على البحر']}, blurb:{en:'Beach Plaza Premium apartments at Modon Ras El Hekma — beachfront living, fully finished, developer-direct primary units.',ar:'شقق بيتش بلازا بريميوم في مدن رأس الحكمة — معيشة على البحر بتشطيب كامل، وحدات أولية من المطوّر مباشرة.'}},
@@ -4438,7 +4438,15 @@ h('a',{class:'btn btn--primary btn--block mt-16', href:U(buildPath('contact'))},
 var mpSec = devMasterplanSection(d); if(mpSec) node.appendChild(mpSec);
 var fcSec = devCardsSection(d);      if(fcSec) node.appendChild(fcSec);
 var amSec = devAmenitiesSection(d);  if(amSec) node.appendChild(amSec);
-if(devCards.length) node.appendChild(listSection('', t('by_dev'), '', devCards, null, 'band'));
+var devUnits = UNITS.filter(function(u){ var p=projBySlug(u.project); return p && p.dev===key; });
+if(ps.length===1 && devUnits.length){
+var only = ps[0];
+var onlyNm = L({en:only.name, ar:only.name_ar});
+node.appendChild(listSection('', (lang==='ar' ? ('وحدات '+onlyNm) : ('Units in '+onlyNm)),
+L(only.blurb), sortUnits(devUnits).map(unitCard),
+{path:buildPath('project',{slug:only.slug}), label:t('cta_details')}, 'band'));
+}
+else if(devCards.length) node.appendChild(listSection('', t('by_dev'), '', devCards, null, 'band'));
 else node.appendChild(h('section',{class:'section band'}, h('div',{class:'wrap'},
 h('div',{class:'empty-state'}, h('div',{class:'empty-ico'}, ic('home')),
 h('p',null, (lang==='ar'?'نضيف مشروعات '+L(d.name)+' حاليًا — تواصل مع مستشار لمعرفة المتاح الآن.':'We’re adding '+L(d.name)+'’s projects — talk to an advisor for current availability.')),
