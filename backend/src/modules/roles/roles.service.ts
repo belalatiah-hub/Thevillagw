@@ -5,6 +5,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { SystemRole } from '@prisma/client';
+import type { AuthUser } from '../../common/decorators/current-user.decorator';
 import { PrismaService } from '../../prisma/prisma.service';
 import {
   ACTIONS,
@@ -110,13 +111,14 @@ export class RolesService {
     return { ...role, memberCount: role._count.users };
   }
 
-  async create(companyId: string, dto: CreateRoleDto) {
+  async create(companyId: string, dto: CreateRoleDto, actor?: AuthUser) {
     this.assertValidPermissions(dto.permissions);
     const exists = await this.prisma.role.findFirst({
       where: { companyId, name: dto.name },
       select: { id: true },
     });
     if (exists) throw new BadRequestException('A role with this name already exists');
+    if (actor) this.assertMayGrant(actor, dto.permissions ?? []);
     return this.prisma.role.create({
       data: {
         companyId,
@@ -127,12 +129,35 @@ export class RolesService {
     });
   }
 
-  async update(companyId: string, id: string, dto: UpdateRoleDto) {
+
+  /**
+   * Privilege-escalation guard. A caller holding `role:update` could otherwise
+   * mint a role carrying `*` (or any permission they lack) and assign it to
+   * themselves, turning a mid-level permission into full tenant takeover.
+   * Rule: you may only grant permissions you already hold.
+   */
+  private assertMayGrant(actor: AuthUser, permissions: string[]) {
+    const held = actor?.permissions ?? [];
+    if (held.includes(WILDCARD)) return; // super-admin may grant anything
+    if (permissions.includes(WILDCARD)) {
+      throw new ForbiddenException('You cannot grant the "*" (full access) permission');
+    }
+    const escalated = permissions.filter((p) => !held.includes(p));
+    if (escalated.length) {
+      throw new ForbiddenException(
+        `You cannot grant permissions you do not hold: ${escalated.slice(0, 5).join(', ')}` +
+          (escalated.length > 5 ? ` (+${escalated.length - 5} more)` : ''),
+      );
+    }
+  }
+
+  async update(companyId: string, id: string, dto: UpdateRoleDto, actor?: AuthUser) {
     const role = await this.prisma.role.findFirst({ where: { id, companyId } });
     if (!role) throw new NotFoundException('Role not found');
 
     if (dto.permissions) {
       this.assertValidPermissions(dto.permissions);
+      if (actor) this.assertMayGrant(actor, dto.permissions);
       // Guardrail: never let the built-in super-admin lose the wildcard (lockout).
       if (role.key === SystemRole.SUPER_ADMIN && !dto.permissions.includes(WILDCARD)) {
         throw new ForbiddenException('SUPER_ADMIN must retain the "*" permission');

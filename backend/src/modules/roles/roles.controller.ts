@@ -53,14 +53,14 @@ export class RolesController {
   @RequirePermissions('role:create')
   @ApiOperation({ summary: 'Create a custom role' })
   create(@CurrentUser() user: AuthUser, @Body() dto: CreateRoleDto) {
-    return this.roles.create(user.companyId, dto);
+    return this.roles.create(user.companyId, dto, user);
   }
 
   @Patch(':id')
   @RequirePermissions('role:update')
   @ApiOperation({ summary: 'Update a role name / permission set' })
   update(@CurrentUser() user: AuthUser, @Param('id') id: string, @Body() dto: UpdateRoleDto) {
-    return this.roles.update(user.companyId, id, dto);
+    return this.roles.update(user.companyId, id, dto, user);
   }
 
   @Delete(':id')

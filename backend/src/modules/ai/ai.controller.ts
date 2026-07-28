@@ -21,10 +21,22 @@ export class AiController {
   }
 
   @Get('assistant')
+  @RequirePermissions('dashboard:read')
   @ApiOperation({ summary: 'Role-aware AI brief: headline, insights, next actions' })
   @ApiQuery({ name: 'role', required: false, enum: ROLES })
   assistant(@CurrentUser() user: AuthUser, @Query('role') role?: string) {
-    const chosen = ROLES.includes(role as BriefRole) ? (role as BriefRole) : 'AGENT';
+    // The requested role is only honoured when the caller's own permissions
+    // justify it. Previously ?role=CEO returned company-wide revenue, weighted
+    // forecast and commission totals to any authenticated user.
+    const permissions = user.permissions ?? [];
+    const has = (p: string) => permissions.includes('*') || permissions.includes(p);
+    const allowed: BriefRole[] = ['AGENT'];
+    if (has('report:read') || has('dashboard:read')) allowed.push('MANAGER');
+    if (has('finance:read') || has('commission:read')) allowed.push('FINANCE');
+    if (has('*')) allowed.push('CEO');
+    const requested = role as BriefRole;
+    const chosen: BriefRole =
+      ROLES.includes(requested) && allowed.includes(requested) ? requested : allowed[allowed.length - 1];
     return this.ai.assistant(user, chosen);
   }
 }

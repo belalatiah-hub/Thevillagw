@@ -21,6 +21,22 @@ export default {
     headers.set('X-Frame-Options', 'SAMEORIGIN');
     headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
     headers.set('Permissions-Policy', 'geolocation=(), microphone=(), camera=()');
+    headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+    headers.set('Cross-Origin-Opener-Policy', 'same-origin');
+    // The console is one inline <script> + one inline <style> and talks only to
+    // Supabase, so the policy can stay tight. 'unsafe-inline' is required for the
+    // single-file design; every other source is denied, and object/base/frame are
+    // shut so an injected string cannot pivot to plugin or base-href tricks.
+    headers.set(
+      'Content-Security-Policy',
+      "default-src 'self'; " +
+      "script-src 'self' 'unsafe-inline'; " +
+      "style-src 'self' 'unsafe-inline'; " +
+      "img-src 'self' data: blob:; " +
+      "font-src 'self' data:; " +
+      "connect-src 'self' https://*.supabase.co wss://*.supabase.co; " +
+      "form-action 'self'; frame-ancestors 'self'; base-uri 'none'; object-src 'none'"
+    );
     // HTML is dynamic-ish (single file); let assets cache, keep index fresh.
     if (url.pathname === '/' || url.pathname.endsWith('.html')) {
       headers.set('Cache-Control', 'no-cache');

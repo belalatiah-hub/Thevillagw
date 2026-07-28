@@ -150,8 +150,8 @@
       <div class="s" id="lSignin">Sign in to Village CRM</div>
       <div class="demo-note" id="lDemo"></div>
       <div class="err" id="lErr"></div>
-      <div class="field"><label id="lEmail">Email</label><input type="email" id="email" value="admin@thevillageinvestment.com" autocomplete="username"/></div>
-      <div class="field"><label id="lPass">Password</label><input type="password" id="password" value="Admin!2345" autocomplete="current-password"/></div>
+      <div class="field"><label id="lEmail">Email</label><input type="email" id="email" autocomplete="username" required/></div>
+      <div class="field"><label id="lPass">Password</label><input type="password" id="password" autocomplete="current-password" required/></div>
       <button class="btn btn-coral" id="lBtn" type="submit" style="width:100%;justify-content:center;padding:13px;margin-top:6px">Sign in</button>
       <div class="row between" style="margin-top:16px">
         <button type="button" class="btn btn-ghost" id="lLang" style="padding:8px 12px;font-size:12.5px">العربية</button>
@@ -490,24 +490,25 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
     {g:"Sales & Inventory",res:[["lead","Lead",["read","create","update","delete","assign","export","import"]],["customer","Customer",["read","create","update","delete","assign","export"]],["opportunity","Opportunity",["read","create","update","delete","approve"]],["activity","Activity",["read","create","update","delete"]]]},
     {g:"Finance",res:[["contract","Contract",["read","create","update","approve","export"]],["payment","Payment",["read","create","update","approve","export"]],["commission","Commission",["read","approve","export"]],["finance","Finance",["read","approve","export"]]]},
     {g:"People & Org",res:[["user","User",["read","create","update","delete"]],["role","Role",["read","create","update","delete"]],["department","Department",["read","create","update","delete"]],["team","Team",["read","create","update","delete"]]]},
+    {g:"Inventory",res:[["unit","Unit / Inventory",["read","create","update","delete","export"]],["project","Project",["read","create","update","delete"]],["developer","Developer",["read","create","update","delete"]]]},
     {g:"Communications",res:[["call","Call Center",["read","create","update","export"]],["whatsapp","WhatsApp",["read","create","update"]],["distribution","Lead Distribution",["read","create","update","delete"]]]},
     {g:"Platform",res:[["dashboard","Dashboard",["read"]],["report","Report",["read","export"]],["ai","AI",["read","use","update"]],["automation","Automation",["read","create","update","delete","approve"]],["integration","Integration",["read","create","update","delete"]],["settings","Settings",["read","update"]]]}
   ];
   var ROLE_PERMS={
     "Super Admin":["*"],"CEO":["*"],
-    "General Manager":["lead:read","lead:assign","lead:export","customer:read","opportunity:read","opportunity:approve","call:read","call:export","whatsapp:read","distribution:read","finance:read","commission:read","commission:approve","contract:read","payment:read","user:read","user:create","user:update","role:read","team:read","team:create","department:create","report:read","report:export","dashboard:read","ai:read","ai:use","audit:read","integration:read","automation:read","settings:read"],
-    "Sales Director":["lead:read","lead:create","lead:update","lead:delete","lead:assign","lead:export","lead:import","customer:read","customer:create","customer:update","customer:export","opportunity:read","opportunity:create","opportunity:update","opportunity:approve","call:read","call:create","call:update","call:export","whatsapp:read","whatsapp:create","distribution:read","distribution:create","distribution:update","team:read","team:create","user:read","report:read","report:export","dashboard:read","ai:read","ai:use","automation:read","automation:update","settings:read"],
-    "Team Leader":["lead:read","lead:create","lead:update","lead:assign","lead:export","customer:read","customer:create","customer:update","opportunity:read","opportunity:create","opportunity:update","activity:read","activity:create","activity:update","call:read","call:create","call:update","whatsapp:read","whatsapp:create","whatsapp:update","team:read","report:read","dashboard:read","ai:read","ai:use"],
-    "Call Center":["lead:read","lead:create","lead:update","call:read","call:create","call:update","whatsapp:read","whatsapp:create","customer:read","dashboard:read","ai:read"],
-    "Customer Service":["lead:read","lead:update","customer:read","customer:update","call:read","call:create","whatsapp:read","whatsapp:create","whatsapp:update","activity:read","activity:create","dashboard:read"],
+    "General Manager":["unit:read","project:read","developer:read","lead:read","lead:assign","lead:export","customer:read","opportunity:read","opportunity:approve","call:read","call:export","whatsapp:read","distribution:read","finance:read","commission:read","commission:approve","contract:read","payment:read","user:read","user:create","user:update","role:read","team:read","team:create","department:create","report:read","report:export","dashboard:read","ai:read","ai:use","audit:read","integration:read","automation:read","settings:read"],
+    "Sales Director":["unit:read","project:read","developer:read","lead:read","lead:create","lead:update","lead:delete","lead:assign","lead:export","lead:import","customer:read","customer:create","customer:update","customer:export","opportunity:read","opportunity:create","opportunity:update","opportunity:approve","call:read","call:create","call:update","call:export","whatsapp:read","whatsapp:create","distribution:read","distribution:create","distribution:update","team:read","team:create","user:read","report:read","report:export","dashboard:read","ai:read","ai:use","automation:read","automation:update","settings:read"],
+    "Team Leader":["unit:read","project:read","developer:read","lead:read","lead:create","lead:update","lead:assign","lead:export","customer:read","customer:create","customer:update","opportunity:read","opportunity:create","opportunity:update","activity:read","activity:create","activity:update","call:read","call:create","call:update","whatsapp:read","whatsapp:create","whatsapp:update","team:read","report:read","dashboard:read","ai:read","ai:use"],
+    "Call Center":["unit:read","project:read","developer:read","lead:read","lead:create","lead:update","call:read","call:create","call:update","whatsapp:read","whatsapp:create","customer:read","dashboard:read","ai:read"],
+    "Customer Service":["unit:read","project:read","developer:read","lead:read","lead:update","customer:read","customer:update","call:read","call:create","whatsapp:read","whatsapp:create","whatsapp:update","activity:read","activity:create","dashboard:read"],
     "HR":["user:read","user:create","user:update","department:read","department:create","team:read","report:read","dashboard:read"],
     "Legal":["contract:read","contract:approve","customer:read","report:read","dashboard:read","audit:read"],
     "Read Only User":["lead:read","customer:read","unit:read","report:read","dashboard:read"],
-    "Sales Agent":["call:read","call:create","call:update","whatsapp:read","whatsapp:create","whatsapp:update","lead:read","lead:create","lead:update","customer:read","customer:create","customer:update","customer:delete","opportunity:read","opportunity:create","opportunity:update","activity:read","activity:create","activity:update","activity:delete","dashboard:read","ai:read","ai:use"],
-    "Property Consultant":["call:read","call:create","call:update","whatsapp:read","whatsapp:create","whatsapp:update","lead:read","lead:create","lead:update","customer:read","customer:create","customer:update","customer:delete","opportunity:read","opportunity:create","opportunity:update","activity:read","activity:create","activity:update","activity:delete","dashboard:read","ai:read","ai:use"],
-    "Sales Manager":["call:read","call:create","call:update","whatsapp:read","whatsapp:create","whatsapp:update","call:export","distribution:read","distribution:create","distribution:update","settings:read","lead:read","lead:create","lead:update","lead:delete","lead:assign","lead:export","customer:read","customer:create","customer:update","customer:delete","opportunity:read","opportunity:create","opportunity:update","opportunity:delete","opportunity:approve","activity:read","activity:create","activity:update","activity:delete","dashboard:read","report:read","ai:read","ai:use"],
-    "Marketing Manager":["distribution:read","distribution:create","distribution:update","whatsapp:read","settings:read","lead:read","lead:export","report:read","report:export","dashboard:read","ai:read","ai:use","ai:update","integration:read","integration:create","integration:update","integration:delete","automation:read","automation:create","automation:update","automation:delete"],
-    "Finance":["settings:read","finance:read","finance:approve","finance:export","payment:read","payment:approve","payment:export","commission:read","commission:approve","commission:export","contract:read","contract:approve","report:read","dashboard:read","ai:read","ai:use"]
+    "Sales Agent":["unit:read","project:read","developer:read","call:read","call:create","call:update","whatsapp:read","whatsapp:create","whatsapp:update","lead:read","lead:create","lead:update","customer:read","customer:create","customer:update","customer:delete","opportunity:read","opportunity:create","opportunity:update","activity:read","activity:create","activity:update","activity:delete","dashboard:read","ai:read","ai:use"],
+    "Property Consultant":["unit:read","project:read","developer:read","call:read","call:create","call:update","whatsapp:read","whatsapp:create","whatsapp:update","lead:read","lead:create","lead:update","customer:read","customer:create","customer:update","customer:delete","opportunity:read","opportunity:create","opportunity:update","activity:read","activity:create","activity:update","activity:delete","dashboard:read","ai:read","ai:use"],
+    "Sales Manager":["unit:read","project:read","developer:read","call:read","call:create","call:update","whatsapp:read","whatsapp:create","whatsapp:update","call:export","distribution:read","distribution:create","distribution:update","settings:read","lead:read","lead:create","lead:update","lead:delete","lead:assign","lead:export","customer:read","customer:create","customer:update","customer:delete","opportunity:read","opportunity:create","opportunity:update","opportunity:delete","opportunity:approve","activity:read","activity:create","activity:update","activity:delete","dashboard:read","report:read","ai:read","ai:use"],
+    "Marketing Manager":["unit:read","project:read","developer:read","distribution:read","distribution:create","distribution:update","whatsapp:read","settings:read","lead:read","lead:export","report:read","report:export","dashboard:read","ai:read","ai:use","ai:update","integration:read","integration:create","integration:update","integration:delete","automation:read","automation:create","automation:update","automation:delete"],
+    "Finance":["unit:read","project:read","developer:read","settings:read","finance:read","finance:approve","finance:export","payment:read","payment:approve","payment:export","commission:read","commission:approve","commission:export","contract:read","contract:approve","report:read","dashboard:read","ai:read","ai:use"]
   };
   /* ── security: every screen builds DOM by string concatenation, so any value
      that originates from a user or the database MUST be escaped before it is
@@ -614,7 +615,11 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
     {grp:"grp_platform",items:[["automation",I.automation],["distribution",I.split],["efficiency",I.target],["integrations",I.integrations],["notifications",I.notifications,"badge"],["reports",I.reports]]},
     {grp:"grp_admin",items:[["users",I.users],["roles",I.roles],["audit",I.audit],["settings",I.settings]]}
   ];
-  var VIEW_PERM={ users:"user:read", roles:"role:read", audit:"audit:read", settings:"settings:read", automation:"automation:read", integrations:"integration:read", reports:"report:read", calls:"call:read", whatsapp:"whatsapp:read", distribution:"distribution:read", efficiency:"lead:read" };
+  var VIEW_PERM={ dashboard:"dashboard:read", leads:"lead:read", customers:"customer:read", pipeline:"opportunity:read",
+    inventory:"unit:read", map:"unit:read", commission:"commission:read",
+    users:"user:read", roles:"role:read", audit:"audit:read", settings:"settings:read", automation:"automation:read",
+    integrations:"integration:read", reports:"report:read", calls:"call:read", whatsapp:"whatsapp:read",
+    distribution:"distribution:read", efficiency:"lead:read" };  /* notifications stays ungated: it is user-owned */
   function can(key){ var p=(state.me&&state.me.permissions)||[]; return p.indexOf("*")>=0||p.indexOf(key)>=0; }
   function allowedView(v){ var need=VIEW_PERM[v]; return !need||can(need); }
 
@@ -878,7 +883,7 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
     },
     reports:function(){ return head(t("reports"),"")+listPlaceholder(t("reports")); },
     users:function(){
-      return head(t("users"),demo.users.length+" "+t("users").toLowerCase(),'<button class="btn btn-coral" data-act="add">'+I.plus+t("add_user")+'</button>')+
+      return head(t("users"),demo.users.length+" "+t("users").toLowerCase(),(can("user:create")?'<button class="btn btn-coral" data-act="add">'+I.plus+t("add_user")+'</button>':''))+
         '<div class="card" style="padding:0;overflow:hidden"><div style="overflow-x:auto"><table><thead><tr><th>'+t("name")+'</th><th>'+t("role")+'</th><th>'+t("department")+'</th><th>'+t("status")+'</th></tr></thead><tbody>'+
         demo.users.map(function(u){ return '<tr><td><div class="row gap"><div class="av" style="width:32px;height:32px;font-size:12px;background:'+u.c+'">'+u.n.split(" ").map(function(x){return x[0];}).join("").slice(0,2)+'</div><div><div style="font-weight:600">'+u.n+'</div><div class="muted" style="font-size:11.5px">'+u.email+'</div></div></div></td><td>'+u.role+'</td><td>'+u.dept+'</td><td><span class="pill" style="background:var(--green-soft);color:var(--green)"><span class="dot-s" style="background:var(--green)"></span>'+t("active")+'</span></td></tr>'; }).join("")+'</tbody></table></div></div>';
     },
@@ -891,7 +896,7 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
         }).join("")+'</div>';
     },
     audit:function(){
-      return head(t("audit"),"",'<button class="btn btn-ghost" data-act="export">'+I.dl+t("export_csv")+'</button>')+
+      return head(t("audit"),"",(can("audit:export")||can("audit:read")?'<button class="btn btn-ghost" data-act="export">'+I.dl+t("export_csv")+'</button>':''))+
         '<div class="card" style="padding:0;overflow:hidden"><div style="overflow-x:auto"><table><thead><tr><th>'+t("action")+'</th><th>'+t("actor")+'</th><th>'+t("entity")+'</th><th>'+t("ip")+'</th><th>'+t("time")+'</th></tr></thead><tbody>'+
         demo.audit.map(function(a){ var col=a[1]==="create"?"var(--green)":a[1]==="delete"?"var(--red)":"var(--amber)";
           return '<tr><td><span class="dot-s" style="background:'+col+';display:inline-block;margin-inline-end:8px"></span><b>'+a[0]+'</b></td><td>'+a[2]+'</td><td class="muted">'+a[3]+'</td><td class="muted tnum">'+a[4]+'</td><td class="muted">'+a[5]+'</td></tr>'; }).join("")+'</tbody></table></div></div>';
@@ -991,6 +996,9 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
     $("#content").innerHTML=fn();
     [].forEach.call(document.querySelectorAll("[data-act]"),function(b){
       b.onclick=function(){ var a=b.getAttribute("data-act");
+        if(a==="add"&&state.view==="users"&&!can("user:create")) return;
+        if(a==="add"&&state.view==="leads"&&!can("lead:create")) return;
+        if(a==="addsale"&&!can("commission:approve")) return;
         if(a==="backroles"){ state.roleSel=null; render(); }
         else if(a==="export"){ toast(state.lang==="ar"?"تم التصدير (تجريبي)":"Exported (demo)"); }
         else if(a==="add"&&state.view==="users"){ openAddUser(); }
