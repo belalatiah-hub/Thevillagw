@@ -7,7 +7,7 @@
   var TYPES = [
     {c:'apartment', en:'Apartment', ar:'شقة', icon:'ty_apartment', fam:'flat', al:['flat','apartment','شقة','شقه']},
     {c:'garden-apartment', en:'Garden Apartment', ar:'شقة بجاردن', icon:'ty_apartment', fam:'flat', al:['garden apartment','ground apartment','شقة بحديقة','شقة بجاردن']},
-    {c:'studio', en:'Studio', ar:'استوديو', icon:'ty_studio', fam:'flat', al:['studio','استوديو']},
+    {c:'studio', en:'Studio', ar:'استوديو', icon:'ty_studio', fam:'flat', al:['studio','studio plus','studio+','استوديو','استوديو بلس']},
     {c:'loft', en:'Loft', ar:'لوفت', icon:'ty_studio', fam:'flat', al:['loft','لوفت']},
     {c:'duplex', en:'Duplex', ar:'دوبلكس', icon:'ty_duplex', fam:'multi', al:['duplex','دوبلكس']},
     {c:'penthouse', en:'Penthouse', ar:'بنتهاوس', icon:'ty_penthouse', fam:'flat', al:['penthouse','bent house','benthouse','بنتهاوس','بنت هاوس']},
@@ -23,7 +23,7 @@
     {c:'bungalow', en:'Bungalow', ar:'بنجلو', icon:'ty_villa', fam:'house', al:['bungalow','بنجلو']},
     {c:'chalet', en:'Chalet', ar:'شاليه', icon:'ty_chalet', fam:'flat', al:['chalet','شاليه']},
     {c:'cabin', en:'Cabin', ar:'كابين', icon:'ty_cabin', fam:'house', al:['cabin','كابين']},
-    {c:'office', en:'Office', ar:'مكتب', icon:'ty_office', fam:'commercial', al:['office','مكتب']},
+    {c:'office', en:'Office', ar:'مكتب', icon:'ty_office', fam:'commercial', al:['office','offices','smart office','smart offices','loft office','مكتب','مكاتب']},
     {c:'administrative-office', en:'Administrative Office', ar:'مكتب إداري', icon:'ty_office', fam:'commercial', al:['administrative office','admin office','مكتب اداري','مكتب إداري']},
     {c:'clinic', en:'Clinic', ar:'عيادة', icon:'ty_office', fam:'commercial', al:['clinic','عيادة']},
     {c:'medical-unit', en:'Medical Unit', ar:'وحدة طبية', icon:'ty_office', fam:'commercial', al:['medical unit','وحدة طبية']},
@@ -44,10 +44,33 @@
   // Offices, clinics, admin and retail have no bedrooms or bathrooms to report,
   // so those fields are dropped rather than shown as an em dash.
   function unitIsCommercial(u){ return typeFamily(unitCanon(u))==='commercial'; }
+  // Some developers publish a unit type as a size band rather than one figure
+  // ("31-33 m²"). `area` holds the lower bound, so it still sorts and filters
+  // like every other unit and pairs with the "starting from" price; `areaTo`
+  // carries the top of the band so the display can show what was published
+  // instead of quietly rounding a range down to its smallest number.
+  function areaValue(u){
+    if(!u || u.area==null) return null;
+    var a = num(u.area);
+    return (u.areaTo && u.areaTo > u.area) ? (a + '–' + num(u.areaTo)) : a;
+  }
+  // With the unit appended, for the places that render one plain string.
+  // spec() keeps m² as a separate label, so it takes areaValue() instead.
+  function areaText(u){
+    var v = areaValue(u);
+    return v==null ? '—' : (v + ' m²');
+  }
   // Display name for a unit: "3 BR Apartment", but plain "Office" for commercial
   // stock, where a bedroom count is either meaningless or literally zero.
+  // The label a card or page shows for a unit's type: the developer's own
+  // product name when it publishes one, else the canonical type. The canonical
+  // type still drives the icon, the facets and the filter, so a Studio Plus is
+  // still found under Studio and a Smart Office under Office.
+  function unitTypeLabel(u){ return (u && u.label) ? L(u.label) : typeLabelC(unitCanon(u)); }
   function unitDisplayName(u, tl){
-    var lbl = tl || typeLabelC(unitCanon(u));
+    // `label` lets a developer's own product name ("Studio Plus", "Smart
+    // Office") show through while the canonical type still drives filtering.
+    var lbl = tl || unitTypeLabel(u);
     if(unitIsCommercial(u) || u.beds==null) return lbl;
     // Arabic takes the singular up to two ("١ غرفة") and the plural from three
     var word = lang==='ar' ? (u.beds<3?'غرفة':'غرف') : 'BR';

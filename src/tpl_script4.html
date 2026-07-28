@@ -152,7 +152,8 @@
       if(u.beds!=null)  acc.numberOfRooms = u.beds;
       if(u.baths!=null) acc.numberOfBathroomsTotal = u.baths;
     }
-    if(u.area!=null)  acc.floorSize = {'@type':'QuantitativeValue','value':u.area,'unitCode':'MTK'};
+    if(u.area!=null){ acc.floorSize = {'@type':'QuantitativeValue','value':u.area,'unitCode':'MTK'};
+      if(u.areaTo>u.area){ acc.floorSize.minValue=u.area; acc.floorSize.maxValue=u.areaTo; } }
     var off = { '@type':'Offer', 'priceCurrency':'EGP', 'availability': offerAvailability(p,u),
       'itemOffered': acc, 'seller': {'@id': CONFIG.origin + '/#org'} };
     if(u.price!=null) off.price = u.price;
@@ -294,7 +295,7 @@
   function unitListingLD(u){
     var p=projBySlug(u.project), dev=devByKey(p.dev), area=areaByKey(p.area);
     var acc={ '@type':['Product', unitAccType(u)],
-      'name': L({en:p.name,ar:p.name_ar})+' · '+typeLabelC(unitCanon(u)),
+      'name': L({en:p.name,ar:p.name_ar})+' · '+unitTypeLabel(u),
       'category': u.type, 'brand':{'@type':'Organization','name':L(dev.name)},
       'address':{'@type':'PostalAddress','addressRegion':L(area.name),'addressCountry':'EG'},
       'isPartOf':{'@type':'Residence','name':L({en:p.name,ar:p.name_ar}),'url':CONFIG.origin+buildPath('project',{slug:p.slug},lang)} };
@@ -302,7 +303,8 @@
       if(u.beds!=null)  acc.numberOfRooms=u.beds;
       if(u.baths!=null) acc.numberOfBathroomsTotal=u.baths;
     }
-    if(u.area!=null)  acc.floorSize={'@type':'QuantitativeValue','value':u.area,'unitCode':'MTK'};
+    if(u.area!=null){ acc.floorSize={'@type':'QuantitativeValue','value':u.area,'unitCode':'MTK'};
+      if(u.areaTo>u.area){ acc.floorSize.minValue=u.area; acc.floorSize.maxValue=u.areaTo; } }
     var off={ '@type':'Offer','priceCurrency':'EGP','availability':offerAvailability(p,u),'seller':{'@id':CONFIG.origin+'/#org'} };
     if(u.price!=null) off.price=u.price;
     acc.offers=off;
@@ -311,7 +313,7 @@
   V.unit = function(id){
     var u=unitById(id); if(!u) return V.notfound();
     var p=projBySlug(u.project), dev=devByKey(p.dev), area=areaByKey(p.area);
-    var pnm=lang==='ar'?p.name_ar:p.name, tl=typeLabelC(unitCanon(u));
+    var pnm=lang==='ar'?p.name_ar:p.name, tl=unitTypeLabel(u);
     var uLabel=unitDisplayName(u, tl);
     var title=uLabel+' · '+pnm;
     var node=h('div',null), top=h('section',{class:'section--tight'}), wrap=h('div',{class:'wrap'});
@@ -346,7 +348,7 @@
       provBadge(),
       h('div',{style:'margin-top:10px'}, availBadge(u)),
       h('div',{class:'spec-row',style:'margin-top:12px'},
-        unitIsCommercial(u)?null:spec('bed',u.beds, lang==='ar'?'غرف':'beds'), unitIsCommercial(u)?null:spec('bath',u.baths, lang==='ar'?'حمام':'baths'), spec('area',u.area,'m²')),
+        unitIsCommercial(u)?null:spec('bed',u.beds, lang==='ar'?'غرف':'beds'), unitIsCommercial(u)?null:spec('bath',u.baths, lang==='ar'?'حمام':'baths'), spec('area', areaValue(u), 'm²')),
       h('div',{class:'card__foot',style:'margin-top:16px;flex-wrap:wrap'},
         h('a',{class:'btn btn--primary',href:U(buildPath('contact'))+'?p='+p.slug+'&u='+encodeURIComponent(u.id)}, t('cta_talk')),
         CONFIG.whatsapp ? h('a',{class:'btn btn--wa',href:waLink(unitWaMsg(u)),target:'_blank',rel:'noopener'}, ic('wa'), t('whatsapp')) : null),
@@ -359,7 +361,7 @@
     [[(lang==='ar'?'النوع':'Type'), tl],[t('developer'),L(dev.name)],[t('area'),L(area.name)],
      [(lang==='ar'?'غرف النوم':'Bedrooms'), u.beds!=null?num(u.beds):'—', unitIsCommercial(u)],
      [(lang==='ar'?'الحمامات':'Bathrooms'), u.baths!=null?num(u.baths):'—', unitIsCommercial(u)],
-     [(lang==='ar'?'المساحة':'Area'), u.area!=null?num(u.area)+' m²':'—'],
+     [(lang==='ar'?'المساحة':'Area'), areaText(u)],
      [t('delivery'), p.delivery==='Ready'?t('ready'):(p.delivery||t('to_confirm'))]]
      // r[2] flags a row that only makes sense for a home; offices, clinics,
      // admin units and retail drop it rather than reporting an em dash.
@@ -790,7 +792,10 @@
           h('p',{class:'muted', style:'margin-top:14px;max-width:60ch'}, L(d.desc)),
           h('div',{style:'display:flex;gap:8px;flex-wrap:wrap;margin-top:16px'},
             h('span',{class:'chip chip--muted'}, ic('pin'), L(d.areas)),
-            h('span',{class:'chip chip--muted'}, (lang==='ar'?'منذ ':'Since ')+d.since))),
+            // Not every developer publishes a founding year, and inventing one
+            // is worse than omitting it. Without this guard the chip read
+            // "Since undefined".
+            d.since ? h('span',{class:'chip chip--muted'}, (lang==='ar'?'منذ ':'Since ')+d.since) : null)),
         h('aside',{class:'aside-card'},
           h('div',{class:'muted', style:'font-weight:700;font-size:.85rem'}, t('by_dev')),
           h('div',{class:'price-lg', style:'font-size:2.4rem'}, num(ps.length)),
@@ -967,10 +972,10 @@
         {k:(lang==='ar'?'المشروع':'Project'), f:function(u){var p=pOf(u);return lang==='ar'?p.name_ar:p.name;}},
         {k:t('developer'), f:function(u){return L(devByKey(pOf(u).dev).name);}},
         {k:t('area'), f:function(u){return L(areaByKey(pOf(u).area).name);}},
-        {k:t('type'), f:function(u){return typeLabelC(unitCanon(u));}},
+        {k:t('type'), f:function(u){return unitTypeLabel(u);}},
         {k:(lang==='ar'?'غرف النوم':'Bedrooms'), com:true, f:function(u){return u.beds!=null?num(u.beds):'—';}},
         {k:(lang==='ar'?'الحمامات':'Bathrooms'), com:true, f:function(u){return u.baths!=null?num(u.baths):'—';}},
-        {k:(lang==='ar'?'المساحة':'Area'), f:function(u){return u.area!=null?(num(u.area)+' m²'):'—';}},
+        {k:(lang==='ar'?'المساحة':'Area'), f:function(u){return areaText(u);}},
         {k:t('price'), f:function(u){return money(u.price);}},
         {k:(lang==='ar'?'الإتاحة':'Availability'), f:function(u){return t((AVAIL_MAP[u.avail]||AVAIL_MAP['to-confirm'])[1]);}},
         {k:t('dp'), f:function(u){var p=pOf(u);return p.dp?num(p.dp)+'%':'—';}},

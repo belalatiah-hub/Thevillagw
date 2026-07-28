@@ -26,7 +26,7 @@
       add('project',(lang==='ar'?p.name_ar:p.name),L(d.name)+' · '+L(a.name),buildPath('project',{slug:p.slug}),
         [p.name,p.name_ar],L(p.types)+' '+(lang==='ar'?p.tags.ar.join(' '):p.tags.en.join(' '))+' '+a.name.en+' '+a.name.ar+' '+d.name.en+' '+d.name.ar,'build',p.slug); });
     UNITS.forEach(function(u){ var p=projBySlug(u.project),a=areaByKey(p.area);
-      add('unit',typeLabelC(unitCanon(u))+' — '+(lang==='ar'?p.name_ar:p.name),L(a.name)+' · '+money(u.price),buildPath('project',{slug:p.slug}),
+      add('unit',unitTypeLabel(u)+' — '+(lang==='ar'?p.name_ar:p.name),L(a.name)+' · '+money(u.price),buildPath('project',{slug:p.slug}),
         [u.id,u.type],u.beds+' '+a.name.en+' '+a.name.ar,(TYPE_BY_CANON[unitCanon(u)]||{}).icon||'ty_apartment'); });
     DEVELOPERS.forEach(function(d){ add('developer',L(d.name),L(d.tagline),buildPath('developer',{slug:d.key}),[d.name.en,d.name.ar],L(d.areas)+' '+d.areas.en+' '+d.areas.ar,'shield',d.key); });
     AREAS.forEach(function(a){ add('area',L(a.name),L(a.blurb),buildPath('area',{slug:a.key}),[a.name.en,a.name.ar],'','pin',a.key); });

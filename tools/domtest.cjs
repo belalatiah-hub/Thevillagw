@@ -86,7 +86,7 @@ sandbox.globalThis = sandbox; sandbox.self = sandbox;
 
 let src = fs.readFileSync(require('path').join(__dirname,'..','index.html'),'utf8');
 src = src.match(/<script>\s*"use strict"[\s\S]*?<\/script>/)[0].replace(/^<script>/,'').replace(/<\/script>$/,'');
-src += "\n;globalThis.__api={V:V,unitCard:unitCard,projectArt:projectArt,projectMedia:projectMedia,projectCoverSrc:projectCoverSrc,chatRespond:chatRespond,offerText:offerText,money:money,num:num,planLine:planLine,projectOffer:projectOffer,bestNameMatch:bestNameMatch,unitDisplayName:unitDisplayName,PROJECTS:PROJECTS,UNITS:UNITS,DEVELOPERS:DEVELOPERS,TYPES:TYPES,lang:lang,filterUnits:filterUnits,defaultFilter:defaultFilter,normalizeUnitType:normalizeUnitType,reconcileFilter:reconcileFilter,filterToQuery:filterToQuery,filterFromQuery:filterFromQuery,areaFacets:areaFacets,devFacets:devFacets,typeFacets:typeFacets,bedFacets:bedFacets,floorFacets:floorFacets,usesFloorBands:usesFloorBands,recommendUnits:recommendUnits,scoreUnit:scoreUnit,relaxationPlan:relaxationPlan,matchHard:matchHard,hasSelection:hasSelection,selectionSummary:selectionSummary,chatRecommend:chatRecommend,chatBriefText:chatBriefText,projBySlug:projBySlug,unitCanon:unitCanon,setFilter:function(f){FILTER=f;},getFilter:function(){return FILTER;},searchAll:searchAll,arNorm:arNorm,buildSearchIndex:buildSearchIndex,setSearch:function(s){CUR.search=s;},paymentCalc:paymentCalc,printFactsheet:printFactsheet,projFloorplan:projFloorplan,installmentCount:installmentCount,projectCoverSrc:projectCoverSrc,printUnitFactsheet:printUnitFactsheet,openFactsheet:openFactsheet,closeFactsheet:closeFactsheet,track:track,render:render,parse:parse,buildPath:buildPath,navigateTo:navigateTo,getRoute:function(){return currentRoute;},searchLabel:searchLabel,saveCurrentSearch:saveCurrentSearch,savedSearches:savedSearches,removeSearch:removeSearch,leadSubmit:leadSubmit,leadArm:leadArm,leadReset:function(){LEAD.shown=0;LEAD.armed=false;LEAD.open=false;},leadState:function(){return LEAD;},isExternalLink:isExternalLink,CONFIG:CONFIG,devLogoSrc:devLogoSrc,projectLogoSrc:projectLogoSrc,devBadge:devBadge,devByKey:devByKey,DEV_LOGOS:DEV_LOGOS,DEV_GALLERY:DEV_GALLERY,devGallery:devGallery,PROJECT_LOGOS:PROJECT_LOGOS,unitMasterplans:unitMasterplans,unitFloorplans:unitFloorplans,unitAmenities:unitAmenities,unitLocationImg:unitLocationImg,unitGallery:unitGallery,unitGalleryItems:unitGalleryItems,unitFeatureRow:unitFeatureRow,amenitiesSection:amenitiesSection,areaImageSrc:areaImageSrc,AMENITY_CAT:AMENITY_CAT,unitById:unitById,unitIsCommercial:unitIsCommercial,typeFamily:typeFamily,releaseBySlug:releaseBySlug,RELEASES:RELEASES,rotateByDev:rotateByDev,devRotationOffset:devRotationOffset,areaByKey:areaByKey,hasUnitImage:hasUnitImage,sortUnits:sortUnits,searchAll:searchAll,searchTypeOne:searchTypeOne,buildSearchIndex:buildSearchIndex,releaseMasterplan:releaseMasterplan,spreadByDev:spreadByDev,isNewLaunch:isNewLaunch,newLaunchProjects:newLaunchProjects,NEW_LAUNCH_SLUGS:NEW_LAUNCH_SLUGS,PROJECT_GROUPS:PROJECT_GROUPS,groupBySlug:groupBySlug,groupsByDev:groupsByDev,groupMembers:groupMembers,GROUPED_PROJECT:GROUPED_PROJECT,setCompare:function(a){compare.length=0;for(var i=0;i<a.length;i++)compare.push(a[i]);},getCompare:function(){return compare;},toggleCompare:toggleCompare,HERO_SLIDES:HERO_SLIDES,heroSrc:heroSrc};";
+src += "\n;globalThis.__api={V:V,unitCard:unitCard,projectArt:projectArt,projectMedia:projectMedia,projectCoverSrc:projectCoverSrc,chatRespond:chatRespond,offerText:offerText,money:money,num:num,planLine:planLine,projectOffer:projectOffer,bestNameMatch:bestNameMatch,unitDisplayName:unitDisplayName,PROJECTS:PROJECTS,UNITS:UNITS,DEVELOPERS:DEVELOPERS,TYPES:TYPES,lang:lang,filterUnits:filterUnits,defaultFilter:defaultFilter,normalizeUnitType:normalizeUnitType,reconcileFilter:reconcileFilter,filterToQuery:filterToQuery,filterFromQuery:filterFromQuery,areaFacets:areaFacets,devFacets:devFacets,typeFacets:typeFacets,bedFacets:bedFacets,floorFacets:floorFacets,usesFloorBands:usesFloorBands,recommendUnits:recommendUnits,scoreUnit:scoreUnit,relaxationPlan:relaxationPlan,matchHard:matchHard,hasSelection:hasSelection,selectionSummary:selectionSummary,chatRecommend:chatRecommend,chatBriefText:chatBriefText,projBySlug:projBySlug,unitCanon:unitCanon,setFilter:function(f){FILTER=f;},getFilter:function(){return FILTER;},searchAll:searchAll,arNorm:arNorm,buildSearchIndex:buildSearchIndex,setSearch:function(s){CUR.search=s;},paymentCalc:paymentCalc,printFactsheet:printFactsheet,projFloorplan:projFloorplan,installmentCount:installmentCount,projectCoverSrc:projectCoverSrc,printUnitFactsheet:printUnitFactsheet,openFactsheet:openFactsheet,closeFactsheet:closeFactsheet,track:track,render:render,parse:parse,buildPath:buildPath,navigateTo:navigateTo,getRoute:function(){return currentRoute;},searchLabel:searchLabel,saveCurrentSearch:saveCurrentSearch,savedSearches:savedSearches,removeSearch:removeSearch,leadSubmit:leadSubmit,leadArm:leadArm,leadReset:function(){LEAD.shown=0;LEAD.armed=false;LEAD.open=false;},leadState:function(){return LEAD;},isExternalLink:isExternalLink,CONFIG:CONFIG,devLogoSrc:devLogoSrc,projectLogoSrc:projectLogoSrc,devBadge:devBadge,devByKey:devByKey,DEV_LOGOS:DEV_LOGOS,DEV_GALLERY:DEV_GALLERY,devGallery:devGallery,PROJECT_LOGOS:PROJECT_LOGOS,unitMasterplans:unitMasterplans,unitFloorplans:unitFloorplans,unitAmenities:unitAmenities,unitLocationImg:unitLocationImg,unitGallery:unitGallery,unitGalleryItems:unitGalleryItems,unitFeatureRow:unitFeatureRow,amenitiesSection:amenitiesSection,areaImageSrc:areaImageSrc,AMENITY_CAT:AMENITY_CAT,unitById:unitById,unitIsCommercial:unitIsCommercial,typeFamily:typeFamily,releaseBySlug:releaseBySlug,RELEASES:RELEASES,rotateByDev:rotateByDev,devRotationOffset:devRotationOffset,areaByKey:areaByKey,hasUnitImage:hasUnitImage,sortUnits:sortUnits,searchAll:searchAll,searchTypeOne:searchTypeOne,buildSearchIndex:buildSearchIndex,releaseMasterplan:releaseMasterplan,spreadByDev:spreadByDev,isNewLaunch:isNewLaunch,newLaunchProjects:newLaunchProjects,NEW_LAUNCH_SLUGS:NEW_LAUNCH_SLUGS,PROJECT_GROUPS:PROJECT_GROUPS,groupBySlug:groupBySlug,groupsByDev:groupsByDev,groupMembers:groupMembers,GROUPED_PROJECT:GROUPED_PROJECT,setCompare:function(a){compare.length=0;for(var i=0;i<a.length;i++)compare.push(a[i]);},getCompare:function(){return compare;},toggleCompare:toggleCompare,HERO_SLIDES:HERO_SLIDES,heroSrc:heroSrc,AREAS:AREAS,RESEARCH:RESEARCH,areaText:areaText,areaValue:areaValue};";
 
 const R=[]; const ck=(n,c,x)=>R.push({n,ok:!!c,x:x||''});
 function countClass(node,cls){ let n=0; (function w(x){ for(const c of (x.childNodes||[])){ if(c.nodeType===1){ if((c.className||'').split(/\s+/).indexOf(cls)>-1) n++; w(c); } } })(node); return n; }
@@ -99,6 +99,26 @@ try {
   vm.runInContext(src, sandbox, {timeout:5000});
   ck('script executes without throwing (home route)', true);
   const api = sandbox.__api;
+
+  // `--routes` prints every indexable route as JSON and exits. tools/sitemap.py
+  // consumes it, so the sitemap is derived from the same data the app renders
+  // instead of being hand-maintained — it had drifted to 202 unit URLs for 223
+  // units and 14 developer pages for 24 developers.
+  if (process.argv.includes('--routes')) {
+    const paths = ['', 'projects', 'units', 'new-launches', 'areas', 'developers',
+                   'groups', 'releases', 'insights', 'about', 'investors',
+                   'faqs', 'contact', 'privacy', 'terms']
+      .map(p => p ? `/en/${p}/` : '/en/');
+    api.PROJECTS.forEach(p => paths.push(`/en/projects/${p.slug}/`));
+    api.UNITS.forEach(u => paths.push(`/en/units/${u.id}/`));
+    api.DEVELOPERS.forEach(d => paths.push(`/en/developers/${d.key}/`));
+    api.AREAS.forEach(a => paths.push(`/en/areas/${a.key}/`));
+    api.RESEARCH.forEach(r => paths.push(`/en/insights/${r.slug}/`));
+    api.RELEASES.forEach(r => paths.push(`/en/releases/${r.slug}/`));
+    api.PROJECT_GROUPS.forEach(g => paths.push(`/en/groups/${g.slug}/`));
+    console.log(JSON.stringify(paths));
+    process.exit(0);
+  }
   ck('#main populated after boot', doc.getElementById('main').childElementCount>0, 'children='+doc.getElementById('main').childElementCount);
   ck('chat FAB appended to body', countClass(doc.body,'chat-fab')>=1);
   // Home view
@@ -126,7 +146,8 @@ try {
   ck('units: relational facet chips', countClass(units.node,'fchip')>=10, 'fchips='+countClass(units.node,'fchip'));
   // Developers
   const devs = api.V.developers();
-  ck('developers: 23 cards (directory expanded)', countClass(devs.node,'dev-card')===23, 'devcards='+countClass(devs.node,'dev-card'));
+  ck('developers: the directory renders a card per developer', countClass(devs.node,'dev-card')===api.DEVELOPERS.length,
+     'cards='+countClass(devs.node,'dev-card')+' developers='+api.DEVELOPERS.length);
   ck('developers: Qatari Diar present', txt(devs.node).indexOf('Qatari Diar')>=0);
   ck('developers: Modon present', txt(devs.node).indexOf('Modon')>=0);
   ck('developers: Emaar Misr present (directory expansion)', txt(devs.node).indexOf('Emaar')>-1);
@@ -431,7 +452,7 @@ try {
   })(), 'ok');
 
   // ---- developer / project logos (centralised registry) ----
-  ck('logos: all 23 developers + 8 SODIC projects registered', Object.keys(api.DEV_LOGOS).length===23 && Object.keys(api.PROJECT_LOGOS).length===8,
+  ck('logos: every developer is registered, plus 8 SODIC projects', Object.keys(api.DEV_LOGOS).length===api.DEVELOPERS.length && Object.keys(api.PROJECT_LOGOS).length===8,
      'dev='+Object.keys(api.DEV_LOGOS).length+' prj='+Object.keys(api.PROJECT_LOGOS).length);
   ck('logos: every registered logo resolves under /logos/ (no broken paths)', (function(){
     var ok=true;
@@ -824,6 +845,75 @@ try {
   })(), 'ok');
 
 
+  // ---- Sumou Boulevard (from the client sheet + prelaunch brochure) ----
+  ck('sumou: the developer exists with its logo and no invented founding year', (function(){
+    var d=api.devByKey('sumou');
+    return !!d && d.since===undefined && api.devLogoSrc(d)==='/logos/sumou.webp';
+  })(), 'ok');
+  ck('sumou: the developer page renders without a "Since undefined" chip', (function(){
+    var n=api.V.developer('sumou').node;
+    return txt(n).indexOf('undefined')===-1 && txt(n).indexOf('Sumou')>-1;
+  })(), 'ok');
+  ck('sumou: company photography sits above the logo, as on the Modon page', (function(){
+    var g=api.DEV_GALLERY.sumou||[];
+    var n=api.V.developer('sumou').node;
+    var srcs=qsa(n,'img').map(function(i){return (i.getAttribute&&i.getAttribute('src'))||'';});
+    var galAt=srcs.findIndex(function(s){ return /\/project-media\/sumou\//.test(s); });
+    var logoAt=srcs.findIndex(function(s){ return /logos\/sumou(-160)?\.webp$/.test(s); });
+    return g.length===6 && galAt>-1 && logoAt>-1 && galAt<logoAt;
+  })(), 'ok');
+  ck('sumou: exactly 8 units, all on the one project', (function(){
+    var us=api.UNITS.filter(function(u){ return u.project==='sumou-boulevard'; });
+    return us.length===8 && api.PROJECTS.filter(function(p){return p.dev==='sumou';}).length===1;
+  })(), 'ok');
+  ck('sumou: prices, plan and delivery match the sheet', (function(){
+    var p=api.projBySlug('sumou-boulevard');
+    var byId={}; api.UNITS.forEach(function(u){ byId[u.id]=u; });
+    return p.dp===10 && p.years===10 && p.delivery==='2030' && p.area==='mostakbal'
+      && byId['SB-ST-01'].price===2480000 && byId['SB-SP-01'].price===3680000
+      && byId['SB-AP-01'].price===4800000 && byId['SB-AP-02'].price===7680000
+      && byId['SB-AP-03'].price===12000000 && byId['SB-AP-04'].price===16000000
+      && byId['SB-OF-01'].price===6900000  && byId['SB-OF-02'].price===25000000;
+  })(), 'ok');
+  ck('sumou: the sheet\'s size bands survive as ranges, not rounded down', (function(){
+    var byId={}; api.UNITS.forEach(function(u){ byId[u.id]=u; });
+    return api.areaText(byId['SB-ST-01'])==='31–33 m²'
+      && api.areaText(byId['SB-AP-03'])==='150–196 m²'
+      && api.areaText(byId['SB-OF-02'])==='200 m²';       // a single figure stays single
+  })(), 'ok');
+  ck('sumou: studio-plus and smart-office resolve to real types, not "other"', (function(){
+    return api.normalizeUnitType('Studio plus')==='studio'
+      && api.normalizeUnitType('Smart Offices')==='office'
+      && api.normalizeUnitType('Offices')==='office';
+  })(), 'ok');
+  ck('sumou: offices show no bedroom or bathroom count', (function(){
+    var byId={}; api.UNITS.forEach(function(u){ byId[u.id]=u; });
+    return api.unitIsCommercial(byId['SB-OF-01']) && byId['SB-OF-01'].beds===undefined
+      && api.unitDisplayName(byId['SB-OF-01'])==='Smart Office'
+      && api.unitDisplayName(byId['SB-OF-02'])==='Office';
+  })(), 'ok');
+  ck('sumou: every referenced image is a file that exists', (function(){
+    var fsx=require('fs'), pathx=require('path'), ok=true, seen=0;
+    var us=api.UNITS.filter(function(u){return u.project==='sumou-boulevard';});
+    var lists=[api.DEV_GALLERY.sumou||[], [api.projectCoverSrc(api.projBySlug('sumou-boulevard'))]];
+    us.forEach(function(u){
+      lists.push(api.unitGallery(u), api.unitFloorplans(u), api.unitMasterplans(u),
+                 [api.unitLocationImg(u)]);   // this one returns a single src
+    });
+    lists.forEach(function(l){ (l||[]).forEach(function(src){
+      var s = typeof src==='string' ? src : (src&&src.src);
+      if(!s) return;
+      seen++;
+      if(!fsx.existsSync(pathx.join(__dirname,'..',s.replace(/^\//,'')))) ok=false;
+    }); });
+    return ok && seen>50;
+  })(), 'ok');
+  ck('sumou: the project page and every unit route resolve', (function(){
+    if(api.parse('/en/projects/sumou-boulevard/').name!=='project') return false;
+    return api.UNITS.filter(function(u){return u.project==='sumou-boulevard';})
+      .every(function(u){ var r=api.parse('/en/units/'+u.id+'/'); return r.name==='unit' && !!api.unitById(u.id); });
+  })(), 'ok');
+
   // ---- Critical-path hints in <head> ----
   // The hero preload is hand-written in <head> because a preload scanner cannot
   // see a URL the app script puts in a style attribute. That makes it a second
@@ -881,7 +971,7 @@ try {
   ck('finder: the finder still spans every developer with inventory', (function(){
     api.setFilter(api.defaultFilter());
     var devs={}; api.UNITS.forEach(function(u){ var p=api.projBySlug(u.project); if(p) devs[p.dev]=1; });
-    return Object.keys(devs).length===13;
+    return Object.keys(devs).length===14;
   })(), 'ok');
 
 
@@ -893,21 +983,21 @@ try {
     // in the first full cycle every developer appears exactly once
     var n=Object.keys(devs.reduce(function(m,d){m[d]=1;return m;},{})).length;
     var first=devs.slice(0,n), uniq={}; first.forEach(function(d){ uniq[d]=1; });
-    return n===13 && Object.keys(uniq).length===13 && list.length===api.UNITS.length;
+    return n===14 && Object.keys(uniq).length===14 && list.length===api.UNITS.length;
   })(), 'ok');
   ck('rot: the illustrated developers lead — no generated art in the first row', (function(){
     api.setSearch(''); api.setFilter(api.defaultFilter());
     var list=api.sortUnits(api.UNITS.slice());
-    // six developers publish unit photography; those six open the cycle
+    // seven developers publish unit photography; those seven open the cycle
     var shot={}; api.UNITS.forEach(function(u){
       var p=api.projBySlug(u.project); if(p && api.hasUnitImage(u)) shot[p.dev]=1; });
     var n=Object.keys(shot).length;
-    return n===6 && list.slice(0,n).every(api.hasUnitImage);
+    return n===7 && list.slice(0,n).every(api.hasUnitImage);
   })(), 'ok');
   ck('rot: developers with no photography still appear, just later', (function(){
     var list=api.sortUnits(api.UNITS.slice());
     var devs=list.map(function(u){ var p=api.projBySlug(u.project); return p?p.dev:'~'; });
-    return devs.indexOf('palmhills')>-1 && devs.indexOf('palmhills')>=6
+    return devs.indexOf('palmhills')>-1 && devs.indexOf('palmhills')>=7
       && devs.indexOf('ora')>-1 && devs.indexOf('hydepark')>-1;
   })(), 'ok');
   ck('rot: rotating keeps every unit — nothing dropped or duplicated', (function(){
@@ -1018,7 +1108,7 @@ try {
       return (d.getAttribute&&d.getAttribute('id'))==='facet-row-devs'; })[0];
     var chips=qsa(row,'button').filter(function(b){
       return /(^|\s)fchip(\s|$)/.test((b.getAttribute&&b.getAttribute('class'))||''); });
-    return chips.length===13;   // all developers present for crawlers and for the toggle
+    return chips.length===14;   // all developers present for crawlers and for the toggle
   })(), 'ok');
 
   // ---- MODON new release (homepage card + dedicated page) ----

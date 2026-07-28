@@ -237,7 +237,12 @@
   }
 
   /* Unit card — image + type/compound eyebrow + specs (beds/baths/area icons) + price */
-  function spec(icon, val, label){ return h('span',{class:'spec'}, ic(icon), h('b',null, (val==null?'—':num(val))), h('span',{class:'spec-lbl'}, label)); }
+  // A string value is already formatted (an area band like "31–33 m²"), so it
+  // passes through untouched — running it back through num() yields NaN.
+  function spec(icon, val, label){
+    var txt = val==null ? '—' : (typeof val==='string' ? val : num(val));
+    return h('span',{class:'spec'}, ic(icon), h('b',null, txt), h('span',{class:'spec-lbl'}, label));
+  }
   function unitWaMsg(u){ var p=projBySlug(u.project); return (lang==='ar'?'مهتم بوحدة: ':'Interested in unit: ')+typeLabel(u.type)+' — '+(lang==='ar'?p.name_ar:p.name)+' ('+u.id+')'; }
   // RE-04 · honest availability signal (from the units' avail field; badged illustrative + as-of date)
   var AVAIL_MAP={available:['avail-b--ok','avail_available'],limited:['avail-b--lim','avail_limited'],reserved:['avail-b--res','avail_reserved'],'to-confirm':['avail-b--tbc','avail_tbc']};
@@ -274,7 +279,7 @@
     var p=projBySlug(u.project), area=areaByKey(p.area), dev=devByKey(p.dev);
     var href=U(buildPath('unit',{id:u.id}));
     var card=h('article',{class:'card'});
-    var uc=unitCanon(u), tl=typeLabelC(uc);
+    var uc=unitCanon(u), tl=unitTypeLabel(u);
     var media=h('div',{class:'card__media'}, unitMedia(u),
       h('div',{class:'tags'}, h('span',{class:'chip'}, typeIconC(uc,'chip-ico'), tl)));
     media.appendChild(devChip(dev));
@@ -284,7 +289,7 @@
       h('div',{class:'card__dev'}, tl+' · '+(lang==='ar'?p.name_ar:p.name)),
       h('h3',null, h('a',{href:href}, tl)),
       h('div',{class:'card__facts',style:'gap:4px 10px'}, h('span',null, ic('pin'), ' ', L(area.name)), availBadge(u)),
-      h('div',{class:'spec-row'}, unitIsCommercial(u)?null:spec('bed',u.beds, lang==='ar'?'غرف':'beds'), unitIsCommercial(u)?null:spec('bath',u.baths, lang==='ar'?'حمام':'baths'), spec('area',u.area,'m²')),
+      h('div',{class:'spec-row'}, unitIsCommercial(u)?null:spec('bed',u.beds, lang==='ar'?'غرف':'beds'), unitIsCommercial(u)?null:spec('bath',u.baths, lang==='ar'?'حمام':'baths'), spec('area', areaValue(u), 'm²')),
       h('div',{class:'card__price'}, money(u.price)),
       provBadge(),
       h('div',{class:'card__foot'},

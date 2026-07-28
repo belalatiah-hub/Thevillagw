@@ -92,7 +92,7 @@
     var loc=lang==='ar', lines=[loc?'استفسار من موقع The Village':'Enquiry via The Village website'];
     if(hasSelection(f)) lines.push((loc?'المطلوب: ':'Looking for: ')+selectionSummary(f));
     if(recs && recs.length){ lines.push(loc?'قائمة مختارة (استرشادية):':'Shortlist (illustrative):');
-      recs.forEach(function(u){ var p=projBySlug(u.project); lines.push('• '+typeLabelC(unitCanon(u))+' — '+(loc?p.name_ar:p.name)+' · '+money(u.price)); }); }
+      recs.forEach(function(u){ var p=projBySlug(u.project); lines.push('• '+unitTypeLabel(u)+' — '+(loc?p.name_ar:p.name)+' · '+money(u.price)); }); }
     lines.push(loc?'برجاء تأكيد الأسعار والإتاحة الحالية.':'Please confirm current prices and availability.');
     return lines.join('\n');
   }
@@ -119,7 +119,7 @@
     var ul=h('div',{style:'margin-top:8px;display:flex;flex-direction:column;gap:5px'});
     recs.forEach(function(u){ var p=projBySlug(u.project);
       ul.appendChild(h('a',{class:'unit-mini', href:U(buildPath('project',{slug:p.slug}))},
-        typeLabelC(unitCanon(u))+' — '+(lang==='ar'?p.name_ar:p.name)+' · '+money(u.price)+' · '+t('conf_illustrative'))); });
+        unitTypeLabel(u)+' — '+(lang==='ar'?p.name_ar:p.name)+' · '+money(u.price)+' · '+t('conf_illustrative'))); });
     box.appendChild(ul);
     box.appendChild(h('div',{class:'chat-illus',style:'margin-top:6px'}, lang==='ar'?'مرتّبة حسب قربها من اختيارك — أكّد التفاصيل مع مستشار.':'Ranked by closeness to your selection — confirm details with an advisor.'));
     box.appendChild(chatRecoActions(f, recs));
