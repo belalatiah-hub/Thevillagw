@@ -110,7 +110,21 @@ am_retail:['M6 8h12l-1 12H7z','M9 8V6a3 3 0 0 1 6 0v2'],
 am_sports:['M3 12h4l2 6 4-14 2 8h6'],
 am_kids:['M12 3a4 4 0 0 1 4 4c0 3-4 6-4 6s-4-3-4-6a4 4 0 0 1 4-4z','M12 13v5','M10 21h4'],
 am_clinic:['M12 4a8 8 0 1 0 0 16 8 8 0 0 0 0-16z','M12 8v8','M8 12h8'],
-am_mosque:['M5 20V11c0-3 3-5 7-5s7 2 7 5v9','M4 20h16','M12 6V3','M9 20v-4a3 3 0 0 1 6 0v4']
+am_mosque:['M5 20V11c0-3 3-5 7-5s7 2 7 5v9','M4 20h16','M12 6V3','M9 20v-4a3 3 0 0 1 6 0v4'],
+am_bms:['M5 21V7a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v14','M3 21h18','M8 9h.01','M11 9h.01','M8 13h.01','M11 13h.01','M18 8a4 4 0 0 1 0 8'],
+am_controls:['M4 6h8','M16 6h4','M4 12h4','M12 12h8','M4 18h8','M16 18h4','M14 4v4','M8 10v4','M14 16v4'],
+am_fiber:['M2.5 10.5a13 13 0 0 1 19 0','M5.5 13.6a9 9 0 0 1 13 0','M8.6 16.8a5 5 0 0 1 6.8 0','M12 20h.01'],
+am_cctv:['M4 5h11a4 4 0 0 1 4 4v2.5H4z','M7.5 11.5V14a3 3 0 0 0 3 3h1.5','M9.5 21h6','M12 17v4'],
+am_heat:['M12 22a5 5 0 0 0 5-5c0-4-5-9-5-9s-5 5-5 9a5 5 0 0 0 5 5z','M12 18a1.6 1.6 0 0 0 1.6-1.6c0-1.4-1.6-3-1.6-3s-1.6 1.6-1.6 3A1.6 1.6 0 0 0 12 18z'],
+am_power:['M13 2L5 14h6l-1 8 8-12h-6z'],
+am_parking:['M5 4h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z','M10 16V8h3a2.5 2.5 0 0 1 0 5h-3'],
+am_app:['M8 2h8a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z','M11 5h2','M10 18h4'],
+am_eco:['M20 4c0 9-5 14-12 14a6 6 0 0 1 0-12c4 0 7-1 12-2z','M4 20c3-5 7-8 12-10'],
+am_concierge:['M3 19h18','M6 19a6 6 0 0 1 12 0','M12 8V6','M10 6h4'],
+am_laundry:['M5 3h14a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z','M12 9a4 4 0 1 0 0 8 4 4 0 0 0 0-8z','M8 6h.01','M11 6h.01'],
+am_ev:['M3 17h13v-5l-2-4H5l-2 4z','M6.5 17a1.5 1.5 0 1 0 3 0','M12.5 17a1.5 1.5 0 1 0 3 0','M20 7l-2 4h3l-2 4'],
+am_yoga:['M12 3.4a1.7 1.7 0 1 0 0 3.4 1.7 1.7 0 0 0 0-3.4z','M12 6.8v5.4','M12 12.2L8.2 20','M12 12.2L15.8 20','M7 10h10'],
+am_sauna:['M4 20h16','M6 20a6 6 0 0 1 12 0','M9 9c0-1.6 1-2.1 1-3.6','M12 8c0-1.6 1-2.1 1-3.6','M15 9c0-1.6 1-2.1 1-3.6']
 };
 function ic(name, cls){ var s = svg(ICON[name]); if(cls) s.setAttribute('class',cls); return s; }
 var $ = function(s, r){ return (r||document).querySelector(s); };
@@ -1475,8 +1489,48 @@ retail:{icon:'am_retail', en:'Retail & dining', ar:'محلات ومطاعم'},
 sports:{icon:'am_sports', en:'Sports & tracks', ar:'ملاعب ومسارات'},
 kids:{icon:'am_kids', en:'Kids areas', ar:'مناطق أطفال'},
 clinic:{icon:'am_clinic', en:'Medical center', ar:'مركز طبي'},
-mosque:{icon:'am_mosque', en:'Mosque', ar:'مسجد'}
+mosque:{icon:'am_mosque', en:'Mosque', ar:'مسجد'},
+bms:{icon:'am_bms', en:'Smart buildings (BMS)', ar:'مبانٍ ذكية (BMS)'},
+controls:{icon:'am_controls', en:'Automated controls', ar:'تحكّم آلي'},
+fiber:{icon:'am_fiber', en:'Fibre optic, triple play', ar:'ألياف بصرية ثلاثية الخدمة'},
+cctv:{icon:'am_cctv', en:'CCTV with AI', ar:'مراقبة بالذكاء الاصطناعي'},
+heat:{icon:'am_heat', en:'Heat detection', ar:'أنظمة كشف حراري'},
+generators:{icon:'am_power', en:'Backup generators', ar:'مولّدات احتياطية'},
+parking:{icon:'am_parking', en:'Cashless parking', ar:'موقف بلا نقد'},
+app:{icon:'am_app', en:'Community app', ar:'تطبيق للمجتمع'},
+eco:{icon:'am_eco', en:'Green & eco-friendly', ar:'أخضر وصديق للبيئة'},
+concierge:{icon:'am_concierge', en:'Lobbies & concierge', ar:'لوبيهات وكونسيرج'},
+housekeeping:{icon:'am_laundry', en:'Hospitality services', ar:'خدمات ضيافة'},
+ev:{icon:'am_ev', en:'Car charging stations', ar:'محطات شحن سيارات'},
+sauna:{icon:'am_sauna', en:'Sauna', ar:'ساونا'},
+nursery:{icon:'am_kids', en:'Nursery & kids play', ar:'حضانة ولعب أطفال'},
+outdoorfit:{icon:'am_yoga', en:'Yoga & outdoor fitness', ar:'يوجا ولياقة في الهواء الطلق'}
 };
+var DEV_AMENITIES = {
+'sumou': ['bms','controls','fiber','cctv','heat','generators','parking','app',
+'eco','landscape','concierge','housekeeping','gym','pool','sauna',
+'outdoorfit','nursery','ev'],
+};
+var DEV_FINISHING = {
+'sumou': {en:'Residential delivered fully finished with air conditioning and double-glazed windows. Offices delivered core & shell with double-glazed windows.',
+ar:'تُسلَّم الوحدات السكنية كاملة التشطيب مع تكييف ونوافذ مزدوجة العزل، وتُسلَّم المكاتب على المحارة مع نوافذ مزدوجة العزل.'}
+};
+function devAmenitiesSection(dev){
+var toks = DEV_AMENITIES[dev.key] || [];
+if(!toks.length) return null;
+var grid = h('div',{class:'amen-grid amen-grid--stack'}, toks.map(function(k){
+var a = AMENITY_CAT[k]; if(!a) return null;
+return h('div',{class:'amen amen--stack'},
+h('span',{class:'amen__ic'}, ic(a.icon)),
+h('span',{class:'amen__lb'}, lang==='ar'?a.ar:a.en));
+}));
+var fin = DEV_FINISHING[dev.key];
+return h('section',{class:'amen-sec', id:'amenities'}, h('div',{class:'wrap'},
+h('div',{class:'amen-head'}, ic('star','amen-head__ic'),
+h('h2',null, lang==='ar'?'المرافق والتشطيب':'Amenities & Finishing')),
+grid,
+fin ? h('p',{class:'amen-note'}, ic('info'), h('span',null, L(fin))) : null));
+}
 var PROJECT_AMENITIES = {};
 function amenityDefaults(cat){
 return (cat==='coast'||cat==='redsea')
@@ -1822,22 +1876,6 @@ list:[
 {en:'Restorative landscape & wellbeing',ar:'مساحات خضراء وعافية'}],
 more:{en:'The project is expected to generate EGP 100 billion in sales, and is described by the developer as the first regenerative city in MENA \u2014 anchored by the world\u2019s largest innovation-impact boulevard, where culture, innovation and wellbeing converge into a hospitality-driven urban life.',
 ar:'يُتوقّع أن يحقّق المشروع مبيعات بقيمة ١٠٠ مليار جنيه مصري، ويصفه المطوّر بأنه أول مدينة تجديدية في الشرق الأوسط وشمال إفريقيا — يتوسّطها أكبر بوليفارد للابتكار في العالم، حيث تلتقي الثقافة والابتكار والعافية في حياة حضرية قائمة على الضيافة.'}
-}},
-{en:'Amenities & Finishing', ar:'المرافق والتشطيب', icon:'star', imgs:[SU+'of2.webp',SU+'st-04.webp'],
-copy:{
-lead:{en:'The Nexus is organised around three courtyards \u2014 The Sanctuary, a private residential garden and pool; The Forum, a semi-public social anchor with loft offices and boutique retail; and The Commons, the civic plaza and main gateway.',
-ar:'تتمحور ذا نيكسس حول ثلاثة أفنية — ذا سانكتشوري، حديقة ومسبح سكني خاص؛ وذا فورم، ملتقى اجتماعي شبه عام يضم مكاتب لوفت ومتاجر بوتيك؛ وذا كومونز، الساحة المدنية والمدخل الرئيسي.'},
-list:[
-{en:'Smart buildings (BMS) & community app',ar:'مبانٍ ذكية (BMS) وتطبيق للمجتمع'},
-{en:'CCTV with AI & heat detection systems',ar:'كاميرات مراقبة بالذكاء الاصطناعي وأنظمة كشف حراري'},
-{en:'Fibre-optic network, triple play',ar:'شبكة ألياف بصرية ثلاثية الخدمة'},
-{en:'Luxurious lobbies, concierge & hospitality services',ar:'لوبيهات فاخرة وكونسيرج وخدمات ضيافة'},
-{en:'Gym, sauna, private pool & outdoor fitness',ar:'جيم وساونا ومسبح خاص ولياقة في الهواء الطلق'},
-{en:'Nursery & private kids play area with BBQ spots',ar:'حضانة ومنطقة ألعاب خاصة للأطفال بأماكن شواء'},
-{en:'Car charging stations & cashless parking',ar:'محطات شحن سيارات وموقف بلا نقد'},
-{en:'Backup generators, green & eco-friendly design',ar:'مولّدات احتياطية وتصميم أخضر صديق للبيئة'}],
-more:{en:'Residential units are delivered fully finished with air conditioning and double-glazed windows. Offices are delivered core & shell with double-glazed windows.',
-ar:'تُسلَّم الوحدات السكنية كاملة التشطيب مع تكييف ونوافذ مزدوجة العزل. وتُسلَّم المكاتب على المحارة مع نوافذ مزدوجة العزل.'}
 }}
 ]
 },
@@ -4399,6 +4437,7 @@ h('div',{class:'prov'}, ic('info'), t('derived')),
 h('a',{class:'btn btn--primary btn--block mt-16', href:U(buildPath('contact'))}, t('cta_talk'))))));
 var mpSec = devMasterplanSection(d); if(mpSec) node.appendChild(mpSec);
 var fcSec = devCardsSection(d);      if(fcSec) node.appendChild(fcSec);
+var amSec = devAmenitiesSection(d);  if(amSec) node.appendChild(amSec);
 if(devCards.length) node.appendChild(listSection('', t('by_dev'), '', devCards, null, 'band'));
 else node.appendChild(h('section',{class:'section band'}, h('div',{class:'wrap'},
 h('div',{class:'empty-state'}, h('div',{class:'empty-ico'}, ic('home')),

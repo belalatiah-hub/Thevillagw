@@ -804,6 +804,9 @@
     // Destination story under the hero: masterplan, then the themed cards.
     var mpSec = devMasterplanSection(d); if(mpSec) node.appendChild(mpSec);
     var fcSec = devCardsSection(d);      if(fcSec) node.appendChild(fcSec);
+    // Amenities are a specification, not a mood shot: an icon per item with its
+    // label underneath, the way the developer's own brochure lays them out.
+    var amSec = devAmenitiesSection(d);  if(amSec) node.appendChild(amSec);
     if(devCards.length) node.appendChild(listSection('', t('by_dev'), '', devCards, null, 'band'));
     else node.appendChild(h('section',{class:'section band'}, h('div',{class:'wrap'},
       h('div',{class:'empty-state'}, h('div',{class:'empty-ico'}, ic('home')),

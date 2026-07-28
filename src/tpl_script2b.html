@@ -733,8 +733,53 @@
     sports:{icon:'am_sports', en:'Sports & tracks', ar:'ملاعب ومسارات'},
     kids:{icon:'am_kids', en:'Kids areas', ar:'مناطق أطفال'},
     clinic:{icon:'am_clinic', en:'Medical center', ar:'مركز طبي'},
-    mosque:{icon:'am_mosque', en:'Mosque', ar:'مسجد'}
+    mosque:{icon:'am_mosque', en:'Mosque', ar:'مسجد'},
+    /* Building services — used by developers whose brochure specifies them. */
+    bms:{icon:'am_bms', en:'Smart buildings (BMS)', ar:'مبانٍ ذكية (BMS)'},
+    controls:{icon:'am_controls', en:'Automated controls', ar:'تحكّم آلي'},
+    fiber:{icon:'am_fiber', en:'Fibre optic, triple play', ar:'ألياف بصرية ثلاثية الخدمة'},
+    cctv:{icon:'am_cctv', en:'CCTV with AI', ar:'مراقبة بالذكاء الاصطناعي'},
+    heat:{icon:'am_heat', en:'Heat detection', ar:'أنظمة كشف حراري'},
+    generators:{icon:'am_power', en:'Backup generators', ar:'مولّدات احتياطية'},
+    parking:{icon:'am_parking', en:'Cashless parking', ar:'موقف بلا نقد'},
+    app:{icon:'am_app', en:'Community app', ar:'تطبيق للمجتمع'},
+    eco:{icon:'am_eco', en:'Green & eco-friendly', ar:'أخضر وصديق للبيئة'},
+    concierge:{icon:'am_concierge', en:'Lobbies & concierge', ar:'لوبيهات وكونسيرج'},
+    housekeeping:{icon:'am_laundry', en:'Hospitality services', ar:'خدمات ضيافة'},
+    ev:{icon:'am_ev', en:'Car charging stations', ar:'محطات شحن سيارات'},
+    sauna:{icon:'am_sauna', en:'Sauna', ar:'ساونا'},
+    nursery:{icon:'am_kids', en:'Nursery & kids play', ar:'حضانة ولعب أطفال'},
+    outdoorfit:{icon:'am_yoga', en:'Yoga & outdoor fitness', ar:'يوجا ولياقة في الهواء الطلق'}
   };
+
+  /* Developer-level amenities, taken from that developer's own brochure. Shown
+     on the developer page as an icon grid — the icon above its label, matching
+     how the brochure itself presents them. */
+  var DEV_AMENITIES = {
+    'sumou': ['bms','controls','fiber','cctv','heat','generators','parking','app',
+              'eco','landscape','concierge','housekeeping','gym','pool','sauna',
+              'outdoorfit','nursery','ev'],
+  };
+  var DEV_FINISHING = {
+    'sumou': {en:'Residential delivered fully finished with air conditioning and double-glazed windows. Offices delivered core & shell with double-glazed windows.',
+              ar:'تُسلَّم الوحدات السكنية كاملة التشطيب مع تكييف ونوافذ مزدوجة العزل، وتُسلَّم المكاتب على المحارة مع نوافذ مزدوجة العزل.'}
+  };
+  function devAmenitiesSection(dev){
+    var toks = DEV_AMENITIES[dev.key] || [];
+    if(!toks.length) return null;
+    var grid = h('div',{class:'amen-grid amen-grid--stack'}, toks.map(function(k){
+      var a = AMENITY_CAT[k]; if(!a) return null;
+      return h('div',{class:'amen amen--stack'},
+        h('span',{class:'amen__ic'}, ic(a.icon)),
+        h('span',{class:'amen__lb'}, lang==='ar'?a.ar:a.en));
+    }));
+    var fin = DEV_FINISHING[dev.key];
+    return h('section',{class:'amen-sec', id:'amenities'}, h('div',{class:'wrap'},
+      h('div',{class:'amen-head'}, ic('star','amen-head__ic'),
+        h('h2',null, lang==='ar'?'المرافق والتشطيب':'Amenities & Finishing')),
+      grid,
+      fin ? h('p',{class:'amen-note'}, ic('info'), h('span',null, L(fin))) : null));
+  }
   var PROJECT_AMENITIES = {}; // optional per-project overrides (slug -> [tokens])
   function amenityDefaults(cat){
     return (cat==='coast'||cat==='redsea')
@@ -1144,22 +1189,6 @@
              {en:'Restorative landscape & wellbeing',ar:'مساحات خضراء وعافية'}],
            more:{en:'The project is expected to generate EGP 100 billion in sales, and is described by the developer as the first regenerative city in MENA \u2014 anchored by the world\u2019s largest innovation-impact boulevard, where culture, innovation and wellbeing converge into a hospitality-driven urban life.',
                  ar:'يُتوقّع أن يحقّق المشروع مبيعات بقيمة ١٠٠ مليار جنيه مصري، ويصفه المطوّر بأنه أول مدينة تجديدية في الشرق الأوسط وشمال إفريقيا — يتوسّطها أكبر بوليفارد للابتكار في العالم، حيث تلتقي الثقافة والابتكار والعافية في حياة حضرية قائمة على الضيافة.'}
-         }},
-        {en:'Amenities & Finishing', ar:'المرافق والتشطيب', icon:'star', imgs:[SU+'of2.webp',SU+'st-04.webp'],
-         copy:{
-           lead:{en:'The Nexus is organised around three courtyards \u2014 The Sanctuary, a private residential garden and pool; The Forum, a semi-public social anchor with loft offices and boutique retail; and The Commons, the civic plaza and main gateway.',
-                 ar:'تتمحور ذا نيكسس حول ثلاثة أفنية — ذا سانكتشوري، حديقة ومسبح سكني خاص؛ وذا فورم، ملتقى اجتماعي شبه عام يضم مكاتب لوفت ومتاجر بوتيك؛ وذا كومونز، الساحة المدنية والمدخل الرئيسي.'},
-           list:[
-             {en:'Smart buildings (BMS) & community app',ar:'مبانٍ ذكية (BMS) وتطبيق للمجتمع'},
-             {en:'CCTV with AI & heat detection systems',ar:'كاميرات مراقبة بالذكاء الاصطناعي وأنظمة كشف حراري'},
-             {en:'Fibre-optic network, triple play',ar:'شبكة ألياف بصرية ثلاثية الخدمة'},
-             {en:'Luxurious lobbies, concierge & hospitality services',ar:'لوبيهات فاخرة وكونسيرج وخدمات ضيافة'},
-             {en:'Gym, sauna, private pool & outdoor fitness',ar:'جيم وساونا ومسبح خاص ولياقة في الهواء الطلق'},
-             {en:'Nursery & private kids play area with BBQ spots',ar:'حضانة ومنطقة ألعاب خاصة للأطفال بأماكن شواء'},
-             {en:'Car charging stations & cashless parking',ar:'محطات شحن سيارات وموقف بلا نقد'},
-             {en:'Backup generators, green & eco-friendly design',ar:'مولّدات احتياطية وتصميم أخضر صديق للبيئة'}],
-           more:{en:'Residential units are delivered fully finished with air conditioning and double-glazed windows. Offices are delivered core & shell with double-glazed windows.',
-                 ar:'تُسلَّم الوحدات السكنية كاملة التشطيب مع تكييف ونوافذ مزدوجة العزل. وتُسلَّم المكاتب على المحارة مع نوافذ مزدوجة العزل.'}
          }}
       ]
     },
