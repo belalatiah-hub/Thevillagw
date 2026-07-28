@@ -594,16 +594,46 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
       return SB.rest("profiles?select=id,full_name");
     }).then(function(people){
       SB._names={}; (people||[]).forEach(function(p){ SB._names[p.id]=p.full_name; });
+      var soft=function(q){ return SB.rest(q).catch(function(){ return []; }); };
       return Promise.all([
         SB.rest("leads?select=*&order=created_at.desc"),
         SB.rest("units?select=*&order=code"),
-        SB.rest("commissions?select=*,deals(title,client_name,project,source,value_egp,sold_at)&order=created_at.desc").catch(function(){ return []; })
+        soft("commissions?select=*,deals(title,client_name,project,source,value_egp,sold_at)&order=created_at.desc"),
+        soft("profiles?select=id,full_name,email,department,position,active,scope,roles(name)&order=full_name"),
+        soft("roles?select=id,key,name,scope,permissions&order=name"),
+        soft("audit_log?select=*&order=created_at.desc&limit=100"),
+        soft("notifications?select=*&order=created_at.desc&limit=50"),
+        soft("lookups?select=*&order=sort")
       ]);
     }).then(function(res){
       var names=SB._names||{};
       demo.leads=(res[0]||[]).map(function(l){ return { id:l.id, n:l.name, src:l.source, owner:names[l.owner_id]||"—", ownerId:l.owner_id, status:l.status, score:l.score, budget:Number(l.budget_m), area:l.area, dup:l.dup, resale:l.resale }; });
       demo.units=(res[1]||[]).map(function(u){ return { id:u.id, code:u.code, project:u.project, dev:u.developer, city:u.city, type:u.type, beds:u.beds, baths:u.baths, area:u.area_m, price:Number(u.price_m), delivery:u.delivery, finish:u.finish, status:u.status }; });
       demo.commissions=(res[2]||[]).map(function(c){ var d=c.deals||{}; return { id:c.id, client:d.client_name||((d.title||"").split(" — ")[0]), project:d.project||"", date:d.sold_at?new Date(d.sold_at).toLocaleDateString():"", source:d.source||"", value:Number(d.value_egp||0)/1e6, recipient:names[c.profile_id]||"", type:c.calc_type, rate:Number(c.rate), amount:Number(c.amount_egp), status:c.status }; });
+      // --- entities that have real tables: map them in ---
+      var rel=function(ts){ if(!ts) return ""; var d=Math.floor((Date.now()-new Date(ts).getTime())/60000);
+        if(d<1) return "now"; if(d<60) return d+"m"; if(d<1440) return Math.floor(d/60)+"h"; return Math.floor(d/1440)+"d"; };
+      var COLS=["#7c6fd6","#22b06b","#4d84c0","#c94f8f","#e0a12e","#3aa6a0"];
+      demo.users=(res[3]||[]).map(function(u,i){ return { id:u.id, n:u.full_name, email:u.email, role:(u.roles&&u.roles.name)||"—",
+        dept:u.department||"—", active:u.active!==false, c:COLS[i%COLS.length] }; });
+      if((res[4]||[]).length){
+        demo.liveRoles=res[4];
+        demo.systemRoles=res[4].map(function(r){ return r.name; });
+        res[4].forEach(function(r){ ROLE_PERMS[r.name]=r.permissions||[]; });
+        TOTAL_PERMS=null;
+      }
+      demo.audit=(res[5]||[]).map(function(a){ return [a.action,a.verb||"",(SB._names[a.actor_id]||"—"),a.entity||"",a.ip||"—",rel(a.created_at)]; });
+      demo.notifs=(res[6]||[]).map(function(n){ return [n.title,n.body||"",rel(n.created_at),!n.read]; });
+      var lk=res[7]||[];
+      if(lk.length){
+        demo.lookups={}; demo.leadStages=[];
+        lk.forEach(function(l){
+          if(l.type==="LEAD_STAGE") demo.leadStages.push([l.value,l.color||"#7c6fd6"]);
+          else (demo.lookups[l.type]=demo.lookups[l.type]||[]).push(l.value);
+        });
+      }
+      // --- entities with NO table yet: show nothing rather than inventing it ---
+      demo.calls=[]; demo.convos=[]; demo.rules=[]; demo.automations=demo.automations||[];
       state.live=true;
     });
   }
@@ -711,6 +741,7 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
       return head(t("leads"),vis.length+" "+t("leads").toLowerCase(),actions)+switcher+body;
     },
     customers:function(){
+      if(state.live) return head(t("customers"),"")+notConnected(t("customers"),"customers");
       return head(t("customers"),"")+listPlaceholder(t("customers"));
     },
     // Commission / Accounts — everyone sees their own; Finance records sales & controls status.
@@ -797,6 +828,7 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
       return head(t("projects_map"),shown.length+" "+t("projects").toLowerCase(),'<div class="row gap">'+scopeBadge()+'</div>')+chips+canvas;
     },
     calls:function(){
+      if(state.live) return head(t("call_center"),"")+notConnected(t("call_center"),"calls / call_logs");
       var scope=personaScope(), ow=visibleOwners();
       var vis=demo.calls.filter(function(c){ return !ow||ow.indexOf(c.agent)>=0; });
       var s={ total:vis.length, answered:vis.filter(function(c){return c.status==="ANSWERED";}).length,
@@ -812,6 +844,7 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
             return '<tr><td><b>'+c.lead+'</b></td><td class="muted">'+c.agent+'</td><td><span class="tag" style="background:var(--card-2);color:var(--ink-2)">'+(c.dir==="INBOUND"?"↓ "+t("inbound"):"↑ "+t("outbound"))+'</span></td><td><span class="tag" style="background:'+col+'1f;color:'+col+'">'+c.outcome+'</span></td><td class="tnum muted">'+dur+'</td><td class="muted">'+c.when+'</td></tr>'; }).join(""):'<tr><td colspan="6" class="muted" style="text-align:center;padding:24px">'+(state.lang==="ar"?"لا مكالمات ضمن نطاقك":"No calls in your scope")+'</td></tr>')+'</tbody></table></div></div>';
     },
     whatsapp:function(){
+      if(state.live) return head(t("whatsapp"),"")+notConnected(t("whatsapp"),"whatsapp_conversations / whatsapp_messages");
       var ow=visibleOwners();
       var vis=demo.convos.filter(function(c){ return !ow||ow.indexOf(c.assignee)>=0; });
       if(state.waSel==null||state.waSel>=vis.length) state.waSel=0;
@@ -831,6 +864,7 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
           '</div></div>';
     },
     distribution:function(){
+      if(state.live) return head(t("distribution"),"")+notConnected(t("distribution"),"distribution_rules");
       var STR={ROUND_ROBIN:state.lang==="ar"?"بالتناوب":"Round-robin",LEAST_BUSY:state.lang==="ar"?"الأقل انشغالاً":"Least busy",SPECIFIC_TEAM:state.lang==="ar"?"فريق محدد":"Specific team",SPECIFIC_USER:state.lang==="ar"?"مندوب محدد":"Specific user"};
       var SC={ROUND_ROBIN:"var(--purple)",LEAST_BUSY:"var(--cool)",SPECIFIC_TEAM:"var(--amber)",SPECIFIC_USER:"var(--green)"};
       return head(t("distribution"),state.lang==="ar"?"توزيع العملاء تلقائياً على المندوبين":"Auto-route incoming leads to agents",can("distribution:create")?'<button class="btn btn-coral" data-act="toast">'+I.plus+t("new_rule")+'</button>':'')+
@@ -839,6 +873,7 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
           '<span style="color:'+SC[r.strategy]+'">'+I.split+'</span></div></div>'; }).join("");
     },
     efficiency:function(){
+      if(state.live) return head(t("efficiency"),"")+notConnected(t("efficiency"),"lead_actions aggregate");
       var e=demo.efficiency, sc=personaScope();
       // Scale totals to persona scope for a believable per-role view.
       var f=sc==="all"?1:sc==="team"?0.5:0.28;
@@ -867,10 +902,12 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
           }).join("")+'</tbody></table></div></div>';
     },
     automation:function(){
+      if(state.live) return head(t("automation"),"")+notConnected(t("automation"),"automation_rules");
       return head(t("automation"),"Automation Engine")+
         demo.rules.map(function(r){ return '<div class="card" style="padding:16px 18px;margin-bottom:12px"><div class="row between"><div><div class="row gap" style="gap:8px"><b style="font-size:15px">'+r[0]+'</b><span class="pill" style="background:'+(r[3]?"var(--green-soft);color:var(--green)":"var(--card-2);color:var(--ink-3)")+'">'+(r[3]?t("enabled"):t("disabled"))+'</span></div><div class="muted" style="font-size:12.5px;margin-top:4px">IF '+r[1]+' · '+r[2]+' '+t("runs")+'</div></div><span style="color:var(--purple)">'+I.automation+'</span></div></div>'; }).join("");
     },
     integrations:function(){
+      if(state.live) return head(t("integrations"),"")+notConnected(t("integrations"),"integrations");
       return head(t("integrations"),"Integration Center")+
         '<div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(240px,1fr))">'+demo.providers.map(function(p){
           return '<div class="card" style="padding:16px"><div class="row between"><div class="row gap"><div class="av" style="width:40px;height:40px;border-radius:11px;background:'+p[2]+'">'+p[3]+'</div><b style="font-size:14px">'+p[0]+'</b></div></div><div class="row between" style="margin-top:14px"><span class="pill" style="background:'+(p[1]?"var(--green-soft);color:var(--green)":"var(--card-2);color:var(--ink-3)")+'"><span class="dot-s" style="background:'+(p[1]?"var(--green)":"var(--ink-3)")+'"></span>'+(p[1]?t("connected"):t("not_connected"))+'</span>'+(p[1]?'':'<button class="btn btn-ghost" style="padding:6px 12px;font-size:12px" data-act="toast">'+t("connect")+'</button>')+'</div></div>';
@@ -881,7 +918,8 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
         return '<div class="card" style="padding:14px 16px;margin-bottom:10px'+(n[3]?';border-inline-start:3px solid var(--coral)':'')+'"><div class="row between"><div><b style="font-size:14px">'+n[0]+'</b><div class="muted" style="font-size:12.5px;margin-top:2px">'+n[1]+'</div></div><span class="muted" style="font-size:12px">'+n[2]+'</span></div></div>';
       }).join("");
     },
-    reports:function(){ return head(t("reports"),"")+listPlaceholder(t("reports")); },
+    reports:function(){ if(state.live) return head(t("reports"),"")+notConnected(t("reports"),"reporting views");
+      return head(t("reports"),"")+listPlaceholder(t("reports")); },
     users:function(){
       return head(t("users"),demo.users.length+" "+t("users").toLowerCase(),(can("user:create")?'<button class="btn btn-coral" data-act="add">'+I.plus+t("add_user")+'</button>':''))+
         '<div class="card" style="padding:0;overflow:hidden"><div style="overflow-x:auto"><table><thead><tr><th>'+t("name")+'</th><th>'+t("role")+'</th><th>'+t("department")+'</th><th>'+t("status")+'</th></tr></thead><tbody>'+
@@ -985,6 +1023,19 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
           return '<div class="card" style="padding:12px 16px;margin-bottom:8px"><div class="row between gap"><b style="font-size:13.5px">'+r[1]+'</b><div class="row wrap" style="gap:5px;justify-content:flex-end">'+chips+'</div></div></div>';
         }).join("");
       }).join("");
+  }
+  // In live mode a screen with no backing table must say so, not display
+  // fabricated rows that a broker would read as real business data.
+  function notConnected(name,detail){
+    return '<div class="card flex-c" style="padding:56px 22px;flex-direction:column;text-align:center">'+
+      '<div style="width:54px;height:54px;border-radius:16px;background:var(--amber-soft);display:grid;place-items:center;color:var(--amber);margin-bottom:14px">'+I.bolt+'</div>'+
+      '<b style="font-size:16px">'+esc(name)+'</b>'+
+      '<div class="muted" style="font-size:13px;margin-top:6px;max-width:460px;line-height:1.6">'+
+        (state.lang==="ar"
+          ? "لا يوجد مصدر بيانات مرتبط بهذه الشاشة بعد. لن يتم عرض بيانات تجريبية أثناء الوضع الحي."
+          : "This module has no data source connected yet. Demo data is deliberately not shown while you are signed in to a live workspace.")+
+      (detail?'<div style="margin-top:8px;font-size:12.5px;opacity:.85">'+esc(detail)+'</div>':'')+
+      '</div></div>';
   }
   function listPlaceholder(name){ return '<div class="card flex-c" style="padding:60px 20px;flex-direction:column;text-align:center"><div style="width:56px;height:56px;border-radius:16px;background:var(--card-2);display:grid;place-items:center;color:var(--ink-3);margin-bottom:14px">'+I.inventory+'</div><b style="font-size:16px">'+name+'</b><div class="muted" style="font-size:13px;margin-top:4px">'+(state.lang==="ar"?"القائمة الكاملة متاحة عبر الـ API — يتم ربطها في الوضع الحي.":"Full list available via the API — populated in live mode.")+'</div></div>'; }
   function sRow(k,v){ return '<div class="row between" style="padding:11px 0;border-bottom:1px solid var(--line)"><span style="font-weight:600">'+k+'</span><span class="muted">'+v+'</span></div>'; }
