@@ -881,29 +881,23 @@
   /* Top Locations cards */
   .toploc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:18px;margin-top:8px}
   /* Browse-by-developer circular rail */
-  /* Auto-scrolling developer rail. The viewport holds two identical tracks and
-     slides one full track width, so the loop is seamless. Duration scales with
-     the number of developers to keep a constant speed as the roster grows. */
-  .dev-rail{overflow:hidden;padding:10px 2px 16px;margin-top:6px;--rail-n:12;
-    -webkit-mask-image:linear-gradient(to right,transparent,#000 6%,#000 94%,transparent);
-    mask-image:linear-gradient(to right,transparent,#000 6%,#000 94%,transparent)}
-  .dev-rail__vp{display:flex;width:max-content;animation:railScroll linear infinite;
-    animation-duration:calc(var(--rail-n) * 2.6s)}
-  .dev-rail__track{display:flex;gap:20px;padding-inline-end:20px}
-  @keyframes railScroll{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
-  /* RTL reads the other way, so the track travels the other way too. */
-  html[dir="rtl"] .dev-rail__vp{animation-name:railScrollRtl}
-  @keyframes railScrollRtl{ from{transform:translateX(0)} to{transform:translateX(50%)} }
-  /* Stop the moment a visitor engages — pointer, touch or keyboard. */
-  .dev-rail:hover .dev-rail__vp,
-  .dev-rail:focus-within .dev-rail__vp,
-  .dev-rail:active .dev-rail__vp{animation-play-state:paused}
+  /* Developer rail: a real horizontal scroller that also drifts on its own.
+     Keeping it a scroller is what makes touch swipe and momentum work for
+     free; the drift and the mouse drag are layered on top in railInit(). */
+  .dev-rail{display:flex;gap:20px;overflow-x:auto;padding:10px 2px 16px;margin-top:6px;
+    -webkit-overflow-scrolling:touch;cursor:grab;overscroll-behavior-x:contain;
+    scrollbar-width:none;-ms-overflow-style:none;
+    -webkit-mask-image:linear-gradient(to right,transparent,#000 5%,#000 95%,transparent);
+    mask-image:linear-gradient(to right,transparent,#000 5%,#000 95%,transparent)}
+  .dev-rail::-webkit-scrollbar{display:none}
+  .dev-rail.is-drag{cursor:grabbing;scroll-behavior:auto;user-select:none}
+  .dev-rail img{-webkit-user-drag:none;user-select:none}
+  .dev-rail__track{display:flex;gap:20px;flex:0 0 auto;padding-inline-end:20px}
   @media (prefers-reduced-motion:reduce){
-    .dev-rail{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin;
-      scrollbar-color:var(--line-cool) transparent;-webkit-mask-image:none;mask-image:none}
-    .dev-rail::-webkit-scrollbar{height:7px}
+    .dev-rail{-webkit-mask-image:none;mask-image:none;scrollbar-width:thin;
+      scrollbar-color:var(--line-cool) transparent}
+    .dev-rail::-webkit-scrollbar{display:block;height:7px}
     .dev-rail::-webkit-scrollbar-thumb{background:var(--line-cool);border-radius:8px}
-    .dev-rail__vp{animation:none;width:auto}
     .dev-rail__track[aria-hidden="true"]{display:none}
   }
   .dev-circle{flex:0 0 auto;width:96px;display:flex;flex-direction:column;align-items:center;gap:9px;text-decoration:none;color:var(--ink)}
@@ -1183,8 +1177,9 @@
   .pal{transform:translateY(-14px) scale(.975);opacity:0;
     transition:transform .28s cubic-bezier(.2,.8,.2,1),opacity .22s ease}
   .pal-back.open .pal{transform:none;opacity:1}
-  /* 5 · developer rail smooth horizontal scroll */
-  .dev-rail{scroll-behavior:smooth}
+  /* The rail is driven frame by frame from JS, so smooth-scroll must stay off —
+     it would animate every 0.45px step and the drift would never advance. */
+  .dev-rail{scroll-behavior:auto}
   @media (prefers-reduced-motion:reduce){
     .pal,.pal-back,.accordion__chev,.accordion[open] .accordion__body,.nav-home svg{transition:none;animation:none}
   }
@@ -4287,17 +4282,117 @@
     var devs = DEVELOPERS.slice().sort(function(a,b){ return projByDev(b.key).length - projByDev(a.key).length; });
     var row=h('div',{class:'sec-row'}, sectionHead('', t('home_devrail_h'), t('home_devrail_p')),
       h('a',{class:'btn btn--ghost btn--sm', href:U(buildPath('developers'))}, t('cta_all'), ic('arrow')));
-    /* The rail scrolls itself. The list is rendered twice so translating the
-       track by exactly -50% lands on an identical frame and the loop is
-       seamless; the second copy is aria-hidden so screen readers and crawlers
-       see each developer once. Motion is pure CSS, so it pauses on hover,
-       focus or touch without any JS, and stops entirely under
-       prefers-reduced-motion — where it stays a normal scrollable strip. */
+    /* The rail drifts on its own but stays a real scroller underneath, so a
+       swipe or a mouse drag moves it directly and native momentum still
+       applies on touch. The list is rendered twice: once the scroll passes one
+       track width it wraps back by exactly that width, landing on an identical
+       frame, so the loop has no seam in either direction. The second copy is
+       aria-hidden and unfocusable — 23 developers, not 46. */
     var track=h('div',{class:'dev-rail__track'}, devs.map(function(d){ return devCircle(d,false); }));
     var clone=h('div',{class:'dev-rail__track','aria-hidden':'true'}, devs.map(function(d){ return devCircle(d,true); }));
-    var rail=h('div',{class:'dev-rail', style:'--rail-n:'+devs.length},
-      h('div',{class:'dev-rail__vp', role:'list'}, track, clone));
+    var rail=h('div',{class:'dev-rail', role:'list'}, track, clone);
+    railInit(rail, track);
     return h('section',{class:'section section--flush-b'}, h('div',{class:'wrap'}, row, rail));
+  }
+
+  /* Auto-scroll + grab-to-drag for a duplicated-track rail.
+     Everything is feature-guarded: with no rAF, no IntersectionObserver or no
+     pointer events the rail is still a plain scrollable strip. */
+  function railInit(rail, track){
+    if(typeof requestAnimationFrame==='undefined' || !rail.addEventListener) return;
+    var SPEED = 0.45;                 // px per frame ≈ 27px/s at 60fps
+    var reduce = (typeof matchMedia!=='undefined') && matchMedia('(prefers-reduced-motion:reduce)').matches;
+    var held = false, dragging = false, idleUntil = 0, startX = 0, startScroll = 0, moved = 0, raf = 0;
+    // Sub-pixel position kept in JS. Reading scrollLeft back rounds, so
+    // "scrollLeft += 0.45" reads 0, writes 0.45, reads 0 again — the drift
+    // would never accumulate. Accumulate here and assign once per frame.
+    var pos = 0;
+    function sync(){ pos = rail.scrollLeft; }
+
+    // In RTL the engine reports scrollLeft as negative, so the drift has to run
+    // the other way. Read the direction off the document — deriving it from
+    // scrollLeft fails at rest, where LTR also sits at 0.
+    function rtl(){ return (document.documentElement.getAttribute('dir')||'') === 'rtl'; }
+    function dir(){ return rtl() ? -1 : 1; }
+    function span(){ return track.offsetWidth || (rail.scrollWidth / 2); }
+    function wrap(){
+      var w = span(); if(w <= 0) return;
+      if(rail.scrollLeft >=  w) rail.scrollLeft -= w;
+      else if(rail.scrollLeft <= -w) rail.scrollLeft += w;
+    }
+    function tick(){
+      raf = requestAnimationFrame(tick);
+      if(reduce || held || dragging) return;
+      if(Date.now() < idleUntil) return;         // let a manual scroll settle
+      pos += SPEED * dir();
+      var w = span();
+      if(w > 0){ if(pos >= w) pos -= w; else if(pos <= -w) pos += w; }
+      rail.scrollLeft = pos;
+    }
+    function start(){ if(!raf) raf = requestAnimationFrame(tick); }
+    function stop(){ if(raf){ cancelAnimationFrame(raf); raf = 0; } }
+
+    // Hover / focus hold it still, exactly as before.
+    rail.addEventListener('mouseenter', function(){ held = true; });
+    rail.addEventListener('mouseleave', function(){ held = false; });
+    rail.addEventListener('focusin',    function(){ held = true; });
+    rail.addEventListener('focusout',   function(){ held = false; });
+    // A manual wheel or touch fling pauses briefly, then the drift resumes.
+    rail.addEventListener('scroll', function(){ if(!dragging){ wrap(); sync(); } }, {passive:true});
+    rail.addEventListener('wheel',  function(){ idleUntil = Date.now() + 1200; }, {passive:true});
+    rail.addEventListener('touchstart', function(){ held = true; }, {passive:true});
+    rail.addEventListener('touchend',   function(){ held = false; idleUntil = Date.now() + 1200; }, {passive:true});
+
+    // Mouse drag. Touch keeps native scrolling — it already feels better than
+    // anything we would synthesise.
+    var pending = false;
+    rail.addEventListener('pointerdown', function(e){
+      if(e.pointerType === 'touch' || e.button !== 0) return;
+      pending = true; dragging = false; moved = 0;
+      startX = e.clientX; startScroll = rail.scrollLeft;
+    });
+    rail.addEventListener('dragstart', function(e){ e.preventDefault(); });
+    rail.addEventListener('pointermove', function(e){
+      if(!pending) return;
+      var dx = e.clientX - startX;
+      moved = Math.max(moved, Math.abs(dx));
+      // Capture only once this is genuinely a drag. Capturing on pointerdown
+      // retargets the click to the rail, and a plain click on a logo would
+      // never reach the link.
+      if(!dragging){
+        if(moved <= 4) return;
+        dragging = true;
+        rail.classList.add('is-drag');
+        try{ rail.setPointerCapture(e.pointerId); }catch(err){}
+      }
+      rail.scrollLeft = startScroll - dx;
+      wrap(); sync();
+    });
+    function endDrag(e){
+      pending = false;
+      if(!dragging) return;
+      dragging = false; idleUntil = Date.now() + 1200; sync();
+      rail.classList.remove('is-drag');
+      try{ rail.releasePointerCapture(e.pointerId); }catch(err){}
+    }
+    rail.addEventListener('pointerup', endDrag);
+    rail.addEventListener('pointercancel', endDrag);
+    // A drag that crossed a few pixels must not also open the developer page.
+    rail.addEventListener('click', function(e){
+      if(moved > 6){ e.preventDefault(); e.stopPropagation(); moved = 0; }
+    }, true);
+
+    // Start straight away — railInit runs while the node is still detached, and
+    // an observer registered on a detached element cannot be relied on to fire
+    // the first time. The observer is then only an optimisation: it parks the
+    // loop while the rail is scrolled out of view.
+    sync(); start();
+    if(typeof IntersectionObserver!=='undefined'){
+      var io = new IntersectionObserver(function(en){
+        en.forEach(function(x){ x.isIntersecting ? start() : stop(); });
+      }, {threshold:0});
+      io.observe(rail);
+    }
   }
 
   function ctaBand(){
