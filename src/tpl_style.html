@@ -1004,7 +1004,11 @@
      rules the in-page Overview accordion needs to separate itself from body
      copy, and keeps the star + heading as one clickable row. */
   .amen-acc{margin:0;border-block:none}
-  .amen-sum{padding:0}
+  /* The shared accordion pushes its chevron to the far edge with
+     space-between, which on a full-width band left the arrow marooned a metre
+     from the words it belongs to. Here it sits right after the heading; the
+     summary still spans the row, so the whole line stays clickable. */
+  .accordion__sum.amen-sum{padding:0;justify-content:flex-start;gap:12px}
   .amen-acc .amen-head{margin-bottom:0}
   .amen-acc[open] .amen-head{margin-bottom:20px}
   .amen-acc .accordion__body{padding:0}
