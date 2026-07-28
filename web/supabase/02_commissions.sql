@@ -83,6 +83,16 @@ declare
   d uuid;
 begin
   if exists (select 1 from public.commissions) then return; end if;
+  -- Skip the sample rows on a fresh project that has not been seeded yet:
+  -- without this the whole file aborts on a foreign-key violation.
+  if not exists (select 1 from public.companies where id = co) then
+    raise notice 'village-crm: demo company % not present — skipping sample commissions', co;
+    return;
+  end if;
+  if not exists (select 1 from public.profiles where id = fatma) then
+    raise notice 'village-crm: demo profiles not present — skipping sample commissions';
+    return;
+  end if;
 
   update public.profiles set commission_target_egp = 900000 where id = fatma;
 
