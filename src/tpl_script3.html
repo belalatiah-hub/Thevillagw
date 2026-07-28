@@ -438,6 +438,7 @@
       raf = requestAnimationFrame(tick);
       if(reduce || held || dragging) return;
       if(Date.now() < idleUntil) return;         // let a manual scroll settle
+      if(overLogo()) return;                     // reading a logo holds it still
       pos += SPEED * dir();
       var w = span();
       if(w > 0){ if(pos >= w) pos -= w; else if(pos <= -w) pos += w; }
@@ -446,16 +447,42 @@
     function start(){ if(!raf) raf = requestAnimationFrame(tick); }
     function stop(){ if(raf){ cancelAnimationFrame(raf); raf = 0; } }
 
-    // Hover / focus hold it still, exactly as before.
-    rail.addEventListener('mouseenter', function(){ held = true; });
-    rail.addEventListener('mouseleave', function(){ held = false; });
-    rail.addEventListener('focusin',    function(){ held = true; });
-    rail.addEventListener('focusout',   function(){ held = false; });
+    // Hovering pauses it — but only over an actual logo, not anywhere in the
+    // strip. The rail spans the full content width, so on a laptop the cursor
+    // comes to rest inside it after almost any scroll; pausing on the whole
+    // band left the marquee frozen indefinitely and read as broken. A phone has
+    // no hover, which is why it only ever showed up on desktop.
+    //
+    // The pointer state is recomputed from its last known position every frame
+    // rather than toggled by paired enter/leave events. A 'leave' that never
+    // arrives — pointer exiting under the mask edge, the window losing focus,
+    // another app taking over — used to strand the rail paused for good.
+    var px = -1, py = -1;
+    function ptr(e){ px = e.clientX; py = e.clientY; }
+    function ptrGone(){ px = -1; py = -1; }
+    document.addEventListener('pointermove', ptr, {passive:true});
+    document.addEventListener('pointerdown', ptr, {passive:true});
+    document.addEventListener('pointerleave', ptrGone, {passive:true});
+    window.addEventListener('blur', ptrGone);
+
+    function overLogo(){
+      if(px < 0) return false;
+      var r = rail.getBoundingClientRect();          // cheap reject first
+      if(px < r.left || px > r.right || py < r.top || py > r.bottom) return false;
+      var el = document.elementFromPoint(px, py);    // only while inside the rail
+      return !!(el && el.closest && el.closest('.dev-circle'));
+    }
+
+    rail.addEventListener('focusin',  function(){ held = true; });
+    rail.addEventListener('focusout', function(){ held = false; });
     // A manual wheel or touch fling pauses briefly, then the drift resumes.
     rail.addEventListener('scroll', function(){ if(!dragging){ wrap(); sync(); } }, {passive:true});
     rail.addEventListener('wheel',  function(){ idleUntil = Date.now() + 1200; }, {passive:true});
     rail.addEventListener('touchstart', function(){ held = true; }, {passive:true});
     rail.addEventListener('touchend',   function(){ held = false; idleUntil = Date.now() + 1200; }, {passive:true});
+    // A cancelled touch (the browser taking the gesture over for a page scroll,
+    // a call arriving) never fires touchend. Without this the rail stayed held.
+    rail.addEventListener('touchcancel', function(){ held = false; }, {passive:true});
 
     // Mouse drag. Touch keeps native scrolling — it already feels better than
     // anything we would synthesise.

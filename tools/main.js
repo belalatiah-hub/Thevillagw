@@ -2689,6 +2689,7 @@ function tick(){
 raf = requestAnimationFrame(tick);
 if(reduce || held || dragging) return;
 if(Date.now() < idleUntil) return;
+if(overLogo()) return;
 pos += SPEED * dir();
 var w = span();
 if(w > 0){ if(pos >= w) pos -= w; else if(pos <= -w) pos += w; }
@@ -2696,14 +2697,27 @@ rail.scrollLeft = pos;
 }
 function start(){ if(!raf) raf = requestAnimationFrame(tick); }
 function stop(){ if(raf){ cancelAnimationFrame(raf); raf = 0; } }
-rail.addEventListener('mouseenter', function(){ held = true; });
-rail.addEventListener('mouseleave', function(){ held = false; });
-rail.addEventListener('focusin',    function(){ held = true; });
-rail.addEventListener('focusout',   function(){ held = false; });
+var px = -1, py = -1;
+function ptr(e){ px = e.clientX; py = e.clientY; }
+function ptrGone(){ px = -1; py = -1; }
+document.addEventListener('pointermove', ptr, {passive:true});
+document.addEventListener('pointerdown', ptr, {passive:true});
+document.addEventListener('pointerleave', ptrGone, {passive:true});
+window.addEventListener('blur', ptrGone);
+function overLogo(){
+if(px < 0) return false;
+var r = rail.getBoundingClientRect();
+if(px < r.left || px > r.right || py < r.top || py > r.bottom) return false;
+var el = document.elementFromPoint(px, py);
+return !!(el && el.closest && el.closest('.dev-circle'));
+}
+rail.addEventListener('focusin',  function(){ held = true; });
+rail.addEventListener('focusout', function(){ held = false; });
 rail.addEventListener('scroll', function(){ if(!dragging){ wrap(); sync(); } }, {passive:true});
 rail.addEventListener('wheel',  function(){ idleUntil = Date.now() + 1200; }, {passive:true});
 rail.addEventListener('touchstart', function(){ held = true; }, {passive:true});
 rail.addEventListener('touchend',   function(){ held = false; idleUntil = Date.now() + 1200; }, {passive:true});
+rail.addEventListener('touchcancel', function(){ held = false; }, {passive:true});
 var pending = false;
 rail.addEventListener('pointerdown', function(e){
 if(e.pointerType === 'touch' || e.button !== 0) return;
