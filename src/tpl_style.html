@@ -328,6 +328,9 @@
     color:var(--teal-600);font-weight:700;font-size:.86rem;padding:6px 0}
   .feat-copy__sum::-webkit-details-marker{display:none}
   .feat-copy__sum:focus-visible{outline:2px solid var(--focus);outline-offset:3px;border-radius:8px}
+  .feat-copy__p--lead{display:-webkit-box;-webkit-box-orient:vertical;
+    -webkit-line-clamp:4;overflow:hidden}
+  .feat-copy.is-open .feat-copy__p--lead{display:block;overflow:visible;-webkit-line-clamp:unset}
   .feat-copy__sum .accordion__chev{width:18px;height:18px}
   .feat-copy__more[open] .accordion__chev{transform:rotate(180deg)}
   .feat-copy__body{padding-top:2px}

@@ -1361,15 +1361,18 @@
     if(!c.copy) return null;
     var cp = c.copy;
     var wrap = h('div',{class:'feat-copy'});
-    if(cp.lead) wrap.appendChild(h('p',{class:'feat-copy__p'}, L(cp.lead)));
-    // a short checklist stays fully visible — nothing to hide behind a chevron
-    if(cp.list) wrap.appendChild(h('ul',{class:'feat-copy__list'}, cp.list.map(function(it){
+    // Collapsed, a card shows the opening paragraph clamped to a few lines and
+    // nothing else. A full lead plus a five-item checklist made cards several
+    // screens tall and wildly uneven; everything past those few lines now sits
+    // behind the chevron.
+    var lead = cp.lead ? h('p',{class:'feat-copy__p feat-copy__p--lead'}, L(cp.lead)) : null;
+    if(lead) wrap.appendChild(lead);
+
+    // the checklist, an optional paragraph, then any labelled key/value groups
+    var hidden = [];
+    if(cp.list) hidden.push(h('ul',{class:'feat-copy__list'}, cp.list.map(function(it){
       return h('li',{class:'feat-copy__li'}, ic('check'), h('span',null, L(it)));
     })));
-
-    // everything past the opening paragraph: an optional paragraph, then any
-    // labelled key/value groups (e.g. travel times by road and by plane)
-    var hidden = [];
     if(cp.more) hidden.push(h('p',{class:'feat-copy__p'}, L(cp.more)));
     (cp.groups||[]).forEach(function(g){
       hidden.push(h('div',{class:'feat-copy__grp'},
@@ -1388,7 +1391,10 @@
     var det = h('details',{class:'feat-copy__more'},
       h('summary',{class:'feat-copy__sum'}, lbl, chev),
       h('div',{class:'feat-copy__body'}, hidden));
-    det.addEventListener('toggle', function(){ lbl.textContent = det.open ? LESS : MORE; });
+    det.addEventListener('toggle', function(){
+      lbl.textContent = det.open ? LESS : MORE;
+      wrap.className = 'feat-copy' + (det.open ? ' is-open' : '');
+    });
     wrap.appendChild(det);
     return wrap;
   }

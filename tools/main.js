@@ -2033,11 +2033,12 @@ function featCopy(c){
 if(!c.copy) return null;
 var cp = c.copy;
 var wrap = h('div',{class:'feat-copy'});
-if(cp.lead) wrap.appendChild(h('p',{class:'feat-copy__p'}, L(cp.lead)));
-if(cp.list) wrap.appendChild(h('ul',{class:'feat-copy__list'}, cp.list.map(function(it){
+var lead = cp.lead ? h('p',{class:'feat-copy__p feat-copy__p--lead'}, L(cp.lead)) : null;
+if(lead) wrap.appendChild(lead);
+var hidden = [];
+if(cp.list) hidden.push(h('ul',{class:'feat-copy__list'}, cp.list.map(function(it){
 return h('li',{class:'feat-copy__li'}, ic('check'), h('span',null, L(it)));
 })));
-var hidden = [];
 if(cp.more) hidden.push(h('p',{class:'feat-copy__p'}, L(cp.more)));
 (cp.groups||[]).forEach(function(g){
 hidden.push(h('div',{class:'feat-copy__grp'},
@@ -2055,7 +2056,10 @@ var lbl = h('span',null, MORE);
 var det = h('details',{class:'feat-copy__more'},
 h('summary',{class:'feat-copy__sum'}, lbl, chev),
 h('div',{class:'feat-copy__body'}, hidden));
-det.addEventListener('toggle', function(){ lbl.textContent = det.open ? LESS : MORE; });
+det.addEventListener('toggle', function(){
+lbl.textContent = det.open ? LESS : MORE;
+wrap.className = 'feat-copy' + (det.open ? ' is-open' : '');
+});
 wrap.appendChild(det);
 return wrap;
 }

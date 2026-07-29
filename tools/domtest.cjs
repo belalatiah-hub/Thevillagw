@@ -1398,8 +1398,22 @@ try {
     return /appointed Modon Holding PSC as the master planner/.test(txt)
       && /largest ever international investment into Egypt/.test(txt)
       && /US\$110 billion by 2045/.test(txt)
-      && det.length===2 && det.every(function(d){ return !d.getAttribute('open'); })
+      && det.length===3 && det.every(function(d){ return !d.getAttribute('open'); })
       && /Read more/.test(txt);
+  })(), 'ok');
+  ck('devfeat: only a clamped lead shows; the checklist sits behind Read more', (function(){
+    var node=api.V.developer('marakez').node;
+    var copies=qsa(node,'.feat-copy');
+    return copies.length===4 && copies.every(function(w){
+      // the lead is the one paragraph outside <details>, and it is clamped
+      var leads=qsa(w,'.feat-copy__p--lead');
+      if(leads.length!==1) return false;
+      // no checklist may sit outside the collapsed half
+      var det=qsa(w,'details')[0];
+      var listsInCard=qsa(w,'.feat-copy__list').length;
+      var listsHidden=det?qsa(det,'.feat-copy__list').length:0;
+      return listsInCard===listsHidden;
+    });
   })(), 'ok');
   ck('devfeat: connectivity copy carries both travel-time tables', (function(){
     var txt=api.V.developer('modon').node.textContent;
