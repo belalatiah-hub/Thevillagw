@@ -124,7 +124,17 @@ am_concierge:['M3 19h18','M6 19a6 6 0 0 1 12 0','M12 8V6','M10 6h4'],
 am_laundry:['M5 3h14a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z','M12 9a4 4 0 1 0 0 8 4 4 0 0 0 0-8z','M8 6h.01','M11 6h.01'],
 am_ev:['M3 17h13v-5l-2-4H5l-2 4z','M6.5 17a1.5 1.5 0 1 0 3 0','M12.5 17a1.5 1.5 0 1 0 3 0','M20 7l-2 4h3l-2 4'],
 am_yoga:['M12 3.4a1.7 1.7 0 1 0 0 3.4 1.7 1.7 0 0 0 0-3.4z','M12 6.8v5.4','M12 12.2L8.2 20','M12 12.2L15.8 20','M7 10h10'],
-am_sauna:['M4 20h16','M6 20a6 6 0 0 1 12 0','M9 9c0-1.6 1-2.1 1-3.6','M12 8c0-1.6 1-2.1 1-3.6','M15 9c0-1.6 1-2.1 1-3.6']
+am_sauna:['M4 20h16','M6 20a6 6 0 0 1 12 0','M9 9c0-1.6 1-2.1 1-3.6','M12 8c0-1.6 1-2.1 1-3.6','M15 9c0-1.6 1-2.1 1-3.6'],
+am_paseo:['M7 4c2 1.4 2.8 3.4 2.8 5.4A2.8 2.8 0 0 1 4.2 9.4C4.2 7.4 5 5.4 7 4z','M7 12.2V16',
+'M17 4c2 1.4 2.8 3.4 2.8 5.4a2.8 2.8 0 0 1-5.6 0c0-2 .8-4 2.8-5.4z','M17 12.2V16','M3 19.5h18'],
+am_centralpark:['M12 3c2.4 1.7 3.4 4.1 3.4 6.5a3.4 3.4 0 0 1-6.8 0C8.6 7.1 9.6 4.7 12 3z','M12 13v3',
+'M12 16c-4.4 0-8 1.3-8 2.9S7.6 21.8 12 21.8s8-1.3 8-2.9-3.6-2.9-8-2.9z'],
+am_gardenpark:['M8 4c2.2 1.5 3.1 3.7 3.1 5.9A3.1 3.1 0 0 1 4.9 9.9C4.9 7.7 5.8 5.5 8 4z','M8 13v4.6',
+'M13 21c0-4 1.6-6.4 3.4-8C18.2 11.4 19 9.4 19 7'],
+am_pavilion:['M2.6 9.4 12 4l9.4 5.4','M5 9.4V19','M12 9.4V19','M19 9.4V19','M3 19h18'],
+am_flower:['M12 12.4a2.1 2.1 0 1 0 0-4.2 2.1 2.1 0 0 0 0 4.2z','M12 8.2C12 5.4 13.4 3.4 15.6 2.6c.5 2.4-.6 4.4-2.4 5.6',
+'M12 8.2C12 5.4 10.6 3.4 8.4 2.6c-.5 2.4.6 4.4 2.4 5.6','M12 12.4V21','M12 16.4c-2 0-3.6-1.3-4.2-3.2 2.1-.5 3.7.6 4.2 2',
+'M12 16.4c2 0 3.6-1.3 4.2-3.2-2.1-.5-3.7.6-4.2 2']
 };
 function ic(name, cls){ var s = svg(ICON[name]); if(cls) s.setAttribute('class',cls); return s; }
 var $ = function(s, r){ return (r||document).querySelector(s); };
@@ -1807,7 +1817,13 @@ housekeeping:{icon:'am_laundry', en:'Hospitality services', ar:'خدمات ضي�
 ev:{icon:'am_ev', en:'Car charging stations', ar:'محطات شحن سيارات'},
 sauna:{icon:'am_sauna', en:'Sauna', ar:'ساونا'},
 nursery:{icon:'am_kids', en:'Nursery & kids play', ar:'حضانة ولعب أطفال'},
-outdoorfit:{icon:'am_yoga', en:'Yoga & outdoor fitness', ar:'يوجا ولياقة في الهواء الطلق'}
+outdoorfit:{icon:'am_yoga', en:'Yoga & outdoor fitness', ar:'يوجا ولياقة في الهواء الطلق'},
+greenspine:{icon:'am_paseo', en:'Extended green spine & paseo', ar:'عمود أخضر ممتد وباسيو'},
+centralpark:{icon:'am_centralpark', en:'Central park', ar:'حديقة مركزية'},
+gardenparks:{icon:'am_gardenpark', en:'Street-side garden parks', ar:'حدائق على جانبي الشوارع'},
+clubsports:{icon:'am_club', en:'Clubhouse & sports facilities', ar:'كلوب هاوس ومرافق رياضية'},
+commercialpark:{icon:'am_pavilion', en:'Commercial park', ar:'بارك تجاري'},
+neighborhoodpark:{icon:'am_flower', en:'Neighborhood park', ar:'حديقة الحي'}
 };
 var DEV_AMENITIES = {
 'sumou': ['bms','controls','fiber','cctv','heat','generators','parking','app',
@@ -1818,29 +1834,41 @@ var DEV_FINISHING = {
 'sumou': {en:'Residential delivered fully finished with air conditioning and double-glazed windows. Offices delivered core & shell with double-glazed windows.',
 ar:'تُسلَّم الوحدات السكنية كاملة التشطيب مع تكييف ونوافذ مزدوجة العزل، وتُسلَّم المكاتب على المحارة مع نوافذ مزدوجة العزل.'}
 };
-function devAmenitiesSection(dev){
-var toks = DEV_AMENITIES[dev.key] || [];
-if(!toks.length) return null;
+function amenityAccordion(toks, title, note){
+if(!toks || !toks.length) return null;
 var grid = h('div',{class:'amen-grid amen-grid--stack'}, toks.map(function(k){
 var a = AMENITY_CAT[k]; if(!a) return null;
 return h('div',{class:'amen amen--stack'},
 h('span',{class:'amen__ic'}, ic(a.icon)),
 h('span',{class:'amen__lb'}, lang==='ar'?a.ar:a.en));
 }));
-var fin = DEV_FINISHING[dev.key];
 var chev = sEl('svg',{class:'accordion__chev',viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',
 'stroke-width':'2','stroke-linecap':'round','stroke-linejoin':'round','aria-hidden':'true'},
 sEl('path',{d:'M6 9l6 6 6-6'}));
 var sum = h('summary',{class:'accordion__sum amen-sum'},
 h('span',{class:'amen-head'}, ic('star','amen-head__ic'),
-h('h2',{class:'accordion__title'}, lang==='ar'?'المرافق والتشطيب':'Amenities & Finishing')),
+h('h2',{class:'accordion__title'}, title)),
 chev);
 return h('section',{class:'amen-sec', id:'amenities'}, h('div',{class:'wrap'},
 h('details',{class:'accordion amen-acc'}, sum,
 h('div',{class:'accordion__body'}, grid,
-fin ? h('p',{class:'amen-note'}, ic('info'), h('span',null, L(fin))) : null))));
+note ? h('p',{class:'amen-note'}, ic('info'), h('span',null, note)) : null))));
 }
-var PROJECT_AMENITIES = {};
+function devAmenitiesSection(dev){
+var fin = DEV_FINISHING[dev.key];
+return amenityAccordion(DEV_AMENITIES[dev.key],
+lang==='ar'?'المرافق والتشطيب':'Amenities & Finishing', fin ? L(fin) : null);
+}
+function projectAmenitiesSection(p){
+return amenityAccordion(PROJECT_AMENITIES[p.slug],
+lang==='ar'?'المرافق والخدمات':'Amenities',
+lang==='ar'?'مرافق على مستوى المشروع — تُؤكَّد تفاصيلها مع المستشار.'
+: 'Project-level amenities — confirm details with an advisor.');
+}
+var PROJECT_AMENITIES = {
+'crescent-walk': ['greenspine','centralpark','gardenparks',
+'clubsports','commercialpark','neighborhoodpark']
+};
 function amenityDefaults(cat){
 return (cat==='coast'||cat==='redsea')
 ? ['beach','lagoon','pool','clubhouse','landscape','sports','retail','security']
@@ -4335,6 +4363,7 @@ h('h2',{style:'font-size:1.3rem;margin-top:28px;margin-bottom:12px'}, t('facts')
 facts, deliveryTimeline(p)),
 h('div',null, aside)));
 top.appendChild(wrap); node.appendChild(top);
+var pAmen = projectAmenitiesSection(p); if(pAmen) node.appendChild(pAmen);
 track('project_viewed', {project:p.slug});
 if(typeof leadArm==='function') leadArm();
 if(COMING_SOON_LAUNCH.link === p.slug){

@@ -255,6 +255,7 @@
         facts, deliveryTimeline(p)),
       h('div',null, aside)));
     top.appendChild(wrap); node.appendChild(top);
+    var pAmen = projectAmenitiesSection(p); if(pAmen) node.appendChild(pAmen);
     track('project_viewed', {project:p.slug});
     if(typeof leadArm==='function') leadArm();   // a project view is a qualifying engagement
 

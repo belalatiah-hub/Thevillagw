@@ -1007,7 +1007,15 @@
     ev:{icon:'am_ev', en:'Car charging stations', ar:'محطات شحن سيارات'},
     sauna:{icon:'am_sauna', en:'Sauna', ar:'ساونا'},
     nursery:{icon:'am_kids', en:'Nursery & kids play', ar:'حضانة ولعب أطفال'},
-    outdoorfit:{icon:'am_yoga', en:'Yoga & outdoor fitness', ar:'يوجا ولياقة في الهواء الطلق'}
+    outdoorfit:{icon:'am_yoga', en:'Yoga & outdoor fitness', ar:'يوجا ولياقة في الهواء الطلق'},
+    /* The six categories the Crescent Walk master plan labels on p16, named
+       the way the brochure names them. */
+    greenspine:{icon:'am_paseo', en:'Extended green spine & paseo', ar:'عمود أخضر ممتد وباسيو'},
+    centralpark:{icon:'am_centralpark', en:'Central park', ar:'حديقة مركزية'},
+    gardenparks:{icon:'am_gardenpark', en:'Street-side garden parks', ar:'حدائق على جانبي الشوارع'},
+    clubsports:{icon:'am_club', en:'Clubhouse & sports facilities', ar:'كلوب هاوس ومرافق رياضية'},
+    commercialpark:{icon:'am_pavilion', en:'Commercial park', ar:'بارك تجاري'},
+    neighborhoodpark:{icon:'am_flower', en:'Neighborhood park', ar:'حديقة الحي'}
   };
 
   /* Developer-level amenities, taken from that developer's own brochure. Shown
@@ -1022,33 +1030,49 @@
     'sumou': {en:'Residential delivered fully finished with air conditioning and double-glazed windows. Offices delivered core & shell with double-glazed windows.',
               ar:'تُسلَّم الوحدات السكنية كاملة التشطيب مع تكييف ونوافذ مزدوجة العزل، وتُسلَّم المكاتب على المحارة مع نوافذ مزدوجة العزل.'}
   };
-  function devAmenitiesSection(dev){
-    var toks = DEV_AMENITIES[dev.key] || [];
-    if(!toks.length) return null;
+  /* An icon grid folded behind a chevron. A long tile list is a lot of page to
+     scroll past for someone who is not reading the spec, so it collapses — via
+     the same <details> accordion the project Overview uses, which keeps the
+     content in the DOM for crawlers instead of hiding it from them. */
+  function amenityAccordion(toks, title, note){
+    if(!toks || !toks.length) return null;
     var grid = h('div',{class:'amen-grid amen-grid--stack'}, toks.map(function(k){
       var a = AMENITY_CAT[k]; if(!a) return null;
       return h('div',{class:'amen amen--stack'},
         h('span',{class:'amen__ic'}, ic(a.icon)),
         h('span',{class:'amen__lb'}, lang==='ar'?a.ar:a.en));
     }));
-    var fin = DEV_FINISHING[dev.key];
-    // Eighteen tiles is a lot of page to scroll past for someone who is not
-    // reading the spec, so the grid folds behind a chevron — the same <details>
-    // accordion the project Overview uses, which keeps the content in the DOM
-    // for crawlers instead of hiding it from them.
     var chev = sEl('svg',{class:'accordion__chev',viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',
       'stroke-width':'2','stroke-linecap':'round','stroke-linejoin':'round','aria-hidden':'true'},
       sEl('path',{d:'M6 9l6 6 6-6'}));
     var sum = h('summary',{class:'accordion__sum amen-sum'},
       h('span',{class:'amen-head'}, ic('star','amen-head__ic'),
-        h('h2',{class:'accordion__title'}, lang==='ar'?'المرافق والتشطيب':'Amenities & Finishing')),
+        h('h2',{class:'accordion__title'}, title)),
       chev);
     return h('section',{class:'amen-sec', id:'amenities'}, h('div',{class:'wrap'},
       h('details',{class:'accordion amen-acc'}, sum,
         h('div',{class:'accordion__body'}, grid,
-          fin ? h('p',{class:'amen-note'}, ic('info'), h('span',null, L(fin))) : null))));
+          note ? h('p',{class:'amen-note'}, ic('info'), h('span',null, note)) : null))));
   }
-  var PROJECT_AMENITIES = {}; // optional per-project overrides (slug -> [tokens])
+  function devAmenitiesSection(dev){
+    var fin = DEV_FINISHING[dev.key];
+    return amenityAccordion(DEV_AMENITIES[dev.key],
+      lang==='ar'?'المرافق والتشطيب':'Amenities & Finishing', fin ? L(fin) : null);
+  }
+  /* Only a project whose own brochure lists its categories gets this section;
+     the rest keep the compound-level defaults on the unit page and show
+     nothing here rather than a generic list dressed up as project fact. */
+  function projectAmenitiesSection(p){
+    return amenityAccordion(PROJECT_AMENITIES[p.slug],
+      lang==='ar'?'المرافق والخدمات':'Amenities',
+      lang==='ar'?'مرافق على مستوى المشروع — تُؤكَّد تفاصيلها مع المستشار.'
+                : 'Project-level amenities — confirm details with an advisor.');
+  }
+  /* Per-project amenities, taken from that project's own brochure page. */
+  var PROJECT_AMENITIES = {
+    'crescent-walk': ['greenspine','centralpark','gardenparks',
+                      'clubsports','commercialpark','neighborhoodpark']
+  };
   function amenityDefaults(cat){
     return (cat==='coast'||cat==='redsea')
       ? ['beach','lagoon','pool','clubhouse','landscape','sports','retail','security']
