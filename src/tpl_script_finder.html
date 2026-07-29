@@ -86,13 +86,18 @@
   }
   function launchStatusOf(p){ return p.status==='launch' ? 'newly-launched' : 'available'; }
   function unitAvail(u){ return u.avail || 'available'; }
-  function unitDp(u){ var p=projBySlug(u.project); return (u.price!=null && p && p.dp) ? Math.round(u.price*p.dp/100) : null; }
+  /* A payment plan can be set per unit, not just per project — District 5
+     sells its offices over 5 years and one apartment over 8 while the rest
+     run 7. A unit's own terms therefore win over its project's. */
+  function unitDpPct(u){ var p=u&&projBySlug(u.project); return (u&&u.dp!=null) ? u.dp : (p?(p.dp||null):null); }
+  function unitYears(u){ var p=u&&projBySlug(u.project); return (u&&u.years!=null) ? u.years : (p?(p.years||null):null); }
+  function unitDp(u){ var d=unitDpPct(u); return (u.price!=null && d) ? Math.round(u.price*d/100) : null; }
 
   var FLOOR_BANDS=['ground','low','middle','high','top'];
   var FLOOR_LABELS={ground:{en:'Ground floor',ar:'الدور الأرضي'},low:{en:'Low floor',ar:'دور منخفض'},middle:{en:'Middle floor',ar:'دور متوسط'},high:{en:'High floor',ar:'دور مرتفع'},top:{en:'Top / roof',ar:'الأخير / روف'}};
   var YEARS_PRESETS=[5,6,7,8];   // "installments of at least N years"
   function unitFloor(u){ return u.floor||null; }
-  function projYears(u){ var p=projBySlug(u.project); return p?(p.years||null):null; }
+  function projYears(u){ return unitYears(u); }
   function defaultFilter(){ return {areas:[],devs:[],projects:[],types:[],beds:[],minPrice:null,maxPrice:null,maxDp:null,floors:[],avoidGround:false,minYears:null,launch:[],avail:[],delivery:[],sort:'recommended',mode:'strict',includeUnverified:false}; }
   var RECO_MODES=['strict','balanced','flexible'];
   var RECO_LABELS={strict:{en:'Exact match',ar:'مطابقة تامة'},balanced:{en:'Balanced',ar:'متوازن'},flexible:{en:'Flexible',ar:'مرن'}};
@@ -303,7 +308,7 @@
     crit(priceActive, priceOk, 'price', lang==='ar'?'ضمن الميزانية':'In budget');
     crit(f.floors.length && usesFloorBands(unitCanon(u)), u.floor&&f.floors.indexOf(u.floor)>-1, 'floor', u.floor?(lang==='ar'?FLOOR_LABELS[u.floor].ar:FLOOR_LABELS[u.floor].en):'');
     crit(f.avoidGround, u.floor!=='ground', 'ground', t('avoid_ground'));
-    crit(f.minYears!=null, p&&p.years&&p.years>=f.minYears, 'years', t('years_min_n').replace('{n}', num(f.minYears||0)));
+    crit(f.minYears!=null, (function(){ var y=unitYears(u); return y!=null&&y>=f.minYears; })(), 'years', t('years_min_n').replace('{n}', num(f.minYears||0)));
     crit(f.maxDp!=null, (function(){ var dp=unitDp(u); return dp!=null&&dp<=f.maxDp; })(), 'dp', (lang==='ar'?'مقدم مناسب':'Down payment OK'));
     crit(f.delivery.length, p&&f.delivery.indexOf(deliveryBucket(p))>-1, 'delivery', p?(lang==='ar'?DELIVERY_LABELS[deliveryBucket(p)].ar:DELIVERY_LABELS[deliveryBucket(p)].en):'');
     crit(f.launch.length, p&&f.launch.indexOf(launchStatusOf(p))>-1, 'launch', p?(lang==='ar'?LAUNCH_LABELS[launchStatusOf(p)].ar:LAUNCH_LABELS[launchStatusOf(p)].en):'');

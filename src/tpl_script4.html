@@ -367,10 +367,15 @@
      [t('delivery'), (function(){
         var d = u.handover || p.delivery;
         return (d==='Ready'||d==='Delivered') ? t('ready') : (d||t('to_confirm'));
-      })()]]
+      })()],
+     // The payment plan is a per-unit fact wherever the data gives one, so it
+     // belongs on the unit page and not only on the project's.
+     [t('dp'),    (function(){ var d=unitDpPct(u); return d ? num(d)+'%' : ''; })()],
+     [t('years'), (function(){ var y=unitYears(u); return y ? num(y)+' '+(lang==='ar'?'سنوات':'years') : ''; })()]]
      // r[2] flags a row that only makes sense for a home; offices, clinics,
-     // admin units and retail drop it rather than reporting an em dash.
-     .forEach(function(r){ if(r[2]) return;
+     // admin units and retail drop it rather than reporting an em dash. A row
+     // with no value at all is dropped too, rather than printing a blank cell.
+     .forEach(function(r){ if(r[2] || !r[1]) return;
        facts.appendChild(h('tr',null,h('th',{scope:'row'},r[0]),h('td',null,r[1]))); });
     wrap.appendChild(h('div',{class:'detail-hero'},
       h('div',null, media,
@@ -1000,8 +1005,8 @@
         {k:(lang==='ar'?'المساحة':'Area'), f:function(u){return areaText(u);}},
         {k:t('price'), f:function(u){return money(u.price);}},
         {k:(lang==='ar'?'الإتاحة':'Availability'), f:function(u){return t((AVAIL_MAP[u.avail]||AVAIL_MAP['to-confirm'])[1]);}},
-        {k:t('dp'), f:function(u){var p=pOf(u);return p.dp?num(p.dp)+'%':'—';}},
-        {k:t('years'), f:function(u){var p=pOf(u);return p.years?(num(p.years)+' '+(lang==='ar'?'سنوات':'years')):'—';}},
+        {k:t('dp'), f:function(u){var d=unitDpPct(u);return d?num(d)+'%':'—';}},
+        {k:t('years'), f:function(u){var y=unitYears(u);return y?(num(y)+' '+(lang==='ar'?'سنوات':'years')):'—';}},
         {k:t('delivery'), f:function(u){var p=pOf(u);return p.delivery==='Ready'?t('ready'):(p.delivery||t('to_confirm'));}}
       ];
       var table=h('table',{class:'cmp'});

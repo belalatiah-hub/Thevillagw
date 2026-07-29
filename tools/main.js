@@ -584,58 +584,58 @@ var UNITS = [
 {id:'FS-A18',  project:'fifth-square',        type:'Apartment',        beds:3, baths:2, area:160, price:7200000,  avail:'available'},
 {id:'IB-V05',  project:'il-bosco-city',       type:'Villa',            beds:4, baths:4, area:265, price:14500000, avail:'available'},
 {id:'IB-S02',  project:'il-bosco-city',       type:'Studio',           beds:0, baths:1, area:55,  price:3200000,  avail:'available'},
-{id:'D5-A01', project:'district-5', type:'Apartment', beds:3, baths:3, area:224, price:27701000, avail:'available', handover:'Delivered'},
-{id:'D5-A02', project:'district-5', type:'Apartment', beds:2, baths:3, area:126, price:14216000, avail:'available', handover:'Delivered'},
-{id:'D5-A03', project:'district-5', type:'Apartment', beds:2, baths:3, area:131, price:15082000, avail:'available', handover:'Delivered'},
-{id:'D5-A04', project:'district-5', type:'Apartment', beds:2, baths:3, area:144, price:17604000, avail:'available', handover:'2027'},
-{id:'D5-A05', project:'district-5', type:'Apartment', beds:2, baths:3, area:154, price:17647000, avail:'available', handover:'Delivered'},
-{id:'D5-A06', project:'district-5', type:'Apartment', beds:3, baths:3, area:210, price:24175000, avail:'available', handover:'Delivered'},
-{id:'D5-A07', project:'district-5', type:'Apartment', beds:2, baths:3, area:135, price:18505000, avail:'available', handover:'Delivered'},
-{id:'D5-A08', project:'district-5', type:'Apartment', beds:2, baths:3, area:139, price:17382000, avail:'available', handover:'Delivered'},
-{id:'D5-A09', project:'district-5', type:'Apartment', beds:2, baths:3, area:135, price:18982000, avail:'available', handover:'Delivered'},
-{id:'D5-A10', project:'district-5', type:'Apartment', beds:2, baths:3, area:136, price:15884000, avail:'available', handover:'Delivered'},
-{id:'D5-A11', project:'district-5', type:'Apartment', beds:3, baths:3, area:224, price:26116000, avail:'available', handover:'Delivered'},
-{id:'D5-A12', project:'district-5', type:'Apartment', beds:1, baths:2, area:81, price:12389000, avail:'available', handover:'Delivered'},
-{id:'D5-A13', project:'district-5', type:'Apartment', beds:2, baths:3, area:144, price:15617000, avail:'available', handover:'2027'},
-{id:'D5-A14', project:'district-5', type:'Apartment', beds:2, baths:3, area:200, price:24885000, avail:'available', handover:'2027'},
-{id:'D5-A15', project:'district-5', type:'Apartment', beds:2, baths:3, area:144, price:17114000, avail:'available', handover:'2027'},
-{id:'D5-A16', project:'district-5', type:'Apartment', beds:1, baths:2, area:82, price:11285000, avail:'available', handover:'2027'},
-{id:'D5-A17', project:'district-5', type:'Apartment', beds:2, baths:3, area:136, price:18612000, avail:'available', handover:'2027'},
-{id:'D5-A18', project:'district-5', type:'Apartment', beds:2, baths:3, area:132, price:21177000, avail:'available', handover:'2028'},
-{id:'D5-A19', project:'district-5', type:'Apartment', beds:2, baths:3, area:136, price:19965000, avail:'available', handover:'2028'},
-{id:'D5-A20', project:'district-5', type:'Apartment', beds:2, baths:3, area:134, price:17288000, avail:'available', handover:'2027'},
-{id:'D5-DX01', project:'district-5', type:'Duplex', beds:3, baths:3, area:343, price:43764000, avail:'available', handover:'Delivered'},
-{id:'D5-OF01', project:'district-5', type:'Office', area:234, price:59633000, avail:'available', handover:'2029'},
-{id:'D5-OF02', project:'district-5', type:'Office', area:139, price:34307000, avail:'available', handover:'2027'},
-{id:'D5-OF03', project:'district-5', type:'Office', area:118, price:29353000, avail:'available', handover:'2027'},
-{id:'D5-OF04', project:'district-5', type:'Office', area:156, price:39168000, avail:'available', handover:'2027'},
-{id:'D5-OF05', project:'district-5', type:'Office', area:138, price:35297000, avail:'available', handover:'2027'},
-{id:'CW-TW01', project:'crescent-walk', type:'Twin house', beds:5, baths:5, area:241, price:39265000, avail:'available', handover:'2029'},
-{id:'CW-TW02', project:'crescent-walk', type:'Twin house', beds:5, baths:5, area:241, price:38363000, avail:'available', handover:'2029'},
-{id:'CW-V01', project:'crescent-walk', type:'Villa', beds:6, baths:5, area:313, price:61815000, avail:'available', handover:'2029'},
-{id:'CW-V02', project:'crescent-walk', type:'Villa', beds:7, baths:6, area:372, price:69930000, avail:'available', handover:'2029'},
-{id:'CW-V03', project:'crescent-walk', type:'Villa', beds:6, baths:6, area:313, price:63363000, avail:'available', handover:'2029'},
-{id:'CW-V04', project:'crescent-walk', type:'Villa', beds:7, baths:6, area:372, price:71008000, avail:'available', handover:'2029'},
-{id:'CW-V05', project:'crescent-walk', type:'Villa', beds:5, baths:5, area:279, price:54651000, avail:'available', handover:'2029'},
-{id:'CW-A01', project:'crescent-walk', type:'Apartment', beds:1, baths:1, area:83, price:9790000, avail:'available', handover:'2029'},
-{id:'CW-A02', project:'crescent-walk', type:'Apartment', beds:2, baths:1, area:146, price:17999000, avail:'available', handover:'2029'},
-{id:'CW-A03', project:'crescent-walk', type:'Apartment', beds:2, baths:1, area:148, price:16550000, avail:'available', handover:'2029'},
-{id:'CW-A04', project:'crescent-walk', type:'Apartment', beds:3, baths:1, area:185, price:20509000, avail:'available', handover:'2029'},
-{id:'CW-A05', project:'crescent-walk', type:'Apartment', beds:1, baths:1, area:131, price:14253000, avail:'available', handover:'2029'},
-{id:'CW-A06', project:'crescent-walk', type:'Apartment', beds:3, baths:2, area:186, price:20573000, avail:'available', handover:'2029'},
-{id:'CW-DX01', project:'crescent-walk', type:'Duplex', beds:3, baths:3, area:208, price:24381000, avail:'available', handover:'2029'},
-{id:'CW-DX02', project:'crescent-walk', type:'Duplex', beds:4, baths:4, area:241, price:28008000, avail:'available', handover:'2029'},
-{id:'CW-A07', project:'crescent-walk', type:'Apartment', beds:1, baths:1, area:84, price:9495000, avail:'available', handover:'2029'},
-{id:'CW-TW03', project:'crescent-walk', type:'Twin house', beds:5, baths:5, area:244, price:34672000, avail:'available', handover:'2029'},
-{id:'CW-TW04', project:'crescent-walk', type:'Twin house', beds:4, baths:4, area:212, price:39796000, avail:'available', handover:'2029'},
-{id:'CW-A08', project:'crescent-walk', type:'Apartment', beds:3, baths:3, area:190, price:19738000, avail:'available', handover:'2029'},
-{id:'CW-A09', project:'crescent-walk', type:'Apartment', beds:2, baths:2, area:148, price:18020000, avail:'available', handover:'2029'},
-{id:'CW-TH01', project:'crescent-walk', type:'Townhouse', beds:3, baths:3, area:190, price:29498000, avail:'available', handover:'2029'},
-{id:'CW-V06', project:'crescent-walk', type:'Villa', beds:4, baths:4, area:212, price:39796000, avail:'available', handover:'2029'},
-{id:'CW-V07', project:'crescent-walk', type:'Villa', beds:5, baths:5, area:279, price:45952000, avail:'available', handover:'2029'},
-{id:'CW-A10', project:'crescent-walk', type:'Apartment', beds:1, baths:1, area:82, price:9576000, avail:'available', handover:'2029'},
-{id:'CW-A11', project:'crescent-walk', type:'Apartment', beds:2, baths:2, area:125, price:12508000, avail:'available', handover:'2029'},
-{id:'CW-A12', project:'crescent-walk', type:'Apartment', beds:3, baths:2, area:175, price:20723000, avail:'available', handover:'2029'},
+{id:'D5-A01', project:'district-5', type:'Apartment', beds:3, baths:3, area:224, price:27701000, avail:'available', dp:10, years:7, handover:'Delivered'},
+{id:'D5-A02', project:'district-5', type:'Apartment', beds:2, baths:3, area:126, price:14216000, avail:'available', dp:10, years:7, handover:'Delivered'},
+{id:'D5-A03', project:'district-5', type:'Apartment', beds:2, baths:3, area:131, price:15082000, avail:'available', dp:10, years:7, handover:'Delivered'},
+{id:'D5-A04', project:'district-5', type:'Apartment', beds:2, baths:3, area:144, price:17604000, avail:'available', dp:10, years:7, handover:'2027'},
+{id:'D5-A05', project:'district-5', type:'Apartment', beds:2, baths:3, area:154, price:17647000, avail:'available', dp:10, years:7, handover:'Delivered'},
+{id:'D5-A06', project:'district-5', type:'Apartment', beds:3, baths:3, area:210, price:24175000, avail:'available', dp:10, years:7, handover:'Delivered'},
+{id:'D5-A07', project:'district-5', type:'Apartment', beds:2, baths:3, area:135, price:18505000, avail:'available', dp:10, years:7, handover:'Delivered'},
+{id:'D5-A08', project:'district-5', type:'Apartment', beds:2, baths:3, area:139, price:17382000, avail:'available', dp:10, years:7, handover:'Delivered'},
+{id:'D5-A09', project:'district-5', type:'Apartment', beds:2, baths:3, area:135, price:18982000, avail:'available', dp:10, years:7, handover:'Delivered'},
+{id:'D5-A10', project:'district-5', type:'Apartment', beds:2, baths:3, area:136, price:15884000, avail:'available', dp:10, years:7, handover:'Delivered'},
+{id:'D5-A11', project:'district-5', type:'Apartment', beds:3, baths:3, area:224, price:26116000, avail:'available', dp:10, years:7, handover:'Delivered'},
+{id:'D5-A12', project:'district-5', type:'Apartment', beds:1, baths:2, area:81, price:12389000, avail:'available', dp:10, years:7, handover:'Delivered'},
+{id:'D5-A13', project:'district-5', type:'Apartment', beds:2, baths:3, area:144, price:15617000, avail:'available', dp:10, years:7, handover:'2027'},
+{id:'D5-A14', project:'district-5', type:'Apartment', beds:2, baths:3, area:200, price:24885000, avail:'available', dp:10, years:7, handover:'2027'},
+{id:'D5-A15', project:'district-5', type:'Apartment', beds:2, baths:3, area:144, price:17114000, avail:'available', dp:10, years:7, handover:'2027'},
+{id:'D5-A16', project:'district-5', type:'Apartment', beds:1, baths:2, area:82, price:11285000, avail:'available', dp:10, years:7, handover:'2027'},
+{id:'D5-A17', project:'district-5', type:'Apartment', beds:2, baths:3, area:136, price:18612000, avail:'available', dp:10, years:7, handover:'2027'},
+{id:'D5-A18', project:'district-5', type:'Apartment', beds:2, baths:3, area:132, price:21177000, avail:'available', dp:10, years:7, handover:'2028'},
+{id:'D5-A19', project:'district-5', type:'Apartment', beds:2, baths:3, area:136, price:19965000, avail:'available', dp:10, years:8, handover:'2028'},
+{id:'D5-A20', project:'district-5', type:'Apartment', beds:2, baths:3, area:134, price:17288000, avail:'available', dp:10, years:7, handover:'2027'},
+{id:'D5-DX01', project:'district-5', type:'Duplex', beds:3, baths:3, area:343, price:43764000, avail:'available', dp:10, years:7, handover:'Delivered'},
+{id:'D5-OF01', project:'district-5', type:'Office', area:234, price:59633000, avail:'available', dp:10, years:7, handover:'2029'},
+{id:'D5-OF02', project:'district-5', type:'Office', area:139, price:34307000, avail:'available', dp:10, years:5, handover:'2027'},
+{id:'D5-OF03', project:'district-5', type:'Office', area:118, price:29353000, avail:'available', dp:10, years:5, handover:'2027'},
+{id:'D5-OF04', project:'district-5', type:'Office', area:156, price:39168000, avail:'available', dp:10, years:5, handover:'2027'},
+{id:'D5-OF05', project:'district-5', type:'Office', area:138, price:35297000, avail:'available', dp:10, years:5, handover:'2027'},
+{id:'CW-TW01', project:'crescent-walk', type:'Twin house', beds:5, baths:5, area:241, price:39265000, avail:'available', dp:5, years:8, handover:'2029'},
+{id:'CW-TW02', project:'crescent-walk', type:'Twin house', beds:5, baths:5, area:241, price:38363000, avail:'available', dp:5, years:8, handover:'2029'},
+{id:'CW-V01', project:'crescent-walk', type:'Villa', beds:6, baths:5, area:313, price:61815000, avail:'available', dp:5, years:8, handover:'2029'},
+{id:'CW-V02', project:'crescent-walk', type:'Villa', beds:7, baths:6, area:372, price:69930000, avail:'available', dp:5, years:8, handover:'2029'},
+{id:'CW-V03', project:'crescent-walk', type:'Villa', beds:6, baths:6, area:313, price:63363000, avail:'available', dp:5, years:8, handover:'2029'},
+{id:'CW-V04', project:'crescent-walk', type:'Villa', beds:7, baths:6, area:372, price:71008000, avail:'available', dp:5, years:8, handover:'2029'},
+{id:'CW-V05', project:'crescent-walk', type:'Villa', beds:5, baths:5, area:279, price:54651000, avail:'available', dp:5, years:8, handover:'2029'},
+{id:'CW-A01', project:'crescent-walk', type:'Apartment', beds:1, baths:1, area:83, price:9790000, avail:'available', dp:5, years:8, handover:'2029'},
+{id:'CW-A02', project:'crescent-walk', type:'Apartment', beds:2, baths:1, area:146, price:17999000, avail:'available', dp:5, years:8, handover:'2029'},
+{id:'CW-A03', project:'crescent-walk', type:'Apartment', beds:2, baths:1, area:148, price:16550000, avail:'available', dp:5, years:8, handover:'2029'},
+{id:'CW-A04', project:'crescent-walk', type:'Apartment', beds:3, baths:1, area:185, price:20509000, avail:'available', dp:5, years:8, handover:'2029'},
+{id:'CW-A05', project:'crescent-walk', type:'Apartment', beds:1, baths:1, area:131, price:14253000, avail:'available', dp:5, years:8, handover:'2029'},
+{id:'CW-A06', project:'crescent-walk', type:'Apartment', beds:3, baths:2, area:186, price:20573000, avail:'available', dp:5, years:8, handover:'2029'},
+{id:'CW-DX01', project:'crescent-walk', type:'Duplex', beds:3, baths:3, area:208, price:24381000, avail:'available', dp:5, years:8, handover:'2029'},
+{id:'CW-DX02', project:'crescent-walk', type:'Duplex', beds:4, baths:4, area:241, price:28008000, avail:'available', dp:5, years:8, handover:'2029'},
+{id:'CW-A07', project:'crescent-walk', type:'Apartment', beds:1, baths:1, area:84, price:9495000, avail:'available', dp:5, years:8, handover:'2029'},
+{id:'CW-TW03', project:'crescent-walk', type:'Twin house', beds:5, baths:5, area:244, price:34672000, avail:'available', dp:5, years:8, handover:'2029'},
+{id:'CW-TW04', project:'crescent-walk', type:'Twin house', beds:4, baths:4, area:212, price:39796000, avail:'available', dp:5, years:8, handover:'2029'},
+{id:'CW-A08', project:'crescent-walk', type:'Apartment', beds:3, baths:3, area:190, price:19738000, avail:'available', dp:5, years:8, handover:'2029'},
+{id:'CW-A09', project:'crescent-walk', type:'Apartment', beds:2, baths:2, area:148, price:18020000, avail:'available', dp:5, years:8, handover:'2029'},
+{id:'CW-TH01', project:'crescent-walk', type:'Townhouse', beds:3, baths:3, area:190, price:29498000, avail:'available', dp:5, years:8, handover:'2029'},
+{id:'CW-V06', project:'crescent-walk', type:'Villa', beds:4, baths:4, area:212, price:39796000, avail:'available', dp:5, years:8, handover:'2029'},
+{id:'CW-V07', project:'crescent-walk', type:'Villa', beds:5, baths:5, area:279, price:45952000, avail:'available', dp:5, years:8, handover:'2029'},
+{id:'CW-A10', project:'crescent-walk', type:'Apartment', beds:1, baths:1, area:82, price:9576000, avail:'available', dp:5, years:8, handover:'2029'},
+{id:'CW-A11', project:'crescent-walk', type:'Apartment', beds:2, baths:2, area:125, price:12508000, avail:'available', dp:5, years:8, handover:'2029'},
+{id:'CW-A12', project:'crescent-walk', type:'Apartment', beds:3, baths:2, area:175, price:20723000, avail:'available', dp:5, years:8, handover:'2029'},
 {id:'SEM-CL1', project:'stei8ht-eastmed', type:'Clinic', area:106, price:18120892, avail:'available'},
 {id:'SEM-CL2', project:'stei8ht-eastmed', type:'Clinic', area:57, price:9895200, avail:'available'},
 {id:'TS-AD1', project:'three-sixty', type:'Administrative Office', area:95, price:25076950, avail:'available'},
@@ -2619,12 +2619,14 @@ return d<=1?'within-1-year':d<=2?'within-2-years':d<=4?'within-3-4-years':'later
 }
 function launchStatusOf(p){ return p.status==='launch' ? 'newly-launched' : 'available'; }
 function unitAvail(u){ return u.avail || 'available'; }
-function unitDp(u){ var p=projBySlug(u.project); return (u.price!=null && p && p.dp) ? Math.round(u.price*p.dp/100) : null; }
+function unitDpPct(u){ var p=u&&projBySlug(u.project); return (u&&u.dp!=null) ? u.dp : (p?(p.dp||null):null); }
+function unitYears(u){ var p=u&&projBySlug(u.project); return (u&&u.years!=null) ? u.years : (p?(p.years||null):null); }
+function unitDp(u){ var d=unitDpPct(u); return (u.price!=null && d) ? Math.round(u.price*d/100) : null; }
 var FLOOR_BANDS=['ground','low','middle','high','top'];
 var FLOOR_LABELS={ground:{en:'Ground floor',ar:'الدور الأرضي'},low:{en:'Low floor',ar:'دور منخفض'},middle:{en:'Middle floor',ar:'دور متوسط'},high:{en:'High floor',ar:'دور مرتفع'},top:{en:'Top / roof',ar:'الأخير / روف'}};
 var YEARS_PRESETS=[5,6,7,8];
 function unitFloor(u){ return u.floor||null; }
-function projYears(u){ var p=projBySlug(u.project); return p?(p.years||null):null; }
+function projYears(u){ return unitYears(u); }
 function defaultFilter(){ return {areas:[],devs:[],projects:[],types:[],beds:[],minPrice:null,maxPrice:null,maxDp:null,floors:[],avoidGround:false,minYears:null,launch:[],avail:[],delivery:[],sort:'recommended',mode:'strict',includeUnverified:false}; }
 var RECO_MODES=['strict','balanced','flexible'];
 var RECO_LABELS={strict:{en:'Exact match',ar:'مطابقة تامة'},balanced:{en:'Balanced',ar:'متوازن'},flexible:{en:'Flexible',ar:'مرن'}};
@@ -2796,7 +2798,7 @@ var priceOk = u.price!=null && (f.minPrice==null||u.price>=f.minPrice) && (f.max
 crit(priceActive, priceOk, 'price', lang==='ar'?'ضمن الميزانية':'In budget');
 crit(f.floors.length && usesFloorBands(unitCanon(u)), u.floor&&f.floors.indexOf(u.floor)>-1, 'floor', u.floor?(lang==='ar'?FLOOR_LABELS[u.floor].ar:FLOOR_LABELS[u.floor].en):'');
 crit(f.avoidGround, u.floor!=='ground', 'ground', t('avoid_ground'));
-crit(f.minYears!=null, p&&p.years&&p.years>=f.minYears, 'years', t('years_min_n').replace('{n}', num(f.minYears||0)));
+crit(f.minYears!=null, (function(){ var y=unitYears(u); return y!=null&&y>=f.minYears; })(), 'years', t('years_min_n').replace('{n}', num(f.minYears||0)));
 crit(f.maxDp!=null, (function(){ var dp=unitDp(u); return dp!=null&&dp<=f.maxDp; })(), 'dp', (lang==='ar'?'مقدم مناسب':'Down payment OK'));
 crit(f.delivery.length, p&&f.delivery.indexOf(deliveryBucket(p))>-1, 'delivery', p?(lang==='ar'?DELIVERY_LABELS[deliveryBucket(p)].ar:DELIVERY_LABELS[deliveryBucket(p)].en):'');
 crit(f.launch.length, p&&f.launch.indexOf(launchStatusOf(p))>-1, 'launch', p?(lang==='ar'?LAUNCH_LABELS[launchStatusOf(p)].ar:LAUNCH_LABELS[launchStatusOf(p)].en):'');
@@ -4435,8 +4437,10 @@ var facts=h('table',{class:'fact-table'});
 [t('delivery'), (function(){
 var d = u.handover || p.delivery;
 return (d==='Ready'||d==='Delivered') ? t('ready') : (d||t('to_confirm'));
-})()]]
-.forEach(function(r){ if(r[2]) return;
+})()],
+[t('dp'),    (function(){ var d=unitDpPct(u); return d ? num(d)+'%' : ''; })()],
+[t('years'), (function(){ var y=unitYears(u); return y ? num(y)+' '+(lang==='ar'?'سنوات':'years') : ''; })()]]
+.forEach(function(r){ if(r[2] || !r[1]) return;
 facts.appendChild(h('tr',null,h('th',{scope:'row'},r[0]),h('td',null,r[1]))); });
 wrap.appendChild(h('div',{class:'detail-hero'},
 h('div',null, media,
@@ -4997,8 +5001,8 @@ var rows = [
 {k:(lang==='ar'?'المساحة':'Area'), f:function(u){return areaText(u);}},
 {k:t('price'), f:function(u){return money(u.price);}},
 {k:(lang==='ar'?'الإتاحة':'Availability'), f:function(u){return t((AVAIL_MAP[u.avail]||AVAIL_MAP['to-confirm'])[1]);}},
-{k:t('dp'), f:function(u){var p=pOf(u);return p.dp?num(p.dp)+'%':'—';}},
-{k:t('years'), f:function(u){var p=pOf(u);return p.years?(num(p.years)+' '+(lang==='ar'?'سنوات':'years')):'—';}},
+{k:t('dp'), f:function(u){var d=unitDpPct(u);return d?num(d)+'%':'—';}},
+{k:t('years'), f:function(u){var y=unitYears(u);return y?(num(y)+' '+(lang==='ar'?'سنوات':'years')):'—';}},
 {k:t('delivery'), f:function(u){var p=pOf(u);return p.delivery==='Ready'?t('ready'):(p.delivery||t('to_confirm'));}}
 ];
 var table=h('table',{class:'cmp'});
