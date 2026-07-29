@@ -1068,6 +1068,7 @@
   /* Developer hero gallery — real destination imagery shown above the logo on a
      developer page. Keyed by developer, skipped entirely when there is none. */
   var DEV_GALLERY = {
+    'marakez':['/project-media/marakez/ramla-aerial.webp','/project-media/marakez/crescent-park.webp','/project-media/marakez/mall-of-arabia.webp','/project-media/marakez/aeon-tower.webp','/project-media/marakez/d5-campus.webp','/project-media/marakez/the-park.webp'],
     'sumou':['/project-media/sumou/st-03.webp','/project-media/sumou/st-01.webp','/project-media/sumou/ap5-0.webp','/project-media/sumou/st-02.webp','/project-media/sumou/ap2-03.webp','/project-media/sumou/of4.webp'],
     'modon':['/project-media/modon/m1.webp','/project-media/modon/m2.webp','/project-media/modon/m3.webp',
              '/project-media/modon/m4.webp','/project-media/modon/m5.webp','/project-media/modon/m6.webp'],
@@ -1150,6 +1151,83 @@
   var MP = '/project-media/modon/';
   var SU = '/project-media/sumou/';
   var DEV_FEATURES = {
+    /* Marakez. Every figure below is quoted from its corporate brochure —
+       the group statistics, the land and leasable areas, the store counts and
+       the firsts. Nothing is inferred. */
+    'marakez': {
+      masterplan: {en:'Masterplan — District Five', ar:'الماستر بلان — ديستريكت فايف', icon:'layers', src:'/project-media/marakez/d5-masterplan.webp'},
+      cards: [
+        {en:'About Marakez', ar:'عن مراكز', icon:'shield', imgs:['/project-media/marakez/mall-of-arabia.webp'],
+         copy:{
+           lead:{en:'Marakez is the leading mixed-use developer in Egypt, with a portfolio spanning Mall of Arabia, Mall of Tanta, Town Center, D5M, Mall of Mansoura, Aeon Towers, Aeon Courtyards, District Five and Mindhaus offices. It grew from a single asset — Mall of Arabia — into one of the country’s most established developers.',
+                 ar:'مراكز هي المطوّر الرائد متعدد الاستخدامات في مصر، بمحفظة تضم مول العرب ومول طنطا وتاون سنتر وD5M ومول المنصورة وأبراج إيون وإيون كورتيارد وديستريكت فايف ومكاتب مايندهاوس. نمت من أصل واحد — مول العرب — لتصبح من أرسخ المطوّرين في البلاد.'},
+           more:{en:'Its holding company is Fawaz Al Hokair Group, founded in 1989 — a multinational operating across fashion retail, shopping centres, F&B, entertainment and hotels, and later construction, financial services, health care, hospitality and energy. Marakez builds through its own contractor, FAS Construction.',
+                 ar:'الشركة القابضة هي مجموعة فواز الحكير، التي تأسست عام ١٩٨٩ — مجموعة متعددة الجنسيات تعمل في تجارة الأزياء ومراكز التسوق والأغذية والمشروبات والترفيه والفنادق، ثم الإنشاءات والخدمات المالية والرعاية الصحية والضيافة والطاقة. وتبني مراكز عبر مقاولها الخاص «FAS Construction».'},
+           groups:[
+             {label:{en:'The group in numbers', ar:'المجموعة بالأرقام'}, rows:[
+               {k:{en:'Founded',ar:'تأسست'},                                    v:{en:'1989',ar:'١٩٨٩'}},
+               {k:{en:'International fashion brands',ar:'علامات أزياء عالمية'}, v:{en:'80',ar:'٨٠'}},
+               {k:{en:'Stores',ar:'متجر'},                                      v:{en:'2,100+',ar:'‏+٢٬١٠٠'}},
+               {k:{en:'Countries',ar:'دولة'},                                   v:{en:'16',ar:'١٦'}},
+               {k:{en:'Shopping malls',ar:'مركز تسوق'},                         v:{en:'21',ar:'٢١'}},
+               {k:{en:'Retail real estate managed',ar:'عقارات تجزئة مُدارة'},   v:{en:'1.5 million m²+',ar:'‏+١٫٥ مليون م²'}}]},
+             {label:{en:'Firsts in Egypt', ar:'الأوائل في مصر'}, rows:[
+               {k:{en:'First park inside a shopping centre',ar:'أول حديقة داخل مركز تسوق'},                v:{en:'Mall of Arabia',ar:'مول العرب'}},
+               {k:{en:'First residential tower outside downtown Cairo',ar:'أول برج سكني خارج وسط القاهرة'}, v:{en:'Aeon Towers',ar:'أبراج إيون'}},
+               {k:{en:'First developer into Egypt’s secondary cities',ar:'أول مطوّر يدخل مدن مصر الثانوية'}, v:{en:'Tanta, Mansoura',ar:'طنطا، المنصورة'}},
+               {k:{en:'First compound in New Katameya',ar:'أول كمبوند في القطامية الجديدة'},               v:{en:'District 5 Residences',ar:'ديستريكت ٥ ريزيدنسز'}}]}]
+         }},
+        {en:'A District, Not a Compound', ar:'حي متكامل لا مجرد كمبوند', icon:'layers', imgs:['/project-media/marakez/d5-residences.webp','/project-media/marakez/crescent-masterplan.webp'],
+         copy:{
+           lead:{en:'District Five is a 268-acre integrated mixed-use development — one destination to live, shop, play, work and grow. It holds District 5 Residences, the D5M mall, District 5 Campus and Mindhaus offices, the District 5 Club and a hotel, all under a single masterplan.',
+                 ar:'ديستريكت فايف تطوير متكامل متعدد الاستخدامات على ٢٦٨ فدان — وجهة واحدة للسكن والتسوق واللعب والعمل والنمو. يضم ديستريكت ٥ ريزيدنسز ومول D5M وديستريكت ٥ كامبس ومكاتب مايندهاوس ونادي ديستريكت ٥ وفندقاً، كلها تحت مخطط واحد.'},
+           list:[
+             {en:'District 5 Residences — the first compound in New Katameya',ar:'ديستريكت ٥ ريزيدنسز — أول كمبوند بالقطامية الجديدة'},
+             {en:'D5M — the first shopping mall in New Cairo',ar:'D5M — أول مول في القاهرة الجديدة'},
+             {en:'District 5 Campus and Mindhaus offices',ar:'ديستريكت ٥ كامبس ومكاتب مايندهاوس'},
+             {en:'District 5 Club and the Urbane Hotel',ar:'نادي ديستريكت ٥ وفندق أوربان'},
+             {en:'Trail systems, bike lanes, landscaped parks and plazas',ar:'مسارات مشي ودراجات وحدائق وساحات'}],
+           more:{en:'Aeon in West Cairo works the same way: a 21-acre complex of four building blocks around three courtyards, with a promenade that continues past the site boundary directly into Mall of Arabia and its 350+ stores. Phases 1 and 2 of Aeon Courtyards were delivered ahead of schedule.',
+                 ar:'وإيون في غرب القاهرة تعمل بالمنطق نفسه: مجمّع على ٢١ فدان من أربع كتل حول ثلاثة أفنية، مع ممشى يمتد خارج حدود الموقع مباشرة إلى مول العرب وأكثر من ٣٥٠ متجراً. وقد سُلِّمت المرحلتان الأولى والثانية من إيون كورتيارد قبل موعدهما.'},
+           groups:[
+             {label:{en:'Land areas', ar:'المساحات'}, rows:[
+               {k:{en:'District Five',ar:'ديستريكت فايف'},               v:{en:'268 acres',ar:'٢٦٨ فدان'}},
+               {k:{en:'Aeon',ar:'إيون'},                                 v:{en:'21 acres',ar:'٢١ فدان'}},
+               {k:{en:'Aeon Courtyards units',ar:'وحدات إيون كورتيارد'}, v:{en:'54–294 m²',ar:'٥٤–٢٩٤ م²'}}]}]
+         }},
+        {en:'Retail at the Core', ar:'التجزئة في القلب', icon:'star', imgs:['/project-media/marakez/the-park.webp','/project-media/marakez/mall-of-arabia.webp'],
+         copy:{
+           lead:{en:'Marakez builds the mall first and the homes around it. Mall of Arabia covers 621,401 m² (147.95 acres) with over 350 stores, a hypermarket, a cinema-plex and The Park — 34,000 m² of greenery inside the mall, and the first park within a shopping centre in Egypt.',
+                 ar:'مراكز تبني المول أولاً ثم المساكن حوله. مول العرب على ٦٢١٬٤٠١ م² (١٤٧٫٩٥ فدان) بأكثر من ٣٥٠ متجراً وهايبر ماركت ومجمّع سينمات و«ذا بارك» — ٣٤٬٠٠٠ م² من المساحات الخضراء داخل المول، وهي أول حديقة داخل مركز تسوق في مصر.'},
+           more:{en:'The same model went to the Delta. Mall of Tanta offers 35,000 m² of leasable area and more than 140 shops; Mall of Mansoura spreads over 155,000 m² as an open mall around three plazas, ten minutes from Mansoura University, bringing the first properly planned public realm to the city.',
+                 ar:'ونُقل النموذج نفسه إلى الدلتا. مول طنطا يوفّر ٣٥٬٠٠٠ م² مساحة تأجيرية وأكثر من ١٤٠ متجراً؛ ومول المنصورة يمتد على ١٥٥٬٠٠٠ م² كمول مفتوح حول ثلاث ساحات، على بُعد عشر دقائق من جامعة المنصورة، ليجلب أول نطاق عام مخطّط للمدينة.'},
+           groups:[
+             {label:{en:'The malls', ar:'المولات'}, rows:[
+               {k:{en:'Mall of Arabia',ar:'مول العرب'},      v:{en:'621,401 m² · 350+ stores',ar:'٦٢١٬٤٠١ م² · ‏+٣٥٠ متجر'}},
+               {k:{en:'Mall of Mansoura',ar:'مول المنصورة'}, v:{en:'155,000 m²',ar:'١٥٥٬٠٠٠ م²'}},
+               {k:{en:'Town Center',ar:'تاون سنتر'},         v:{en:'64,000 m² · 25,000 m² leasable',ar:'٦٤٬٠٠٠ م² · ٢٥٬٠٠٠ م² تأجيرية'}},
+               {k:{en:'Mall of Tanta',ar:'مول طنطا'},        v:{en:'35,000 m² · 140+ shops',ar:'٣٥٬٠٠٠ م² · ‏+١٤٠ متجر'}},
+               {k:{en:'The Park',ar:'ذا بارك'},              v:{en:'34,000 m² of greenery',ar:'٣٤٬٠٠٠ م² مساحات خضراء'}}]}]
+         }},
+        {en:'The Coast — ramla', ar:'الساحل — رملة', icon:'pin', imgs:['/project-media/marakez/ramla-aerial.webp','/project-media/marakez/ramla-villa.webp'],
+         copy:{
+           lead:{en:'ramla sits on the shores of Ras El Hekma bay, with 1.4 kilometres of white-sand beach. Its masterplan is organised into six neighbourhoods — Seaside East, The Town, Lakeside, The Ranches, Seaside West and The Resort — linked by walkable, bikeable paths.',
+                 ar:'تقع رملة على شواطئ خليج رأس الحكمة، بشاطئ رملي أبيض طوله ١٫٤ كيلومتر. ومخططها منظّم في ستة أحياء — سيسايد إيست، ذا تاون، ليك سايد، ذا رانشز، سيسايد ويست، وذا ريزورت — تربطها ممرات للمشي والدراجات.'},
+           list:[
+             {en:'A lifestyle of wellbeing — open spaces to move, gather and connect',ar:'أسلوب حياة قائم على العافية — مساحات مفتوحة للحركة واللقاء والتواصل'},
+             {en:'The simple pleasure of walking — sandy paths linking every neighbourhood to the beach',ar:'متعة المشي البسيطة — ممرات رملية تربط كل حي بالشاطئ'},
+             {en:'Authentic modernity — interpreting local traditions in new ways',ar:'حداثة أصيلة — تفسير التقاليد المحلية بطرق جديدة'},
+             {en:'Ecological intelligence — designed to work with nature, not against it',ar:'ذكاء بيئي — مصمّمة لتعمل مع الطبيعة لا ضدها'}],
+           more:{en:'Egypt’s North Coast stretches around 1,050 km (650 mi) of Mediterranean shoreline. ramla sits ten minutes from Caesar, twenty from Almaza Bay and thirty-five from Hacienda Red.',
+                 ar:'يمتد الساحل الشمالي لمصر نحو ١٬٠٥٠ كم (٦٥٠ ميلاً) من شاطئ المتوسط. وتقع رملة على بُعد عشر دقائق من قيصر، وعشرين من ألماظة باي، وخمس وثلاثين من هاسيندا ريد.'},
+           groups:[
+             {label:{en:'Drive times', ar:'أزمنة الوصول'}, rows:[
+               {k:{en:'Caesar',ar:'قيصر'},               v:{en:'10 min',ar:'١٠ دقائق'}},
+               {k:{en:'Almaza Bay',ar:'ألماظة باي'},     v:{en:'20 min',ar:'٢٠ دقيقة'}},
+               {k:{en:'Hacienda Red',ar:'هاسيندا ريد'},  v:{en:'35 min',ar:'٣٥ دقيقة'}}]}]
+         }}
+      ]
+    },
     // Sumou Boulevard. Every figure and claim below is taken from the prelaunch
     // brochure; nothing is inferred. Where the brochure gives a number without
     // a date (e.g. "16+ years"), it is quoted as the brochure states it.
