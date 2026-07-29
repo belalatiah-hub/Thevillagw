@@ -395,7 +395,16 @@
      Values are arrays (a unit can carry several sheets). Drop files in
      /project-media/plans and add one line here keyed by the unit id. */
   var PLANS_BASE = '/project-media/plans/';
+  /* District Five: the master plan and the location aerial describe the whole
+     compound, so they attach to every unit in it with no per-unit matching.
+     The renders and floor plans in /marakez/units are numbered by unit TYPE
+     (ap8..ap19, of1..of5, plus a full Crescent Walk set) and stay unreferenced
+     until a price list names those types — matching them by area alone would
+     put the wrong plan on a unit. */
   var UNIT_MASTERPLANS = {
+    'D5-A22':['/project-media/marakez/d5-masterplan.webp'],
+    'D5-O11':['/project-media/marakez/d5-masterplan.webp'],
+    'D5-A0T':['/project-media/marakez/d5-masterplan.webp'],
     'SB-ST-01':['/project-media/sumou/mp-s.webp'],
     'SB-SP-01':['/project-media/sumou/mp-s.webp'],
     'SB-AP-01':['/project-media/sumou/mp-s.webp'],
@@ -642,6 +651,9 @@
   /* Per-unit location renders (LMD). When present, the Location viewer shows the
      unit-specific aerial; otherwise it falls back to the area aerial. */
   var UNIT_LOCATIONS = {
+    'D5-A22':['/project-media/marakez/units/lo-d.webp'],
+    'D5-O11':['/project-media/marakez/units/lo-d.webp'],
+    'D5-A0T':['/project-media/marakez/units/lo-d.webp'],
     'SB-ST-01':['/project-media/sumou/lo-s.webp'],
     'SB-SP-01':['/project-media/sumou/lo-s.webp'],
     'SB-AP-01':['/project-media/sumou/lo-s.webp'],

@@ -1159,6 +1159,9 @@ elgouna:'elgouna.webp', somabay:'somabay.webp'
 function areaImageSrc(key){ return (key && AREA_IMAGES[key]) ? (LOC_BASE+AREA_IMAGES[key]) : ''; }
 var PLANS_BASE = '/project-media/plans/';
 var UNIT_MASTERPLANS = {
+'D5-A22':['/project-media/marakez/d5-masterplan.webp'],
+'D5-O11':['/project-media/marakez/d5-masterplan.webp'],
+'D5-A0T':['/project-media/marakez/d5-masterplan.webp'],
 'SB-ST-01':['/project-media/sumou/mp-s.webp'],
 'SB-SP-01':['/project-media/sumou/mp-s.webp'],
 'SB-AP-01':['/project-media/sumou/mp-s.webp'],
@@ -1401,6 +1404,9 @@ var UNIT_FLOORPLANS = {
 'SL-SV15':['/project-media/hassan-allam/sl-sv15-fp1.webp'],
 };
 var UNIT_LOCATIONS = {
+'D5-A22':['/project-media/marakez/units/lo-d.webp'],
+'D5-O11':['/project-media/marakez/units/lo-d.webp'],
+'D5-A0T':['/project-media/marakez/units/lo-d.webp'],
 'SB-ST-01':['/project-media/sumou/lo-s.webp'],
 'SB-SP-01':['/project-media/sumou/lo-s.webp'],
 'SB-AP-01':['/project-media/sumou/lo-s.webp'],
