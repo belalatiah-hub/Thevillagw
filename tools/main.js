@@ -2074,8 +2074,9 @@ return h('article',{class:'dev-feat'},
 h('h3',{class:'dev-feat__title'}, ic(c.icon,'dev-feat__ico'), h('span',null,label)),
 media, featCopy(c));
 });
+var cols = cards.length >= 4 ? 'grid--4' : cards.length === 2 ? 'grid--2' : 'grid--3';
 return h('section',{class:'section--tight'},
-h('div',{class:'wrap'}, h('div',{class:'grid grid--3'}, cards)));
+h('div',{class:'wrap'}, h('div',{class:'grid '+cols}, cards)));
 }
 function devLogoLockup(dev){
 var src=devLogoSrc(dev);
