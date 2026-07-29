@@ -1007,7 +1007,16 @@
     gardenparks:{icon:'am_gardenpark', en:'Street-side garden parks', ar:'حدائق على جانبي الشوارع'},
     clubsports:{icon:'am_club', en:'Clubhouse & sports facilities', ar:'كلوب هاوس ومرافق رياضية'},
     commercialpark:{icon:'am_pavilion', en:'Commercial park', ar:'بارك تجاري'},
-    neighborhoodpark:{icon:'am_flower', en:'Neighborhood park', ar:'حديقة الحي'}
+    neighborhoodpark:{icon:'am_flower', en:'Neighborhood park', ar:'حديقة الحي'},
+    /* The destinations the District Five master plan numbers on p12. The
+       legend prints "District 5 Campus" twice — plots 01 and 03 — so the two
+       share one tile here rather than repeat the same words side by side. */
+    d5club:{icon:'am_club', en:'District 5 Club', ar:'نادي ديستريكت ٥'},
+    d5campus:{icon:'am_campus', en:'District 5 Campus', ar:'كامباس ديستريكت ٥'},
+    urbanehotel:{icon:'am_hotel', en:'Urbane Hotel', ar:'فندق أوربان'},
+    d5m:{icon:'am_retail', en:'D5M shopping mall', ar:'مول D5M'},
+    lifestylearea:{icon:'am_lifestyle', en:'Lifestyle Area', ar:'منطقة اللايف ستايل'},
+    mindhaus:{icon:'am_office', en:'District 5 Mindhaus offices', ar:'مكاتب مايندهاوس'}
   };
 
   /* Developer-level amenities, taken from that developer's own brochure. Shown
@@ -1063,7 +1072,9 @@
   /* Per-project amenities, taken from that project's own brochure page. */
   var PROJECT_AMENITIES = {
     'crescent-walk': ['greenspine','centralpark','gardenparks',
-                      'clubsports','commercialpark','neighborhoodpark']
+                      'clubsports','commercialpark','neighborhoodpark'],
+    'district-5':    ['d5club','d5campus','urbanehotel',
+                      'd5m','lifestylearea','mindhaus']
   };
   function amenityDefaults(cat){
     return (cat==='coast'||cat==='redsea')

@@ -402,6 +402,13 @@ am_centralpark:['M12 3c2.4 1.7 3.4 4.1 3.4 6.5a3.4 3.4 0 0 1-6.8 0C8.6 7.1 9.6 4
 am_gardenpark:['M8 4c2.2 1.5 3.1 3.7 3.1 5.9A3.1 3.1 0 0 1 4.9 9.9C4.9 7.7 5.8 5.5 8 4z','M8 13v4.6',
 'M13 21c0-4 1.6-6.4 3.4-8C18.2 11.4 19 9.4 19 7'],
 am_pavilion:['M2.6 9.4 12 4l9.4 5.4','M5 9.4V19','M12 9.4V19','M19 9.4V19','M3 19h18'],
+am_campus:['M12 3.6 2.8 8 12 12.4 21.2 8z','M6.4 10.2v5c0 1.6 2.5 2.9 5.6 2.9s5.6-1.3 5.6-2.9v-5',
+'M21.2 8v5.4'],
+am_hotel:['M3 19.4V8','M3 13.2h13.6a4.4 4.4 0 0 1 4.4 4.4v1.8','M21 19.4H3',
+'M6.4 9.4h3.4a1.6 1.6 0 0 1 1.6 1.6v2.2H4.8V11a1.6 1.6 0 0 1 1.6-1.6z'],
+am_lifestyle:['M3.2 11.6a8.8 8.8 0 0 1 17.6 0z','M12 2.8V21','M9.4 21h5.2'],
+am_office:['M4 20V4.8a1 1 0 0 1 1-1h9a1 1 0 0 1 1 1V20','M15 9.6h4a1 1 0 0 1 1 1V20','M3 20h18',
+'M7.4 7.6h1.2','M11 7.6h1.2','M7.4 11.4h1.2','M11 11.4h1.2','M7.4 15.2h1.2','M11 15.2h1.2'],
 am_flower:['M12 12.4a2.1 2.1 0 1 0 0-4.2 2.1 2.1 0 0 0 0 4.2z','M12 8.2C12 5.4 13.4 3.4 15.6 2.6c.5 2.4-.6 4.4-2.4 5.6',
 'M12 8.2C12 5.4 10.6 3.4 8.4 2.6c-.5 2.4.6 4.4 2.4 5.6','M12 12.4V21','M12 16.4c-2 0-3.6-1.3-4.2-3.2 2.1-.5 3.7.6 4.2 2',
 'M12 16.4c2 0 3.6-1.3 4.2-3.2-2.1-.5-3.7.6-4.2 2']
@@ -2081,7 +2088,13 @@ centralpark:{icon:'am_centralpark', en:'Central park', ar:'حديقة مركزي
 gardenparks:{icon:'am_gardenpark', en:'Street-side garden parks', ar:'حدائق على جانبي الشوارع'},
 clubsports:{icon:'am_club', en:'Clubhouse & sports facilities', ar:'كلوب هاوس ومرافق رياضية'},
 commercialpark:{icon:'am_pavilion', en:'Commercial park', ar:'بارك تجاري'},
-neighborhoodpark:{icon:'am_flower', en:'Neighborhood park', ar:'حديقة الحي'}
+neighborhoodpark:{icon:'am_flower', en:'Neighborhood park', ar:'حديقة الحي'},
+d5club:{icon:'am_club', en:'District 5 Club', ar:'نادي ديستريكت ٥'},
+d5campus:{icon:'am_campus', en:'District 5 Campus', ar:'كامباس ديستريكت ٥'},
+urbanehotel:{icon:'am_hotel', en:'Urbane Hotel', ar:'فندق أوربان'},
+d5m:{icon:'am_retail', en:'D5M shopping mall', ar:'مول D5M'},
+lifestylearea:{icon:'am_lifestyle', en:'Lifestyle Area', ar:'منطقة اللايف ستايل'},
+mindhaus:{icon:'am_office', en:'District 5 Mindhaus offices', ar:'مكاتب مايندهاوس'}
 };
 var DEV_AMENITIES = {
 'sumou': ['bms','controls','fiber','cctv','heat','generators','parking','app',
@@ -2125,7 +2138,9 @@ lang==='ar'?'مرافق على مستوى المشروع — تُؤكَّد تف
 }
 var PROJECT_AMENITIES = {
 'crescent-walk': ['greenspine','centralpark','gardenparks',
-'clubsports','commercialpark','neighborhoodpark']
+'clubsports','commercialpark','neighborhoodpark'],
+'district-5':    ['d5club','d5campus','urbanehotel',
+'d5m','lifestylearea','mindhaus']
 };
 function amenityDefaults(cat){
 return (cat==='coast'||cat==='redsea')
