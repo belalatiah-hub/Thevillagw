@@ -852,7 +852,13 @@ try {
     var srcs=qsa(n,'img').map(function(i){return (i.getAttribute&&i.getAttribute('src'))||'';});
     var galAt=srcs.findIndex(function(s){ return /\/project-media\/marakez\//.test(s); });
     var logoAt=srcs.findIndex(function(s){ return /logos\/marakez(-160)?\.webp$/.test(s); });
-    return g.length===6 && galAt>-1 && logoAt>-1 && galAt<logoAt;
+    return g.length===5 && galAt>-1 && logoAt>-1 && galAt<logoAt;
+  })(), 'ok');
+  ck('marakez: the Ramla aerial is off the gallery but kept on its card', (function(){
+    var inGal=(api.DEV_GALLERY.marakez||[]).some(function(s){ return /ramla-aerial/.test(s); });
+    var onCard=api.DEV_FEATURES.marakez.cards.some(function(c){
+      return (c.imgs||[]).some(function(s){ return /ramla-aerial/.test(s); }); });
+    return !inGal && onCard;
   })(), 'ok');
   ck('marakez: masterplan + four feature cards render', (function(){
     var f=api.DEV_FEATURES.marakez;
