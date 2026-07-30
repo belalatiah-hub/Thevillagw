@@ -60,6 +60,7 @@
     'district-5':'/project-media/marakez/units/ap1-d-04.webp',
     'crescent-walk':'/project-media/marakez/units/v2-cr-0.webp',
     'beit-al-bahr':'/project-media/beitalbahr/lagoon.webp',
+    'marsa-baghush':'/project-media/baghush/lagoon-firepit.webp',
     'sumou-boulevard':'/project-media/sumou/st-03.webp',
     'beach-plaza-premium':'/project-media/modon/ap1-bp-03.webp',
     'beach-plaza-luxury':'/project-media/modon/ap1-bpl-0.webp',
@@ -1156,7 +1157,16 @@
     bab_heart:{icon:'pin', en:'In the heart of Sidi Heneish', ar:'في قلب سيدي حنيش'},
     bab_community:{icon:'am_community', en:'Community living', ar:'حياة مجتمعية'},
     bab_lagoons:{icon:'am_lagoon', en:'Swimmable lagoons', ar:'بحيرات للسباحة'},
-    bab_fnb:{icon:'am_dining', en:'F&B tenants', ar:'مطاعم ومقاهي'}
+    bab_fnb:{icon:'am_dining', en:'F&B tenants', ar:'مطاعم ومقاهي'},
+    /* Marsa Baghush, as its brochure states them. */
+    mb_lagoons:{icon:'am_lagoon', en:'Five swimmable lagoons', ar:'خمس بحيرات للسباحة'},
+    mb_beach:{icon:'am_beach', en:'Sandy beaches', ar:'شواطئ رملية'},
+    mb_spine:{icon:'am_paseo', en:'Botanical spine & garden', ar:'عمود أخضر وحديقة نباتية'},
+    mb_bikes:{icon:'am_sports', en:'Bike paths', ar:'مسارات دراجات'},
+    mb_retail:{icon:'am_retail', en:'20+ shops & restaurants', ar:'أكثر من ٢٠ متجراً ومطعماً'},
+    mb_gym:{icon:'am_gym', en:'Fitness facility', ar:'مركز لياقة'},
+    mb_guards:{icon:'am_security', en:'Lifeguarded lagoons', ar:'منقذون على البحيرات'},
+    mb_beachsvc:{icon:'am_dining', en:'Beach food & service', ar:'خدمة وطعام على الشاطئ'}
   };
 
   /* Developer-level amenities, taken from that developer's own brochure. Shown
@@ -1168,6 +1178,8 @@
               'outdoorfit','nursery','ev'],
     'beitalbahr': ['bab_beach','bab_hotels','bab_finished','bab_landscape',
                    'bab_heart','bab_community','bab_lagoons','bab_fnb'],
+    'baghush': ['mb_lagoons','mb_beach','mb_spine','mb_bikes',
+                'mb_retail','mb_gym','mb_guards','mb_beachsvc'],
   };
   var DEV_FINISHING = {
     'sumou': {en:'Residential delivered fully finished with air conditioning and double-glazed windows. Offices delivered core & shell with double-glazed windows.',
@@ -1222,7 +1234,9 @@
     'district-5':    ['d5club','d5campus','urbanehotel',
                       'd5m','lifestylearea','mindhaus'],
     'beit-al-bahr':  ['bab_beach','bab_hotels','bab_finished','bab_landscape',
-                      'bab_heart','bab_community','bab_lagoons','bab_fnb']
+                      'bab_heart','bab_community','bab_lagoons','bab_fnb'],
+    'marsa-baghush': ['mb_lagoons','mb_beach','mb_spine','mb_bikes',
+                      'mb_retail','mb_gym','mb_guards','mb_beachsvc']
   };
   function amenityDefaults(cat){
     return (cat==='coast'||cat==='redsea')
@@ -1424,7 +1438,7 @@
     ilcazar:'il-cazar.png', inertia:'inertia.png', lavista:'la-vista.png',
     cityedge:'city-edge.png', madinetmasr:'madinet-masr.png',
     qataridiar:'qatari-diar.png', saudiegyptian:'saudi-egyptian.png',
-    sumou:'sumou.png', beitalbahr:'beit-al-bahr.png'
+    sumou:'sumou.png', beitalbahr:'beit-al-bahr.png', baghush:'marsa-baghush.png'
   };
   var PROJECT_LOGOS = {
     'villette':'villette.png', 'sodic-east':'sodic-east.png', 'eastown':'eastown.png',
@@ -1507,6 +1521,11 @@
              '/project-media/modon/m4.webp','/project-media/modon/m5.webp','/project-media/modon/m6.webp'],
     // brochure order: the terrace (p6), the living room (p11), the finished
     // interior (p12), the landscape (p14), the lagoon (p15), the hotel (p16)
+    // brochure order: the beach (p6), the lagoon from the air (p13), the lagoon at
+    // dusk (p14), the botanical walk (p15), a terrace (p16), a P1 villa garden (p21)
+    'baghush':['/project-media/baghush/beach-aerial.webp','/project-media/baghush/lagoon-drone.webp',
+               '/project-media/baghush/lagoon-firepit.webp','/project-media/baghush/botanical-path.webp',
+               '/project-media/baghush/terrace.webp','/project-media/baghush/villa-p1.webp'],
     'beitalbahr':['/project-media/beitalbahr/terrace.webp','/project-media/beitalbahr/living.webp',
                   '/project-media/beitalbahr/interior.webp','/project-media/beitalbahr/landscape.webp',
                   '/project-media/beitalbahr/lagoon.webp','/project-media/beitalbahr/hotel.webp'],
@@ -1589,6 +1608,7 @@
   var MP = '/project-media/modon/';
   var SU = '/project-media/sumou/';
   var BAB = '/project-media/beitalbahr/';
+  var MB  = '/project-media/baghush/';
   var DEV_FEATURES = {
     /* Marakez. Every figure below is quoted from its corporate brochure —
        the group statistics, the land and leasable areas, the store counts and
@@ -1763,6 +1783,48 @@
            {en:'Private Sector Free Zone',           ar:'منطقة حرة للقطاع الخاص'},
            {en:'Amphitheatre',                       ar:'مدرّج مسرحي'}
          ]}}
+      ]
+    },
+    /* Marsa Baghush. Every line is quoted or translated from its brochure. It has
+       no company section — no vision, mission, services, values or track record —
+       so this page carries the destination only. */
+    'baghush': {
+      masterplan: {en:'Coded Masterplan — Marsa Baghush', ar:'الماستر بلان المُرمَّز — مرسى باغوش', icon:'layers', src:MB+'masterplan-coded.webp'},
+      cards: [
+        {en:'About Marsa Baghush', ar:'عن مرسى باغوش', icon:'shield', imgs:[MB+'beach-aerial.webp'],
+         copy:{
+           lead:{en:'In the most sought-after area of the North Coast, where the sandy beaches and bluest of blue waters of Sidi Heneish are a welcomed reminder of what good living is all about, you can find a gem of the coast called Marsa Baghush.',
+                 ar:'في أكثر مناطق الساحل الشمالي رغبةً، حيث الشواطئ الرملية وأصفى مياه سيدي حنيش تذكّرك بمعنى الحياة الجيدة، تجد جوهرة الساحل التي تُسمّى مرسى باغوش.'},
+           more:{en:'With a location just off the coastal road, linked to Cairo via the El Alamein and Dabaa roads, this part of the North Coast is now a stone’s throw from the capital. The brochure’s own line for the place is “a place of good spirits”.',
+                 ar:'بموقع على مقربة من الطريق الساحلي، ومتصل بالقاهرة عبر طريقي العلمين والضبعة، أصبح هذا الجزء من الساحل الشمالي على بُعد خطوة من العاصمة. وعبارة البروشور عن المكان هي «مكان الأرواح الطيبة».'}
+         }},
+        {en:'The Six Clusters', ar:'الأحياء الستة', icon:'layers', imgs:[MB+'masterplan.webp'],
+         copy:{
+           lead:{en:'The master plan is organised into six named clusters, each carrying a fruit of its own, with the lagoons threaded between them.',
+                 ar:'الماستر بلان مقسّم إلى ستة أحياء، كل واحد يحمل اسم فاكهة، والبحيرات تمتد بينها.'},
+           groups:[
+             {label:{en:'Clusters', ar:'الأحياء'}, rows:[
+               {k:{en:'The Vineyard',ar:'ذا فينيارد'},   v:{en:'Villa types V1, V2, V3 — 265 to 270 m²',ar:'فيلات V1 و V2 و V3 — من ٢٦٥ إلى ٢٧٠ م²'}},
+               {k:{en:'Lemon Bliss',ar:'ليمون بليس'},    v:{en:'',ar:''}},
+               {k:{en:'Olive Grove',ar:'أوليف جروف'},    v:{en:'Chalet types O1, O2, O3 — 210 to 365 m²',ar:'شاليهات O1 و O2 و O3 — من ٢١٠ إلى ٣٦٥ م²'}},
+               {k:{en:'The Fig Cluster',ar:'فيج كلاستر'}, v:{en:'Chalet types F1, F2, F4 — 115 to 280 m²',ar:'شاليهات F1 و F2 و F4 — من ١١٥ إلى ٢٨٠ م²'}},
+               {k:{en:'The Plum Line',ar:'ذا بلَم لاين'}, v:{en:'Villa types P1, P2 — 395 and 615 m²',ar:'فيلات P1 و P2 — ٣٩٥ و ٦١٥ م²'}},
+               {k:{en:'Melon Villas',ar:'ميلون فيلاز'},  v:{en:'Types M1, M2 — 275 and 403 m²',ar:'النوعان M1 و M2 — ٢٧٥ و ٤٠٣ م²'}}]}]
+         }},
+        {en:'Location', ar:'الموقع', icon:'pin', imgs:[MB+'location.webp'],
+         copy:{
+           lead:{en:'Marsa Baghush sits on the Sidi Heneish stretch of the North Coast, between Almaza Bay and Ras El-Hekma.',
+                 ar:'يقع مرسى باغوش على امتداد سيدي حنيش بالساحل الشمالي، بين ألماظة باي ورأس الحكمة.'},
+           more:{en:'The brochure’s location map places it against Marsa Matruh Airport, Almaza Bay, Sidi Heneish Village, Ras El-Hekma, Caesar Bay, Hacienda Red and Hacienda White, with the Dabaa Road running inland. No drive times are given.',
+                 ar:'خريطة البروشور تضعه بالنسبة إلى مطار مرسى مطروح وألماظة باي وقرية سيدي حنيش ورأس الحكمة وقيصر باي وهاسيندا ريد وهاسيندا وايت، مع طريق الضبعة في الداخل. ولا يذكر البروشور أزمنة قيادة.'}
+         }},
+        {en:'A Day Here', ar:'يوم هنا', icon:'star', imgs:[MB+'lagoon-firepit.webp'],
+         copy:{
+           lead:{en:'The brochure walks one day from 7:45 am to 7:30 pm: waking to birdsong and coffee in the open-sky court within your own home, with plenty of natural light and sea breeze.',
+                 ar:'يستعرض البروشور يوماً واحداً من ٧:٤٥ صباحاً حتى ٧:٣٠ مساءً: تستيقظ على تغريد الطيور وقهوتك في الفناء المفتوح داخل منزلك، بضوء طبيعي وافر ونسيم البحر.'},
+           more:{en:'A bike ride through the Olive Grove and the botanical spine to the Fig Cluster for fresh pastries at 9:40 am. At 10:40 am you step from your backyard in the Vineyard straight onto one of the five lagoons — over 50 metres wide, 300 metres long, crystal clear and lifeguarded — then on to the fitness facility. Lunch on the beach with friends in the Plum Line at 3:20 pm, towels and loungers brought to you. By 7:30 pm the ride home through the botanical garden, and dinner in your own garden with the beach in view at sunset.',
+                 ar:'رحلة دراجة عبر أوليف جروف والعمود الأخضر إلى فيج كلاستر لمعجّنات طازجة في ٩:٤٠ صباحاً. وفي ١٠:٤٠ تخرج من حديقتك في ذا فينيارد مباشرة إلى إحدى البحيرات الخمس — أكثر من ٥٠ متراً عرضاً و٣٠٠ متر طولاً، صافية وبمنقذين — ثم إلى مركز اللياقة. غداء على الشاطئ مع الأصدقاء في ذا بلَم لاين في ٣:٢٠ عصراً، بمناشف وكراسي تُجلب إليك. وبحلول ٧:٣٠ مساءً العودة عبر الحديقة النباتية، وعشاء في حديقتك مع إطلالة الشاطئ عند الغروب.'}
+         }}
       ]
     },
     /* Beit Al Bahr. Every line is quoted or translated from its conceptual

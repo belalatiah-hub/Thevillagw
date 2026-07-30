@@ -505,6 +505,20 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/projects/district-5/"/>
   </url>
   <url>
+    <loc>https://www.thevillageinvestment.com/en/projects/marsa-baghush/</loc>
+    <lastmod>2026-07-30</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/projects/marsa-baghush/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/projects/marsa-baghush/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/projects/marsa-baghush/"/>
+  </url>
+  <url>
+    <loc>https://www.thevillageinvestment.com/ar/projects/marsa-baghush/</loc>
+    <lastmod>2026-07-30</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/projects/marsa-baghush/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/projects/marsa-baghush/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/projects/marsa-baghush/"/>
+  </url>
+  <url>
     <loc>https://www.thevillageinvestment.com/en/projects/beit-al-bahr/</loc>
     <lastmod>2026-07-30</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/projects/beit-al-bahr/"/>
@@ -5319,6 +5333,20 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/developers/sumou/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/developers/sumou/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/developers/sumou/"/>
+  </url>
+  <url>
+    <loc>https://www.thevillageinvestment.com/en/developers/baghush/</loc>
+    <lastmod>2026-07-30</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/developers/baghush/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/developers/baghush/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/developers/baghush/"/>
+  </url>
+  <url>
+    <loc>https://www.thevillageinvestment.com/ar/developers/baghush/</loc>
+    <lastmod>2026-07-30</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/developers/baghush/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/developers/baghush/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/developers/baghush/"/>
   </url>
   <url>
     <loc>https://www.thevillageinvestment.com/en/developers/beitalbahr/</loc>
