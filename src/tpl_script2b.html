@@ -337,6 +337,13 @@
   /* Per-unit render galleries (all photos for a unit) — opened as a numbered
      carousel from the unit hero and the "Photos" chip. LMD-populated. */
   var UNIT_GALLERY = {
+    /* Marsa Baghush sells detached homes, so a gallery frame has to be that
+       home. Frames sharing a base are front-and-back of one building (ch2-0 and
+       ch2-01 are the street and pool elevations of the same chalet) and belong
+       together; v1-02 and v1-03 are the lagoon and the garden walk, project
+       scenery that suits any unit. The one frame that cannot travel is v1-0, a
+       270 m² detached villa: grouping by filename alone had put it inside the
+       130 m² two-bedroom chalet whose cover the sheet sets to v1-02. */
     'MB-V01':["/project-media/baghush/units/v1-0.webp", "/project-media/baghush/units/v1-02.webp", "/project-media/baghush/units/v1-03.webp"],
     'MB-V03':["/project-media/baghush/units/v2-0.webp", "/project-media/baghush/units/v2-01.webp"],
     'MB-V04':["/project-media/baghush/units/v3-0.webp", "/project-media/baghush/units/v3-01.webp"],
@@ -346,7 +353,7 @@
     'MB-TW01':["/project-media/baghush/units/t-0.webp", "/project-media/baghush/units/t-01.webp"],
     'MB-CH05':["/project-media/baghush/units/ch5-0.webp", "/project-media/baghush/units/ch5-01.webp"],
     'MB-CH06':["/project-media/baghush/units/ch7-0.webp", "/project-media/baghush/units/ch7-01.webp"],
-    'MB-CH07':["/project-media/baghush/units/v1-02.webp", "/project-media/baghush/units/v1-0.webp", "/project-media/baghush/units/v1-03.webp"],
+    'MB-CH07':["/project-media/baghush/units/v1-02.webp", "/project-media/baghush/units/v1-03.webp"],
     'RM-VL01':["/project-media/ramla/units/v1-0.webp", "/project-media/ramla/units/v1-01.webp", "/project-media/ramla/units/v1-02.webp"],
     'RM-TW01':["/project-media/ramla/units/tw2-0.webp", "/project-media/ramla/units/tw-r-0.webp", "/project-media/ramla/units/tw1-r-0.webp", "/project-media/ramla/units/tw2-01.webp", "/project-media/ramla/units/tw2-02.webp", "/project-media/ramla/units/tw2-03.webp"],
     'RM-DX01':["/project-media/ramla/units/du-02.webp", "/project-media/ramla/units/du-0.webp", "/project-media/ramla/units/du-01.webp", "/project-media/ramla/units/du-03.webp", "/project-media/ramla/units/du-04.webp"],
