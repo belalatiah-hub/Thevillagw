@@ -31,7 +31,12 @@
   function projBySlug(s){ for(var i=0;i<PROJECTS.length;i++) if(PROJECTS[i].slug===s) return PROJECTS[i]; }
   function projInArea(k){ return PROJECTS.filter(function(p){ return p.area===k; }); }
   function projByDev(k){ return PROJECTS.filter(function(p){ return p.dev===k; }); }
-  function areaFrom(k){ var ps=projInArea(k); return ps.length?Math.min.apply(null,ps.map(function(p){return p.price;})):null; }
+  // A project whose price the developer has not published yet must not drag the
+  // area's "from" down: Math.min would read its null as zero.
+  function areaFrom(k){
+    var ps=projInArea(k).map(function(p){return p.price;}).filter(function(x){return x!=null;});
+    return ps.length?Math.min.apply(null,ps):null;
+  }
 
   function money(n){
     if(n==null) return t('tba');

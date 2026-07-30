@@ -55,6 +55,7 @@
     // cards, or the hero and the first card show the same picture.
     'district-5':'/project-media/marakez/units/ap1-d-04.webp',
     'crescent-walk':'/project-media/marakez/units/v2-cr-0.webp',
+    'beit-al-bahr':'/project-media/beitalbahr/lagoon.webp',
     'sumou-boulevard':'/project-media/sumou/st-03.webp',
     'beach-plaza-premium':'/project-media/modon/ap1-bp-03.webp',
     'beach-plaza-luxury':'/project-media/modon/ap1-bpl-0.webp',
@@ -1016,7 +1017,16 @@
     urbanehotel:{icon:'am_hotel', en:'Urbane Hotel', ar:'فندق أوربان'},
     d5m:{icon:'am_retail', en:'D5M shopping mall', ar:'مول D5M'},
     lifestylearea:{icon:'am_lifestyle', en:'Lifestyle Area', ar:'منطقة اللايف ستايل'},
-    mindhaus:{icon:'am_office', en:'District 5 Mindhaus offices', ar:'مكاتب مايندهاوس'}
+    mindhaus:{icon:'am_office', en:'District 5 Mindhaus offices', ar:'مكاتب مايندهاوس'},
+    /* The eight highlights Beit Al Bahr lists on p18, in that order. */
+    bab_beach:{icon:'am_beach', en:'3.5 km beachfront', ar:'شاطئ ٣٫٥ كم'},
+    bab_hotels:{icon:'am_hotel', en:'Four hotels', ar:'أربعة فنادق'},
+    bab_finished:{icon:'am_finished', en:'Fully finished units', ar:'وحدات كاملة التشطيب'},
+    bab_landscape:{icon:'am_landscape', en:'Landscape', ar:'لاندسكيب'},
+    bab_heart:{icon:'pin', en:'In the heart of Sidi Heneish', ar:'في قلب سيدي حنيش'},
+    bab_community:{icon:'am_community', en:'Community living', ar:'حياة مجتمعية'},
+    bab_lagoons:{icon:'am_lagoon', en:'Swimmable lagoons', ar:'بحيرات للسباحة'},
+    bab_fnb:{icon:'am_dining', en:'F&B tenants', ar:'مطاعم ومقاهي'}
   };
 
   /* Developer-level amenities, taken from that developer's own brochure. Shown
@@ -1026,10 +1036,16 @@
     'sumou': ['bms','controls','fiber','cctv','heat','generators','parking','app',
               'eco','landscape','concierge','housekeeping','gym','pool','sauna',
               'outdoorfit','nursery','ev'],
+    'beitalbahr': ['bab_beach','bab_hotels','bab_finished','bab_landscape',
+                   'bab_heart','bab_community','bab_lagoons','bab_fnb'],
   };
   var DEV_FINISHING = {
     'sumou': {en:'Residential delivered fully finished with air conditioning and double-glazed windows. Offices delivered core & shell with double-glazed windows.',
-              ar:'تُسلَّم الوحدات السكنية كاملة التشطيب مع تكييف ونوافذ مزدوجة العزل، وتُسلَّم المكاتب على المحارة مع نوافذ مزدوجة العزل.'}
+              ar:'تُسلَّم الوحدات السكنية كاملة التشطيب مع تكييف ونوافذ مزدوجة العزل، وتُسلَّم المكاتب على المحارة مع نوافذ مزدوجة العزل.'},
+    // The brochure calls the units fully finished but specifies nothing further,
+    // so the note says only what the brochure says.
+    'beitalbahr': {en:'Units are delivered fully finished, neatly designed and inspired by nature. The brochure specifies no further finishing detail.',
+                   ar:'تُسلَّم الوحدات كاملة التشطيب بتصميم أنيق مستوحى من الطبيعة. ولا يذكر البروشور تفاصيل تشطيب أخرى.'}
   };
   /* An icon grid folded behind a chevron. A long tile list is a lot of page to
      scroll past for someone who is not reading the spec, so it collapses — via
@@ -1074,7 +1090,9 @@
     'crescent-walk': ['greenspine','centralpark','gardenparks',
                       'clubsports','commercialpark','neighborhoodpark'],
     'district-5':    ['d5club','d5campus','urbanehotel',
-                      'd5m','lifestylearea','mindhaus']
+                      'd5m','lifestylearea','mindhaus'],
+    'beit-al-bahr':  ['bab_beach','bab_hotels','bab_finished','bab_landscape',
+                      'bab_heart','bab_community','bab_lagoons','bab_fnb']
   };
   function amenityDefaults(cat){
     return (cat==='coast'||cat==='redsea')
@@ -1276,7 +1294,7 @@
     ilcazar:'il-cazar.png', inertia:'inertia.png', lavista:'la-vista.png',
     cityedge:'city-edge.png', madinetmasr:'madinet-masr.png',
     qataridiar:'qatari-diar.png', saudiegyptian:'saudi-egyptian.png',
-    sumou:'sumou.png'
+    sumou:'sumou.png', beitalbahr:'beit-al-bahr.png'
   };
   var PROJECT_LOGOS = {
     'villette':'villette.png', 'sodic-east':'sodic-east.png', 'eastown':'eastown.png',
@@ -1357,6 +1375,11 @@
     'sumou':['/project-media/sumou/st-03.webp','/project-media/sumou/st-01.webp','/project-media/sumou/ap5-0.webp','/project-media/sumou/st-02.webp','/project-media/sumou/ap2-03.webp','/project-media/sumou/of4.webp'],
     'modon':['/project-media/modon/m1.webp','/project-media/modon/m2.webp','/project-media/modon/m3.webp',
              '/project-media/modon/m4.webp','/project-media/modon/m5.webp','/project-media/modon/m6.webp'],
+    // brochure order: the terrace (p6), the living room (p11), the finished
+    // interior (p12), the landscape (p14), the lagoon (p15), the hotel (p16)
+    'beitalbahr':['/project-media/beitalbahr/terrace.webp','/project-media/beitalbahr/living.webp',
+                  '/project-media/beitalbahr/interior.webp','/project-media/beitalbahr/landscape.webp',
+                  '/project-media/beitalbahr/lagoon.webp','/project-media/beitalbahr/hotel.webp'],
   };
   function devGallery(key){ return DEV_GALLERY[key] || []; }
   function devGalleryItems(dev){
@@ -1435,6 +1458,7 @@
      under the hero. Data-driven, so a developer without an entry gets nothing. */
   var MP = '/project-media/modon/';
   var SU = '/project-media/sumou/';
+  var BAB = '/project-media/beitalbahr/';
   var DEV_FEATURES = {
     /* Marakez. Every figure below is quoted from its corporate brochure —
        the group statistics, the land and leasable areas, the store counts and
@@ -1609,6 +1633,71 @@
            {en:'Private Sector Free Zone',           ar:'منطقة حرة للقطاع الخاص'},
            {en:'Amphitheatre',                       ar:'مدرّج مسرحي'}
          ]}}
+      ]
+    },
+    /* Beit Al Bahr. Every line is quoted or translated from its conceptual
+       brochure; where the brochure says nothing, nothing is claimed. */
+    'beitalbahr': {
+      masterplan: {en:'Masterplan — Beit Al Bahr', ar:'الماستر بلان — بيت البحر', icon:'layers', src:BAB+'masterplan.webp'},
+      cards: [
+        {en:'About the Developer', ar:'عن المطوّر', icon:'shield', imgs:[BAB+'terrace.webp'],
+         copy:{
+           lead:{en:'Beit Al Bahr is the result of a collaboration between leading entities in the Egyptian market, collectively forming BAM, a joint venture.',
+                 ar:'بيت البحر نتيجة تعاون بين كيانات رائدة في السوق المصري، تشكّل معاً «BAM»، وهو مشروع مشترك.'},
+           groups:[
+             {label:{en:'The joint venture', ar:'الشركاء'}, rows:[
+               {k:{en:'El Abd',ar:'العبد'},
+                v:{en:'The visionary behind identifying Sidi Heneish Bay as one of the North Coast’s most distinctive destinations over 30 years ago.',
+                   ar:'صاحب الرؤية الذي حدّد خليج سيدي حنيش كأحد أكثر وجهات الساحل الشمالي تميّزاً منذ أكثر من ٣٠ عاماً.'}},
+               {k:{en:'Gura',ar:'جورا'},
+                v:{en:'A master contractor and home developer founded by the Badawy family, known for their strong expertise in engineering and construction across Alexandria and the North Coast.',
+                   ar:'مقاول رئيسي ومطوّر عقاري أسّسته عائلة بدوي، معروف بخبرته القوية في الهندسة والإنشاءات في الإسكندرية والساحل الشمالي.'}},
+               {k:{en:'J Properties',ar:'جي بروبرتيز'},
+                v:{en:'A forward-thinking real estate partner and the driving force behind shaping projects from concept to market. Backed by over 20 years of combined expertise across multiple sectors, J Properties defines how destinations are envisioned, positioned, and brought to life.',
+                   ar:'شريك عقاري ذو نظرة مستقبلية والقوة الدافعة لتشكيل المشروعات من الفكرة إلى السوق. بخبرة مجتمعة تتجاوز ٢٠ عاماً في قطاعات متعددة، تحدّد «جي بروبرتيز» كيف تُتصوَّر الوجهات وتُوضع وتُخرَج إلى الحياة.'}}]}]
+         }},
+        {en:'Mission & Vision', ar:'المهمة والرؤية', icon:'star', imgs:[BAB+'landscape.webp'],
+         copy:{
+           lead:{en:'Mission — Designing and building beachfront units that focus on privacy and exclusivity. Allowing residents to benefit from a peaceful environment where they can enjoy the sea views and greenery, along with various local activities, all while encouraging community interaction.',
+                 ar:'المهمة — تصميم وبناء وحدات على الشاطئ تركّز على الخصوصية والتميّز، بما يتيح للسكان الاستفادة من بيئة هادئة يستمتعون فيها بإطلالات البحر والمساحات الخضراء إلى جانب أنشطة محلية متنوعة، مع تشجيع التفاعل المجتمعي.'},
+           more:{en:'Vision — To create communities that connect with nature, providing residents with a quiet environment and easy access to local experiences.',
+                 ar:'الرؤية — إنشاء مجتمعات متصلة بالطبيعة، توفّر للسكان بيئة هادئة ووصولاً سهلاً إلى التجارب المحلية.'}
+         }},
+        {en:'Summer Haven Within Reach', ar:'ملاذ صيفي في المتناول', icon:'pin', imgs:[BAB+'lagoon.webp'],
+         copy:{
+           lead:{en:'Beit Al Bahr sits at El-Abd Resort Sidi Heneish, precisely at km 46 on the Matrouh–Alexandria road.',
+                 ar:'يقع بيت البحر في منتجع العبد بسيدي حنيش، عند الكيلو ٤٦ على طريق مطروح–الإسكندرية.'},
+           more:{en:'Beachfront — Immerse yourself in the pristine beauty of the Mediterranean with a private 3.5 km beach offering stunning views while being conveniently close to the lively attractions of the North Coast. Area — This architectural escape is spread over 450 acres, carefully planned to offer spaciousness and expansive views for each unit.',
+                 ar:'الشاطئ — انغمر في جمال البحر المتوسط البِكر بشاطئ خاص طوله ٣٫٥ كم يقدّم إطلالات ساحرة، مع قربٍ مريح من معالم الساحل الشمالي النابضة. المساحة — يمتد هذا الملاذ المعماري على ٤٥٠ فداناً، مخطَّطة بعناية لتوفير رحابة وإطلالات واسعة لكل وحدة.'},
+           groups:[
+             {label:{en:'Distances', ar:'المسافات'}, rows:[
+               {k:{en:'Matrouh–Alexandria road',ar:'طريق مطروح–الإسكندرية'}, v:{en:'km 46',ar:'الكيلو ٤٦'}},
+               {k:{en:'From Cairo',ar:'من القاهرة'},                        v:{en:'375 km',ar:'٣٧٥ كم'}},
+               // p6 prints 243 km and p7 prints 241 km for the same distance;
+               // both are shown rather than silently picking one.
+               {k:{en:'From Alexandria',ar:'من الإسكندرية'},                v:{en:'241–243 km (the brochure prints both)',ar:'٢٤١–٢٤٣ كم (البروشور يذكر الرقمين)'}},
+               {k:{en:'Private beach',ar:'شاطئ خاص'},                       v:{en:'3.5 km',ar:'٣٫٥ كم'}},
+               {k:{en:'Land area',ar:'مساحة الأرض'},                        v:{en:'450 acres',ar:'٤٥٠ فداناً'}}]}]
+         }},
+        {en:'Beachfront Beauty Maximized', ar:'جمال الشاطئ إلى أقصاه', icon:'layers', imgs:[BAB+'interior.webp'],
+         copy:{
+           lead:{en:'Rolling out on 450 acres of land, Beit Al Bahr is smartly designed from the inside to the outside to glorify the beauty of open spaces, thanks to an innovative configuration that invites a 3.5 km beachfront into every corner of your home.',
+                 ar:'على ٤٥٠ فداناً، صُمّم بيت البحر بذكاء من الداخل إلى الخارج لتعظيم جمال المساحات المفتوحة، بفضل تشكيل مبتكر يجلب شاطئاً بطول ٣٫٥ كم إلى كل زاوية في منزلك.'},
+           more:{en:'The master-plan’s unique form is looped around people and privacy, bringing them closer to seafront, serenity, shimmering pools and an abundant variety of authentic experiences while lending an original air of flexibility to all unit types. All homes are evenly spread out to guarantee utmost exclusivity, surrounded by a green foliage of native plantations for a daily dose of natural inspiration. The design concept is drawn from the four elements of life: air, water, earth and fire.',
+                 ar:'يلتف شكل الماستر بلان الفريد حول الناس والخصوصية، فيقرّبهم من الشاطئ والسكينة وحمامات السباحة المتلألئة وتنوّع غني من التجارب الأصيلة، مع منح جميع أنواع الوحدات مرونة أصيلة. وتتوزّع كل المنازل بالتساوي لضمان أقصى درجات التميّز، محاطة بغطاء أخضر من النباتات المحلية لجرعة يومية من الإلهام الطبيعي. ومفهوم التصميم مستوحى من عناصر الحياة الأربعة: الهواء والماء والأرض والنار.'},
+           groups:[
+             {label:{en:'Master plan key', ar:'مفتاح الماستر بلان'}, rows:[
+               {k:{en:'Shores',ar:'شورز'},                           v:{en:'',ar:''}},
+               {k:{en:'Roofs',ar:'روفز'},                            v:{en:'',ar:''}},
+               {k:{en:'Rays',ar:'رايز'},                             v:{en:'',ar:''}},
+               {k:{en:'Hills by the Sea',ar:'هيلز باي ذا سي'},        v:{en:'',ar:''}},
+               {k:{en:'Hotels',ar:'الفنادق'},                        v:{en:'',ar:''}},
+               {k:{en:'Tides',ar:'تايدز'},                           v:{en:'',ar:''}},
+               {k:{en:'Eastbay',ar:'إيست باي'},                      v:{en:'',ar:''}},
+               {k:{en:'Sails',ar:'سيلز'},                            v:{en:'',ar:''}},
+               {k:{en:'Serviced Apartments',ar:'شقق فندقية'},        v:{en:'',ar:''}},
+               {k:{en:'Commercial Area',ar:'المنطقة التجارية'},       v:{en:'',ar:''}}]}]
+         }}
       ]
     }
   };

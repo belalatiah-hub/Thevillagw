@@ -407,6 +407,13 @@ am_campus:['M12 3.6 2.8 8 12 12.4 21.2 8z','M6.4 10.2v5c0 1.6 2.5 2.9 5.6 2.9s5.
 am_hotel:['M3 19.4V8','M3 13.2h13.6a4.4 4.4 0 0 1 4.4 4.4v1.8','M21 19.4H3',
 'M6.4 9.4h3.4a1.6 1.6 0 0 1 1.6 1.6v2.2H4.8V11a1.6 1.6 0 0 1 1.6-1.6z'],
 am_lifestyle:['M3.2 11.6a8.8 8.8 0 0 1 17.6 0z','M12 2.8V21','M9.4 21h5.2'],
+am_dining:['M7 3v5.4a2.4 2.4 0 0 0 4.8 0V3','M9.4 8.8V21',
+'M16.6 3c1.7 2 2.4 4.2 2.4 6.6 0 1.5-.9 2.4-2.4 2.4z','M16.6 12V21'],
+am_community:['M9 11.4a3 3 0 1 0 0-6 3 3 0 0 0 0 6z','M3 20.4c0-3.3 2.7-5.4 6-5.4s6 2.1 6 5.4',
+'M16.4 6a3 3 0 0 1 0 5.8','M17.6 15.2c2 .7 3.4 2.4 3.4 4.6'],
+am_finished:['M3.6 4.8h9.6v4.4H3.6z','M13.2 7h4.4a1.2 1.2 0 0 1 1.2 1.2v2.2a1.2 1.2 0 0 1-1.2 1.2h-5',
+'M11.6 11.6v1.8',
+'M9.8 13.4h3.6a1.2 1.2 0 0 1 1.2 1.2v4.6a1.2 1.2 0 0 1-1.2 1.2H9.8a1.2 1.2 0 0 1-1.2-1.2v-4.6a1.2 1.2 0 0 1 1.2-1.2z'],
 am_office:['M4 20V4.8a1 1 0 0 1 1-1h9a1 1 0 0 1 1 1V20','M15 9.6h4a1 1 0 0 1 1 1V20','M3 20h18',
 'M7.4 7.6h1.2','M11 7.6h1.2','M7.4 11.4h1.2','M11 11.4h1.2','M7.4 15.2h1.2','M11 15.2h1.2'],
 am_flower:['M12 12.4a2.1 2.1 0 1 0 0-4.2 2.1 2.1 0 0 0 0 4.2z','M12 8.2C12 5.4 13.4 3.4 15.6 2.6c.5 2.4-.6 4.4-2.4 5.6',
@@ -711,7 +718,8 @@ var DEVELOPERS = [
 {key:'inertia', c1:'#3f7d3a', name:{en:'Inertia',ar:'إينرشيا'}, since:2007, areas:{en:'North Coast · New Cairo · West Cairo',ar:'الساحل الشمالي · القاهرة الجديدة · غرب القاهرة'}, tagline:{en:'Lifestyle communities & coast',ar:'مجتمعات لايف ستايل ووجهات ساحلية'}, desc:{en:'A developer known for lifestyle-led communities and North Coast destinations.',ar:'مطوّر معروف بمجتمعات لايف ستايل ووجهات على الساحل الشمالي.'}},
 {key:'alahlysabbour', c1:'#8a6d33', name:{en:'Al Ahly Sabbour',ar:'الأهلي صبور'}, since:1994, areas:{en:'New Cairo · North Coast · Ain Sokhna',ar:'القاهرة الجديدة · الساحل الشمالي · العين السخنة'}, tagline:{en:'Broad residential portfolio',ar:'محفظة سكنية واسعة'}, desc:{en:'A major developer with a broad residential portfolio across Cairo and the coast.',ar:'مطوّر كبير بمحفظة سكنية واسعة في القاهرة والساحل.'}},
 {key:'saudiegyptian', c1:'#26315f', name:{en:'Saudi Egyptian Developers',ar:'السعودية المصرية للتعمير'}, since:1975, areas:{en:'New Cairo · New Capital',ar:'القاهرة الجديدة · العاصمة الإدارية'}, tagline:{en:'Large-scale urban development',ar:'تطوير حضري واسع النطاق'}, desc:{en:'A long-standing developer active in large-scale urban development in Egypt.',ar:'مطوّر عريق نشط في التطوير الحضري واسع النطاق في مصر.'}},
-{key:'sumou', c1:'#0077fe', name:{en:'SumouBlvd.',ar:'سمو بوليفارد'}, areas:{en:'Mostakbal City · East Cairo',ar:'مدينة المستقبل · شرق القاهرة'}, tagline:{en:'Hospitality, culture and innovation districts',ar:'وجهات الضيافة والثقافة والابتكار'}, desc:{en:'A leading Saudi developer of hospitality, entertainment and real-estate projects, focused on innovation, luxury and culture. It enters Egypt with Sumou Boulevard in Mostakbal City.',ar:'مطوّر سعودي رائد في مشروعات الضيافة والترفيه والعقارات، يركّز على الابتكار والفخامة والثقافة. يدخل السوق المصري بمشروع سمو بوليفارد في مدينة المستقبل.'}}
+{key:'sumou', c1:'#0077fe', name:{en:'SumouBlvd.',ar:'سمو بوليفارد'}, areas:{en:'Mostakbal City · East Cairo',ar:'مدينة المستقبل · شرق القاهرة'}, tagline:{en:'Hospitality, culture and innovation districts',ar:'وجهات الضيافة والثقافة والابتكار'}, desc:{en:'A leading Saudi developer of hospitality, entertainment and real-estate projects, focused on innovation, luxury and culture. It enters Egypt with Sumou Boulevard in Mostakbal City.',ar:'مطوّر سعودي رائد في مشروعات الضيافة والترفيه والعقارات، يركّز على الابتكار والفخامة والثقافة. يدخل السوق المصري بمشروع سمو بوليفارد في مدينة المستقبل.'}},
+{key:'beitalbahr', c1:'#444991', name:{en:'Beit Al Bahr',ar:'بيت البحر'}, areas:{en:'Sidi Heneish · North Coast',ar:'سيدي حنيش · الساحل الشمالي'}, tagline:{en:'ELABD Resort, Sidi Heneish',ar:'منتجع العبد، سيدي حنيش'}, desc:{en:'Beit Al Bahr is the result of a collaboration between leading entities in the Egyptian market, collectively forming BAM — a joint venture of El Abd, Gura and J Properties. Its mission is designing and building beachfront units that focus on privacy and exclusivity.',ar:'بيت البحر نتيجة تعاون بين كيانات رائدة في السوق المصري، تشكّل معاً «BAM» — مشروع مشترك بين العبد وجورا وجي بروبرتيز. ومهمتها تصميم وبناء وحدات على الشاطئ تركّز على الخصوصية والتميّز.'}}
 ];
 var PROJECTS = [
 {slug:'beach-plaza-premium', name:'Beach Plaza Premium', name_ar:'بيتش بلازا بريميوم', dev:'modon', area:'raselhekma', status:'launch', price:19900000, dp:10, years:8, delivery:'2029', finishing:{en:'Fully finished',ar:'تشطيب كامل'}, types:{en:'Apartment',ar:'شقة'}, tags:{en:['Ras El Hekma','Beachfront'],ar:['رأس الحكمة','على البحر']}, blurb:{en:'Beach Plaza Premium apartments at Modon Ras El Hekma — beachfront living, fully finished, developer-direct primary units.',ar:'شقق بيتش بلازا بريميوم في مدن رأس الحكمة — معيشة على البحر بتشطيب كامل، وحدات أولية من المطوّر مباشرة.'}},
@@ -735,6 +743,7 @@ var PROJECTS = [
 {slug:'bloomfields', name:'Bloomfields', name_ar:'بلوم فيلدز', dev:'tatweer', area:'mostakbal', status:'launch', price:5800000, dp:5, years:10, delivery:'Ready', finishing:{en:'Semi-finished',ar:'نصف تشطيب'}, types:{en:'Apartment · Duplex',ar:'شقة · دوبلكس'}, tags:{en:['Mostakbal City','5% DP'],ar:['مدينة المستقبل','مقدم ٥٪']}, blurb:{en:'A value-focused launch in Mostakbal City with a low down payment from the developer.',ar:'إطلاق اقتصادي بمدينة المستقبل بمقدم منخفض من المطوّر.'}},
 {slug:'il-bosco-city', name:'Il Bosco City', name_ar:'إل بوسكو سيتي', dev:'misritalia', area:'capital', status:'launch', price:6100000, dp:10, years:9, delivery:'2029', finishing:{en:'Semi-finished',ar:'نصف تشطيب'}, types:{en:'Apartment · Townhouse · Villa',ar:'شقة · تاون هاوس · فيلا'}, tags:{en:['New Capital','Green'],ar:['العاصمة الإدارية','أخضر']}, blurb:{en:'A biophilic community in the New Administrative Capital, primary units from Misr Italia.',ar:'مجتمع أخضر بالعاصمة الإدارية الجديدة، وحدات أولية من مصر إيطاليا.'}},
 {slug:'district-5', name:'District 5', name_ar:'ديستريكت ٥', dev:'marakez', area:'newcairo', status:'primary', price:11285000, dp:10, years:7, delivery:'2027', types:{en:'Apartment · Duplex · Office',ar:'شقة · دوبلكس · مكتب'}, tags:{en:['New Cairo','268 acres','Mixed-use'],ar:['القاهرة الجديدة','٢٦٨ فدان','متعدد الاستخدامات']}, blurb:{en:'Marakez’s 268-acre integrated district in New Katameya, New Cairo — one destination to live, shop, work and play, built around District 5 Club, District 5 Campus, the Urbane Hotel, D5M and Mindhaus offices. Homes come in a modern yet earthy architecture with generous interiors, linked by trail systems, bike lanes, landscaped parks and plazas. Apartments, a duplex and offices, part of the project already delivered. Developer-direct primary units.',ar:'حي مراكز المتكامل على ٢٦٨ فداناً في القطامية الجديدة بالقاهرة الجديدة — وجهة واحدة للسكن والتسوق والعمل والترفيه، تدور حول نادي ديستريكت ٥ وكامباس ديستريكت ٥ وفندق أوربان وD5M ومكاتب مايندهاوس. منازل بعمارة عصرية ذات طابع ترابي ومساحات داخلية رحبة، تربطها ممرات ومسارات دراجات وحدائق وساحات. شقق ودوبلكس ومكاتب، وجزء من المشروع مُسلَّم بالفعل. وحدات أولية من المطوّر مباشرة.'}},
+{slug:'beit-al-bahr', name:'Beit Al Bahr', name_ar:'بيت البحر', dev:'beitalbahr', area:'sahel', status:'launch', finishing:{en:'Fully finished',ar:'تشطيب كامل'}, types:{en:'Chalet · Townhouse · Villa · Duplex · Loft · Serviced Apartment',ar:'شاليه · تاون هاوس · فيلا · دوبلكس · لوفت · شقة فندقية'}, tags:{en:['Sidi Heneish','450 acres','3.5 km beachfront'],ar:['سيدي حنيش','٤٥٠ فدان','٣٫٥ كم شاطئ']}, blurb:{en:'A refined beachfront escape spread over 450 acres at El-Abd Resort, Sidi Heneish, with a private 3.5 km beach on the Mediterranean. The master plan loops around people and privacy, bringing homes closer to the seafront, the shimmering pools and the swimmable lagoons, with four boutique hotels, F&B tenants along the shore and native plantations throughout. Design draws on the four elements of life — air, water, earth and fire. Developer-direct primary units.',ar:'ملاذ شاطئي راقٍ على ٤٥٠ فداناً في منتجع العبد بسيدي حنيش، بشاطئ خاص ٣٫٥ كم على البحر المتوسط. الماستر بلان يلتف حول الناس والخصوصية، فيقرّب المنازل من الشاطئ وحمامات السباحة والبحيرات القابلة للسباحة، مع أربعة فنادق بوتيك ومطاعم على الشاطئ ونباتات محلية في كل مكان. التصميم مستوحى من عناصر الحياة الأربعة — الهواء والماء والأرض والنار. وحدات أولية من المطوّر مباشرة.'}},
 {slug:'crescent-walk', name:'Crescent Walk', name_ar:'كريسنت ووك', dev:'marakez', area:'newcairo', status:'launch', price:9495000, dp:5, years:8, delivery:'2029', types:{en:'Apartment · Duplex · Townhouse · Twin house · Villa',ar:'شقة · دوبلكس · تاون هاوس · توين هاوس · فيلا'}, tags:{en:['6th Settlement','Art deco','5% down'],ar:['التجمع السادس','آرت ديكو','مقدم ٥٪']}, blurb:{en:'“A Glimpse of the Past, A Step into the Future.” Marakez’s East Cairo neighbourhood in the 6th Settlement, built around art deco design — lofty, high-ceilinged rooms, expansive glass windows and spacious terraces opening onto lush greenery. An extended green spine and paseo, a central park, street-side garden parks and a neighborhood park run through it, alongside a clubhouse, sports facilities and a commercial park. Seven minutes from Golden Square, twelve from AUC and fourteen from District 5. Developer-direct primary units from 5% down over 8 years, delivery 2029.',ar:'«لمحة من الماضي، خطوة نحو المستقبل». حي مراكز في شرق القاهرة بالتجمع السادس، مبني حول تصميم آرت ديكو — غرف عالية الأسقف ونوافذ زجاجية واسعة وتراسات رحبة تطل على مساحات خضراء وارفة. يمتد بداخله عمود أخضر وممشى، وحديقة مركزية، وحدائق على جانبي الشوارع، وحديقة للحي، إلى جانب كلوب هاوس ومرافق رياضية وبارك تجاري. سبع دقائق من الجولدن سكوير، واثنتا عشرة من الجامعة الأمريكية، وأربع عشرة من ديستريكت ٥. وحدات أولية من المطوّر مباشرة من مقدم ٥٪ على ٨ سنوات، التسليم ٢٠٢٩.'}},
 {slug:'stei8ht-eastmed', name:'Stei8ht Eastmed', name_ar:'ستيت إيست ميد', dev:'lmd', area:'newcairo', status:'primary', price:9895200, dp:5, years:5, delivery:'2027', finishing:{en:'To confirm',ar:'تُؤكَّد'}, types:{en:'Clinic',ar:'عيادة'}, tags:{en:['New Cairo','Medical & business'],ar:['القاهرة الجديدة','طبي وتجاري']}, blurb:{en:'LMD\'s Stei8ht Eastmed medical and business address in New Cairo — developer-direct primary clinics and offices.',ar:'حي ستيت إيست ميد الطبي والتجاري من LMD في القاهرة الجديدة — عيادات ومكاتب أولية من المطوّر مباشرة.'}},
 {slug:'three-sixty', name:'Three Sixty', name_ar:'ثري سيكستي', dev:'lmd', area:'newcairo', status:'primary', price:25076950, dp:10, years:5, delivery:'Ready', finishing:{en:'To confirm',ar:'تُؤكَّد'}, types:{en:'Administrative Office · Clinic · Office',ar:'مكتب إداري · عيادة · مكتب'}, tags:{en:['New Cairo','Business & medical'],ar:['القاهرة الجديدة','تجاري وطبي']}, blurb:{en:'LMD\'s Three Sixty business and medical hub in New Cairo — developer-direct primary offices, clinics and admin units.',ar:'مركز ثري سيكستي التجاري والطبي من LMD في القاهرة الجديدة — مكاتب وعيادات ووحدات إدارية أولية من المطوّر مباشرة.'}},
@@ -1166,6 +1175,7 @@ sEl('circle',{cx:x+7,cy:y-13,r:'8',fill:'#20855f'})); }
 var PROJECT_COVERS = {
 'district-5':'/project-media/marakez/units/ap1-d-04.webp',
 'crescent-walk':'/project-media/marakez/units/v2-cr-0.webp',
+'beit-al-bahr':'/project-media/beitalbahr/lagoon.webp',
 'sumou-boulevard':'/project-media/sumou/st-03.webp',
 'beach-plaza-premium':'/project-media/modon/ap1-bp-03.webp',
 'beach-plaza-luxury':'/project-media/modon/ap1-bpl-0.webp',
@@ -2094,16 +2104,28 @@ d5campus:{icon:'am_campus', en:'District 5 Campus', ar:'كامباس ديستر�
 urbanehotel:{icon:'am_hotel', en:'Urbane Hotel', ar:'فندق أوربان'},
 d5m:{icon:'am_retail', en:'D5M shopping mall', ar:'مول D5M'},
 lifestylearea:{icon:'am_lifestyle', en:'Lifestyle Area', ar:'منطقة اللايف ستايل'},
-mindhaus:{icon:'am_office', en:'District 5 Mindhaus offices', ar:'مكاتب مايندهاوس'}
+mindhaus:{icon:'am_office', en:'District 5 Mindhaus offices', ar:'مكاتب مايندهاوس'},
+bab_beach:{icon:'am_beach', en:'3.5 km beachfront', ar:'شاطئ ٣٫٥ كم'},
+bab_hotels:{icon:'am_hotel', en:'Four hotels', ar:'أربعة فنادق'},
+bab_finished:{icon:'am_finished', en:'Fully finished units', ar:'وحدات كاملة التشطيب'},
+bab_landscape:{icon:'am_landscape', en:'Landscape', ar:'لاندسكيب'},
+bab_heart:{icon:'pin', en:'In the heart of Sidi Heneish', ar:'في قلب سيدي حنيش'},
+bab_community:{icon:'am_community', en:'Community living', ar:'حياة مجتمعية'},
+bab_lagoons:{icon:'am_lagoon', en:'Swimmable lagoons', ar:'بحيرات للسباحة'},
+bab_fnb:{icon:'am_dining', en:'F&B tenants', ar:'مطاعم ومقاهي'}
 };
 var DEV_AMENITIES = {
 'sumou': ['bms','controls','fiber','cctv','heat','generators','parking','app',
 'eco','landscape','concierge','housekeeping','gym','pool','sauna',
 'outdoorfit','nursery','ev'],
+'beitalbahr': ['bab_beach','bab_hotels','bab_finished','bab_landscape',
+'bab_heart','bab_community','bab_lagoons','bab_fnb'],
 };
 var DEV_FINISHING = {
 'sumou': {en:'Residential delivered fully finished with air conditioning and double-glazed windows. Offices delivered core & shell with double-glazed windows.',
-ar:'تُسلَّم الوحدات السكنية كاملة التشطيب مع تكييف ونوافذ مزدوجة العزل، وتُسلَّم المكاتب على المحارة مع نوافذ مزدوجة العزل.'}
+ar:'تُسلَّم الوحدات السكنية كاملة التشطيب مع تكييف ونوافذ مزدوجة العزل، وتُسلَّم المكاتب على المحارة مع نوافذ مزدوجة العزل.'},
+'beitalbahr': {en:'Units are delivered fully finished, neatly designed and inspired by nature. The brochure specifies no further finishing detail.',
+ar:'تُسلَّم الوحدات كاملة التشطيب بتصميم أنيق مستوحى من الطبيعة. ولا يذكر البروشور تفاصيل تشطيب أخرى.'}
 };
 function amenityAccordion(toks, title, note){
 if(!toks || !toks.length) return null;
@@ -2140,7 +2162,9 @@ var PROJECT_AMENITIES = {
 'crescent-walk': ['greenspine','centralpark','gardenparks',
 'clubsports','commercialpark','neighborhoodpark'],
 'district-5':    ['d5club','d5campus','urbanehotel',
-'d5m','lifestylearea','mindhaus']
+'d5m','lifestylearea','mindhaus'],
+'beit-al-bahr':  ['bab_beach','bab_hotels','bab_finished','bab_landscape',
+'bab_heart','bab_community','bab_lagoons','bab_fnb']
 };
 function amenityDefaults(cat){
 return (cat==='coast'||cat==='redsea')
@@ -2313,7 +2337,7 @@ alahlysabbour:'al-ahly-sabbour.png', hassanallam:'hassan-allam.png',
 ilcazar:'il-cazar.png', inertia:'inertia.png', lavista:'la-vista.png',
 cityedge:'city-edge.png', madinetmasr:'madinet-masr.png',
 qataridiar:'qatari-diar.png', saudiegyptian:'saudi-egyptian.png',
-sumou:'sumou.png'
+sumou:'sumou.png', beitalbahr:'beit-al-bahr.png'
 };
 var PROJECT_LOGOS = {
 'villette':'villette.png', 'sodic-east':'sodic-east.png', 'eastown':'eastown.png',
@@ -2377,6 +2401,9 @@ var DEV_GALLERY = {
 'sumou':['/project-media/sumou/st-03.webp','/project-media/sumou/st-01.webp','/project-media/sumou/ap5-0.webp','/project-media/sumou/st-02.webp','/project-media/sumou/ap2-03.webp','/project-media/sumou/of4.webp'],
 'modon':['/project-media/modon/m1.webp','/project-media/modon/m2.webp','/project-media/modon/m3.webp',
 '/project-media/modon/m4.webp','/project-media/modon/m5.webp','/project-media/modon/m6.webp'],
+'beitalbahr':['/project-media/beitalbahr/terrace.webp','/project-media/beitalbahr/living.webp',
+'/project-media/beitalbahr/interior.webp','/project-media/beitalbahr/landscape.webp',
+'/project-media/beitalbahr/lagoon.webp','/project-media/beitalbahr/hotel.webp'],
 };
 function devGallery(key){ return DEV_GALLERY[key] || []; }
 function devGalleryItems(dev){
@@ -2440,6 +2467,7 @@ return (r.masterplan||[]).map(function(m){ return {src:m.src, cap:L(m.cap)}; });
 }
 var MP = '/project-media/modon/';
 var SU = '/project-media/sumou/';
+var BAB = '/project-media/beitalbahr/';
 var DEV_FEATURES = {
 'marakez': {
 masterplan: {en:'Masterplan — District Five', ar:'الماستر بلان — ديستريكت فايف', icon:'layers', src:'/project-media/marakez/d5-masterplan.webp'},
@@ -2608,6 +2636,67 @@ copy:{list:[
 {en:'Private Sector Free Zone',           ar:'منطقة حرة للقطاع الخاص'},
 {en:'Amphitheatre',                       ar:'مدرّج مسرحي'}
 ]}}
+]
+},
+'beitalbahr': {
+masterplan: {en:'Masterplan — Beit Al Bahr', ar:'الماستر بلان — بيت البحر', icon:'layers', src:BAB+'masterplan.webp'},
+cards: [
+{en:'About the Developer', ar:'عن المطوّر', icon:'shield', imgs:[BAB+'terrace.webp'],
+copy:{
+lead:{en:'Beit Al Bahr is the result of a collaboration between leading entities in the Egyptian market, collectively forming BAM, a joint venture.',
+ar:'بيت البحر نتيجة تعاون بين كيانات رائدة في السوق المصري، تشكّل معاً «BAM»، وهو مشروع مشترك.'},
+groups:[
+{label:{en:'The joint venture', ar:'الشركاء'}, rows:[
+{k:{en:'El Abd',ar:'العبد'},
+v:{en:'The visionary behind identifying Sidi Heneish Bay as one of the North Coast’s most distinctive destinations over 30 years ago.',
+ar:'صاحب الرؤية الذي حدّد خليج سيدي حنيش كأحد أكثر وجهات الساحل الشمالي تميّزاً منذ أكثر من ٣٠ عاماً.'}},
+{k:{en:'Gura',ar:'جورا'},
+v:{en:'A master contractor and home developer founded by the Badawy family, known for their strong expertise in engineering and construction across Alexandria and the North Coast.',
+ar:'مقاول رئيسي ومطوّر عقاري أسّسته عائلة بدوي، معروف بخبرته القوية في الهندسة والإنشاءات في الإسكندرية والساحل الشمالي.'}},
+{k:{en:'J Properties',ar:'جي بروبرتيز'},
+v:{en:'A forward-thinking real estate partner and the driving force behind shaping projects from concept to market. Backed by over 20 years of combined expertise across multiple sectors, J Properties defines how destinations are envisioned, positioned, and brought to life.',
+ar:'شريك عقاري ذو نظرة مستقبلية والقوة الدافعة لتشكيل المشروعات من الفكرة إلى السوق. بخبرة مجتمعة تتجاوز ٢٠ عاماً في قطاعات متعددة، تحدّد «جي بروبرتيز» كيف تُتصوَّر الوجهات وتُوضع وتُخرَج إلى الحياة.'}}]}]
+}},
+{en:'Mission & Vision', ar:'المهمة والرؤية', icon:'star', imgs:[BAB+'landscape.webp'],
+copy:{
+lead:{en:'Mission — Designing and building beachfront units that focus on privacy and exclusivity. Allowing residents to benefit from a peaceful environment where they can enjoy the sea views and greenery, along with various local activities, all while encouraging community interaction.',
+ar:'المهمة — تصميم وبناء وحدات على الشاطئ تركّز على الخصوصية والتميّز، بما يتيح للسكان الاستفادة من بيئة هادئة يستمتعون فيها بإطلالات البحر والمساحات الخضراء إلى جانب أنشطة محلية متنوعة، مع تشجيع التفاعل المجتمعي.'},
+more:{en:'Vision — To create communities that connect with nature, providing residents with a quiet environment and easy access to local experiences.',
+ar:'الرؤية — إنشاء مجتمعات متصلة بالطبيعة، توفّر للسكان بيئة هادئة ووصولاً سهلاً إلى التجارب المحلية.'}
+}},
+{en:'Summer Haven Within Reach', ar:'ملاذ صيفي في المتناول', icon:'pin', imgs:[BAB+'lagoon.webp'],
+copy:{
+lead:{en:'Beit Al Bahr sits at El-Abd Resort Sidi Heneish, precisely at km 46 on the Matrouh–Alexandria road.',
+ar:'يقع بيت البحر في منتجع العبد بسيدي حنيش، عند الكيلو ٤٦ على طريق مطروح–الإسكندرية.'},
+more:{en:'Beachfront — Immerse yourself in the pristine beauty of the Mediterranean with a private 3.5 km beach offering stunning views while being conveniently close to the lively attractions of the North Coast. Area — This architectural escape is spread over 450 acres, carefully planned to offer spaciousness and expansive views for each unit.',
+ar:'الشاطئ — انغمر في جمال البحر المتوسط البِكر بشاطئ خاص طوله ٣٫٥ كم يقدّم إطلالات ساحرة، مع قربٍ مريح من معالم الساحل الشمالي النابضة. المساحة — يمتد هذا الملاذ المعماري على ٤٥٠ فداناً، مخطَّطة بعناية لتوفير رحابة وإطلالات واسعة لكل وحدة.'},
+groups:[
+{label:{en:'Distances', ar:'المسافات'}, rows:[
+{k:{en:'Matrouh–Alexandria road',ar:'طريق مطروح–الإسكندرية'}, v:{en:'km 46',ar:'الكيلو ٤٦'}},
+{k:{en:'From Cairo',ar:'من القاهرة'},                        v:{en:'375 km',ar:'٣٧٥ كم'}},
+{k:{en:'From Alexandria',ar:'من الإسكندرية'},                v:{en:'241–243 km (the brochure prints both)',ar:'٢٤١–٢٤٣ كم (البروشور يذكر الرقمين)'}},
+{k:{en:'Private beach',ar:'شاطئ خاص'},                       v:{en:'3.5 km',ar:'٣٫٥ كم'}},
+{k:{en:'Land area',ar:'مساحة الأرض'},                        v:{en:'450 acres',ar:'٤٥٠ فداناً'}}]}]
+}},
+{en:'Beachfront Beauty Maximized', ar:'جمال الشاطئ إلى أقصاه', icon:'layers', imgs:[BAB+'interior.webp'],
+copy:{
+lead:{en:'Rolling out on 450 acres of land, Beit Al Bahr is smartly designed from the inside to the outside to glorify the beauty of open spaces, thanks to an innovative configuration that invites a 3.5 km beachfront into every corner of your home.',
+ar:'على ٤٥٠ فداناً، صُمّم بيت البحر بذكاء من الداخل إلى الخارج لتعظيم جمال المساحات المفتوحة، بفضل تشكيل مبتكر يجلب شاطئاً بطول ٣٫٥ كم إلى كل زاوية في منزلك.'},
+more:{en:'The master-plan’s unique form is looped around people and privacy, bringing them closer to seafront, serenity, shimmering pools and an abundant variety of authentic experiences while lending an original air of flexibility to all unit types. All homes are evenly spread out to guarantee utmost exclusivity, surrounded by a green foliage of native plantations for a daily dose of natural inspiration. The design concept is drawn from the four elements of life: air, water, earth and fire.',
+ar:'يلتف شكل الماستر بلان الفريد حول الناس والخصوصية، فيقرّبهم من الشاطئ والسكينة وحمامات السباحة المتلألئة وتنوّع غني من التجارب الأصيلة، مع منح جميع أنواع الوحدات مرونة أصيلة. وتتوزّع كل المنازل بالتساوي لضمان أقصى درجات التميّز، محاطة بغطاء أخضر من النباتات المحلية لجرعة يومية من الإلهام الطبيعي. ومفهوم التصميم مستوحى من عناصر الحياة الأربعة: الهواء والماء والأرض والنار.'},
+groups:[
+{label:{en:'Master plan key', ar:'مفتاح الماستر بلان'}, rows:[
+{k:{en:'Shores',ar:'شورز'},                           v:{en:'',ar:''}},
+{k:{en:'Roofs',ar:'روفز'},                            v:{en:'',ar:''}},
+{k:{en:'Rays',ar:'رايز'},                             v:{en:'',ar:''}},
+{k:{en:'Hills by the Sea',ar:'هيلز باي ذا سي'},        v:{en:'',ar:''}},
+{k:{en:'Hotels',ar:'الفنادق'},                        v:{en:'',ar:''}},
+{k:{en:'Tides',ar:'تايدز'},                           v:{en:'',ar:''}},
+{k:{en:'Eastbay',ar:'إيست باي'},                      v:{en:'',ar:''}},
+{k:{en:'Sails',ar:'سيلز'},                            v:{en:'',ar:''}},
+{k:{en:'Serviced Apartments',ar:'شقق فندقية'},        v:{en:'',ar:''}},
+{k:{en:'Commercial Area',ar:'المنطقة التجارية'},       v:{en:'',ar:''}}]}]
+}}
 ]
 }
 };
@@ -3191,7 +3280,10 @@ function areaByKey(k){ for(var i=0;i<AREAS.length;i++) if(AREAS[i].key===k) retu
 function projBySlug(s){ for(var i=0;i<PROJECTS.length;i++) if(PROJECTS[i].slug===s) return PROJECTS[i]; }
 function projInArea(k){ return PROJECTS.filter(function(p){ return p.area===k; }); }
 function projByDev(k){ return PROJECTS.filter(function(p){ return p.dev===k; }); }
-function areaFrom(k){ var ps=projInArea(k); return ps.length?Math.min.apply(null,ps.map(function(p){return p.price;})):null; }
+function areaFrom(k){
+var ps=projInArea(k).map(function(p){return p.price;}).filter(function(x){return x!=null;});
+return ps.length?Math.min.apply(null,ps):null;
+}
 function money(n){
 if(n==null) return t('tba');
 var loc = lang==='ar' ? 'ar-EG' : 'en-US';
