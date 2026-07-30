@@ -545,22 +545,18 @@ try {
   ck('hero: animated render backdrop has 5 slides + a scrim', (function(){
     var n=api.V.home().node; return qsa(n,'.hero__slide').length===5 && qsa(n,'.hero__scrim').length===1;
   })(), 'ok');
-  // Every Ramla unit now carries a self-hosted render: its own from the client's
-  // archive where one arrived, else Ramla's per-type render for the three whose
-  // file sits in the rm2 archive that was never uploaded.
-  ck('ramla: every unit carries a self-hosted Ramla render', (function(){
+  // With rm2 in hand every Ramla unit has its own render from the client's
+  // archive — no per-type stand-ins left.
+  ck('ramla: all 21 units carry their own render from the archives', (function(){
     var us=api.UNITS.filter(function(u){ return u.project==='ramla-ras-el-hekma'; });
     return us.length===21 && us.every(function(u){
       var c=qsa(api.V.unit(u.id).node,'.proj-cover')[0];
-      return c && /^\/project-media\/ramla\//.test(c.getAttribute('src')||'');
+      return c && /^\/project-media\/ramla\/units\//.test(c.getAttribute('src')||'');
     });
   })(), 'ok');
-  ck('ramla: 18 of the 21 use a render from the uploaded archives', (function(){
-    var n=api.UNITS.filter(function(u){ return u.project==='ramla-ras-el-hekma'; }).filter(function(u){
-      var c=qsa(api.V.unit(u.id).node,'.proj-cover')[0];
-      return c && /\/project-media\/ramla\/units\//.test(c.getAttribute('src')||'');
-    }).length;
-    return n===18;
+  ck('ramla: every unit opens a floor plan', (function(){
+    return api.UNITS.filter(function(u){ return u.project==='ramla-ras-el-hekma'; })
+      .every(function(u){ return api.unitFloorplans(u).length>0; });
   })(), 'ok');
 
   // ---- Payment estimator constraints ----
