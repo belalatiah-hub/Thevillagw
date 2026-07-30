@@ -118,6 +118,7 @@
   function groupFrom(g){ var m=groupMembers(g).map(function(p){return p.price;}).filter(function(x){return x!=null;}); return m.length?Math.min.apply(null,m):null; }
   var UNIT_IMAGES = {
     'MB-V01':'/project-media/baghush/units/v1-0.webp',
+    'MB-V02':'/project-media/baghush/units/v1-0.webp',
     'MB-V03':'/project-media/baghush/units/v2-0.webp',
     'MB-V04':'/project-media/baghush/units/v3-0.webp',
     'MB-CH01':'/project-media/baghush/units/ch1-0.webp',
@@ -344,16 +345,22 @@
        scenery that suits any unit. The one frame that cannot travel is v1-0, a
        270 m² detached villa: grouping by filename alone had put it inside the
        130 m² two-bedroom chalet whose cover the sheet sets to v1-02. */
+    /* Marsa Baghush: the sheet gives each unit four image ids — one on the
+       unit's own row and three on the rows beneath it — so a gallery is that
+       list in the sheet's order, minus the ids no archive delivered. fp-ch5
+       is one of them: despite the prefix it is a render, not a plan. */
     'MB-V01':["/project-media/baghush/units/v1-0.webp", "/project-media/baghush/units/v1-02.webp", "/project-media/baghush/units/v1-03.webp"],
-    'MB-V03':["/project-media/baghush/units/v2-0.webp", "/project-media/baghush/units/v2-01.webp"],
-    'MB-V04':["/project-media/baghush/units/v3-0.webp", "/project-media/baghush/units/v3-01.webp"],
-    'MB-CH01':["/project-media/baghush/units/ch1-0.webp", "/project-media/baghush/units/ch1-01.webp"],
-    'MB-CH02':["/project-media/baghush/units/ch2-0.webp", "/project-media/baghush/units/ch2-01.webp"],
-    'MB-CH03':["/project-media/baghush/units/ch2-01.webp", "/project-media/baghush/units/ch2-0.webp"],
-    'MB-TW01':["/project-media/baghush/units/t-0.webp", "/project-media/baghush/units/t-01.webp"],
-    'MB-CH05':["/project-media/baghush/units/ch5-0.webp", "/project-media/baghush/units/ch5-01.webp"],
-    'MB-CH06':["/project-media/baghush/units/ch7-0.webp", "/project-media/baghush/units/ch7-01.webp"],
-    'MB-CH07':["/project-media/baghush/units/v1-02.webp", "/project-media/baghush/units/v1-03.webp"],
+    'MB-V02':["/project-media/baghush/units/v1-0.webp", "/project-media/baghush/units/v1-02.webp", "/project-media/baghush/units/v1-03.webp"],
+    'MB-V03':["/project-media/baghush/units/v2-0.webp", "/project-media/baghush/units/v2-01.webp", "/project-media/baghush/units/v1-02.webp", "/project-media/baghush/units/v1-03.webp"],
+    'MB-V04':["/project-media/baghush/units/v3-0.webp", "/project-media/baghush/units/v3-01.webp", "/project-media/baghush/units/v1-03.webp", "/project-media/baghush/units/v1-02.webp"],
+    'MB-CH01':["/project-media/baghush/units/ch1-0.webp", "/project-media/baghush/units/ch1-01.webp", "/project-media/baghush/units/v1-02.webp", "/project-media/baghush/units/v1-03.webp"],
+    'MB-CH02':["/project-media/baghush/units/ch2-0.webp", "/project-media/baghush/units/ch2-01.webp", "/project-media/baghush/units/v1-02.webp", "/project-media/baghush/units/v1-03.webp"],
+    'MB-CH03':["/project-media/baghush/units/ch2-01.webp", "/project-media/baghush/units/ch2-0.webp", "/project-media/baghush/units/v1-02.webp", "/project-media/baghush/units/v1-03.webp"],
+    'MB-TW01':["/project-media/baghush/units/t-0.webp", "/project-media/baghush/units/t-01.webp", "/project-media/baghush/units/v1-02.webp", "/project-media/baghush/units/v1-03.webp"],
+    'MB-CH04':["/project-media/baghush/units/ch4-0.webp", "/project-media/baghush/units/fp-ch5.webp", "/project-media/baghush/units/v1-02.webp", "/project-media/baghush/units/v1-03.webp"],
+    'MB-CH05':["/project-media/baghush/units/ch5-0.webp", "/project-media/baghush/units/ch5-01.webp", "/project-media/baghush/units/v1-03.webp", "/project-media/baghush/units/v1-02.webp"],
+    'MB-CH06':["/project-media/baghush/units/ch7-0.webp", "/project-media/baghush/units/ch7-01.webp", "/project-media/baghush/units/v1-02.webp", "/project-media/baghush/units/v1-03.webp"],
+    'MB-CH07':["/project-media/baghush/units/v1-02.webp", "/project-media/baghush/units/ch7-0.webp", "/project-media/baghush/units/v1-03.webp"],
     'RM-VL01':["/project-media/ramla/units/v1-0.webp", "/project-media/ramla/units/v1-01.webp", "/project-media/ramla/units/v1-02.webp"],
     'RM-TW01':["/project-media/ramla/units/tw2-0.webp", "/project-media/ramla/units/tw-r-0.webp", "/project-media/ramla/units/tw1-r-0.webp", "/project-media/ramla/units/tw2-01.webp", "/project-media/ramla/units/tw2-02.webp", "/project-media/ramla/units/tw2-03.webp"],
     'RM-DX01':["/project-media/ramla/units/du-02.webp", "/project-media/ramla/units/du-0.webp", "/project-media/ramla/units/du-01.webp", "/project-media/ramla/units/du-03.webp", "/project-media/ramla/units/du-04.webp"],
@@ -793,18 +800,16 @@
     'MB-V02':["/project-media/baghush/units/fp-v2.webp"],
     'MB-V03':["/project-media/baghush/units/fp-v1.webp"],
     'MB-V04':["/project-media/baghush/units/fp-v4.webp"],
-    'MB-CH01':["/project-media/baghush/units/fp-c1-0.webp"],
-    'MB-CH02':["/project-media/baghush/units/fp-c1-0.webp", "/project-media/baghush/units/fp-c1-01.webp"],
+    'MB-CH01':["/project-media/baghush/units/fp-c1-0.webp", "/project-media/baghush/units/fp-c1-01.webp"],
+    /* the sheet types fp-c1, which is in neither archive; fp-ch2 is the only
+       unused plan and its title block reads 210 m², MB-CH02's exact area. */
+    'MB-CH02':["/project-media/baghush/units/fp-ch2.webp"],
     'MB-CH03':["/project-media/baghush/units/fp-ch3.webp"],
-    'MB-TW01':["/project-media/baghush/units/fp-t1-0.webp"],
+    'MB-TW01':["/project-media/baghush/units/fp-t1-0.webp", "/project-media/baghush/units/fp-t1-01.webp"],
     'MB-CH04':["/project-media/baghush/units/fp-ch4.webp"],
     'MB-CH05':["/project-media/baghush/units/fp-ch6.webp"],
     'MB-CH06':["/project-media/baghush/units/fp-ch7.webp"],
     'MB-CH07':["/project-media/baghush/units/fp-ch8.webp"],
-    // The two plans the sheet names as fp-th-3-cr and v4-cr-0 are corrupt inside
-    // the source archive; these are the replacements sent as brochure pages. The
-    // villa's is filed under fp- rather than the sheet's v4-cr-0 so it cannot be
-    // picked up as a frame of the v4-cr render family.
     'CW-V04':['/project-media/marakez/units/fp-v4-cr.webp'],
     'CW-TH01':['/project-media/marakez/units/fp-th-3-cr.webp'],
     'RM-VL01':['/project-media/ramla/units/fp-v1-r.webp'],
