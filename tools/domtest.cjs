@@ -316,10 +316,21 @@ try {
   var ogami=api.projBySlug('ogami-north-coast');
   ck('listings: Ogami real figures (Botanica from 16.5M)', ogami.price===16500000 && ogami.dp===5 && ogami.years===8 && ogami.delivery==='2029' && ogami.dev==='sodic' && ogami.area==='raselhekma');
   ck('listings: 5 owner projects classified under Ras El Hekma', ['ogami-north-coast','ramla-ras-el-hekma','beach-plaza-premium','caesar-north-coast','june-north-coast'].every(s=>api.projBySlug(s).area==='raselhekma'));
-  ck('listings: Ramla/Modon real from-prices', api.projBySlug('ramla-ras-el-hekma').price===22724000 && api.projBySlug('beach-plaza-premium').price===19900000);
+  ck('listings: Ramla/Modon real from-prices', api.projBySlug('ramla-ras-el-hekma').price===23418000 && api.projBySlug('beach-plaza-premium').price===19900000);
   ck('listings: Ramla has full unit mix from the availability sheet', api.UNITS.filter(u=>u.project==='ramla-ras-el-hekma').length>=10);
-  ck('listings: corrected Ramla area/price pairings match the availability sheet', (function(){ var by={}; api.UNITS.filter(u=>u.project==='ramla-ras-el-hekma').forEach(u=>by[u.id]=u);
-    return by['RM-CH1'].area===130 && by['RM-TW1'].area===135 && by['RM-TW1'].price===35941000 && by['RM-VL1'].area===155 && by['RM-VL2'].price===80457000 && by['RM-VL3'].area===305 && by['RM-VL3'].price===98524000; })());
+  ck('listings: Ramla area/price pairings match the availability sheet', (function(){ var by={}; api.UNITS.filter(u=>u.project==='ramla-ras-el-hekma').forEach(u=>by[u.id]=u);
+    return by['RM-VL01'].area===155 && by['RM-VL01'].price===49194000 && by['RM-VL02'].price===80457000
+        && by['RM-VL03'].area===305 && by['RM-VL03'].price===98524000
+        && by['RM-TW01'].area===152 && by['RM-TW01'].price===38082000
+        && by['RM-PH01'].area===174 && by['RM-CH03'].area===130; })());
+  // The sheet splits Ramla into sub-neighbourhoods; the card label carries them
+  // while the type stays canonical so filters and icons still work.
+  ck('listings: Ramla units carry their sub-neighbourhood in the label', (function(){ var by={}; api.UNITS.filter(u=>u.project==='ramla-ras-el-hekma').forEach(u=>by[u.id]=u);
+    return by['RM-CH01'].label.en==='Chalet · Acacia R5' && by['RM-VL02'].label.en==='Villa · Dunes R1'
+        && by['RM-DX03'].label.en==='Duplex · Oasis R3' && by['RM-CH04'].label.en==='Chalet · The Town R2'; })());
+  ck('listings: the sheet’s AEON Towers row joins the existing Aeon project', (function(){
+    var u=api.UNITS.filter(x=>x.id==='AE-AP01')[0];
+    return u && u.project==='aeon' && u.area===246 && u.price===36000000 && u.years===4; })());
   ck('listings: Caesar + June (SODIC North Coast) added', api.projBySlug('caesar-north-coast').price===39200000 && api.projBySlug('june-north-coast').price===89300000 && api.projBySlug('caesar-north-coast').dev==='sodic' && api.projBySlug('june-north-coast').dev==='sodic');
   var pv=api.V.project('ogami-north-coast');
   ck('listings: project detail renders (h1) + real price shown', pv && countTag(pv.node,'h1')>=1 && txt(pv.node).indexOf('16,500,000')>=0);
@@ -534,12 +545,22 @@ try {
   ck('hero: animated render backdrop has 5 slides + a scrim', (function(){
     var n=api.V.home().node; return qsa(n,'.hero__slide').length===5 && qsa(n,'.hero__scrim').length===1;
   })(), 'ok');
-  ck('ramla: each unit type carries its own self-hosted render', (function(){
-    var want={'RM-VL1':'villa','RM-CH3':'chalet','RM-TW1':'twin','RM-TH1':'townhouse'};
-    return Object.keys(want).every(function(id){
-      var c=qsa(api.V.unit(id).node,'.proj-cover')[0];
-      return c && new RegExp('/project-media/ramla/'+want[id]+'\\.webp$').test(c.getAttribute('src')||'');
+  // Every Ramla unit now carries a self-hosted render: its own from the client's
+  // archive where one arrived, else Ramla's per-type render for the three whose
+  // file sits in the rm2 archive that was never uploaded.
+  ck('ramla: every unit carries a self-hosted Ramla render', (function(){
+    var us=api.UNITS.filter(function(u){ return u.project==='ramla-ras-el-hekma'; });
+    return us.length===21 && us.every(function(u){
+      var c=qsa(api.V.unit(u.id).node,'.proj-cover')[0];
+      return c && /^\/project-media\/ramla\//.test(c.getAttribute('src')||'');
     });
+  })(), 'ok');
+  ck('ramla: 18 of the 21 use a render from the uploaded archives', (function(){
+    var n=api.UNITS.filter(function(u){ return u.project==='ramla-ras-el-hekma'; }).filter(function(u){
+      var c=qsa(api.V.unit(u.id).node,'.proj-cover')[0];
+      return c && /\/project-media\/ramla\/units\//.test(c.getAttribute('src')||'');
+    }).length;
+    return n===18;
   })(), 'ok');
 
   // ---- Payment estimator constraints ----
@@ -604,7 +625,7 @@ try {
     return /Location/.test(c[0].textContent) && /Floor Plan/.test(c[1].textContent) && /Master Plan/.test(c[2].textContent) && /Amenities/.test(c[3].textContent);
   })(), 'ok');
   ck('plans: unit without plans shows only Location + Amenities', (function(){
-    var chips=qsa(api.V.unit('RM-CH1').node,'.ufeat');
+    var chips=qsa(api.V.unit('V-A305').node,'.ufeat');
     var txt=chips.map(function(c){return c.textContent||'';}).join('|');
     return chips.length===2 && /Location/.test(txt) && /Amenities/.test(txt) && !/Floor Plan/.test(txt);
   })(), 'ok');
