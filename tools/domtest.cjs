@@ -1095,8 +1095,12 @@ try {
   })(), 'ok');
   ck('finder: the finder still spans every developer with inventory', (function(){
     api.setFilter(api.defaultFilter());
+    // Derived, not tallied: adding inventory must not break this test, only
+    // dropping a developer out of the finder should.
     var devs={}; api.UNITS.forEach(function(u){ var p=api.projBySlug(u.project); if(p) devs[p.dev]=1; });
-    return Object.keys(devs).length===14;
+    var listed={}; api.sortUnits(api.UNITS.slice()).forEach(function(u){
+      var p=api.projBySlug(u.project); if(p) listed[p.dev]=1; });
+    return Object.keys(devs).length>=14 && Object.keys(listed).length===Object.keys(devs).length;
   })(), 'ok');
 
 
@@ -1108,16 +1112,16 @@ try {
     // in the first full cycle every developer appears exactly once
     var n=Object.keys(devs.reduce(function(m,d){m[d]=1;return m;},{})).length;
     var first=devs.slice(0,n), uniq={}; first.forEach(function(d){ uniq[d]=1; });
-    return n===14 && Object.keys(uniq).length===14 && list.length===api.UNITS.length;
+    return n>=14 && Object.keys(uniq).length===n && list.length===api.UNITS.length;
   })(), 'ok');
   ck('rot: the illustrated developers lead — no generated art in the first row', (function(){
     api.setSearch(''); api.setFilter(api.defaultFilter());
     var list=api.sortUnits(api.UNITS.slice());
-    // seven developers publish unit photography; those seven open the cycle
+    // however many developers publish unit photography, those open the cycle
     var shot={}; api.UNITS.forEach(function(u){
       var p=api.projBySlug(u.project); if(p && api.hasUnitImage(u)) shot[p.dev]=1; });
     var n=Object.keys(shot).length;
-    return n===7 && list.slice(0,n).every(api.hasUnitImage);
+    return n>=7 && list.slice(0,n).every(api.hasUnitImage);
   })(), 'ok');
   ck('rot: developers with no photography still appear, just later', (function(){
     var list=api.sortUnits(api.UNITS.slice());
@@ -1233,7 +1237,9 @@ try {
       return (d.getAttribute&&d.getAttribute('id'))==='facet-row-devs'; })[0];
     var chips=qsa(row,'button').filter(function(b){
       return /(^|\s)fchip(\s|$)/.test((b.getAttribute&&b.getAttribute('class'))||''); });
-    return chips.length===14;   // all developers present for crawlers and for the toggle
+    // one chip per developer with inventory, present for crawlers and the toggle
+    var devs={}; api.UNITS.forEach(function(u){ var p=api.projBySlug(u.project); if(p) devs[p.dev]=1; });
+    return chips.length===Object.keys(devs).length;
   })(), 'ok');
 
   // ---- MODON new release (homepage card + dedicated page) ----

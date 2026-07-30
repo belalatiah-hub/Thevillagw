@@ -60,7 +60,7 @@
     'district-5':'/project-media/marakez/units/ap1-d-04.webp',
     'crescent-walk':'/project-media/marakez/units/v2-cr-0.webp',
     'beit-al-bahr':'/project-media/beitalbahr/lagoon.webp',
-    'marsa-baghush':'/project-media/baghush/lagoon-firepit.webp',
+    'marsa-baghush':'/project-media/baghush/beach-aerial.webp',
     'sumou-boulevard':'/project-media/sumou/st-03.webp',
     'beach-plaza-premium':'/project-media/modon/ap1-bp-03.webp',
     'beach-plaza-luxury':'/project-media/modon/ap1-bpl-0.webp',
@@ -117,6 +117,20 @@
   function groupMembers(g){ return (g?g.members:[]).map(projBySlug).filter(Boolean); }
   function groupFrom(g){ var m=groupMembers(g).map(function(p){return p.price;}).filter(function(x){return x!=null;}); return m.length?Math.min.apply(null,m):null; }
   var UNIT_IMAGES = {
+    'MB-V01':'/project-media/baghush/units/v1-0.webp',
+    // the sheet names v1-01 for MB-V02; that frame is in neither archive, so the
+    // card takes v1-03, the unused frame of the same v1 villa family
+    'MB-V02':'/project-media/baghush/units/v1-03.webp',
+    'MB-V03':'/project-media/baghush/units/v2-0.webp',
+    'MB-V04':'/project-media/baghush/units/v3-0.webp',
+    'MB-CH01':'/project-media/baghush/units/ch1-0.webp',
+    'MB-CH02':'/project-media/baghush/units/ch2-0.webp',
+    'MB-CH03':'/project-media/baghush/units/ch2-01.webp',
+    'MB-TW01':'/project-media/baghush/units/t-0.webp',
+    'MB-CH04':'/project-media/baghush/units/ch4-0.webp',
+    'MB-CH05':'/project-media/baghush/units/ch5-0.webp',
+    'MB-CH06':'/project-media/baghush/units/ch7-0.webp',
+    'MB-CH07':'/project-media/baghush/units/v1-02.webp',
     'RM-VL01':'/project-media/ramla/units/v1-0.webp',
     'RM-TW01':'/project-media/ramla/units/tw2-0.webp',
     'RM-DX01':'/project-media/ramla/units/du-02.webp',
@@ -326,6 +340,16 @@
   /* Per-unit render galleries (all photos for a unit) — opened as a numbered
      carousel from the unit hero and the "Photos" chip. LMD-populated. */
   var UNIT_GALLERY = {
+    'MB-V01':["/project-media/baghush/units/v1-0.webp", "/project-media/baghush/units/v1-02.webp", "/project-media/baghush/units/v1-03.webp"],
+    'MB-V03':["/project-media/baghush/units/v2-0.webp", "/project-media/baghush/units/v2-01.webp"],
+    'MB-V04':["/project-media/baghush/units/v3-0.webp", "/project-media/baghush/units/v3-01.webp"],
+    'MB-CH01':["/project-media/baghush/units/ch1-0.webp", "/project-media/baghush/units/ch1-01.webp"],
+    'MB-CH02':["/project-media/baghush/units/ch2-0.webp", "/project-media/baghush/units/ch2-01.webp"],
+    'MB-CH03':["/project-media/baghush/units/ch2-01.webp", "/project-media/baghush/units/ch2-0.webp"],
+    'MB-TW01':["/project-media/baghush/units/t-0.webp", "/project-media/baghush/units/t-01.webp"],
+    'MB-CH05':["/project-media/baghush/units/ch5-0.webp", "/project-media/baghush/units/ch5-01.webp"],
+    'MB-CH06':["/project-media/baghush/units/ch7-0.webp", "/project-media/baghush/units/ch7-01.webp"],
+    'MB-CH07':["/project-media/baghush/units/v1-02.webp", "/project-media/baghush/units/v1-0.webp", "/project-media/baghush/units/v1-03.webp"],
     'RM-VL01':["/project-media/ramla/units/v1-0.webp", "/project-media/ramla/units/v1-01.webp", "/project-media/ramla/units/v1-02.webp"],
     'RM-TW01':["/project-media/ramla/units/tw2-0.webp", "/project-media/ramla/units/tw-r-0.webp", "/project-media/ramla/units/tw1-r-0.webp", "/project-media/ramla/units/tw2-01.webp", "/project-media/ramla/units/tw2-02.webp", "/project-media/ramla/units/tw2-03.webp"],
     'RM-DX01':["/project-media/ramla/units/du-02.webp", "/project-media/ramla/units/du-0.webp", "/project-media/ramla/units/du-01.webp", "/project-media/ramla/units/du-03.webp", "/project-media/ramla/units/du-04.webp"],
@@ -547,6 +571,18 @@
      guesswork. Two floor plans the sheet names (fp-th-3-cr, v4-cr-0) are
      corrupt inside the source archive and are therefore simply absent. */
   var UNIT_MASTERPLANS = {
+    'MB-V01':['/project-media/baghush/units/mp-m.webp'],
+    'MB-V02':['/project-media/baghush/units/mp-m.webp'],
+    'MB-V03':['/project-media/baghush/units/mp-m.webp'],
+    'MB-V04':['/project-media/baghush/units/mp-m.webp'],
+    'MB-CH01':['/project-media/baghush/units/mp-m.webp'],
+    'MB-CH02':['/project-media/baghush/units/mp-m.webp'],
+    'MB-CH03':['/project-media/baghush/units/mp-m.webp'],
+    'MB-TW01':['/project-media/baghush/units/mp-m.webp'],
+    'MB-CH04':['/project-media/baghush/units/mp-m.webp'],
+    'MB-CH05':['/project-media/baghush/units/mp-m.webp'],
+    'MB-CH06':['/project-media/baghush/units/mp-m.webp'],
+    'MB-CH07':['/project-media/baghush/units/mp-m.webp'],
     /* The sheet gives every Ramla row the same mp-r, i.e. one master plan for the
        whole compound. That file is in none of the rm archives, but the aerial site
        plan already on the site — the one on the developer page's Coast card — is
@@ -749,6 +785,18 @@
     'SL-SV15':['/project-media/hassan-allam/sl-sv15-mp1.webp'],
   };
   var UNIT_FLOORPLANS = {
+    'MB-V01':["/project-media/baghush/units/fp-v3.webp"],
+    'MB-V02':["/project-media/baghush/units/fp-v2.webp"],
+    'MB-V03':["/project-media/baghush/units/fp-v1.webp"],
+    'MB-V04':["/project-media/baghush/units/fp-v4.webp"],
+    'MB-CH01':["/project-media/baghush/units/fp-c1-0.webp"],
+    'MB-CH02':["/project-media/baghush/units/fp-c1-0.webp", "/project-media/baghush/units/fp-c1-01.webp"],
+    'MB-CH03':["/project-media/baghush/units/fp-ch3.webp"],
+    'MB-TW01':["/project-media/baghush/units/fp-t1-0.webp"],
+    'MB-CH04':["/project-media/baghush/units/fp-ch4.webp"],
+    'MB-CH05':["/project-media/baghush/units/fp-ch6.webp"],
+    'MB-CH06':["/project-media/baghush/units/fp-ch7.webp"],
+    'MB-CH07':["/project-media/baghush/units/fp-ch8.webp"],
     // The two plans the sheet names as fp-th-3-cr and v4-cr-0 are corrupt inside
     // the source archive; these are the replacements sent as brochure pages. The
     // villa's is filed under fp- rather than the sheet's v4-cr-0 so it cannot be
@@ -943,6 +991,18 @@
   /* Per-unit location renders (LMD). When present, the Location viewer shows the
      unit-specific aerial; otherwise it falls back to the area aerial. */
   var UNIT_LOCATIONS = {
+    'MB-V01':['/project-media/baghush/units/loc-ma.webp'],
+    'MB-V02':['/project-media/baghush/units/loc-ma.webp'],
+    'MB-V03':['/project-media/baghush/units/loc-ma.webp'],
+    'MB-V04':['/project-media/baghush/units/loc-ma.webp'],
+    'MB-CH01':['/project-media/baghush/units/loc-ma.webp'],
+    'MB-CH02':['/project-media/baghush/units/loc-ma.webp'],
+    'MB-CH03':['/project-media/baghush/units/loc-ma.webp'],
+    'MB-TW01':['/project-media/baghush/units/loc-ma.webp'],
+    'MB-CH04':['/project-media/baghush/units/loc-ma.webp'],
+    'MB-CH05':['/project-media/baghush/units/loc-ma.webp'],
+    'MB-CH06':['/project-media/baghush/units/loc-ma.webp'],
+    'MB-CH07':['/project-media/baghush/units/loc-ma.webp'],
     /* The sheet gives every Ramla row the same "loc ramla": one location map for
        the compound. This is it — the coast map from the brochure, marking Ramla at
        Ras El Hekma. Until it arrived these units fell back to the area aerial. */
