@@ -117,13 +117,6 @@
   function groupMembers(g){ return (g?g.members:[]).map(projBySlug).filter(Boolean); }
   function groupFrom(g){ var m=groupMembers(g).map(function(p){return p.price;}).filter(function(x){return x!=null;}); return m.length?Math.min.apply(null,m):null; }
   var UNIT_IMAGES = {
-    /* Aeon's three older units carry no image id in the sheet — only the apartment
-       does. Without one each they fell back to the project cover, so the hero and
-       three cards were the same picture. Each takes a different frame of Aeon's own
-       set instead. */
-    'AE-S01':'/project-media/ramla/units/ap-a-05.webp',
-    'AE-CL2':'/project-media/ramla/units/ap-a-01.webp',
-    'AE-AO3':'/project-media/ramla/units/ap-a-02.webp',
     'RM-VL01':'/project-media/ramla/units/v1-0.webp',
     'RM-TW01':'/project-media/ramla/units/tw2-0.webp',
     'RM-DX01':'/project-media/ramla/units/du-02.webp',
