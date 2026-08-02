@@ -59,6 +59,7 @@
     'aeon':'/project-media/ramla/units/ap-a-03.webp',
     'district-5':'/project-media/marakez/units/ap1-d-04.webp',
     'crescent-walk':'/project-media/marakez/units/v2-cr-0.webp',
+    'alam-al-roum':'/project-media/qataridiar/alam-al-roum/city.webp',
     'bab-shores':'/project-media/beitalbahr/units/ch1-03-sh.webp',
     'bab-roots':'/project-media/beitalbahr/units/v1-01-roo.webp',
     'bab-rays':'/project-media/beitalbahr/units/v1-01-rays.webp',
@@ -2154,6 +2155,173 @@
   };
   function devFeatures(key){ return DEV_FEATURES[key] || null; }
 
+  /* ---- Project-level brochure material ---------------------------------
+     A developer's brochure sits on the developer page; a single project's
+     brochure belongs to that project, so this map is keyed by slug and the
+     project page mounts it the same way the developer page mounts DEV_FEATURES.
+     Everything here is read off the uploaded Digital Brochure and nothing else. */
+  var AAR = '/project-media/qataridiar/alam-al-roum/';
+  var PROJECT_BROCHURE = {
+    'alam-al-roum': {
+      title: {en:'Digital Brochure', ar:'البروشور الرقمي'},
+      file:  AAR+'alam-al-roum-brochure.pdf',
+      pages: [
+      AAR+'pages/p01.webp',
+      AAR+'pages/p02.webp',
+      AAR+'pages/p03.webp',
+      AAR+'pages/p04.webp',
+      AAR+'pages/p05.webp',
+      AAR+'pages/p06.webp',
+      AAR+'pages/p07.webp',
+      AAR+'pages/p08.webp',
+      AAR+'pages/p09.webp',
+      AAR+'pages/p10.webp',
+      AAR+'pages/p11.webp',
+      AAR+'pages/p12.webp',
+      AAR+'pages/p13.webp',
+      AAR+'pages/p14.webp',
+      AAR+'pages/p15.webp',
+      AAR+'pages/p16.webp',
+      AAR+'pages/p17.webp',
+      AAR+'pages/p18.webp',
+      AAR+'pages/p19.webp',
+      AAR+'pages/p20.webp',
+      AAR+'pages/p21.webp',
+      AAR+'pages/p22.webp',
+      AAR+'pages/p23.webp',
+      AAR+'pages/p24.webp',
+      AAR+'pages/p25.webp',
+      AAR+'pages/p26.webp',
+      AAR+'pages/p27.webp',
+      AAR+'pages/p28.webp',
+      AAR+'pages/p29.webp',
+      AAR+'pages/p30.webp',
+      AAR+'pages/p31.webp',
+      AAR+'pages/p32.webp',
+      AAR+'pages/p33.webp',
+      AAR+'pages/p34.webp',
+      AAR+'pages/p35.webp',
+      AAR+'pages/p36.webp',
+      AAR+'pages/p37.webp',
+      AAR+'pages/p38.webp',
+      AAR+'pages/p39.webp',
+      AAR+'pages/p40.webp',
+      AAR+'pages/p41.webp',
+      AAR+'pages/p42.webp',
+      AAR+'pages/p43.webp',
+      AAR+'pages/p44.webp',
+      AAR+'pages/p45.webp',
+      AAR+'pages/p46.webp',
+      AAR+'pages/p47.webp'
+      ]
+    }
+  };
+  var PROJECT_FEATURES = {
+    'alam-al-roum': {
+      masterplan: {en:'Masterplan', ar:'الماستر بلان', icon:'layers', src:AAR+'masterplan.webp'},
+      cards: [
+        {en:'The Story of Alam Al Roum', ar:'حكاية علم الروم', icon:'spark', imgs:[AAR+'story.webp'],
+         copy:{
+           lead:{en:'Two thousand years ago, a single headland marked this coast. Sailors crossing the open Mediterranean watched for it. When it rose from the water, they knew they were near harbour, near shelter, near home. The Romans named it a landmark. They called it Alam Al Roum.',
+                 ar:'قبل ألفي عام كان رأس بري واحد يميّز هذا الساحل. كان البحّارة العابرون للمتوسط يترقّبونه، وحين يظهر من الماء يعرفون أنهم قرب المرفأ، قرب المأوى، قرب البيت. سمّاه الرومان علامة. وأسموه علم الروم.'},
+           more:{en:'Then, for a long time, the coast forgot. But the light that guided those ancient ships never left. The shape of the bay did not change. The calm of the sheltered water held. Alam Al Roum is the return of this coast to its meaning, restored in full, in all its scale, all its grandeur, all its light. The oldest landmark on the Egyptian Mediterranean is also its newest beginning.',
+                 ar:'ثم نسي الساحل زمناً طويلاً. لكن الضوء الذي هدى تلك السفن القديمة لم يغادر قط. لم يتغيّر شكل الخليج، وظل هدوء المياه المحميّة على حاله. علم الروم هو عودة هذا الساحل إلى معناه، مستعاداً بالكامل، بكل اتساعه وجلاله وضوئه. أقدم معلم على المتوسط المصري هو أيضاً أحدث بداياته.'}
+         }},
+        {en:'Overview & Vision', ar:'نظرة عامة والرؤية', icon:'globe', imgs:[AAR+'coast.webp', AAR+'boulevard.webp'],
+         copy:{
+           lead:{en:'Along 7.2 kilometres of Mediterranean shoreline, fifteen minutes from Marsa Matrouh International Airport, a 4,902-feddan coastal city is taking shape. Masterplanned by Skidmore, Owings & Merrill, it is designed as one connected destination.',
+                 ar:'على امتداد ٧٫٢ كيلومتر من ساحل المتوسط، وعلى بعد خمس عشرة دقيقة من مطار مرسى مطروح الدولي، تتشكّل مدينة ساحلية على ٤٬٩٠٢ فدان. صمّم مخططها العام مكتب سكيدمور أوينجز آند ميريل، كوجهة واحدة متصلة.'},
+           more:{en:'A grand boulevard links the shoreline to the heart of the city, while twenty-eight kilometres of swimmable lagoons bring the water into every neighbourhood. Distinct districts are connected by a continuous landscape spine, creating a walkable city with a strong sense of place. Locally it commands the finest stretch of Egypt\'s North Coast, connected by the Alexandria–Matrouh coastal road; regionally it sits within a short flight of Cairo, the Gulf capitals and the major cities of Europe.',
+                 ar:'يربط بوليفارد كبير الشاطئ بقلب المدينة، بينما تُدخل ٢٨ كيلومتراً من البحيرات القابلة للسباحة الماء إلى كل حي. وتتصل الأحياء المتمايزة بعمود أخضر متواصل يصنع مدينة صالحة للمشي بحسّ مكاني قوي. محلياً تتصدّر أجمل امتداد في ساحل مصر الشمالي، متصلة بطريق الإسكندرية–مطروح الساحلي؛ وإقليمياً تقع على مسافة رحلة قصيرة من القاهرة وعواصم الخليج وكبرى مدن أوروبا.'},
+           groups:[
+             {label:{en:'Partners of Alam Al Roum', ar:'شركاء علم الروم'}, rows:[
+               {k:{en:'Masterplanners',ar:'المخطط العام'},                v:{en:'Skidmore, Owings & Merrill',ar:'سكيدمور أوينجز آند ميريل'}},
+               {k:{en:'Landscape architecture & design',ar:'تنسيق المواقع والتصميم'}, v:{en:'SWA Group',ar:'إس دبليو إيه جروب'}},
+               {k:{en:'Hospitality partner',ar:'شريك الضيافة'},           v:{en:'HVS',ar:'إتش في إس'}},
+               {k:{en:'Marina design & operations',ar:'تصميم وتشغيل المارينا'}, v:{en:'Marina Projects',ar:'مارينا بروجكتس'}},
+               {k:{en:'Infrastructure & mobility consultant',ar:'استشاري البنية التحتية والتنقل'}, v:{en:'SETEC',ar:'سيتك'}},
+               {k:{en:'Real estate advisory',ar:'الاستشارات العقارية'},   v:{en:'Savills',ar:'سافيلز'}}]}
+           ]
+         }},
+        {en:'An Urban Coastal City', ar:'مدينة ساحلية حضرية', icon:'build', imgs:[AAR+'city.webp', AAR+'town.webp'],
+         copy:{
+           lead:{en:'Alam Al Roum carries the civic substance of a true city: a vibrant coastal lifestyle, dynamic waterfront destinations, town centres that trade through every season, a thriving freezone economy, a longevity and medical quarter, and educational institutions.',
+                 ar:'يحمل علم الروم جوهر المدينة الحقيقية: أسلوب حياة ساحلي نابض، وجهات مائية حيوية، مراكز مدينة تعمل في كل المواسم، اقتصاد منطقة حرة مزدهر، حي للصحة وطول العمر، ومؤسسات تعليمية.'},
+           more:{en:'Its neighbourhoods are walkable and climate-responsive, with homes oriented towards water and light and a continuous mobility loop linking every district, designed for people before vehicles. The town centres are the social and cultural anchors: ground-floor retail and waterfront dining sit alongside galleries, café terraces and open-air programming, looking out across the lagoons and trading year-round.',
+                 ar:'أحياؤها صالحة للمشي ومستجيبة للمناخ، بمنازل موجّهة نحو الماء والضوء، وحلقة تنقّل متصلة تربط كل حي، مصمّمة للناس قبل السيارات. ومراكز المدينة هي مرتكزها الاجتماعي والثقافي: تجزئة في الطابق الأرضي ومطاعم على الواجهة المائية إلى جانب صالات عرض وتراسات مقاهٍ وفعاليات في الهواء الطلق، تطل على البحيرات وتعمل طوال العام.'}
+         }},
+        {en:'Water Experiences', ar:'تجارب الماء', icon:'am_lagoon', imgs:[AAR+'beach.webp', AAR+'lagoon.webp', AAR+'sail.webp'],
+         copy:{
+           lead:{en:'Water is the first language of Alam Al Roum: 7.2 kilometres of Mediterranean beachfront, twenty-eight of lagoon frontage, and canals that carry the sea into the city\'s heart.',
+                 ar:'الماء هو اللغة الأولى لعلم الروم: ٧٫٢ كيلومتر من واجهة المتوسط، و٢٨ كيلومتراً من واجهات البحيرات، وقنوات تحمل البحر إلى قلب المدينة.'},
+           more:{en:'The shoreline runs along a naturally sheltered bay where calm waters invite bathing throughout the season, each stretch with its own character, from lively promenades to quiet coves. Inland, twenty-two kilometres of crystalline swimmable lagoons form the city\'s second coastline, with homes opening directly onto the water. Through the centre, a signature canal walk lined with cafés, retail and waterfront dining carries water taxis, connecting the boulevard to the marina in one continuous, walkable thread.',
+                 ar:'يمتد الشاطئ على خليج محمي طبيعياً تدعو مياهه الهادئة للسباحة طوال الموسم، ولكل امتداد طابعه، من الممشى النابض إلى الخلجان الهادئة. وفي الداخل تشكّل ٢٢ كيلومتراً من البحيرات الصافية القابلة للسباحة الساحل الثاني للمدينة، بمنازل تفتح مباشرة على الماء. وفي القلب يمتد ممشى القناة المميّز بمقاهيه ومتاجره ومطاعمه، تحمل مياهه تاكسيات مائية تربط البوليفارد بالمارينا في خيط واحد متصل.'}
+         }},
+        {en:'Landscape Experience', ar:'تجربة المساحات الخضراء', icon:'am_landscape', imgs:[AAR+'spine.webp'],
+         copy:{
+           lead:{en:'The landscape, shaped by SWA, is the green structure that binds the city\'s districts into one. At its core runs the Spine: a continuous corridor of gardens, shaded walks and trails linking every neighbourhood from the Gateway to the sea — more than thirty kilometres of paths.',
+                 ar:'المساحات الخضراء، بتصميم SWA، هي البنية التي تربط أحياء المدينة في كلٍّ واحد. وفي قلبها يمتد العمود: ممر متواصل من الحدائق والممشيات المظلّلة والمسارات يصل كل حي من البوابة إلى البحر — أكثر من ثلاثين كيلومتراً من الممرات.'},
+           more:{en:'From it, each neighbourhood draws a distinct landscape character, expressed through its own planting palette, rhythm and mood. The planting is rooted in the place: native and climate-adapted species are preserved and propagated, sustaining biodiversity and easing the city\'s thirst. Throughout, the lagoon and canal network manages stormwater, sustains the wetlands and keeps the waters clear — beauty doing the work of engineering.',
+                 ar:'ومنه يستمد كل حي طابعاً نباتياً متمايزاً بلوحته ونسقه ومزاجه. والزراعة متجذّرة في المكان: أنواع محلية ومتأقلمة مع المناخ يجري الحفاظ عليها وإكثارها، بما يدعم التنوّع الحيوي ويخفّف عطش المدينة. وعلى امتدادها تدير شبكة البحيرات والقنوات مياه الأمطار وتغذّي الأراضي الرطبة وتحافظ على صفاء المياه — جمالٌ يؤدي عمل الهندسة.'}
+         }},
+        {en:'Hospitality Experience', ar:'تجربة الضيافة', icon:'am_hotel', imgs:[AAR+'arch.webp'],
+         copy:{
+           lead:{en:'Alam Al Roum hosts a calibre of hospitality the Mediterranean reserves for its most celebrated coasts. Ultra-luxury resorts carry the signatures of the world\'s most distinguished houses; between them, intimate boutique hotels offer a quieter register.',
+                 ar:'يستضيف علم الروم مستوى من الضيافة يحفظه المتوسط لأشهر سواحله. منتجعات فائقة الفخامة تحمل توقيع أعرق الأسماء العالمية، وبينها فنادق بوتيك حميمة بنبرة أهدأ.'},
+           more:{en:'Inland, wellness retreats and a longevity quarter extend hospitality into the science of living well. Across every tier the intent holds: arrival should feel like an occasion, and every return like coming home.',
+                 ar:'وفي الداخل تمتد الضيافة عبر منتجعات العافية وحي طول العمر إلى علم الحياة الجيدة. وفي كل مستوى يبقى المقصد واحداً: أن يكون الوصول مناسبة، وكل عودة كأنها عودة إلى البيت.'}
+         }},
+        {en:'Marina & Boating Experiences', ar:'المارينا وتجارب اليخوت', icon:'am_beach', imgs:[AAR+'marina.webp'],
+         copy:{
+           lead:{en:'Alam Al Roum returns Egypt\'s North Coast to the Mediterranean\'s great circuit of harbours, offering three distinct ways to meet the water.',
+                 ar:'يعيد علم الروم ساحل مصر الشمالي إلى دائرة موانئ المتوسط الكبرى، بثلاث طرق متمايزة للقاء الماء.'},
+           more:{en:'At the heart of the city, an international standard marina designed and operated by Marina Projects is built to receive vessels of significant scale. Its waterfront promenade of dining and retail draws residents and visitors from dawn into the night — the social centre of Alam Al Roum and its window to the wider sea. A second, intimate harbour offers fifty berths for residents\' yachts and boats, and private docking brings the water to the door of The Shore Collection residences.',
+                 ar:'في قلب المدينة مارينا بمعايير دولية صمّمتها وتشغّلها مارينا بروجكتس، مهيّأة لاستقبال سفن بأحجام كبيرة. وممشاها المائي بمطاعمه ومتاجره يجذب السكان والزوار من الفجر إلى الليل — المركز الاجتماعي لعلم الروم ونافذته على البحر الأوسع. ومرفأ ثانٍ أصغر يوفّر خمسين مرسى ليخوت السكان وقواربهم، فيما يجلب الرسو الخاص الماء إلى أبواب مساكن ذا شور كوليكشن.'}
+         }},
+        {en:'Golf Experience', ar:'تجربة الجولف', icon:'am_gardenpark', imgs:[AAR+'golf.webp'],
+         copy:{
+           lead:{en:'At the northern reach of Alam Al Roum, an eighteen-hole championship course is set into the natural contours of the land, its front nine threading the edges of a natural lagoon, its back nine running along the open Mediterranean.',
+                 ar:'في الطرف الشمالي من علم الروم يمتد ملعب بطولة من ثمانية عشر حفرة داخل تضاريس الأرض الطبيعية، تسع حفر أمامية تتبع حواف بحيرة طبيعية، وتسع خلفية تمتد على المتوسط المفتوح.'},
+           more:{en:'Three signature holes are drawn directly above the sea, where play pauses for the view. A clubhouse and golf academy anchor the course, and the residences that line its fairways enjoy one of the most coveted outlooks in the city: green to one side, blue to the other.',
+                 ar:'ثلاث حفر مميّزة مرسومة فوق البحر مباشرة، حيث يتوقّف اللعب أمام المشهد. ويرتكز الملعب على نادٍ وأكاديمية جولف، وتتمتع المساكن المصطفّة على مساراته بإحدى أجمل الإطلالات في المدينة: الأخضر من جهة والأزرق من الأخرى.'}
+         }},
+        {en:'Homes of Alam Al Roum', ar:'منازل علم الروم', icon:'home', imgs:[AAR+'homes.webp'],
+         copy:{
+           lead:{en:'The homes span the full register of coastal living, from lagoon-front apartments to standalone villas, from townhouses with sun decks on the water to the signature estates of the Royal Quarter.',
+                 ar:'تغطي المنازل مدى السكن الساحلي كاملاً، من شقق على البحيرات إلى فيلات مستقلة، ومن تاون هاوس بتراسات شمسية على الماء إلى قصور الحي الملكي المميّزة.'},
+           more:{en:'Each home is designed around the things that endure: natural light, generous proportion, a seamless passage between indoors and out, and a view worth waking to. Façades are composed with restraint and warmth, front and back elevations resolved with equal care so that a home is beautiful from every approach. Whether a first coastal address or a family seat to be passed down, these are residences built to be returned to season after season, generation after generation.',
+                 ar:'كل منزل مصمّم حول ما يدوم: الضوء الطبيعي، والنسب السخيّة، والانتقال السلس بين الداخل والخارج، وإطلالة تستحق الاستيقاظ لها. الواجهات مؤلَّفة بتحفّظ ودفء، والواجهتان الأمامية والخلفية مُعالَجتان بالعناية نفسها ليكون المنزل جميلاً من كل اتجاه. سواء كان أول عنوان ساحلي أو مقرّاً عائلياً يُورَّث، فهذه مساكن بُنيت ليُعاد إليها موسماً بعد موسم وجيلاً بعد جيل.'}
+         }}
+      ]
+    }
+  };
+  function projBrochure(slug){ return PROJECT_BROCHURE[slug] || null; }
+  function projFeatures(slug){ return PROJECT_FEATURES[slug] || null; }
+
+  /* The brochure itself: every page opens in the same fullscreen viewer the
+     master plans use — numbered, zoomable, arrow-navigable — and the original
+     PDF stays one click away for anyone who wants the file. */
+  function projectBrochureSection(p){
+    var b = projBrochure(p.slug); if(!b) return null;
+    var nm = L({en:p.name, ar:p.name_ar}), label = L(b.title), n = b.pages.length;
+    var items = b.pages.map(function(s,i){ return {src:s, cap:nm+' · '+label+' ('+(i+1)+'/'+n+')'}; });
+    var open = h('button',{class:'ufeat', type:'button'},
+      ic('doc','ufeat__ic'),
+      h('span',null, (lang==='ar' ? 'تصفّح البروشور' : 'Read the brochure') + ' · ' + num(n) +
+                     (lang==='ar' ? ' صفحة' : ' pages')));
+    open.addEventListener('click', function(){ mediaViewer(items, nm+' · '+label, 0); });
+    var dl = h('a',{class:'ufeat', href:b.file, target:'_blank', rel:'noopener'},
+      ic('arrow','ufeat__ic'), h('span',null, lang==='ar' ? 'تحميل PDF' : 'Download PDF'));
+    // first page stays in the DOM for crawlers without showing on the page
+    var seo = h('img',{src:b.pages[0], alt:nm+' — '+label, width:1200, height:2133,
+      loading:'lazy', decoding:'async', class:'visually-hidden'});
+    return h('section',{class:'section--tight band'},
+      h('div',{class:'wrap'},
+        h('div',{class:'sec-head'}, h('h2',{class:'dev-feat__title'}, ic('doc','dev-feat__ico'), h('span',null,label))),
+        h('div',{class:'ufeat-row'}, open, dl), seo));
+  }
+
+
   // One zoomable photo that opens the shared viewer on the image it belongs to.
   function featImg(src, items, i, alt, w, hgt){
     var img = h('img',{src:src, alt:alt, loading:'lazy', decoding:'async', width:w, height:hgt});
@@ -2164,9 +2332,13 @@
   /* Masterplan lives behind an icon rather than sitting open on the page:
      the button opens the plan in the same fullscreen viewer used elsewhere,
      where it can be zoomed and panned properly. */
-  function devMasterplanSection(dev){
-    var f = devFeatures(dev.key); if(!f || !f.masterplan) return null;
-    var m = f.masterplan, label = L({en:m.en, ar:m.ar}), nm = L(dev.name);
+  function devMasterplanSection(dev){ return masterplanSection(devFeatures(dev.key), L(dev.name)); }
+  /* The brochure presentation is the same whether the material belongs to a
+     developer or to one project of theirs, so both go through here and only
+     the lookup differs. */
+  function masterplanSection(f, nm){
+    if(!f || !f.masterplan) return null;
+    var m = f.masterplan, label = L({en:m.en, ar:m.ar});
     var items = [{src:m.src, cap:nm+' · '+label}];
     var head = h('div',{class:'sec-head'},
       h('h2',{class:'dev-feat__title'}, ic(m.icon,'dev-feat__ico'), h('span',null,label)));
@@ -2223,9 +2395,9 @@
     wrap.appendChild(det);
     return wrap;
   }
-  function devCardsSection(dev){
-    var f = devFeatures(dev.key); if(!f || !f.cards || !f.cards.length) return null;
-    var nm = L(dev.name);
+  function devCardsSection(dev){ return featureCardsSection(devFeatures(dev.key), L(dev.name)); }
+  function featureCardsSection(f, nm){
+    if(!f || !f.cards || !f.cards.length) return null;
     var cards = f.cards.map(function(c){
       var label = L({en:c.en, ar:c.ar}), n = c.imgs.length;
       var items = c.imgs.map(function(s,i){

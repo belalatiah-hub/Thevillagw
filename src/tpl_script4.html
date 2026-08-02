@@ -259,6 +259,13 @@
       h('div',null, aside)));
     top.appendChild(wrap); node.appendChild(top);
     var pAmen = projectAmenitiesSection(p); if(pAmen) node.appendChild(pAmen);
+    // A project with its own brochure shows it here, and the brochure's own
+    // sections read as cards in the same layout the developer pages use.
+    var pBro = projectBrochureSection(p);                    if(pBro)  node.appendChild(pBro);
+    var pMp  = masterplanSection(projFeatures(p.slug), L({en:p.name, ar:p.name_ar}));
+    if(pMp) node.appendChild(pMp);
+    var pFeat= featureCardsSection(projFeatures(p.slug), L({en:p.name, ar:p.name_ar}));
+    if(pFeat) node.appendChild(pFeat);
     track('project_viewed', {project:p.slug});
     if(typeof leadArm==='function') leadArm();   // a project view is a qualifying engagement
 
