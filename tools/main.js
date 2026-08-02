@@ -3087,14 +3087,12 @@ ic('doc','ufeat__ic'),
 h('span',null, (lang==='ar' ? 'تصفّح البروشور' : 'Read the brochure') + ' · ' + num(n) +
 (lang==='ar' ? ' صفحة' : ' pages')));
 open.addEventListener('click', function(){ mediaViewer(items, nm+' · '+label, 0); });
-var dl = h('a',{class:'ufeat', href:b.file, target:'_blank', rel:'noopener'},
-ic('arrow','ufeat__ic'), h('span',null, lang==='ar' ? 'تحميل PDF' : 'Download PDF'));
 var seo = h('img',{src:b.pages[0], alt:nm+' — '+label, width:1200, height:2133,
 loading:'lazy', decoding:'async', class:'visually-hidden'});
 return h('section',{class:'section--tight band'},
 h('div',{class:'wrap'},
 h('div',{class:'sec-head'}, h('h2',{class:'dev-feat__title'}, ic('doc','dev-feat__ico'), h('span',null,label))),
-h('div',{class:'ufeat-row'}, open, dl), seo));
+h('div',{class:'ufeat-row'}, open), seo));
 }
 function featImg(src, items, i, alt, w, hgt){
 var img = h('img',{src:src, alt:alt, loading:'lazy', decoding:'async', width:w, height:hgt});
