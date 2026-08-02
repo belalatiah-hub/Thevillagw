@@ -1281,7 +1281,7 @@ var UNIT_GALLERY = {
 'CW-TW01':["/project-media/marakez/units/tw-cr-0.webp", "/project-media/marakez/units/tw-cr-01.webp"],
 'CW-V01':["/project-media/marakez/units/villa1-cr-0.webp", "/project-media/marakez/units/villa1-cr-01.webp"],
 'CW-V03':["/project-media/marakez/units/v3-cr-0.webp", "/project-media/marakez/units/v3-cr-01.webp", "/project-media/marakez/units/v3-cr-02.webp", "/project-media/marakez/units/v3-cr-03.webp"],
-'CW-V04':["/project-media/marakez/units/v4-cr-00.webp", "/project-media/marakez/units/v4-cr-001.webp", "/project-media/marakez/units/v4-cr-002.webp", "/project-media/marakez/units/v4-cr-003.webp"],
+'CW-V04':["/project-media/marakez/units/v4-cr-00.webp", "/project-media/marakez/units/v4-cr-002.webp", "/project-media/marakez/units/v4-cr-003.webp"],
 'CW-A01':["/project-media/marakez/units/ap1-cr-00.webp", "/project-media/marakez/units/ap1-cr-001.webp", "/project-media/marakez/units/ap1-cr-002.webp", "/project-media/marakez/units/ap1-cr-003.webp"],
 'CW-A02':["/project-media/marakez/units/ap2-cr-0.webp", "/project-media/marakez/units/ap2-cr-01.webp", "/project-media/marakez/units/ap2-cr-02.webp", "/project-media/marakez/units/ap2-cr-03.webp"],
 'CW-A04':["/project-media/marakez/units/ap5-cr-0.webp", "/project-media/marakez/units/ap5-cr-01.webp", "/project-media/marakez/units/ap2-cr-02.webp", "/project-media/marakez/units/ap2-cr-03.webp"],
