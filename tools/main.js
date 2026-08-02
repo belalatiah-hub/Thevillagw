@@ -2376,7 +2376,7 @@ return media;
 }
 var PROJECT_GALLERY = {
 'alam-al-roum': ['city','coast','story','masterplan','boulevard','beach','lagoon',
-'sail','spine','arch','marina','town','golf','homes']
+'spine','arch','marina','town','golf','homes']
 .map(function(f){ return '/project-media/qataridiar/alam-al-roum/'+f+'.webp'; })
 };
 function projectGalleryItems(p){
@@ -3031,7 +3031,7 @@ ar:'يحمل علم الروم جوهر المدينة الحقيقية: أسل�
 more:{en:'Its neighbourhoods are walkable and climate-responsive, with homes oriented towards water and light and a continuous mobility loop linking every district, designed for people before vehicles. The town centres are the social and cultural anchors: ground-floor retail and waterfront dining sit alongside galleries, café terraces and open-air programming, looking out across the lagoons and trading year-round.',
 ar:'أحياؤها صالحة للمشي ومستجيبة للمناخ، بمنازل موجّهة نحو الماء والضوء، وحلقة تنقّل متصلة تربط كل حي، مصمّمة للناس قبل السيارات. ومراكز المدينة هي مرتكزها الاجتماعي والثقافي: تجزئة في الطابق الأرضي ومطاعم على الواجهة المائية إلى جانب صالات عرض وتراسات مقاهٍ وفعاليات في الهواء الطلق، تطل على البحيرات وتعمل طوال العام.'}
 }},
-{en:'Water Experiences', ar:'تجارب الماء', icon:'am_lagoon', imgs:[AAR+'beach.webp', AAR+'lagoon.webp', AAR+'sail.webp'],
+{en:'Water Experiences', ar:'تجارب الماء', icon:'am_lagoon', imgs:[AAR+'beach.webp', AAR+'lagoon.webp'],
 copy:{
 lead:{en:'Water is the first language of Alam Al Roum: 7.2 kilometres of Mediterranean beachfront, twenty-eight of lagoon frontage, and canals that carry the sea into the city\'s heart.',
 ar:'الماء هو اللغة الأولى لعلم الروم: ٧٫٢ كيلومتر من واجهة المتوسط، و٢٨ كيلومتراً من واجهات البحيرات، وقنوات تحمل البحر إلى قلب المدينة.'},
