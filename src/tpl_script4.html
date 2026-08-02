@@ -242,7 +242,10 @@
         h('div',{class:'card__dev card__dev--logo', style:'margin-top:8px'},
           devLogoInline(dev,26),
           h('span',null, h('a',{href:U(buildPath('developer',{slug:dev.key}))}, L(dev.name)), ' · ', h('a',{href:U(buildPath('area',{slug:area.key}))}, L(area.name)))),
-        h('div',{style:'display:flex;gap:8px;flex-wrap:wrap;margin-top:14px'}, (lang==='ar'?p.tags.ar:p.tags.en).map(function(x){return h('span',{class:'chip'},x);})),
+        // Tags are optional: a project imported straight from the client sheet has
+        // only the facts that sheet carries, and reading .ar off nothing threw.
+        h('div',{style:'display:flex;gap:8px;flex-wrap:wrap;margin-top:14px'},
+          ((p.tags && (lang==='ar'?p.tags.ar:p.tags.en)) || []).map(function(x){return h('span',{class:'chip'},x);})),
         (function(){
           // Overview as an accordion — collapsed by default, smooth open, arrow.
           // Content stays in the DOM (<details>) so SEO/crawlers still read it.

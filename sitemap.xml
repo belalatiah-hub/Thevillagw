@@ -519,18 +519,74 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/projects/marsa-baghush/"/>
   </url>
   <url>
-    <loc>https://www.thevillageinvestment.com/en/projects/beit-al-bahr/</loc>
+    <loc>https://www.thevillageinvestment.com/en/projects/bab-shores/</loc>
     <lastmod>2026-08-02</lastmod>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/projects/beit-al-bahr/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/projects/beit-al-bahr/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/projects/beit-al-bahr/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/projects/bab-shores/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/projects/bab-shores/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/projects/bab-shores/"/>
   </url>
   <url>
-    <loc>https://www.thevillageinvestment.com/ar/projects/beit-al-bahr/</loc>
+    <loc>https://www.thevillageinvestment.com/ar/projects/bab-shores/</loc>
     <lastmod>2026-08-02</lastmod>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/projects/beit-al-bahr/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/projects/beit-al-bahr/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/projects/beit-al-bahr/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/projects/bab-shores/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/projects/bab-shores/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/projects/bab-shores/"/>
+  </url>
+  <url>
+    <loc>https://www.thevillageinvestment.com/en/projects/bab-roots/</loc>
+    <lastmod>2026-08-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/projects/bab-roots/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/projects/bab-roots/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/projects/bab-roots/"/>
+  </url>
+  <url>
+    <loc>https://www.thevillageinvestment.com/ar/projects/bab-roots/</loc>
+    <lastmod>2026-08-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/projects/bab-roots/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/projects/bab-roots/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/projects/bab-roots/"/>
+  </url>
+  <url>
+    <loc>https://www.thevillageinvestment.com/en/projects/bab-rays/</loc>
+    <lastmod>2026-08-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/projects/bab-rays/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/projects/bab-rays/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/projects/bab-rays/"/>
+  </url>
+  <url>
+    <loc>https://www.thevillageinvestment.com/ar/projects/bab-rays/</loc>
+    <lastmod>2026-08-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/projects/bab-rays/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/projects/bab-rays/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/projects/bab-rays/"/>
+  </url>
+  <url>
+    <loc>https://www.thevillageinvestment.com/en/projects/bab-hills-by-the-sea/</loc>
+    <lastmod>2026-08-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/projects/bab-hills-by-the-sea/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/projects/bab-hills-by-the-sea/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/projects/bab-hills-by-the-sea/"/>
+  </url>
+  <url>
+    <loc>https://www.thevillageinvestment.com/ar/projects/bab-hills-by-the-sea/</loc>
+    <lastmod>2026-08-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/projects/bab-hills-by-the-sea/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/projects/bab-hills-by-the-sea/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/projects/bab-hills-by-the-sea/"/>
+  </url>
+  <url>
+    <loc>https://www.thevillageinvestment.com/en/projects/bab-hills/</loc>
+    <lastmod>2026-08-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/projects/bab-hills/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/projects/bab-hills/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/projects/bab-hills/"/>
+  </url>
+  <url>
+    <loc>https://www.thevillageinvestment.com/ar/projects/bab-hills/</loc>
+    <lastmod>2026-08-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/projects/bab-hills/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/projects/bab-hills/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/projects/bab-hills/"/>
   </url>
   <url>
     <loc>https://www.thevillageinvestment.com/en/projects/crescent-walk/</loc>
