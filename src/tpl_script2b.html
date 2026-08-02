@@ -1553,10 +1553,13 @@
   /* Photos of the whole project, for the hero. Keyed by slug: a project with
      renders of its own but no unit schedule has nowhere else to show them. */
   var PROJECT_GALLERY = {
-    /* sail is dropped: a blurred shell over open water, it carries nothing of
-       the project and read as an empty frame at hero size. */
+    /* The hero carries the project, not its models: sail was a blurred shell
+       over open water, town a pair of hands round a coffee cup, homes a figure
+       at a railing. All three read as close-ups at hero size, so the sequence
+       runs on the city, the coast, the water and the course instead. Each
+       still appears on the brochure card its section belongs to. */
     'alam-al-roum': ['city','coast','story','masterplan','boulevard','beach','lagoon',
-                     'spine','arch','marina','town','golf','homes']
+                     'spine','arch','marina','golf']
       .map(function(f){ return '/project-media/qataridiar/alam-al-roum/'+f+'.webp'; })
   };
   function projectGalleryItems(p){
