@@ -207,8 +207,11 @@
     var top = h('section',{class:'section--tight'});
     var wrap = h('div',{class:'wrap'});
     wrap.appendChild(crumbNode([{label:t('nav_home'),path:buildPath('home')},{label:t('nav_projects'),path:buildPath('projects')},{label:nm}]));
-    var media = h('div',{class:'detail-media'}, projectMedia(p),
-      h('div',{class:'tags'}, h('span',{class:'chip'}, statusLabel(p.status))));
+    var pGal = projectGalleryItems(p);
+    var pChip = h('div',{class:'tags'}, h('span',{class:'chip'}, statusLabel(p.status)));
+    var media = pGal.length
+      ? galleryHero(pGal, nm, nm, pChip, function(){ return projectArt(p); })
+      : h('div',{class:'detail-media'}, projectMedia(p), pChip);
     var facts = h('table',{class:'fact-table'});
     [[t('developer'),L(dev.name)],[t('area'),L(area.name)],[t('status'),statusLabel(p.status)],
      [t('units'),L(p.types)],[t('finishing'),L(p.finishing)],[t('delivery'), p.delivery==='Ready'?t('ready'):(p.delivery||t('to_confirm'))]]
@@ -330,29 +333,10 @@
     var node=h('div',null), top=h('section',{class:'section--tight'}), wrap=h('div',{class:'wrap'});
     wrap.appendChild(crumbNode([{label:t('nav_home'),path:buildPath('home')},{label:t('nav_units'),path:buildPath('units')},{label:title}]));
     var galItems=unitGalleryItems(u);
-    var media=h('div',{class:'detail-media'+(galItems.length?' detail-media--gal':'')});
-    if(galItems.length){
-      var gidx=0, gn=galItems.length;
-      var gimg=h('img',{class:'artsvg proj-cover', src:galItems[0].src, alt:pnm+' — '+tl, loading:'lazy', decoding:'async'});
-      gimg.addEventListener('error', function(){ if(gimg.parentNode) gimg.parentNode.replaceChild(projectArt(p), gimg); });
-      var gnum=h('span',{class:'gal-badge__n'});
-      var gshow=function(i){ gidx=(i+gn)%gn; gimg.src=galItems[gidx].src; gnum.textContent = gn>1 ? ((gidx+1)+' / '+gn) : (num(gn)+' '+(lang==='ar'?'صورة':'photo')); };
-      media.appendChild(gimg);
-      media.appendChild(h('div',{class:'tags'}, h('span',{class:'chip'}, typeIconC(unitCanon(u),'chip-ico'), tl)));
-      media.appendChild(h('span',{class:'gal-badge','aria-hidden':'true'}, ic('gallery','gal-badge__ic'), gnum));
-      if(gn>1){
-        var gprev=h('button',{class:'gal-nav gal-nav--prev', type:'button','aria-label':(lang==='ar'?'الصورة السابقة':'Previous photo')}, ic('chevleft'));
-        var gnext=h('button',{class:'gal-nav gal-nav--next', type:'button','aria-label':(lang==='ar'?'الصورة التالية':'Next photo')}, ic('chevright'));
-        gprev.addEventListener('click', function(e){ e.stopPropagation(); e.preventDefault(); gshow(gidx-1); });
-        gnext.addEventListener('click', function(e){ e.stopPropagation(); e.preventDefault(); gshow(gidx+1); });
-        media.appendChild(gprev); media.appendChild(gnext);
-      }
-      gimg.addEventListener('click', function(){ mediaViewer(galItems, pnm, gidx); });
-      gshow(0);
-    } else {
-      media.appendChild(unitMedia(u));
-      media.appendChild(h('div',{class:'tags'}, h('span',{class:'chip'}, typeIconC(unitCanon(u),'chip-ico'), tl)));
-    }
+    var uChip=h('div',{class:'tags'}, h('span',{class:'chip'}, typeIconC(unitCanon(u),'chip-ico'), tl));
+    var media = galItems.length
+      ? galleryHero(galItems, pnm+' — '+tl, pnm, uChip, function(){ return projectArt(p); })
+      : h('div',{class:'detail-media'}, unitMedia(u), uChip);
     var aside=h('aside',{class:'aside-card'},
       h('div',{class:'muted',style:'font-size:.8rem;font-weight:700'}, t('price')),
       h('div',{class:'price-lg'}, money(u.price)),
