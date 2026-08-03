@@ -165,9 +165,19 @@ email: "info@thevillageinvestment.com",
 social: { facebook:"https://www.facebook.com/share/18vY47m3rz/", instagram:"https://www.instagram.com/thevillageinvestment", linkedin:"https://www.linkedin.com/company/the-village-investment/", tiktok:"https://www.tiktok.com/@thevillageinvestment" },
 leadEmail: "leads@thevillageinvestment.com",
 LEAD_ENDPOINT: "",
+CF_BEACON: "",
 origin: "https://www.thevillageinvestment.com",
 clientsServed: 899
 };
+(function(){
+if(!CONFIG.CF_BEACON) return;
+try{
+var s=document.createElement('script');
+s.defer=true; s.src='https://static.cloudflareinsights.com/beacon.min.js';
+s.setAttribute('data-cf-beacon', JSON.stringify({token:CONFIG.CF_BEACON}));
+document.head.appendChild(s);
+}catch(e){}
+})();
 function track(ev, props){
 try{
 window.dataLayer = window.dataLayer || [];

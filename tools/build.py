@@ -168,6 +168,9 @@ def pin_script_hashes(doc):
 
     def swap(m):
         csp = m.group(1)
+        # 'unsafe-inline' goes; any allowed HOST stays. A host governs external
+        # scripts only, so keeping one cannot re-open the inline hole the
+        # hashes just closed.
         if "script-src 'self' 'unsafe-inline'" not in csp:
             raise SystemExit('build aborted: script-src is not the expected policy')
         return m.group(0).replace("script-src 'self' 'unsafe-inline'",

@@ -1650,8 +1650,15 @@ try {
      ((/script-src[^;]*/.exec(csp) || [''])[0].match(/'sha256-/g) || []).length ===
      new Set((SEC.match(/<script\b[^>]*>([\s\S]*?)<\/script>/g) || [])).size,
      'hashes=' + ((/script-src[^;]*/.exec(csp) || [''])[0].match(/'sha256-/g) || []).length);
-  ck('sec: no external script or style host is allowed',
-     !/script-src[^;]*https?:/.test(csp) && !/style-src[^;]*https?:/.test(csp));
+  // One host is allowed for scripts and it is named here, so adding a second
+  // fails this test rather than passing unnoticed. A host governs external
+  // scripts only — the hashes above still gate every inline one.
+  ck('sec: the only external script host is the Cloudflare beacon',
+     ((/script-src[^;]*/.exec(csp) || [''])[0].match(/https?:\/\/[^ ;']+/g) || []).join(',')
+       === 'https://static.cloudflareinsights.com');
+  ck('sec: no external style host is allowed', !/style-src[^;]*https?:/.test(csp));
+  ck('sec: the beacon stays off until a token is set', api.CONFIG.CF_BEACON === '' ||
+     /^[0-9a-f]{32}$/i.test(api.CONFIG.CF_BEACON), 'CF_BEACON=' + JSON.stringify(api.CONFIG.CF_BEACON));
   ck('sec: object-less, framed only by us', /base-uri 'self'/.test(csp) && /form-action 'self'/.test(csp));
 
   // The DOM builder is the only path to the page; these are its guarantees.

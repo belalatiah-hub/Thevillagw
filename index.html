@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <!-- frame-ancestors/HSTS belong in HTTP response headers (see deploy runbook), not meta. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'sha256-0eB8s3A3aZQguW+SDJC/YssfCUQj66wY3V7A9qjdeKc=' 'sha256-yI6VCT38V7vjk7cAW7UM7qbGpBU7Ua/f8UOqpzWwxAc=' 'sha256-YvHevJmHHrhBzm9a+K1fYxwv5t1APr4XI8t4Am8p7D4=' 'sha256-RBNvo1WzZ4oRRq0W9+hknpT7T8If536DEMBg9hyq/4o=' 'sha256-8n4Au1HsAGtOw1pDMJmWqMD2zOfe9ocu/rFLvLrNA+s='; connect-src 'self' https://script.google.com https://script.googleusercontent.com; base-uri 'self'; form-action 'self'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'sha256-0eB8s3A3aZQguW+SDJC/YssfCUQj66wY3V7A9qjdeKc=' 'sha256-yI6VCT38V7vjk7cAW7UM7qbGpBU7Ua/f8UOqpzWwxAc=' 'sha256-YvHevJmHHrhBzm9a+K1fYxwv5t1APr4XI8t4Am8p7D4=' 'sha256-RBNvo1WzZ4oRRq0W9+hknpT7T8If536DEMBg9hyq/4o=' 'sha256-cgwbyhBXTKBTx8M+iNJXpt/M0Hd1Y94w9BUEanOz/hw=' https://static.cloudflareinsights.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://cloudflareinsights.com; base-uri 'self'; form-action 'self'" />
   <meta name="theme-color" content="#073D52" />
   <meta name="color-scheme" content="light" />
   <meta name="format-detection" content="telephone=no" />
@@ -450,9 +450,19 @@ email: "info@thevillageinvestment.com",
 social: { facebook:"https://www.facebook.com/share/18vY47m3rz/", instagram:"https://www.instagram.com/thevillageinvestment", linkedin:"https://www.linkedin.com/company/the-village-investment/", tiktok:"https://www.tiktok.com/@thevillageinvestment" },
 leadEmail: "leads@thevillageinvestment.com",
 LEAD_ENDPOINT: "",
+CF_BEACON: "",
 origin: "https://www.thevillageinvestment.com",
 clientsServed: 899
 };
+(function(){
+if(!CONFIG.CF_BEACON) return;
+try{
+var s=document.createElement('script');
+s.defer=true; s.src='https://static.cloudflareinsights.com/beacon.min.js';
+s.setAttribute('data-cf-beacon', JSON.stringify({token:CONFIG.CF_BEACON}));
+document.head.appendChild(s);
+}catch(e){}
+})();
 function track(ev, props){
 try{
 window.dataLayer = window.dataLayer || [];

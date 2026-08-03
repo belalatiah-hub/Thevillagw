@@ -199,11 +199,38 @@
     social: { facebook:"https://www.facebook.com/share/18vY47m3rz/", instagram:"https://www.instagram.com/thevillageinvestment", linkedin:"https://www.linkedin.com/company/the-village-investment/", tiktok:"https://www.tiktok.com/@thevillageinvestment" },
     leadEmail: "leads@thevillageinvestment.com", // lead notifications go here (Apps Script emails it; mailto fallback uses it)
     LEAD_ENDPOINT: "",                       // paste your Google Apps Script Web App URL here → leads append to a Sheet + email leadEmail. See docs/LEAD_CAPTURE_SETUP.md
+    // Cloudflare Web Analytics beacon token. Dashboard → Analytics & Logs →
+    // Web Analytics → Add a site → copy the value of data-cf-beacon's "token".
+    // Empty means no beacon is loaded and no request is made; the site works
+    // exactly as it does now. Cloudflare's request, bandwidth, threat and bot
+    // figures need none of this — they are collected at the edge already.
+    CF_BEACON: "",
     origin: "https://www.thevillageinvestment.com",
     // Owner-supplied. Unlike every other stat on the hero this one is not
     // derived from the data maps, so it lives here and is edited here.
     clientsServed: 899
   };
+
+  /* Cloudflare Web Analytics, loaded only once a token exists.
+
+     Cloudflare already counts requests, bandwidth, threats blocked and bot
+     traffic at the edge — that needs no code and no consent, because it never
+     touches the visitor. This beacon adds what the edge cannot see: page views
+     per route, referrers and Core Web Vitals. It sets no cookie and collects
+     no personal data, which is why it loads without a consent gate where a
+     Google tag could not.
+
+     The tag is created here rather than written into <head> so that an unset
+     token costs nothing at all — no element, no request, no 404. */
+  (function(){
+    if(!CONFIG.CF_BEACON) return;
+    try{
+      var s=document.createElement('script');
+      s.defer=true; s.src='https://static.cloudflareinsights.com/beacon.min.js';
+      s.setAttribute('data-cf-beacon', JSON.stringify({token:CONFIG.CF_BEACON}));
+      document.head.appendChild(s);
+    }catch(e){}
+  })();
 
   /* Privacy-safe analytics dispatcher — pushes a versioned event to
      window.dataLayer (GA4/GTM-ready). Only primitive, non-PII props allowed. */
