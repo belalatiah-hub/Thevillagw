@@ -119,6 +119,7 @@
     main.appendChild(wrap); node.appendChild(main);
 
     var items = list.map(function(p){ return {name:(lang==='ar'?p.name_ar:p.name), url:CONFIG.origin+buildPath('project',{slug:p.slug})}; });
+    node.appendChild(ctaBand());
     return {node:node, title:(preset==='launch'?t('nav_launches'):t('nav_projects'))+' · The Village Investment',
       desc:preset==='launch'?t('home_launch_p'):t('home_feat_p'), indexable:true,
       crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:preset==='launch'?t('nav_launches'):t('nav_projects')}],
@@ -230,6 +231,13 @@
         h('button',{class:'btn btn--ghost btn--sm', type:'button', onclick:function(){ printFactsheet(p); }}, ic('doc'), t('print_sheet'))),
       h('div',{class:'notice notice--warn', style:'margin-top:16px'}, ic('info'), h('div',null, t('illustrative'))));
 
+    // The column below the price card was empty on every project page. It is
+    // the warmest spot on the page — the visitor is already looking at the
+    // number — so the enquiry goes here rather than one click away.
+    var asideWrap = h('div',null, aside,
+      askCard({project:p.slug, area:p.area, source:'project_aside',
+               prefill:(lang==='ar'?'مهتم بمشروع ':'Interested in ') + nm}));
+
     var plogoSrc = projectLogoSrc(p);
     var plogo = null;
     if(plogoSrc){
@@ -259,7 +267,7 @@
         })(),
         h('h2',{style:'font-size:1.3rem;margin-top:28px;margin-bottom:12px'}, t('facts')),
         facts, deliveryTimeline(p)),
-      h('div',null, aside)));
+      h('div',null, asideWrap)));
     top.appendChild(wrap); node.appendChild(top);
     var pAmen = projectAmenitiesSection(p); if(pAmen) node.appendChild(pAmen);
     // A project with its own brochure shows it here, and the brochure's own
@@ -381,7 +389,7 @@
           h('span',{class:'umeta__item', title:t('type')}, typeIconC(unitCanon(u),'umeta__ic'), h('span',null,tl))),
         unitFeatureRow(u),
         h('h2',{style:'font-size:1.3rem;margin-top:28px;margin-bottom:12px'}, t('facts')), facts),
-      h('div',null, aside)));
+      h('div',null, aside, askCard({project:p.slug, area:p.area, source:'unit_aside', prefill:(lang==='ar'?'مهتم بـ ':'Interested in ') + uLabel + ' · ' + pnm}))));
     top.appendChild(wrap); node.appendChild(top);
     var amen=amenitiesSection(u); if(amen) node.appendChild(amen);
     track('unit_viewed',{unit:u.id});
@@ -670,6 +678,7 @@
     fToggle.addEventListener('click', function(){ finderFiltersOpen=!finderFiltersOpen; finderEl.classList.toggle('finder--open', finderFiltersOpen); fToggle.setAttribute('aria-expanded', finderFiltersOpen?'true':'false'); });
     sec.appendChild(h('div',{class:'wrap'}, finderEl));
     node.appendChild(sec);
+    node.appendChild(ctaBand());
     return {node:node, title:t('finder_h')+' · The Village Investment', desc:t('finder_p'), indexable:true,
       ld: unitsCollectionLD(),
       announce: num(list.length)+' '+(lang==='ar'?'وحدة':'units')+' · '+num(projCount)+' '+(lang==='ar'?'مشروع':'projects'),
@@ -778,6 +787,7 @@
     node.appendChild(h('section',{style:'padding-bottom:clamp(40px,7vw,80px)'}, h('div',{class:'wrap'},
       h('div',{class:'grid grid--2'}, DEVELOPERS.map(devCard)),
       h('p',{class:'muted',style:'font-size:.78rem;margin-top:20px'}, t('devmark_note')))));
+    node.appendChild(ctaBand());
     return {node:node, title:t('nav_developers')+' · The Village Investment', desc:t('home_dev_p'), indexable:true,
       crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_developers')}]};
   };
@@ -953,6 +963,7 @@
       sectionHead(t('hero_kicker'), t('home_area_h'), t('home_area_p'), 'h1')));
     node.appendChild(h('section',{style:'padding-bottom:clamp(40px,7vw,80px)'}, h('div',{class:'wrap'},
       resultsHeading(t('nav_areas')), h('div',{class:'grid grid--3'}, AREAS.map(areaTile)))));
+    node.appendChild(ctaBand());
     return {node:node, title:t('nav_areas')+' · The Village Investment', desc:t('home_area_p'), indexable:true,
       crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_areas')}]};
   };
@@ -973,6 +984,7 @@
     if(ps.length){ w.appendChild(resultsHeading()); w.appendChild(h('div',{class:'grid grid--3'}, ps.map(projectCard))); }
     else w.appendChild(h('div',{class:'state'}, ic('pin'), h('h3',null,lang==='ar'?'لا مشروعات مُدرجة بعد':'No projects listed yet'), h('p',null,lang==='ar'?'تحدّث إلى مستشار لمعرفة الإطلاقات الحالية في هذه المنطقة.':'Talk to an advisor for current launches in this area.'), h('a',{class:'btn btn--primary mt-16', href:U(buildPath('contact'))}, t('cta_talk'))));
     sec.appendChild(w); node.appendChild(sec);
+    node.appendChild(ctaBand());
     return {node:node, title:L(a.name)+' — '+t('nav_areas')+' · The Village Investment', desc:L(a.blurb), indexable:true,
       crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_areas'),path:buildPath('areas')},{label:L(a.name)}]};
   };
@@ -1031,6 +1043,7 @@
       w.appendChild(h('div',{class:'prov', style:'margin-top:12px'}, ic('info'), t('illustrative')));
     }
     sec.appendChild(w); node.appendChild(sec);
+    node.appendChild(ctaBand());
     return {node:node, title:t('cmp_h')+' · The Village Investment', desc:t('cmp_p'), indexable:false,
       crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_compare')}]};
   };
@@ -1048,6 +1061,7 @@
           h('p',{class:'muted', style:'margin-top:8px'}, L(r.excerpt)),
           h('div',{class:'card__dev', style:'margin-top:14px'}, num(r.read)+' '+t('readmin')));
       })))));
+    node.appendChild(ctaBand());
     return {node:node, title:t('insights_h')+' · The Village Investment', desc:t('insights_p'), indexable:true,
       crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_insights')}]};
   };
@@ -1090,6 +1104,7 @@
       g.items.forEach(function(it){ w.appendChild(accordion(L(it.q), L(it.a))); });
     });
     sec.appendChild(w); node.appendChild(sec);
+    node.appendChild(ctaBand());
     return {node:node, title:t('faqs_h')+' · The Village Investment', desc:t('faqs_p'), indexable:true,
       ld:faqPageLD(),
       crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_faqs')}]};
@@ -1178,6 +1193,102 @@
     var wrap=h('div',{class:'field'}, h('label',{for:'c-'+id}, label), input, err);
     return {wrap:wrap, input:input, err:err};
   }
+  /* ---- Compact enquiry card -------------------------------------------
+     The page already ends in a band that says "talk to an advisor" and links
+     away; a visitor who is ready to talk had to leave the project to do it.
+     This is the same ask, answerable in place, and it goes in two spots: the
+     aside beside the price on a project or unit page, and inside that band
+     everywhere else, so no page asks for the enquiry without taking it.
+
+     It reuses the contact page's submission path, its validation and both of
+     its bot traps. Field ids are suffixed per instance because two of these
+     can share a page and duplicate ids would break every label. */
+  var askSeq = 0;
+  function askCard(opts){
+    opts = opts || {};
+    var n = ++askSeq, id = function(k){ return 'ask' + n + '-' + k; };
+    var form = h('form',{class:'ask-card', novalidate:true});
+
+    var head = h('div',{class:'ask-card__head'},
+      h('span',{class:'ask-card__ic'}, ic('mail')),
+      h('h2',{class:'ask-card__h'}, t('ask_h')),
+      h('p',{class:'ask-card__p'}, t('ask_p')));
+    form.appendChild(head);
+
+    function field(k, label, type, attrs){
+      var input = h('input', Object.assign({id:id(k), name:k, type:type, placeholder:label,
+        'aria-label':label}, attrs||{}));
+      var err = h('div',{class:'field-err', id:'e-'+id(k), style:'display:none'});
+      input.setAttribute('aria-describedby','e-'+id(k));
+      return {wrap:h('div',{class:'field'}, input, err), input:input, err:err};
+    }
+    var fName  = field('name',  t('form_name'),  'text', {autocomplete:'name'});
+    var fPhone = field('phone', t('form_phone'), 'tel',  {autocomplete:'tel', inputmode:'tel'});
+    var sel    = h('select',{id:id('area'), name:'area','aria-label':t('form_area')},
+                   areaOptions(opts.area || ''));
+    var msg    = h('textarea',{id:id('msg'), name:'message', rows:'2',
+                   placeholder:t('form_msg'), 'aria-label':t('form_msg')},
+                   opts.prefill || '');
+    var submit = h('button',{class:'btn btn--primary btn--block', type:'submit'}, t('ask_send'));
+    var note   = h('div',{class:'ask-card__note', role:'status'});
+
+    form.appendChild(fName.wrap);
+    form.appendChild(h('div',{class:'field'}, sel));
+    form.appendChild(fPhone.wrap);
+    form.appendChild(h('div',{class:'field'}, msg));
+    form.appendChild(submit);
+    form.appendChild(note);
+    // the two traps from the contact form: a field no human sees, and a clock
+    form.appendChild(h('div',{'aria-hidden':'true',
+      style:'position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden'},
+      h('input',{type:'text', id:id('company'), name:'company', tabindex:'-1', autocomplete:'off'})));
+    var openedAt = Date.now();
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var hp = form.querySelector('#' + id('company'));
+      if((hp && hp.value) || (Date.now() - openedAt) < 3000){ track('lead_blocked'); return; }
+
+      var ok = true;
+      function mark(f, bad){
+        f.err.textContent = bad || ''; f.err.style.display = bad ? 'block' : 'none';
+        if(bad){ f.input.setAttribute('aria-invalid','true'); ok = false; }
+        else f.input.removeAttribute('aria-invalid');
+      }
+      var nm = fName.input.value.trim(), ph = fPhone.input.value.trim();
+      mark(fName,  nm ? '' : t('err_req'));
+      mark(fPhone, !ph ? t('err_req') : (/^[+]?[\d\s()-]{7,}$/.test(ph) ? '' : t('err_phone')));
+      if(!ok){ (form.querySelector('[aria-invalid="true"]')||fName.input).focus(); return; }
+
+      var data = {name:nm, phone:ph, email:'', area:sel.value, message:msg.value,
+                  locale:lang, source:opts.source || 'ask', project:opts.project || ''};
+      var done = function(sent){
+        note.className = 'ask-card__note ask-card__note--' + (sent ? 'ok' : 'warn');
+        note.textContent = sent ? t('ask_ok') : t('ask_fail');
+        submit.disabled = false; submit.textContent = t('ask_send');
+        if(sent){ form.reset(); track('lead_submitted', {source:data.source}); }
+        else track('lead_failed', {source:data.source});
+      };
+      submit.disabled = true; submit.textContent = t('form_sending');
+      if(CONFIG.LEAD_ENDPOINT && typeof fetch !== 'undefined'){
+        fetch(CONFIG.LEAD_ENDPOINT, {method:'POST', headers:{'Content-Type':'application/json'},
+          body:JSON.stringify(data)})
+          .then(function(r){ if(!r.ok) throw new Error('bad'); done(true); })
+          .catch(function(){ done(false); });
+      } else {
+        // No endpoint yet: hand the enquiry to a channel that actually reaches
+        // a human rather than claiming a delivery that did not happen.
+        var to = CONFIG.whatsapp;
+        var txt = (lang==='ar' ? 'استفسار من الموقع' : 'Website enquiry') + '%0A' +
+                  encodeURIComponent(nm + ' · ' + ph + (data.project ? (' · ' + data.project) : '') +
+                                     (msg.value ? ('%0A' + msg.value) : ''));
+        try{ window.open('https://wa.me/' + to + '?text=' + txt, '_blank', 'noopener'); }catch(e){}
+        done(true);
+      }
+    });
+    return form;
+  }
+
   function handleLead(form, fields, summary, submit){
     var errs=[];
     function setErr(f, msg){ if(msg){ f.err.textContent=msg; f.err.style.display='block'; f.input.setAttribute('aria-invalid','true'); errs.push(msg);} else { f.err.style.display='none'; f.input.removeAttribute('aria-invalid'); } }
@@ -1260,6 +1371,7 @@
         h('div',{style:'display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px'},
           h('a',{class:'btn btn--primary', href:U(buildPath('home'))}, t('p404_home')),
           h('a',{class:'btn btn--ghost', href:U(buildPath('projects'))}, t('cta_explore')))));
+    node.appendChild(ctaBand());
     return {node:node, title:t('p404_h')+' · The Village Investment', desc:t('p404_p'), indexable:false, crumbs:[], is404:true};
   };
 

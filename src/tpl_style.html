@@ -420,6 +420,36 @@
   .aside-card{background:var(--paper);border:1px solid var(--line-2);border-radius:var(--r-lg);padding:20px;position:sticky;top:calc(var(--header-h) + 16px)}
   .price-lg{font-family:var(--serif);font-size:2rem;font-weight:600;color:var(--teal-800)}
 
+  /* Compact enquiry card. Two homes, one component: standing in the aside
+     beside the price, and inverted inside the teal band at the foot of a page.
+     Fields carry their label as a placeholder because the card has to stay
+     short enough to sit in the column without pushing the price out of view. */
+  .ask-card{background:var(--paper);border:1px solid var(--line-2);border-radius:var(--r-lg);
+    padding:20px;margin-top:16px;position:relative}
+  .ask-card__head{text-align:center;margin-bottom:14px}
+  .ask-card__ic{display:inline-flex;align-items:center;justify-content:center;
+    width:42px;height:42px;border-radius:50%;background:var(--teal-50,rgba(13,84,84,.08));
+    color:var(--teal-700);margin-bottom:8px}
+  .ask-card__ic svg{width:22px;height:22px}
+  .ask-card__h{font-family:var(--serif);font-size:1.15rem;font-weight:600;margin:0 0 4px;color:var(--teal-900)}
+  .ask-card__p{font-size:.85rem;color:var(--ink-2);margin:0;line-height:1.45}
+  .ask-card .field{margin-bottom:10px}
+  .ask-card input,.ask-card select,.ask-card textarea{width:100%}
+  .ask-card textarea{resize:vertical;min-height:56px}
+  .ask-card .field-err{color:var(--danger);font-size:.78rem;margin-top:4px}
+  .ask-card__note{font-size:.85rem;margin-top:10px;line-height:1.45;text-align:center}
+  .ask-card__note--ok{color:var(--teal-700);font-weight:600}
+  .ask-card__note--warn{color:var(--danger)}
+
+  /* Inside the teal band the card sits on dark ground: keep the panel light so
+     the inputs stay legible, and cap the width so it reads as a form, not a
+     wall. */
+  .band-teal .ask-card{max-width:520px;margin-inline:auto;text-align:start}
+  .band-teal .ask-card__h,.band-teal .ask-card__p{color:inherit}
+  .band-teal .ask-card__h{color:var(--teal-900)}
+  .band-teal .ask-card__p{color:var(--ink-2)}
+
+
   /* Compare table */
   .cmp-wrap{overflow-x:auto;border:1px solid var(--line-2);border-radius:var(--r-lg);background:var(--paper)}
   .cmp{border-collapse:collapse;width:100%;min-width:640px}

@@ -248,6 +248,9 @@ cmp_empty:"No units added yet", cmp_empty_p:"Open any unit and choose “Compare
 form_name:"Full name", form_phone:"Phone (with country code)", form_email:"Email", form_area:"Preferred area", form_msg:"What are you looking for?",
 form_consent:"I agree to be contacted about my enquiry and accept the privacy notice.",
 form_send:"Request a callback", form_sending:"Checking…",
+ask_h:"Need expert advice?", ask_p:"Leave your details and a property consultant will call you back.",
+ask_send:"Send", ask_ok:"Thank you — a consultant will call you shortly.",
+ask_fail:"We could not send that just now. Please call or WhatsApp us instead.",
 err_req:"This field is required", err_email:"Enter a valid email", err_phone:"Enter a valid phone with country code", err_consent:"Please accept the privacy notice to continue",
 lead_not_connected:"This preview build is not connected to a live CRM yet, so nothing was sent. Your details are shown below to copy — or configure a lead endpoint to go live.",
 lead_copy:"Copy my details", copied:"Copied to clipboard",
@@ -368,6 +371,9 @@ cmp_empty:"لم تُضِف وحدات بعد", cmp_empty_p:"افتح أي وحد
 form_name:"الاسم الكامل", form_phone:"الهاتف (مع كود الدولة)", form_email:"البريد الإلكتروني", form_area:"المنطقة المفضّلة", form_msg:"عمّا تبحث؟",
 form_consent:"أوافق على التواصل معي بخصوص طلبي وأقبل إشعار الخصوصية.",
 form_send:"اطلب معاودة الاتصال", form_sending:"جارٍ التحقق…",
+ask_h:"محتاج استشارة؟", ask_p:"سيب بياناتك وهيتواصل معاك مستشار عقاري.",
+ask_send:"إرسال", ask_ok:"شكراً لك — سيتصل بك مستشار قريباً.",
+ask_fail:"تعذّر الإرسال الآن. برجاء الاتصال بنا أو مراسلتنا على واتساب.",
 err_req:"هذا الحقل مطلوب", err_email:"أدخل بريداً صحيحاً", err_phone:"أدخل رقماً صحيحاً مع كود الدولة", err_consent:"يرجى قبول إشعار الخصوصية للمتابعة",
 lead_not_connected:"هذه النسخة التجريبية غير متصلة بنظام CRM بعد، لذلك لم يُرسَل شيء. بياناتك معروضة أدناه لنسخها — أو اضبط نقطة استقبال للطلبات للتشغيل الفعلي.",
 lead_copy:"انسخ بياناتي", copied:"تم النسخ",
@@ -4138,7 +4144,8 @@ return h('section',{class:'section band-teal'},
 h('div',{class:'wrap center'},
 h('h2',null, t('enquire')),
 h('p',{class:'lead', style:'margin:10px auto 18px;max-width:52ch'}, t('enquire_p')),
-h('a',{class:'btn btn--light', href:U(buildPath('contact'))}, t('cta_talk'), ic('arrow'))));
+(typeof askCard==='function' ? askCard({source:'cta_band'}) : null),
+h('a',{class:'btn btn--light', style:'margin-top:16px', href:U(buildPath('contact'))}, t('cta_talk'), ic('arrow'))));
 }
 var HERO_SLIDES = ['beach','sunset','lagoon','town','clubhouse'];
 function heroSrc(nm){
@@ -4266,6 +4273,7 @@ if(ps.length){ w.appendChild(h('div',{class:'grid grid--3'}, ps.map(projectCard)
 else { w.appendChild(h('div',{class:'empty-state'}, h('div',{class:'empty-ico'}, ic('heart')),
 h('p',null, t('fav_empty')), h('a',{class:'btn btn--primary', href:U(buildPath('projects'))}, t('cta_explore')))); }
 sec.appendChild(w); node.appendChild(sec);
+node.appendChild(ctaBand());
 return {node:node, title:t('nav_favorites')+' · The Village Investment', desc:t('fav_p'), indexable:false,
 crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_favorites')}]};
 };
@@ -5027,6 +5035,7 @@ wrap.appendChild(resultsHost);
 renderResults();
 main.appendChild(wrap); node.appendChild(main);
 var items = list.map(function(p){ return {name:(lang==='ar'?p.name_ar:p.name), url:CONFIG.origin+buildPath('project',{slug:p.slug})}; });
+node.appendChild(ctaBand());
 return {node:node, title:(preset==='launch'?t('nav_launches'):t('nav_projects'))+' · The Village Investment',
 desc:preset==='launch'?t('home_launch_p'):t('home_feat_p'), indexable:true,
 crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:preset==='launch'?t('nav_launches'):t('nav_projects')}],
@@ -5126,6 +5135,9 @@ h('div',{style:'display:flex;gap:8px;flex-wrap:wrap;margin-top:10px'},
 h('button',{class:'btn btn--ghost btn--sm', type:'button', onclick:function(e){toggleSave(p.slug,null); render(currentRoute,{keep:true});}}, ic('heart'), saved.has(p.slug)?t('saved'):t('save')),
 h('button',{class:'btn btn--ghost btn--sm', type:'button', onclick:function(){ printFactsheet(p); }}, ic('doc'), t('print_sheet'))),
 h('div',{class:'notice notice--warn', style:'margin-top:16px'}, ic('info'), h('div',null, t('illustrative'))));
+var asideWrap = h('div',null, aside,
+askCard({project:p.slug, area:p.area, source:'project_aside',
+prefill:(lang==='ar'?'مهتم بمشروع ':'Interested in ') + nm}));
 var plogoSrc = projectLogoSrc(p);
 var plogo = null;
 if(plogoSrc){
@@ -5151,7 +5163,7 @@ h('div',{class:'accordion__body'}, h('p',{class:'muted', style:'max-width:60ch'}
 })(),
 h('h2',{style:'font-size:1.3rem;margin-top:28px;margin-bottom:12px'}, t('facts')),
 facts, deliveryTimeline(p)),
-h('div',null, aside)));
+h('div',null, asideWrap)));
 top.appendChild(wrap); node.appendChild(top);
 var pAmen = projectAmenitiesSection(p); if(pAmen) node.appendChild(pAmen);
 var pBro = projectBrochureSection(p);                    if(pBro)  node.appendChild(pBro);
@@ -5256,7 +5268,7 @@ h('a',{class:'umeta__item', href:U(buildPath('developer',{slug:dev.key})), title
 h('span',{class:'umeta__item', title:t('type')}, typeIconC(unitCanon(u),'umeta__ic'), h('span',null,tl))),
 unitFeatureRow(u),
 h('h2',{style:'font-size:1.3rem;margin-top:28px;margin-bottom:12px'}, t('facts')), facts),
-h('div',null, aside)));
+h('div',null, aside, askCard({project:p.slug, area:p.area, source:'unit_aside', prefill:(lang==='ar'?'مهتم بـ ':'Interested in ') + uLabel + ' · ' + pnm}))));
 top.appendChild(wrap); node.appendChild(top);
 var amen=amenitiesSection(u); if(amen) node.appendChild(amen);
 track('unit_viewed',{unit:u.id});
@@ -5509,6 +5521,7 @@ var finderEl=h('div',{class:'finder'+(finderFiltersOpen?' finder--open':'')}, fT
 fToggle.addEventListener('click', function(){ finderFiltersOpen=!finderFiltersOpen; finderEl.classList.toggle('finder--open', finderFiltersOpen); fToggle.setAttribute('aria-expanded', finderFiltersOpen?'true':'false'); });
 sec.appendChild(h('div',{class:'wrap'}, finderEl));
 node.appendChild(sec);
+node.appendChild(ctaBand());
 return {node:node, title:t('finder_h')+' · The Village Investment', desc:t('finder_p'), indexable:true,
 ld: unitsCollectionLD(),
 announce: num(list.length)+' '+(lang==='ar'?'وحدة':'units')+' · '+num(projCount)+' '+(lang==='ar'?'مشروع':'projects'),
@@ -5612,6 +5625,7 @@ sectionHead(t('hero_kicker'), t('home_dev_h'), t('home_dev_p'), 'h1')));
 node.appendChild(h('section',{style:'padding-bottom:clamp(40px,7vw,80px)'}, h('div',{class:'wrap'},
 h('div',{class:'grid grid--2'}, DEVELOPERS.map(devCard)),
 h('p',{class:'muted',style:'font-size:.78rem;margin-top:20px'}, t('devmark_note')))));
+node.appendChild(ctaBand());
 return {node:node, title:t('nav_developers')+' · The Village Investment', desc:t('home_dev_p'), indexable:true,
 crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_developers')}]};
 };
@@ -5762,6 +5776,7 @@ node.appendChild(sectionWrap(crumbNode([{label:t('nav_home'),path:buildPath('hom
 sectionHead(t('hero_kicker'), t('home_area_h'), t('home_area_p'), 'h1')));
 node.appendChild(h('section',{style:'padding-bottom:clamp(40px,7vw,80px)'}, h('div',{class:'wrap'},
 resultsHeading(t('nav_areas')), h('div',{class:'grid grid--3'}, AREAS.map(areaTile)))));
+node.appendChild(ctaBand());
 return {node:node, title:t('nav_areas')+' · The Village Investment', desc:t('home_area_p'), indexable:true,
 crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_areas')}]};
 };
@@ -5782,6 +5797,7 @@ var sec=h('section',{style:'padding-bottom:clamp(40px,7vw,80px)'}); var w=h('div
 if(ps.length){ w.appendChild(resultsHeading()); w.appendChild(h('div',{class:'grid grid--3'}, ps.map(projectCard))); }
 else w.appendChild(h('div',{class:'state'}, ic('pin'), h('h3',null,lang==='ar'?'لا مشروعات مُدرجة بعد':'No projects listed yet'), h('p',null,lang==='ar'?'تحدّث إلى مستشار لمعرفة الإطلاقات الحالية في هذه المنطقة.':'Talk to an advisor for current launches in this area.'), h('a',{class:'btn btn--primary mt-16', href:U(buildPath('contact'))}, t('cta_talk'))));
 sec.appendChild(w); node.appendChild(sec);
+node.appendChild(ctaBand());
 return {node:node, title:L(a.name)+' — '+t('nav_areas')+' · The Village Investment', desc:L(a.blurb), indexable:true,
 crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_areas'),path:buildPath('areas')},{label:L(a.name)}]};
 };
@@ -5836,6 +5852,7 @@ w.appendChild(h('div',{class:'cmp-wrap'}, table));
 w.appendChild(h('div',{class:'prov', style:'margin-top:12px'}, ic('info'), t('illustrative')));
 }
 sec.appendChild(w); node.appendChild(sec);
+node.appendChild(ctaBand());
 return {node:node, title:t('cmp_h')+' · The Village Investment', desc:t('cmp_p'), indexable:false,
 crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_compare')}]};
 };
@@ -5851,6 +5868,7 @@ h('h3',{style:'margin-top:12px;font-size:1.15rem'}, L(r.title)),
 h('p',{class:'muted', style:'margin-top:8px'}, L(r.excerpt)),
 h('div',{class:'card__dev', style:'margin-top:14px'}, num(r.read)+' '+t('readmin')));
 })))));
+node.appendChild(ctaBand());
 return {node:node, title:t('insights_h')+' · The Village Investment', desc:t('insights_p'), indexable:true,
 crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_insights')}]};
 };
@@ -5889,6 +5907,7 @@ w.appendChild(h('h2',{style:'font-size:1.3rem;margin:26px 0 12px'}, L(g.label)))
 g.items.forEach(function(it){ w.appendChild(accordion(L(it.q), L(it.a))); });
 });
 sec.appendChild(w); node.appendChild(sec);
+node.appendChild(ctaBand());
 return {node:node, title:t('faqs_h')+' · The Village Investment', desc:t('faqs_p'), indexable:true,
 ld:faqPageLD(),
 crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_faqs')}]};
@@ -5963,6 +5982,82 @@ var err=h('div',{class:'field-err', id:'err-'+id, style:'color:var(--danger);fon
 input.setAttribute('aria-describedby','err-'+id);
 var wrap=h('div',{class:'field'}, h('label',{for:'c-'+id}, label), input, err);
 return {wrap:wrap, input:input, err:err};
+}
+var askSeq = 0;
+function askCard(opts){
+opts = opts || {};
+var n = ++askSeq, id = function(k){ return 'ask' + n + '-' + k; };
+var form = h('form',{class:'ask-card', novalidate:true});
+var head = h('div',{class:'ask-card__head'},
+h('span',{class:'ask-card__ic'}, ic('mail')),
+h('h2',{class:'ask-card__h'}, t('ask_h')),
+h('p',{class:'ask-card__p'}, t('ask_p')));
+form.appendChild(head);
+function field(k, label, type, attrs){
+var input = h('input', Object.assign({id:id(k), name:k, type:type, placeholder:label,
+'aria-label':label}, attrs||{}));
+var err = h('div',{class:'field-err', id:'e-'+id(k), style:'display:none'});
+input.setAttribute('aria-describedby','e-'+id(k));
+return {wrap:h('div',{class:'field'}, input, err), input:input, err:err};
+}
+var fName  = field('name',  t('form_name'),  'text', {autocomplete:'name'});
+var fPhone = field('phone', t('form_phone'), 'tel',  {autocomplete:'tel', inputmode:'tel'});
+var sel    = h('select',{id:id('area'), name:'area','aria-label':t('form_area')},
+areaOptions(opts.area || ''));
+var msg    = h('textarea',{id:id('msg'), name:'message', rows:'2',
+placeholder:t('form_msg'), 'aria-label':t('form_msg')},
+opts.prefill || '');
+var submit = h('button',{class:'btn btn--primary btn--block', type:'submit'}, t('ask_send'));
+var note   = h('div',{class:'ask-card__note', role:'status'});
+form.appendChild(fName.wrap);
+form.appendChild(h('div',{class:'field'}, sel));
+form.appendChild(fPhone.wrap);
+form.appendChild(h('div',{class:'field'}, msg));
+form.appendChild(submit);
+form.appendChild(note);
+form.appendChild(h('div',{'aria-hidden':'true',
+style:'position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden'},
+h('input',{type:'text', id:id('company'), name:'company', tabindex:'-1', autocomplete:'off'})));
+var openedAt = Date.now();
+form.addEventListener('submit', function(e){
+e.preventDefault();
+var hp = form.querySelector('#' + id('company'));
+if((hp && hp.value) || (Date.now() - openedAt) < 3000){ track('lead_blocked'); return; }
+var ok = true;
+function mark(f, bad){
+f.err.textContent = bad || ''; f.err.style.display = bad ? 'block' : 'none';
+if(bad){ f.input.setAttribute('aria-invalid','true'); ok = false; }
+else f.input.removeAttribute('aria-invalid');
+}
+var nm = fName.input.value.trim(), ph = fPhone.input.value.trim();
+mark(fName,  nm ? '' : t('err_req'));
+mark(fPhone, !ph ? t('err_req') : (/^[+]?[\d\s()-]{7,}$/.test(ph) ? '' : t('err_phone')));
+if(!ok){ (form.querySelector('[aria-invalid="true"]')||fName.input).focus(); return; }
+var data = {name:nm, phone:ph, email:'', area:sel.value, message:msg.value,
+locale:lang, source:opts.source || 'ask', project:opts.project || ''};
+var done = function(sent){
+note.className = 'ask-card__note ask-card__note--' + (sent ? 'ok' : 'warn');
+note.textContent = sent ? t('ask_ok') : t('ask_fail');
+submit.disabled = false; submit.textContent = t('ask_send');
+if(sent){ form.reset(); track('lead_submitted', {source:data.source}); }
+else track('lead_failed', {source:data.source});
+};
+submit.disabled = true; submit.textContent = t('form_sending');
+if(CONFIG.LEAD_ENDPOINT && typeof fetch !== 'undefined'){
+fetch(CONFIG.LEAD_ENDPOINT, {method:'POST', headers:{'Content-Type':'application/json'},
+body:JSON.stringify(data)})
+.then(function(r){ if(!r.ok) throw new Error('bad'); done(true); })
+.catch(function(){ done(false); });
+} else {
+var to = CONFIG.whatsapp;
+var txt = (lang==='ar' ? 'استفسار من الموقع' : 'Website enquiry') + '%0A' +
+encodeURIComponent(nm + ' · ' + ph + (data.project ? (' · ' + data.project) : '') +
+(msg.value ? ('%0A' + msg.value) : ''));
+try{ window.open('https://wa.me/' + to + '?text=' + txt, '_blank', 'noopener'); }catch(e){}
+done(true);
+}
+});
+return form;
 }
 function handleLead(form, fields, summary, submit){
 var errs=[];
@@ -6039,6 +6134,7 @@ h('p',{class:'lead', style:'margin-top:14px'}, t('p404_p')),
 h('div',{style:'display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px'},
 h('a',{class:'btn btn--primary', href:U(buildPath('home'))}, t('p404_home')),
 h('a',{class:'btn btn--ghost', href:U(buildPath('projects'))}, t('cta_explore')))));
+node.appendChild(ctaBand());
 return {node:node, title:t('p404_h')+' · The Village Investment', desc:t('p404_p'), indexable:false, crumbs:[], is404:true};
 };
 function sectionWrap(){ var w=h('div',{class:'wrap'}); for(var i=0;i<arguments.length;i++){ if(arguments[i]) w.appendChild(arguments[i]); } return h('section',{class:'section--tight'}, w); }

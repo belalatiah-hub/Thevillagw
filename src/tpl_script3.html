@@ -547,11 +547,15 @@
   }
 
   function ctaBand(){
+    // This band closes ten pages. It used to ask for the enquiry and then send
+    // the visitor elsewhere to give it; now it takes it here. The link stays
+    // underneath for anyone who wants the full form.
     return h('section',{class:'section band-teal'},
       h('div',{class:'wrap center'},
         h('h2',null, t('enquire')),
         h('p',{class:'lead', style:'margin:10px auto 18px;max-width:52ch'}, t('enquire_p')),
-        h('a',{class:'btn btn--light', href:U(buildPath('contact'))}, t('cta_talk'), ic('arrow'))));
+        (typeof askCard==='function' ? askCard({source:'cta_band'}) : null),
+        h('a',{class:'btn btn--light', style:'margin-top:16px', href:U(buildPath('contact'))}, t('cta_talk'), ic('arrow'))));
   }
 
   /* ---- Hero backdrop -------------------------------------------------
@@ -723,6 +727,7 @@
     else { w.appendChild(h('div',{class:'empty-state'}, h('div',{class:'empty-ico'}, ic('heart')),
       h('p',null, t('fav_empty')), h('a',{class:'btn btn--primary', href:U(buildPath('projects'))}, t('cta_explore')))); }
     sec.appendChild(w); node.appendChild(sec);
+    node.appendChild(ctaBand());
     return {node:node, title:t('nav_favorites')+' · The Village Investment', desc:t('fav_p'), indexable:false,
       crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_favorites')}]};
   };
