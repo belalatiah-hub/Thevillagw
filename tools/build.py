@@ -14,6 +14,8 @@ Minification touches the inline <script> and <style> blocks only, and is
 deliberately conservative: comments and blank lines go, nothing is renamed or
 reordered, so a production stack trace still points at recognisable source.
 """
+import base64
+import hashlib
 import os
 import re
 import sys
@@ -137,6 +139,46 @@ def apply_to_blocks(doc, tag, fn):
     return pat.sub(lambda m: m.group(1) + fn(m.group(2)) + m.group(3), doc)
 
 
+def pin_script_hashes(doc):
+    """Swap script-src 'unsafe-inline' for the hash of every inline script.
+
+    A single-file page cannot use 'self' for its own scripts — they are not
+    files — so the policy shipped with 'unsafe-inline', which permits ANY
+    inline script, including one an attacker manages to inject. That left the
+    DOM-building code as the only thing standing between the data and the page.
+
+    Hashing closes it. The browser runs an inline script only if its exact body
+    hashes to one of these, so a script the build did not produce does not run
+    even if it reaches the document. Hashes are taken after minification, since
+    that is the text the browser will see, and the CSP is rewritten afterwards
+    so editing it cannot change what was hashed.
+
+    style-src keeps 'unsafe-inline': the UI sets style="" attributes throughout,
+    which no hash can cover. Removing it is a refactor, not a build step.
+    """
+    bodies = re.findall(r'<script\b[^>]*>(.*?)</script>', doc, re.S)
+    if not bodies:
+        raise SystemExit('build aborted: no inline scripts found to hash')
+    digests = []
+    for b in bodies:
+        d = base64.b64encode(hashlib.sha256(b.encode('utf-8')).digest()).decode()
+        src = "'sha256-%s'" % d
+        if src not in digests:
+            digests.append(src)
+
+    def swap(m):
+        csp = m.group(1)
+        if "script-src 'self' 'unsafe-inline'" not in csp:
+            raise SystemExit('build aborted: script-src is not the expected policy')
+        return m.group(0).replace("script-src 'self' 'unsafe-inline'",
+                                  "script-src 'self' " + ' '.join(digests))
+
+    out, n = re.subn(r'<meta http-equiv="Content-Security-Policy" content="([^"]*)"', swap, doc)
+    if n != 1:
+        raise SystemExit('build aborted: expected exactly one CSP meta, found %d' % n)
+    return out
+
+
 def main():
     raw = '--raw' in sys.argv
     doc = '\n'.join(read(p) for p in PARTS)
@@ -158,6 +200,8 @@ def main():
         doc = apply_to_blocks(doc, 'script', minify_js)
         doc = apply_to_blocks(doc, 'style', minify_css)
     after = len(doc.encode('utf-8'))
+
+    doc = pin_script_hashes(doc)
 
     # The engineering banner lives at the END of the document: in <head> it
     # pushed <meta charset> past the 1 KB the parser is required to sniff.

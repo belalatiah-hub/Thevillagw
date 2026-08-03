@@ -37,10 +37,13 @@ jobs:
           enablement: true
 
       - name: Exclude internal-only folders from the published site
-        # data-import-kit/ holds internal staff data-entry templates; it must
-        # never be served publicly. Removing it from the runner checkout keeps
-        # it out of the Pages artifact (Cloudflare is handled by .assetsignore).
-        run: rm -rf data-import-kit
+        # These must never be served. data-import-kit/ holds internal staff
+        # templates; src/ and tools/ are the build inputs and the build itself,
+        # and publishing them hands over the commented source and the tooling.
+        # index.html already contains every byte the page needs, so nothing at
+        # runtime misses them. Removing them from the runner checkout keeps them
+        # out of the Pages artifact; Cloudflare is handled by .assetsignore.
+        run: rm -rf data-import-kit src tools unrar-0.4-py3-none-any.whl
 
       - name: Upload site
         uses: actions/upload-pages-artifact@v3

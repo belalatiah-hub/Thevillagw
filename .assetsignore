@@ -14,3 +14,12 @@ README.txt
 .nojekyll
 # Internal data-entry templates — never part of the public website.
 data-import-kit/
+
+# The build inputs and the build itself. index.html is the deliverable; these
+# are how it is made. Published, they hand anyone the commented, unminified
+# templates and the tooling — which is both an invitation to clone the site and
+# a map of it. Nothing at runtime fetches them: every byte the page needs is
+# already inside index.html.
+src/
+tools/
+unrar-0.4-py3-none-any.whl
