@@ -21,14 +21,24 @@
   })();
 
   /* ---- safe DOM builder (hyperscript) ---- */
+  /* A URL that runs code instead of going somewhere. Every href and src on the
+     site is built from buildPath() or from the media maps, so nothing reaches
+     here today — but the CSP has to allow inline script for a single-file page,
+     which means this builder is the only thing standing between the data and
+     the page. It refuses rather than trusts. */
+  function safeUrl(v){
+    var s = String(v).replace(/[\x00-\x20]/g,'').toLowerCase();
+    return !/^(javascript|vbscript|data):/.test(s);
+  }
   function h(tag, props){
     var e = document.createElement(tag), i, k;
     if (props) for (k in props){
       if (k === 'class') e.className = props[k];
       else if (k === 'text') e.textContent = props[k];
       else if (k === 'html') { /* intentionally unsupported: no raw HTML sink */ }
-      else if (k.slice(0,2) === 'on' && typeof props[k] === 'function') e.addEventListener(k.slice(2), props[k]);
+      else if (k.slice(0,2) === 'on') { if (typeof props[k] === 'function') e.addEventListener(k.slice(2), props[k]); }
       else if (k === 'dataset') { for (var d in props[k]) e.dataset[d] = props[k][d]; }
+      else if ((k === 'href' || k === 'src' || k === 'action' || k === 'formaction') && !safeUrl(props[k])) { /* dropped */ }
       else if (props[k] === true) e.setAttribute(k,'');
       else if (props[k] !== false && props[k] != null) e.setAttribute(k, props[k]);
     }
