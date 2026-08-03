@@ -1148,7 +1148,24 @@
     form.appendChild(fName.wrap); form.appendChild(h('div',{class:'field-row'}, fPhone.wrap, fEmail.wrap));
     var consentErr=h('div',{class:'field-err', id:'err-consent', style:'color:var(--danger);font-size:.8rem;display:none'});
     form.appendChild(fArea); form.appendChild(fMsg); form.appendChild(consentWrap); form.appendChild(consentErr); form.appendChild(submit);
-    form.addEventListener('submit', function(e){ e.preventDefault(); handleLead(form, {name:fName,phone:fPhone,email:fEmail}, summary, submit); });
+    /* Two traps that cost a real visitor nothing. The first is a field no human
+       can see or tab into, named to look worth filling; a form-filling bot walks
+       the DOM and fills it. The second is the clock: a person cannot read the
+       labels, type a name and a phone, tick consent and submit inside three
+       seconds. Either one firing drops the message silently — a bot told it
+       failed just tries again. Both beat a CAPTCHA, which taxes every genuine
+       enquiry to stop the same traffic. */
+    form.appendChild(h('div',{'aria-hidden':'true',
+      style:'position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden'},
+      h('label',{for:'c-company'},'Company'),
+      h('input',{type:'text', id:'c-company', name:'company', tabindex:'-1', autocomplete:'off'})));
+    var openedAt = Date.now();
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var hp = form.querySelector('#c-company');
+      if((hp && hp.value) || (Date.now() - openedAt) < 3000){ track('lead_blocked'); return; }
+      handleLead(form, {name:fName,phone:fPhone,email:fEmail}, summary, submit);
+    });
     w.appendChild(form);
     node.appendChild(h('section',{class:'section--tight'}, w));
     return {node:node, title:t('contact_h')+' · The Village Investment', desc:t('contact_p'), indexable:true,

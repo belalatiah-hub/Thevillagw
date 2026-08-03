@@ -1,0 +1,50 @@
+# Response headers for the Cloudflare Workers static deploy.
+#
+# The Content-Security-Policy lives in a <meta> tag inside index.html because
+# the page is one self-contained document; everything here is a header that a
+# meta tag cannot set. Cloudflare applies these per matching path.
+
+/*
+  # Nobody frames this site inside theirs. A clone that wraps the real pages in
+  # an iframe under its own domain is the cheapest way to pass this work off as
+  # someone else's, and this is the header that stops it.
+  X-Frame-Options: SAMEORIGIN
+
+  # A browser must not second-guess a declared content type. Stops a file that
+  # is served as an image from being run as a script.
+  X-Content-Type-Options: nosniff
+
+  # Send the full URL only to ourselves; other sites learn the origin at most.
+  Referrer-Policy: strict-origin-when-cross-origin
+
+  # The site asks for none of these, so nothing embedded in it can either.
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()
+
+  # HTTPS only, for a year, subdomains included.
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+
+  # Cross-origin isolation: another origin may not read these responses.
+  Cross-Origin-Resource-Policy: same-site
+  Cross-Origin-Opener-Policy: same-origin
+
+# Renders, floor plans and brochure pages are the costly asset and the one most
+# often lifted. same-origin here means another website cannot hotlink them:
+# pointing an <img> at these URLs from a different domain gets a blocked
+# request, not a free image served off this account's bandwidth.
+/project-media/*
+  Cross-Origin-Resource-Policy: same-origin
+  X-Robots-Tag: noai, noimageai
+  Cache-Control: public, max-age=31536000, immutable
+
+/logos/*
+  Cross-Origin-Resource-Policy: same-origin
+  Cache-Control: public, max-age=31536000, immutable
+
+/fonts/*
+  Cross-Origin-Resource-Policy: same-origin
+  Cache-Control: public, max-age=31536000, immutable
+
+# The page itself must always be revalidated so a price change reaches visitors
+# on their next load rather than whenever a cached copy happens to expire.
+/index.html
+  Cache-Control: public, max-age=0, must-revalidate

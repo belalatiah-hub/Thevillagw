@@ -915,6 +915,12 @@ terms:{title:{en:'Terms of use',ar:'شروط الاستخدام'}, summary:{en:'
 ['p','Content here is not financial, legal, tax or investment advice. Confirm current terms with an advisor and the relevant developer, and seek independent professional advice for legal, tax, transfer or residency questions.'],
 ['h','Third-party names'],
 ['p','Developer and project names are used to identify publicly known entities for information only. We describe a partnership or authorisation only where it is documented and approved; where it is not, no such relationship is implied.'],
+['h','Ownership of this website'],
+['p','The design, layout, interface, written descriptions, comparison tools, photography treatment and source code of this website are the property of The Village Investment and are protected by copyright. Developer logos and project renders remain the property of their respective owners and are shown for identification only.'],
+['h','What you may not do'],
+['p','You may not copy, reproduce, republish or adapt any part of this website — its design, its text or its code — for use on another website or service, whether in whole or in part. You may not use automated means to extract, index, harvest or store its content, including scrapers, crawlers, headless browsers or bulk downloaders, nor build or train a dataset or model on it. You may not frame, mirror or present these pages under another name, brand or domain. Browsing and sharing links is welcome; sending someone a link is always fine.'],
+['h','Enforcement'],
+['p','Access is provided on these terms. Where they are breached we pursue removal with the host, the registrar and the search engines, and legal remedies where the breach is material. Reproductions are traceable: the site carries markers that identify the source of a copy.'],
 ['h','Changes'],
 ['p','Information may change without notice. Final terms, company identity and contact details will be published before public launch.']
 ],ar:[
@@ -924,6 +930,12 @@ terms:{title:{en:'Terms of use',ar:'شروط الاستخدام'}, summary:{en:'
 ['p','المحتوى هنا ليس استشارة مالية أو قانونية أو ضريبية أو استثمارية. أكّد الشروط الحالية مع المستشار والمطوّر المعني، واطلب استشارة مهنية مستقلّة للمسائل القانونية والضريبية والتحويل والإقامة.'],
 ['h','أسماء الأطراف الأخرى'],
 ['p','تُستخدَم أسماء المطوّرين والمشروعات للتعريف بكيانات معروفة للعامة لغرض المعلومات فقط. ولا نصف شراكة أو تفويضاً إلا عند توثيقه واعتماده؛ وحيث لا يوجد، لا يُفهَم أي ارتباط.'],
+['h','ملكية هذا الموقع'],
+['p','تصميم هذا الموقع وتخطيطه وواجهته ونصوصه الوصفية وأدوات المقارنة فيه ومعالجة الصور والشيفرة المصدرية مملوكة لـ The Village Investment ومحمية بحقوق المؤلف. أما شعارات المطوّرين ورندرات المشروعات فتظل ملكاً لأصحابها وتُعرض للتعريف فقط.'],
+['h','ما لا يجوز'],
+['p','لا يجوز نسخ أي جزء من هذا الموقع — تصميمه أو نصوصه أو شيفرته — أو إعادة إنتاجه أو نشره أو اقتباسه لاستخدامه في موقع أو خدمة أخرى، كلياً أو جزئياً. ولا يجوز استخدام وسائل آلية لاستخراج محتواه أو فهرسته أو حصده أو تخزينه، بما في ذلك برامج السحب والزواحف والمتصفحات الآلية وأدوات التنزيل بالجملة، ولا بناء أو تدريب مجموعة بيانات أو نموذج عليه. ولا يجوز تأطير هذه الصفحات أو استنساخها أو عرضها تحت اسم أو علامة أو نطاق آخر. أما التصفّح ومشاركة الروابط فمرحّب بهما دائماً.'],
+['h','الإنفاذ'],
+['p','يُتاح الوصول وفق هذه الشروط. وعند مخالفتها نتابع الإزالة مع جهة الاستضافة ومُسجِّل النطاق ومحرّكات البحث، ونلجأ إلى السبل القانونية عند جسامة المخالفة. والنسخ قابل للتتبّع: يحمل الموقع علامات تكشف مصدر أي نسخة منه.'],
 ['h','التغييرات'],
 ['p','قد تتغيّر المعلومات دون إشعار. وستُنشَر الشروط النهائية وهوية الشركة وبيانات التواصل قبل الإطلاق العام.']
 ]}}
@@ -5914,7 +5926,17 @@ var submit=h('button',{class:'btn btn--primary btn--block', type:'submit', style
 form.appendChild(fName.wrap); form.appendChild(h('div',{class:'field-row'}, fPhone.wrap, fEmail.wrap));
 var consentErr=h('div',{class:'field-err', id:'err-consent', style:'color:var(--danger);font-size:.8rem;display:none'});
 form.appendChild(fArea); form.appendChild(fMsg); form.appendChild(consentWrap); form.appendChild(consentErr); form.appendChild(submit);
-form.addEventListener('submit', function(e){ e.preventDefault(); handleLead(form, {name:fName,phone:fPhone,email:fEmail}, summary, submit); });
+form.appendChild(h('div',{'aria-hidden':'true',
+style:'position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden'},
+h('label',{for:'c-company'},'Company'),
+h('input',{type:'text', id:'c-company', name:'company', tabindex:'-1', autocomplete:'off'})));
+var openedAt = Date.now();
+form.addEventListener('submit', function(e){
+e.preventDefault();
+var hp = form.querySelector('#c-company');
+if((hp && hp.value) || (Date.now() - openedAt) < 3000){ track('lead_blocked'); return; }
+handleLead(form, {name:fName,phone:fPhone,email:fEmail}, summary, submit);
+});
 w.appendChild(form);
 node.appendChild(h('section',{class:'section--tight'}, w));
 return {node:node, title:t('contact_h')+' · The Village Investment', desc:t('contact_p'), indexable:true,
