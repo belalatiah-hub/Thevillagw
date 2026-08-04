@@ -60,6 +60,13 @@
     'district-5':'/project-media/marakez/units/ap1-d-04.webp',
     'crescent-walk':'/project-media/marakez/units/v2-cr-0.webp',
     'alam-al-roum':'/project-media/qataridiar/alam-al-roum/city.webp',
+    // ORA: the five destinations in the render decks. Each cover is a wide
+    // exterior, never a frame that also opens the project's own hero carousel.
+    'zed-zayed':'/project-media/ora/zed-zayed/district-2.webp',
+    'zed-east':'/project-media/ora/zed-east/club-2.webp',
+    'silversands-sahel':'/project-media/ora/silversands/villa-a-2.webp',
+    'solana-west':'/project-media/ora/solana-west/villa-a-2.webp',
+    'solana-east':'/project-media/ora/solana-east/villa-2.webp',
     'bab-shores':'/project-media/beitalbahr/units/ch1-03-sh.webp',
     'bab-roots':'/project-media/beitalbahr/units/v1-01-roo.webp',
     'bab-rays':'/project-media/beitalbahr/units/v1-01-rays.webp',
@@ -1552,6 +1559,7 @@
   }
   /* Photos of the whole project, for the hero. Keyed by slug: a project with
      renders of its own but no unit schedule has nowhere else to show them. */
+  var ORAP = '/project-media/ora/';
   var PROJECT_GALLERY = {
     /* The hero carries the project, not its models: sail was a blurred shell
        over open water, town a pair of hands round a coffee cup, homes a figure
@@ -1560,7 +1568,39 @@
        still appears on the brochure card its section belongs to. */
     'alam-al-roum': ['city','coast','story','masterplan','boulevard','beach','lagoon',
                      'spine','arch','marina','golf']
-      .map(function(f){ return '/project-media/qataridiar/alam-al-roum/'+f+'.webp'; })
+      .map(function(f){ return '/project-media/qataridiar/alam-al-roum/'+f+'.webp'; }),
+    /* ORA. These four projects have renders but no unit schedule, so the hero
+       carousel is the only place their exteriors can appear. Order runs wide
+       first — the frame that sells the address before the models. */
+    'zed-zayed': ['district-2','district-1','district-3','district-4']
+      .map(function(f){ return ORAP+'zed-zayed/'+f+'.webp'; }),
+    'zed-east': ['club-2','club-1','club-3','tower-1','tower-2','tower-3','tower-4',
+                 'emerald-street-1','emerald-street-2','emerald-street-3',
+                 'emerald-townhouse-1','emerald-townhouse-2','emerald-townhouse-3',
+                 'emerald-townhouse-4','emerald-townhouse-5','emerald-townhouse-6']
+      .map(function(f){ return ORAP+'zed-east/'+f+'.webp'; }),
+    'silversands-sahel': ['villa-a-1','villa-a-2','villa-a-3','villa-a-4',
+                 'villa-b-1','villa-b-2','villa-b-3','villa-b-4','villa-b-5',
+                 'villa-c-1','villa-c-2','villa-c-3','villa-c-4','villa-c-5',
+                 'townhouse-a-1','townhouse-a-2','townhouse-a-3','townhouse-a-4',
+                 'townhouse-b-1','townhouse-b-2','townhouse-b-3','townhouse-b-4','townhouse-b-5',
+                 'crystalline-villa-a-1','crystalline-villa-a-2','crystalline-villa-a-3',
+                 'crystalline-villa-a-4','crystalline-villa-b-1','crystalline-villa-b-2',
+                 'crystalline-villa-b-3','crystalline-villa-b-4','crystalline-villa-b-5']
+      .map(function(f){ return ORAP+'silversands/'+f+'.webp'; }),
+    'solana-west': ['villa-a-2','villa-a-1','villa-a-3','villa-a-4',
+                 'villa-b-1','villa-b-2','villa-b-3','villa-b-4',
+                 'villa-c-1','villa-c-2','villa-c-3','villa-c-4',
+                 'villa-d-1','villa-d-2','villa-d-3','villa-d-4',
+                 'garden-side-villa-1','garden-side-villa-2','villa-08-1','villa-08-2',
+                 'townhouse-1','townhouse-2','townhouse-3',
+                 'twinhouse-1','twinhouse-2','twinhouse-3',
+                 'buildings-1','buildings-2','buildings-3',
+                 'penthouse-1','penthouse-2','penthouse-3']
+      .map(function(f){ return ORAP+'solana-west/'+f+'.webp'; }),
+    'solana-east': ['villa-2','villa-1','villa-3','twinhouse-1','twinhouse-2',
+                 'twinhouse-3','twinhouse-4']
+      .map(function(f){ return ORAP+'solana-east/'+f+'.webp'; })
   };
   function projectGalleryItems(p){
     var g = PROJECT_GALLERY[p.slug]; if(!g || !g.length) return [];
@@ -2339,10 +2379,131 @@
                  ar:'كل منزل مصمّم حول ما يدوم: الضوء الطبيعي، والنسب السخيّة، والانتقال السلس بين الداخل والخارج، وإطلالة تستحق الاستيقاظ لها. الواجهات مؤلَّفة بتحفّظ ودفء، والواجهتان الأمامية والخلفية مُعالَجتان بالعناية نفسها ليكون المنزل جميلاً من كل اتجاه. سواء كان أول عنوان ساحلي أو مقرّاً عائلياً يُورَّث، فهذه مساكن بُنيت ليُعاد إليها موسماً بعد موسم وجيلاً بعد جيل.'}
          }}
       ]
-    }
+    },
+    /* ORA supplied a masterplan per destination and nothing else in prose, so
+       these entries carry the plan alone — no invented cards. */
+    'zed-zayed':        {masterplan:{en:'Masterplan', ar:'الماستر بلان', icon:'layers', src:ORAP+'zed-zayed/masterplan.webp'}},
+    'zed-east':         {masterplan:{en:'Masterplan', ar:'الماستر بلان', icon:'layers', src:ORAP+'zed-east/masterplan.webp'}},
+    'silversands-sahel':{masterplan:{en:'Masterplan', ar:'الماستر بلان', icon:'layers', src:ORAP+'silversands/masterplan.webp'}},
+    'solana-west':      {masterplan:{en:'Masterplan', ar:'الماستر بلان', icon:'layers', src:ORAP+'solana-west/masterplan.webp'}},
+    'solana-east':      {masterplan:{en:'Masterplan', ar:'الماستر بلان', icon:'layers', src:ORAP+'solana-east/masterplan.webp'}}
   };
   function projBrochure(slug){ return PROJECT_BROCHURE[slug] || null; }
   function projFeatures(slug){ return PROJECT_FEATURES[slug] || null; }
+
+  /* ===================================================================
+     Plans & maps — the developer's own unit typologies, per project.
+
+     A unit-level floor plan needs a unit to hang off (UNIT_FLOORPLANS), and
+     these five ORA projects have no unit schedule: the client sheet carries no
+     ORA rows, so there are no prices and no units to key against. The plans
+     themselves are real, though — each one prints its own type name, floor and
+     area — so they hang off the project instead, and every label below is
+     transcribed from the sheet it belongs to. Nothing here is inferred.
+     =================================================================== */
+  var PROJECT_PLANS = {
+    'zed-zayed': {dir:'zed-zayed/', items:[
+      {f:'location',           en:'Location — ZED, Sheikh Zayed',              ar:'الموقع — زيد، الشيخ زايد'},
+      {f:'plan-b4-studio-1a',  en:'Building 4 — Studio Type 1A · 60 m² + 24 m² garden', ar:'مبنى ٤ — استوديو نوع 1A · ٦٠ م² + حديقة ٢٤ م²'},
+      {f:'plan-b4-2bed-3b',    en:'Building 4 — 2 Bed Type 3B · 136 m² incl. 10 m² terrace', ar:'مبنى ٤ — غرفتان نوع 3B · ١٣٦ م² شاملة تراس ١٠ م²'},
+      {f:'plan-b4',            en:'Building 4 — floor plan',                   ar:'مبنى ٤ — مخطط الطابق'},
+      {f:'plan-b2-studio-e2',  en:'The Village Views, Building 2 — 1 Bed Studio E2 · 85 m²', ar:'ذا فيلدج فيوز، مبنى ٢ — استوديو بغرفة E2 · ٨٥ م²'},
+      {f:'plan-b1-2bed-a2',    en:'The Village Views, Building 1 — 2 Bed Flat A2 · 125 m²', ar:'ذا فيلدج فيوز، مبنى ١ — شقة بغرفتين A2 · ١٢٥ م²'},
+      {f:'plan-b2-3bed-b2',    en:'The Village Views, Building 2 — 3 Bed Flat B2', ar:'ذا فيلدج فيوز، مبنى ٢ — شقة بثلاث غرف B2'}
+    ]},
+    'zed-east': {dir:'zed-east/', items:[
+      {f:'location',              en:'Location — ZED East',                    ar:'الموقع — زيد إيست'},
+      {f:'masterplan-2',          en:'Masterplan — detail',                    ar:'الماستر بلان — تفصيل'},
+      {f:'emerald-masterplan',    en:'The Emerald Collection — masterplan',    ar:'ذا إمرالد كوليكشن — الماستر بلان'},
+      {f:'plan-studio',           en:'Studio — floor plan',                    ar:'استوديو — مخطط'},
+      {f:'plan-club-3bed-loft-a1',en:'Club Residence Phase 2 — 3 Bed Loft A1 · 300 m² (243 m² internal, 57 m² terrace)', ar:'كلوب ريزيدنس المرحلة ٢ — لوفت بثلاث غرف A1 · ٣٠٠ م² (٢٤٣ م² داخلي، ٥٧ م² تراس)'},
+      {f:'plan-emerald-villa-4bed',        en:'Emerald — The Villa, 4 Bed · 253 m²', ar:'إمرالد — الفيلا، ٤ غرف · ٢٥٣ م²'},
+      {f:'plan-emerald-fourplex-u1-3bed',  en:'Emerald — Fourplex Unit 1, 3 Bed · 174 m²', ar:'إمرالد — فوربلكس وحدة ١، ٣ غرف · ١٧٤ م²'},
+      {f:'plan-emerald-duplex-u2-3bed',    en:'Emerald — Duplex Unit 2, 3 Bed · 207 m²', ar:'إمرالد — دوبلكس وحدة ٢، ٣ غرف · ٢٠٧ م²'},
+      {f:'plan-emerald-duplex-1',          en:'Emerald — Duplex, floor plan',   ar:'إمرالد — دوبلكس، مخطط'},
+      {f:'plan-emerald-duplex-2',          en:'Emerald — Duplex, floor plan',   ar:'إمرالد — دوبلكس، مخطط'},
+      {f:'plan-emerald-townhouse-u1-gf',   en:'Emerald — Town House Unit 1, 3 Bed · 215 m², ground floor', ar:'إمرالد — تاون هاوس وحدة ١، ٣ غرف · ٢١٥ م²، الطابق الأرضي'},
+      {f:'plan-emerald-townhouse-u1-ff',   en:'Emerald — Town House Unit 1, first floor', ar:'إمرالد — تاون هاوس وحدة ١، الطابق الأول'},
+      {f:'plan-emerald-townhouse-u2-gf',   en:'Emerald — Town House Unit 2, 3 Bed · 215 m², ground floor', ar:'إمرالد — تاون هاوس وحدة ٢، ٣ غرف · ٢١٥ م²، الطابق الأرضي'},
+      {f:'plan-emerald-townhouse-u2-ff',   en:'Emerald — Town House Unit 2, first floor', ar:'إمرالد — تاون هاوس وحدة ٢، الطابق الأول'}
+    ]},
+    'silversands-sahel': {dir:'silversands/', items:[
+      {f:'location',            en:'Location — Sidi Heneish',                  ar:'الموقع — سيدي حنيش'},
+      {f:'plan-4bed-type-2',    en:'4 Bed Type 2 · 192 m² BUA — 4 bedrooms, maid’s room, roof terrace', ar:'٤ غرف نوع ٢ · ١٩٢ م² مسطح — ٤ غرف نوم وغرفة خادمة وتراس سطح'},
+      {f:'plan-townhouse-s',    en:'Townhouse S · 149 m² BUA (136 m² internal, 13 m² terraces) — 3 bedrooms, 2 floors', ar:'تاون هاوس S · ١٤٩ م² مسطح (١٣٦ م² داخلي، ١٣ م² تراسات) — ٣ غرف، طابقان'},
+      {f:'plan-townhouse-2',    en:'Townhouse — floor plan',                   ar:'تاون هاوس — مخطط'},
+      {f:'plan-villa-1-gf',     en:'Villa — ground floor',                     ar:'فيلا — الطابق الأرضي'},
+      {f:'plan-villa-1-ff',     en:'Villa — first floor',                      ar:'فيلا — الطابق الأول'},
+      {f:'plan-villa-s-gf',     en:'Villa Type S — ground floor',              ar:'فيلا نوع S — الطابق الأرضي'},
+      {f:'plan-villa-s-ff',     en:'Villa Type S — first floor',               ar:'فيلا نوع S — الطابق الأول'},
+      {f:'plan-villa-m-gf',     en:'Villa Type M · 225 m² BUA (212 m² internal) — 4 bedrooms, maid’s room, 2 floors', ar:'فيلا نوع M · ٢٢٥ م² مسطح (٢١٢ م² داخلي) — ٤ غرف وغرفة خادمة، طابقان'},
+      {f:'plan-villa-m-ff',     en:'Villa Type M — first floor',               ar:'فيلا نوع M — الطابق الأول'},
+      {f:'plan-crystalline-chalet-ground',      en:'Crystalline — Chalet, ground floor · 204 m²', ar:'كريستالين — شاليه، الطابق الأرضي · ٢٠٤ م²'},
+      {f:'plan-crystalline-chalet-roof',        en:'Crystalline — Chalet roof, first floor · 237 m² (95 m² roof terrace), 4 bedrooms', ar:'كريستالين — شاليه بسطح، الطابق الأول · ٢٣٧ م² (٩٥ م² تراس سطح)، ٤ غرف'},
+      {f:'plan-crystalline-3bed-duplex-a-gf',   en:'Crystalline — 3 Bedroom Duplex A, ground floor · 178 m²', ar:'كريستالين — دوبلكس بثلاث غرف A، الطابق الأرضي · ١٧٨ م²'},
+      {f:'plan-crystalline-2bed-duplex-b-roof', en:'Crystalline — 2 Bedroom Duplex B, roof · 159 m²', ar:'كريستالين — دوبلكس بغرفتين B، السطح · ١٥٩ م²'},
+      {f:'plan-crystalline-twin-house-1',       en:'Crystalline — Twin House Type 1, ground floor · 307 m²', ar:'كريستالين — توين هاوس نوع ١، الطابق الأرضي · ٣٠٧ م²'},
+      {f:'plan-crystalline-villa-4a-gf',        en:'Crystalline — Villa 4A, ground floor · 232 m² (32 m² terrace), 4 bedrooms', ar:'كريستالين — فيلا 4A، الطابق الأرضي · ٢٣٢ م² (٣٢ م² تراس)، ٤ غرف'},
+      {f:'plan-crystalline-villa-4a-ff',        en:'Crystalline — Villa 4A, first floor', ar:'كريستالين — فيلا 4A، الطابق الأول'},
+      {f:'plan-crystalline-villa-3b-gf',        en:'Crystalline — Villa Type 3B, ground floor · 346 m²', ar:'كريستالين — فيلا نوع 3B، الطابق الأرضي · ٣٤٦ م²'},
+      {f:'plan-crystalline-villa-3b-ff',        en:'Crystalline — Villa Type 3B, first floor', ar:'كريستالين — فيلا نوع 3B، الطابق الأول'},
+      {f:'plan-crystalline-villa-2a-gf',        en:'Crystalline — Villa Type 2A, ground floor · 380 m²', ar:'كريستالين — فيلا نوع 2A، الطابق الأرضي · ٣٨٠ م²'},
+      {f:'plan-crystalline-villa-2a-ff',        en:'Crystalline — Villa Type 2A, upper level', ar:'كريستالين — فيلا نوع 2A، الطابق العلوي'}
+    ]},
+    'solana-west': {dir:'solana-west/', items:[
+      {f:'location',                     en:'Location — New Zayed',            ar:'الموقع — زايد الجديدة'},
+      {f:'plan-typec-2bed-duplex-a',     en:'Building Type C — 2 Bed Duplex A, ground floor · 179 m² (174 m² internal, 4 m² terrace)', ar:'مبنى نوع C — دوبلكس بغرفتين A، الطابق الأرضي · ١٧٩ م² (١٧٤ م² داخلي، ٤ م² تراس)'},
+      {f:'plan-typee-3bed-flat-d',       en:'Building Type E — 3 Bed Flat D, ground floor · 164 m²', ar:'مبنى نوع E — شقة بثلاث غرف D، الطابق الأرضي · ١٦٤ م²'},
+      {f:'plan-typeg-3bed-loft-d',       en:'Building Type G — 3 Bed Loft D, ground floor · 201 m² (193 m² internal, 8 m² terrace)', ar:'مبنى نوع G — لوفت بثلاث غرف D، الطابق الأرضي · ٢٠١ م² (١٩٣ م² داخلي، ٨ م² تراس)'},
+      {f:'plan-typeg-4bed-penthouse-d-2f', en:'Building Type G — 4 Bed Penthouse D, second floor · 333 m² (232 m² internal, 101 m² terrace)', ar:'مبنى نوع G — بنتهاوس بأربع غرف D، الطابق الثاني · ٣٣٣ م² (٢٣٢ م² داخلي، ١٠١ م² تراس)'},
+      {f:'plan-typeg-4bed-penthouse-d-3f', en:'Building Type G — 4 Bed Penthouse D, upper level', ar:'مبنى نوع G — بنتهاوس بأربع غرف D، الطابق العلوي'},
+      {f:'plan-typei-3bed-penthouse-b',  en:'Building Type I — 3 Bed Penthouse B, third floor · 271 m² (200 m² internal, 71 m² terrace)', ar:'مبنى نوع I — بنتهاوس بثلاث غرف B، الطابق الثالث · ٢٧١ م² (٢٠٠ م² داخلي، ٧١ م² تراس)'},
+      {f:'plan-townhouse-type-b-unit-b', en:'The Solos — Town House Type B, Unit B · 172 m² incl. 4 m² terrace, ground & first floor', ar:'ذا سولوس — تاون هاوس نوع B، وحدة B · ١٧٢ م² شاملة تراس ٤ م²، الأرضي والأول'},
+      {f:'plan-twin-house-gf',           en:'The Twin House · 240 m² (221 m² internal, 19 m² terrace), ground floor', ar:'التوين هاوس · ٢٤٠ م² (٢٢١ م² داخلي، ١٩ م² تراس)، الطابق الأرضي'},
+      {f:'plan-twin-house-ff',           en:'The Twin House — first floor',    ar:'التوين هاوس — الطابق الأول'},
+      {f:'plan-villa-1-floor',           en:'The Villa, 1 floor · 319 m²',     ar:'الفيلا، طابق واحد · ٣١٩ م²'},
+      {f:'plan-villa-3-stepped',         en:'Villa 3 — Stepped Villa · 337 m² BUA, 4 bedrooms', ar:'فيلا ٣ — الفيلا المتدرّجة · ٣٣٧ م² مسطح، ٤ غرف'},
+      {f:'plan-villa-1a-alt',            en:'Villa 1-A — alternative plans',   ar:'فيلا 1-A — مخططات بديلة'},
+      {f:'plan-villa-08-gf',             en:'The Solos — The Villa (2 floors), Villa 08 · 245 m² incl. 6 m² terrace, ground floor', ar:'ذا سولوس — الفيلا (طابقان)، فيلا ٠٨ · ٢٤٥ م² شاملة تراس ٦ م²، الطابق الأرضي'},
+      {f:'plan-villa-08-ff',             en:'The Solos — Villa 08, first floor', ar:'ذا سولوس — فيلا ٠٨، الطابق الأول'},
+      {f:'plan-villa-08-alt-gf',         en:'Villa 08 — ground floor, alternative layout', ar:'فيلا ٠٨ — الطابق الأرضي، توزيع بديل'},
+      {f:'plan-villa-08-alt-ff',         en:'Villa 08 — first floor, alternative layout', ar:'فيلا ٠٨ — الطابق الأول، توزيع بديل'},
+      {f:'plan-villa-06-gf',             en:'The Solos — The Villa (2 floors), Villa 06 · 224 m² incl. 11 m² terrace, ground floor', ar:'ذا سولوس — الفيلا (طابقان)، فيلا ٠٦ · ٢٢٤ م² شاملة تراس ١١ م²، الطابق الأرضي'},
+      {f:'plan-villa-06-ff',             en:'The Solos — Villa 06, first floor', ar:'ذا سولوس — فيلا ٠٦، الطابق الأول'},
+      {f:'plan-villa-07-garden-gf',      en:'The Garden Side Villa, Villa 07 · 196 m² incl. 6 m² terrace, ground floor', ar:'فيلا الحديقة، فيلا ٠٧ · ١٩٦ م² شاملة تراس ٦ م²، الطابق الأرضي'},
+      {f:'plan-villa-07-garden-ff',      en:'The Garden Side Villa, Villa 07 — first floor', ar:'فيلا الحديقة، فيلا ٠٧ — الطابق الأول'}
+    ]},
+    'solana-east': {dir:'solana-east/', items:[
+      {f:'location',          en:'Location — South 90 Axis, East Cairo',       ar:'الموقع — محور التسعين الجنوبي، شرق القاهرة'},
+      {f:'plan-twin-house-gf',en:'The Twin House · 240 m² (221 m² internal, 19 m² terrace), ground floor', ar:'التوين هاوس · ٢٤٠ م² (٢٢١ م² داخلي، ١٩ م² تراس)، الطابق الأرضي'},
+      {f:'plan-twin-house-ff',en:'The Twin House — first floor',              ar:'التوين هاوس — الطابق الأول'}
+    ]}
+  };
+  /* One grid of thumbnails; each opens the whole set in the same zoomable
+     viewer the master plans and brochures use. */
+  function projectPlansSection(p){
+    var g = PROJECT_PLANS[p.slug]; if(!g || !g.length && !g.items) return null;
+    var list = g.items || []; if(!list.length) return null;
+    var nm = L({en:p.name, ar:p.name_ar});
+    var label = lang==='ar' ? 'المخططات والخرائط' : 'Plans & maps';
+    var items = list.map(function(it){
+      return {src:ORAP+g.dir+it.f+'.webp', cap:nm+' · '+L({en:it.en, ar:it.ar})};
+    });
+    var grid = h('div',{class:'plan-grid'}, list.map(function(it,i){
+      var cap = L({en:it.en, ar:it.ar});
+      var btn = h('button',{class:'plan-card', type:'button', 'aria-label':cap},
+        h('img',{class:'plan-card__img', src:items[i].src, alt:nm+' — '+cap,
+                 loading:'lazy', decoding:'async', width:800, height:520}),
+        h('span',{class:'plan-card__cap'}, cap));
+      btn.addEventListener('click', function(){ mediaViewer(items, nm+' · '+label, i); });
+      return btn;
+    }));
+    return h('section',{class:'section--tight'},
+      h('div',{class:'wrap'},
+        h('div',{class:'sec-head'},
+          h('h2',{class:'dev-feat__title'}, ic('floorplan','dev-feat__ico'), h('span',null,label))),
+        grid));
+  }
 
   /* The brochure itself: every page opens in the same fullscreen viewer the
      master plans use — numbered, zoomable, arrow-navigable — and the original

@@ -1680,6 +1680,51 @@ try {
      var ig = require('fs').readFileSync(__dirname + '/../.assetsignore', 'utf8');
      return /^src\/$/m.test(ig) && /^tools\/$/m.test(ig) && /^data-import-kit\/$/m.test(ig);
   })());
+
+  /* ORA. These five projects show renders, plans and maps but have no unit
+     schedule, so nothing else in the suite would notice a media path going
+     stale. Every path the bundle can build is resolved against disk here, and
+     every file on disk has to be reachable — a render nobody can see is a file
+     the owner sent and we quietly dropped. */
+  (function(){
+    var fsx=require('fs'), pathx=require('path');
+    var MED = pathx.join(__dirname,'..','project-media','ora');
+    var bundle = fsx.readFileSync(pathx.join(__dirname,'main.js'),'utf8');
+    var used = {}, m, re;
+    re = /\[([^\]]+)\]\s*\n?\s*\.map\(function\(f\)\{ ?return ORAP\+'([^']+)'\+f\+'\.webp'; ?\}\)/g;
+    while((m = re.exec(bundle))){
+      var dir = m[2], names = m[1].match(/'[^']+'/g) || [];
+      names.forEach(function(n){ used[dir + n.slice(1,-1) + '.webp'] = 1; });
+    }
+    re = /\{dir:'([^']+)', ?items:\[([\s\S]*?)\]\}/g;
+    while((m = re.exec(bundle))){
+      var d2 = m[1], fs2 = m[2].match(/\{f:'[^']+'/g) || [];
+      fs2.forEach(function(n){ used[d2 + n.slice(4,-1) + '.webp'] = 1; });
+    }
+    re = /'\/project-media\/ora\/([^']+)'/g;
+    while((m = re.exec(bundle))) used[m[1]] = 1;
+    re = /src:ORAP\+'([^']+)'/g;
+    while((m = re.exec(bundle))) used[m[1]] = 1;
+
+    var refs = Object.keys(used);
+    var broken = refs.filter(function(r){ return !fsx.existsSync(pathx.join(MED, r)); });
+    var disk = [];
+    fsx.readdirSync(MED).forEach(function(d){
+      fsx.readdirSync(pathx.join(MED,d)).forEach(function(f){ disk.push(d+'/'+f); });
+    });
+    var orphan = disk.filter(function(d){ return !used[d]; });
+    ck('ora: every media path the bundle builds exists on disk',
+       refs.length > 150 && broken.length === 0, refs.length+' refs'+(broken.length?' broken: '+broken.slice(0,3):''));
+    ck('ora: every delivered image is reachable in the UI',
+       orphan.length === 0, disk.length+' files'+(orphan.length?' orphaned: '+orphan.slice(0,3):''));
+  })();
+  ck('ora: the two Solana projects carry no invented commercial terms', (function(){
+    return ['solana-west','solana-east'].every(function(s){
+      var p = api.projBySlug(s);
+      return p && p.dev === 'ora' &&
+             p.price == null && p.dp == null && p.years == null && p.delivery == null;
+    });
+  })());
 } catch(e){ ck('RUNTIME ERROR', false, (e && e.stack ? e.stack.split('\n').slice(0,3).join(' | ') : String(e))); }
 
 

@@ -277,6 +277,9 @@
     if(pMp) node.appendChild(pMp);
     var pFeat= featureCardsSection(projFeatures(p.slug), L({en:p.name, ar:p.name_ar}));
     if(pFeat) node.appendChild(pFeat);
+    // Unit typologies for a project the client sheet has no rows for: the plans
+    // are real and carry their own areas, so they hang off the project.
+    var pPlans = projectPlansSection(p);                     if(pPlans) node.appendChild(pPlans);
     track('project_viewed', {project:p.slug});
     if(typeof leadArm==='function') leadArm();   // a project view is a qualifying engagement
 
