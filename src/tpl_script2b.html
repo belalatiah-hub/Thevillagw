@@ -1624,9 +1624,30 @@
     'GL-AP3':["/project-media/hassan-allam/gl-ap3-loc1.webp"],
   };
   function planUrl(f){ return f.charAt(0)==='/' ? f : PLANS_BASE+f; }
-  function unitMasterplans(u){ var a=u&&UNIT_MASTERPLANS[u.id]; return a?a.map(planUrl):[]; }
+  /* A master plan and a location map describe the whole project — every unit in
+     it shares the same drawing — so a unit that names neither falls back to
+     what its own project's other units name. Eight Solana West apartments
+     needed this: the client sheet gives them a master plan id whose file was
+     never delivered, while the villas beside them name one that was, and the
+     unit page was dropping the button entirely rather than showing the plan the
+     buyer is actually looking at.
+
+     Deliberately not extended to floor plans: that drawing IS the unit, and
+     borrowing a neighbour's would show the wrong home. Derived from the maps
+     above at load, so it cannot drift away from them. */
+  var PROJECT_PLAN_FALLBACK = (function(){
+    var out = {};
+    for(var i=0;i<UNITS.length;i++){
+      var u = UNITS[i], slot = out[u.project] || (out[u.project] = {mp:null, loc:null});
+      if(!slot.mp  && UNIT_MASTERPLANS[u.id]) slot.mp  = UNIT_MASTERPLANS[u.id];
+      if(!slot.loc && UNIT_LOCATIONS[u.id])   slot.loc = UNIT_LOCATIONS[u.id];
+    }
+    return out;
+  })();
+  function projectPlans(slug){ return PROJECT_PLAN_FALLBACK[slug] || {}; }
+  function unitMasterplans(u){ var a=u&&(UNIT_MASTERPLANS[u.id]||projectPlans(u.project).mp); return a?a.map(planUrl):[]; }
   function unitFloorplans(u){ var a=u&&UNIT_FLOORPLANS[u.id]; return a?a.map(planUrl):[]; }
-  function unitLocationImg(u){ var a=u&&UNIT_LOCATIONS[u.id]; if(a&&a.length) return a[0]; var p=u&&projBySlug(u.project); return p?areaImageSrc(p.area):''; }
+  function unitLocationImg(u){ var a=u&&(UNIT_LOCATIONS[u.id]||projectPlans(u.project).loc); if(a&&a.length) return a[0]; var p=u&&projBySlug(u.project); return p?areaImageSrc(p.area):''; }
   function unitGallery(u){ return (u&&UNIT_GALLERY[u.id])||[]; }
   function unitGalleryItems(u){
     var p=projBySlug(u.project), pnm=p?(lang==='ar'?p.name_ar:p.name):'', g=unitGallery(u), n=g.length;
@@ -2789,6 +2810,50 @@
       loading:'lazy', decoding:'async', class:'visually-hidden'});
     return h('section',{class:'section--tight band'},
       h('div',{class:'wrap'}, head, h('div',{class:'dev-mp'}, open, seo)));
+  }
+
+  /* The project's own master plan and location map, on the project page.
+
+     Both drawings belong to the project, but the only place they appeared was
+     the unit page — so a visitor reading about ZED East had to open a unit to
+     see where it is or how it is laid out. This puts them one level up, in the
+     same viewer and the same button row the developer pages already use.
+
+     It is driven by the plans the units already carry, so it appears for every
+     project that has them and stays empty for those that do not; there is no
+     second list to keep in step. A project whose own PROJECT_FEATURES already
+     declares a master plan (Alam Al Roum) keeps that section and is skipped
+     here, so the page never shows the same plan twice. */
+  function projectPlanSection(p){
+    var g = projectPlans(p.slug);
+    var f = projFeatures(p.slug);
+    var mp = (f && f.masterplan) ? null : (g.mp || null);
+    var loc = g.loc || null;
+    if(!mp && !loc) return null;
+    var nm = L({en:p.name, ar:p.name_ar});
+    var MPL = lang==='ar' ? 'الماستر بلان' : 'Master plan';
+    var LOCL = lang==='ar' ? 'الموقع' : 'Location';
+    var label = (mp && loc) ? (lang==='ar' ? 'الماستر بلان والموقع' : 'Master plan & location')
+                            : (mp ? MPL : LOCL);
+    var row = h('div',{class:'dev-mp'});
+    function btn(list, title, icon, text){
+      var items = list.map(function(s,i){
+        return {src:planUrl(s), cap:nm+' · '+title+(list.length>1?(' ('+(i+1)+'/'+list.length+')'):'')};
+      });
+      var b = h('button',{class:'ufeat', type:'button'}, ic(icon,'ufeat__ic'), h('span',null,text));
+      b.addEventListener('click', function(){ mediaViewer(items, nm+' · '+title, 0); });
+      row.appendChild(b);
+      // one frame stays in the DOM for crawlers without showing on the page
+      row.appendChild(h('img',{src:items[0].src, alt:nm+' — '+title, width:1395, height:778,
+        loading:'lazy', decoding:'async', class:'visually-hidden'}));
+    }
+    if(mp)  btn(mp,  MPL,  'masterplan', lang==='ar' ? 'عرض الماستر بلان' : 'View master plan');
+    if(loc) btn(loc, LOCL, 'pin',        lang==='ar' ? 'عرض الموقع' : 'View location');
+    return h('section',{class:'section--tight band'},
+      h('div',{class:'wrap'},
+        h('div',{class:'sec-head'},
+          h('h2',{class:'dev-feat__title'}, ic('layers','dev-feat__ico'), h('span',null,label))),
+        row));
   }
   /* Card copy: an opening paragraph always on show, the rest behind a chevron.
      Uses <details> so the hidden half stays in the DOM for search engines. */

@@ -2560,9 +2560,19 @@ var UNIT_LOCATIONS = {
 'GL-AP3':["/project-media/hassan-allam/gl-ap3-loc1.webp"],
 };
 function planUrl(f){ return f.charAt(0)==='/' ? f : PLANS_BASE+f; }
-function unitMasterplans(u){ var a=u&&UNIT_MASTERPLANS[u.id]; return a?a.map(planUrl):[]; }
+var PROJECT_PLAN_FALLBACK = (function(){
+var out = {};
+for(var i=0;i<UNITS.length;i++){
+var u = UNITS[i], slot = out[u.project] || (out[u.project] = {mp:null, loc:null});
+if(!slot.mp  && UNIT_MASTERPLANS[u.id]) slot.mp  = UNIT_MASTERPLANS[u.id];
+if(!slot.loc && UNIT_LOCATIONS[u.id])   slot.loc = UNIT_LOCATIONS[u.id];
+}
+return out;
+})();
+function projectPlans(slug){ return PROJECT_PLAN_FALLBACK[slug] || {}; }
+function unitMasterplans(u){ var a=u&&(UNIT_MASTERPLANS[u.id]||projectPlans(u.project).mp); return a?a.map(planUrl):[]; }
 function unitFloorplans(u){ var a=u&&UNIT_FLOORPLANS[u.id]; return a?a.map(planUrl):[]; }
-function unitLocationImg(u){ var a=u&&UNIT_LOCATIONS[u.id]; if(a&&a.length) return a[0]; var p=u&&projBySlug(u.project); return p?areaImageSrc(p.area):''; }
+function unitLocationImg(u){ var a=u&&(UNIT_LOCATIONS[u.id]||projectPlans(u.project).loc); if(a&&a.length) return a[0]; var p=u&&projBySlug(u.project); return p?areaImageSrc(p.area):''; }
 function unitGallery(u){ return (u&&UNIT_GALLERY[u.id])||[]; }
 function unitGalleryItems(u){
 var p=projBySlug(u.project), pnm=p?(lang==='ar'?p.name_ar:p.name):'', g=unitGallery(u), n=g.length;
@@ -3582,6 +3592,36 @@ var seo = h('img',{src:m.src, alt:nm+' — '+label, width:1395, height:778,
 loading:'lazy', decoding:'async', class:'visually-hidden'});
 return h('section',{class:'section--tight band'},
 h('div',{class:'wrap'}, head, h('div',{class:'dev-mp'}, open, seo)));
+}
+function projectPlanSection(p){
+var g = projectPlans(p.slug);
+var f = projFeatures(p.slug);
+var mp = (f && f.masterplan) ? null : (g.mp || null);
+var loc = g.loc || null;
+if(!mp && !loc) return null;
+var nm = L({en:p.name, ar:p.name_ar});
+var MPL = lang==='ar' ? 'الماستر بلان' : 'Master plan';
+var LOCL = lang==='ar' ? 'الموقع' : 'Location';
+var label = (mp && loc) ? (lang==='ar' ? 'الماستر بلان والموقع' : 'Master plan & location')
+: (mp ? MPL : LOCL);
+var row = h('div',{class:'dev-mp'});
+function btn(list, title, icon, text){
+var items = list.map(function(s,i){
+return {src:planUrl(s), cap:nm+' · '+title+(list.length>1?(' ('+(i+1)+'/'+list.length+')'):'')};
+});
+var b = h('button',{class:'ufeat', type:'button'}, ic(icon,'ufeat__ic'), h('span',null,text));
+b.addEventListener('click', function(){ mediaViewer(items, nm+' · '+title, 0); });
+row.appendChild(b);
+row.appendChild(h('img',{src:items[0].src, alt:nm+' — '+title, width:1395, height:778,
+loading:'lazy', decoding:'async', class:'visually-hidden'}));
+}
+if(mp)  btn(mp,  MPL,  'masterplan', lang==='ar' ? 'عرض الماستر بلان' : 'View master plan');
+if(loc) btn(loc, LOCL, 'pin',        lang==='ar' ? 'عرض الموقع' : 'View location');
+return h('section',{class:'section--tight band'},
+h('div',{class:'wrap'},
+h('div',{class:'sec-head'},
+h('h2',{class:'dev-feat__title'}, ic('layers','dev-feat__ico'), h('span',null,label))),
+row));
 }
 function featCopy(c){
 if(!c.copy) return null;
@@ -5606,6 +5646,7 @@ var pAmen = projectAmenitiesSection(p); if(pAmen) node.appendChild(pAmen);
 var pBro = projectBrochureSection(p);                    if(pBro)  node.appendChild(pBro);
 var pMp  = masterplanSection(projFeatures(p.slug), L({en:p.name, ar:p.name_ar}));
 if(pMp) node.appendChild(pMp);
+var pPlan = projectPlanSection(p);                       if(pPlan) node.appendChild(pPlan);
 var pFeat= featureCardsSection(projFeatures(p.slug), L({en:p.name, ar:p.name_ar}));
 if(pFeat) node.appendChild(pFeat);
 track('project_viewed', {project:p.slug});

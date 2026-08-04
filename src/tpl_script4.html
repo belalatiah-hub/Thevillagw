@@ -276,6 +276,9 @@
     var pBro = projectBrochureSection(p);                    if(pBro)  node.appendChild(pBro);
     var pMp  = masterplanSection(projFeatures(p.slug), L({en:p.name, ar:p.name_ar}));
     if(pMp) node.appendChild(pMp);
+    // The project's own master plan and location map, from the plans its units
+    // carry — so they are readable before the visitor opens a single unit.
+    var pPlan = projectPlanSection(p);                       if(pPlan) node.appendChild(pPlan);
     var pFeat= featureCardsSection(projFeatures(p.slug), L({en:p.name, ar:p.name_ar}));
     if(pFeat) node.appendChild(pFeat);
     track('project_viewed', {project:p.slug});
