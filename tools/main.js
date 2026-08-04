@@ -2633,7 +2633,43 @@ mb_bikes:{icon:'am_sports', en:'Bike paths', ar:'مسارات دراجات'},
 mb_retail:{icon:'am_retail', en:'20+ shops & restaurants', ar:'أكثر من ٢٠ متجراً ومطعماً'},
 mb_gym:{icon:'am_gym', en:'Fitness facility', ar:'مركز لياقة'},
 mb_guards:{icon:'am_security', en:'Lifeguarded lagoons', ar:'منقذون على البحيرات'},
-mb_beachsvc:{icon:'am_dining', en:'Beach food & service', ar:'خدمة وطعام على الشاطئ'}
+mb_beachsvc:{icon:'am_dining', en:'Beach food & service', ar:'خدمة وطعام على الشاطئ'},
+ss_beach:{icon:'am_beach', en:'1 km of beach front', ar:'واجهة شاطئية بطول كيلومتر'},
+ss_lagoons:{icon:'am_lagoon', en:'88,000 m² of swimmable lagoons', ar:'٨٨٬٠٠٠ م² من البحيرات القابلة للسباحة'},
+ss_hotels:{icon:'am_hotel', en:'Two hotels', ar:'فندقان'},
+ss_clubs:{icon:'am_club', en:'Four clubhouses', ar:'أربعة كلوب هاوس'},
+ss_hospital:{icon:'am_clinic', en:'Hospital', ar:'مستشفى'},
+ss_piazza:{icon:'am_pavilion', en:'Piazza', ar:'بيازا'},
+ss_retail:{icon:'am_retail', en:'High-end retail', ar:'محال تجارية راقية'},
+ss_land:{icon:'masterplan', en:'503 acres, masterplanned by WATG', ar:'٥٠٣ أفدنة بمخطط عام من WATG'},
+ze_club:{icon:'am_sports', en:'ZED Sports Club — 43 acres', ar:'نادي زيد الرياضي — ٤٣ فداناً'},
+ze_park:{icon:'am_centralpark', en:'Eight acres of central landscape', ar:'ثمانية أفدنة من الحديقة المركزية'},
+ze_mall:{icon:'am_retail', en:'Shopping mall, retail & F&B', ar:'مول ومحال ومطاعم'},
+ze_office:{icon:'am_office', en:'Office park', ar:'مجمّع مكاتب'},
+ze_clinics:{icon:'am_clinic', en:'Medical clinics', ar:'عيادات طبية'},
+ze_finished:{icon:'am_finished', en:'Delivered fully finished, including ACs', ar:'تُسلَّم كاملة التشطيب بما فيها التكييف'},
+ze_parking:{icon:'am_parking', en:'Underground parking', ar:'جراج تحت الأرض'},
+ze_concierge:{icon:'am_concierge', en:'Concierge, resident & furniture lifts', ar:'كونسيرج ومصعدا سكان وأثاث'},
+zw_park:{icon:'am_centralpark', en:'ZED Park — 65 of the project’s 165 acres', ar:'حديقة زيد — ٦٥ من أصل ١٦٥ فداناً'},
+zw_sports:{icon:'am_sports', en:'Sports complex — DBB soccer, BTT Barcelona tennis & paddle', ar:'مجمّع رياضي — كرة قدم مع DBB، وتنس وبادل مع BTT برشلونة'},
+zw_mall:{icon:'am_retail', en:'High-end mall & the Italiano restaurant', ar:'مول راقٍ ومطعم إيتاليانو'},
+zw_lifestyle:{icon:'am_lifestyle', en:'Theatre, zipline & the ZED Winter Festival', ar:'مسرح وزيبلاين ومهرجان زيد الشتوي'},
+zw_kids:{icon:'am_kids', en:'Kids area & barbecue area', ar:'منطقة أطفال ومنطقة شواء'},
+zw_offices:{icon:'am_office', en:'77,100 m² of offices & clinics', ar:'٧٧٬١٠٠ م² من المكاتب والعيادات'},
+zw_parking:{icon:'am_parking', en:'Underground parking, concierge & lifts', ar:'جراج تحت الأرض وكونسيرج ومصاعد'},
+zw_finished:{icon:'am_finished', en:'Fully finished with ACs & imported kitchens', ar:'تشطيب كامل مع تكييفات ومطابخ مستوردة'},
+sw_club:{icon:'am_club', en:'Clubhouse — 10,000 m²', ar:'كلوب هاوس — ١٠٬٠٠٠ م²'},
+sw_football:{icon:'am_sports', en:'Football club — 130,000 m²', ar:'نادٍ لكرة القدم — ١٣٠٬٠٠٠ م²'},
+sw_school:{icon:'am_campus', en:'School — 20,000 m²', ar:'مدرسة — ٢٠٬٠٠٠ م²'},
+sw_daycare:{icon:'am_kids', en:'Daycare', ar:'حضانة'},
+sw_parks:{icon:'am_gardenpark', en:'Parks & water features', ar:'حدائق ومسطحات مائية'},
+sw_serviced:{icon:'am_hotel', en:'Serviced apartments', ar:'شقق فندقية'},
+sw_ev:{icon:'am_ev', en:'Electric charging', ar:'شحن كهربائي'},
+sw_lanes:{icon:'am_paseo', en:'Bike & running lanes', ar:'مسارات دراجات وجري'},
+sw_center:{icon:'am_community', en:'Community centre', ar:'مركز مجتمعي'},
+sw_entertainment:{icon:'am_lifestyle', en:'Entertainment', ar:'ترفيه'},
+sw_retail:{icon:'am_retail', en:'Community retail — 5,000 m²', ar:'تجزئة الحي — ٥٬٠٠٠ م²'},
+sw_clinics:{icon:'am_clinic', en:'Clinics', ar:'عيادات'}
 };
 var DEV_AMENITIES = {
 'sumou': ['bms','controls','fiber','cctv','heat','generators','parking','app',
@@ -2683,6 +2719,10 @@ lang==='ar'?'مرافق على مستوى المشروع — تُؤكَّد تف
 }
 var BAB_AMEN = ['bab_beach','bab_hotels','bab_finished','bab_landscape',
 'bab_heart','bab_community','bab_lagoons','bab_fnb'];
+var SS_AMEN  = ['ss_beach','ss_lagoons','ss_hotels','ss_clubs',
+'ss_hospital','ss_piazza','ss_retail','ss_land'];
+var ZE_AMEN  = ['ze_club','ze_park','ze_mall','ze_office',
+'ze_clinics','ze_finished','ze_parking','ze_concierge'];
 var PROJECT_AMENITIES = {
 'crescent-walk': ['greenspine','centralpark','gardenparks',
 'clubsports','commercialpark','neighborhoodpark'],
@@ -2694,7 +2734,16 @@ var PROJECT_AMENITIES = {
 'bab-hills-by-the-sea': BAB_AMEN,
 'bab-hills':            BAB_AMEN,
 'marsa-baghush': ['mb_lagoons','mb_beach','mb_spine','mb_bikes',
-'mb_retail','mb_gym','mb_guards','mb_beachsvc']
+'mb_retail','mb_gym','mb_guards','mb_beachsvc'],
+'silversands-crystalline': SS_AMEN,
+'silversands-silvertown':  SS_AMEN,
+'zed-east':         ZE_AMEN,
+'zed-east-emerald': ZE_AMEN,
+'zed-west':    ['zw_park','zw_sports','zw_mall','zw_lifestyle',
+'zw_kids','zw_offices','zw_parking','zw_finished'],
+'solana-west': ['sw_club','sw_football','sw_school','sw_daycare',
+'sw_parks','sw_lanes','sw_center','sw_entertainment',
+'sw_retail','sw_clinics','sw_serviced','sw_ev']
 };
 function amenityDefaults(cat){
 return (cat==='coast'||cat==='redsea')
