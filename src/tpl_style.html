@@ -424,18 +424,6 @@
      beside the price, and inverted inside the teal band at the foot of a page.
      Fields carry their label as a placeholder because the card has to stay
      short enough to sit in the column without pushing the price out of view. */
-  /* Plans & maps grid. A floor plan is mostly white paper with thin lines, so
-     the tile keeps a light backing in both themes and contains the whole sheet
-     rather than cropping it — a cropped plan loses the very corner that carries
-     the type name and the area. */
-  .plan-grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}
-  .plan-card{display:flex;flex-direction:column;gap:0;padding:0;text-align:start;
-    background:var(--paper);border:1px solid var(--line-2);border-radius:var(--r-lg);
-    overflow:hidden;cursor:zoom-in;transition:border-color .18s,transform .18s}
-  .plan-card:hover{border-color:var(--brand);transform:translateY(-2px)}
-  .plan-card:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
-  .plan-card__img{width:100%;aspect-ratio:3/2;object-fit:contain;background:#f6f4ef;display:block}
-  .plan-card__cap{padding:10px 12px 12px;font-size:.78rem;line-height:1.45;color:var(--ink-2)}
   .ask-card{background:var(--paper);border:1px solid var(--line-2);border-radius:var(--r-lg);
     padding:20px;margin-top:16px;position:relative}
   .ask-card__head{text-align:center;margin-bottom:14px}

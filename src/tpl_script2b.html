@@ -60,13 +60,14 @@
     'district-5':'/project-media/marakez/units/ap1-d-04.webp',
     'crescent-walk':'/project-media/marakez/units/v2-cr-0.webp',
     'alam-al-roum':'/project-media/qataridiar/alam-al-roum/city.webp',
-    // ORA: the five destinations in the render decks. Each cover is a wide
-    // exterior, never a frame that also opens the project's own hero carousel.
-    'zed-zayed':'/project-media/ora/zed-zayed/district-2.webp',
-    'zed-east':'/project-media/ora/zed-east/club-2.webp',
-    'silversands-sahel':'/project-media/ora/silversands/villa-a-2.webp',
-    'solana-west':'/project-media/ora/solana-west/villa-a-2.webp',
-    'solana-east':'/project-media/ora/solana-east/villa-2.webp',
+    // ORA: the sheet's first image for each project's entry-price unit.
+    'zed-east':'/project-media/ora/ap1-z-0.webp',
+    'zed-east-emerald':'/project-media/ora/du1-em-0.webp',
+    'zed-west':'/project-media/ora/st-zw-0.webp',
+    'solana-west':'/project-media/ora/v8-0.webp',
+    'solana-east':'/project-media/ora/ap2-se-0.webp',
+    'silversands-crystalline':'/project-media/ora/ap3-cr-0.webp',
+    'silversands-silvertown':'/project-media/ora/ch2-ss-0.webp',
     'bab-shores':'/project-media/beitalbahr/units/ch1-03-sh.webp',
     'bab-roots':'/project-media/beitalbahr/units/v1-01-roo.webp',
     'bab-rays':'/project-media/beitalbahr/units/v1-01-rays.webp',
@@ -129,6 +130,59 @@
   function groupMembers(g){ return (g?g.members:[]).map(projBySlug).filter(Boolean); }
   function groupFrom(g){ var m=groupMembers(g).map(function(p){return p.price;}).filter(function(x){return x!=null;}); return m.length?Math.min.apply(null,m):null; }
   var UNIT_IMAGES = {
+    /* ORA — the sheet's FIRST image id for each unit; the rest follow in
+       UNIT_GALLERY in the sheet's own order. */
+    'OR-ZE-01':'/project-media/ora/ap1-z-0.webp',
+    'OR-ZE-02':'/project-media/ora/ap2-z-0.webp',
+    'OR-ZE-03':'/project-media/ora/ap3-z-0.webp',
+    'OR-ZE-04':'/project-media/ora/lo-z-0.webp',
+    'OR-ZE-05':'/project-media/ora/stu-z-0.webp',
+    'OR-ZE-06':'/project-media/ora/ap1-ze-0.webp',
+    'OR-ZE-07':'/project-media/ora/ap2-ze-01.webp',
+    'OR-ZE-08':'/project-media/ora/ap3-ze-0.webp',
+    'OR-EM-01':'/project-media/ora/du1-em-0.webp',
+    'OR-EM-02':'/project-media/ora/du2-em-0.webp',
+    'OR-EM-03':'/project-media/ora/four-0.webp',
+    'OR-EM-04':'/project-media/ora/to1-em-0.webp',
+    'OR-EM-05':'/project-media/ora/to2-em-0.webp',
+    'OR-EM-06':'/project-media/ora/st-em-0.webp',
+    'OR-ZW-01':'/project-media/ora/st-zw-0.webp',
+    'OR-ZW-02':'/project-media/ora/ap1-zw-03.webp',
+    'OR-ZW-03':'/project-media/ora/ap3-zw-0.webp',
+    'OR-ZW-04':'/project-media/ora/ap4-zw-0.webp',
+    'OR-ZW-05':'/project-media/ora/ap6-zw-0.webp',
+    'OR-ZW-06':'/project-media/ora/ap6-zw-01.webp',
+    'OR-ZW-07':'/project-media/ora/ap1-zw-03.webp',
+    'OR-SW-01':'/project-media/ora/v8-0.webp',
+    'OR-SW-02':'/project-media/ora/v7-0.webp',
+    'OR-SW-03':'/project-media/ora/v2-sw-0.webp',
+    'OR-SW-04':'/project-media/ora/v3-sw-0.webp',
+    'OR-SW-05':'/project-media/ora/v4-sw-0.webp',
+    'OR-SW-06':'/project-media/ora/v5-sw-0.webp',
+    'OR-SW-07':'/project-media/ora/th-sw-0.webp',
+    'OR-SW-08':'/project-media/ora/tw-sw-0.webp',
+    'OR-SW-09':'/project-media/ora/ap1-sw-0.webp',
+    'OR-SW-10':'/project-media/ora/ap2-sw-0.webp',
+    'OR-SW-12':'/project-media/ora/ap4-sw-0.webp',
+    'OR-SW-13':'/project-media/ora/ap5-sw-0.webp',
+    'OR-SW-15':'/project-media/ora/pen-sw-0.webp',
+    'OR-SW-16':'/project-media/ora/pen2.webp',
+    'OR-SE-02':'/project-media/ora/ap2-se-0.webp',
+    'OR-SE-03':'/project-media/ora/ap3-se-0.webp',
+    'OR-SE-04':'/project-media/ora/tw-se-0.webp',
+    'OR-SE-05':'/project-media/ora/v-se-0.webp',
+    'OR-CR-04':'/project-media/ora/ap3-cr-0.webp',
+    'OR-CR-05':'/project-media/ora/ap3-cr-01.webp',
+    'OR-CR-06':'/project-media/ora/ap3-cr-03.webp',
+    'OR-CR-07':'/project-media/ora/v1-cr-0.webp',
+    'OR-CR-08':'/project-media/ora/v2-cr-0.webp',
+    'OR-CR-09':'/project-media/ora/v1-cr-0.webp',
+    'OR-ST-02':'/project-media/ora/ch2-ss-0.webp',
+    'OR-ST-03':'/project-media/ora/th1-ss-0.webp',
+    'OR-ST-04':'/project-media/ora/th2-ss-0.webp',
+    'OR-ST-05':'/project-media/ora/v1-ss-02.webp',
+    'OR-ST-06':'/project-media/ora/v2-ss-0.webp',
+    'OR-ST-07':'/project-media/ora/v3-ss-0.webp',
     /* Every unit's media comes from its block in the client sheet: the unit's own
        row plus the rows beneath it, which carry nothing but extra ids. An id is
        used only when the archives actually delivered that file, and only from the
@@ -406,6 +460,58 @@
   /* Per-unit render galleries (all photos for a unit) — opened as a numbered
      carousel from the unit hero and the "Photos" chip. LMD-populated. */
   var UNIT_GALLERY = {
+    /* ORA — image order is the sheet's, row by row, never sorted. Several
+       units share a render set and start on a different frame; that is
+       deliberate in the sheet and is preserved exactly. */
+    'OR-ZE-01':["/project-media/ora/ap1-z-0.webp", "/project-media/ora/ap1-z-01.webp", "/project-media/ora/ap1-z-02.webp"],
+    'OR-ZE-02':["/project-media/ora/ap2-z-0.webp", "/project-media/ora/ap2-z-01.webp", "/project-media/ora/ap2-z-02.webp"],
+    'OR-ZE-03':["/project-media/ora/ap3-z-0.webp", "/project-media/ora/ap3-z-01.webp", "/project-media/ora/ap3-z-02.webp"],
+    'OR-ZE-04':["/project-media/ora/lo-z-0.webp", "/project-media/ora/lo-z-01.webp", "/project-media/ora/lo-z-02.webp"],
+    'OR-ZE-05':["/project-media/ora/stu-z-0.webp", "/project-media/ora/stu-z-01.webp", "/project-media/ora/stu-z-02.webp", "/project-media/ora/stu-z-03.webp"],
+    'OR-ZE-06':["/project-media/ora/ap1-ze-0.webp", "/project-media/ora/ap1-ze-01.webp", "/project-media/ora/ap1-ze-02.webp", "/project-media/ora/ap1-ze-03.webp"],
+    'OR-ZE-07':["/project-media/ora/ap2-ze-01.webp", "/project-media/ora/ap2-ze-02.webp"],
+    'OR-ZE-08':["/project-media/ora/ap3-ze-0.webp", "/project-media/ora/ap3-ze-01.webp", "/project-media/ora/ap3-ze-02.webp"],
+    'OR-EM-01':["/project-media/ora/du1-em-0.webp", "/project-media/ora/du1-em-01.webp", "/project-media/ora/du1-em-02.webp", "/project-media/ora/du1-em-03.webp"],
+    'OR-EM-02':["/project-media/ora/du2-em-0.webp", "/project-media/ora/du2-em-01.webp", "/project-media/ora/du2-em-02.webp"],
+    'OR-EM-03':["/project-media/ora/four-0.webp", "/project-media/ora/four-01.webp", "/project-media/ora/four-02.webp"],
+    'OR-EM-04':["/project-media/ora/to1-em-0.webp", "/project-media/ora/to1-em-01.webp", "/project-media/ora/to1-em-02.webp"],
+    'OR-EM-05':["/project-media/ora/to2-em-0.webp", "/project-media/ora/to2-em-01.webp", "/project-media/ora/to2-em-02.webp"],
+    'OR-EM-06':["/project-media/ora/st-em-0.webp", "/project-media/ora/st-em-01.webp", "/project-media/ora/st-em-02.webp"],
+    'OR-ZW-01':["/project-media/ora/st-zw-0.webp", "/project-media/ora/st-zw-01.webp", "/project-media/ora/st-zw-02.webp", "/project-media/ora/st-zw-03.webp"],
+    'OR-ZW-03':["/project-media/ora/ap3-zw-0.webp", "/project-media/ora/ap3-zw-01.webp", "/project-media/ora/ap3-zw-02.webp", "/project-media/ora/ap3-zw-03.webp"],
+    'OR-ZW-04':["/project-media/ora/ap4-zw-0.webp", "/project-media/ora/ap4-zw-01.webp", "/project-media/ora/ap4-zw-02.webp"],
+    'OR-ZW-05':["/project-media/ora/ap6-zw-0.webp", "/project-media/ora/ap6-zw-01.webp", "/project-media/ora/ap6-zw-02.webp", "/project-media/ora/ap6-zw-03.webp"],
+    'OR-ZW-06':["/project-media/ora/ap6-zw-01.webp", "/project-media/ora/ap6-zw-0.webp", "/project-media/ora/ap6-zw-02.webp", "/project-media/ora/ap6-zw-03.webp"],
+    'OR-SW-01':["/project-media/ora/v8-0.webp", "/project-media/ora/v8-01.webp"],
+    'OR-SW-02':["/project-media/ora/v7-0.webp", "/project-media/ora/v7-01.webp"],
+    'OR-SW-03':["/project-media/ora/v2-sw-0.webp", "/project-media/ora/v2-sw-01.webp", "/project-media/ora/v2-sw-02.webp", "/project-media/ora/v2-sw-03.webp"],
+    'OR-SW-04':["/project-media/ora/v3-sw-0.webp", "/project-media/ora/v3-sw-01.webp", "/project-media/ora/v3-sw-02.webp", "/project-media/ora/v3-sw-03.webp"],
+    'OR-SW-05':["/project-media/ora/v4-sw-0.webp", "/project-media/ora/v4-sw-01.webp", "/project-media/ora/v4-sw-02.webp", "/project-media/ora/v4-sw-03.webp"],
+    'OR-SW-06':["/project-media/ora/v5-sw-0.webp", "/project-media/ora/v5-sw-01.webp", "/project-media/ora/v5-sw-02.webp", "/project-media/ora/v5-sw-03.webp"],
+    'OR-SW-07':["/project-media/ora/th-sw-0.webp", "/project-media/ora/th-sw-01.webp", "/project-media/ora/th-sw-02.webp"],
+    'OR-SW-08':["/project-media/ora/tw-sw-0.webp", "/project-media/ora/tw-sw-01.webp", "/project-media/ora/tw-sw-02.webp"],
+    'OR-SW-09':["/project-media/ora/ap1-sw-0.webp", "/project-media/ora/ap1-sw-01.webp", "/project-media/ora/ap1-sw-02.webp", "/project-media/ora/ap1-sw-03.webp", "/project-media/ora/ap1-sw-04.webp"],
+    'OR-SW-10':["/project-media/ora/ap2-sw-0.webp", "/project-media/ora/ap2-sw-01.webp", "/project-media/ora/ap2-sw-02.webp"],
+    'OR-SW-12':["/project-media/ora/ap4-sw-0.webp", "/project-media/ora/ap4-sw-01.webp", "/project-media/ora/ap4-sw-02.webp"],
+    'OR-SW-13':["/project-media/ora/ap5-sw-0.webp", "/project-media/ora/ap5-sw-01.webp", "/project-media/ora/ap5-sw-02.webp"],
+    'OR-SW-15':["/project-media/ora/pen-sw-0.webp", "/project-media/ora/pen-sw-01.webp", "/project-media/ora/pen-sw-02.webp"],
+    'OR-SW-16':["/project-media/ora/pen2.webp", "/project-media/ora/pen2-0.webp", "/project-media/ora/pen2-01.webp"],
+    'OR-SE-02':["/project-media/ora/ap2-se-0.webp", "/project-media/ora/ap2-se-01.webp", "/project-media/ora/ap2-se-02.webp", "/project-media/ora/ap2-se-03.webp", "/project-media/ora/ap2-se-04.webp"],
+    'OR-SE-03':["/project-media/ora/ap3-se-0.webp", "/project-media/ora/ap3-se-01.webp", "/project-media/ora/ap3-se-02.webp", "/project-media/ora/ap3-se-03.webp"],
+    'OR-SE-04':["/project-media/ora/tw-se-0.webp", "/project-media/ora/tw-se-01.webp", "/project-media/ora/tw-se-02.webp", "/project-media/ora/tw-se-03.webp"],
+    'OR-SE-05':["/project-media/ora/v-se-0.webp", "/project-media/ora/v-se-01.webp", "/project-media/ora/v-se-02.webp"],
+    'OR-CR-04':["/project-media/ora/ap3-cr-0.webp", "/project-media/ora/ap3-cr-01.webp", "/project-media/ora/ap3-cr-02.webp", "/project-media/ora/ap3-cr-03.webp"],
+    'OR-CR-05':["/project-media/ora/ap3-cr-01.webp", "/project-media/ora/ap3-cr-02.webp", "/project-media/ora/ap3-cr-03.webp", "/project-media/ora/ap3-cr-0.webp"],
+    'OR-CR-06':["/project-media/ora/ap3-cr-03.webp", "/project-media/ora/ap3-cr-0.webp", "/project-media/ora/ap3-cr-01.webp", "/project-media/ora/ap3-cr-02.webp"],
+    'OR-CR-07':["/project-media/ora/v1-cr-0.webp", "/project-media/ora/v1-cr-01.webp", "/project-media/ora/v1-cr-02.webp", "/project-media/ora/v1-cr-03.webp"],
+    'OR-CR-08':["/project-media/ora/v2-cr-0.webp", "/project-media/ora/v2-cr-01.webp", "/project-media/ora/v2-cr-02.webp", "/project-media/ora/v2-cr-03.webp", "/project-media/ora/v2-cr-04.webp"],
+    'OR-CR-09':["/project-media/ora/v1-cr-0.webp", "/project-media/ora/v1-cr-01.webp", "/project-media/ora/v1-cr-02.webp", "/project-media/ora/v1-cr-03.webp"],
+    'OR-ST-02':["/project-media/ora/ch2-ss-0.webp", "/project-media/ora/ch2-ss-01.webp", "/project-media/ora/ch2-ss-02.webp", "/project-media/ora/ch2-ss-03.webp"],
+    'OR-ST-03':["/project-media/ora/th1-ss-0.webp", "/project-media/ora/th1-ss-01.webp", "/project-media/ora/th1-ss-02.webp", "/project-media/ora/th1-ss-03.webp"],
+    'OR-ST-04':["/project-media/ora/th2-ss-0.webp", "/project-media/ora/th2-ss-01.webp", "/project-media/ora/th2-ss-02.webp", "/project-media/ora/th2-ss-03.webp", "/project-media/ora/th2-ss-04.webp"],
+    'OR-ST-05':["/project-media/ora/v1-ss-02.webp", "/project-media/ora/v1-ss-0.webp", "/project-media/ora/v1-ss-01.webp", "/project-media/ora/v1-ss-03.webp"],
+    'OR-ST-06':["/project-media/ora/v2-ss-0.webp", "/project-media/ora/v2-ss-01.webp", "/project-media/ora/v2-ss-02.webp", "/project-media/ora/v2-ss-03.webp", "/project-media/ora/v2-ss-04.webp"],
+    'OR-ST-07':["/project-media/ora/v3-ss-0.webp", "/project-media/ora/v3-ss-01.webp", "/project-media/ora/v3-ss-02.webp", "/project-media/ora/v3-ss-03.webp", "/project-media/ora/v3-ss-04.webp"],
     /* Per-unit render galleries (all photos for a unit) — opened as a numbered
        carousel from the unit hero and the "Photos" chip. In sheet order. */
     'MB-V01':["/project-media/baghush/units/v1-0.webp", "/project-media/baghush/units/v1-02.webp", "/project-media/baghush/units/v1-03.webp"],
@@ -675,6 +781,57 @@
      guesswork. Two floor plans the sheet names (fp-th-3-cr, v4-cr-0) are
      corrupt inside the source archive and are therefore simply absent. */
   var UNIT_MASTERPLANS = {
+    /* ORA */
+    'OR-ZE-01':["/project-media/ora/mp-zed.webp"],
+    'OR-ZE-02':["/project-media/ora/mp-zed.webp"],
+    'OR-ZE-03':["/project-media/ora/mp-zed.webp"],
+    'OR-ZE-04':["/project-media/ora/mp-zed.webp"],
+    'OR-ZE-05':["/project-media/ora/mp-zed.webp", "/project-media/ora/mp-z2.webp"],
+    'OR-ZE-06':["/project-media/ora/mp-zed.webp", "/project-media/ora/mp-z2.webp"],
+    'OR-ZE-07':["/project-media/ora/mp-zed.webp", "/project-media/ora/mp-z2.webp"],
+    'OR-ZE-08':["/project-media/ora/mp-zed.webp", "/project-media/ora/mp-z2.webp"],
+    'OR-EM-01':["/project-media/ora/mp-zed.webp", "/project-media/ora/mp-em.webp"],
+    'OR-EM-02':["/project-media/ora/mp-zed.webp", "/project-media/ora/mp-em.webp"],
+    'OR-EM-03':["/project-media/ora/mp-zed.webp", "/project-media/ora/mp-em.webp"],
+    'OR-EM-04':["/project-media/ora/mp-zed.webp", "/project-media/ora/mp-em.webp"],
+    'OR-EM-05':["/project-media/ora/mp-zed.webp", "/project-media/ora/mp-em.webp"],
+    'OR-EM-06':["/project-media/ora/mp-zed.webp", "/project-media/ora/mp-em.webp"],
+    'OR-ZW-01':["/project-media/ora/mp-zw.webp"],
+    'OR-ZW-02':["/project-media/ora/mp-zw.webp"],
+    'OR-ZW-03':["/project-media/ora/mp-zw.webp"],
+    'OR-ZW-04':["/project-media/ora/mp-zw.webp"],
+    'OR-ZW-05':["/project-media/ora/mp-zw.webp"],
+    'OR-ZW-06':["/project-media/ora/mp-zw.webp"],
+    'OR-ZW-07':["/project-media/ora/mp-zw.webp"],
+    'OR-SW-01':["/project-media/ora/fp-sw.webp"],
+    'OR-SW-02':["/project-media/ora/fp-sw.webp"],
+    'OR-SW-03':["/project-media/ora/fp-sw.webp"],
+    'OR-SW-04':["/project-media/ora/fp-sw.webp"],
+    'OR-SW-05':["/project-media/ora/fp-sw.webp"],
+    'OR-SW-06':["/project-media/ora/fp-sw.webp"],
+    'OR-SW-07':["/project-media/ora/fp-sw.webp"],
+    'OR-SW-08':["/project-media/ora/fp-sw.webp"],
+    'OR-SE-01':["/project-media/ora/mp-s-e.webp"],
+    'OR-SE-02':["/project-media/ora/mp-s-e.webp"],
+    'OR-SE-03':["/project-media/ora/mp-s-e.webp"],
+    'OR-SE-04':["/project-media/ora/mp-s-e.webp"],
+    'OR-SE-05':["/project-media/ora/mp-s-e.webp"],
+    'OR-CR-01':["/project-media/ora/mp-si.webp"],
+    'OR-CR-02':["/project-media/ora/mp-si.webp"],
+    'OR-CR-03':["/project-media/ora/mp-si.webp"],
+    'OR-CR-04':["/project-media/ora/mp-si.webp"],
+    'OR-CR-05':["/project-media/ora/mp-si.webp"],
+    'OR-CR-06':["/project-media/ora/mp-si.webp"],
+    'OR-CR-07':["/project-media/ora/mp-si.webp"],
+    'OR-CR-08':["/project-media/ora/mp-si.webp"],
+    'OR-CR-09':["/project-media/ora/mp-si.webp"],
+    'OR-ST-01':["/project-media/ora/mp-si.webp"],
+    'OR-ST-02':["/project-media/ora/mp-si.webp"],
+    'OR-ST-03':["/project-media/ora/mp-si.webp"],
+    'OR-ST-04':["/project-media/ora/mp-si.webp"],
+    'OR-ST-05':["/project-media/ora/mp-si.webp"],
+    'OR-ST-06':["/project-media/ora/mp-si.webp"],
+    'OR-ST-07':["/project-media/ora/mp-si.webp"],
     'MB-V01':["/project-media/baghush/units/mp-m.webp"],
     'MB-V02':["/project-media/baghush/units/mp-m.webp"],
     'MB-V03':["/project-media/baghush/units/mp-m.webp"],
@@ -925,6 +1082,62 @@
     'SL-SV15':["/project-media/hassan-allam/sl-sv15-mp1.webp"],
   };
   var UNIT_FLOORPLANS = {
+    /* ORA */
+    'OR-ZE-01':["/project-media/ora/fp-ap1-z-0.webp", "/project-media/ora/fp-ap1-z-01.webp"],
+    'OR-ZE-02':["/project-media/ora/fp-ap2-z.webp"],
+    'OR-ZE-03':["/project-media/ora/fp-ap3-z.webp"],
+    'OR-ZE-04':["/project-media/ora/fp-lo-z.webp"],
+    'OR-ZE-05':["/project-media/ora/fp-stu-z.webp"],
+    'OR-ZE-06':["/project-media/ora/fp-ap1-ze-0.webp", "/project-media/ora/fp-ap1-ze-01.webp"],
+    'OR-ZE-07':["/project-media/ora/fp-ap2-ze.webp"],
+    'OR-ZE-08':["/project-media/ora/fp-ap3-ze.webp"],
+    'OR-EM-01':["/project-media/ora/fp-du1-em.webp"],
+    'OR-EM-02':["/project-media/ora/fp-du2-em.webp"],
+    'OR-EM-03':["/project-media/ora/fp-four-em.webp", "/project-media/ora/fp-four2-em.webp"],
+    'OR-EM-04':["/project-media/ora/fp-to1-em-0.webp", "/project-media/ora/fp-to1-em-01.webp"],
+    'OR-EM-05':["/project-media/ora/fp-to2-em-0.webp", "/project-media/ora/fp-to2-em-01.webp"],
+    'OR-EM-06':["/project-media/ora/fp-st-em.webp"],
+    'OR-ZW-01':["/project-media/ora/fp-st-zw.webp"],
+    'OR-ZW-02':["/project-media/ora/fp-ap1-zw.webp"],
+    'OR-ZW-03':["/project-media/ora/fp-ap3-zw.webp"],
+    'OR-ZW-04':["/project-media/ora/fp-ap4-zw.webp"],
+    'OR-ZW-05':["/project-media/ora/fp-ap6-zw.webp"],
+    'OR-ZW-06':["/project-media/ora/fp-ap7-zw.webp"],
+    'OR-ZW-07':["/project-media/ora/fp-ap8-zw.webp"],
+    'OR-SW-01':["/project-media/ora/fp-zw-0.webp", "/project-media/ora/fp-zw-01.webp"],
+    'OR-SW-02':["/project-media/ora/fp-v7-0.webp", "/project-media/ora/fp-v7-01.webp"],
+    'OR-SW-03':["/project-media/ora/fp-v2-sw.webp"],
+    'OR-SW-04':["/project-media/ora/fp-v3.webp"],
+    'OR-SW-05':["/project-media/ora/fp-v4-0.webp", "/project-media/ora/fp-v4-01.webp"],
+    'OR-SW-06':["/project-media/ora/fp-v6-0.webp", "/project-media/ora/fp-v6-01.webp"],
+    'OR-SW-07':["/project-media/ora/fp-th-sw-0.webp"],
+    'OR-SW-08':["/project-media/ora/fp-tw-sw-0.webp", "/project-media/ora/fp-tw-sw-01.webp"],
+    'OR-SW-10':["/project-media/ora/fp-ap2-sw.webp"],
+    'OR-SW-11':["/project-media/ora/fp-ap3-sw.webp"],
+    'OR-SW-12':["/project-media/ora/fp-ap4-sw.webp"],
+    'OR-SW-13':["/project-media/ora/fp-ap5-sw.webp"],
+    'OR-SW-14':["/project-media/ora/fp-ap6-sw.webp"],
+    'OR-SW-15':["/project-media/ora/fp-pen1.webp"],
+    'OR-SW-16':["/project-media/ora/fp-pen-0.webp", "/project-media/ora/fp-pen-01.webp"],
+    'OR-SE-01':["/project-media/ora/fp-2b-se.webp"],
+    'OR-SE-02':["/project-media/ora/fp-3b-se.webp"],
+    'OR-SE-04':["/project-media/ora/fp-tw-se-0.webp", "/project-media/ora/fp-tw-se-01.webp"],
+    'OR-SE-05':["/project-media/ora/fp-v.webp"],
+    'OR-CR-01':["/project-media/ora/fp-du-cr.webp"],
+    'OR-CR-02':["/project-media/ora/fp-du1-cr.webp"],
+    'OR-CR-03':["/project-media/ora/fp-ch-cr.webp"],
+    'OR-CR-04':["/project-media/ora/fp-ch2-cr.webp"],
+    'OR-CR-06':["/project-media/ora/fp-tw-cr-0.webp"],
+    'OR-CR-07':["/project-media/ora/fp-v1-cr-0.webp", "/project-media/ora/fp-v1-cr-01.webp"],
+    'OR-CR-08':["/project-media/ora/fp-v2-cr-0.webp", "/project-media/ora/fp-v2-cr-01.webp"],
+    'OR-CR-09':["/project-media/ora/fp-v3-cr-0.webp", "/project-media/ora/fp-v3-cr-01.webp"],
+    'OR-ST-01':["/project-media/ora/fp-ap1-ss.webp"],
+    'OR-ST-02':["/project-media/ora/fp-ch2-ss.webp"],
+    'OR-ST-03':["/project-media/ora/fp-th1-ss.webp"],
+    'OR-ST-04':["/project-media/ora/fp-th2-ss.webp"],
+    'OR-ST-05':["/project-media/ora/fp-v1-ss-0.webp", "/project-media/ora/fp-v1-ss-01.webp"],
+    'OR-ST-06':["/project-media/ora/fp-v2-ss-0.webp", "/project-media/ora/fp-v2-ss-01.webp"],
+    'OR-ST-07':["/project-media/ora/fp-v3-ss-0.webp", "/project-media/ora/fp-v3-ss-01.webp"],
     /* A plan the sheet never names but that no other unit claims stays put:
        CW-V04's fp-v4-cr draws the floors its v4-cr-01 leaves out. */
     'MB-V01':["/project-media/baghush/units/fp-v3.webp"],
@@ -1170,6 +1383,65 @@
   /* Per-unit location renders (LMD). When present, the Location viewer shows the
      unit-specific aerial; otherwise it falls back to the area aerial. */
   var UNIT_LOCATIONS = {
+    /* ORA */
+    'OR-ZE-01':["/project-media/ora/loc-zed.webp"],
+    'OR-ZE-02':["/project-media/ora/loc-zed.webp"],
+    'OR-ZE-03':["/project-media/ora/loc-zed.webp"],
+    'OR-ZE-04':["/project-media/ora/loc-zed.webp"],
+    'OR-ZE-05':["/project-media/ora/loc-zed.webp"],
+    'OR-ZE-06':["/project-media/ora/loc-zed.webp"],
+    'OR-ZE-07':["/project-media/ora/loc-zed.webp"],
+    'OR-ZE-08':["/project-media/ora/loc-zed.webp"],
+    'OR-EM-01':["/project-media/ora/loc-zed.webp"],
+    'OR-EM-02':["/project-media/ora/loc-zed.webp"],
+    'OR-EM-03':["/project-media/ora/loc-zed.webp"],
+    'OR-EM-04':["/project-media/ora/loc-zed.webp"],
+    'OR-EM-05':["/project-media/ora/loc-zed.webp"],
+    'OR-EM-06':["/project-media/ora/loc-zed.webp"],
+    'OR-ZW-01':["/project-media/ora/lo-zw.webp"],
+    'OR-ZW-02':["/project-media/ora/lo-zw.webp"],
+    'OR-ZW-03':["/project-media/ora/lo-zw.webp"],
+    'OR-ZW-04':["/project-media/ora/lo-zw.webp"],
+    'OR-ZW-05':["/project-media/ora/lo-zw.webp"],
+    'OR-ZW-06':["/project-media/ora/lo-zw.webp"],
+    'OR-ZW-07':["/project-media/ora/lo-zw.webp"],
+    'OR-SW-01':["/project-media/ora/loc-solana-west.webp"],
+    'OR-SW-02':["/project-media/ora/loc-solana-west.webp"],
+    'OR-SW-03':["/project-media/ora/loc-solana-west.webp"],
+    'OR-SW-04':["/project-media/ora/loc-solana-west.webp"],
+    'OR-SW-05':["/project-media/ora/loc-solana-west.webp"],
+    'OR-SW-06':["/project-media/ora/loc-solana-west.webp"],
+    'OR-SW-07':["/project-media/ora/loc-solana-west.webp"],
+    'OR-SW-08':["/project-media/ora/loc-solana-west.webp"],
+    'OR-SW-09':["/project-media/ora/loc-solana-west.webp"],
+    'OR-SW-10':["/project-media/ora/loc-solana-west.webp"],
+    'OR-SW-11':["/project-media/ora/loc-solana-west.webp"],
+    'OR-SW-12':["/project-media/ora/loc-solana-west.webp"],
+    'OR-SW-13':["/project-media/ora/loc-solana-west.webp"],
+    'OR-SW-14':["/project-media/ora/loc-solana-west.webp"],
+    'OR-SW-15':["/project-media/ora/loc-solana-west.webp"],
+    'OR-SW-16':["/project-media/ora/loc-solana-west.webp"],
+    'OR-SE-01':["/project-media/ora/location-solana-east.webp"],
+    'OR-SE-02':["/project-media/ora/location-solana-east.webp"],
+    'OR-SE-03':["/project-media/ora/location-solana-east.webp"],
+    'OR-SE-04':["/project-media/ora/location-solana-east.webp"],
+    'OR-SE-05':["/project-media/ora/location-solana-east.webp"],
+    'OR-CR-01':["/project-media/ora/lo-cr.webp"],
+    'OR-CR-02':["/project-media/ora/lo-cr.webp"],
+    'OR-CR-03':["/project-media/ora/lo-cr.webp"],
+    'OR-CR-04':["/project-media/ora/lo-cr.webp"],
+    'OR-CR-05':["/project-media/ora/lo-cr.webp"],
+    'OR-CR-06':["/project-media/ora/lo-cr.webp"],
+    'OR-CR-07':["/project-media/ora/lo-cr.webp"],
+    'OR-CR-08':["/project-media/ora/lo-cr.webp"],
+    'OR-CR-09':["/project-media/ora/lo-cr.webp"],
+    'OR-ST-01':["/project-media/ora/lo-cr.webp"],
+    'OR-ST-02':["/project-media/ora/lo-cr.webp"],
+    'OR-ST-03':["/project-media/ora/lo-cr.webp"],
+    'OR-ST-04':["/project-media/ora/lo-cr.webp"],
+    'OR-ST-05':["/project-media/ora/lo-cr.webp"],
+    'OR-ST-06':["/project-media/ora/lo-cr.webp"],
+    'OR-ST-07':["/project-media/ora/lo-cr.webp"],
     'MB-V01':["/project-media/baghush/units/loc-ma.webp"],
     'MB-V02':["/project-media/baghush/units/loc-ma.webp"],
     'MB-V03':["/project-media/baghush/units/loc-ma.webp"],
@@ -1559,7 +1831,6 @@
   }
   /* Photos of the whole project, for the hero. Keyed by slug: a project with
      renders of its own but no unit schedule has nowhere else to show them. */
-  var ORAP = '/project-media/ora/';
   var PROJECT_GALLERY = {
     /* The hero carries the project, not its models: sail was a blurred shell
        over open water, town a pair of hands round a coffee cup, homes a figure
@@ -1568,39 +1839,7 @@
        still appears on the brochure card its section belongs to. */
     'alam-al-roum': ['city','coast','story','masterplan','boulevard','beach','lagoon',
                      'spine','arch','marina','golf']
-      .map(function(f){ return '/project-media/qataridiar/alam-al-roum/'+f+'.webp'; }),
-    /* ORA. These four projects have renders but no unit schedule, so the hero
-       carousel is the only place their exteriors can appear. Order runs wide
-       first — the frame that sells the address before the models. */
-    'zed-zayed': ['district-2','district-1','district-3','district-4']
-      .map(function(f){ return ORAP+'zed-zayed/'+f+'.webp'; }),
-    'zed-east': ['club-2','club-1','club-3','tower-1','tower-2','tower-3','tower-4',
-                 'emerald-street-1','emerald-street-2','emerald-street-3',
-                 'emerald-townhouse-1','emerald-townhouse-2','emerald-townhouse-3',
-                 'emerald-townhouse-4','emerald-townhouse-5','emerald-townhouse-6']
-      .map(function(f){ return ORAP+'zed-east/'+f+'.webp'; }),
-    'silversands-sahel': ['villa-a-1','villa-a-2','villa-a-3','villa-a-4',
-                 'villa-b-1','villa-b-2','villa-b-3','villa-b-4','villa-b-5',
-                 'villa-c-1','villa-c-2','villa-c-3','villa-c-4','villa-c-5',
-                 'townhouse-a-1','townhouse-a-2','townhouse-a-3','townhouse-a-4',
-                 'townhouse-b-1','townhouse-b-2','townhouse-b-3','townhouse-b-4','townhouse-b-5',
-                 'crystalline-villa-a-1','crystalline-villa-a-2','crystalline-villa-a-3',
-                 'crystalline-villa-a-4','crystalline-villa-b-1','crystalline-villa-b-2',
-                 'crystalline-villa-b-3','crystalline-villa-b-4','crystalline-villa-b-5']
-      .map(function(f){ return ORAP+'silversands/'+f+'.webp'; }),
-    'solana-west': ['villa-a-2','villa-a-1','villa-a-3','villa-a-4',
-                 'villa-b-1','villa-b-2','villa-b-3','villa-b-4',
-                 'villa-c-1','villa-c-2','villa-c-3','villa-c-4',
-                 'villa-d-1','villa-d-2','villa-d-3','villa-d-4',
-                 'garden-side-villa-1','garden-side-villa-2','villa-08-1','villa-08-2',
-                 'townhouse-1','townhouse-2','townhouse-3',
-                 'twinhouse-1','twinhouse-2','twinhouse-3',
-                 'buildings-1','buildings-2','buildings-3',
-                 'penthouse-1','penthouse-2','penthouse-3']
-      .map(function(f){ return ORAP+'solana-west/'+f+'.webp'; }),
-    'solana-east': ['villa-2','villa-1','villa-3','twinhouse-1','twinhouse-2',
-                 'twinhouse-3','twinhouse-4']
-      .map(function(f){ return ORAP+'solana-east/'+f+'.webp'; })
+      .map(function(f){ return '/project-media/qataridiar/alam-al-roum/'+f+'.webp'; })
   };
   function projectGalleryItems(p){
     var g = PROJECT_GALLERY[p.slug]; if(!g || !g.length) return [];
@@ -1865,6 +2104,14 @@
     'sumou':['/project-media/sumou/st-03.webp','/project-media/sumou/st-01.webp','/project-media/sumou/ap5-0.webp','/project-media/sumou/st-02.webp','/project-media/sumou/ap2-03.webp','/project-media/sumou/of4.webp'],
     'modon':['/project-media/modon/m1.webp','/project-media/modon/m2.webp','/project-media/modon/m3.webp',
              '/project-media/modon/m4.webp','/project-media/modon/m5.webp','/project-media/modon/m6.webp'],
+    // ORA — pages of the company profile, one per destination: Silversands on
+    // the coast, ZED East, ZED Sheikh Zayed, Solana and Solana East.
+    'ora':['/project-media/ora/brochure/silversands-beach.webp',
+           '/project-media/ora/brochure/zedeast-park.webp',
+           '/project-media/ora/brochure/zedwest-park.webp',
+           '/project-media/ora/brochure/solana-spine.webp',
+           '/project-media/ora/brochure/solanaeast-lake.webp',
+           '/project-media/ora/brochure/zedeast-strip.webp'],
     // brochure order: the terrace (p6), the living room (p11), the finished
     // interior (p12), the landscape (p14), the lagoon (p15), the hotel (p16)
     // brochure order: the beach (p6), the lagoon from the air (p13), the lagoon at
@@ -1952,6 +2199,7 @@
   /* Developer feature blocks — a masterplan and a row of themed cards, shown
      under the hero. Data-driven, so a developer without an entry gets nothing. */
   var MP = '/project-media/modon/';
+  var ORB = '/project-media/ora/brochure/';
   var SU = '/project-media/sumou/';
   var BAB = '/project-media/beitalbahr/';
   var MB  = '/project-media/baghush/';
@@ -2082,6 +2330,112 @@
              {en:'Restorative landscape & wellbeing',ar:'مساحات خضراء وعافية'}],
            more:{en:'The project is expected to generate EGP 100 billion in sales, and is described by the developer as the first regenerative city in MENA \u2014 anchored by the world\u2019s largest innovation-impact boulevard, where culture, innovation and wellbeing converge into a hospitality-driven urban life.',
                  ar:'يُتوقّع أن يحقّق المشروع مبيعات بقيمة ١٠٠ مليار جنيه مصري، ويصفه المطوّر بأنه أول مدينة تجديدية في الشرق الأوسط وشمال إفريقيا — يتوسّطها أكبر بوليفارد للابتكار في العالم، حيث تلتقي الثقافة والابتكار والعافية في حياة حضرية قائمة على الضيافة.'}
+         }}
+      ]
+    },
+    /* ORA. Every figure below is quoted from the company profile the owner
+       supplied — the group structure, the international portfolio, the acreages,
+       the unit counts, the price-per-metre averages and the payment plans.
+       Nothing is inferred, and drive-time claims are deliberately left out. */
+    'ora': {
+      masterplan: {en:'Masterplan — Silversands', ar:'الماستر بلان — سيلفر ساندز', icon:'layers', src:ORB+'silversands-aerial.webp'},
+      cards: [
+        {en:'Ora Developers', ar:'أورا للتطوير', icon:'shield', imgs:[ORB+'chairman.webp'],
+         copy:{
+           lead:{en:'Ora Developers is chaired by Eng. Naguib Sawiris, and sits within Gemini Holding alongside its telecom, mining, oil and gas, media, financial services and investment companies. Its line under the mark reads: Reimagining Time.',
+                 ar:'يرأس شركة أورا للتطوير المهندس نجيب ساويرس، وتندرج ضمن مجموعة جيميني القابضة إلى جانب شركاتها في الاتصالات والتعدين والنفط والغاز والإعلام والخدمات المالية والاستثمار. وشعارها تحت العلامة: إعادة تصوّر الزمن.'},
+           more:{en:'Eng. Naguib has been described as one of the most influential business people of his generation. Widely respected for his work in the telecommunication sector, his leading roles range from establishing Orascom Telecom Holding — acquired by VEON to create the world\'s sixth largest telecommunication firm — to chairing and advising market-changing companies in financial services, energy, agro-industries, logistics and real estate.',
+                 ar:'يوصَف المهندس نجيب بأنه من أكثر رجال الأعمال تأثيراً في جيله. ويحظى باحترام واسع لعمله في قطاع الاتصالات، وتمتد أدواره القيادية من تأسيس أوراسكوم تليكوم القابضة — التي استحوذت عليها «فيون» لتكوين سادس أكبر شركة اتصالات في العالم — إلى رئاسة ومشورة شركات غيّرت أسواقها في الخدمات المالية والطاقة والصناعات الزراعية واللوجستيات والعقارات.'}
+         }},
+        {en:'An International Portfolio', ar:'محفظة دولية', icon:'globe', imgs:[ORB+'world.webp'],
+         copy:{
+           lead:{en:'Ora builds in Egypt, the United Kingdom, Cyprus, Grenada and Pakistan, with Greece announced as coming soon. In Egypt its earlier work includes Nile City Towers on the East Bank of the Nile — completed in 2004, now home to the company\'s own headquarters and the five-star Fairmont hotel — and Pyramid Hills near the Great Pyramids of Giza.',
+                 ar:'تبني أورا في مصر والمملكة المتحدة وقبرص وغرينادا وباكستان، مع الإعلان عن اليونان قريباً. وفي مصر تشمل أعمالها السابقة أبراج نايل سيتي على الضفة الشرقية للنيل — اكتملت عام ٢٠٠٤ وتضم اليوم المقر الرئيسي للشركة وفندق فيرمونت فئة الخمس نجوم — و«بيراميد هيلز» قرب أهرامات الجيزة.'},
+           groups:[
+             {label:{en:'International projects', ar:'المشروعات الدولية'}, rows:[
+               {k:{en:'Eighteen — Pakistan',ar:'إيتين — باكستان'}, v:{en:'2,225 units on 2.7 million sq. yd. outside Islamabad',ar:'٢٬٢٢٥ وحدة على ٢٫٧ مليون ياردة مربعة خارج إسلام آباد'}},
+               {k:{en:'Ayia Napa Marina — Cyprus',ar:'آيا نابا مارينا — قبرص'}, v:{en:'219 units, two towers, a 600-berth marina',ar:'٢١٩ وحدة، وبرجان، ومارينا بسعة ٦٠٠ مرسى'}},
+               {k:{en:'Silversands — Grenada',ar:'سيلفر ساندز — غرينادا'}, v:{en:'11 units; award-winning hotel and resort, 2018–2019',ar:'١١ وحدة؛ فندق ومنتجع حائز على جوائز ٢٠١٨–٢٠١٩'}},
+               {k:{en:'Nocera — United Kingdom',ar:'نوسيرا — المملكة المتحدة'}, v:{en:'Twenty Grosvenor Square, Mayfair — 37 Four Seasons Residences',ar:'تونتي جروسفينور سكوير بمايفير — ٣٧ وحدة فور سيزونز ريزيدنسز'}}]}
+           ]
+         }},
+        {en:'Silversands — North Coast', ar:'سيلفر ساندز — الساحل الشمالي', icon:'layers', imgs:[ORB+'silversands-beach.webp', ORB+'silversands-aerial.webp'],
+         copy:{
+           lead:{en:'Silversands takes Ora\'s Caribbean hotel brand to the Egyptian North Coast, at kilometre 243 and four kilometres from Almaza Bay. The masterplan is by WATG London across 503 acres, with one kilometre of beach front.',
+                 ar:'ينقل «سيلفر ساندز» علامة أورا الفندقية الكاريبية إلى الساحل الشمالي المصري، عند الكيلو ٢٤٣ وعلى بعد أربعة كيلومترات من خليج ألماظة. والمخطط العام من تصميم «WATG لندن» على مساحة ٥٠٣ أفدنة، بواجهة شاطئية بطول كيلومتر واحد.'},
+           list:[{en:'88,000 m² — 22 acres — of swimmable lagoons',ar:'٨٨٬٠٠٠ م² — ٢٢ فداناً — من البحيرات القابلة للسباحة'},
+                 {en:'Two hotels and four clubhouses',ar:'فندقان وأربعة كلوب هاوس'},
+                 {en:'A hospital, a piazza and high-end retail',ar:'مستشفى وبيازا ومحال تجارية راقية'}],
+           groups:[
+             {label:{en:'Payment plan (brochure)', ar:'نظام السداد (البروشور)'}, rows:[
+               {k:{en:'Down payment',ar:'المقدم'},            v:{en:'10%',ar:'١٠٪'}},
+               {k:{en:'After three months',ar:'بعد ثلاثة أشهر'}, v:{en:'5%',ar:'٥٪'}},
+               {k:{en:'Balance',ar:'الباقي'},                  v:{en:'Over 6 years',ar:'على ٦ سنوات'}}]}
+           ]
+         }},
+        {en:'ZED East', ar:'زيد إيست', icon:'build', imgs:[ORB+'zedeast-park.webp', ORB+'zedeast-strip.webp', ORB+'zedeast-masterplan.webp'],
+         copy:{
+           lead:{en:'ZED East sits at the end of Road 90 where it meets the Second Ring Road. The project runs to 360 acres on a WATG masterplan, with a 43-acre ZED Sports Club, an office park, medical clinics, retail, F&B and a shopping mall. Residential buildings are G+8 and look over eight acres of landscape.',
+                 ar:'يقع «زيد إيست» عند نهاية طريق التسعين حيث يلتقي بالطريق الدائري الثاني. ويمتد المشروع على ٣٦٠ فداناً بمخطط عام من «WATG»، ويضم نادي زيد الرياضي على ٤٣ فداناً، ومجمّع مكاتب وعيادات طبية ومحال ومطاعم ومركزاً تجارياً. والمباني السكنية أرضي + ٨ أدوار وتطل على ثمانية أفدنة من المساحات الخضراء.'},
+           more:{en:'Units are delivered fully finished including air conditioning, over underground parking, with concierge, resident and furniture lifts, a fire escape staircase and a garbage chute. The Parsley phase carries the widest central park frontage in the project, with 62 to 286 metres of uninterrupted green, overlooking the Sage and Mint single-family clusters and within walking distance of the club.',
+                 ar:'تُسلَّم الوحدات كاملة التشطيب بما فيها التكييف، فوق جراج تحت الأرض، مع كونسيرج ومصعدَي سكان وأثاث وسلّم هروب من الحريق ومهبط قمامة. وتتمتع مرحلة «بارسلي» بأوسع واجهة على الحديقة المركزية في المشروع، بامتداد أخضر متصل من ٦٢ إلى ٢٨٦ متراً، مطلّة على مجموعتَي «سيج» و«مينت» للفيلات، وعلى مسافة مشي من النادي.'},
+           groups:[
+             {label:{en:'Quoted in the profile', ar:'المذكور في الملف'}, rows:[
+               {k:{en:'Parsley — average price per metre',ar:'بارسلي — متوسط سعر المتر'}, v:{en:'EGP 130,000',ar:'١٣٠٬٠٠٠ جنيه'}},
+               {k:{en:'Parsley — payment plan',ar:'بارسلي — نظام السداد'}, v:{en:'5% down, 5% on contract, 90% over 8 years, 7.5% maintenance',ar:'٥٪ مقدم، ٥٪ عند التعاقد، ٩٠٪ على ٨ سنوات، ٧٫٥٪ صيانة'}},
+               {k:{en:'Administrative Strip',ar:'الستريب الإداري'}, v:{en:'32 acres, average EGP 160,000 per metre, core & shell, 4-year delivery',ar:'٣٢ فداناً، بمتوسط ١٦٠٬٠٠٠ جنيه للمتر، على المحارة، تسليم ٤ سنوات'}},
+               {k:{en:'Strip — payment plan',ar:'الستريب — نظام السداد'}, v:{en:'5% down, 5% on contract, 90% over 7 years, 10% maintenance',ar:'٥٪ مقدم، ٥٪ عند التعاقد، ٩٠٪ على ٧ سنوات، ١٠٪ صيانة'}}]},
+             {label:{en:'Club Side Tower', ar:'كلوب سايد تاور'}, rows:[
+               {k:{en:'Height',ar:'الارتفاع'},        v:{en:'100 metres, G+30 floors',ar:'١٠٠ متر، أرضي + ٣٠ دوراً'}},
+               {k:{en:'Average areas',ar:'متوسط المساحات'}, v:{en:'1 bed 81 m² · 2 bed 131 m² · 2 bed loft 149 m² · 3 bed 174 m² · 4 bed 249 m²',ar:'غرفة ٨١ م² · غرفتان ١٣١ م² · لوفت بغرفتين ١٤٩ م² · ٣ غرف ١٧٤ م² · ٤ غرف ٢٤٩ م²'}},
+               {k:{en:'Finishing',ar:'التشطيب'},      v:{en:'Fully finished with ACs and kitchen cabinets',ar:'تشطيب كامل مع تكييفات ومطابخ'}},
+               {k:{en:'Payment plan',ar:'نظام السداد'}, v:{en:'5% down, 5% contractual, 85% over 7 years',ar:'٥٪ مقدم، ٥٪ تعاقدي، ٨٥٪ على ٧ سنوات'}},
+               {k:{en:'EOI',ar:'خطاب الرغبة'},        v:{en:'EGP 500,000 (1–2 bed) · EGP 750,000 (3–4 bed)',ar:'٥٠٠٬٠٠٠ جنيه (غرفة–غرفتان) · ٧٥٠٬٠٠٠ جنيه (٣–٤ غرف)'}}]}
+           ]
+         }},
+        {en:'ZED — Sheikh Zayed', ar:'زيد — الشيخ زايد', icon:'build', imgs:[ORB+'zedwest-park.webp', ORB+'zedwest-towers.webp', ORB+'zedwest-masterplan.webp', ORB+'zedwest-location.webp'],
+         copy:{
+           lead:{en:'ZED at Sheikh Zayed covers 165 acres — 65 of them ZED Park — on a WATG London masterplan, entered from Sheikh Zayed entrance 1. The product mix is 4,800 multi-family units, 77,100 m² of offices and clinics, and 37,100 m² of retail across the ZED Strip and the Towers Mall.',
+                 ar:'يمتد «زيد» بالشيخ زايد على ١٦٥ فداناً — منها ٦٥ فداناً لحديقة زيد — بمخطط عام من «WATG لندن»، ومدخله من بوابة الشيخ زايد الأولى. ويتألف المزيج من ٤٬٨٠٠ وحدة سكنية، و٧٧٬١٠٠ م² من المكاتب والعيادات، و٣٧٬١٠٠ م² من المحال بين «زيد ستريب» و«تاورز مول».'},
+           list:[{en:'Sports complex with soccer courts operated by the DBB academy',ar:'مجمّع رياضي بملاعب كرة قدم تديرها أكاديمية DBB'},
+                 {en:'Tennis and paddle courts operated by the BTT academy (Barcelona)',ar:'ملاعب تنس وبادل تديرها أكاديمية BTT (برشلونة)'},
+                 {en:'A high-end mall, the Italiano restaurant and a park renovation by Melk',ar:'مول راقٍ ومطعم «إيتاليانو» وتجديد للحديقة من تصميم «Melk»'},
+                 {en:'ZED Winter Festival, a kids\' area, a theatre and a zipline',ar:'مهرجان زيد الشتوي ومنطقة أطفال ومسرح وزيبلاين'}],
+           groups:[
+             {label:{en:'Tiers quoted in the profile', ar:'الفئات المذكورة في الملف'}, rows:[
+               {k:{en:'Residential Towers (G+10)',ar:'الأبراج السكنية (أرضي + ١٠)'}, v:{en:'Average EGP 130,000 per metre · 5% down, 5% after 3 months, 10% on delivery, balance over 7.5 years',ar:'بمتوسط ١٣٠٬٠٠٠ جنيه للمتر · ٥٪ مقدم، ٥٪ بعد ٣ أشهر، ١٠٪ عند التسليم، والباقي على ٧٫٥ سنوات'}},
+               {k:{en:'Park Towers YA, YB, YC (G+20)',ar:'بارك تاورز YA وYB وYC (أرضي + ٢٠)'}, v:{en:'From EGP 200,000 per metre · delivery in 1 year · 8.75% down then 8.75% every 3 months ×3, balance over 6 years',ar:'من ٢٠٠٬٠٠٠ جنيه للمتر · تسليم خلال سنة · ٨٫٧٥٪ مقدم ثم ٨٫٧٥٪ كل ٣ أشهر ثلاث مرات، والباقي على ٦ سنوات'}},
+               {k:{en:'Park Side Residence (G+10)',ar:'بارك سايد ريزيدنس (أرضي + ١٠)'}, v:{en:'Average EGP 150,000 per metre · delivery in 3 years · 5% down, 5% after 3 months, balance over 7.5 years',ar:'بمتوسط ١٥٠٬٠٠٠ جنيه للمتر · تسليم خلال ٣ سنوات · ٥٪ مقدم، ٥٪ بعد ٣ أشهر، والباقي على ٧٫٥ سنوات'}},
+               {k:{en:'Armani Towers (G+10)',ar:'أبراج أرماني (أرضي + ١٠)'}, v:{en:'Sold out',ar:'نفدت'}}]}
+           ]
+         }},
+        {en:'Solana — New Zayed', ar:'سولانا — زايد الجديدة', icon:'home', imgs:[ORB+'solana-aerial.webp', ORB+'solana-spine.webp', ORB+'solana-villa.webp', ORB+'solana-amphitheatre.webp'],
+         copy:{
+           lead:{en:'Solana runs to 316 feddans — 1,327,981 m² — in New Zayed on the Dabaa axis, next to Vye and Belle Vie and beside the Alexandria road. The masterplan is by WATG London and the community is designed to be walked rather than driven.',
+                 ar:'يمتد «سولانا» على ٣١٦ فداناً — ١٬٣٢٧٬٩٨١ م² — في زايد الجديدة على محور الضبعة، بجوار «فاي» و«بيل في» وإلى جانب طريق الإسكندرية. والمخطط العام من «WATG لندن»، والمجتمع مصمَّم للمشي لا للسيارة.'},
+           more:{en:'Its four stated strengths are product flexibility, a multi-layered garden, innovative typologies, and a balance of openness and enclosure that gives each home its privacy.',
+                 ar:'ونقاط قوته المعلنة أربع: مرونة المنتج، والحديقة متعددة المستويات، والأنماط المبتكرة، والتوازن بين الانفتاح والانغلاق الذي يمنح كل منزل خصوصيته.'},
+           groups:[
+             {label:{en:'Product mix', ar:'مزيج المنتج'}, rows:[
+               {k:{en:'Single-family units',ar:'وحدات مستقلة'},   v:{en:'865',ar:'٨٦٥'}},
+               {k:{en:'Multi-family units',ar:'وحدات سكنية'},     v:{en:'1,232',ar:'١٬٢٣٢'}},
+               {k:{en:'Typologies',ar:'الأنماط'},                v:{en:'The Gemini Villa · The Villa (1 floor) · The Villa (2 floors) · The Twin Villa · The Twin House · The Townhouse',ar:'فيلا جيميني · الفيلا (طابق) · الفيلا (طابقان) · التوين فيلا · التوين هاوس · التاون هاوس'}},
+               {k:{en:'Clubhouse',ar:'الكلوب هاوس'},             v:{en:'10,000 m²',ar:'١٠٬٠٠٠ م²'}},
+               {k:{en:'Football club',ar:'النادي الرياضي'},       v:{en:'130,000 m²',ar:'١٣٠٬٠٠٠ م²'}},
+               {k:{en:'School',ar:'المدرسة'},                    v:{en:'20,000 m²',ar:'٢٠٬٠٠٠ م²'}},
+               {k:{en:'Community retail centres',ar:'مراكز التجزئة'}, v:{en:'5,000 m²',ar:'٥٬٠٠٠ م²'}}]},
+             {label:{en:'Villas — payment plan (brochure)', ar:'الفيلات — نظام السداد (البروشور)'}, rows:[
+               {k:{en:'Down payment',ar:'المقدم'},               v:{en:'5%',ar:'٥٪'}},
+               {k:{en:'On contract, at three months',ar:'عند التعاقد بعد ثلاثة أشهر'}, v:{en:'5%',ar:'٥٪'}},
+               {k:{en:'Balance',ar:'الباقي'},                    v:{en:'Over 7 years',ar:'على ٧ سنوات'}}]},
+             {label:{en:'Facilities & amenities', ar:'المرافق والخدمات'}, rows:[
+               {k:{en:'Listed in the profile',ar:'المذكورة في الملف'}, v:{en:'Clubhouse · parks and water features · school · daycare · serviced apartments · electric charging · bike and running lanes · community centre · entertainment · community retail · clinics',ar:'كلوب هاوس · حدائق ومسطحات مائية · مدرسة · حضانة · شقق فندقية · شحن كهربائي · مسارات دراجات وجري · مركز مجتمعي · ترفيه · تجزئة · عيادات'}}]}
+           ]
+         }},
+        {en:'Solana East', ar:'سولانا إيست', icon:'home', imgs:[ORB+'solanaeast-lake.webp', ORB+'solanaeast-dusk.webp'],
+         copy:{
+           lead:{en:'Solana East carries the same brand across to the east of Cairo, on the South 90 axis. The company profile presents it through its masterplan and renders; it publishes no separate fact sheet for it, so no figures are claimed here beyond what the client price list carries on the project page itself.',
+                 ar:'ينقل «سولانا إيست» العلامة نفسها إلى شرق القاهرة على محور التسعين الجنوبي. ويعرضه ملف الشركة عبر مخططه العام ولقطاته المصوّرة، دون أن ينشر له صفحة بيانات مستقلة، ولذلك لا تُذكر هنا أي أرقام تتجاوز ما تحمله قائمة أسعار العميل على صفحة المشروع نفسها.'}
          }}
       ]
     },
@@ -2379,131 +2733,10 @@
                  ar:'كل منزل مصمّم حول ما يدوم: الضوء الطبيعي، والنسب السخيّة، والانتقال السلس بين الداخل والخارج، وإطلالة تستحق الاستيقاظ لها. الواجهات مؤلَّفة بتحفّظ ودفء، والواجهتان الأمامية والخلفية مُعالَجتان بالعناية نفسها ليكون المنزل جميلاً من كل اتجاه. سواء كان أول عنوان ساحلي أو مقرّاً عائلياً يُورَّث، فهذه مساكن بُنيت ليُعاد إليها موسماً بعد موسم وجيلاً بعد جيل.'}
          }}
       ]
-    },
-    /* ORA supplied a masterplan per destination and nothing else in prose, so
-       these entries carry the plan alone — no invented cards. */
-    'zed-zayed':        {masterplan:{en:'Masterplan', ar:'الماستر بلان', icon:'layers', src:ORAP+'zed-zayed/masterplan.webp'}},
-    'zed-east':         {masterplan:{en:'Masterplan', ar:'الماستر بلان', icon:'layers', src:ORAP+'zed-east/masterplan.webp'}},
-    'silversands-sahel':{masterplan:{en:'Masterplan', ar:'الماستر بلان', icon:'layers', src:ORAP+'silversands/masterplan.webp'}},
-    'solana-west':      {masterplan:{en:'Masterplan', ar:'الماستر بلان', icon:'layers', src:ORAP+'solana-west/masterplan.webp'}},
-    'solana-east':      {masterplan:{en:'Masterplan', ar:'الماستر بلان', icon:'layers', src:ORAP+'solana-east/masterplan.webp'}}
+    }
   };
   function projBrochure(slug){ return PROJECT_BROCHURE[slug] || null; }
   function projFeatures(slug){ return PROJECT_FEATURES[slug] || null; }
-
-  /* ===================================================================
-     Plans & maps — the developer's own unit typologies, per project.
-
-     A unit-level floor plan needs a unit to hang off (UNIT_FLOORPLANS), and
-     these five ORA projects have no unit schedule: the client sheet carries no
-     ORA rows, so there are no prices and no units to key against. The plans
-     themselves are real, though — each one prints its own type name, floor and
-     area — so they hang off the project instead, and every label below is
-     transcribed from the sheet it belongs to. Nothing here is inferred.
-     =================================================================== */
-  var PROJECT_PLANS = {
-    'zed-zayed': {dir:'zed-zayed/', items:[
-      {f:'location',           en:'Location — ZED, Sheikh Zayed',              ar:'الموقع — زيد، الشيخ زايد'},
-      {f:'plan-b4-studio-1a',  en:'Building 4 — Studio Type 1A · 60 m² + 24 m² garden', ar:'مبنى ٤ — استوديو نوع 1A · ٦٠ م² + حديقة ٢٤ م²'},
-      {f:'plan-b4-2bed-3b',    en:'Building 4 — 2 Bed Type 3B · 136 m² incl. 10 m² terrace', ar:'مبنى ٤ — غرفتان نوع 3B · ١٣٦ م² شاملة تراس ١٠ م²'},
-      {f:'plan-b4',            en:'Building 4 — floor plan',                   ar:'مبنى ٤ — مخطط الطابق'},
-      {f:'plan-b2-studio-e2',  en:'The Village Views, Building 2 — 1 Bed Studio E2 · 85 m²', ar:'ذا فيلدج فيوز، مبنى ٢ — استوديو بغرفة E2 · ٨٥ م²'},
-      {f:'plan-b1-2bed-a2',    en:'The Village Views, Building 1 — 2 Bed Flat A2 · 125 m²', ar:'ذا فيلدج فيوز، مبنى ١ — شقة بغرفتين A2 · ١٢٥ م²'},
-      {f:'plan-b2-3bed-b2',    en:'The Village Views, Building 2 — 3 Bed Flat B2', ar:'ذا فيلدج فيوز، مبنى ٢ — شقة بثلاث غرف B2'}
-    ]},
-    'zed-east': {dir:'zed-east/', items:[
-      {f:'location',              en:'Location — ZED East',                    ar:'الموقع — زيد إيست'},
-      {f:'masterplan-2',          en:'Masterplan — detail',                    ar:'الماستر بلان — تفصيل'},
-      {f:'emerald-masterplan',    en:'The Emerald Collection — masterplan',    ar:'ذا إمرالد كوليكشن — الماستر بلان'},
-      {f:'plan-studio',           en:'Studio — floor plan',                    ar:'استوديو — مخطط'},
-      {f:'plan-club-3bed-loft-a1',en:'Club Residence Phase 2 — 3 Bed Loft A1 · 300 m² (243 m² internal, 57 m² terrace)', ar:'كلوب ريزيدنس المرحلة ٢ — لوفت بثلاث غرف A1 · ٣٠٠ م² (٢٤٣ م² داخلي، ٥٧ م² تراس)'},
-      {f:'plan-emerald-villa-4bed',        en:'Emerald — The Villa, 4 Bed · 253 m²', ar:'إمرالد — الفيلا، ٤ غرف · ٢٥٣ م²'},
-      {f:'plan-emerald-fourplex-u1-3bed',  en:'Emerald — Fourplex Unit 1, 3 Bed · 174 m²', ar:'إمرالد — فوربلكس وحدة ١، ٣ غرف · ١٧٤ م²'},
-      {f:'plan-emerald-duplex-u2-3bed',    en:'Emerald — Duplex Unit 2, 3 Bed · 207 m²', ar:'إمرالد — دوبلكس وحدة ٢، ٣ غرف · ٢٠٧ م²'},
-      {f:'plan-emerald-duplex-1',          en:'Emerald — Duplex, floor plan',   ar:'إمرالد — دوبلكس، مخطط'},
-      {f:'plan-emerald-duplex-2',          en:'Emerald — Duplex, floor plan',   ar:'إمرالد — دوبلكس، مخطط'},
-      {f:'plan-emerald-townhouse-u1-gf',   en:'Emerald — Town House Unit 1, 3 Bed · 215 m², ground floor', ar:'إمرالد — تاون هاوس وحدة ١، ٣ غرف · ٢١٥ م²، الطابق الأرضي'},
-      {f:'plan-emerald-townhouse-u1-ff',   en:'Emerald — Town House Unit 1, first floor', ar:'إمرالد — تاون هاوس وحدة ١، الطابق الأول'},
-      {f:'plan-emerald-townhouse-u2-gf',   en:'Emerald — Town House Unit 2, 3 Bed · 215 m², ground floor', ar:'إمرالد — تاون هاوس وحدة ٢، ٣ غرف · ٢١٥ م²، الطابق الأرضي'},
-      {f:'plan-emerald-townhouse-u2-ff',   en:'Emerald — Town House Unit 2, first floor', ar:'إمرالد — تاون هاوس وحدة ٢، الطابق الأول'}
-    ]},
-    'silversands-sahel': {dir:'silversands/', items:[
-      {f:'location',            en:'Location — Sidi Heneish',                  ar:'الموقع — سيدي حنيش'},
-      {f:'plan-4bed-type-2',    en:'4 Bed Type 2 · 192 m² BUA — 4 bedrooms, maid’s room, roof terrace', ar:'٤ غرف نوع ٢ · ١٩٢ م² مسطح — ٤ غرف نوم وغرفة خادمة وتراس سطح'},
-      {f:'plan-townhouse-s',    en:'Townhouse S · 149 m² BUA (136 m² internal, 13 m² terraces) — 3 bedrooms, 2 floors', ar:'تاون هاوس S · ١٤٩ م² مسطح (١٣٦ م² داخلي، ١٣ م² تراسات) — ٣ غرف، طابقان'},
-      {f:'plan-townhouse-2',    en:'Townhouse — floor plan',                   ar:'تاون هاوس — مخطط'},
-      {f:'plan-villa-1-gf',     en:'Villa — ground floor',                     ar:'فيلا — الطابق الأرضي'},
-      {f:'plan-villa-1-ff',     en:'Villa — first floor',                      ar:'فيلا — الطابق الأول'},
-      {f:'plan-villa-s-gf',     en:'Villa Type S — ground floor',              ar:'فيلا نوع S — الطابق الأرضي'},
-      {f:'plan-villa-s-ff',     en:'Villa Type S — first floor',               ar:'فيلا نوع S — الطابق الأول'},
-      {f:'plan-villa-m-gf',     en:'Villa Type M · 225 m² BUA (212 m² internal) — 4 bedrooms, maid’s room, 2 floors', ar:'فيلا نوع M · ٢٢٥ م² مسطح (٢١٢ م² داخلي) — ٤ غرف وغرفة خادمة، طابقان'},
-      {f:'plan-villa-m-ff',     en:'Villa Type M — first floor',               ar:'فيلا نوع M — الطابق الأول'},
-      {f:'plan-crystalline-chalet-ground',      en:'Crystalline — Chalet, ground floor · 204 m²', ar:'كريستالين — شاليه، الطابق الأرضي · ٢٠٤ م²'},
-      {f:'plan-crystalline-chalet-roof',        en:'Crystalline — Chalet roof, first floor · 237 m² (95 m² roof terrace), 4 bedrooms', ar:'كريستالين — شاليه بسطح، الطابق الأول · ٢٣٧ م² (٩٥ م² تراس سطح)، ٤ غرف'},
-      {f:'plan-crystalline-3bed-duplex-a-gf',   en:'Crystalline — 3 Bedroom Duplex A, ground floor · 178 m²', ar:'كريستالين — دوبلكس بثلاث غرف A، الطابق الأرضي · ١٧٨ م²'},
-      {f:'plan-crystalline-2bed-duplex-b-roof', en:'Crystalline — 2 Bedroom Duplex B, roof · 159 m²', ar:'كريستالين — دوبلكس بغرفتين B، السطح · ١٥٩ م²'},
-      {f:'plan-crystalline-twin-house-1',       en:'Crystalline — Twin House Type 1, ground floor · 307 m²', ar:'كريستالين — توين هاوس نوع ١، الطابق الأرضي · ٣٠٧ م²'},
-      {f:'plan-crystalline-villa-4a-gf',        en:'Crystalline — Villa 4A, ground floor · 232 m² (32 m² terrace), 4 bedrooms', ar:'كريستالين — فيلا 4A، الطابق الأرضي · ٢٣٢ م² (٣٢ م² تراس)، ٤ غرف'},
-      {f:'plan-crystalline-villa-4a-ff',        en:'Crystalline — Villa 4A, first floor', ar:'كريستالين — فيلا 4A، الطابق الأول'},
-      {f:'plan-crystalline-villa-3b-gf',        en:'Crystalline — Villa Type 3B, ground floor · 346 m²', ar:'كريستالين — فيلا نوع 3B، الطابق الأرضي · ٣٤٦ م²'},
-      {f:'plan-crystalline-villa-3b-ff',        en:'Crystalline — Villa Type 3B, first floor', ar:'كريستالين — فيلا نوع 3B، الطابق الأول'},
-      {f:'plan-crystalline-villa-2a-gf',        en:'Crystalline — Villa Type 2A, ground floor · 380 m²', ar:'كريستالين — فيلا نوع 2A، الطابق الأرضي · ٣٨٠ م²'},
-      {f:'plan-crystalline-villa-2a-ff',        en:'Crystalline — Villa Type 2A, upper level', ar:'كريستالين — فيلا نوع 2A، الطابق العلوي'}
-    ]},
-    'solana-west': {dir:'solana-west/', items:[
-      {f:'location',                     en:'Location — New Zayed',            ar:'الموقع — زايد الجديدة'},
-      {f:'plan-typec-2bed-duplex-a',     en:'Building Type C — 2 Bed Duplex A, ground floor · 179 m² (174 m² internal, 4 m² terrace)', ar:'مبنى نوع C — دوبلكس بغرفتين A، الطابق الأرضي · ١٧٩ م² (١٧٤ م² داخلي، ٤ م² تراس)'},
-      {f:'plan-typee-3bed-flat-d',       en:'Building Type E — 3 Bed Flat D, ground floor · 164 m²', ar:'مبنى نوع E — شقة بثلاث غرف D، الطابق الأرضي · ١٦٤ م²'},
-      {f:'plan-typeg-3bed-loft-d',       en:'Building Type G — 3 Bed Loft D, ground floor · 201 m² (193 m² internal, 8 m² terrace)', ar:'مبنى نوع G — لوفت بثلاث غرف D، الطابق الأرضي · ٢٠١ م² (١٩٣ م² داخلي، ٨ م² تراس)'},
-      {f:'plan-typeg-4bed-penthouse-d-2f', en:'Building Type G — 4 Bed Penthouse D, second floor · 333 m² (232 m² internal, 101 m² terrace)', ar:'مبنى نوع G — بنتهاوس بأربع غرف D، الطابق الثاني · ٣٣٣ م² (٢٣٢ م² داخلي، ١٠١ م² تراس)'},
-      {f:'plan-typeg-4bed-penthouse-d-3f', en:'Building Type G — 4 Bed Penthouse D, upper level', ar:'مبنى نوع G — بنتهاوس بأربع غرف D، الطابق العلوي'},
-      {f:'plan-typei-3bed-penthouse-b',  en:'Building Type I — 3 Bed Penthouse B, third floor · 271 m² (200 m² internal, 71 m² terrace)', ar:'مبنى نوع I — بنتهاوس بثلاث غرف B، الطابق الثالث · ٢٧١ م² (٢٠٠ م² داخلي، ٧١ م² تراس)'},
-      {f:'plan-townhouse-type-b-unit-b', en:'The Solos — Town House Type B, Unit B · 172 m² incl. 4 m² terrace, ground & first floor', ar:'ذا سولوس — تاون هاوس نوع B، وحدة B · ١٧٢ م² شاملة تراس ٤ م²، الأرضي والأول'},
-      {f:'plan-twin-house-gf',           en:'The Twin House · 240 m² (221 m² internal, 19 m² terrace), ground floor', ar:'التوين هاوس · ٢٤٠ م² (٢٢١ م² داخلي، ١٩ م² تراس)، الطابق الأرضي'},
-      {f:'plan-twin-house-ff',           en:'The Twin House — first floor',    ar:'التوين هاوس — الطابق الأول'},
-      {f:'plan-villa-1-floor',           en:'The Villa, 1 floor · 319 m²',     ar:'الفيلا، طابق واحد · ٣١٩ م²'},
-      {f:'plan-villa-3-stepped',         en:'Villa 3 — Stepped Villa · 337 m² BUA, 4 bedrooms', ar:'فيلا ٣ — الفيلا المتدرّجة · ٣٣٧ م² مسطح، ٤ غرف'},
-      {f:'plan-villa-1a-alt',            en:'Villa 1-A — alternative plans',   ar:'فيلا 1-A — مخططات بديلة'},
-      {f:'plan-villa-08-gf',             en:'The Solos — The Villa (2 floors), Villa 08 · 245 m² incl. 6 m² terrace, ground floor', ar:'ذا سولوس — الفيلا (طابقان)، فيلا ٠٨ · ٢٤٥ م² شاملة تراس ٦ م²، الطابق الأرضي'},
-      {f:'plan-villa-08-ff',             en:'The Solos — Villa 08, first floor', ar:'ذا سولوس — فيلا ٠٨، الطابق الأول'},
-      {f:'plan-villa-08-alt-gf',         en:'Villa 08 — ground floor, alternative layout', ar:'فيلا ٠٨ — الطابق الأرضي، توزيع بديل'},
-      {f:'plan-villa-08-alt-ff',         en:'Villa 08 — first floor, alternative layout', ar:'فيلا ٠٨ — الطابق الأول، توزيع بديل'},
-      {f:'plan-villa-06-gf',             en:'The Solos — The Villa (2 floors), Villa 06 · 224 m² incl. 11 m² terrace, ground floor', ar:'ذا سولوس — الفيلا (طابقان)، فيلا ٠٦ · ٢٢٤ م² شاملة تراس ١١ م²، الطابق الأرضي'},
-      {f:'plan-villa-06-ff',             en:'The Solos — Villa 06, first floor', ar:'ذا سولوس — فيلا ٠٦، الطابق الأول'},
-      {f:'plan-villa-07-garden-gf',      en:'The Garden Side Villa, Villa 07 · 196 m² incl. 6 m² terrace, ground floor', ar:'فيلا الحديقة، فيلا ٠٧ · ١٩٦ م² شاملة تراس ٦ م²، الطابق الأرضي'},
-      {f:'plan-villa-07-garden-ff',      en:'The Garden Side Villa, Villa 07 — first floor', ar:'فيلا الحديقة، فيلا ٠٧ — الطابق الأول'}
-    ]},
-    'solana-east': {dir:'solana-east/', items:[
-      {f:'location',          en:'Location — South 90 Axis, East Cairo',       ar:'الموقع — محور التسعين الجنوبي، شرق القاهرة'},
-      {f:'plan-twin-house-gf',en:'The Twin House · 240 m² (221 m² internal, 19 m² terrace), ground floor', ar:'التوين هاوس · ٢٤٠ م² (٢٢١ م² داخلي، ١٩ م² تراس)، الطابق الأرضي'},
-      {f:'plan-twin-house-ff',en:'The Twin House — first floor',              ar:'التوين هاوس — الطابق الأول'}
-    ]}
-  };
-  /* One grid of thumbnails; each opens the whole set in the same zoomable
-     viewer the master plans and brochures use. */
-  function projectPlansSection(p){
-    var g = PROJECT_PLANS[p.slug]; if(!g || !g.length && !g.items) return null;
-    var list = g.items || []; if(!list.length) return null;
-    var nm = L({en:p.name, ar:p.name_ar});
-    var label = lang==='ar' ? 'المخططات والخرائط' : 'Plans & maps';
-    var items = list.map(function(it){
-      return {src:ORAP+g.dir+it.f+'.webp', cap:nm+' · '+L({en:it.en, ar:it.ar})};
-    });
-    var grid = h('div',{class:'plan-grid'}, list.map(function(it,i){
-      var cap = L({en:it.en, ar:it.ar});
-      var btn = h('button',{class:'plan-card', type:'button', 'aria-label':cap},
-        h('img',{class:'plan-card__img', src:items[i].src, alt:nm+' — '+cap,
-                 loading:'lazy', decoding:'async', width:800, height:520}),
-        h('span',{class:'plan-card__cap'}, cap));
-      btn.addEventListener('click', function(){ mediaViewer(items, nm+' · '+label, i); });
-      return btn;
-    }));
-    return h('section',{class:'section--tight'},
-      h('div',{class:'wrap'},
-        h('div',{class:'sec-head'},
-          h('h2',{class:'dev-feat__title'}, ic('floorplan','dev-feat__ico'), h('span',null,label))),
-        grid));
-  }
 
   /* The brochure itself: every page opens in the same fullscreen viewer the
      master plans use — numbered, zoomable, arrow-navigable — and the original

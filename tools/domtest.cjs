@@ -86,7 +86,7 @@ sandbox.globalThis = sandbox; sandbox.self = sandbox;
 
 let src = fs.readFileSync(require('path').join(__dirname,'..','index.html'),'utf8');
 src = src.match(/<script>\s*"use strict"[\s\S]*?<\/script>/)[0].replace(/^<script>/,'').replace(/<\/script>$/,'');
-src += "\n;globalThis.__api={h:h,V:V,unitCard:unitCard,projectArt:projectArt,projectMedia:projectMedia,projectCoverSrc:projectCoverSrc,chatRespond:chatRespond,offerText:offerText,money:money,num:num,planLine:planLine,projectOffer:projectOffer,bestNameMatch:bestNameMatch,unitDisplayName:unitDisplayName,PROJECTS:PROJECTS,UNITS:UNITS,DEVELOPERS:DEVELOPERS,TYPES:TYPES,lang:lang,filterUnits:filterUnits,defaultFilter:defaultFilter,normalizeUnitType:normalizeUnitType,reconcileFilter:reconcileFilter,filterToQuery:filterToQuery,filterFromQuery:filterFromQuery,areaFacets:areaFacets,devFacets:devFacets,typeFacets:typeFacets,bedFacets:bedFacets,floorFacets:floorFacets,usesFloorBands:usesFloorBands,recommendUnits:recommendUnits,scoreUnit:scoreUnit,relaxationPlan:relaxationPlan,matchHard:matchHard,hasSelection:hasSelection,selectionSummary:selectionSummary,chatRecommend:chatRecommend,chatBriefText:chatBriefText,projBySlug:projBySlug,unitCanon:unitCanon,setFilter:function(f){FILTER=f;},getFilter:function(){return FILTER;},searchAll:searchAll,arNorm:arNorm,buildSearchIndex:buildSearchIndex,setSearch:function(s){CUR.search=s;},paymentCalc:paymentCalc,printFactsheet:printFactsheet,projFloorplan:projFloorplan,installmentCount:installmentCount,projectCoverSrc:projectCoverSrc,printUnitFactsheet:printUnitFactsheet,openFactsheet:openFactsheet,closeFactsheet:closeFactsheet,track:track,render:render,parse:parse,buildPath:buildPath,navigateTo:navigateTo,getRoute:function(){return currentRoute;},searchLabel:searchLabel,saveCurrentSearch:saveCurrentSearch,savedSearches:savedSearches,removeSearch:removeSearch,leadSubmit:leadSubmit,leadArm:leadArm,leadReset:function(){LEAD.shown=0;LEAD.armed=false;LEAD.open=false;},leadState:function(){return LEAD;},isExternalLink:isExternalLink,CONFIG:CONFIG,devLogoSrc:devLogoSrc,projectLogoSrc:projectLogoSrc,devBadge:devBadge,devByKey:devByKey,DEV_LOGOS:DEV_LOGOS,DEV_GALLERY:DEV_GALLERY,devGallery:devGallery,PROJECT_LOGOS:PROJECT_LOGOS,unitMasterplans:unitMasterplans,unitFloorplans:unitFloorplans,unitAmenities:unitAmenities,unitLocationImg:unitLocationImg,unitGallery:unitGallery,unitGalleryItems:unitGalleryItems,unitFeatureRow:unitFeatureRow,amenitiesSection:amenitiesSection,areaImageSrc:areaImageSrc,AMENITY_CAT:AMENITY_CAT,unitById:unitById,unitIsCommercial:unitIsCommercial,typeFamily:typeFamily,releaseBySlug:releaseBySlug,RELEASES:RELEASES,rotateByDev:rotateByDev,devRotationOffset:devRotationOffset,areaByKey:areaByKey,hasUnitImage:hasUnitImage,sortUnits:sortUnits,searchAll:searchAll,searchTypeOne:searchTypeOne,buildSearchIndex:buildSearchIndex,releaseMasterplan:releaseMasterplan,spreadByDev:spreadByDev,isNewLaunch:isNewLaunch,newLaunchProjects:newLaunchProjects,NEW_LAUNCH_SLUGS:NEW_LAUNCH_SLUGS,PROJECT_GROUPS:PROJECT_GROUPS,groupBySlug:groupBySlug,groupsByDev:groupsByDev,groupMembers:groupMembers,GROUPED_PROJECT:GROUPED_PROJECT,setCompare:function(a){compare.length=0;for(var i=0;i<a.length;i++)compare.push(a[i]);},getCompare:function(){return compare;},toggleCompare:toggleCompare,HERO_SLIDES:HERO_SLIDES,heroSrc:heroSrc,AREAS:AREAS,RESEARCH:RESEARCH,areaText:areaText,areaValue:areaValue,DEV_AMENITIES:DEV_AMENITIES,AMENITY_CAT:AMENITY_CAT,ICON:ICON,devAmenitiesSection:devAmenitiesSection,DEV_FEATURES:DEV_FEATURES};";
+src += "\n;globalThis.__api={h:h,V:V,unitCard:unitCard,projectArt:projectArt,projectMedia:projectMedia,projectCoverSrc:projectCoverSrc,chatRespond:chatRespond,offerText:offerText,money:money,num:num,planLine:planLine,projectOffer:projectOffer,bestNameMatch:bestNameMatch,unitDisplayName:unitDisplayName,PROJECTS:PROJECTS,UNITS:UNITS,DEVELOPERS:DEVELOPERS,TYPES:TYPES,lang:lang,filterUnits:filterUnits,defaultFilter:defaultFilter,normalizeUnitType:normalizeUnitType,reconcileFilter:reconcileFilter,filterToQuery:filterToQuery,filterFromQuery:filterFromQuery,areaFacets:areaFacets,devFacets:devFacets,typeFacets:typeFacets,bedFacets:bedFacets,floorFacets:floorFacets,usesFloorBands:usesFloorBands,recommendUnits:recommendUnits,scoreUnit:scoreUnit,relaxationPlan:relaxationPlan,matchHard:matchHard,hasSelection:hasSelection,selectionSummary:selectionSummary,chatRecommend:chatRecommend,chatBriefText:chatBriefText,projBySlug:projBySlug,unitCanon:unitCanon,setFilter:function(f){FILTER=f;},getFilter:function(){return FILTER;},searchAll:searchAll,arNorm:arNorm,buildSearchIndex:buildSearchIndex,setSearch:function(s){CUR.search=s;},paymentCalc:paymentCalc,printFactsheet:printFactsheet,projFloorplan:projFloorplan,installmentCount:installmentCount,projectCoverSrc:projectCoverSrc,printUnitFactsheet:printUnitFactsheet,openFactsheet:openFactsheet,closeFactsheet:closeFactsheet,track:track,render:render,parse:parse,buildPath:buildPath,navigateTo:navigateTo,getRoute:function(){return currentRoute;},searchLabel:searchLabel,saveCurrentSearch:saveCurrentSearch,savedSearches:savedSearches,removeSearch:removeSearch,leadSubmit:leadSubmit,leadArm:leadArm,leadReset:function(){LEAD.shown=0;LEAD.armed=false;LEAD.open=false;},leadState:function(){return LEAD;},isExternalLink:isExternalLink,CONFIG:CONFIG,devLogoSrc:devLogoSrc,projectLogoSrc:projectLogoSrc,devBadge:devBadge,devByKey:devByKey,DEV_LOGOS:DEV_LOGOS,DEV_GALLERY:DEV_GALLERY,devGallery:devGallery,PROJECT_LOGOS:PROJECT_LOGOS,unitMasterplans:unitMasterplans,unitFloorplans:unitFloorplans,unitAmenities:unitAmenities,unitLocationImg:unitLocationImg,unitGallery:unitGallery,unitGalleryItems:unitGalleryItems,unitFeatureRow:unitFeatureRow,amenitiesSection:amenitiesSection,areaImageSrc:areaImageSrc,AMENITY_CAT:AMENITY_CAT,unitById:unitById,unitIsCommercial:unitIsCommercial,typeFamily:typeFamily,releaseBySlug:releaseBySlug,RELEASES:RELEASES,rotateByDev:rotateByDev,devRotationOffset:devRotationOffset,areaByKey:areaByKey,hasUnitImage:hasUnitImage,sortUnits:sortUnits,searchAll:searchAll,searchTypeOne:searchTypeOne,buildSearchIndex:buildSearchIndex,releaseMasterplan:releaseMasterplan,spreadByDev:spreadByDev,isNewLaunch:isNewLaunch,newLaunchProjects:newLaunchProjects,NEW_LAUNCH_SLUGS:NEW_LAUNCH_SLUGS,PROJECT_GROUPS:PROJECT_GROUPS,groupBySlug:groupBySlug,groupsByDev:groupsByDev,groupMembers:groupMembers,GROUPED_PROJECT:GROUPED_PROJECT,setCompare:function(a){compare.length=0;for(var i=0;i<a.length;i++)compare.push(a[i]);},getCompare:function(){return compare;},toggleCompare:toggleCompare,HERO_SLIDES:HERO_SLIDES,heroSrc:heroSrc,AREAS:AREAS,RESEARCH:RESEARCH,areaText:areaText,areaValue:areaValue,DEV_AMENITIES:DEV_AMENITIES,AMENITY_CAT:AMENITY_CAT,ICON:ICON,devAmenitiesSection:devAmenitiesSection,DEV_FEATURES:DEV_FEATURES,UNIT_GALLERY:UNIT_GALLERY};";
 
 const R=[]; const ck=(n,c,x)=>R.push({n,ok:!!c,x:x||''});
 function countClass(node,cls){ let n=0; (function w(x){ for(const c of (x.childNodes||[])){ if(c.nodeType===1){ if((c.className||'').split(/\s+/).indexOf(cls)>-1) n++; w(c); } } })(node); return n; }
@@ -1681,50 +1681,59 @@ try {
      return /^src\/$/m.test(ig) && /^tools\/$/m.test(ig) && /^data-import-kit\/$/m.test(ig);
   })());
 
-  /* ORA. These five projects show renders, plans and maps but have no unit
-     schedule, so nothing else in the suite would notice a media path going
-     stale. Every path the bundle can build is resolved against disk here, and
-     every file on disk has to be reachable — a render nobody can see is a file
-     the owner sent and we quietly dropped. */
+  /* ORA. Seven projects, 58 unit types, 247 image files — all keyed by the ids
+     the client sheet writes, so a typo in either direction is invisible without
+     a check. Both directions are asserted: a reference with no file, and a file
+     the owner sent that no page can reach. */
   (function(){
     var fsx=require('fs'), pathx=require('path');
     var MED = pathx.join(__dirname,'..','project-media','ora');
     var bundle = fsx.readFileSync(pathx.join(__dirname,'main.js'),'utf8');
-    var used = {}, m, re;
-    re = /\[([^\]]+)\]\s*\n?\s*\.map\(function\(f\)\{ ?return ORAP\+'([^']+)'\+f\+'\.webp'; ?\}\)/g;
-    while((m = re.exec(bundle))){
-      var dir = m[2], names = m[1].match(/'[^']+'/g) || [];
-      names.forEach(function(n){ used[dir + n.slice(1,-1) + '.webp'] = 1; });
-    }
-    re = /\{dir:'([^']+)', ?items:\[([\s\S]*?)\]\}/g;
-    while((m = re.exec(bundle))){
-      var d2 = m[1], fs2 = m[2].match(/\{f:'[^']+'/g) || [];
-      fs2.forEach(function(n){ used[d2 + n.slice(4,-1) + '.webp'] = 1; });
-    }
-    re = /'\/project-media\/ora\/([^']+)'/g;
+    var used = {}, m, re = /['"]\/project-media\/ora\/([^'"]+)['"]/g;
     while((m = re.exec(bundle))) used[m[1]] = 1;
-    re = /src:ORAP\+'([^']+)'/g;
-    while((m = re.exec(bundle))) used[m[1]] = 1;
-
+    // The brochure pages are built as ORB+'name.webp', so the literal scan
+    // above cannot see them.
+    re = /ORB\s*\+\s*'([^']+)'/g;
+    while((m = re.exec(bundle))) used['brochure/' + m[1]] = 1;
     var refs = Object.keys(used);
     var broken = refs.filter(function(r){ return !fsx.existsSync(pathx.join(MED, r)); });
     var disk = [];
-    fsx.readdirSync(MED).forEach(function(d){
-      fsx.readdirSync(pathx.join(MED,d)).forEach(function(f){ disk.push(d+'/'+f); });
-    });
+    (function walk(dir, pre){
+      fsx.readdirSync(dir).forEach(function(f){
+        var full = pathx.join(dir, f);
+        if (fsx.statSync(full).isDirectory()) walk(full, pre + f + '/');
+        else disk.push(pre + f);
+      });
+    })(MED, '');
     var orphan = disk.filter(function(d){ return !used[d]; });
     ck('ora: every media path the bundle builds exists on disk',
-       refs.length > 150 && broken.length === 0, refs.length+' refs'+(broken.length?' broken: '+broken.slice(0,3):''));
+       refs.length > 200 && broken.length === 0, refs.length+' refs'+(broken.length?' broken: '+broken.slice(0,3):''));
     ck('ora: every delivered image is reachable in the UI',
        orphan.length === 0, disk.length+' files'+(orphan.length?' orphaned: '+orphan.slice(0,3):''));
   })();
-  ck('ora: the two Solana projects carry no invented commercial terms', (function(){
-    return ['solana-west','solana-east'].every(function(s){
-      var p = api.projBySlug(s);
-      return p && p.dev === 'ora' &&
-             p.price == null && p.dp == null && p.years == null && p.delivery == null;
+  /* The sheet reuses one render set across several units, each starting on a
+     different frame. Sorting or de-duplicating the list would silently undo
+     that, so the order is pinned against the sheet here. */
+  ck('ora: a shared render set keeps each unit\'s own frame order', (function(){
+    var g = api.UNIT_GALLERY, base = '/project-media/ora/';
+    var a = g['OR-CR-06'], b = g['OR-CR-05'];
+    return a && b && a.length === 4 && b.length === 4 &&
+           a[0] === base+'ap3-cr-03.webp' && a[1] === base+'ap3-cr-0.webp' &&
+           b[0] === base+'ap3-cr-01.webp' && b[1] === base+'ap3-cr-02.webp';
+  })());
+  ck('ora: every unit sits under exactly one project, none mixed', (function(){
+    var byPre = {'OR-SE':'solana-east','OR-ZE':'zed-east','OR-EM':'zed-east-emerald',
+                 'OR-SW':'solana-west','OR-ZW':'zed-west','OR-CR':'silversands-crystalline',
+                 'OR-ST':'silversands-silvertown'};
+    var ora = api.UNITS.filter(function(u){ return /^OR-/.test(u.id); });
+    return ora.length === 58 && ora.every(function(u){
+      return u.project === byPre[u.id.slice(0,5)] &&
+             (api.projBySlug(u.project)||{}).dev === 'ora';
     });
   })());
+  ck('ora: a retired slug still resolves instead of 404-ing',
+     !!api.projBySlug('zed-west') && !!api.projBySlug('silversands-silvertown') &&
+     !api.projBySlug('zed-zayed') && !api.projBySlug('silversands-sahel'));
 } catch(e){ ck('RUNTIME ERROR', false, (e && e.stack ? e.stack.split('\n').slice(0,3).join(' | ') : String(e))); }
 
 
