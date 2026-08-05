@@ -915,11 +915,11 @@ var UNITS = [
 {id:'HWS-B1', project:'hacienda-west',       type:'Cabin',            beds:2, baths:2, area:95,  price:36600000, avail:'available'},
 {id:'HWS-V1', project:'hacienda-west',       type:'Villa',            beds:4, baths:4, area:340, price:113600000, avail:'limited'}
 ];
-var UNIT_EXTRA={'V-A305':{floor:'high'},'SE-A44':{floor:'middle'},'ET-A12':{floor:'low'},'BF-A21':{floor:'middle'},
-'BF-A09':{floor:'ground',garden:true},'FS-A18':{floor:'high'},'TS-A07':{floor:'top'},
-'CG-A05':{floor:'middle'},'MV-D14':{floor:'low',lvl:2},'ET-D07':{floor:'low',lvl:2},'ZE-L02':{floor:'high'},
-'ZE-P08':{floor:'top',roof:true},'HP-P03':{floor:'top',roof:true},'IB-S02':{floor:'low'},
-'V-TH22':{lvl:2},'SE-T12':{lvl:2},'AL-V03':{lvl:2},'AL-TW6':{lvl:2},'HB-V19':{lvl:2},'IB-V05':{lvl:2}};
+var UNIT_EXTRA={'V-A305':{floor:'high'},'SE-A44':{floor:'middle'},'ET-A12':{floor:'low'},
+'FS-A18':{floor:'high'},
+'CG-A05':{floor:'middle'},'MV-D14':{floor:'low',lvl:2},'ET-D07':{floor:'low',lvl:2},
+'HP-P03':{floor:'top',roof:true},'IB-S02':{floor:'low'},
+'V-TH22':{lvl:2},'SE-T12':{lvl:2},'AL-V03':{lvl:2},'AL-TW6':{lvl:2},'IB-V05':{lvl:2}};
 UNITS.forEach(function(u){ var e=UNIT_EXTRA[u.id]; if(e){ for(var k in e){ u[k]=e[k]; } } });
 var TYPE_META = {
 'Apartment':{ar:'شقة', icon:'ty_apartment'}, 'Villa':{ar:'فيلا', icon:'ty_villa'},
@@ -4313,6 +4313,9 @@ else if(seg[0]==='contact') name='contact';
 else if(seg[0]==='privacy') name='privacy';
 else if(seg[0]==='terms') name='terms';
 else name='404';
+if(name==='project' && RETIRED_SLUG[params.slug]){
+params.slug = RETIRED_SLUG[params.slug]; params.moved = true;
+}
 if(name==='project' && !projBySlug(params.slug)) name='404';
 if(name==='developer' && !devByKey(params.slug)) name='404';
 if(name==='group' && !groupBySlug(params.slug)) name='404';
@@ -5642,7 +5645,7 @@ return [{'@type':'CollectionPage','name': t('finder_h'),
 return {'@type':'ListItem','position':i+1,'item':unitOfferLD(projBySlug(u.project),u)}; })}}];
 }
 V.project = function(slug){
-var p = projBySlug(RETIRED_SLUG[slug] || slug); if(!p) return V.notfound();
+var p = projBySlug(slug); if(!p) return V.notfound();
 var dev = devByKey(p.dev), area = areaByKey(p.area);
 var nm = lang==='ar'?p.name_ar:p.name;
 var node = h('div',null);
@@ -6852,6 +6855,10 @@ if(r.redirect){
 if(FILEMODE){ CUR.search=''; if(location.hash!=='#/en/'){ location.hash='#/en/'; return; } }
 else { replaceURL(U('/en/')); }
 r={name:'home',lang:'en',params:{}};
+}
+if(r.params && r.params.moved){
+delete r.params.moved;
+replaceURL(U(buildPath('project',{slug:r.params.slug}, r.lang)) + (CUR.search||''));
 }
 render(r);
 }

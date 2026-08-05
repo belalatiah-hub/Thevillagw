@@ -202,7 +202,7 @@
   }
 
   V.project = function(slug){
-    var p = projBySlug(RETIRED_SLUG[slug] || slug); if(!p) return V.notfound();
+    var p = projBySlug(slug); if(!p) return V.notfound();
     var dev = devByKey(p.dev), area = areaByKey(p.area);
     var nm = lang==='ar'?p.name_ar:p.name;
     var node = h('div',null);
@@ -1591,6 +1591,16 @@
       if(FILEMODE){ CUR.search=''; if(location.hash!=='#/en/'){ location.hash='#/en/'; return; } }
       else { replaceURL(U('/en/')); }
       r={name:'home',lang:'en',params:{}};
+    }
+    // A retired project slug resolved to its replacement: put the live path in
+    // the address bar so the visitor, and any crawler, ends on the canonical URL
+    // rather than reading the page from a path the sitemap no longer lists.
+    if(r.params && r.params.moved){
+      delete r.params.moved;
+      // buildPath defaults to the ACTIVE language, and render() has not switched
+      // it to this route's yet — so pass the route's own, or an Arabic visitor
+      // on an old path lands on the English URL.
+      replaceURL(U(buildPath('project',{slug:r.params.slug}, r.lang)) + (CUR.search||''));
     }
     render(r);
   }

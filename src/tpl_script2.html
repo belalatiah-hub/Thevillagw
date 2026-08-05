@@ -533,11 +533,16 @@
   ];
   // Floor / internal-level enrichment (illustrative). Units without a floor
   // remain "floor to confirm" and never pass a strict floor filter.
-  var UNIT_EXTRA={'V-A305':{floor:'high'},'SE-A44':{floor:'middle'},'ET-A12':{floor:'low'},'BF-A21':{floor:'middle'},
-    'BF-A09':{floor:'ground',garden:true},'FS-A18':{floor:'high'},'TS-A07':{floor:'top'},
-    'CG-A05':{floor:'middle'},'MV-D14':{floor:'low',lvl:2},'ET-D07':{floor:'low',lvl:2},'ZE-L02':{floor:'high'},
-    'ZE-P08':{floor:'top',roof:true},'HP-P03':{floor:'top',roof:true},'IB-S02':{floor:'low'},
-    'V-TH22':{lvl:2},'SE-T12':{lvl:2},'AL-V03':{lvl:2},'AL-TW6':{lvl:2},'HB-V19':{lvl:2},'IB-V05':{lvl:2}};
+  // Every key must name a unit that exists. Six did not: ZE-L02 and ZE-P08 were
+  // the placeholder ORA lofts the client sheet replaced, and BF-A21, BF-A09,
+  // TS-A07 and HB-V19 outlived their units earlier. The map is applied by id,
+  // so a key with no unit did nothing — until an id is reused and silently
+  // inherits a floor it was never given. The test suite now rejects them.
+  var UNIT_EXTRA={'V-A305':{floor:'high'},'SE-A44':{floor:'middle'},'ET-A12':{floor:'low'},
+    'FS-A18':{floor:'high'},
+    'CG-A05':{floor:'middle'},'MV-D14':{floor:'low',lvl:2},'ET-D07':{floor:'low',lvl:2},
+    'HP-P03':{floor:'top',roof:true},'IB-S02':{floor:'low'},
+    'V-TH22':{lvl:2},'SE-T12':{lvl:2},'AL-V03':{lvl:2},'AL-TW6':{lvl:2},'IB-V05':{lvl:2}};
   UNITS.forEach(function(u){ var e=UNIT_EXTRA[u.id]; if(e){ for(var k in e){ u[k]=e[k]; } } });
   var TYPE_META = {
     'Apartment':{ar:'شقة', icon:'ty_apartment'}, 'Villa':{ar:'فيلا', icon:'ty_villa'},

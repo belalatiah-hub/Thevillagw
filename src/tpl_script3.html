@@ -29,11 +29,10 @@
   function devByKey(k){ for(var i=0;i<DEVELOPERS.length;i++) if(DEVELOPERS[i].key===k) return DEVELOPERS[i]; }
   function areaByKey(k){ for(var i=0;i<AREAS.length;i++) if(AREAS[i].key===k) return AREAS[i]; }
   function projBySlug(s){ for(var i=0;i<PROJECTS.length;i++) if(PROJECTS[i].slug===s) return PROJECTS[i]; }
-  /* A slug that shipped, was indexed, and then changed identity when the client
-     sheet named the project differently. The old path still resolves rather
-     than 404-ing: ORA's "ZED" is the sheet's "zed west", and its single
-     "Silversands" turned out to be two projects, of which Silvertown is the one
-     the old page's units belonged to. */
+  /* Old project paths that must not die. ORA's "ZED" is the client sheet's
+     "zed west", and its single "Silversands" turned out to be two projects, of
+     which Silvertown is the one the old page's units belonged to. Resolved in
+     parse(); see the note there for why it cannot live in the view. */
   var RETIRED_SLUG = {'zed-zayed':'zed-west', 'silversands-sahel':'silversands-silvertown'};
   function projInArea(k){ return PROJECTS.filter(function(p){ return p.area===k; }); }
   function projByDev(k){ return PROJECTS.filter(function(p){ return p.dev===k; }); }
@@ -116,6 +115,13 @@
     else if(seg[0]==='privacy') name='privacy';
     else if(seg[0]==='terms') name='terms';
     else name='404';
+    /* A slug that shipped, was indexed, and then changed identity has to be
+       resolved HERE. The check below 404s an unknown slug before any view runs,
+       so a redirect placed inside the view would never be reached. `moved` tells
+       route() to put the live path in the address bar. */
+    if(name==='project' && RETIRED_SLUG[params.slug]){
+      params.slug = RETIRED_SLUG[params.slug]; params.moved = true;
+    }
     // validate entity existence
     if(name==='project' && !projBySlug(params.slug)) name='404';
     if(name==='developer' && !devByKey(params.slug)) name='404';
