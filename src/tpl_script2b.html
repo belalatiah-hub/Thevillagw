@@ -3287,7 +3287,14 @@
   function projectPlanSection(p){
     var g = projectPlans(p.slug);
     var f = projFeatures(p.slug);
-    var mp = (f && f.masterplan) ? null : (g.mp || null);
+    /* A project can be given a master plan twice — once by its brochure, once
+       by the sheet rows its units come from — and Masyaf has both. Skipping one
+       of them put the two buttons in two full-width bands, one under the other,
+       each holding a single button. They are merged into one row instead, and
+       the same drawing supplied by both sources is only listed once. */
+    var mp = (g.mp || []).slice();
+    if(f && f.masterplan && mp.indexOf(f.masterplan.src) < 0) mp.unshift(f.masterplan.src);
+    if(!mp.length) mp = null;
     var loc = g.loc || null;
     if(!mp && !loc) return null;
     var nm = L({en:p.name, ar:p.name_ar});

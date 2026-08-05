@@ -274,10 +274,10 @@
     // A project with its own brochure shows it here, and the brochure's own
     // sections read as cards in the same layout the developer pages use.
     var pBro = projectBrochureSection(p);                    if(pBro)  node.appendChild(pBro);
-    var pMp  = masterplanSection(projFeatures(p.slug), L({en:p.name, ar:p.name_ar}));
-    if(pMp) node.appendChild(pMp);
-    // The project's own master plan and location map, from the plans its units
-    // carry — so they are readable before the visitor opens a single unit.
+    // The project's own master plan and location map, side by side in one row.
+    // projectPlanSection merges the brochure's plan with the one its units
+    // carry, so masterplanSection is not called here as well — that produced
+    // two stacked bands holding one button each.
     var pPlan = projectPlanSection(p);                       if(pPlan) node.appendChild(pPlan);
     var pFeat= featureCardsSection(projFeatures(p.slug), L({en:p.name, ar:p.name_ar}));
     if(pFeat) node.appendChild(pFeat);
