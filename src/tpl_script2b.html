@@ -811,6 +811,14 @@
     'OR-SW-06':["/project-media/ora/fp-sw.webp"],
     'OR-SW-07':["/project-media/ora/fp-sw.webp"],
     'OR-SW-08':["/project-media/ora/fp-sw.webp"],
+    'OR-SW-09':["/project-media/ora/mp-sw.webp"],
+    'OR-SW-10':["/project-media/ora/mp-sw.webp"],
+    'OR-SW-11':["/project-media/ora/mp-sw.webp"],
+    'OR-SW-12':["/project-media/ora/mp-sw.webp"],
+    'OR-SW-13':["/project-media/ora/mp-sw.webp"],
+    'OR-SW-14':["/project-media/ora/mp-sw.webp"],
+    'OR-SW-15':["/project-media/ora/mp-sw.webp"],
+    'OR-SW-16':["/project-media/ora/mp-sw.webp"],
     'OR-SE-01':["/project-media/ora/mp-s-e.webp"],
     'OR-SE-02':["/project-media/ora/mp-s-e.webp"],
     'OR-SE-03':["/project-media/ora/mp-s-e.webp"],
@@ -1928,10 +1936,17 @@
     var nm = lang==='ar' ? p.name_ar : p.name, n = g.length;
     return g.map(function(s,i){ return {src:s, cap:nm+' ('+(i+1)+'/'+n+')'}; });
   }
-  // Unit card / detail media: the unit's own render, else its project cover, else art.
+  /* Unit card / detail media: the unit's own render, else the branded artwork.
+
+     It used to fall back to the project cover, and the cover is one specific
+     unit's render — so a 2-bedroom loft in Solana West whose own frames have
+     not arrived was fronted by Villa 08, a standalone house at three times the
+     price. A render must only ever appear on the unit it was shot for; where
+     there is none, the generated artwork says so plainly instead of showing
+     the buyer a different home. */
   function unitMedia(u){
     var p=projBySlug(u.project);
-    var src=unitImageSrc(u) || projectCoverSrc(p);
+    var src=unitImageSrc(u);
     return src ? coverImg(src, (lang==='ar'?p.name_ar:p.name)+' — '+u.type, function(){ return projectArt(p); }) : projectArt(p);
   }
 

@@ -1757,6 +1757,14 @@ var UNIT_MASTERPLANS = {
 'OR-SW-06':["/project-media/ora/fp-sw.webp"],
 'OR-SW-07':["/project-media/ora/fp-sw.webp"],
 'OR-SW-08':["/project-media/ora/fp-sw.webp"],
+'OR-SW-09':["/project-media/ora/mp-sw.webp"],
+'OR-SW-10':["/project-media/ora/mp-sw.webp"],
+'OR-SW-11':["/project-media/ora/mp-sw.webp"],
+'OR-SW-12':["/project-media/ora/mp-sw.webp"],
+'OR-SW-13':["/project-media/ora/mp-sw.webp"],
+'OR-SW-14':["/project-media/ora/mp-sw.webp"],
+'OR-SW-15':["/project-media/ora/mp-sw.webp"],
+'OR-SW-16':["/project-media/ora/mp-sw.webp"],
 'OR-SE-01':["/project-media/ora/mp-s-e.webp"],
 'OR-SE-02':["/project-media/ora/mp-s-e.webp"],
 'OR-SE-03':["/project-media/ora/mp-s-e.webp"],
@@ -2804,7 +2812,7 @@ return g.map(function(s,i){ return {src:s, cap:nm+' ('+(i+1)+'/'+n+')'}; });
 }
 function unitMedia(u){
 var p=projBySlug(u.project);
-var src=unitImageSrc(u) || projectCoverSrc(p);
+var src=unitImageSrc(u);
 return src ? coverImg(src, (lang==='ar'?p.name_ar:p.name)+' — '+u.type, function(){ return projectArt(p); }) : projectArt(p);
 }
 function mediaViewer(items, label, start){
