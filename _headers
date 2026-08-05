@@ -27,6 +27,20 @@
   Cross-Origin-Resource-Policy: same-site
   Cross-Origin-Opener-Policy: same-origin
 
+  # Always revalidate, so a new build reaches visitors on their next load.
+  #
+  # This has to live on /* rather than only on /index.html, and that is not
+  # belt-and-braces. Every page a visitor actually sees — /en/units/OR-ST-01/,
+  # /ar/projects/zed-west/ — is the SPA fallback: the request path is the route,
+  # never /index.html, so a rule keyed to /index.html matches no real page view.
+  # Without this the document was cached with no revalidation, and a unit whose
+  # renders had just been added kept showing the placeholder artwork long after
+  # the deploy succeeded.
+  #
+  # The immutable rules below are more specific and still win for the assets
+  # they name, so renders, logos and fonts keep their one-year cache.
+  Cache-Control: public, max-age=0, must-revalidate
+
 # Renders, floor plans and brochure pages are the costly asset and the one most
 # often lifted. same-origin here means another website cannot hotlink them:
 # pointing an <img> at these URLs from a different domain gets a blocked
@@ -44,7 +58,13 @@
   Cross-Origin-Resource-Policy: same-origin
   Cache-Control: public, max-age=31536000, immutable
 
-# The page itself must always be revalidated so a price change reaches visitors
-# on their next load rather than whenever a cached copy happens to expire.
+# The document by its own name, for a direct hit on /index.html.
 /index.html
   Cache-Control: public, max-age=0, must-revalidate
+
+# NOTE — this file is read by the Cloudflare Workers deploy only. GitHub Pages
+# ignores _headers entirely, so if www.thevillageinvestment.com is ever pointed
+# at Pages instead of the Worker, every header above silently stops applying:
+# the framing block, HSTS, the hotlink protection on /project-media, and this
+# revalidation rule. Serve the custom domain from the Worker, or reproduce these
+# in front of Pages, before moving the DNS.

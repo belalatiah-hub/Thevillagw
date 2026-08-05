@@ -1676,6 +1676,19 @@ try {
      api.h('a', {href: 'https://wa.me/2010'}).getAttribute('href') === 'https://wa.me/2010');
   ck('sec: a string on* prop never becomes an inline handler',
      api.h('div', {onclick: 'alert(1)'}).getAttribute('onclick') == null);
+  /* Every page a visitor sees is the SPA fallback, so its request path is the
+     route (/en/units/OR-ST-01/), never /index.html. A revalidation rule keyed
+     to /index.html therefore matches no real page view, and a finished deploy
+     kept serving the previous document. */
+  ck('deploy: the document is revalidated on every route, not just /index.html', (function(){
+    var h = require('fs').readFileSync(__dirname + '/../_headers', 'utf8');
+    var star = h.split(/^\/\*$/m)[1] || '';
+    star = star.split(/\n(?=\/)/)[0];                       // up to the next path block
+    var revalidates = /Cache-Control:\s*public,\s*max-age=0,\s*must-revalidate/.test(star);
+    // and the costly assets must keep their long cache
+    var immutable = (h.match(/max-age=31536000, immutable/g) || []).length >= 3;
+    return revalidates && immutable;
+  })());
   ck('sec: build inputs are excluded from the deploy', (function(){
      var ig = require('fs').readFileSync(__dirname + '/../.assetsignore', 'utf8');
      return /^src\/$/m.test(ig) && /^tools\/$/m.test(ig) && /^data-import-kit\/$/m.test(ig);
