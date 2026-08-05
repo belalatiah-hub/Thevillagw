@@ -443,7 +443,8 @@ var AREAS = [
 {key:'zayed', name:{en:'Sheikh Zayed',ar:'الشيخ زايد'}, blurb:{en:'Established West Cairo living with mature communities.',ar:'حياة راقية بغرب القاهرة بمجتمعات مكتملة.'}},
 {key:'october', name:{en:'6th of October',ar:'٦ أكتوبر'}, blurb:{en:'Spacious West Cairo city with a wide price range.',ar:'مدينة واسعة بغرب القاهرة بنطاق أسعار متنوع.'}},
 {key:'mostakbal', name:{en:'Mostakbal City',ar:'مدينة المستقبل'}, blurb:{en:'Fast-growing East Cairo corridor with new launches.',ar:'محور سريع النمو بشرق القاهرة مع إطلاقات جديدة.'}},
-{key:'sokhna', name:{en:'Ain Sokhna',ar:'العين السخنة'}, blurb:{en:'Red Sea coast close to Cairo for weekend homes.',ar:'ساحل البحر الأحمر القريب من القاهرة لمنازل نهاية الأسبوع.'}}
+{key:'sokhna', name:{en:'Ain Sokhna',ar:'العين السخنة'}, blurb:{en:'Red Sea coast close to Cairo for weekend homes.',ar:'ساحل البحر الأحمر القريب من القاهرة لمنازل نهاية الأسبوع.'}},
+{key:'maadi', name:{en:'Maadi',ar:'المعادي'}, blurb:{en:'An established green district on the Nile’s east bank, with the Ring Road and Kattameya at its edge.',ar:'حي أخضر عريق على الضفة الشرقية للنيل، يحدّه الطريق الدائري والقطامية.'}}
 ];
 var DEVELOPERS = [
 {key:'sodic', c1:'#0d6e7d', name:{en:'SODIC',ar:'سوديك'}, since:1996, areas:{en:'New Cairo · Sheikh Zayed · Ras El Hekma',ar:'القاهرة الجديدة · الشيخ زايد · رأس الحكمة'}, tagline:{en:'Design-led living, East & West Cairo',ar:'حياة بتصميم مميّز شرق وغرب القاهرة'}, desc:{en:'A long-standing developer active across East and West Cairo with a strong reputation for design quality and on-time delivery.',ar:'مطوّر عريق نشط في شرق وغرب القاهرة بسمعة قوية في جودة التصميم والتسليم في المواعيد.'}},
@@ -458,6 +459,7 @@ var DEVELOPERS = [
 {key:'marasem', c1:'#8a6d33', name:{en:'Al Marasem Development',ar:'المراسم'}, since:2002, areas:{en:'Fifth Settlement · New Cairo',ar:'التجمع الخامس · القاهرة الجديدة'}, tagline:{en:'Prime Fifth Settlement communities',ar:'مجتمعات مميّزة بالتجمع الخامس'}, desc:{en:'A developer with a prime footprint in the Fifth Settlement and a background in construction and hospitality.',ar:'مطوّر بحضور مميّز في التجمع الخامس وخلفية في الإنشاءات والضيافة.'}},
 {key:'qataridiar', c1:'#26305f', name:{en:'Qatari Diar',ar:'الديار القطرية'}, since:2005, areas:{en:'New Administrative Capital · North Coast',ar:'العاصمة الإدارية · الساحل الشمالي'}, tagline:{en:'Large mixed-use destinations',ar:'وجهات كبرى متعددة الاستخدامات'}, desc:{en:'A major regional developer associated with large mixed-use destinations, active in Egypt through flagship projects.',ar:'مطوّر إقليمي كبير مرتبط بوجهات ضخمة متعددة الاستخدامات، ونشط في مصر عبر مشروعات كبرى.'}},
 {key:'orascom', c1:'#a9812f', name:{en:'Orascom Development',ar:'أوراسكوم للتطوير'}, since:1994, areas:{en:'6th of October · North Coast · Red Sea',ar:'٦ أكتوبر · الساحل الشمالي · البحر الأحمر'}, tagline:{en:'Integrated towns & resorts',ar:'مدن ومنتجعات متكاملة'}, desc:{en:'A developer known for fully integrated towns and resort destinations across Egypt and the coast.',ar:'مطوّر معروف بالمدن المتكاملة والوجهات السياحية في مصر والساحل.'}},
+{key:'msquared', c1:'#8a8378', name:{en:'M squared',ar:'إم سكويرد'}, since:2012, areas:{en:'Ras Al Hekma · New Cairo · Maadi · 6th of October',ar:'رأس الحكمة · القاهرة الجديدة · المعادي · ٦ أكتوبر'}, tagline:{en:'Masterfully minded spaces',ar:'مساحات مصمَّمة بإتقان'}, desc:{en:'Founded in 2012, M squared is the real estate arm of INTRO Investments Holding — an Egyptian conglomerate established in the 1970s and privately owned by the Abbas family. It builds across Ras Al Hekma, New Cairo, Maadi and 6th of October, and runs its own hospitality arm.',ar:'تأسّست عام ٢٠١٢، وإم سكويرد هي الذراع العقاري لمجموعة إنترو للاستثمارات القابضة — تكتّل مصري تأسّس في السبعينيات ومملوك لعائلة عباس. تبني في رأس الحكمة والقاهرة الجديدة والمعادي و٦ أكتوبر، وتدير ذراعها الخاص للضيافة.'}},
 {key:'modon', c1:'#0f7b8c', name:{en:'Modon',ar:'مدن'}, since:2005, areas:{en:'Ras El Hekma · North Coast',ar:'رأس الحكمة · الساحل الشمالي'}, tagline:{en:'Master-planned coastal destinations',ar:'وجهات ساحلية بمخططات متكاملة'}, desc:{en:'A regional developer building large master-planned coastal destinations, active in Egypt on the Ras El Hekma North Coast.',ar:'مطوّر إقليمي يبني وجهات ساحلية كبرى بمخططات متكاملة، ونشط في مصر بمنطقة رأس الحكمة على الساحل الشمالي.'}},
 {key:'tmg', c1:'#1f6f5c', name:{en:'Talaat Moustafa Group',ar:'مجموعة طلعت مصطفى'}, since:2007, areas:{en:'New Cairo · New Capital · North Coast',ar:'القاهرة الجديدة · العاصمة الإدارية · الساحل الشمالي'}, tagline:{en:'Egypt’s largest integrated cities',ar:'أكبر المدن المتكاملة في مصر'}, desc:{en:'One of Egypt’s largest developers, known for very large integrated cities and hospitality assets.',ar:'من أكبر المطوّرين في مصر، معروف بالمدن المتكاملة الضخمة وأصول الضيافة.'}},
 {key:'emaarmisr', c1:'#3a7a44', name:{en:'Emaar Misr',ar:'إعمار مصر'}, since:2005, areas:{en:'New Cairo · Sheikh Zayed · North Coast',ar:'القاهرة الجديدة · الشيخ زايد · الساحل الشمالي'}, tagline:{en:'Premium integrated communities',ar:'مجتمعات متكاملة راقية'}, desc:{en:'The Egyptian arm of a leading regional developer, known for premium integrated communities and coastal destinations.',ar:'الذراع المصري لمطوّر إقليمي رائد، معروف بالمجتمعات المتكاملة الراقية والوجهات الساحلية.'}},
@@ -528,6 +530,12 @@ var PROJECTS = [
 {slug:'aliva-mostakbal', name:'Aliva', name_ar:'أليفا', dev:'mountainview', area:'mostakbal', status:'launch', price:6000000, dp:5, years:9, delivery:'2029', finishing:{en:'Semi-finished',ar:'نصف تشطيب'}, types:{en:'Apartment · Townhouse · Villa',ar:'شقة · تاون هاوس · فيلا'}, tags:{en:['Mostakbal City','Parks & lifestyle'],ar:['مدينة المستقبل','حدائق ولايف ستايل']}, blurb:{en:'A Mountain View community in Mostakbal City built around the developer’s signature parks and lifestyle master plan. Developer-direct primary units.',ar:'مجتمع من ماونتن فيو بمدينة المستقبل مبني حول مخطط الحدائق واللايف ستايل المميّز للمطوّر. وحدات أولية من المطوّر مباشرة.'}},
 {slug:'fouka-bay', name:'Fouka Bay', name_ar:'فوكا باي', dev:'tatweer', area:'sahel', status:'primary', price:13900000, dp:5, years:9, delivery:'2030', finishing:{en:'Fully finished',ar:'تشطيب كامل'}, types:{en:'Chalet · Apartment',ar:'شاليه · شقة'}, tags:{en:['North Coast','Turquoise lagoons'],ar:['الساحل الشمالي','بحيرات فيروزية']}, blurb:{en:'Tatweer Misr’s North Coast resort near Ras El Hekma, known for terraced beachfront and turquoise swimmable lagoons. Developer-direct primary units.',ar:'منتجع تطوير مصر على الساحل الشمالي قرب رأس الحكمة، معروف بالشاطئ المتدرّج والبحيرات الفيروزية للسباحة. وحدات أولية من المطوّر مباشرة.'}},
 {slug:'vinci-capital', name:'Vinci', name_ar:'فينشي', dev:'misritalia', area:'capital', status:'primary', price:6500000, dp:10, years:8, delivery:'2028', finishing:{en:'Semi-finished',ar:'نصف تشطيب'}, types:{en:'Apartment · Villa',ar:'شقة · فيلا'}, tags:{en:['New Capital','Green living'],ar:['العاصمة الإدارية','معيشة خضراء']}, blurb:{en:'Misr Italia’s green, technology-enabled community in the New Administrative Capital, with generous landscaping and amenities. Developer-direct primary units.',ar:'مجتمع مصر إيطاليا الأخضر المزوّد بالتقنيات بالعاصمة الإدارية الجديدة، بمساحات خضراء ومرافق واسعة. وحدات أولية من المطوّر مباشرة.'}},
+{slug:'masyaf-ras-alhekma', name:'Masyaf Ras Alhekma', name_ar:'مصياف رأس الحكمة', dev:'msquared', area:'raselhekma', status:'primary', types:{en:'Chalet · Townhouse · Twin house · Villa',ar:'شاليه · تاون هاوس · توين هاوس · فيلا'}, tags:{en:['Ras Al Hekma','112 feddans','730 m beachfront'],ar:['رأس الحكمة','١١٢ فدان','٧٣٠ م واجهة بحرية']}, blurb:{en:'Inspired by Greek architecture, where floating seascapes and natural simplicity live indoors, Masyaf Ras Alhekma stretches over 112 feddans of land lapping a pristine 730-metre beachfront on the Mediterranean shore. Master planned by M squared, it lifts its homes onto elevated platforms so every owner gets an equal view. Its own downtown carries Ritsa, the Barten restaurant, the Peppermint wellbeing centre and the Marmarica boutique cabanas.',ar:'مستوحى من العمارة اليونانية حيث تعيش المشاهد البحرية والبساطة الطبيعية في الداخل، يمتد مصياف رأس الحكمة على ١١٢ فداناً بواجهة بحرية بكر بطول ٧٣٠ متراً على شاطئ المتوسط. وضعت إم سكويرد مخططه العام ورفعت منازله على منصات متدرّجة ليحصل كل مالك على إطلالة متساوية. ويضم داون تاون خاصاً به يحوي «ريتسا» ومطعم «بارتن» ومركز «بيبرمنت» للعافية وكابانات «مرماريكا» البوتيكية.'}},
+{slug:'trio-new-cairo', name:'TRIO', name_ar:'تريو', dev:'msquared', area:'newcairo', status:'primary', types:{en:'Duplex · Villa',ar:'دوبلكس · فيلا'}, tags:{en:['New Cairo','35.5 acres','Three villas per complex'],ar:['القاهرة الجديدة','٣٥٫٥ فدان','ثلاث فيلات لكل مجمّع']}, blurb:{en:'A signature boutique community on 35.5 acres of verdant land at the heart of New Cairo. TRIO is characterised by a “three villas per complex” concept with hanging gardens and flying pools, and each duplex has its own garden and maximum privacy. Three phases sit around a central spine carrying a reading work station, a yoga garden, a meditation zone and a kids’ play zone.',ar:'مجتمع بوتيكي مميّز على ٣٥٫٥ فدان من الأرض الخضراء في قلب القاهرة الجديدة. يتميّز «تريو» بمفهوم «ثلاث فيلات لكل مجمّع» بحدائق معلّقة وحمامات سباحة طائرة، ولكل دوبلكس حديقته الخاصة وأقصى درجات الخصوصية. وتلتفّ ثلاث مراحل حول محور مركزي يضم ركن قراءة وعمل، وحديقة يوجا، ومنطقة تأمّل، ومنطقة لعب للأطفال.'}},
+{slug:'mist-new-cairo', name:'MIST', name_ar:'ميست', dev:'msquared', area:'newcairo', status:'launch', types:{en:'Apartment · Serviced apartment · Townhouse',ar:'شقة · شقة فندقية · تاون هاوس'}, tags:{en:['New Cairo','Lakes & promenade'],ar:['القاهرة الجديدة','بحيرات وبروميناد']}, blurb:{en:'MIST is not a place you escape to. It is a place you live within, pass through, and engage with fully — a passage, a lifestyle artery and a destination all at once. Rather than rigid zones, the community unfolds in intuitive layers: serene homes flow alongside water and greenery, while a commercial promenade brings daily vibrance, and a public plaza at the centre ties it together. The name was chosen for its relevance to motion, transformation and fluidity.',ar:'«ميست» ليس مكاناً تهرب إليه، بل مكان تعيش داخله وتمرّ به وتنخرط فيه بالكامل — ممرّ وشريان لايف ستايل ووجهة في آن. وبدلاً من المناطق الجامدة، ينكشف المجتمع في طبقات بديهية: منازل هادئة تنساب بمحاذاة الماء والخضرة، وبروميناد تجاري يمنح الحياة اليومية حيويتها، وبلازا عامة في المركز تربط كل شيء. واختير الاسم لصلته بالحركة والتحوّل والانسيابية.'}},
+{slug:'31-west-october', name:'31 WEST', name_ar:'٣١ ويست', dev:'msquared', area:'october', status:'primary', types:{en:'Terraced flat · Townhouse · Twin villa · Villa',ar:'شقة بتراس · تاون هاوس · توين فيلا · فيلا'}, tags:{en:['6th of October','31 acres','Senior Executive Suites'],ar:['٦ أكتوبر','٣١ فدان','أجنحة تنفيذية']}, blurb:{en:'31 WEST epitomises refined living within 31 acres at one of the most exclusive locations in 6th of October, where every detail is curated to exude exclusivity and sophistication. From grand water features and inspiring designs to landscaped surroundings and the first-of-its-kind Senior Executive Suites, the project stands as a testament to timeless elegance and elite living.',ar:'يجسّد «٣١ ويست» السكن الراقي على ٣١ فداناً في أحد أكثر مواقع ٦ أكتوبر تميّزاً، حيث كل تفصيلة منتقاة لتفيض تفرّداً ورقيّاً. ومن المسطحات المائية الكبرى والتصاميم الملهمة إلى المحيط المنسّق والأجنحة التنفيذية الأولى من نوعها، يقف المشروع شاهداً على الأناقة الخالدة والحياة الصفوية.'}},
+{slug:'41-business-district', name:'41 Business District', name_ar:'٤١ بيزنس ديستريكت', dev:'msquared', area:'maadi', status:'primary', types:{en:'Office · Clinic · Retail',ar:'مكتب · عيادة · محل تجاري'}, tags:{en:['Kattameya Ring Road','Commercial landmark'],ar:['الطريق الدائري القطامية','معلم تجاري']}, blurb:{en:'A commercial landmark at the heart of the Kattameya Ring Road, connecting multiple districts of the city. 41 Business District is an innovative, multipurpose concept that blends cutting-edge office and clinic spaces with commercial luxuries in one building — a bank, café, restaurant, gym, furniture, barber, sports, jewellery and market at street level.',ar:'معلم تجاري في قلب الطريق الدائري بالقطامية، يربط عدة أحياء بالمدينة. «٤١ بيزنس ديستريكت» مفهوم مبتكر متعدد الاستخدامات يمزج مساحات المكاتب والعيادات الحديثة مع رفاهيات تجارية في مبنى واحد — بنك ومقهى ومطعم وجيم وأثاث وحلاق ورياضة ومجوهرات وسوق على مستوى الشارع.'}},
+{slug:'ashgar-darna-maadi', name:'Ashgar Darna', name_ar:'أشجار دارنا', dev:'msquared', area:'maadi', status:'ready', delivery:'Ready', types:{en:'Apartment',ar:'شقة'}, tags:{en:['Maadi Ring Road','22 acres','Sold out'],ar:['الطريق الدائري المعادي','٢٢ فدان','نفدت بالكامل']}, blurb:{en:'A delivered project, included here because the company profile presents it: a fully integrated vision of greenery on 22 acres on the Maadi Ring Road, with 34 residential towers of 11 floors each, two mega commercial malls and an administrative building, a 6,554 m² club house, a 1,536 m² medical centre and an 848 m² mosque. Launched June 2013, first delivery 2015, last delivery 2019, 750 units, 100% sold out. Not on primary sale.',ar:'مشروع مُسلَّم، مُدرَج هنا لأن ملف الشركة يعرضه: رؤية متكاملة من الخضرة على ٢٢ فداناً بالطريق الدائري بالمعادي، تضم ٣٤ برجاً سكنياً بأحد عشر دوراً لكل منها، ومولين تجاريين كبيرين ومبنى إدارياً، وكلوب هاوس على ٦٬٥٥٤ م²، ومركزاً طبياً على ١٬٥٣٦ م²، ومسجداً على ٨٤٨ م². أُطلق في يونيو ٢٠١٣، وأول تسليم ٢٠١٥، وآخر تسليم ٢٠١٩، و٧٥٠ وحدة، ونفدت بنسبة ١٠٠٪. ليس معروضاً للبيع الأولي.'}},
 {slug:'zed-east', name:'ZED East', name_ar:'زيد إيست', dev:'ora', area:'newcairo', status:'launch', price:8900000, dp:10, years:10, delivery:'2027–2030', types:{en:'Apartment · Loft · Studio',ar:'شقة · لوفت · استوديو'}, tags:{en:['New Cairo','8 units','65–300 m²'],ar:['القاهرة الجديدة','٨ وحدات','٦٥–٣٠٠ م²']}, blurb:{en:'ZED East by ORA in New Cairo — 8 primary unit types from the developer\'s own price list: apartment, loft, studio. From 65 m² and EGP 8,900,000, on a 10% down payment over 10 years, handover 2027–2030.',ar:'زيد إيست من أورا في القاهرة الجديدة — ٨ أنواع وحدات أولية من قائمة أسعار المطوّر نفسه: شقة، لوفت، استوديو. من ٦٥ م² و٨٬٩٠٠٬٠٠٠ جنيه، بمقدم ١٠٪ على ١٠ سنوات، والتسليم ٢٠٢٧–٢٠٣٠.'}},
 {slug:'zed-east-emerald', name:'ZED East Emerald', name_ar:'زيد إيست إميرالد', dev:'ora', area:'newcairo', status:'launch', price:27000000, dp:10, years:10, delivery:'2030', types:{en:'Duplex · Fourplex · Townhouse · Standalone Villa',ar:'دوبلكس · فوربلكس · تاون هاوس · فيلا مستقلة'}, tags:{en:['New Cairo','6 units','174–290 m²'],ar:['القاهرة الجديدة','٦ وحدات','١٧٤–٢٩٠ م²']}, blurb:{en:'ZED East Emerald by ORA in New Cairo — 6 primary unit types from the developer\'s own price list: duplex, fourplex, townhouse, standalone villa. From 174 m² and EGP 27,000,000, on a 10% down payment over 10 years, handover 2030.',ar:'زيد إيست إميرالد من أورا في القاهرة الجديدة — ٦ أنواع وحدات أولية من قائمة أسعار المطوّر نفسه: دوبلكس، فوربلكس، تاون هاوس، فيلا مستقلة. من ١٧٤ م² و٢٧٬٠٠٠٬٠٠٠ جنيه، بمقدم ١٠٪ على ١٠ سنوات، والتسليم ٢٠٣٠.'}},
 {slug:'zed-west', name:'ZED West', name_ar:'زيد ويست', dev:'ora', area:'zayed', status:'launch', price:9000000, dp:10, years:10, delivery:'2030', types:{en:'Studio · Apartment',ar:'استوديو · شقة'}, tags:{en:['New Zayed','7 units','60–219 m²'],ar:['زايد الجديدة','٧ وحدات','٦٠–٢١٩ م²']}, blurb:{en:'ZED West by ORA in New Zayed — 7 primary unit types from the developer\'s own price list: studio, apartment. From 60 m² and EGP 9,000,000, on a 10% down payment over 10 years, handover 2030.',ar:'زيد ويست من أورا في زايد الجديدة — ٧ أنواع وحدات أولية من قائمة أسعار المطوّر نفسه: استوديو، شقة. من ٦٠ م² و٩٬٠٠٠٬٠٠٠ جنيه، بمقدم ١٠٪ على ١٠ سنوات، والتسليم ٢٠٣٠.'}},
@@ -1048,6 +1056,12 @@ var PROJECT_COVERS = {
 'district-5':'/project-media/marakez/units/ap1-d-04.webp',
 'crescent-walk':'/project-media/marakez/units/v2-cr-0.webp',
 'alam-al-roum':'/project-media/qataridiar/alam-al-roum/city.webp',
+'masyaf-ras-alhekma':'/project-media/msquared/masyaf-pool.webp',
+'trio-new-cairo':'/project-media/msquared/trio-exterior.webp',
+'mist-new-cairo':'/project-media/msquared/mist-townhouse.webp',
+'31-west-october':'/project-media/msquared/w31-lakeside.webp',
+'41-business-district':'/project-media/msquared/b41-hero.webp',
+'ashgar-darna-maadi':'/project-media/msquared/ashgar-hero.webp',
 'zed-east':'/project-media/ora/ap1-z-0.webp',
 'zed-east-emerald':'/project-media/ora/du1-em-0.webp',
 'zed-west':'/project-media/ora/st-zw-0.webp',
@@ -2695,7 +2709,55 @@ sw_lanes:{icon:'am_paseo', en:'Bike & running lanes', ar:'مسارات دراج�
 sw_center:{icon:'am_community', en:'Community centre', ar:'مركز مجتمعي'},
 sw_entertainment:{icon:'am_lifestyle', en:'Entertainment', ar:'ترفيه'},
 sw_retail:{icon:'am_retail', en:'Community retail — 5,000 m²', ar:'تجزئة الحي — ٥٬٠٠٠ م²'},
-sw_clinics:{icon:'am_clinic', en:'Clinics', ar:'عيادات'}
+sw_clinics:{icon:'am_clinic', en:'Clinics', ar:'عيادات'},
+ms_beachclub:{icon:'am_club', en:'Barbarossa Beach Club & restaurant', ar:'نادي بربروسا الشاطئي ومطعمه'},
+ms_beachsports:{icon:'am_beach', en:'Beach bar, sports & activities', ar:'بار الشاطئ ورياضاته وأنشطته'},
+ms_cabanas:{icon:'am_hotel', en:'Marmarica Boutique Cabanas — 18 cabanas', ar:'كابانات مرماريكا البوتيكية — ١٨ كابانا'},
+ms_lagoons:{icon:'am_lagoon', en:'Lagoons', ar:'بحيرات'},
+ms_downtown:{icon:'am_club', en:'Downtown clubhouse', ar:'كلوب هاوس الداون تاون'},
+ms_ritsa:{icon:'am_retail', en:'Ritsa commercial area', ar:'منطقة ريتسا التجارية'},
+ms_padel:{icon:'am_sports', en:'Sports & courts, padel tennis by JPadel', ar:'ملاعب ورياضات، وبادل مع JPadel'},
+ms_peppermint:{icon:'am_sauna', en:'Peppermint wellbeing centre', ar:'مركز بيبرمنت للعافية'},
+ms_kids:{icon:'am_kids', en:'Kids area', ar:'منطقة أطفال'},
+ms_mosque:{icon:'am_mosque', en:'Mosque', ar:'مسجد'},
+ms_trio_club:{icon:'am_club', en:'Club house & commercial strip', ar:'كلوب هاوس وشريط تجاري'},
+ms_trio_yoga:{icon:'am_yoga', en:'Yoga garden & meditation zone', ar:'حديقة يوجا ومنطقة تأمّل'},
+ms_trio_read:{icon:'am_office', en:'Reading & work station', ar:'ركن قراءة وعمل'},
+ms_trio_fit:{icon:'am_gym', en:'Fitness zone', ar:'منطقة لياقة'},
+ms_trio_kids:{icon:'am_kids', en:'Kids play zone', ar:'منطقة لعب للأطفال'},
+ms_trio_seat:{icon:'am_flower', en:'Seating areas', ar:'أماكن جلوس'},
+ms_trio_gardens:{icon:'am_gardenpark', en:'Hanging gardens & flying pools', ar:'حدائق معلّقة وحمامات سباحة طائرة'},
+ms_trio_privacy:{icon:'am_community', en:'Three villas per complex, private gardens', ar:'ثلاث فيلات لكل مجمّع بحدائق خاصة'},
+ms_mist_promenade:{icon:'am_paseo', en:'Promenade & deck', ar:'بروميناد وممشى خشبي'},
+ms_mist_plaza:{icon:'am_pavilion', en:'Main plaza', ar:'البلازا الرئيسية'},
+ms_mist_water:{icon:'am_lagoon', en:'Water deck, waterfront platforms & lakes', ar:'ممشى مائي ومنصات على الماء وبحيرات'},
+ms_mist_serviced:{icon:'am_hotel', en:'Serviced apartments', ar:'شقق فندقية'},
+ms_mist_gym:{icon:'am_gym', en:'Gym, club house & outdoor gym', ar:'جيم وكلوب هاوس وجيم خارجي'},
+ms_mist_sports:{icon:'am_sports', en:'Sports area & outdoor fitness', ar:'منطقة رياضية ولياقة في الهواء الطلق'},
+ms_mist_kids:{icon:'am_kids', en:'Nursery, kids area & kids node', ar:'حضانة ومنطقة أطفال وركن أطفال'},
+ms_mist_cafe:{icon:'am_dining', en:'Lake cafe', ar:'كافيه البحيرة'},
+ms_mist_calm:{icon:'am_yoga', en:'Sitting, relaxation & meditation areas', ar:'أماكن جلوس واسترخاء وتأمّل'},
+ms_mist_pets:{icon:'am_flower', en:'Pets park', ar:'حديقة الحيوانات الأليفة'},
+ms_w31_lake:{icon:'am_lagoon', en:'Lake & grand water features', ar:'بحيرة ومسطحات مائية كبرى'},
+ms_w31_club:{icon:'am_club', en:'Club house', ar:'كلوب هاوس'},
+ms_w31_admin:{icon:'am_office', en:'Administration building', ar:'مبنى إداري'},
+ms_w31_fnb:{icon:'am_dining', en:'F&B outlets & lake cafe', ar:'مطاعم ومقاهٍ وكافيه البحيرة'},
+ms_w31_jog:{icon:'am_sports', en:'Jogging track & workout area', ar:'مضمار جري ومنطقة تمارين'},
+ms_w31_calm:{icon:'am_yoga', en:'Meditation zone & relaxing area', ar:'منطقة تأمّل ومكان استرخاء'},
+ms_w31_kids:{icon:'am_kids', en:'Kids play zone & cafe', ar:'منطقة لعب أطفال وكافيه'},
+ms_w31_pets:{icon:'am_flower', en:'Pets zone & multipurpose area', ar:'منطقة حيوانات أليفة ومساحة متعددة الاستخدامات'},
+ms_41_offices:{icon:'am_office', en:'Office & clinic spaces', ar:'مساحات مكاتب وعيادات'},
+ms_41_retail:{icon:'am_retail', en:'Bank, market, jewellery & furniture', ar:'بنك وسوق ومجوهرات وأثاث'},
+ms_41_dining:{icon:'am_dining', en:'Cafe & restaurant', ar:'كافيه ومطعم'},
+ms_41_gym:{icon:'am_gym', en:'Gym & sports', ar:'جيم ورياضة'},
+ms_ash_club:{icon:'am_club', en:'Club house — 6,554 m²', ar:'كلوب هاوس — ٦٬٥٥٤ م²'},
+ms_ash_pool:{icon:'am_pool', en:'Indoor & outdoor swimming pools', ar:'مسابح داخلية وخارجية'},
+ms_ash_sports:{icon:'am_sports', en:'Multi-sports hall & playing grounds', ar:'صالة متعددة الرياضات وملاعب'},
+ms_ash_medical:{icon:'am_clinic', en:'Medical centre — 1,536 m²', ar:'مركز طبي — ١٬٥٣٦ م²'},
+ms_ash_retail:{icon:'am_retail', en:'Two malls & an administrative building', ar:'مولان ومبنى إداري'},
+ms_ash_nursery:{icon:'am_kids', en:'Nursery', ar:'حضانة'},
+ms_ash_mosque:{icon:'am_mosque', en:'Mosque — 848 m²', ar:'مسجد — ٨٤٨ م²'},
+ms_ash_green:{icon:'am_landscape', en:'45% landscape and roads', ar:'٤٥٪ لاندسكيب وطرق'}
 };
 var DEV_AMENITIES = {
 'sumou': ['bms','controls','fiber','cctv','heat','generators','parking','app',
@@ -2769,7 +2831,20 @@ var PROJECT_AMENITIES = {
 'zw_kids','zw_offices','zw_parking','zw_finished'],
 'solana-west': ['sw_club','sw_football','sw_school','sw_daycare',
 'sw_parks','sw_lanes','sw_center','sw_entertainment',
-'sw_retail','sw_clinics','sw_serviced','sw_ev']
+'sw_retail','sw_clinics','sw_serviced','sw_ev'],
+'masyaf-ras-alhekma': ['ms_beachclub','ms_beachsports','ms_cabanas','ms_lagoons',
+'ms_downtown','ms_ritsa','ms_padel','ms_peppermint',
+'ms_kids','ms_mosque'],
+'trio-new-cairo':     ['ms_trio_gardens','ms_trio_privacy','ms_trio_club','ms_trio_yoga',
+'ms_trio_read','ms_trio_fit','ms_trio_kids','ms_trio_seat'],
+'mist-new-cairo':     ['ms_mist_promenade','ms_mist_plaza','ms_mist_water','ms_mist_serviced',
+'ms_mist_gym','ms_mist_sports','ms_mist_kids','ms_mist_cafe',
+'ms_mist_calm','ms_mist_pets'],
+'31-west-october':    ['ms_w31_lake','ms_w31_club','ms_w31_admin','ms_w31_fnb',
+'ms_w31_jog','ms_w31_calm','ms_w31_kids','ms_w31_pets'],
+'41-business-district':['ms_41_offices','ms_41_retail','ms_41_dining','ms_41_gym'],
+'ashgar-darna-maadi': ['ms_ash_club','ms_ash_pool','ms_ash_sports','ms_ash_medical',
+'ms_ash_retail','ms_ash_nursery','ms_ash_mosque','ms_ash_green']
 };
 function amenityDefaults(cat){
 return (cat==='coast'||cat==='redsea')
@@ -2817,10 +2892,27 @@ img.addEventListener('click', function(){ mediaViewer(items, title, at); });
 show(0);
 return media;
 }
+var MSQ = '/project-media/msquared/';
 var PROJECT_GALLERY = {
 'alam-al-roum': ['city','coast','story','masterplan','boulevard','beach','lagoon',
 'spine','arch','marina','golf']
-.map(function(f){ return '/project-media/qataridiar/alam-al-roum/'+f+'.webp'; })
+.map(function(f){ return '/project-media/qataridiar/alam-al-roum/'+f+'.webp'; }),
+'masyaf-ras-alhekma': ['masyaf-pool','masyaf-shore','masyaf-lagoon','masyaf-villa',
+'masyaf-real-1','masyaf-interiors','masyaf-marmarica',
+'masyaf-marmarica-room','masyaf-peppermint','masyaf-peppermint-in',
+'masyaf-barten','masyaf-barten-dining','masyaf-ritsa',
+'masyaf-ritsa-day','masyaf-ritsa-night','masyaf-hero']
+.map(function(f){ return MSQ+f+'.webp'; }),
+'trio-new-cairo': ['trio-exterior','trio-overview','trio-interior','trio-hero']
+.map(function(f){ return MSQ+f+'.webp'; }),
+'mist-new-cairo': ['mist-townhouse','mist-apartments','mist-name','mist-hero']
+.map(function(f){ return MSQ+f+'.webp'; }),
+'31-west-october': ['w31-lakeside','w31-villa','w31-garden','w31-overview','w31-hero']
+.map(function(f){ return MSQ+f+'.webp'; }),
+'41-business-district': ['b41-hero','b41-landmark','b41-interiors','b41-construction']
+.map(function(f){ return MSQ+f+'.webp'; }),
+'ashgar-darna-maadi': ['ashgar-hero','ashgar-aerial']
+.map(function(f){ return MSQ+f+'.webp'; })
 };
 function projectGalleryItems(p){
 var g = PROJECT_GALLERY[p.slug]; if(!g || !g.length) return [];
@@ -2971,7 +3063,7 @@ var DEV_LOGOS = {
 sodic:'sodic.png', palmhills:'palm-hills.png', mountainview:'mountain-view.png',
 ora:'ora.png', tatweer:'tatweer-misr.png', misritalia:'misr-italia.png',
 marakez:'marakez.png', lmd:'lmd.png', hydepark:'hyde-park.png',
-marasem:'al-marasem.png', modon:'modon.png',
+marasem:'al-marasem.png', modon:'modon.png', msquared:'m-squared.png',
 emaarmisr:'emaar-misr.png', orascom:'orascom.png', tmg:'tmg.png',
 alahlysabbour:'al-ahly-sabbour.png', hassanallam:'hassan-allam.png',
 ilcazar:'il-cazar.png', inertia:'inertia.png', lavista:'la-vista.png',
@@ -3041,6 +3133,12 @@ var DEV_GALLERY = {
 'sumou':['/project-media/sumou/st-03.webp','/project-media/sumou/st-01.webp','/project-media/sumou/ap5-0.webp','/project-media/sumou/st-02.webp','/project-media/sumou/ap2-03.webp','/project-media/sumou/of4.webp'],
 'modon':['/project-media/modon/m1.webp','/project-media/modon/m2.webp','/project-media/modon/m3.webp',
 '/project-media/modon/m4.webp','/project-media/modon/m5.webp','/project-media/modon/m6.webp'],
+'msquared':['/project-media/msquared/masyaf-pool.webp',
+'/project-media/msquared/trio-exterior.webp',
+'/project-media/msquared/w31-lakeside.webp',
+'/project-media/msquared/mist-townhouse.webp',
+'/project-media/msquared/b41-hero.webp',
+'/project-media/msquared/masyaf-ritsa-night.webp'],
 'ora':['/project-media/ora/brochure/silversands-beach.webp',
 '/project-media/ora/brochure/zedeast-park.webp',
 '/project-media/ora/brochure/zedwest-park.webp',
@@ -3345,6 +3443,67 @@ ar:'ينقل «سولانا إيست» العلامة نفسها إلى شرق �
 }}
 ]
 },
+'msquared': {
+cards: [
+{en:'Masterfully Minded Spaces', ar:'مساحات مصمَّمة بإتقان', icon:'spark', imgs:[MSQ+'about-community.webp'],
+copy:{
+lead:{en:'Founded in 2012, M squared is a leading real estate developer renowned for its customer-centric outlook on integrated living, where quality speaks volumes for communities to thrive.',
+ar:'تأسّست عام ٢٠١٢، وإم سكويرد مطوّر عقاري رائد معروف بنظرته المتمحورة حول العميل في السكن المتكامل، حيث تتحدّث الجودة عن نفسها لتزدهر المجتمعات.'},
+more:{en:'Its commitment reaches beyond its customers: the different green frameworks for sustainable living align naturally with its projects and communities, driving a forward-thinking culture that opens the door to a world of opportunity and an all-around positive environment — supporting local talents, promoting sustainable living, and keeping its communities eco-friendly and green aware.',
+ar:'ويمتد التزامها إلى ما هو أبعد من عملائها: تتوافق الأطر الخضراء المختلفة للعيش المستدام بشكل طبيعي مع مشروعاتها ومجتمعاتها، مما يقود ثقافة استشرافية تفتح الباب لعالم من الفرص وبيئة إيجابية شاملة — بدعم المواهب المحلية، وتعزيز العيش المستدام، وإبقاء مجتمعاتها صديقة للبيئة وواعية بالأخضر.'}
+}},
+{en:'Part of INTRO Investments Holding', ar:'ضمن إنترو للاستثمارات القابضة', icon:'shield', imgs:[MSQ+'about-dna.webp'],
+copy:{
+lead:{en:'M squared is celebrated as the real estate arm of INTRO Investments Holding, an Egyptian conglomerate established in the 1970s and privately owned by the Abbas family. Across its fifty-year history the company’s shareholders and partners have remained successful by harnessing strategic partnerships, supporting subsidiaries with financing and operational management, and synergising between the companies.',
+ar:'تُعرف إم سكويرد بوصفها الذراع العقاري لمجموعة إنترو للاستثمارات القابضة، وهي تكتّل مصري تأسّس في السبعينيات ومملوك لعائلة عباس. وعلى مدى خمسين عاماً ظل مساهمو الشركة وشركاؤها ناجحين بتسخير الشراكات الاستراتيجية، ودعم الشركات التابعة بالتمويل والإدارة التشغيلية، والتكامل فيما بينها.'},
+groups:[
+{label:{en:'The group', ar:'المجموعة'}, rows:[
+{k:{en:'Business divisions',ar:'قطاعات الأعمال'}, v:{en:'Oil & gas · waste management · energy & renewables · technology · retail · real estate & construction · medical services · financial services · ventures capital',ar:'النفط والغاز · إدارة المخلفات · الطاقة والمتجددة · التكنولوجيا · التجزئة · العقارات والإنشاءات · الخدمات الطبية · الخدمات المالية · رأس المال الاستثماري'}},
+{k:{en:'Employees',ar:'الموظفون'},        v:{en:'Over 25,000',ar:'أكثر من ٢٥٬٠٠٠'}},
+{k:{en:'Countries',ar:'الدول'},           v:{en:'Egypt · USA · UK · Germany · Algeria · Tunisia · Oman · Kuwait · KSA · UAE · Qatar · Bahrain · India · Thailand',ar:'مصر · الولايات المتحدة · بريطانيا · ألمانيا · الجزائر · تونس · عُمان · الكويت · السعودية · الإمارات · قطر · البحرين · الهند · تايلاند'}}]}
+]
+}},
+{en:'DNA & Philosophy', ar:'الحمض والفلسفة', icon:'star', imgs:[MSQ+'about-values.webp'],
+copy:{
+lead:{en:'“We empower you to live in spaces that reflect who you are, what you need, and what you value.” M squared’s philosophy is rooted in an entrenched belief that no size fits all, so the company puts emphasis on offering a wide range of unique products to cater to different needs.',
+ar:'«نمنحك القدرة على العيش في مساحات تعكس من أنت، وما تحتاجه، وما تقدّره.» فلسفة إم سكويرد متجذّرة في قناعة راسخة بأن مقاساً واحداً لا يناسب الجميع، ولذلك تركّز الشركة على تقديم مجموعة واسعة من المنتجات الفريدة لتلبية احتياجات مختلفة.'},
+list:[{en:'Authentic communities — built to last, in line with sustainable growth, wellbeing and a genuine sense of belonging',ar:'مجتمعات أصيلة — مبنية لتبقى، بما يتوافق مع النمو المستدام والعافية وحسّ انتماء حقيقي'},
+{en:'Spaces that inspire — bringing the beauty of nature and the sustainable rhythm of living inside your home space',ar:'مساحات تُلهم — تجلب جمال الطبيعة وإيقاع العيش المستدام إلى داخل بيتك'},
+{en:'Personalized experience — a lifestyle where you are in full control of how you work, live and play',ar:'تجربة شخصية — أسلوب حياة تتحكّم فيه بالكامل في كيفية عملك ومعيشتك ولعبك'},
+{en:'Driven by sustainability — embedding ESG principles ever deeper in the way it does business',ar:'مدفوعة بالاستدامة — ترسيخ مبادئ الحوكمة البيئية والاجتماعية أعمق في طريقة عملها'},
+{en:'Make life better for everyone — striving for social inclusion of local communities, young artists and the national economy',ar:'حياة أفضل للجميع — السعي للدمج الاجتماعي للمجتمعات المحلية والفنانين الشباب والاقتصاد الوطني'}]
+}},
+{en:'Pioneering in Ras Alhekma', ar:'ريادة في رأس الحكمة', icon:'pin', imgs:[MSQ+'about-raselhekma.webp'],
+copy:{
+lead:{en:'Ras Alhekma boasts burgeoning demand and investment opportunity, and M squared asserts its position as one of the pioneering developers in the coastal region. Through Masyaf Ras Alhekma and the Marmarica Boutique Cabanas it has fostered strong relationships with the governmental bodies involved in the area’s development.',
+ar:'تشهد رأس الحكمة طلباً متنامياً وفرص استثمار، وتؤكّد إم سكويرد موقعها كأحد المطوّرين الروّاد في هذه المنطقة الساحلية. ومن خلال «مصياف رأس الحكمة» و«كابانات مرماريكا البوتيكية» بَنَت علاقات قوية مع الجهات الحكومية المعنية بتنمية المنطقة.'},
+more:{en:'As one of the first developers to set foot in the region, its decision to invest stemmed from a vision to create iconic developments that serve as catalysts for economic growth and community empowerment.',
+ar:'وبوصفها من أوائل المطوّرين الذين وطئوا المنطقة، جاء قرار الاستثمار من رؤية لإنشاء مشروعات أيقونية تكون محفّزاً للنمو الاقتصادي وتمكين المجتمع.'}
+}},
+{en:'A World of Refined Hospitality', ar:'عالم من الضيافة الراقية', icon:'am_hotel', imgs:[MSQ+'about-hospitality.webp'],
+copy:{
+lead:{en:'M squared Hospitality is a forward-thinking hospitality experience provider made up of a diverse, experienced team of international hoteliers, whose contemporary philosophy promises all guests a unique experience that pampers the soul and serves with grace.',
+ar:'إم سكويرد للضيافة مزوّد استشرافي لتجارب الضيافة، يتألف من فريق متنوّع وخبير من الفندقيين الدوليين، وتَعِد فلسفته المعاصرة كل ضيف بتجربة فريدة تدلّل الروح وتخدم بلطف.'}
+}},
+{en:'Management & Partners', ar:'الإدارة والشركاء', icon:'globe', imgs:[MSQ+'about-community.webp'],
+copy:{
+lead:{en:'The names and partner categories below are the ones the company profile prints.',
+ar:'الأسماء وفئات الشركاء أدناه هي المذكورة في ملف الشركة.'},
+groups:[
+{label:{en:'Top management', ar:'الإدارة العليا'}, rows:[
+{k:{en:'Eng. Karim Malash',ar:'م. كريم ملش'},        v:{en:'CEO',ar:'الرئيس التنفيذي'}},
+{k:{en:'Mr. Ibrahim Sallam',ar:'أ. إبراهيم سلام'},    v:{en:'VP & CFO',ar:'نائب الرئيس والمدير المالي'}},
+{k:{en:'Eng. Ahmed Said',ar:'م. أحمد سعيد'},          v:{en:'Chief Development Officer',ar:'مدير التطوير'}},
+{k:{en:'Sara Sherif',ar:'سارة شريف'},                 v:{en:'Head of Marketing and Communication',ar:'رئيس التسويق والاتصال'}},
+{k:{en:'Sherif El Shinnawy',ar:'شريف الشناوي'},        v:{en:'Chief Sales Officer',ar:'مدير المبيعات'}}]},
+{label:{en:'Success partners', ar:'شركاء النجاح'}, rows:[
+{k:{en:'Governmental bodies',ar:'الجهات الحكومية'}, v:{en:'Strategic partnerships with the institutions involved in the product cycle',ar:'شراكات استراتيجية مع المؤسسات المشاركة في دورة المنتج'}},
+{k:{en:'Contractors',ar:'المقاولون'},               v:{en:'A rigorous selection process, effective communication and a problem-solving approach',ar:'عملية اختيار صارمة، وتواصل فعّال، ومنهج لحل المشكلات'}},
+{k:{en:'Banks & lenders',ar:'البنوك والممولون'},     v:{en:'A wide range of funding partners, mitigating risk and strategic growth initiatives',ar:'نطاق واسع من شركاء التمويل، وتخفيف المخاطر، ومبادرات نمو استراتيجية'}}]}
+]
+}}
+]
+},
 'modon': {
 masterplan: {en:'Masterplan', ar:'الماستر بلان', icon:'layers', src:MP+'masterplan.webp'},
 cards: [
@@ -3627,6 +3786,120 @@ ar:'كل منزل مصمّم حول ما يدوم: الضوء الطبيعي، �
 }}
 ]
 }
+};
+PROJECT_FEATURES['masyaf-ras-alhekma'] = {
+masterplan: {en:'Masterplan', ar:'الماستر بلان', icon:'layers', src:MSQ+'masyaf-masterplan.webp'},
+cards: [
+{en:'Home to the Light of a Thousand Suns', ar:'موطن ضوء ألف شمس', icon:'spark', imgs:[MSQ+'masyaf-shore.webp', MSQ+'masyaf-lagoon.webp'],
+copy:{
+lead:{en:'Inspired by Greek architecture where floating seascapes and natural simplicity live indoors, Masyaf Ras Alhekma is a waking dream, stretching out on an impressive 112 feddans of land to lap a pristine 730-metre beachfront on the Mediterranean shore.',
+ar:'مستوحى من العمارة اليونانية حيث تعيش المشاهد البحرية والبساطة الطبيعية في الداخل، «مصياف رأس الحكمة» حلم في اليقظة، يمتد على ١١٢ فداناً ليلامس واجهة بحرية بكر بطول ٧٣٠ متراً على شاطئ المتوسط.'},
+more:{en:'Expertly master planned by M squared, the destination takes luxury living to new heights through elevated platforms, guaranteeing equal views for all homeowners alike while radiating an expansive air of exclusivity and uninterrupted peace. Life here is natural light and sun-drenched beauty amplified around every corner of your signature home.',
+ar:'وبمخطط عام أعدّته إم سكويرد بخبرة، ترفع الوجهة السكن الفاخر إلى آفاق جديدة عبر منصات متدرّجة تضمن إطلالات متساوية لجميع الملّاك، وتشعّ جوّاً واسعاً من التفرّد والسكينة غير المنقطعة. والحياة هنا ضوء طبيعي وجمال مغمور بالشمس يتضاعف في كل ركن من بيتك المميّز.'}
+}},
+{en:'Marmarica Boutique Cabanas', ar:'كابانات مرماريكا البوتيكية', icon:'am_hotel', imgs:[MSQ+'masyaf-marmarica.webp', MSQ+'masyaf-marmarica-room.webp'],
+copy:{
+lead:{en:'Set on the Mediterranean’s most glimmering coast inside Masyaf Ras Alhekma, Marmarica Boutique Hotel introduces a luxury-barefoot experience with truly refined hospitality. It presents eighteen contemporary-chic cabanas built out over a blue infinity pool that ends right where the Mediterranean begins, managed by the M squared Hospitality team of international hoteliers.',
+ar:'على أكثر سواحل المتوسط تلألؤاً داخل «مصياف رأس الحكمة»، يقدّم فندق «مرماريكا» البوتيكي تجربة فخامة حافية القدمين بضيافة راقية حقاً. ويضم ثماني عشرة كابانا معاصرة أنيقة مبنية فوق مسبح لا نهائي أزرق ينتهي حيث يبدأ المتوسط، ويديره فريق إم سكويرد للضيافة من الفندقيين الدوليين.'}
+}},
+{en:'Peppermint Wellbeing Centre', ar:'مركز بيبرمنت للعافية', icon:'am_sauna', imgs:[MSQ+'masyaf-peppermint.webp', MSQ+'masyaf-peppermint-in.webp'],
+copy:{
+lead:{en:'Peppermint is Masyaf’s destination for holistic wellbeing. From expert-led fitness sessions to calming spa treatments and wellness rituals, the centre is designed to recharge the body and mind — all within a tranquil, nature-wrapped setting.',
+ar:'«بيبرمنت» وجهة مصياف للعافية الشاملة. ومن جلسات اللياقة بإشراف خبراء إلى علاجات السبا المهدّئة وطقوس العافية، صُمّم المركز لإعادة شحن الجسد والذهن — كل ذلك في محيط هادئ يلفّه الطبيعة.'}
+}},
+{en:'Barten Masyaf', ar:'بارتن مصياف', icon:'am_dining', imgs:[MSQ+'masyaf-barten.webp', MSQ+'masyaf-barten-dining.webp'],
+copy:{
+lead:{en:'A coastal expression of the beloved El Gouna hotspot, BARTEN brings its Asian-inspired cuisine and minimalist design to the shores of Masyaf. Perched directly on the sand, it offers a serene, sensory dining experience where the ritual of food meets the rhythm of the sea.',
+ar:'تعبير ساحلي عن المكان المحبوب في الجونة، يجلب «بارتن» مطبخه المستوحى من آسيا وتصميمه البسيط إلى شواطئ مصياف. ويقع على الرمال مباشرة، فيقدّم تجربة طعام هادئة وحسّية يلتقي فيها طقس الطعام بإيقاع البحر.'}
+}},
+{en:'Ritsa — the commercial heart', ar:'ريتسا — القلب التجاري', icon:'am_retail', imgs:[MSQ+'masyaf-ritsa.webp', MSQ+'masyaf-ritsa-night.webp', MSQ+'masyaf-ritsa-day.webp', MSQ+'masyaf-facilities.webp'],
+copy:{
+lead:{en:'Set to become Ras Alhekma’s most iconic meeting point, Ritsa is Masyaf’s commercial heart, created in collaboration with Wander Commercial Developments. It celebrates the unfiltered beauty of coastal living, where simplicity, togetherness and culture come together.',
+ar:'مرشّح ليكون أشهر ملتقى في رأس الحكمة، «ريتسا» هو القلب التجاري لمصياف، أُنشئ بالتعاون مع «واندر» للتطوير التجاري. ويحتفي بجمال الحياة الساحلية بلا تصنّع، حيث تجتمع البساطة والاجتماع والثقافة.'},
+groups:[
+{label:{en:'Brands the profile names', ar:'العلامات المذكورة في الملف'}, rows:[
+{k:{en:'Dining & cafés',ar:'مطاعم ومقاهٍ'}, v:{en:'Boulevard · JJ’s · Howlin’ Birds · Saints · Pào · Mayyal Mayyal · Dara’s Ice Cream · Meat Party Burgers · What The Crust · TBS',ar:'بوليفارد · جيه جيهز · هاولين بيردز · سينتس · باو · ميّال ميّال · دارا آيس كريم · ميت بارتي برجرز · وات ذا كرست · تي بي إس'}},
+{k:{en:'Sport & lifestyle',ar:'رياضة ولايف ستايل'}, v:{en:'The Rush Padel · F45 Track · In Your Shoe · Lemonade Concept Store · Elle Salon',ar:'ذا رَش بادل · إف٤٥ تراك · إن يور شو · ليمونيد كونسبت ستور · صالون إيل'}}]}
+]
+}}
+]
+};
+PROJECT_FEATURES['trio-new-cairo'] = {
+masterplan: {en:'Masterplan', ar:'الماستر بلان', icon:'layers', src:MSQ+'trio-masterplan.webp'},
+cards: [
+{en:'The TRIO concept', ar:'مفهوم تريو', icon:'home', imgs:[MSQ+'trio-overview.webp', MSQ+'trio-exterior.webp', MSQ+'trio-interior.webp'],
+copy:{
+lead:{en:'A signature boutique community introducing a new living concept at the heart of New Cairo. A state-of-the-art residential compound expertly planned on 35.5 acres of verdant land, TRIO stands as a true testament to modern-day living.',
+ar:'مجتمع بوتيكي مميّز يقدّم مفهوم سكن جديداً في قلب القاهرة الجديدة. مجمّع سكني حديث خُطّط بخبرة على ٣٥٫٥ فدان من الأرض الخضراء، ويقف «تريو» شاهداً حقيقياً على السكن العصري.'},
+more:{en:'Designed with varied needs in mind, TRIO is characterised by a “three villas per complex” concept with hanging gardens and flying pools, surrounded by encompassing amenities. Each duplex has its own garden and maximum privacy, and the plan runs over three phases with a commercial strip and a club house along one edge.',
+ar:'وقد صُمّم مراعياً احتياجات متنوّعة، ويتميّز «تريو» بمفهوم «ثلاث فيلات لكل مجمّع» بحدائق معلّقة وحمامات سباحة طائرة، تحيط بها مرافق شاملة. ولكل دوبلكس حديقته الخاصة وأقصى خصوصية، ويمتد المخطط على ثلاث مراحل مع شريط تجاري وكلوب هاوس على أحد الأطراف.'}
+}}
+]
+};
+PROJECT_FEATURES['mist-new-cairo'] = {
+masterplan: {en:'Masterplan', ar:'الماستر بلان', icon:'layers', src:MSQ+'mist-masterplan.webp'},
+cards: [
+{en:'A living pathway', ar:'ممرّ حيّ', icon:'spark', imgs:[MSQ+'mist-townhouse.webp', MSQ+'mist-apartments.webp'],
+copy:{
+lead:{en:'MIST is not a place you escape to. It is a place you live within, pass through, and engage with fully. Inspired by its name, MIST is a passage, a lifestyle artery, and a destination all at once.',
+ar:'«ميست» ليس مكاناً تهرب إليه، بل مكان تعيش داخله وتمرّ به وتنخرط فيه بالكامل. ومستوحى من اسمه، «ميست» ممرّ وشريان لايف ستايل ووجهة في آن واحد.'},
+more:{en:'Rather than rigid zones, the community unfolds in intuitive layers. Serene homes flow alongside water and greenery, offering moments of calm and retreat. In another direction, the commercial promenade brings daily vibrance, with spaces to work, shop and connect. At the centre, a vibrant public plaza ties it all together — a natural gathering point where life happens easily and often. The name was chosen for its relevance to motion, transformation and fluidity.',
+ar:'وبدلاً من المناطق الجامدة، ينكشف المجتمع في طبقات بديهية. تنساب منازل هادئة بمحاذاة الماء والخضرة فتمنح لحظات هدوء وانسحاب. وفي اتجاه آخر يمنح البروميناد التجاري الحياة اليومية حيويتها بمساحات للعمل والتسوّق والتواصل. وفي المركز تربط بلازا عامة نابضة كل شيء — ملتقى طبيعي تحدث فيه الحياة بسهولة وتكرار. واختير الاسم لصلته بالحركة والتحوّل والانسيابية.'}
+}}
+]
+};
+PROJECT_FEATURES['31-west-october'] = {
+masterplan: {en:'Masterplan', ar:'الماستر بلان', icon:'layers', src:MSQ+'w31-masterplan.webp'},
+cards: [
+{en:'Thirty One, come home', ar:'ثيرتي وان، عُد إلى البيت', icon:'home', imgs:[MSQ+'w31-lakeside.webp', MSQ+'w31-villa.webp', MSQ+'w31-garden.webp'],
+copy:{
+lead:{en:'31 WEST epitomises refined living within 31 acres at the most exclusive location in 6th of October, where every detail is meticulously curated to exude exclusivity and sophistication.',
+ar:'يجسّد «٣١ ويست» السكن الراقي على ٣١ فداناً في أكثر مواقع ٦ أكتوبر تميّزاً، حيث كل تفصيلة منتقاة بعناية لتفيض تفرّداً ورقيّاً.'},
+more:{en:'From grand water features and inspiring designs to landscaped surroundings and the first-of-its-kind Senior Executive Suites, this project stands as a testament to timeless elegance and elite living.',
+ar:'ومن المسطحات المائية الكبرى والتصاميم الملهمة إلى المحيط المنسّق والأجنحة التنفيذية الأولى من نوعها، يقف هذا المشروع شاهداً على الأناقة الخالدة والحياة الصفوية.'},
+groups:[
+{label:{en:'On the master plan', ar:'على الماستر بلان'}, rows:[
+{k:{en:'Housing',ar:'السكن'},        v:{en:'Villa · twin villa · town house · terraced flats',ar:'فيلا · توين فيلا · تاون هاوس · شقق بتراسات'}},
+{k:{en:'Commercial 1',ar:'التجاري ١'}, v:{en:'Administration building',ar:'مبنى إداري'}},
+{k:{en:'Commercial 2',ar:'التجاري ٢'}, v:{en:'Daily use · F&B outlets · club house',ar:'الاستخدام اليومي · مطاعم ومقاهٍ · كلوب هاوس'}}]}
+]
+}}
+]
+};
+PROJECT_FEATURES['41-business-district'] = {
+cards: [
+{en:'Commercial Landmark', ar:'معلم تجاري', icon:'build', imgs:[MSQ+'b41-landmark.webp', MSQ+'b41-interiors.webp', MSQ+'b41-construction.webp'],
+copy:{
+lead:{en:'Take your business and your life to the next level at the heart of Kattameya Ring Road, with the freedom to flawlessly execute work while enjoying commercial luxuries at your door.',
+ar:'ارتقِ بعملك وحياتك في قلب الطريق الدائري بالقطامية، بحرية تنفيذ عملك بلا عوائق مع رفاهيات تجارية على بابك.'},
+more:{en:'Dynamic, detailed and more than a little dashing, 41 Business District rises to new contemporary heights. Its innovative, multipurpose concept blends cutting-edge office and clinic spaces with commercial luxuries in one iconic landmark. Strategically situated off the Kattameya Ring Road, it connects multiple districts of the city with seamless mobility and urban proximity.',
+ar:'ديناميكي ودقيق التفاصيل وأنيق بامتياز، يرتفع «٤١ بيزنس ديستريكت» إلى آفاق معاصرة جديدة. ويمزج مفهومه المبتكر متعدد الاستخدامات مساحات المكاتب والعيادات الحديثة مع رفاهيات تجارية في معلم أيقوني واحد. وبموقعه الاستراتيجي على الطريق الدائري بالقطامية، يربط عدة أحياء بالمدينة بتنقّل سلس وقرب حضري.'}
+}}
+]
+};
+PROJECT_FEATURES['ashgar-darna-maadi'] = {
+masterplan: {en:'Project facts', ar:'بيانات المشروع', icon:'layers', src:MSQ+'ashgar-concept.webp'},
+cards: [
+{en:'A delivered project', ar:'مشروع مُسلَّم', icon:'check', imgs:[MSQ+'ashgar-aerial.webp', MSQ+'ashgar-hero.webp'],
+copy:{
+lead:{en:'A fully integrated vision of infinite greenery, melding urban life with breathing landscapes in a prime location in Maadi. Thirty-four poised tower buildings and exclusive access to entertainment and retail, in addition to a medical centre and a top-class club house. It is finished and fully sold, and appears here because the company profile presents it — not as an offer.',
+ar:'رؤية متكاملة من الخضرة اللانهائية تمزج الحياة الحضرية بمناظر تتنفّس في موقع متميّز بالمعادي. أربعة وثلاثون برجاً متّزناً ووصول حصري إلى الترفيه والتجزئة، إضافة إلى مركز طبي وكلوب هاوس من الطراز الأول. المشروع مكتمل ومباع بالكامل، ويظهر هنا لأن ملف الشركة يعرضه — لا بوصفه عرضاً للبيع.'},
+groups:[
+{label:{en:'As the profile prints them', ar:'كما يذكرها الملف'}, rows:[
+{k:{en:'Launched',ar:'الإطلاق'},                 v:{en:'June 2013',ar:'يونيو ٢٠١٣'}},
+{k:{en:'Delivery',ar:'التسليم'},                  v:{en:'First 2015 · last 2019',ar:'الأول ٢٠١٥ · الأخير ٢٠١٩'}},
+{k:{en:'Total units',ar:'إجمالي الوحدات'},         v:{en:'750 · 100% sold out',ar:'٧٥٠ · نفدت بنسبة ١٠٠٪'}},
+{k:{en:'Total investment',ar:'إجمالي الاستثمار'},   v:{en:'EGP 1.3 bn',ar:'١٫٣ مليار جنيه'}},
+{k:{en:'Average price per m²',ar:'متوسط سعر المتر'}, v:{en:'EGP 11,000 (end of 2018)',ar:'١١٬٠٠٠ جنيه (نهاية ٢٠١٨)'}},
+{k:{en:'Land',ar:'الأرض'},                        v:{en:'22 acres — 55% built, 45% landscape and roads',ar:'٢٢ فداناً — ٥٥٪ مبانٍ، ٤٥٪ لاندسكيب وطرق'}},
+{k:{en:'Buildings',ar:'المباني'},                  v:{en:'34 residential towers, 11 floors each',ar:'٣٤ برجاً سكنياً، ١١ دوراً لكل منها'}},
+{k:{en:'Unit sizes',ar:'مساحات الوحدات'},          v:{en:'67 to 214 m²',ar:'من ٦٧ إلى ٢١٤ م²'}},
+{k:{en:'Retail & offices',ar:'التجزئة والمكاتب'},   v:{en:'Two malls and an administrative building on 25,000 m²',ar:'مولان ومبنى إداري على ٢٥٬٠٠٠ م²'}},
+{k:{en:'Club house',ar:'الكلوب هاوس'},             v:{en:'6,554 m² — multi-sports hall, indoor and outdoor pools, nursery, gym, cultural hall',ar:'٦٬٥٥٤ م² — صالة متعددة الرياضات، ومسابح داخلية وخارجية، وحضانة، وجيم، وقاعة ثقافية'}},
+{k:{en:'Medical centre & mosque',ar:'المركز الطبي والمسجد'}, v:{en:'1,536 m² and 848 m²',ar:'١٬٥٣٦ م² و٨٤٨ م²'}}]}
+]
+}}
+]
 };
 function projBrochure(slug){ return PROJECT_BROCHURE[slug] || null; }
 function projFeatures(slug){ return PROJECT_FEATURES[slug] || null; }
