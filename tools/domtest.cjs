@@ -1742,7 +1742,8 @@ try {
     if(ps.length !== 6) return false;
     var by = {}; ps.forEach(function(p){ by[p.slug] = p; });
     var priced = {'masyaf-ras-alhekma': [12190419, 10, 10, 'MS-MA-', 15],
-                  '31-west-october':    [13237120,  5, 10, 'MS-3W-', 13]};
+                  '31-west-october':    [13237120,  5, 10, 'MS-3W-', 13],
+                  'mist-new-cairo':     [17602921,  5, 10, 'MS-MI-',  6]};
     var allUnits = api.UNITS.filter(function(u){ return by[u.project]; });
     var okPriced = Object.keys(priced).every(function(slug){
       var p = by[slug], w = priced[slug];
@@ -1753,7 +1754,7 @@ try {
     var silent = ps.filter(function(p){ return !priced[p.slug]; })
                    .every(function(p){ return p.price == null && p.dp == null && p.years == null; });
     return okPriced && silent && by['ashgar-darna-maadi'].status === 'ready' &&
-           allUnits.length === 28;
+           allUnits.length === 34;
   })());
   ck('sec: build inputs are excluded from the deploy', (function(){
      var ig = require('fs').readFileSync(__dirname + '/../.assetsignore', 'utf8');
