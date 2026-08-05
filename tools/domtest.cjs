@@ -1733,22 +1733,27 @@ try {
     ck('msquared: a gallery resolves to real files at runtime, not just in source',
        bad.length === 0, bad.length ? bad.slice(0,3).join(', ') : 'all six galleries resolve');
   })();
-  /* Masyaf now has a price list in the client sheet, so it carries terms and
-     units. The other five have none in either source and must stay silent —
-     including Ashgar Darna, which is finished and fully sold and must never
-     read as an offer. */
-  ck('msquared: only Masyaf claims terms, because only Masyaf has a price list', (function(){
+  /* A project claims terms only where a price list exists for it. Masyaf and
+     31 WEST have one in the client sheet; the other four have none in either
+     source and must stay silent — including Ashgar Darna, which is finished and
+     fully sold and must never read as an offer. */
+  ck('msquared: terms are claimed only where a price list exists', (function(){
     var ps = api.PROJECTS.filter(function(p){ return p.dev === 'msquared'; });
     if(ps.length !== 6) return false;
-    var byslug = {}; ps.forEach(function(p){ byslug[p.slug] = p; });
-    var masyaf = byslug['masyaf-ras-alhekma'];
-    if(!masyaf || masyaf.price !== 12190419 || masyaf.dp !== 10 || masyaf.years !== 10) return false;
-    var silent = ps.filter(function(p){ return p.slug !== 'masyaf-ras-alhekma'; })
+    var by = {}; ps.forEach(function(p){ by[p.slug] = p; });
+    var priced = {'masyaf-ras-alhekma': [12190419, 10, 10, 'MS-MA-', 15],
+                  '31-west-october':    [13237120,  5, 10, 'MS-3W-', 13]};
+    var allUnits = api.UNITS.filter(function(u){ return by[u.project]; });
+    var okPriced = Object.keys(priced).every(function(slug){
+      var p = by[slug], w = priced[slug];
+      if(!p || p.price !== w[0] || p.dp !== w[1] || p.years !== w[2]) return false;
+      var us = allUnits.filter(function(u){ return u.project === slug; });
+      return us.length === w[4] && us.every(function(u){ return u.id.indexOf(w[3]) === 0; });
+    });
+    var silent = ps.filter(function(p){ return !priced[p.slug]; })
                    .every(function(p){ return p.price == null && p.dp == null && p.years == null; });
-    var units = api.UNITS.filter(function(u){ return byslug[u.project]; });
-    return silent && byslug['ashgar-darna-maadi'].status === 'ready' &&
-           units.length === 15 &&
-           units.every(function(u){ return u.project === 'masyaf-ras-alhekma' && /^MS-MA-/.test(u.id); });
+    return okPriced && silent && by['ashgar-darna-maadi'].status === 'ready' &&
+           allUnits.length === 28;
   })());
   ck('sec: build inputs are excluded from the deploy', (function(){
      var ig = require('fs').readFileSync(__dirname + '/../.assetsignore', 'utf8');
