@@ -1706,7 +1706,15 @@ try {
     }
     var refs = Object.keys(used);
     var broken = refs.filter(function(r){ return !fsx.existsSync(pathx.join(MED, r)); });
-    var orphan = fsx.readdirSync(MED).filter(function(d){ return !used[d]; });
+    var disk = [];
+    (function walk(dir, pre){
+      fsx.readdirSync(dir).forEach(function(f){
+        var full = pathx.join(dir, f);
+        if (fsx.statSync(full).isDirectory()) walk(full, pre + f + '/');
+        else disk.push(pre + f);
+      });
+    })(MED, '');
+    var orphan = disk.filter(function(d){ return !used[d]; });
     ck('msquared: every brochure image path exists on disk',
        refs.length >= 40 && broken.length === 0, refs.length+' refs'+(broken.length?' broken: '+broken.slice(0,3):''));
     ck('msquared: every extracted page is reachable in the UI',
@@ -1719,24 +1727,28 @@ try {
       if(!items.length) { bad.push(p.slug + ':empty'); return; }
       items.forEach(function(it){
         if(typeof it.src !== 'string' || it.src.indexOf('/project-media/msquared/') !== 0
-           || !fsx.existsSync(pathx.join(MED, it.src.split('/').pop()))) bad.push(it.src);
+           || !fsx.existsSync(pathx.join(MED, it.src.replace('/project-media/msquared/','')))) bad.push(it.src);
       });
     });
     ck('msquared: a gallery resolves to real files at runtime, not just in source',
        bad.length === 0, bad.length ? bad.slice(0,3).join(', ') : 'all six galleries resolve');
   })();
-  /* The profile publishes no price list, payment plan or unit schedule for the
-     five live projects, so none may appear. Ashgar Darna is finished and fully
-     sold — it must never read as an offer. */
-  ck('msquared: no commercial terms are claimed that the profile does not print', (function(){
+  /* Masyaf now has a price list in the client sheet, so it carries terms and
+     units. The other five have none in either source and must stay silent —
+     including Ashgar Darna, which is finished and fully sold and must never
+     read as an offer. */
+  ck('msquared: only Masyaf claims terms, because only Masyaf has a price list', (function(){
     var ps = api.PROJECTS.filter(function(p){ return p.dev === 'msquared'; });
     if(ps.length !== 6) return false;
-    var noTerms = ps.every(function(p){
-      return p.price == null && p.dp == null && p.years == null;
-    });
-    var ashgar = ps.filter(function(p){ return p.slug === 'ashgar-darna-maadi'; })[0];
-    var units = api.UNITS.filter(function(u){ return ps.some(function(p){ return p.slug === u.project; }); });
-    return noTerms && units.length === 0 && ashgar && ashgar.status === 'ready';
+    var byslug = {}; ps.forEach(function(p){ byslug[p.slug] = p; });
+    var masyaf = byslug['masyaf-ras-alhekma'];
+    if(!masyaf || masyaf.price !== 12190419 || masyaf.dp !== 10 || masyaf.years !== 10) return false;
+    var silent = ps.filter(function(p){ return p.slug !== 'masyaf-ras-alhekma'; })
+                   .every(function(p){ return p.price == null && p.dp == null && p.years == null; });
+    var units = api.UNITS.filter(function(u){ return byslug[u.project]; });
+    return silent && byslug['ashgar-darna-maadi'].status === 'ready' &&
+           units.length === 15 &&
+           units.every(function(u){ return u.project === 'masyaf-ras-alhekma' && /^MS-MA-/.test(u.id); });
   })());
   ck('sec: build inputs are excluded from the deploy', (function(){
      var ig = require('fs').readFileSync(__dirname + '/../.assetsignore', 'utf8');
