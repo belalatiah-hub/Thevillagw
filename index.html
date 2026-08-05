@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <!-- frame-ancestors/HSTS belong in HTTP response headers (see deploy runbook), not meta. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'sha256-0eB8s3A3aZQguW+SDJC/YssfCUQj66wY3V7A9qjdeKc=' 'sha256-yI6VCT38V7vjk7cAW7UM7qbGpBU7Ua/f8UOqpzWwxAc=' 'sha256-YvHevJmHHrhBzm9a+K1fYxwv5t1APr4XI8t4Am8p7D4=' 'sha256-RBNvo1WzZ4oRRq0W9+hknpT7T8If536DEMBg9hyq/4o=' 'sha256-Lc1krbwMo0a2aFLLm5wrkf/gmME9fcfct0A/BAdMTuw=' https://static.cloudflareinsights.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://cloudflareinsights.com; base-uri 'self'; form-action 'self'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'sha256-0eB8s3A3aZQguW+SDJC/YssfCUQj66wY3V7A9qjdeKc=' 'sha256-yI6VCT38V7vjk7cAW7UM7qbGpBU7Ua/f8UOqpzWwxAc=' 'sha256-YvHevJmHHrhBzm9a+K1fYxwv5t1APr4XI8t4Am8p7D4=' 'sha256-RBNvo1WzZ4oRRq0W9+hknpT7T8If536DEMBg9hyq/4o=' 'sha256-P1hfExSyfJvcQ9HoQ5A/tVhyO3mYe2/DBFlbKUKvBug=' https://static.cloudflareinsights.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://cloudflareinsights.com; base-uri 'self'; form-action 'self'" />
   <meta name="theme-color" content="#073D52" />
   <meta name="color-scheme" content="light" />
   <meta name="format-detection" content="telephone=no" />
@@ -1403,7 +1403,7 @@ var UNIT_IMAGES = {
 'OR-ZE-04':'/project-media/ora/lo-z-0.webp',
 'OR-ZE-05':'/project-media/ora/stu-z-0.webp',
 'OR-ZE-06':'/project-media/ora/ap1-ze-0.webp',
-'OR-ZE-07':'/project-media/ora/ap2-ze-01.webp',
+'OR-ZE-07':'/project-media/ora/ap2-ze-0.webp',
 'OR-ZE-08':'/project-media/ora/ap3-ze-0.webp',
 'OR-EM-01':'/project-media/ora/du1-em-0.webp',
 'OR-EM-02':'/project-media/ora/du2-em-0.webp',
@@ -1719,8 +1719,8 @@ var UNIT_GALLERY = {
 'OR-ZE-04':["/project-media/ora/lo-z-0.webp", "/project-media/ora/lo-z-01.webp", "/project-media/ora/lo-z-02.webp"],
 'OR-ZE-05':["/project-media/ora/stu-z-0.webp", "/project-media/ora/stu-z-01.webp", "/project-media/ora/stu-z-02.webp", "/project-media/ora/stu-z-03.webp"],
 'OR-ZE-06':["/project-media/ora/ap1-ze-0.webp", "/project-media/ora/ap1-ze-01.webp", "/project-media/ora/ap1-ze-02.webp", "/project-media/ora/ap1-ze-03.webp"],
-'OR-ZE-07':["/project-media/ora/ap2-ze-01.webp", "/project-media/ora/ap2-ze-02.webp"],
-'OR-ZE-08':["/project-media/ora/ap3-ze-0.webp", "/project-media/ora/ap3-ze-01.webp", "/project-media/ora/ap3-ze-02.webp"],
+'OR-ZE-07':["/project-media/ora/ap2-ze-0.webp", "/project-media/ora/ap2-ze-01.webp", "/project-media/ora/ap2-ze-02.webp"],
+'OR-ZE-08':["/project-media/ora/ap3-ze-0.webp", "/project-media/ora/ap3-ze-01.webp", "/project-media/ora/ap3-ze-02.webp", "/project-media/ora/ap3-ze-03.webp"],
 'OR-EM-01':["/project-media/ora/du1-em-0.webp", "/project-media/ora/du1-em-01.webp", "/project-media/ora/du1-em-02.webp", "/project-media/ora/du1-em-03.webp"],
 'OR-EM-02':["/project-media/ora/du2-em-0.webp", "/project-media/ora/du2-em-01.webp", "/project-media/ora/du2-em-02.webp"],
 'OR-EM-03':["/project-media/ora/four-0.webp", "/project-media/ora/four-01.webp", "/project-media/ora/four-02.webp"],
@@ -2340,7 +2340,7 @@ var UNIT_FLOORPLANS = {
 'OR-SW-04':["/project-media/ora/fp-v3.webp"],
 'OR-SW-05':["/project-media/ora/fp-v4-0.webp", "/project-media/ora/fp-v4-01.webp"],
 'OR-SW-06':["/project-media/ora/fp-v6-0.webp", "/project-media/ora/fp-v6-01.webp"],
-'OR-SW-07':["/project-media/ora/fp-th-sw-0.webp"],
+'OR-SW-07':["/project-media/ora/fp-th-sw-0.webp", "/project-media/ora/fp-th-sw-01.webp"],
 'OR-SW-08':["/project-media/ora/fp-tw-sw-0.webp", "/project-media/ora/fp-tw-sw-01.webp"],
 'OR-SW-10':["/project-media/ora/fp-ap2-sw.webp"],
 'OR-SW-11':["/project-media/ora/fp-ap3-sw.webp"],
@@ -2357,6 +2357,7 @@ var UNIT_FLOORPLANS = {
 'OR-CR-02':["/project-media/ora/fp-du1-cr.webp"],
 'OR-CR-03':["/project-media/ora/fp-ch-cr.webp"],
 'OR-CR-04':["/project-media/ora/fp-ch2-cr.webp"],
+'OR-CR-05':["/project-media/ora/fp-ch3-cr.webp"],
 'OR-CR-06':["/project-media/ora/fp-tw-cr-0.webp"],
 'OR-CR-07':["/project-media/ora/fp-v1-cr-0.webp", "/project-media/ora/fp-v1-cr-01.webp"],
 'OR-CR-08':["/project-media/ora/fp-v2-cr-0.webp", "/project-media/ora/fp-v2-cr-01.webp"],
