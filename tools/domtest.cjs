@@ -1733,13 +1733,19 @@ try {
     ck('msquared: a gallery resolves to real files at runtime, not just in source',
        bad.length === 0, bad.length ? bad.slice(0,3).join(', ') : 'all six galleries resolve');
   })();
-  /* A project claims terms only where a price list exists for it. Masyaf and
-     31 WEST have one in the client sheet; the other four have none in either
-     source and must stay silent — including Ashgar Darna, which is finished and
-     fully sold and must never read as an offer. */
+  /* A project claims terms only where a price list exists for it. Masyaf,
+     31 WEST and MIST have one in the client sheet; TRIO has none and must stay
+     silent. 41 Business District and Ashgar Darna were withdrawn — the first is
+     commercial with no price list, the second finished and fully sold — and
+     must not come back with the rest of the developer's content. */
   ck('msquared: terms are claimed only where a price list exists', (function(){
     var ps = api.PROJECTS.filter(function(p){ return p.dev === 'msquared'; });
-    if(ps.length !== 6) return false;
+    if(ps.length !== 4) return false;
+    if(ps.some(function(p){ return /41-business|ashgar/.test(p.slug); })) return false;
+    // and nothing they left behind: no amenity keys, no media, no empty area
+    var cats = Object.keys(api.AMENITY_CAT).join(',');
+    if(/ms_41_|ms_ash_/.test(cats)) return false;
+    if(api.AREAS.some(function(a){ return a.key === 'maadi'; })) return false;
     var by = {}; ps.forEach(function(p){ by[p.slug] = p; });
     var priced = {'masyaf-ras-alhekma': [12190419, 10, 10, 'MS-MA-', 15],
                   '31-west-october':    [13237120,  5, 10, 'MS-3W-', 13],
@@ -1753,8 +1759,7 @@ try {
     });
     var silent = ps.filter(function(p){ return !priced[p.slug]; })
                    .every(function(p){ return p.price == null && p.dp == null && p.years == null; });
-    return okPriced && silent && by['ashgar-darna-maadi'].status === 'ready' &&
-           allUnits.length === 34;
+    return okPriced && silent && allUnits.length === 34;
   })());
   ck('sec: build inputs are excluded from the deploy', (function(){
      var ig = require('fs').readFileSync(__dirname + '/../.assetsignore', 'utf8');

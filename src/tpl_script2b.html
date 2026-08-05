@@ -65,8 +65,6 @@
     'trio-new-cairo':'/project-media/msquared/trio-exterior.webp',
     'mist-new-cairo':'/project-media/msquared/units/town1-0.webp',
     '31-west-october':'/project-media/msquared/units/ap1-west-0.webp',
-    '41-business-district':'/project-media/msquared/b41-hero.webp',
-    'ashgar-darna-maadi':'/project-media/msquared/ashgar-hero.webp',
     // ORA: the sheet's first image for each project's entry-price unit.
     'zed-east':'/project-media/ora/ap1-z-0.webp',
     'zed-east-emerald':'/project-media/ora/du1-em-0.webp',
@@ -2019,21 +2017,7 @@
     ms_w31_jog:{icon:'am_sports', en:'Jogging track & workout area', ar:'مضمار جري ومنطقة تمارين'},
     ms_w31_calm:{icon:'am_yoga', en:'Meditation zone & relaxing area', ar:'منطقة تأمّل ومكان استرخاء'},
     ms_w31_kids:{icon:'am_kids', en:'Kids play zone & cafe', ar:'منطقة لعب أطفال وكافيه'},
-    ms_w31_pets:{icon:'am_flower', en:'Pets zone & multipurpose area', ar:'منطقة حيوانات أليفة ومساحة متعددة الاستخدامات'},
-
-    ms_41_offices:{icon:'am_office', en:'Office & clinic spaces', ar:'مساحات مكاتب وعيادات'},
-    ms_41_retail:{icon:'am_retail', en:'Bank, market, jewellery & furniture', ar:'بنك وسوق ومجوهرات وأثاث'},
-    ms_41_dining:{icon:'am_dining', en:'Cafe & restaurant', ar:'كافيه ومطعم'},
-    ms_41_gym:{icon:'am_gym', en:'Gym & sports', ar:'جيم ورياضة'},
-
-    ms_ash_club:{icon:'am_club', en:'Club house — 6,554 m²', ar:'كلوب هاوس — ٦٬٥٥٤ م²'},
-    ms_ash_pool:{icon:'am_pool', en:'Indoor & outdoor swimming pools', ar:'مسابح داخلية وخارجية'},
-    ms_ash_sports:{icon:'am_sports', en:'Multi-sports hall & playing grounds', ar:'صالة متعددة الرياضات وملاعب'},
-    ms_ash_medical:{icon:'am_clinic', en:'Medical centre — 1,536 m²', ar:'مركز طبي — ١٬٥٣٦ م²'},
-    ms_ash_retail:{icon:'am_retail', en:'Two malls & an administrative building', ar:'مولان ومبنى إداري'},
-    ms_ash_nursery:{icon:'am_kids', en:'Nursery', ar:'حضانة'},
-    ms_ash_mosque:{icon:'am_mosque', en:'Mosque — 848 m²', ar:'مسجد — ٨٤٨ م²'},
-    ms_ash_green:{icon:'am_landscape', en:'45% landscape and roads', ar:'٤٥٪ لاندسكيب وطرق'}
+    ms_w31_pets:{icon:'am_flower', en:'Pets zone & multipurpose area', ar:'منطقة حيوانات أليفة ومساحة متعددة الاستخدامات'}
   };
 
   /* Developer-level amenities, taken from that developer's own brochure. Shown
@@ -2139,10 +2123,7 @@
                            'ms_mist_gym','ms_mist_sports','ms_mist_kids','ms_mist_cafe',
                            'ms_mist_calm','ms_mist_pets'],
     '31-west-october':    ['ms_w31_lake','ms_w31_club','ms_w31_admin','ms_w31_fnb',
-                           'ms_w31_jog','ms_w31_calm','ms_w31_kids','ms_w31_pets'],
-    '41-business-district':['ms_41_offices','ms_41_retail','ms_41_dining','ms_41_gym'],
-    'ashgar-darna-maadi': ['ms_ash_club','ms_ash_pool','ms_ash_sports','ms_ash_medical',
-                           'ms_ash_retail','ms_ash_nursery','ms_ash_mosque','ms_ash_green']
+                           'ms_w31_jog','ms_w31_calm','ms_w31_kids','ms_w31_pets']
   };
   function amenityDefaults(cat){
     return (cat==='coast'||cat==='redsea')
@@ -2223,10 +2204,6 @@
     'mist-new-cairo': ['mist-townhouse','mist-apartments','mist-name','mist-hero']
       .map(function(f){ return MSQ+f+'.webp'; }),
     '31-west-october': ['w31-lakeside','w31-villa','w31-garden','w31-overview','w31-hero']
-      .map(function(f){ return MSQ+f+'.webp'; }),
-    '41-business-district': ['b41-hero','b41-landmark','b41-interiors','b41-construction']
-      .map(function(f){ return MSQ+f+'.webp'; }),
-    'ashgar-darna-maadi': ['ashgar-hero','ashgar-aerial']
       .map(function(f){ return MSQ+f+'.webp'; })
   };
   function projectGalleryItems(p){
@@ -2504,7 +2481,6 @@
                 '/project-media/msquared/trio-exterior.webp',
                 '/project-media/msquared/w31-lakeside.webp',
                 '/project-media/msquared/mist-townhouse.webp',
-                '/project-media/msquared/b41-hero.webp',
                 '/project-media/msquared/masyaf-ritsa-night.webp'],
     // ORA — pages of the company profile, one per destination: Silversands on
     // the coast, ZED East, ZED Sheikh Zayed, Solana and Solana East.
@@ -3282,41 +3258,6 @@
              {k:{en:'Housing',ar:'السكن'},        v:{en:'Villa · twin villa · town house · terraced flats',ar:'فيلا · توين فيلا · تاون هاوس · شقق بتراسات'}},
              {k:{en:'Commercial 1',ar:'التجاري ١'}, v:{en:'Administration building',ar:'مبنى إداري'}},
              {k:{en:'Commercial 2',ar:'التجاري ٢'}, v:{en:'Daily use · F&B outlets · club house',ar:'الاستخدام اليومي · مطاعم ومقاهٍ · كلوب هاوس'}}]}
-         ]
-       }}
-    ]
-  };
-  PROJECT_FEATURES['41-business-district'] = {
-    cards: [
-      {en:'Commercial Landmark', ar:'معلم تجاري', icon:'build', imgs:[MSQ+'b41-landmark.webp', MSQ+'b41-interiors.webp', MSQ+'b41-construction.webp'],
-       copy:{
-         lead:{en:'Take your business and your life to the next level at the heart of Kattameya Ring Road, with the freedom to flawlessly execute work while enjoying commercial luxuries at your door.',
-               ar:'ارتقِ بعملك وحياتك في قلب الطريق الدائري بالقطامية، بحرية تنفيذ عملك بلا عوائق مع رفاهيات تجارية على بابك.'},
-         more:{en:'Dynamic, detailed and more than a little dashing, 41 Business District rises to new contemporary heights. Its innovative, multipurpose concept blends cutting-edge office and clinic spaces with commercial luxuries in one iconic landmark. Strategically situated off the Kattameya Ring Road, it connects multiple districts of the city with seamless mobility and urban proximity.',
-               ar:'ديناميكي ودقيق التفاصيل وأنيق بامتياز، يرتفع «٤١ بيزنس ديستريكت» إلى آفاق معاصرة جديدة. ويمزج مفهومه المبتكر متعدد الاستخدامات مساحات المكاتب والعيادات الحديثة مع رفاهيات تجارية في معلم أيقوني واحد. وبموقعه الاستراتيجي على الطريق الدائري بالقطامية، يربط عدة أحياء بالمدينة بتنقّل سلس وقرب حضري.'}
-       }}
-    ]
-  };
-  PROJECT_FEATURES['ashgar-darna-maadi'] = {
-    masterplan: {en:'Project facts', ar:'بيانات المشروع', icon:'layers', src:MSQ+'ashgar-concept.webp'},
-    cards: [
-      {en:'A delivered project', ar:'مشروع مُسلَّم', icon:'check', imgs:[MSQ+'ashgar-aerial.webp', MSQ+'ashgar-hero.webp'],
-       copy:{
-         lead:{en:'A fully integrated vision of infinite greenery, melding urban life with breathing landscapes in a prime location in Maadi. Thirty-four poised tower buildings and exclusive access to entertainment and retail, in addition to a medical centre and a top-class club house. It is finished and fully sold, and appears here because the company profile presents it — not as an offer.',
-               ar:'رؤية متكاملة من الخضرة اللانهائية تمزج الحياة الحضرية بمناظر تتنفّس في موقع متميّز بالمعادي. أربعة وثلاثون برجاً متّزناً ووصول حصري إلى الترفيه والتجزئة، إضافة إلى مركز طبي وكلوب هاوس من الطراز الأول. المشروع مكتمل ومباع بالكامل، ويظهر هنا لأن ملف الشركة يعرضه — لا بوصفه عرضاً للبيع.'},
-         groups:[
-           {label:{en:'As the profile prints them', ar:'كما يذكرها الملف'}, rows:[
-             {k:{en:'Launched',ar:'الإطلاق'},                 v:{en:'June 2013',ar:'يونيو ٢٠١٣'}},
-             {k:{en:'Delivery',ar:'التسليم'},                  v:{en:'First 2015 · last 2019',ar:'الأول ٢٠١٥ · الأخير ٢٠١٩'}},
-             {k:{en:'Total units',ar:'إجمالي الوحدات'},         v:{en:'750 · 100% sold out',ar:'٧٥٠ · نفدت بنسبة ١٠٠٪'}},
-             {k:{en:'Total investment',ar:'إجمالي الاستثمار'},   v:{en:'EGP 1.3 bn',ar:'١٫٣ مليار جنيه'}},
-             {k:{en:'Average price per m²',ar:'متوسط سعر المتر'}, v:{en:'EGP 11,000 (end of 2018)',ar:'١١٬٠٠٠ جنيه (نهاية ٢٠١٨)'}},
-             {k:{en:'Land',ar:'الأرض'},                        v:{en:'22 acres — 55% built, 45% landscape and roads',ar:'٢٢ فداناً — ٥٥٪ مبانٍ، ٤٥٪ لاندسكيب وطرق'}},
-             {k:{en:'Buildings',ar:'المباني'},                  v:{en:'34 residential towers, 11 floors each',ar:'٣٤ برجاً سكنياً، ١١ دوراً لكل منها'}},
-             {k:{en:'Unit sizes',ar:'مساحات الوحدات'},          v:{en:'67 to 214 m²',ar:'من ٦٧ إلى ٢١٤ م²'}},
-             {k:{en:'Retail & offices',ar:'التجزئة والمكاتب'},   v:{en:'Two malls and an administrative building on 25,000 m²',ar:'مولان ومبنى إداري على ٢٥٬٠٠٠ م²'}},
-             {k:{en:'Club house',ar:'الكلوب هاوس'},             v:{en:'6,554 m² — multi-sports hall, indoor and outdoor pools, nursery, gym, cultural hall',ar:'٦٬٥٥٤ م² — صالة متعددة الرياضات، ومسابح داخلية وخارجية، وحضانة، وجيم، وقاعة ثقافية'}},
-             {k:{en:'Medical centre & mosque',ar:'المركز الطبي والمسجد'}, v:{en:'1,536 m² and 848 m²',ar:'١٬٥٣٦ م² و٨٤٨ م²'}}]}
          ]
        }}
     ]
