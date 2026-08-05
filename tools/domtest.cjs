@@ -1742,11 +1742,11 @@ try {
     return noMp.length === 0 && noLoc.length === 0;
   })());
   ck('site: a floor plan is never borrowed from another unit', (function(){
-    // OR-SE-03's sheet cell is empty and OR-SW-09 names a plan the owner has
-    // not sent; neither may show a neighbour's just because the project has one.
-    // OR-CR-05's file arrived truncated and was re-sent, so it now has its own.
+    // Every ORA plan the sheet names has now arrived except OR-SE-03's, whose
+    // cell in the sheet is blank. It must stay empty rather than borrow the
+    // plan of another Solana East unit just because the project has one.
     return api.unitFloorplans(api.unitById('OR-SE-03')).length === 0 &&
-           api.unitFloorplans(api.unitById('OR-SW-09')).length === 0 &&
+           api.unitFloorplans(api.unitById('OR-SW-09')).length === 1 &&
            api.unitFloorplans(api.unitById('OR-CR-05')).length === 1 &&
            api.unitFloorplans(api.unitById('OR-SW-07')).length === 2;
   })());
