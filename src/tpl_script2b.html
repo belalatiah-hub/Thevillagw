@@ -61,6 +61,7 @@
     'crescent-walk':'/project-media/marakez/units/v2-cr-0.webp',
     'alam-al-roum':'/project-media/qataridiar/alam-al-roum/city.webp',
     // M squared: the strongest exterior the company profile prints for each.
+    '41-business-district':'/project-media/msquared/b41-hero.webp',
     'masyaf-ras-alhekma':'/project-media/msquared/masyaf-pool.webp',
     'trio-new-cairo':'/project-media/msquared/trio-exterior.webp',
     'mist-new-cairo':'/project-media/msquared/units/town1-0.webp',
@@ -2017,7 +2018,12 @@
     ms_w31_jog:{icon:'am_sports', en:'Jogging track & workout area', ar:'مضمار جري ومنطقة تمارين'},
     ms_w31_calm:{icon:'am_yoga', en:'Meditation zone & relaxing area', ar:'منطقة تأمّل ومكان استرخاء'},
     ms_w31_kids:{icon:'am_kids', en:'Kids play zone & cafe', ar:'منطقة لعب أطفال وكافيه'},
-    ms_w31_pets:{icon:'am_flower', en:'Pets zone & multipurpose area', ar:'منطقة حيوانات أليفة ومساحة متعددة الاستخدامات'}
+    ms_w31_pets:{icon:'am_flower', en:'Pets zone & multipurpose area', ar:'منطقة حيوانات أليفة ومساحة متعددة الاستخدامات'},
+
+    ms_41_offices:{icon:'am_office', en:'Office & clinic spaces', ar:'مساحات مكاتب وعيادات'},
+    ms_41_retail:{icon:'am_retail', en:'Bank, market, jewellery & furniture', ar:'بنك وسوق ومجوهرات وأثاث'},
+    ms_41_dining:{icon:'am_dining', en:'Cafe & restaurant', ar:'كافيه ومطعم'},
+    ms_41_gym:{icon:'am_gym', en:'Gym & sports', ar:'جيم ورياضة'}
   };
 
   /* Developer-level amenities, taken from that developer's own brochure. Shown
@@ -2123,7 +2129,8 @@
                            'ms_mist_gym','ms_mist_sports','ms_mist_kids','ms_mist_cafe',
                            'ms_mist_calm','ms_mist_pets'],
     '31-west-october':    ['ms_w31_lake','ms_w31_club','ms_w31_admin','ms_w31_fnb',
-                           'ms_w31_jog','ms_w31_calm','ms_w31_kids','ms_w31_pets']
+                           'ms_w31_jog','ms_w31_calm','ms_w31_kids','ms_w31_pets'],
+    '41-business-district':['ms_41_offices','ms_41_retail','ms_41_dining','ms_41_gym']
   };
   function amenityDefaults(cat){
     return (cat==='coast'||cat==='redsea')
@@ -2204,7 +2211,9 @@
     'mist-new-cairo': ['mist-townhouse','mist-apartments','mist-name','mist-hero']
       .map(function(f){ return MSQ+f+'.webp'; }),
     '31-west-october': ['w31-lakeside','w31-villa','w31-garden','w31-overview','w31-hero']
-      .map(function(f){ return MSQ+f+'.webp'; })
+      .map(function(f){ return MSQ+f+'.webp'; }),
+    '41-business-district': ['b41-hero','b41-landmark','b41-interiors','b41-construction']
+      .map(function(f){ return MSQ+f+'.webp'; }),
   };
   function projectGalleryItems(p){
     var g = PROJECT_GALLERY[p.slug]; if(!g || !g.length) return [];
@@ -2481,6 +2490,7 @@
                 '/project-media/msquared/trio-exterior.webp',
                 '/project-media/msquared/w31-lakeside.webp',
                 '/project-media/msquared/mist-townhouse.webp',
+                '/project-media/msquared/b41-hero.webp',
                 '/project-media/msquared/masyaf-ritsa-night.webp'],
     // ORA — pages of the company profile, one per destination: Silversands on
     // the coast, ZED East, ZED Sheikh Zayed, Solana and Solana East.
@@ -3259,6 +3269,17 @@
              {k:{en:'Commercial 1',ar:'التجاري ١'}, v:{en:'Administration building',ar:'مبنى إداري'}},
              {k:{en:'Commercial 2',ar:'التجاري ٢'}, v:{en:'Daily use · F&B outlets · club house',ar:'الاستخدام اليومي · مطاعم ومقاهٍ · كلوب هاوس'}}]}
          ]
+       }}
+    ]
+  };
+  PROJECT_FEATURES['41-business-district'] = {
+    cards: [
+      {en:'Commercial Landmark', ar:'معلم تجاري', icon:'build', imgs:[MSQ+'b41-landmark.webp', MSQ+'b41-interiors.webp', MSQ+'b41-construction.webp'],
+       copy:{
+         lead:{en:'Take your business and your life to the next level at the heart of Kattameya Ring Road, with the freedom to flawlessly execute work while enjoying commercial luxuries at your door.',
+               ar:'ارتقِ بعملك وحياتك في قلب الطريق الدائري بالقطامية، بحرية تنفيذ عملك بلا عوائق مع رفاهيات تجارية على بابك.'},
+         more:{en:'Dynamic, detailed and more than a little dashing, 41 Business District rises to new contemporary heights. Its innovative, multipurpose concept blends cutting-edge office and clinic spaces with commercial luxuries in one iconic landmark. Strategically situated off the Kattameya Ring Road, it connects multiple districts of the city with seamless mobility and urban proximity.',
+               ar:'ديناميكي ودقيق التفاصيل وأنيق بامتياز، يرتفع «٤١ بيزنس ديستريكت» إلى آفاق معاصرة جديدة. ويمزج مفهومه المبتكر متعدد الاستخدامات مساحات المكاتب والعيادات الحديثة مع رفاهيات تجارية في معلم أيقوني واحد. وبموقعه الاستراتيجي على الطريق الدائري بالقطامية، يربط عدة أحياء بالمدينة بتنقّل سلس وقرب حضري.'}
        }}
     ]
   };

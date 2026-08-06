@@ -444,6 +444,7 @@ var AREAS = [
 {key:'october', name:{en:'6th of October',ar:'٦ أكتوبر'}, blurb:{en:'Spacious West Cairo city with a wide price range.',ar:'مدينة واسعة بغرب القاهرة بنطاق أسعار متنوع.'}},
 {key:'mostakbal', name:{en:'Mostakbal City',ar:'مدينة المستقبل'}, blurb:{en:'Fast-growing East Cairo corridor with new launches.',ar:'محور سريع النمو بشرق القاهرة مع إطلاقات جديدة.'}},
 {key:'sokhna', name:{en:'Ain Sokhna',ar:'العين السخنة'}, blurb:{en:'Red Sea coast close to Cairo for weekend homes.',ar:'ساحل البحر الأحمر القريب من القاهرة لمنازل نهاية الأسبوع.'}},
+{key:'maadi', name:{en:'Maadi',ar:'المعادي'}, blurb:{en:'An established green district on the Nile’s east bank, with the Ring Road and Kattameya at its edge.',ar:'حي أخضر عريق على الضفة الشرقية للنيل، يحدّه الطريق الدائري والقطامية.'}}
 ];
 var DEVELOPERS = [
 {key:'sodic', c1:'#0d6e7d', name:{en:'SODIC',ar:'سوديك'}, since:1996, areas:{en:'New Cairo · Sheikh Zayed · Ras El Hekma',ar:'القاهرة الجديدة · الشيخ زايد · رأس الحكمة'}, tagline:{en:'Design-led living, East & West Cairo',ar:'حياة بتصميم مميّز شرق وغرب القاهرة'}, desc:{en:'A long-standing developer active across East and West Cairo with a strong reputation for design quality and on-time delivery.',ar:'مطوّر عريق نشط في شرق وغرب القاهرة بسمعة قوية في جودة التصميم والتسليم في المواعيد.'}},
@@ -458,7 +459,7 @@ var DEVELOPERS = [
 {key:'marasem', c1:'#8a6d33', name:{en:'Al Marasem Development',ar:'المراسم'}, since:2002, areas:{en:'Fifth Settlement · New Cairo',ar:'التجمع الخامس · القاهرة الجديدة'}, tagline:{en:'Prime Fifth Settlement communities',ar:'مجتمعات مميّزة بالتجمع الخامس'}, desc:{en:'A developer with a prime footprint in the Fifth Settlement and a background in construction and hospitality.',ar:'مطوّر بحضور مميّز في التجمع الخامس وخلفية في الإنشاءات والضيافة.'}},
 {key:'qataridiar', c1:'#26305f', name:{en:'Qatari Diar',ar:'الديار القطرية'}, since:2005, areas:{en:'New Administrative Capital · North Coast',ar:'العاصمة الإدارية · الساحل الشمالي'}, tagline:{en:'Large mixed-use destinations',ar:'وجهات كبرى متعددة الاستخدامات'}, desc:{en:'A major regional developer associated with large mixed-use destinations, active in Egypt through flagship projects.',ar:'مطوّر إقليمي كبير مرتبط بوجهات ضخمة متعددة الاستخدامات، ونشط في مصر عبر مشروعات كبرى.'}},
 {key:'orascom', c1:'#a9812f', name:{en:'Orascom Development',ar:'أوراسكوم للتطوير'}, since:1994, areas:{en:'6th of October · North Coast · Red Sea',ar:'٦ أكتوبر · الساحل الشمالي · البحر الأحمر'}, tagline:{en:'Integrated towns & resorts',ar:'مدن ومنتجعات متكاملة'}, desc:{en:'A developer known for fully integrated towns and resort destinations across Egypt and the coast.',ar:'مطوّر معروف بالمدن المتكاملة والوجهات السياحية في مصر والساحل.'}},
-{key:'msquared', c1:'#8a8378', name:{en:'M squared',ar:'إم سكويرد'}, since:2012, areas:{en:'Ras Al Hekma · New Cairo · 6th of October',ar:'رأس الحكمة · القاهرة الجديدة · ٦ أكتوبر'}, tagline:{en:'Masterfully minded spaces',ar:'مساحات مصمَّمة بإتقان'}, desc:{en:'Founded in 2012, M squared is the real estate arm of INTRO Investments Holding — an Egyptian conglomerate established in the 1970s and privately owned by the Abbas family. It builds across Ras Al Hekma, New Cairo and 6th of October, and runs its own hospitality arm.',ar:'تأسّست عام ٢٠١٢، وإم سكويرد هي الذراع العقاري لمجموعة إنترو للاستثمارات القابضة — تكتّل مصري تأسّس في السبعينيات ومملوك لعائلة عباس. تبني في رأس الحكمة والقاهرة الجديدة و٦ أكتوبر، وتدير ذراعها الخاص للضيافة.'}},
+{key:'msquared', c1:'#8a8378', name:{en:'M squared',ar:'إم سكويرد'}, since:2012, areas:{en:'Ras Al Hekma · New Cairo · Maadi · 6th of October',ar:'رأس الحكمة · القاهرة الجديدة · المعادي · ٦ أكتوبر'}, tagline:{en:'Masterfully minded spaces',ar:'مساحات مصمَّمة بإتقان'}, desc:{en:'Founded in 2012, M squared is the real estate arm of INTRO Investments Holding — an Egyptian conglomerate established in the 1970s and privately owned by the Abbas family. It builds across Ras Al Hekma, New Cairo, Maadi and 6th of October, and runs its own hospitality arm.',ar:'تأسّست عام ٢٠١٢، وإم سكويرد هي الذراع العقاري لمجموعة إنترو للاستثمارات القابضة — تكتّل مصري تأسّس في السبعينيات ومملوك لعائلة عباس. تبني في رأس الحكمة والقاهرة الجديدة والمعادي و٦ أكتوبر، وتدير ذراعها الخاص للضيافة.'}},
 {key:'modon', c1:'#0f7b8c', name:{en:'Modon',ar:'مدن'}, since:2005, areas:{en:'Ras El Hekma · North Coast',ar:'رأس الحكمة · الساحل الشمالي'}, tagline:{en:'Master-planned coastal destinations',ar:'وجهات ساحلية بمخططات متكاملة'}, desc:{en:'A regional developer building large master-planned coastal destinations, active in Egypt on the Ras El Hekma North Coast.',ar:'مطوّر إقليمي يبني وجهات ساحلية كبرى بمخططات متكاملة، ونشط في مصر بمنطقة رأس الحكمة على الساحل الشمالي.'}},
 {key:'tmg', c1:'#1f6f5c', name:{en:'Talaat Moustafa Group',ar:'مجموعة طلعت مصطفى'}, since:2007, areas:{en:'New Cairo · New Capital · North Coast',ar:'القاهرة الجديدة · العاصمة الإدارية · الساحل الشمالي'}, tagline:{en:'Egypt’s largest integrated cities',ar:'أكبر المدن المتكاملة في مصر'}, desc:{en:'One of Egypt’s largest developers, known for very large integrated cities and hospitality assets.',ar:'من أكبر المطوّرين في مصر، معروف بالمدن المتكاملة الضخمة وأصول الضيافة.'}},
 {key:'emaarmisr', c1:'#3a7a44', name:{en:'Emaar Misr',ar:'إعمار مصر'}, since:2005, areas:{en:'New Cairo · Sheikh Zayed · North Coast',ar:'القاهرة الجديدة · الشيخ زايد · الساحل الشمالي'}, tagline:{en:'Premium integrated communities',ar:'مجتمعات متكاملة راقية'}, desc:{en:'The Egyptian arm of a leading regional developer, known for premium integrated communities and coastal destinations.',ar:'الذراع المصري لمطوّر إقليمي رائد، معروف بالمجتمعات المتكاملة الراقية والوجهات الساحلية.'}},
@@ -533,6 +534,7 @@ var PROJECTS = [
 {slug:'trio-new-cairo', name:'TRIO', name_ar:'تريو', dev:'msquared', area:'newcairo', status:'primary', types:{en:'Duplex · Villa',ar:'دوبلكس · فيلا'}, tags:{en:['New Cairo','35.5 acres','Three villas per complex'],ar:['القاهرة الجديدة','٣٥٫٥ فدان','ثلاث فيلات لكل مجمّع']}, blurb:{en:'A signature boutique community on 35.5 acres of verdant land at the heart of New Cairo. TRIO is characterised by a “three villas per complex” concept with hanging gardens and flying pools, and each duplex has its own garden and maximum privacy. Three phases sit around a central spine carrying a reading work station, a yoga garden, a meditation zone and a kids’ play zone.',ar:'مجتمع بوتيكي مميّز على ٣٥٫٥ فدان من الأرض الخضراء في قلب القاهرة الجديدة. يتميّز «تريو» بمفهوم «ثلاث فيلات لكل مجمّع» بحدائق معلّقة وحمامات سباحة طائرة، ولكل دوبلكس حديقته الخاصة وأقصى درجات الخصوصية. وتلتفّ ثلاث مراحل حول محور مركزي يضم ركن قراءة وعمل، وحديقة يوجا، ومنطقة تأمّل، ومنطقة لعب للأطفال.'}},
 {slug:'mist-new-cairo', name:'MIST', name_ar:'ميست', dev:'msquared', area:'newcairo', status:'launch', price:17602921, dp:5, years:10, delivery:'2030', types:{en:'Apartment · Penthouse · Townhouse',ar:'شقة · بنتهاوس · تاون هاوس'}, tags:{en:['East Cairo Golden Square','45 feddans','18,000 m² of lakes'],ar:['جولدن سكوير شرق القاهرة','٤٥ فدان','١٨٬٠٠٠ م² بحيرات']}, blurb:{en:'In East Cairo’s Golden Square, MIST rises as a new-generation mixed-use development spanning 45 feddans, with over 18,000 square metres of lakes and water paths flowing through the land and more than 80 per cent of the residential space kept green. MIST is not a place you escape to. It is a place you live within, pass through, and engage with fully — a passage, a lifestyle artery and a destination all at once. Rather than rigid zones, the community unfolds in intuitive layers: serene homes flow alongside water and greenery, while a commercial promenade brings daily vibrance, and a public plaza at the centre ties it together. The name was chosen for its relevance to motion, transformation and fluidity.',ar:'في جولدن سكوير بشرق القاهرة يقوم «ميست» كمشروع متعدد الاستخدامات من جيل جديد على ٤٥ فداناً، بأكثر من ١٨٬٠٠٠ متر مربع من البحيرات والممرات المائية تجري في أرضه، وأكثر من ٨٠٪ من المساحة السكنية مُبقاة خضراء. و«ميست» ليس مكاناً تهرب إليه، بل مكان تعيش داخله وتمرّ به وتنخرط فيه بالكامل — ممرّ وشريان لايف ستايل ووجهة في آن. وبدلاً من المناطق الجامدة، ينكشف المجتمع في طبقات بديهية: منازل هادئة تنساب بمحاذاة الماء والخضرة، وبروميناد تجاري يمنح الحياة اليومية حيويتها، وبلازا عامة في المركز تربط كل شيء. واختير الاسم لصلته بالحركة والتحوّل والانسيابية.'}},
 {slug:'31-west-october', name:'31 WEST', name_ar:'٣١ ويست', dev:'msquared', area:'october', status:'primary', price:13237120, dp:5, years:10, delivery:'2030', finishing:{en:'Apartments fully finished · single homes semi-finished',ar:'الشقق كاملة التشطيب · المنازل المستقلة نصف تشطيب'}, types:{en:'Apartment · Townhouse · Villa',ar:'شقة · تاون هاوس · فيلا'}, tags:{en:['6th of October','31 acres','570 units'],ar:['٦ أكتوبر','٣١ فدان','٥٧٠ وحدة']}, blurb:{en:'31 WEST epitomises refined living within 31 acres at one of the most exclusive locations in 6th of October, where every detail is curated to exude exclusivity and sophistication. From grand water features and inspiring designs to landscaped surroundings and the first-of-its-kind Senior Executive Suites, the project stands as a testament to timeless elegance and elite living.',ar:'يجسّد «٣١ ويست» السكن الراقي على ٣١ فداناً في أحد أكثر مواقع ٦ أكتوبر تميّزاً، حيث كل تفصيلة منتقاة لتفيض تفرّداً ورقيّاً. ومن المسطحات المائية الكبرى والتصاميم الملهمة إلى المحيط المنسّق والأجنحة التنفيذية الأولى من نوعها، يقف المشروع شاهداً على الأناقة الخالدة والحياة الصفوية.'}},
+{slug:'41-business-district', name:'41 Business District', name_ar:'٤١ بيزنس ديستريكت', dev:'msquared', area:'maadi', status:'primary', types:{en:'Office · Clinic · Retail',ar:'مكتب · عيادة · محل تجاري'}, tags:{en:['Kattameya Ring Road','Commercial landmark'],ar:['الطريق الدائري القطامية','معلم تجاري']}, blurb:{en:'A commercial landmark at the heart of the Kattameya Ring Road, connecting multiple districts of the city. 41 Business District is an innovative, multipurpose concept that blends cutting-edge office and clinic spaces with commercial luxuries in one building — a bank, café, restaurant, gym, furniture, barber, sports, jewellery and market at street level.',ar:'معلم تجاري في قلب الطريق الدائري بالقطامية، يربط عدة أحياء بالمدينة. «٤١ بيزنس ديستريكت» مفهوم مبتكر متعدد الاستخدامات يمزج مساحات المكاتب والعيادات الحديثة مع رفاهيات تجارية في مبنى واحد — بنك ومقهى ومطعم وجيم وأثاث وحلاق ورياضة ومجوهرات وسوق على مستوى الشارع.'}},
 {slug:'zed-east', name:'ZED East', name_ar:'زيد إيست', dev:'ora', area:'newcairo', status:'launch', price:8900000, dp:10, years:10, delivery:'2027–2030', types:{en:'Apartment · Loft · Studio',ar:'شقة · لوفت · استوديو'}, tags:{en:['New Cairo','8 units','65–300 m²'],ar:['القاهرة الجديدة','٨ وحدات','٦٥–٣٠٠ م²']}, blurb:{en:'ZED East by ORA in New Cairo — 8 primary unit types from the developer\'s own price list: apartment, loft, studio. From 65 m² and EGP 8,900,000, on a 10% down payment over 10 years, handover 2027–2030.',ar:'زيد إيست من أورا في القاهرة الجديدة — ٨ أنواع وحدات أولية من قائمة أسعار المطوّر نفسه: شقة، لوفت، استوديو. من ٦٥ م² و٨٬٩٠٠٬٠٠٠ جنيه، بمقدم ١٠٪ على ١٠ سنوات، والتسليم ٢٠٢٧–٢٠٣٠.'}},
 {slug:'zed-east-emerald', name:'ZED East Emerald', name_ar:'زيد إيست إميرالد', dev:'ora', area:'newcairo', status:'launch', price:27000000, dp:10, years:10, delivery:'2030', types:{en:'Duplex · Fourplex · Townhouse · Standalone Villa',ar:'دوبلكس · فوربلكس · تاون هاوس · فيلا مستقلة'}, tags:{en:['New Cairo','6 units','174–290 m²'],ar:['القاهرة الجديدة','٦ وحدات','١٧٤–٢٩٠ م²']}, blurb:{en:'ZED East Emerald by ORA in New Cairo — 6 primary unit types from the developer\'s own price list: duplex, fourplex, townhouse, standalone villa. From 174 m² and EGP 27,000,000, on a 10% down payment over 10 years, handover 2030.',ar:'زيد إيست إميرالد من أورا في القاهرة الجديدة — ٦ أنواع وحدات أولية من قائمة أسعار المطوّر نفسه: دوبلكس، فوربلكس، تاون هاوس، فيلا مستقلة. من ١٧٤ م² و٢٧٬٠٠٠٬٠٠٠ جنيه، بمقدم ١٠٪ على ١٠ سنوات، والتسليم ٢٠٣٠.'}},
 {slug:'zed-west', name:'ZED West', name_ar:'زيد ويست', dev:'ora', area:'zayed', status:'launch', price:9000000, dp:10, years:10, delivery:'2030', types:{en:'Studio · Apartment',ar:'استوديو · شقة'}, tags:{en:['New Zayed','7 units','60–219 m²'],ar:['زايد الجديدة','٧ وحدات','٦٠–٢١٩ م²']}, blurb:{en:'ZED West by ORA in New Zayed — 7 primary unit types from the developer\'s own price list: studio, apartment. From 60 m² and EGP 9,000,000, on a 10% down payment over 10 years, handover 2030.',ar:'زيد ويست من أورا في زايد الجديدة — ٧ أنواع وحدات أولية من قائمة أسعار المطوّر نفسه: استوديو، شقة. من ٦٠ م² و٩٬٠٠٠٬٠٠٠ جنيه، بمقدم ١٠٪ على ١٠ سنوات، والتسليم ٢٠٣٠.'}},
@@ -1087,6 +1089,7 @@ var PROJECT_COVERS = {
 'district-5':'/project-media/marakez/units/ap1-d-04.webp',
 'crescent-walk':'/project-media/marakez/units/v2-cr-0.webp',
 'alam-al-roum':'/project-media/qataridiar/alam-al-roum/city.webp',
+'41-business-district':'/project-media/msquared/b41-hero.webp',
 'masyaf-ras-alhekma':'/project-media/msquared/masyaf-pool.webp',
 'trio-new-cairo':'/project-media/msquared/trio-exterior.webp',
 'mist-new-cairo':'/project-media/msquared/units/town1-0.webp',
@@ -2944,7 +2947,11 @@ ms_w31_fnb:{icon:'am_dining', en:'F&B outlets & lake cafe', ar:'مطاعم وم�
 ms_w31_jog:{icon:'am_sports', en:'Jogging track & workout area', ar:'مضمار جري ومنطقة تمارين'},
 ms_w31_calm:{icon:'am_yoga', en:'Meditation zone & relaxing area', ar:'منطقة تأمّل ومكان استرخاء'},
 ms_w31_kids:{icon:'am_kids', en:'Kids play zone & cafe', ar:'منطقة لعب أطفال وكافيه'},
-ms_w31_pets:{icon:'am_flower', en:'Pets zone & multipurpose area', ar:'منطقة حيوانات أليفة ومساحة متعددة الاستخدامات'}
+ms_w31_pets:{icon:'am_flower', en:'Pets zone & multipurpose area', ar:'منطقة حيوانات أليفة ومساحة متعددة الاستخدامات'},
+ms_41_offices:{icon:'am_office', en:'Office & clinic spaces', ar:'مساحات مكاتب وعيادات'},
+ms_41_retail:{icon:'am_retail', en:'Bank, market, jewellery & furniture', ar:'بنك وسوق ومجوهرات وأثاث'},
+ms_41_dining:{icon:'am_dining', en:'Cafe & restaurant', ar:'كافيه ومطعم'},
+ms_41_gym:{icon:'am_gym', en:'Gym & sports', ar:'جيم ورياضة'}
 };
 var DEV_AMENITIES = {
 'sumou': ['bms','controls','fiber','cctv','heat','generators','parking','app',
@@ -3028,7 +3035,8 @@ var PROJECT_AMENITIES = {
 'ms_mist_gym','ms_mist_sports','ms_mist_kids','ms_mist_cafe',
 'ms_mist_calm','ms_mist_pets'],
 '31-west-october':    ['ms_w31_lake','ms_w31_club','ms_w31_admin','ms_w31_fnb',
-'ms_w31_jog','ms_w31_calm','ms_w31_kids','ms_w31_pets']
+'ms_w31_jog','ms_w31_calm','ms_w31_kids','ms_w31_pets'],
+'41-business-district':['ms_41_offices','ms_41_retail','ms_41_dining','ms_41_gym']
 };
 function amenityDefaults(cat){
 return (cat==='coast'||cat==='redsea')
@@ -3092,7 +3100,9 @@ var PROJECT_GALLERY = {
 'mist-new-cairo': ['mist-townhouse','mist-apartments','mist-name','mist-hero']
 .map(function(f){ return MSQ+f+'.webp'; }),
 '31-west-october': ['w31-lakeside','w31-villa','w31-garden','w31-overview','w31-hero']
-.map(function(f){ return MSQ+f+'.webp'; })
+.map(function(f){ return MSQ+f+'.webp'; }),
+'41-business-district': ['b41-hero','b41-landmark','b41-interiors','b41-construction']
+.map(function(f){ return MSQ+f+'.webp'; }),
 };
 function projectGalleryItems(p){
 var g = PROJECT_GALLERY[p.slug]; if(!g || !g.length) return [];
@@ -3317,6 +3327,7 @@ var DEV_GALLERY = {
 '/project-media/msquared/trio-exterior.webp',
 '/project-media/msquared/w31-lakeside.webp',
 '/project-media/msquared/mist-townhouse.webp',
+'/project-media/msquared/b41-hero.webp',
 '/project-media/msquared/masyaf-ritsa-night.webp'],
 'ora':['/project-media/ora/brochure/silversands-beach.webp',
 '/project-media/ora/brochure/zedeast-park.webp',
@@ -4042,6 +4053,17 @@ groups:[
 {k:{en:'Commercial 1',ar:'التجاري ١'}, v:{en:'Administration building',ar:'مبنى إداري'}},
 {k:{en:'Commercial 2',ar:'التجاري ٢'}, v:{en:'Daily use · F&B outlets · club house',ar:'الاستخدام اليومي · مطاعم ومقاهٍ · كلوب هاوس'}}]}
 ]
+}}
+]
+};
+PROJECT_FEATURES['41-business-district'] = {
+cards: [
+{en:'Commercial Landmark', ar:'معلم تجاري', icon:'build', imgs:[MSQ+'b41-landmark.webp', MSQ+'b41-interiors.webp', MSQ+'b41-construction.webp'],
+copy:{
+lead:{en:'Take your business and your life to the next level at the heart of Kattameya Ring Road, with the freedom to flawlessly execute work while enjoying commercial luxuries at your door.',
+ar:'ارتقِ بعملك وحياتك في قلب الطريق الدائري بالقطامية، بحرية تنفيذ عملك بلا عوائق مع رفاهيات تجارية على بابك.'},
+more:{en:'Dynamic, detailed and more than a little dashing, 41 Business District rises to new contemporary heights. Its innovative, multipurpose concept blends cutting-edge office and clinic spaces with commercial luxuries in one iconic landmark. Strategically situated off the Kattameya Ring Road, it connects multiple districts of the city with seamless mobility and urban proximity.',
+ar:'ديناميكي ودقيق التفاصيل وأنيق بامتياز، يرتفع «٤١ بيزنس ديستريكت» إلى آفاق معاصرة جديدة. ويمزج مفهومه المبتكر متعدد الاستخدامات مساحات المكاتب والعيادات الحديثة مع رفاهيات تجارية في معلم أيقوني واحد. وبموقعه الاستراتيجي على الطريق الدائري بالقطامية، يربط عدة أحياء بالمدينة بتنقّل سلس وقرب حضري.'}
 }}
 ]
 };
