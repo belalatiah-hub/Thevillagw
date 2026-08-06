@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <!-- frame-ancestors/HSTS belong in HTTP response headers (see deploy runbook), not meta. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'sha256-0eB8s3A3aZQguW+SDJC/YssfCUQj66wY3V7A9qjdeKc=' 'sha256-yI6VCT38V7vjk7cAW7UM7qbGpBU7Ua/f8UOqpzWwxAc=' 'sha256-YvHevJmHHrhBzm9a+K1fYxwv5t1APr4XI8t4Am8p7D4=' 'sha256-RBNvo1WzZ4oRRq0W9+hknpT7T8If536DEMBg9hyq/4o=' 'sha256-A0D8hHof0kVMiCBiEoTc+0fHXG9YzdrCfx53p0ljVNw=' https://static.cloudflareinsights.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://cloudflareinsights.com; base-uri 'self'; form-action 'self'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'sha256-0eB8s3A3aZQguW+SDJC/YssfCUQj66wY3V7A9qjdeKc=' 'sha256-yI6VCT38V7vjk7cAW7UM7qbGpBU7Ua/f8UOqpzWwxAc=' 'sha256-YvHevJmHHrhBzm9a+K1fYxwv5t1APr4XI8t4Am8p7D4=' 'sha256-RBNvo1WzZ4oRRq0W9+hknpT7T8If536DEMBg9hyq/4o=' 'sha256-kcA+MFar1TUiv90EF9HOpUnpHP3VMW1uc3/9kes6QR4=' https://static.cloudflareinsights.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://cloudflareinsights.com; base-uri 'self'; form-action 'self'" />
   <meta name="theme-color" content="#073D52" />
   <meta name="color-scheme" content="light" />
   <meta name="format-detection" content="telephone=no" />
@@ -731,7 +731,7 @@ var AREAS = [
 {key:'sokhna', name:{en:'Ain Sokhna',ar:'العين السخنة'}, blurb:{en:'Red Sea coast close to Cairo for weekend homes.',ar:'ساحل البحر الأحمر القريب من القاهرة لمنازل نهاية الأسبوع.'}}
 ];
 var DEVELOPERS = [
-{key:'sodic', c1:'#0d6e7d', name:{en:'SODIC',ar:'سوديك'}, since:1996, areas:{en:'New Cairo · Sheikh Zayed · Ras El Hekma',ar:'القاهرة الجديدة · الشيخ زايد · رأس الحكمة'}, tagline:{en:'Design-led living, East & West Cairo',ar:'حياة بتصميم مميّز شرق وغرب القاهرة'}, desc:{en:'A long-standing developer active across East and West Cairo with a strong reputation for design quality and on-time delivery.',ar:'مطوّر عريق نشط في شرق وغرب القاهرة بسمعة قوية في جودة التصميم والتسليم في المواعيد.'}},
+{key:'sodic', c1:'#0d6e7d', name:{en:'SODIC',ar:'سوديك'}, since:1996, areas:{en:'New Cairo · Sheikh Zayed · Ras El Hekma',ar:'القاهرة الجديدة · الشيخ زايد · رأس الحكمة'}, tagline:{en:'Design-led living, East & West Cairo',ar:'حياة بتصميم مميّز شرق وغرب القاهرة'}, desc:{en:'Listed on the EGX since 1996 and 85% owned by the ALDAR–ADQ consortium since 2021. Twenty-eight years of operations in West Cairo, East Cairo and the North Coast, with over 14,000 units delivered — 91% of them ahead of schedule — and communities that are home to more than 30,000 people.',ar:'مقيّدة في البورصة المصرية منذ ١٩٩٦، ويملك تحالف «الدار وADQ» ٨٥٪ منها منذ ٢٠٢١. ثمانية وعشرون عاماً من العمل في غرب القاهرة وشرقها وعلى الساحل الشمالي، بأكثر من ١٤٬٠٠٠ وحدة مسلَّمة — ٩١٪ منها قبل موعدها — ومجتمعات يسكنها أكثر من ٣٠٬٠٠٠ نسمة.'}},
 {key:'palmhills', c1:'#1e7a5a', name:{en:'Palm Hills Developments',ar:'بالم هيلز'}, since:2005, areas:{en:'New Cairo · Sheikh Zayed · North Coast',ar:'القاهرة الجديدة · الشيخ زايد · الساحل الشمالي'}, tagline:{en:'Large-scale communities & coast',ar:'مجتمعات كبرى ووجهات ساحلية'}, desc:{en:'One of Egypt’s largest developers, building integrated residential communities and North Coast destinations.',ar:'من أكبر المطوّرين في مصر، يبني مجتمعات سكنية متكاملة ووجهات على الساحل الشمالي.'}},
 {key:'mountainview', c1:'#2b6ca8', name:{en:'Mountain View',ar:'ماونتن ڤيو'}, since:2005, areas:{en:'New Cairo · 6th of October · North Coast',ar:'القاهرة الجديدة · ٦ أكتوبر · الساحل الشمالي'}, tagline:{en:'Experience Happiness',ar:'عيش السعادة'}, desc:{en:'Launched in 2005 to develop integrated communities around a science of happiness. Twenty years on it has delivered 23 projects and 17,000 units to 50,000 families, and holds a land bank of more than 6,000 acres across East Cairo, West Cairo and the coast.',ar:'تأسّست عام ٢٠٠٥ لتطوير مجتمعات عمرانية متكاملة قائمة على علم السعادة. وبعد عشرين عاماً سلّمت ٢٣ مشروعاً و١٧ ألف وحدة لخمسين ألف أسرة، وتملك محفظة أراضٍ تتجاوز ٦٠٠٠ فدان في شرق القاهرة وغربها وعلى الساحل.'}},
 {key:'ora', c1:'#6d52a3', name:{en:'ORA Developers',ar:'أورا'}, since:2016, areas:{en:'New Cairo · Sheikh Zayed · North Coast',ar:'القاهرة الجديدة · الشيخ زايد · الساحل الشمالي'}, tagline:{en:'Premium, design-led destinations',ar:'وجهات راقية بتصميم مميّز'}, desc:{en:'A premium developer creating high-design lifestyle destinations with strong architecture and amenities.',ar:'مطوّر راقٍ يبتكر وجهات لايف ستايل عالية التصميم بعمارة ومرافق قوية.'}},
@@ -3688,11 +3688,14 @@ return img;
 return devMonogram(dev,px);
 }
 var MV = '/project-media/mountainview/';
+var SD = '/project-media/sodic/';
 var DEV_GALLERY = {
 'marakez':['/project-media/marakez/crescent-park.webp','/project-media/marakez/mall-of-arabia.webp','/project-media/marakez/aeon-tower.webp','/project-media/marakez/d5-campus.webp','/project-media/marakez/the-park.webp'],
 'sumou':['/project-media/sumou/st-03.webp','/project-media/sumou/st-01.webp','/project-media/sumou/ap5-0.webp','/project-media/sumou/st-02.webp','/project-media/sumou/ap2-03.webp','/project-media/sumou/of4.webp'],
 'modon':['/project-media/modon/m1.webp','/project-media/modon/m2.webp','/project-media/modon/m3.webp',
 '/project-media/modon/m4.webp','/project-media/modon/m5.webp','/project-media/modon/m6.webp'],
+'sodic':[SD+'sodic-west.webp', SD+'the-estates.webp', SD+'eastown.webp',
+SD+'villette.webp', SD+'caesar.webp', SD+'ogami.webp'],
 'mountainview':[MV+'park.webp', MV+'jirian.webp',
 MV+'crysta.webp', MV+'hyde-park.webp'],
 'msquared':['/project-media/msquared/masyaf-pool.webp',
@@ -4110,6 +4113,144 @@ copy:{list:[
 {en:'Private Sector Free Zone',           ar:'منطقة حرة للقطاع الخاص'},
 {en:'Amphitheatre',                       ar:'مدرّج مسرحي'}
 ]}}
+]
+},
+'sodic': {
+masterplan: {en:'Where We Operate — Egypt', ar:'أين نعمل — مصر', icon:'layers', src:SD+'where-we-operate.webp'},
+cards: [
+{en:'About SODIC', ar:'عن سوديك', icon:'shield',
+imgs:[SD+'about.webp', SD+'ownership.webp'],
+copy:{
+lead:{en:'SODIC is a leading real estate developer in Egypt, with a distinguished track record of 28 years of successful operations in West Cairo, East Cairo and the North Coast. It develops large-scale, mixed-use, vibrant communities that are home to over 30,000 people today.',
+ar:'سوديك من كبرى شركات التطوير العقاري في مصر، بسجلّ متميّز يمتد ٢٨ عاماً من العمل الناجح في غرب القاهرة وشرقها وعلى الساحل الشمالي. وتطوّر مجتمعات كبيرة متعددة الاستخدامات ونابضة بالحياة يسكنها اليوم أكثر من ٣٠٬٠٠٠ نسمة.'},
+more:{en:'SODIC has been a listed company since inception, traded on the Egyptian stock exchange (EGX) since 1996 under OCDI.CA — one of the few non-family-owned companies traded on the EGX. In 2021 the ALDAR–ADQ consortium acquired 85% of SODIC through a mandatory tender offer, the largest foreign direct investment in the Egyptian real estate market to date.',
+ar:'سوديك شركة مقيّدة منذ نشأتها، ومتداولة في البورصة المصرية منذ عام ١٩٩٦ تحت الرمز OCDI.CA — وهي من الشركات القليلة غير العائلية المتداولة في البورصة. وفي عام ٢٠٢١ استحوذ تحالف «الدار وADQ» على ٨٥٪ من سوديك عبر عرض شراء إجباري، وهو أكبر استثمار أجنبي مباشر في سوق العقارات المصري حتى تاريخه.'},
+groups:[
+{label:{en:'Ownership', ar:'هيكل الملكية'}, rows:[
+{k:{en:'ALDAR – ADQ consortium',ar:'تحالف الدار وADQ'}, v:{en:'85%',ar:'٨٥٪'}},
+{k:{en:'Ekuity Holding',ar:'إكويتي القابضة'},           v:{en:'5%',ar:'٥٪'}},
+{k:{en:'Others',ar:'آخرون'},                            v:{en:'10%',ar:'١٠٪'}}]}
+]
+}},
+{en:'SODIC in Numbers', ar:'سوديك بالأرقام', icon:'star',
+imgs:[SD+'sodic-west.webp', SD+'where-we-operate.webp'],
+copy:{
+lead:{en:'The profile publishes the company\'s scorecard: 28 years of operation, more than 10 developments, over 14,000 units delivered and more than 18,000 sold, on a land bank of over 17 million square metres.',
+ar:'ينشر الملف التعريفي سجلّ الشركة: ٢٨ عاماً من العمل، وأكثر من ١٠ مشروعات، وأكثر من ١٤٬٠٠٠ وحدة مسلَّمة وأكثر من ١٨٬٠٠٠ وحدة مباعة، على محفظة أراضٍ تتجاوز ١٧ مليون متر مربع.'},
+groups:[
+{label:{en:'SODIC in numbers', ar:'سوديك بالأرقام'}, rows:[
+{k:{en:'Years of operation',ar:'سنوات العمل'},              v:{en:'28',ar:'٢٨'}},
+{k:{en:'Developments',ar:'المشروعات'},                      v:{en:'10+',ar:'+١٠'}},
+{k:{en:'Units delivered',ar:'الوحدات المسلَّمة'},            v:{en:'14,000+',ar:'أكثر من ١٤٬٠٠٠'}},
+{k:{en:'Units sold',ar:'الوحدات المباعة'},                  v:{en:'18,000+',ar:'أكثر من ١٨٬٠٠٠'}},
+{k:{en:'Total land bank',ar:'إجمالي محفظة الأراضي'},        v:{en:'17m+ m², over 70% developed',ar:'أكثر من ١٧ مليون م²، طُوِّر منها أكثر من ٧٠٪'}},
+{k:{en:'Residents',ar:'السكان'},                            v:{en:'30,000+',ar:'أكثر من ٣٠٬٠٠٠'}},
+{k:{en:'NPS rating',ar:'مؤشر رضا العملاء'},                 v:{en:'58 — leading rating in the market',ar:'٥٨ — الأعلى في السوق'}},
+{k:{en:'Families in CSR programmes',ar:'أسر مستفيدة من برامج المسؤولية المجتمعية'}, v:{en:'9,000+ annually',ar:'أكثر من ٩٬٠٠٠ سنوياً'}}]},
+{label:{en:'Unlaunched land bank', ar:'الأراضي غير المطروحة'}, rows:[
+{k:{en:'Across key markets',ar:'في الأسواق الرئيسية'}, v:{en:'7.2m+ m²',ar:'أكثر من ٧٫٢ مليون م²'}},
+{k:{en:'North Coast',ar:'الساحل الشمالي'},             v:{en:'44%',ar:'٤٤٪'}},
+{k:{en:'West Cairo',ar:'غرب القاهرة'},                 v:{en:'29%',ar:'٢٩٪'}},
+{k:{en:'East Cairo',ar:'شرق القاهرة'},                 v:{en:'27%',ar:'٢٧٪'}}]}
+]
+}},
+{en:'Delivery on or Ahead of Schedule', ar:'التسليم في موعده أو قبله', icon:'target',
+imgs:[SD+'delivery-91.webp'],
+copy:{
+lead:{en:'As part and parcel of its value-driven strategy, SODIC has cemented a solid reputation in the market for prompt project delivery. Its governance framework and disciplined project management have allowed it to deliver ahead of schedule 91% of the time.',
+ar:'كجزء أصيل من استراتيجيتها القائمة على القيمة، رسّخت سوديك سمعة قوية في السوق بالتسليم في موعده. وقد أتاح لها إطار الحوكمة والانضباط في إدارة المشروعات التسليم قبل الموعد في ٩١٪ من الحالات.'},
+more:{en:'The satellite sequence in the profile follows Villette in East Cairo — a 1.26 million square metre project — from bare land in 2015 to a built community in 2022.',
+ar:'وتتابع صور الأقمار الصناعية في الملف مشروع «فيليت» بشرق القاهرة — على ١٫٢٦ مليون متر مربع — من أرض خالية عام ٢٠١٥ إلى مجتمع مبني عام ٢٠٢٢.'}
+}},
+{en:'West Cairo', ar:'غرب القاهرة', icon:'pin',
+imgs:[SD+'sodic-west.webp', SD+'beverly-hills.webp', SD+'allegria-residences.webp',
+SD+'six-west.webp', SD+'forty-west.webp', SD+'westown-residences.webp',
+SD+'october-plaza.webp', SD+'the-estates.webp', SD+'estates-residences.webp',
+SD+'vye-karmell.webp'],
+copy:{
+lead:{en:'SODIC West is the flagship: 6.3 million square metres — 15% of Sheikh Zayed — carrying over 7,000 units and more than 25,000 residents, with the Allegria 18-hole golf course designed by Greg Norman, three schools, a hospital, two sports clubs and a hotel under construction.',
+ar:'«سوديك ويست» هو المشروع الرئيسي: ٦٫٣ مليون متر مربع — أي ١٥٪ من الشيخ زايد — تضم أكثر من ٧٬٠٠٠ وحدة وأكثر من ٢٥٬٠٠٠ ساكن، مع ملعب جولف «أليجريا» من ١٨ حفرة بتصميم جريج نورمان، وثلاث مدارس ومستشفى وناديين رياضيين وفندق تحت الإنشاء.'},
+groups:[
+{label:{en:'In West Cairo', ar:'في غرب القاهرة'}, rows:[
+{k:{en:'Beverly Hills',ar:'بيفرلي هيلز'},                v:{en:'Sheikh Zayed · 1,880 units · delivered',ar:'الشيخ زايد · ١٬٨٨٠ وحدة · مسلَّم'}},
+{k:{en:'Allegria Residences',ar:'أليجريا ريزيدنسز'},     v:{en:'Sheikh Zayed · 147 units · delivered',ar:'الشيخ زايد · ١٤٧ وحدة · مسلَّم'}},
+{k:{en:'Six West',ar:'سيكس ويست'},                       v:{en:'Sheikh Zayed · 112 units · delivered',ar:'الشيخ زايد · ١١٢ وحدة · مسلَّم'}},
+{k:{en:'October Plaza',ar:'أكتوبر بلازا'},               v:{en:'6th of October · 641 units · delivered',ar:'٦ أكتوبر · ٦٤١ وحدة · مسلَّم'}},
+{k:{en:'The Estates',ar:'ذي إستيتس'},                    v:{en:'New Zayed · 446 units · first phase delivered 2023',ar:'زايد الجديدة · ٤٤٦ وحدة · سُلّمت المرحلة الأولى ٢٠٢٣'}},
+{k:{en:'The Estates Residences',ar:'ذي إستيتس ريزيدنسز'},v:{en:'New Zayed · 981 units · delivery 2026',ar:'زايد الجديدة · ٩٨١ وحدة · التسليم ٢٠٢٦'}},
+{k:{en:'VYE & Karmell',ar:'ڤاي وكارميل'},                v:{en:'New Zayed · 5,340 units · first delivery 2025',ar:'زايد الجديدة · ٥٬٣٤٠ وحدة · أول تسليم ٢٠٢٥'}}]}
+]
+}},
+{en:'East Cairo', ar:'شرق القاهرة', icon:'pin',
+imgs:[SD+'villette.webp', SD+'eastown.webp', SD+'v-residences.webp',
+SD+'sky-condos.webp', SD+'sodic-east.webp', SD+'kattameya-plaza.webp'],
+copy:{
+lead:{en:'Kattameya Plaza was SODIC\'s first venture into East Cairo. Villette followed as its signature development there — master-planned by the American firm SWA, with over 2,515 units — and Eastown, built on 858,000 square metres beside the American University in Cairo, became its mixed-use centre.',
+ar:'كانت «قطامية بلازا» أول مشروعات سوديك في شرق القاهرة. ثم جاء «فيليت» كمشروعها المميّز هناك — بمخطط عام من شركة SWA الأمريكية وأكثر من ٢٬٥١٥ وحدة — و«إيستاون» على ٨٥٨٬٠٠٠ متر مربع بجوار الجامعة الأمريكية بالقاهرة، ليصبح مركزها متعدد الاستخدامات.'},
+groups:[
+{label:{en:'In East Cairo', ar:'في شرق القاهرة'}, rows:[
+{k:{en:'Kattameya Plaza',ar:'قطامية بلازا'}, v:{en:'New Cairo · 488 units · delivered',ar:'القاهرة الجديدة · ٤٨٨ وحدة · مسلَّم'}},
+{k:{en:'Eastown',ar:'إيستاون'},              v:{en:'New Cairo · 2,862 units · delivered',ar:'القاهرة الجديدة · ٢٬٨٦٢ وحدة · مسلَّم'}},
+{k:{en:'Villette',ar:'فيليت'},               v:{en:'New Cairo · Villette Villas 779 · V Residences 931 · Sky Condos 805 · delivered',ar:'القاهرة الجديدة · فيلات فيليت ٧٧٩ · ڤي ريزيدنسز ٩٣١ · سكاي كوندوز ٨٠٥ · مسلَّم'}},
+{k:{en:'V Residences',ar:'ڤي ريزيدنسز'},     v:{en:'New Cairo · 931 units · first phase delivered 2023',ar:'القاهرة الجديدة · ٩٣١ وحدة · سُلّمت المرحلة الأولى ٢٠٢٣'}},
+{k:{en:'SODIC East',ar:'سوديك إيست'},        v:{en:'New Cairo · 4,525 units · first delivery 2022 · over 84% open and green space',ar:'القاهرة الجديدة · ٤٬٥٢٥ وحدة · أول تسليم ٢٠٢٢ · أكثر من ٨٤٪ مساحات مفتوحة وخضراء'}}]}
+]
+}},
+{en:'The North Coast', ar:'الساحل الشمالي', icon:'am_beach',
+imgs:[SD+'caesar.webp', SD+'june.webp', SD+'ogami.webp'],
+copy:{
+lead:{en:'Three coastal destinations, all in Ras El Hikma and Matrouh: Caesar, launched in 2015 and fully delivered along 1.1 km of sandy beach; June, the Miami-inspired beach town; and Ogami, the newest, named after the Japanese island and drawn along 11 km of lagoon shoreline.',
+ar:'ثلاث وجهات ساحلية، جميعها في رأس الحكمة ومطروح: «قيصر» الذي أُطلق عام ٢٠١٥ وسُلّم بالكامل على امتداد ١٫١ كم من الشاطئ الرملي؛ و«جون» مدينة الشاطئ المستوحاة من ميامي؛ و«أوجامي» الأحدث، المسمّى على اسم الجزيرة اليابانية والممتد على ١١ كم من شاطئ البحيرات.'},
+groups:[
+{label:{en:'On the coast', ar:'على الساحل'}, rows:[
+{k:{en:'Caesar',ar:'قيصر'}, v:{en:'819 units · phase 1 delivered · back plot launched 2023 · home to over 350 families',ar:'٨١٩ وحدة · سُلّمت المرحلة الأولى · طُرحت القطعة الخلفية ٢٠٢٣ · يسكنها أكثر من ٣٥٠ أسرة'}},
+{k:{en:'June',ar:'جون'},    v:{en:'2,747 units · first delivery 2025 · June Hotel 200–250 keys, under development',ar:'٢٬٧٤٧ وحدة · أول تسليم ٢٠٢٥ · فندق «جون» ٢٠٠–٢٥٠ غرفة، تحت التطوير'}},
+{k:{en:'Ogami',ar:'أوجامي'},v:{en:'1,900 units on 440 acres · 800 m of beachfront · Nobu Hotel & Residences · phase 1 by 2028, complete by 2029',ar:'١٬٩٠٠ وحدة على ٤٤٠ فداناً · ٨٠٠ متر واجهة شاطئية · فندق ومساكن «نوبو» · المرحلة الأولى بحلول ٢٠٢٨ والاكتمال ٢٠٢٩'}}]}
+]
+}},
+{en:'Beyond the Homes', ar:'ما بعد المنازل', icon:'build',
+imgs:[SD+'edara.webp', SD+'clubs.webp', SD+'retail.webp'],
+copy:{
+lead:{en:'Three arms run what SODIC builds after handover: Edara for facility management, SODIC Clubs for sports, and SODIC Retail for the community shops and restaurants its residents use daily.',
+ar:'ثلاثة أذرع تدير ما تبنيه سوديك بعد التسليم: «إدارة» لإدارة المرافق، و«أندية سوديك» للرياضة، و«سوديك ريتيل» للمحال والمطاعم التي يستخدمها سكانها يومياً.'},
+groups:[
+{label:{en:'Edara — facility management', ar:'إدارة — إدارة المرافق'}, rows:[
+{k:{en:'Established',ar:'التأسيس'},          v:{en:'2010, 100% owned subsidiary',ar:'٢٠١٠، شركة تابعة مملوكة بالكامل'}},
+{k:{en:'Employees',ar:'الموظفون'},           v:{en:'2,415',ar:'٢٬٤١٥'}},
+{k:{en:'Projects served',ar:'المشروعات المخدومة'}, v:{en:'5',ar:'٥'}},
+{k:{en:'People served',ar:'المخدومون'},      v:{en:'30,000+',ar:'أكثر من ٣٠٬٠٠٠'}},
+{k:{en:'Revenue 2022',ar:'الإيرادات ٢٠٢٢'},  v:{en:'EGP 470 mn',ar:'٤٧٠ مليون جنيه'}},
+{k:{en:'Certification',ar:'الشهادات'},       v:{en:'ISO 45001, ISO 14001, ISO 9001',ar:'أيزو ٤٥٠٠١ و١٤٠٠١ و٩٠٠١'}}]},
+{label:{en:'SODIC Clubs', ar:'أندية سوديك'}, rows:[
+{k:{en:'Clubs operating',ar:'أندية عاملة'},   v:{en:'3, with 5 in the pipeline',ar:'٣، و٥ قيد الإعداد'}},
+{k:{en:'Memberships',ar:'العضويات'},          v:{en:'5,307',ar:'٥٬٣٠٧'}},
+{k:{en:'Academies',ar:'الأكاديميات'},         v:{en:'22+',ar:'أكثر من ٢٢'}}]},
+{label:{en:'SODIC Retail', ar:'سوديك ريتيل'}, rows:[
+{k:{en:'GLA completed',ar:'المساحة المؤجَّرة المنجزة'},      v:{en:'50,000+ m²',ar:'أكثر من ٥٠٬٠٠٠ م²'}},
+{k:{en:'GLA under development',ar:'المساحة تحت التطوير'},    v:{en:'250,000 m²',ar:'٢٥٠٬٠٠٠ م²'}}]}
+]
+}},
+{en:'Awards & Recognition', ar:'الجوائز والتقديرات', icon:'spark',
+imgs:[SD+'awards.webp'],
+copy:{
+lead:{en:'The profile lists the awarding body and year for each recognition, from the EDGE green-building certification issued with the IFC in 2023 back to the ASLA award of merit for The Allegria master plan in 2007.',
+ar:'يسرد الملف التعريفي الجهة المانحة والسنة لكل تقدير، من شهادة «EDGE» للمباني الخضراء الصادرة مع مؤسسة التمويل الدولية عام ٢٠٢٣ رجوعاً إلى جائزة الاستحقاق من «ASLA» عن المخطط العام لـ«أليجريا» عام ٢٠٠٧.'},
+groups:[
+{label:{en:'Certification and corporate', ar:'الشهادات والجوائز المؤسسية'}, rows:[
+{k:{en:'EDGE & IFC World Bank — 2023',ar:'EDGE ومؤسسة التمويل الدولية — ٢٠٢٣'}, v:{en:'EDNC awarded EDGE Advanced Green Building Certification',ar:'حصول «EDNC» على شهادة «EDGE» المتقدّمة للمباني الخضراء'}},
+{k:{en:'CIPS — 2021',ar:'CIPS — ٢٠٢١'},        v:{en:'Award for Excellence in Procurement',ar:'جائزة التميّز في المشتريات'}},
+{k:{en:'MEIRA — 2017, 2018',ar:'MEIRA — ٢٠١٧ و٢٠١٨'}, v:{en:'Best Investor Relations Corporate in Egypt',ar:'أفضل علاقات مستثمرين لشركة في مصر'}},
+{k:{en:'Business Today — 2011, 2010',ar:'بيزنس توداي — ٢٠١١ و٢٠١٠'}, v:{en:'BT100 Crystal Award for rank change · Enterprise Innovation Award',ar:'جائزة «BT100» الكريستالية لتغيّر الترتيب · جائزة ابتكار المؤسسات'}}]},
+{label:{en:'Development awards', ar:'جوائز التطوير'}, rows:[
+{k:{en:'Euromoney — 2016',ar:'يورومني — ٢٠١٦'},   v:{en:'Best Residential Project · Best Offices/Business Project — The Polygon',ar:'أفضل مشروع سكني · أفضل مشروع مكاتب وأعمال — «ذا بوليجون»'}},
+{k:{en:'Euromoney — 2014',ar:'يورومني — ٢٠١٤'},   v:{en:'Best Office Business Developer in Egypt — The Polygon',ar:'أفضل مطوّر مكاتب أعمال في مصر — «ذا بوليجون»'}},
+{k:{en:'Euromoney — 2011, 2010',ar:'يورومني — ٢٠١١ و٢٠١٠'}, v:{en:'Best Developer Overall — Egypt · Best Mixed-Use and Best Residential Developer — MENA',ar:'أفضل مطوّر إجمالاً — مصر · أفضل مطوّر متعدد الاستخدامات وأفضل مطوّر سكني — الشرق الأوسط وشمال أفريقيا'}},
+{k:{en:'Cityscape — 2017',ar:'سيتي سكيب — ٢٠١٧'}, v:{en:'Best Community, Culture and Tourism · Best Commercial Project',ar:'أفضل مجتمع وثقافة وسياحة · أفضل مشروع تجاري'}},
+{k:{en:'Cityscape — 2015, 2013',ar:'سيتي سكيب — ٢٠١٥ و٢٠١٣'}, v:{en:'Best Mixed-Use Built Development · Best Residential Project Built — The Allegria · Best Commercial and Mixed-Use Project Future — The Polygon',ar:'أفضل مشروع متعدد الاستخدامات مُنفَّذ · أفضل مشروع سكني مُنفَّذ — «أليجريا» · أفضل مشروع تجاري ومتعدد الاستخدامات مستقبلي — «ذا بوليجون»'}},
+{k:{en:'CNBC Property — 2009, 2008',ar:'CNBC بروبرتي — ٢٠٠٩ و٢٠٠٨'}, v:{en:'Best Architecture · Best Development in Egypt (five-star) · Best Golf Course Development (four-star) — The Allegria',ar:'أفضل عمارة · أفضل مشروع في مصر (خمس نجوم) · أفضل تطوير ملعب جولف (أربع نجوم) — «أليجريا»'}},
+{k:{en:'ASLA — 2007',ar:'ASLA — ٢٠٠٧'},          v:{en:'Award of Merit — The Allegria master plan by EDAW',ar:'جائزة الاستحقاق — المخطط العام لـ«أليجريا» من «EDAW»'}}]}
+]
+}}
 ]
 },
 'mountainview': {

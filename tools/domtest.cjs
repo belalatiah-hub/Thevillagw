@@ -1689,6 +1689,68 @@ try {
     var immutable = (h.match(/max-age=31536000, immutable/g) || []).length >= 3;
     return revalidates && immutable;
   })());
+  /* SODIC. Same treatment as Modon's brochure and Mountain View's kit, and the
+     same two-way media check: a path with no file, and a page extracted from
+     the PDF that nothing on the site can show. */
+  (function(){
+    var fsx=require('fs'), pathx=require('path');
+    var MED = pathx.join(__dirname,'..','project-media','sodic');
+    var bundle = fsx.readFileSync(pathx.join(__dirname,'main.js'),'utf8');
+    var used = {}, m, re = /['"](\/project-media\/sodic\/[^'"]+)['"]/g;
+    while((m = re.exec(bundle))) used[m[1]] = 1;
+    re = /SD\s*\+\s*'([^']+)'/g;
+    while((m = re.exec(bundle))) used['/project-media/sodic/' + m[1]] = 1;
+    var refs = Object.keys(used);
+    var broken = refs.filter(function(r){
+      return !fsx.existsSync(pathx.join(MED, r.replace('/project-media/sodic/','')));
+    });
+    var disk = fsx.readdirSync(MED).map(function(n){ return '/project-media/sodic/'+n; });
+    var orphan = disk.filter(function(d){ return !used[d]; });
+    ck('sodic: every profile image path exists on disk',
+       refs.length >= 22 && broken.length === 0,
+       refs.length+' refs'+(broken.length?' broken: '+broken.slice(0,3):''));
+    ck('sodic: every extracted page is reachable in the UI',
+       orphan.length === 0, orphan.length ? 'orphaned: '+orphan.slice(0,3) : 'all '+disk.length+' shown');
+  })();
+  (function(){
+    var fsx=require('fs'), pathx=require('path');
+    var MED = pathx.join(__dirname,'..','project-media','sodic');
+    var n = api.V.developer('sodic').node, t = txt(n);
+    var srcs = qsa(n,'img').map(function(i){ return (i.getAttribute&&i.getAttribute('src'))||''; });
+    var shown = srcs.filter(function(s){ return s.indexOf('/project-media/sodic/')===0; });
+    var f = api.DEV_FEATURES.sodic;
+    var want = {imgs: shown.length >= 1 + f.cards.length,
+                plan: shown.indexOf(f.masterplan.src) > -1,
+                onDisk: shown.every(function(s){ return fsx.existsSync(pathx.join(MED, s.replace('/project-media/sodic/',''))); }),
+                // figures the profile prints, which nothing else would notice going stale
+                years: /28 years/.test(t), landbank: /17m\+ m²/.test(t),
+                delivery: /91%/.test(t), aldar: /ALDAR/.test(t), nps: /58/.test(t)};
+    var miss = Object.keys(want).filter(function(k){ return !want[k]; });
+    ck('sodic: the page carries the profile — gallery, map, cards and its figures',
+       miss.length===0, miss.length ? 'missing: '+miss.join(',') : 'imgs='+shown.length);
+  })();
+  ck('sodic: the profile copy is complete in both languages', (function(){
+    var f = api.DEV_FEATURES.sodic;
+    if(!f || !f.masterplan.en || !f.masterplan.ar || f.cards.length < 6) return false;
+    return f.cards.every(function(c){
+      if(!c.en || !c.ar || !c.imgs.length || !c.copy || !c.copy.lead.en || !c.copy.lead.ar) return false;
+      if(c.copy.more && (!c.copy.more.en || !c.copy.more.ar)) return false;
+      return (c.copy.groups||[]).every(function(g){
+        return g.label.en && g.label.ar &&
+          g.rows.every(function(r){ return r.k.en && r.k.ar && r.v.en && r.v.ar; });
+      });
+    });
+  })(), 'ok');
+  /* The profile's own price list does not exist — it publishes none — so the
+     developer page must still take its prices from the site's SODIC units, not
+     from anything the brochure work introduced. */
+  ck('sodic: the brochure work left the existing price list untouched', (function(){
+    var ps = api.PROJECTS.filter(function(p){ return p.dev === 'sodic'; });
+    var us = api.UNITS.filter(function(u){ return ps.some(function(p){ return p.slug === u.project; }); });
+    return ps.length === 8 && us.length === 20 &&
+           ps.every(function(p){ return p.price > 0 && p.types && p.types.en; });
+  })(), 'ok');
+
   /* Mountain View. The Sales Kit 2026 is carried the way Modon's brochure is:
      photography above the logo, a projects map, and themed cards. Both
      directions of the media wiring are asserted — a path with no file, and a
