@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <!-- frame-ancestors/HSTS belong in HTTP response headers (see deploy runbook), not meta. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'sha256-0eB8s3A3aZQguW+SDJC/YssfCUQj66wY3V7A9qjdeKc=' 'sha256-yI6VCT38V7vjk7cAW7UM7qbGpBU7Ua/f8UOqpzWwxAc=' 'sha256-YvHevJmHHrhBzm9a+K1fYxwv5t1APr4XI8t4Am8p7D4=' 'sha256-RBNvo1WzZ4oRRq0W9+hknpT7T8If536DEMBg9hyq/4o=' 'sha256-ZckcmkwXuWw/psobWiGbPpSMTH81JMOTZAtUdmxAgEo=' https://static.cloudflareinsights.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://cloudflareinsights.com; base-uri 'self'; form-action 'self'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'sha256-0eB8s3A3aZQguW+SDJC/YssfCUQj66wY3V7A9qjdeKc=' 'sha256-yI6VCT38V7vjk7cAW7UM7qbGpBU7Ua/f8UOqpzWwxAc=' 'sha256-YvHevJmHHrhBzm9a+K1fYxwv5t1APr4XI8t4Am8p7D4=' 'sha256-RBNvo1WzZ4oRRq0W9+hknpT7T8If536DEMBg9hyq/4o=' 'sha256-Gw3Nsn5QCDQkrENEeP0Wi3yqXWQnqfm+u7dgV0OwU08=' https://static.cloudflareinsights.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://cloudflareinsights.com; base-uri 'self'; form-action 'self'" />
   <meta name="theme-color" content="#073D52" />
   <meta name="color-scheme" content="light" />
   <meta name="format-detection" content="telephone=no" />
@@ -733,7 +733,7 @@ var AREAS = [
 var DEVELOPERS = [
 {key:'sodic', c1:'#0d6e7d', name:{en:'SODIC',ar:'سوديك'}, since:1996, areas:{en:'New Cairo · Sheikh Zayed · Ras El Hekma',ar:'القاهرة الجديدة · الشيخ زايد · رأس الحكمة'}, tagline:{en:'Design-led living, East & West Cairo',ar:'حياة بتصميم مميّز شرق وغرب القاهرة'}, desc:{en:'A long-standing developer active across East and West Cairo with a strong reputation for design quality and on-time delivery.',ar:'مطوّر عريق نشط في شرق وغرب القاهرة بسمعة قوية في جودة التصميم والتسليم في المواعيد.'}},
 {key:'palmhills', c1:'#1e7a5a', name:{en:'Palm Hills Developments',ar:'بالم هيلز'}, since:2005, areas:{en:'New Cairo · Sheikh Zayed · North Coast',ar:'القاهرة الجديدة · الشيخ زايد · الساحل الشمالي'}, tagline:{en:'Large-scale communities & coast',ar:'مجتمعات كبرى ووجهات ساحلية'}, desc:{en:'One of Egypt’s largest developers, building integrated residential communities and North Coast destinations.',ar:'من أكبر المطوّرين في مصر، يبني مجتمعات سكنية متكاملة ووجهات على الساحل الشمالي.'}},
-{key:'mountainview', c1:'#2b6ca8', name:{en:'Mountain View',ar:'ماونتن فيو'}, since:2005, areas:{en:'New Cairo · 6th of October · North Coast',ar:'القاهرة الجديدة · ٦ أكتوبر · الساحل الشمالي'}, tagline:{en:'Themed, connected communities',ar:'مجتمعات بأفكار متصلة'}, desc:{en:'Known for concept-driven communities and amenity-rich master plans across Cairo and the coast.',ar:'معروف بمجتمعات قائمة على أفكار مميّزة ومخططات غنية بالمرافق في القاهرة والساحل.'}},
+{key:'mountainview', c1:'#2b6ca8', name:{en:'Mountain View',ar:'ماونتن ڤيو'}, since:2005, areas:{en:'New Cairo · 6th of October · North Coast',ar:'القاهرة الجديدة · ٦ أكتوبر · الساحل الشمالي'}, tagline:{en:'Experience Happiness',ar:'عيش السعادة'}, desc:{en:'Launched in 2005 to develop integrated communities around a science of happiness. Twenty years on it has delivered 23 projects and 17,000 units to 50,000 families, and holds a land bank of more than 6,000 acres across East Cairo, West Cairo and the coast.',ar:'تأسّست عام ٢٠٠٥ لتطوير مجتمعات عمرانية متكاملة قائمة على علم السعادة. وبعد عشرين عاماً سلّمت ٢٣ مشروعاً و١٧ ألف وحدة لخمسين ألف أسرة، وتملك محفظة أراضٍ تتجاوز ٦٠٠٠ فدان في شرق القاهرة وغربها وعلى الساحل.'}},
 {key:'ora', c1:'#6d52a3', name:{en:'ORA Developers',ar:'أورا'}, since:2016, areas:{en:'New Cairo · Sheikh Zayed · North Coast',ar:'القاهرة الجديدة · الشيخ زايد · الساحل الشمالي'}, tagline:{en:'Premium, design-led destinations',ar:'وجهات راقية بتصميم مميّز'}, desc:{en:'A premium developer creating high-design lifestyle destinations with strong architecture and amenities.',ar:'مطوّر راقٍ يبتكر وجهات لايف ستايل عالية التصميم بعمارة ومرافق قوية.'}},
 {key:'tatweer', c1:'#b0692c', name:{en:'Tatweer Misr',ar:'تطوير مصر'}, since:2014, areas:{en:'Ain Sokhna · Mostakbal City · Ras El Hekma · North Coast · Sheikh Zayed',ar:'العين السخنة · مدينة المستقبل · رأس الحكمة · الساحل الشمالي · الشيخ زايد'}, tagline:{en:'Value communities & coastal resorts',ar:'مجتمعات اقتصادية ومنتجعات ساحلية'}, desc:{en:'A developer focused on integrated communities and coastal resorts with a value orientation.',ar:'مطوّر يركّز على المجتمعات المتكاملة والمنتجعات الساحلية بتوجّه اقتصادي.'}},
 {key:'misritalia', c1:'#2f8f6a', name:{en:'Misr Italia Properties',ar:'مصر إيطاليا'}, since:1996, areas:{en:'New Administrative Capital · North Coast',ar:'العاصمة الإدارية · الساحل الشمالي'}, tagline:{en:'Biophilic, tech-enabled communities',ar:'مجتمعات خضراء بتقنيات حديثة'}, desc:{en:'A developer associated with green, technology-enabled communities, active in the New Capital and on the coast.',ar:'مطوّر مرتبط بمجتمعات خضراء مزوّدة بالتقنيات، نشط في العاصمة الإدارية والساحل.'}},
@@ -776,7 +776,7 @@ var PROJECTS = [
 {slug:'sodic-east', name:'SODIC East', name_ar:'سوديك إيست', dev:'sodic', area:'newcairo', status:'launch', price:6800000, dp:10, years:8, delivery:'2028', finishing:{en:'Semi-finished',ar:'نصف تشطيب'}, types:{en:'Apartment · Townhouse',ar:'شقة · تاون هاوس'}, tags:{en:['East Cairo','8-yr plan'],ar:['شرق القاهرة','تقسيط ٨ سنوات']}, blurb:{en:'A large master-planned launch in East New Cairo with staged developer inventory.',ar:'إطلاق كبير مخطط في شرق القاهرة الجديدة مع طرح مرحلي من المطوّر.'}},
 {slug:'eastown', name:'Eastown', name_ar:'إيستاون', dev:'sodic', area:'newcairo', status:'ready', price:7400000, dp:0, years:0, delivery:'Ready', finishing:{en:'Core & shell / finished',ar:'نصف / كامل التشطيب'}, types:{en:'Apartment · Duplex',ar:'شقة · دوبلكس'}, tags:{en:['Ready to move','Fifth Settlement edge'],ar:['استلام فوري','حدود التجمع']}, blurb:{en:'An established, largely delivered SODIC community in East Cairo with ready resale-free primary stock where available.',ar:'مجتمع سوديك مكتمل إلى حدٍّ كبير بشرق القاهرة مع وحدات جاهزة عند توفّرها.'}},
 {slug:'allegria', name:'Allegria', name_ar:'أليجريا', dev:'sodic', area:'zayed', status:'ready', price:18500000, dp:0, years:0, delivery:'Ready', finishing:{en:'Fully finished',ar:'تشطيب كامل'}, types:{en:'Villa · Twin house',ar:'فيلا · توين هاوس'}, tags:{en:['Sheikh Zayed','Golf'],ar:['الشيخ زايد','جولف']}, blurb:{en:'An established premium villa community in West Cairo with a golf setting.',ar:'مجتمع فيلات راقٍ مكتمل بغرب القاهرة بإطلالة على الجولف.'}},
-{slug:'mountain-view-icity', name:'Mountain View iCity', name_ar:'ماونتن فيو آي سيتي', dev:'mountainview', area:'newcairo', status:'launch', price:7200000, dp:10, years:9, delivery:'2028', finishing:{en:'Semi-finished',ar:'نصف تشطيب'}, types:{en:'Apartment · Duplex',ar:'شقة · دوبلكس'}, tags:{en:['Smart city','9-yr plan'],ar:['مدينة ذكية','تقسيط ٩ سنوات']}, blurb:{en:'Themed parks and a connected-home concept, primary release by Mountain View.',ar:'حدائق مميّزة ومفهوم المنزل المتصل، طرح أولي من ماونتن فيو.'}},
+{slug:'mountain-view-icity', name:'Mountain View iCity', name_ar:'ماونتن ڤيو آي سيتي', dev:'mountainview', area:'newcairo', status:'launch', price:7200000, dp:10, years:9, delivery:'2028', finishing:{en:'Semi-finished',ar:'نصف تشطيب'}, types:{en:'Apartment · Duplex',ar:'شقة · دوبلكس'}, tags:{en:['Smart city','9-yr plan'],ar:['مدينة ذكية','تقسيط ٩ سنوات']}, blurb:{en:'Themed parks and a connected-home concept, primary release by Mountain View.',ar:'حدائق مميّزة ومفهوم المنزل المتصل، طرح أولي من ماونتن ڤيو.'}},
 {slug:'bloomfields', name:'Bloomfields', name_ar:'بلوم فيلدز', dev:'tatweer', area:'mostakbal', status:'launch', price:5800000, dp:5, years:10, delivery:'Ready', finishing:{en:'Semi-finished',ar:'نصف تشطيب'}, types:{en:'Apartment · Duplex',ar:'شقة · دوبلكس'}, tags:{en:['Mostakbal City','5% DP'],ar:['مدينة المستقبل','مقدم ٥٪']}, blurb:{en:'A value-focused launch in Mostakbal City with a low down payment from the developer.',ar:'إطلاق اقتصادي بمدينة المستقبل بمقدم منخفض من المطوّر.'}},
 {slug:'il-bosco-city', name:'Il Bosco City', name_ar:'إل بوسكو سيتي', dev:'misritalia', area:'capital', status:'launch', price:6100000, dp:10, years:9, delivery:'2029', finishing:{en:'Semi-finished',ar:'نصف تشطيب'}, types:{en:'Apartment · Townhouse · Villa',ar:'شقة · تاون هاوس · فيلا'}, tags:{en:['New Capital','Green'],ar:['العاصمة الإدارية','أخضر']}, blurb:{en:'A biophilic community in the New Administrative Capital, primary units from Misr Italia.',ar:'مجتمع أخضر بالعاصمة الإدارية الجديدة، وحدات أولية من مصر إيطاليا.'}},
 {slug:'district-5', name:'District 5', name_ar:'ديستريكت ٥', dev:'marakez', area:'newcairo', status:'primary', price:11285000, dp:10, years:7, delivery:'2027', types:{en:'Apartment · Duplex · Office',ar:'شقة · دوبلكس · مكتب'}, tags:{en:['New Cairo','268 acres','Mixed-use'],ar:['القاهرة الجديدة','٢٦٨ فدان','متعدد الاستخدامات']}, blurb:{en:'Marakez’s 268-acre integrated district in New Katameya, New Cairo — one destination to live, shop, work and play, built around District 5 Club, District 5 Campus, the Urbane Hotel, D5M and Mindhaus offices. Homes come in a modern yet earthy architecture with generous interiors, linked by trail systems, bike lanes, landscaped parks and plazas. Apartments, a duplex and offices, part of the project already delivered. Developer-direct primary units.',ar:'حي مراكز المتكامل على ٢٦٨ فداناً في القطامية الجديدة بالقاهرة الجديدة — وجهة واحدة للسكن والتسوق والعمل والترفيه، تدور حول نادي ديستريكت ٥ وكامباس ديستريكت ٥ وفندق أوربان وD5M ومكاتب مايندهاوس. منازل بعمارة عصرية ذات طابع ترابي ومساحات داخلية رحبة، تربطها ممرات ومسارات دراجات وحدائق وساحات. شقق ودوبلكس ومكاتب، وجزء من المشروع مُسلَّم بالفعل. وحدات أولية من المطوّر مباشرة.'}},
@@ -811,7 +811,7 @@ var PROJECTS = [
 {slug:'june-north-coast', name:'June', name_ar:'جون', dev:'sodic', area:'raselhekma', status:'launch', price:89300000, dp:5, years:8, delivery:'', finishing:{en:'Fully finished',ar:'تشطيب كامل'}, types:{en:'Villa',ar:'فيلا'}, tags:{en:['Ras El Hekma','Miami-inspired','Marriott'],ar:['رأس الحكمة','بإلهام ميامي','ماريوت']}, blurb:{en:'SODIC’s June — a Miami-inspired North Coast beach town where homes rise 50m above sea level for panoramic views, with a Marriott hotel and Lemon Spaces serviced apartments, a boardwalk, swimmable lagoons and infinity pools. Fully finished Coral and Opal villas. Developer-direct primary units, from 5% down over 8 years.',ar:'مشروع جون من سوديك — بلدة شاطئية بإلهام ميامي على الساحل الشمالي ترتفع منازلها ٥٠ متراً فوق سطح البحر لإطلالات بانورامية، بفندق ماريوت وشقق فندقية Lemon Spaces وبوردووك وبحيرات للسباحة وحمّامات إنفينيتي. فيلات Coral وOpal كاملة التشطيب. وحدات أولية من المطوّر مباشرة، من مقدم ٥٪ وتقسيط ٨ سنوات.'}},
 {slug:'badya-october', name:'Badya', name_ar:'بادية', dev:'palmhills', area:'october', status:'launch', price:5600000, dp:10, years:8, delivery:'2029', finishing:{en:'Fully finished / core & shell',ar:'تشطيب كامل / خرسانة'}, types:{en:'Apartment · Townhouse · Twin house · Villa',ar:'شقة · تاون هاوس · توين هاوس · فيلا'}, tags:{en:['6th of October','Master-planned city'],ar:['٦ أكتوبر','مدينة متكاملة']}, blurb:{en:'Palm Hills’ large master-planned city in West Cairo, organised into walkable districts with schools, parks and retail. Developer-direct primary units.',ar:'مدينة بالم هيلز المتكاملة الكبرى بغرب القاهرة، مقسّمة إلى أحياء صديقة للمشاة بمدارس وحدائق ومحال. وحدات أولية من المطوّر مباشرة.'}},
 {slug:'the-estates-zayed', name:'The Estates', name_ar:'ذي إستيتس', dev:'sodic', area:'zayed', status:'primary', price:12000000, dp:10, years:7, delivery:'2027', finishing:{en:'Semi-finished',ar:'نصف تشطيب'}, types:{en:'Apartment · Villa',ar:'شقة · فيلا'}, tags:{en:['New Zayed','Low-density'],ar:['زايد الجديدة','كثافة منخفضة']}, blurb:{en:'A SODIC community in New Zayed, west of Cairo — low-density residences set among landscaped open space. Developer-direct primary units.',ar:'مجتمع من سوديك بزايد الجديدة غرب القاهرة — وحدات بكثافة منخفضة وسط مساحات خضراء منسّقة. وحدات أولية من المطوّر مباشرة.'}},
-{slug:'aliva-mostakbal', name:'Aliva', name_ar:'أليفا', dev:'mountainview', area:'mostakbal', status:'launch', price:6000000, dp:5, years:9, delivery:'2029', finishing:{en:'Semi-finished',ar:'نصف تشطيب'}, types:{en:'Apartment · Townhouse · Villa',ar:'شقة · تاون هاوس · فيلا'}, tags:{en:['Mostakbal City','Parks & lifestyle'],ar:['مدينة المستقبل','حدائق ولايف ستايل']}, blurb:{en:'A Mountain View community in Mostakbal City built around the developer’s signature parks and lifestyle master plan. Developer-direct primary units.',ar:'مجتمع من ماونتن فيو بمدينة المستقبل مبني حول مخطط الحدائق واللايف ستايل المميّز للمطوّر. وحدات أولية من المطوّر مباشرة.'}},
+{slug:'aliva-mostakbal', name:'Aliva', name_ar:'أليفا', dev:'mountainview', area:'mostakbal', status:'launch', price:6000000, dp:5, years:9, delivery:'2029', finishing:{en:'Semi-finished',ar:'نصف تشطيب'}, types:{en:'Apartment · Townhouse · Villa',ar:'شقة · تاون هاوس · فيلا'}, tags:{en:['Mostakbal City','Parks & lifestyle'],ar:['مدينة المستقبل','حدائق ولايف ستايل']}, blurb:{en:'A Mountain View community in Mostakbal City built around the developer’s signature parks and lifestyle master plan. Developer-direct primary units.',ar:'مجتمع من ماونتن ڤيو بمدينة المستقبل مبني حول مخطط الحدائق واللايف ستايل المميّز للمطوّر. وحدات أولية من المطوّر مباشرة.'}},
 {slug:'fouka-bay', name:'Fouka Bay', name_ar:'فوكا باي', dev:'tatweer', area:'sahel', status:'primary', price:13900000, dp:5, years:9, delivery:'2030', finishing:{en:'Fully finished',ar:'تشطيب كامل'}, types:{en:'Chalet · Apartment',ar:'شاليه · شقة'}, tags:{en:['North Coast','Turquoise lagoons'],ar:['الساحل الشمالي','بحيرات فيروزية']}, blurb:{en:'Tatweer Misr’s North Coast resort near Ras El Hekma, known for terraced beachfront and turquoise swimmable lagoons. Developer-direct primary units.',ar:'منتجع تطوير مصر على الساحل الشمالي قرب رأس الحكمة، معروف بالشاطئ المتدرّج والبحيرات الفيروزية للسباحة. وحدات أولية من المطوّر مباشرة.'}},
 {slug:'vinci-capital', name:'Vinci', name_ar:'فينشي', dev:'misritalia', area:'capital', status:'primary', price:6500000, dp:10, years:8, delivery:'2028', finishing:{en:'Semi-finished',ar:'نصف تشطيب'}, types:{en:'Apartment · Villa',ar:'شقة · فيلا'}, tags:{en:['New Capital','Green living'],ar:['العاصمة الإدارية','معيشة خضراء']}, blurb:{en:'Misr Italia’s green, technology-enabled community in the New Administrative Capital, with generous landscaping and amenities. Developer-direct primary units.',ar:'مجتمع مصر إيطاليا الأخضر المزوّد بالتقنيات بالعاصمة الإدارية الجديدة، بمساحات خضراء ومرافق واسعة. وحدات أولية من المطوّر مباشرة.'}},
 {slug:'masyaf-ras-alhekma', name:'Masyaf Ras Alhekma', name_ar:'مصياف رأس الحكمة', dev:'msquared', area:'raselhekma', status:'primary', price:12190419, dp:10, years:10, delivery:'2028–2030', types:{en:'Chalet · Duplex · Penthouse · Townhouse · Villa',ar:'شاليه · دوبلكس · بنتهاوس · تاون هاوس · فيلا'}, tags:{en:['Ras Al Hekma','112 feddans','730 m beachfront'],ar:['رأس الحكمة','١١٢ فدان','٧٣٠ م واجهة بحرية']}, blurb:{en:'Inspired by Greek architecture, where floating seascapes and natural simplicity live indoors, Masyaf Ras Alhekma stretches over 112 feddans of land lapping a pristine 730-metre beachfront on the Mediterranean shore. Master planned by M squared, it lifts its homes onto elevated platforms so every owner gets an equal view. Its own downtown carries Ritsa, the Barten restaurant, the Peppermint wellbeing centre and the Marmarica boutique cabanas.',ar:'مستوحى من العمارة اليونانية حيث تعيش المشاهد البحرية والبساطة الطبيعية في الداخل، يمتد مصياف رأس الحكمة على ١١٢ فداناً بواجهة بحرية بكر بطول ٧٣٠ متراً على شاطئ المتوسط. وضعت إم سكويرد مخططه العام ورفعت منازله على منصات متدرّجة ليحصل كل مالك على إطلالة متساوية. ويضم داون تاون خاصاً به يحوي «ريتسا» ومطعم «بارتن» ومركز «بيبرمنت» للعافية وكابانات «مرماريكا» البوتيكية.'}},
@@ -3671,11 +3671,14 @@ return img;
 }
 return devMonogram(dev,px);
 }
+var MV = '/project-media/mountainview/';
 var DEV_GALLERY = {
 'marakez':['/project-media/marakez/crescent-park.webp','/project-media/marakez/mall-of-arabia.webp','/project-media/marakez/aeon-tower.webp','/project-media/marakez/d5-campus.webp','/project-media/marakez/the-park.webp'],
 'sumou':['/project-media/sumou/st-03.webp','/project-media/sumou/st-01.webp','/project-media/sumou/ap5-0.webp','/project-media/sumou/st-02.webp','/project-media/sumou/ap2-03.webp','/project-media/sumou/of4.webp'],
 'modon':['/project-media/modon/m1.webp','/project-media/modon/m2.webp','/project-media/modon/m3.webp',
 '/project-media/modon/m4.webp','/project-media/modon/m5.webp','/project-media/modon/m6.webp'],
+'mountainview':[MV+'gate.webp', MV+'park.webp', MV+'jirian.webp',
+MV+'crysta.webp', MV+'hyde-park.webp', MV+'mv-raselhikma.webp'],
 'msquared':['/project-media/msquared/masyaf-pool.webp',
 '/project-media/msquared/trio-exterior.webp',
 '/project-media/msquared/w31-lakeside.webp',
@@ -4091,6 +4094,140 @@ copy:{list:[
 {en:'Private Sector Free Zone',           ar:'منطقة حرة للقطاع الخاص'},
 {en:'Amphitheatre',                       ar:'مدرّج مسرحي'}
 ]}}
+]
+},
+'mountainview': {
+masterplan: {en:'Projects Map — Egypt & KSA', ar:'خريطة المشروعات — مصر والسعودية', icon:'layers', src:MV+'projects-map.webp'},
+cards: [
+{en:'About Mountain View', ar:'عن ماونتن ڤيو', icon:'shield',
+imgs:[MV+'park.webp', MV+'gate.webp', MV+'vision.webp'],
+copy:{
+lead:{en:'Mountain View for development and real estate investment was launched in 2005. With a vision aspiring to develop integrated communities and spread happiness, Mountain View has become the leading real estate company offering first class projects encompassing innovation, distinction and the science of happiness.',
+ar:'تأسست شركة ماونتن ڤيو للتنمية والاستثمار العقاري عام ٢٠٠٥، بهدف تطوير مجتمعات عمرانية متكاملة من خلال تبني استراتيجية فريدة تقوم على السعادة والابتكار. ومن خلال رؤية «إعمار الأرض وإسعاد من حولنا»، تستخدم ماونتن ڤيو أفضل أدوات التطوير العقاري لتطبيق «علم السعادة وعلم الابتكار» في مشاريعها، مما يتيح لعملائها «عيش السعادة» كل يوم.'},
+more:{en:'Over the past 20 years, the company has renewed its promises and confirmed its continuous dedication in delivering 23 distinctive projects. Mountain View owns a substantial land bank amounting to more than 6,000 acres, divided into 3 main districts in Egypt — East Cairo, West Cairo and coastal projects — along with its expansion in KSA. The kit prints its own line for the work: “Bringing life to land and spreading happiness around us.”',
+ar:'على مدار العشرين عاماً الماضية، جدّدت الشركة وعودها وأكّدت التزامها المستمر في تنفيذ ٢٣ مشروعاً مميزاً. وتمتلك ماونتن ڤيو محفظة كبيرة من الأراضي تبلغ أكثر من ٦٠٠٠ فدان، موزّعة على ثلاث مناطق رئيسية في مصر — شرق القاهرة وغرب القاهرة والمشروعات الساحلية — بالإضافة إلى توسّعها في المملكة العربية السعودية. وعبارة الكتيّب عن عملها هي: «إعمار الأرض وإسعاد من حولنا».'}
+}},
+{en:'Success in Numbers', ar:'النجاح بالأرقام', icon:'star',
+imgs:[MV+'aerial.webp', MV+'top20.webp', MV+'october-park.webp'],
+copy:{
+lead:{en:'The Sales Kit 2026 publishes the company\'s scorecard: 20+ years of work, 23+ projects, 6+ city-scale developments and 2 countries, with 50,000 families living in 15 communities that are already handed over.',
+ar:'ينشر كتيّب المبيعات ٢٠٢٦ سجلّ الشركة: أكثر من ٢٠ عاماً من العمل، وأكثر من ٢٣ مشروعاً، وأكثر من ٦ مشروعات بحجم مدينة، ودولتان، مع ٥٠ ألف أسرة تعيش في ١٥ مجتمعاً جرى تسليمها بالفعل.'},
+groups:[
+{label:{en:'Success in numbers', ar:'النجاح بالأرقام'}, rows:[
+{k:{en:'Years of success',ar:'سنوات من النجاح'},        v:{en:'20+',ar:'+٢٠'}},
+{k:{en:'Projects',ar:'المشروعات'},                      v:{en:'23+',ar:'+٢٣'}},
+{k:{en:'City-scale projects',ar:'مشروعات بحجم مدينة'},  v:{en:'6+',ar:'+٦'}},
+{k:{en:'Countries',ar:'الدول'},                         v:{en:'2',ar:'٢'}},
+{k:{en:'Sales achieved',ar:'المبيعات المحقّقة'},        v:{en:'EGP 315 bn',ar:'٣١٥ مليار جنيه'}},
+{k:{en:'Land bank',ar:'محفظة الأراضي'},                 v:{en:'25m+ m²',ar:'أكثر من ٢٥ مليون م²'}},
+{k:{en:'Units delivered',ar:'الوحدات المسلَّمة'},        v:{en:'17k',ar:'١٧ ألف'}},
+{k:{en:'Families',ar:'الأسر'},                          v:{en:'50k',ar:'٥٠ ألف'}},
+{k:{en:'Livable communities',ar:'المجتمعات المأهولة'},   v:{en:'15',ar:'١٥'}}]},
+{label:{en:'Market standing', ar:'الترتيب في السوق'}, rows:[
+{k:{en:'Top 20 developers 2024',ar:'أفضل ٢٠ مطوّراً ٢٠٢٤'}, v:{en:'3rd — EGP 105 bn (Source: The Board Consultancy 2024)',ar:'المركز الثالث — ١٠٥ مليار جنيه (المصدر: ذا بورد كونسلتانسي ٢٠٢٤)'}},
+{k:{en:'Sales',ar:'المبيعات'},                              v:{en:'Among the top 5, five years in a row',ar:'ضمن أفضل ٥، خمس سنوات على التوالي'}},
+{k:{en:'Power brands',ar:'أقوى العلامات التجارية'},         v:{en:'Among the top 5, five years in a row',ar:'ضمن أفضل ٥، خمس سنوات على التوالي'}}]}
+]
+}},
+{en:'Building 2026', ar:'البناء في ٢٠٢٦', icon:'target',
+imgs:[MV+'construction-2026.webp', MV+'icity-newcairo-lagoon.webp'],
+copy:{
+lead:{en:'Mountain View is accelerating execution with one of the largest construction budgets in the history of Egypt\'s real estate sector, allocating EGP 25 billion in 2026 to fast-track development across its projects.',
+ar:'تُسرّع ماونتن ڤيو وتيرة التنفيذ بواحدة من أكبر ميزانيات الإنشاء في تاريخ قطاع العقارات المصري، بتخصيص ٢٥ مليار جنيه في عام ٢٠٢٦ لتسريع التطوير في كل مشروعاتها.'}
+}},
+{en:'Projects Timeline', ar:'الخط الزمني للمشروعات', icon:'spark',
+imgs:[MV+'timeline-1.webp', MV+'timeline-2.webp', MV+'timeline-3.webp',
+MV+'timeline-4.webp', MV+'timeline-5.webp', MV+'timeline-6.webp'],
+copy:{
+lead:{en:'Twenty years of launches, in the order the kit prints them — from the first Mountain View in New Cairo in 2005 to Jirian and Crysta in 2025.',
+ar:'عشرون عاماً من الإطلاقات بالترتيب الذي ينشره الكتيّب — من «ماونتن ڤيو» الأولى بالقاهرة الجديدة عام ٢٠٠٥ إلى «جيريان» و«كريستا» عام ٢٠٢٥.'},
+groups:[
+{label:{en:'2005 – 2012', ar:'٢٠٠٥ – ٢٠١٢'}, rows:[
+{k:{en:'2005',ar:'٢٠٠٥'}, v:{en:'Mountain View 1',ar:'ماونتن ڤيو ١'}},
+{k:{en:'2006',ar:'٢٠٠٦'}, v:{en:'Mountain View 2 · MV Ras El Hikma',ar:'ماونتن ڤيو ٢ · إم ڤي رأس الحكمة'}},
+{k:{en:'2007',ar:'٢٠٠٧'}, v:{en:'MV Sokhna 1 · MV Sokhna 2',ar:'إم ڤي السخنة ١ · إم ڤي السخنة ٢'}},
+{k:{en:'2010',ar:'٢٠١٠'}, v:{en:'Giza Plateau',ar:'جيزة بلاتوه'}},
+{k:{en:'2011',ar:'٢٠١١'}, v:{en:'Executive Residence Katameya',ar:'إكزكتيف ريزيدنس القطامية'}},
+{k:{en:'2012',ar:'٢٠١٢'}, v:{en:'MV Hyde Park · October Park',ar:'إم ڤي هايد بارك · أكتوبر بارك'}}]},
+{label:{en:'2015 – 2019', ar:'٢٠١٥ – ٢٠١٩'}, rows:[
+{k:{en:'2015',ar:'٢٠١٥'}, v:{en:'Chillout Park',ar:'تشيل آوت بارك'}},
+{k:{en:'2016',ar:'٢٠١٦'}, v:{en:'iCity New Cairo',ar:'آي سيتي القاهرة الجديدة'}},
+{k:{en:'2017',ar:'٢٠١٧'}, v:{en:'iCity October',ar:'آي سيتي أكتوبر'}},
+{k:{en:'2019',ar:'٢٠١٩'}, v:{en:'DMG · Heartwork',ar:'دي إم جي · هارت وورك'}}]},
+{label:{en:'2022 – 2025', ar:'٢٠٢٢ – ٢٠٢٥'}, rows:[
+{k:{en:'2022',ar:'٢٠٢٢'}, v:{en:'Mountain View 1.1 · Mountain View 4',ar:'ماونتن ڤيو ١٫١ · ماونتن ڤيو ٤'}},
+{k:{en:'2023',ar:'٢٠٢٣'}, v:{en:'LVLS · Aliva · The Lighthouse',ar:'لِفلز · أليفا · ذا لايت هاوس'}},
+{k:{en:'2024',ar:'٢٠٢٤'}, v:{en:'plage · Kingsway',ar:'بلاج · كينجزواي'}},
+{k:{en:'2025',ar:'٢٠٢٥'}, v:{en:'ONE ون · Grand Valleys · Jirian · Crysta',ar:'ون · جراند فالييز · جيريان · كريستا'}}]}
+]
+}},
+{en:'Where Mountain View Builds', ar:'أين تبني ماونتن ڤيو', icon:'pin',
+imgs:[MV+'icity-october-mountain-park.webp', MV+'lvls.webp',
+MV+'mv-sokhna1.webp', MV+'raselhikma-lagoon.webp'],
+copy:{
+lead:{en:'The kit\'s projects map places the portfolio in five clusters: East Cairo, West Cairo, the North Coast, Ain Sokhna and — as the company\'s first move outside Egypt — Saudi Arabia.',
+ar:'تضع خريطة المشروعات في الكتيّب المحفظة في خمس مجموعات: شرق القاهرة، وغرب القاهرة، والساحل الشمالي، والعين السخنة، و— كأول خطوة للشركة خارج مصر — المملكة العربية السعودية.'},
+groups:[
+{label:{en:'On the map', ar:'على الخريطة'}, rows:[
+{k:{en:'East Cairo',ar:'شرق القاهرة'},   v:{en:'Mountain View 1 · Mountain View 2 · Mountain View 1.1 · Executive Residence Katameya · MV Hyde Park · iCity New Cairo · Aliva · Grand Valleys',ar:'ماونتن ڤيو ١ · ماونتن ڤيو ٢ · ماونتن ڤيو ١٫١ · إكزكتيف ريزيدنس القطامية · إم ڤي هايد بارك · آي سيتي القاهرة الجديدة · أليفا · جراند فالييز'}},
+{k:{en:'West Cairo',ar:'غرب القاهرة'},   v:{en:'Giza Plateau · October Park · Chillout Park · Mountain View 4 · iCity October · Kingsway · Jirian',ar:'جيزة بلاتوه · أكتوبر بارك · تشيل آوت بارك · ماونتن ڤيو ٤ · آي سيتي أكتوبر · كينجزواي · جيريان'}},
+{k:{en:'North Coast',ar:'الساحل الشمالي'}, v:{en:'MV Ras El Hikma · LVLS · plage · Crysta',ar:'إم ڤي رأس الحكمة · لِفلز · بلاج · كريستا'}},
+{k:{en:'Ain Sokhna',ar:'العين السخنة'},  v:{en:'MV Sokhna 1 · MV Sokhna 2',ar:'إم ڤي السخنة ١ · إم ڤي السخنة ٢'}},
+{k:{en:'Saudi Arabia',ar:'المملكة العربية السعودية'}, v:{en:'Hayah · ONE ون',ar:'حياة · ون'}}]}
+]
+}},
+{en:'Livable Communities', ar:'المجتمعات المأهولة', icon:'home',
+imgs:[MV+'mv1.webp', MV+'mv2.webp', MV+'exec-katameya.webp',
+MV+'hyde-park.webp', MV+'giza-plateau.webp', MV+'october-park.webp'],
+copy:{
+lead:{en:'Fifteen communities are handed over and lived in. The kit lists them by district with the year each was launched.',
+ar:'خمسة عشر مجتمعاً جرى تسليمها ويعيش فيها أصحابها. ويسردها الكتيّب حسب المنطقة مع سنة إطلاق كل منها.'},
+groups:[
+{label:{en:'East Cairo', ar:'شرق القاهرة'}, rows:[
+{k:{en:'Mountain View 1',ar:'ماونتن ڤيو ١'},                       v:{en:'Launched 2005',ar:'أُطلق ٢٠٠٥'}},
+{k:{en:'Mountain View 2',ar:'ماونتن ڤيو ٢'},                       v:{en:'Launched 2006',ar:'أُطلق ٢٠٠٦'}},
+{k:{en:'Executive Residence Katameya',ar:'إكزكتيف ريزيدنس القطامية'}, v:{en:'Launched 2011',ar:'أُطلق ٢٠١١'}},
+{k:{en:'MV Hyde Park',ar:'إم ڤي هايد بارك'},                        v:{en:'Launched 2012',ar:'أُطلق ٢٠١٢'}},
+{k:{en:'iCity New Cairo — Club park',ar:'آي سيتي القاهرة الجديدة — كلوب بارك'}, v:{en:'Launched 2016',ar:'أُطلق ٢٠١٦'}},
+{k:{en:'iCity New Cairo — Mountain View 3',ar:'آي سيتي القاهرة الجديدة — ماونتن ڤيو ٣'}, v:{en:'Launched 2019',ar:'أُطلق ٢٠١٩'}},
+{k:{en:'iCity New Cairo — Heartwork',ar:'آي سيتي القاهرة الجديدة — هارت وورك'}, v:{en:'Launched 2019',ar:'أُطلق ٢٠١٩'}},
+{k:{en:'iCity New Cairo — MV Park',ar:'آي سيتي القاهرة الجديدة — إم ڤي بارك'}, v:{en:'Launched 2020',ar:'أُطلق ٢٠٢٠'}}]},
+{label:{en:'West Cairo', ar:'غرب القاهرة'}, rows:[
+{k:{en:'Giza Plateau',ar:'جيزة بلاتوه'},        v:{en:'Launched 2010',ar:'أُطلق ٢٠١٠'}},
+{k:{en:'October Park',ar:'أكتوبر بارك'},        v:{en:'Launched 2012',ar:'أُطلق ٢٠١٢'}},
+{k:{en:'Chillout Park',ar:'تشيل آوت بارك'},     v:{en:'Launched 2015',ar:'أُطلق ٢٠١٥'}},
+{k:{en:'iCity October — Club park Phase 1',ar:'آي سيتي أكتوبر — كلوب بارك المرحلة ١'}, v:{en:'Launched 2017',ar:'أُطلق ٢٠١٧'}},
+{k:{en:'iCity October — MV Park',ar:'آي سيتي أكتوبر — إم ڤي بارك'}, v:{en:'Launched 2020',ar:'أُطلق ٢٠٢٠'}},
+{k:{en:'Mountain View 4',ar:'ماونتن ڤيو ٤'},    v:{en:'Launched 2022',ar:'أُطلق ٢٠٢٢'}}]},
+{label:{en:'Coastal', ar:'الساحل'}, rows:[
+{k:{en:'MV Ras El Hikma',ar:'إم ڤي رأس الحكمة'}, v:{en:'Launched 2006',ar:'أُطلق ٢٠٠٦'}},
+{k:{en:'MV Sokhna 1',ar:'إم ڤي السخنة ١'},       v:{en:'Launched 2007',ar:'أُطلق ٢٠٠٧'}},
+{k:{en:'MV Sokhna 2',ar:'إم ڤي السخنة ٢'},       v:{en:'Launched 2007',ar:'أُطلق ٢٠٠٧'}}]}
+]
+}},
+{en:'Under Construction', ar:'تحت الإنشاء', icon:'build',
+imgs:[MV+'mv11-villas.webp', MV+'aliva.webp', MV+'grand-valleys.webp',
+MV+'kingsway.webp', MV+'jirian.webp', MV+'crysta.webp'],
+copy:{
+lead:{en:'The construction-progress pages photograph what is being built right now across the three Egyptian districts, each phase carrying its launch year.',
+ar:'تُصوّر صفحات تقدّم الإنشاءات ما يجري بناؤه الآن في المناطق المصرية الثلاث، وتحمل كل مرحلة سنة إطلاقها.'},
+groups:[
+{label:{en:'East Cairo', ar:'شرق القاهرة'}, rows:[
+{k:{en:'iCity New Cairo — Mountain Park · Lagoon Beach Park',ar:'آي سيتي القاهرة الجديدة — ماونتن بارك · لاجون بيتش بارك'}, v:{en:'Launched 2021',ar:'أُطلق ٢٠٢١'}},
+{k:{en:'Mountain View 1.1 — The Villas · The Park',ar:'ماونتن ڤيو ١٫١ — ذا فيلاز · ذا بارك'}, v:{en:'Launched 2022',ar:'أُطلق ٢٠٢٢'}},
+{k:{en:'Aliva — River park · Fields park',ar:'أليفا — ريفر بارك · فيلدز بارك'}, v:{en:'Launched 2023',ar:'أُطلق ٢٠٢٣'}},
+{k:{en:'Grand Valleys',ar:'جراند فالييز'},                v:{en:'Launched 2025',ar:'أُطلق ٢٠٢٥'}}]},
+{label:{en:'West Cairo', ar:'غرب القاهرة'}, rows:[
+{k:{en:'Chillout Park — Lakeside Villas',ar:'تشيل آوت بارك — ليك سايد فيلاز'}, v:{en:'Launched 2021',ar:'أُطلق ٢٠٢١'}},
+{k:{en:'iCity October — Mountain Park · Lagoon Beach Park · Club park Phase 2',ar:'آي سيتي أكتوبر — ماونتن بارك · لاجون بيتش بارك · كلوب بارك المرحلة ٢'}, v:{en:'Launched 2022',ar:'أُطلق ٢٠٢٢'}},
+{k:{en:'Kingsway by Mountain View Signature',ar:'كينجزواي من ماونتن ڤيو سيجنتشر'}, v:{en:'Launched 2024',ar:'أُطلق ٢٠٢٤'}},
+{k:{en:'Jirian — Mountain View · Nations of Sky',ar:'جيريان — ماونتن ڤيو · نيشنز أوف سكاي'}, v:{en:'Launched 2025',ar:'أُطلق ٢٠٢٥'}}]},
+{label:{en:'Coastal', ar:'الساحل'}, rows:[
+{k:{en:'MV Ras El Hikma',ar:'إم ڤي رأس الحكمة'}, v:{en:'Lagoon opening summer 2026',ar:'افتتاح البحيرة صيف ٢٠٢٦'}},
+{k:{en:'LVLS North Coast',ar:'لِفلز الساحل الشمالي'}, v:{en:'Launched 2023',ar:'أُطلق ٢٠٢٣'}},
+{k:{en:'Crysta',ar:'كريستا'},                    v:{en:'Launched 2025',ar:'أُطلق ٢٠٢٥'}}]}
+]
+}}
 ]
 },
 'baghush': {
@@ -6137,6 +6274,7 @@ return String(s==null?'':s).toLowerCase()
 .replace(/[أإآا]/g,'ا')
 .replace(/ى/g,'ي').replace(/ة/g,'ه')
 .replace(/ؤ/g,'و').replace(/ئ/g,'ي')
+.replace(/ڤ/g,'ف').replace(/پ/g,'ب').replace(/چ/g,'ج').replace(/گ/g,'ك')
 .replace(/[^0-9a-z؀-ۿ\s]/g,' ')
 .replace(/\s+/g,' ').trim();
 }

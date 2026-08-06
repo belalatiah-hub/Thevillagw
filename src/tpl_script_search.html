@@ -10,6 +10,10 @@
       .replace(/[أإآا]/g,'ا')       // alef variants -> ا
       .replace(/ى/g,'ي').replace(/ة/g,'ه') // ى->ي , ة->ه
       .replace(/ؤ/g,'و').replace(/ئ/g,'ي')
+      // Persian letters, which Egyptian transliterations use for sounds Arabic
+      // has no letter for. A developer may print its name «ماونتن ڤيو» while
+      // everyone types «ماونتن فيو»; folding them makes either spelling find it.
+      .replace(/ڤ/g,'ف').replace(/پ/g,'ب').replace(/چ/g,'ج').replace(/گ/g,'ك')
       .replace(/[^0-9a-z؀-ۿ\s]/g,' ')
       .replace(/\s+/g,' ').trim();
   }

@@ -2550,11 +2550,20 @@
   }
   /* Developer hero gallery — real destination imagery shown above the logo on a
      developer page. Keyed by developer, skipped entirely when there is none. */
+  /* Declared here rather than beside the other media prefixes further down:
+     declaration order is execution order, and DEV_GALLERY is built before that
+     point, so a prefix defined later would resolve to undefined. */
+  var MV = '/project-media/mountainview/';
   var DEV_GALLERY = {
     'marakez':['/project-media/marakez/crescent-park.webp','/project-media/marakez/mall-of-arabia.webp','/project-media/marakez/aeon-tower.webp','/project-media/marakez/d5-campus.webp','/project-media/marakez/the-park.webp'],
     'sumou':['/project-media/sumou/st-03.webp','/project-media/sumou/st-01.webp','/project-media/sumou/ap5-0.webp','/project-media/sumou/st-02.webp','/project-media/sumou/ap2-03.webp','/project-media/sumou/of4.webp'],
     'modon':['/project-media/modon/m1.webp','/project-media/modon/m2.webp','/project-media/modon/m3.webp',
              '/project-media/modon/m4.webp','/project-media/modon/m5.webp','/project-media/modon/m6.webp'],
+    // Mountain View — the sales kit's own photography, one frame per district:
+    // the brand gate, a delivered park in East Cairo, Jirian and Crysta from
+    // the West and the coast, MV Hyde Park and MV Ras El Hikma.
+    'mountainview':[MV+'gate.webp', MV+'park.webp', MV+'jirian.webp',
+                    MV+'crysta.webp', MV+'hyde-park.webp', MV+'mv-raselhikma.webp'],
     // M squared — one page per project from the company profile.
     'msquared':['/project-media/msquared/masyaf-pool.webp',
                 '/project-media/msquared/trio-exterior.webp',
@@ -3007,6 +3016,147 @@
            {en:'Private Sector Free Zone',           ar:'منطقة حرة للقطاع الخاص'},
            {en:'Amphitheatre',                       ar:'مدرّج مسرحي'}
          ]}}
+      ]
+    },
+    /* Mountain View. Every figure, year and project name below is read off the
+       company's own Sales Kit 2026 — the About page, the Success in Numbers
+       board, the construction-budget statement, the projects timeline, the
+       Egypt/KSA projects map and the Livable Communities and Construction
+       Progress sections. The Top 20 ranking carries the brochure's own source
+       line. Nothing is inferred, and no price or payment term appears here —
+       the kit publishes none. */
+    'mountainview': {
+      masterplan: {en:'Projects Map — Egypt & KSA', ar:'خريطة المشروعات — مصر والسعودية', icon:'layers', src:MV+'projects-map.webp'},
+      cards: [
+        {en:'About Mountain View', ar:'عن ماونتن ڤيو', icon:'shield',
+         imgs:[MV+'park.webp', MV+'gate.webp', MV+'vision.webp'],
+         copy:{
+           lead:{en:'Mountain View for development and real estate investment was launched in 2005. With a vision aspiring to develop integrated communities and spread happiness, Mountain View has become the leading real estate company offering first class projects encompassing innovation, distinction and the science of happiness.',
+                 ar:'تأسست شركة ماونتن ڤيو للتنمية والاستثمار العقاري عام ٢٠٠٥، بهدف تطوير مجتمعات عمرانية متكاملة من خلال تبني استراتيجية فريدة تقوم على السعادة والابتكار. ومن خلال رؤية «إعمار الأرض وإسعاد من حولنا»، تستخدم ماونتن ڤيو أفضل أدوات التطوير العقاري لتطبيق «علم السعادة وعلم الابتكار» في مشاريعها، مما يتيح لعملائها «عيش السعادة» كل يوم.'},
+           more:{en:'Over the past 20 years, the company has renewed its promises and confirmed its continuous dedication in delivering 23 distinctive projects. Mountain View owns a substantial land bank amounting to more than 6,000 acres, divided into 3 main districts in Egypt — East Cairo, West Cairo and coastal projects — along with its expansion in KSA. The kit prints its own line for the work: “Bringing life to land and spreading happiness around us.”',
+                 ar:'على مدار العشرين عاماً الماضية، جدّدت الشركة وعودها وأكّدت التزامها المستمر في تنفيذ ٢٣ مشروعاً مميزاً. وتمتلك ماونتن ڤيو محفظة كبيرة من الأراضي تبلغ أكثر من ٦٠٠٠ فدان، موزّعة على ثلاث مناطق رئيسية في مصر — شرق القاهرة وغرب القاهرة والمشروعات الساحلية — بالإضافة إلى توسّعها في المملكة العربية السعودية. وعبارة الكتيّب عن عملها هي: «إعمار الأرض وإسعاد من حولنا».'}
+         }},
+        {en:'Success in Numbers', ar:'النجاح بالأرقام', icon:'star',
+         imgs:[MV+'aerial.webp', MV+'top20.webp', MV+'october-park.webp'],
+         copy:{
+           lead:{en:'The Sales Kit 2026 publishes the company\'s scorecard: 20+ years of work, 23+ projects, 6+ city-scale developments and 2 countries, with 50,000 families living in 15 communities that are already handed over.',
+                 ar:'ينشر كتيّب المبيعات ٢٠٢٦ سجلّ الشركة: أكثر من ٢٠ عاماً من العمل، وأكثر من ٢٣ مشروعاً، وأكثر من ٦ مشروعات بحجم مدينة، ودولتان، مع ٥٠ ألف أسرة تعيش في ١٥ مجتمعاً جرى تسليمها بالفعل.'},
+           groups:[
+             {label:{en:'Success in numbers', ar:'النجاح بالأرقام'}, rows:[
+               {k:{en:'Years of success',ar:'سنوات من النجاح'},        v:{en:'20+',ar:'+٢٠'}},
+               {k:{en:'Projects',ar:'المشروعات'},                      v:{en:'23+',ar:'+٢٣'}},
+               {k:{en:'City-scale projects',ar:'مشروعات بحجم مدينة'},  v:{en:'6+',ar:'+٦'}},
+               {k:{en:'Countries',ar:'الدول'},                         v:{en:'2',ar:'٢'}},
+               {k:{en:'Sales achieved',ar:'المبيعات المحقّقة'},        v:{en:'EGP 315 bn',ar:'٣١٥ مليار جنيه'}},
+               {k:{en:'Land bank',ar:'محفظة الأراضي'},                 v:{en:'25m+ m²',ar:'أكثر من ٢٥ مليون م²'}},
+               {k:{en:'Units delivered',ar:'الوحدات المسلَّمة'},        v:{en:'17k',ar:'١٧ ألف'}},
+               {k:{en:'Families',ar:'الأسر'},                          v:{en:'50k',ar:'٥٠ ألف'}},
+               {k:{en:'Livable communities',ar:'المجتمعات المأهولة'},   v:{en:'15',ar:'١٥'}}]},
+             {label:{en:'Market standing', ar:'الترتيب في السوق'}, rows:[
+               {k:{en:'Top 20 developers 2024',ar:'أفضل ٢٠ مطوّراً ٢٠٢٤'}, v:{en:'3rd — EGP 105 bn (Source: The Board Consultancy 2024)',ar:'المركز الثالث — ١٠٥ مليار جنيه (المصدر: ذا بورد كونسلتانسي ٢٠٢٤)'}},
+               {k:{en:'Sales',ar:'المبيعات'},                              v:{en:'Among the top 5, five years in a row',ar:'ضمن أفضل ٥، خمس سنوات على التوالي'}},
+               {k:{en:'Power brands',ar:'أقوى العلامات التجارية'},         v:{en:'Among the top 5, five years in a row',ar:'ضمن أفضل ٥، خمس سنوات على التوالي'}}]}
+           ]
+         }},
+        {en:'Building 2026', ar:'البناء في ٢٠٢٦', icon:'target',
+         imgs:[MV+'construction-2026.webp', MV+'icity-newcairo-lagoon.webp'],
+         copy:{
+           lead:{en:'Mountain View is accelerating execution with one of the largest construction budgets in the history of Egypt\'s real estate sector, allocating EGP 25 billion in 2026 to fast-track development across its projects.',
+                 ar:'تُسرّع ماونتن ڤيو وتيرة التنفيذ بواحدة من أكبر ميزانيات الإنشاء في تاريخ قطاع العقارات المصري، بتخصيص ٢٥ مليار جنيه في عام ٢٠٢٦ لتسريع التطوير في كل مشروعاتها.'}
+         }},
+        {en:'Projects Timeline', ar:'الخط الزمني للمشروعات', icon:'spark',
+         imgs:[MV+'timeline-1.webp', MV+'timeline-2.webp', MV+'timeline-3.webp',
+               MV+'timeline-4.webp', MV+'timeline-5.webp', MV+'timeline-6.webp'],
+         copy:{
+           lead:{en:'Twenty years of launches, in the order the kit prints them — from the first Mountain View in New Cairo in 2005 to Jirian and Crysta in 2025.',
+                 ar:'عشرون عاماً من الإطلاقات بالترتيب الذي ينشره الكتيّب — من «ماونتن ڤيو» الأولى بالقاهرة الجديدة عام ٢٠٠٥ إلى «جيريان» و«كريستا» عام ٢٠٢٥.'},
+           groups:[
+             {label:{en:'2005 – 2012', ar:'٢٠٠٥ – ٢٠١٢'}, rows:[
+               {k:{en:'2005',ar:'٢٠٠٥'}, v:{en:'Mountain View 1',ar:'ماونتن ڤيو ١'}},
+               {k:{en:'2006',ar:'٢٠٠٦'}, v:{en:'Mountain View 2 · MV Ras El Hikma',ar:'ماونتن ڤيو ٢ · إم ڤي رأس الحكمة'}},
+               {k:{en:'2007',ar:'٢٠٠٧'}, v:{en:'MV Sokhna 1 · MV Sokhna 2',ar:'إم ڤي السخنة ١ · إم ڤي السخنة ٢'}},
+               {k:{en:'2010',ar:'٢٠١٠'}, v:{en:'Giza Plateau',ar:'جيزة بلاتوه'}},
+               {k:{en:'2011',ar:'٢٠١١'}, v:{en:'Executive Residence Katameya',ar:'إكزكتيف ريزيدنس القطامية'}},
+               {k:{en:'2012',ar:'٢٠١٢'}, v:{en:'MV Hyde Park · October Park',ar:'إم ڤي هايد بارك · أكتوبر بارك'}}]},
+             {label:{en:'2015 – 2019', ar:'٢٠١٥ – ٢٠١٩'}, rows:[
+               {k:{en:'2015',ar:'٢٠١٥'}, v:{en:'Chillout Park',ar:'تشيل آوت بارك'}},
+               {k:{en:'2016',ar:'٢٠١٦'}, v:{en:'iCity New Cairo',ar:'آي سيتي القاهرة الجديدة'}},
+               {k:{en:'2017',ar:'٢٠١٧'}, v:{en:'iCity October',ar:'آي سيتي أكتوبر'}},
+               {k:{en:'2019',ar:'٢٠١٩'}, v:{en:'DMG · Heartwork',ar:'دي إم جي · هارت وورك'}}]},
+             {label:{en:'2022 – 2025', ar:'٢٠٢٢ – ٢٠٢٥'}, rows:[
+               {k:{en:'2022',ar:'٢٠٢٢'}, v:{en:'Mountain View 1.1 · Mountain View 4',ar:'ماونتن ڤيو ١٫١ · ماونتن ڤيو ٤'}},
+               {k:{en:'2023',ar:'٢٠٢٣'}, v:{en:'LVLS · Aliva · The Lighthouse',ar:'لِفلز · أليفا · ذا لايت هاوس'}},
+               {k:{en:'2024',ar:'٢٠٢٤'}, v:{en:'plage · Kingsway',ar:'بلاج · كينجزواي'}},
+               {k:{en:'2025',ar:'٢٠٢٥'}, v:{en:'ONE ون · Grand Valleys · Jirian · Crysta',ar:'ون · جراند فالييز · جيريان · كريستا'}}]}
+           ]
+         }},
+        {en:'Where Mountain View Builds', ar:'أين تبني ماونتن ڤيو', icon:'pin',
+         imgs:[MV+'icity-october-mountain-park.webp', MV+'lvls.webp',
+               MV+'mv-sokhna1.webp', MV+'raselhikma-lagoon.webp'],
+         copy:{
+           lead:{en:'The kit\'s projects map places the portfolio in five clusters: East Cairo, West Cairo, the North Coast, Ain Sokhna and — as the company\'s first move outside Egypt — Saudi Arabia.',
+                 ar:'تضع خريطة المشروعات في الكتيّب المحفظة في خمس مجموعات: شرق القاهرة، وغرب القاهرة، والساحل الشمالي، والعين السخنة، و— كأول خطوة للشركة خارج مصر — المملكة العربية السعودية.'},
+           groups:[
+             {label:{en:'On the map', ar:'على الخريطة'}, rows:[
+               {k:{en:'East Cairo',ar:'شرق القاهرة'},   v:{en:'Mountain View 1 · Mountain View 2 · Mountain View 1.1 · Executive Residence Katameya · MV Hyde Park · iCity New Cairo · Aliva · Grand Valleys',ar:'ماونتن ڤيو ١ · ماونتن ڤيو ٢ · ماونتن ڤيو ١٫١ · إكزكتيف ريزيدنس القطامية · إم ڤي هايد بارك · آي سيتي القاهرة الجديدة · أليفا · جراند فالييز'}},
+               {k:{en:'West Cairo',ar:'غرب القاهرة'},   v:{en:'Giza Plateau · October Park · Chillout Park · Mountain View 4 · iCity October · Kingsway · Jirian',ar:'جيزة بلاتوه · أكتوبر بارك · تشيل آوت بارك · ماونتن ڤيو ٤ · آي سيتي أكتوبر · كينجزواي · جيريان'}},
+               {k:{en:'North Coast',ar:'الساحل الشمالي'}, v:{en:'MV Ras El Hikma · LVLS · plage · Crysta',ar:'إم ڤي رأس الحكمة · لِفلز · بلاج · كريستا'}},
+               {k:{en:'Ain Sokhna',ar:'العين السخنة'},  v:{en:'MV Sokhna 1 · MV Sokhna 2',ar:'إم ڤي السخنة ١ · إم ڤي السخنة ٢'}},
+               {k:{en:'Saudi Arabia',ar:'المملكة العربية السعودية'}, v:{en:'Hayah · ONE ون',ar:'حياة · ون'}}]}
+           ]
+         }},
+        {en:'Livable Communities', ar:'المجتمعات المأهولة', icon:'home',
+         imgs:[MV+'mv1.webp', MV+'mv2.webp', MV+'exec-katameya.webp',
+               MV+'hyde-park.webp', MV+'giza-plateau.webp', MV+'october-park.webp'],
+         copy:{
+           lead:{en:'Fifteen communities are handed over and lived in. The kit lists them by district with the year each was launched.',
+                 ar:'خمسة عشر مجتمعاً جرى تسليمها ويعيش فيها أصحابها. ويسردها الكتيّب حسب المنطقة مع سنة إطلاق كل منها.'},
+           groups:[
+             {label:{en:'East Cairo', ar:'شرق القاهرة'}, rows:[
+               {k:{en:'Mountain View 1',ar:'ماونتن ڤيو ١'},                       v:{en:'Launched 2005',ar:'أُطلق ٢٠٠٥'}},
+               {k:{en:'Mountain View 2',ar:'ماونتن ڤيو ٢'},                       v:{en:'Launched 2006',ar:'أُطلق ٢٠٠٦'}},
+               {k:{en:'Executive Residence Katameya',ar:'إكزكتيف ريزيدنس القطامية'}, v:{en:'Launched 2011',ar:'أُطلق ٢٠١١'}},
+               {k:{en:'MV Hyde Park',ar:'إم ڤي هايد بارك'},                        v:{en:'Launched 2012',ar:'أُطلق ٢٠١٢'}},
+               {k:{en:'iCity New Cairo — Club park',ar:'آي سيتي القاهرة الجديدة — كلوب بارك'}, v:{en:'Launched 2016',ar:'أُطلق ٢٠١٦'}},
+               {k:{en:'iCity New Cairo — Mountain View 3',ar:'آي سيتي القاهرة الجديدة — ماونتن ڤيو ٣'}, v:{en:'Launched 2019',ar:'أُطلق ٢٠١٩'}},
+               {k:{en:'iCity New Cairo — Heartwork',ar:'آي سيتي القاهرة الجديدة — هارت وورك'}, v:{en:'Launched 2019',ar:'أُطلق ٢٠١٩'}},
+               {k:{en:'iCity New Cairo — MV Park',ar:'آي سيتي القاهرة الجديدة — إم ڤي بارك'}, v:{en:'Launched 2020',ar:'أُطلق ٢٠٢٠'}}]},
+             {label:{en:'West Cairo', ar:'غرب القاهرة'}, rows:[
+               {k:{en:'Giza Plateau',ar:'جيزة بلاتوه'},        v:{en:'Launched 2010',ar:'أُطلق ٢٠١٠'}},
+               {k:{en:'October Park',ar:'أكتوبر بارك'},        v:{en:'Launched 2012',ar:'أُطلق ٢٠١٢'}},
+               {k:{en:'Chillout Park',ar:'تشيل آوت بارك'},     v:{en:'Launched 2015',ar:'أُطلق ٢٠١٥'}},
+               {k:{en:'iCity October — Club park Phase 1',ar:'آي سيتي أكتوبر — كلوب بارك المرحلة ١'}, v:{en:'Launched 2017',ar:'أُطلق ٢٠١٧'}},
+               {k:{en:'iCity October — MV Park',ar:'آي سيتي أكتوبر — إم ڤي بارك'}, v:{en:'Launched 2020',ar:'أُطلق ٢٠٢٠'}},
+               {k:{en:'Mountain View 4',ar:'ماونتن ڤيو ٤'},    v:{en:'Launched 2022',ar:'أُطلق ٢٠٢٢'}}]},
+             {label:{en:'Coastal', ar:'الساحل'}, rows:[
+               {k:{en:'MV Ras El Hikma',ar:'إم ڤي رأس الحكمة'}, v:{en:'Launched 2006',ar:'أُطلق ٢٠٠٦'}},
+               {k:{en:'MV Sokhna 1',ar:'إم ڤي السخنة ١'},       v:{en:'Launched 2007',ar:'أُطلق ٢٠٠٧'}},
+               {k:{en:'MV Sokhna 2',ar:'إم ڤي السخنة ٢'},       v:{en:'Launched 2007',ar:'أُطلق ٢٠٠٧'}}]}
+           ]
+         }},
+        {en:'Under Construction', ar:'تحت الإنشاء', icon:'build',
+         imgs:[MV+'mv11-villas.webp', MV+'aliva.webp', MV+'grand-valleys.webp',
+               MV+'kingsway.webp', MV+'jirian.webp', MV+'crysta.webp'],
+         copy:{
+           lead:{en:'The construction-progress pages photograph what is being built right now across the three Egyptian districts, each phase carrying its launch year.',
+                 ar:'تُصوّر صفحات تقدّم الإنشاءات ما يجري بناؤه الآن في المناطق المصرية الثلاث، وتحمل كل مرحلة سنة إطلاقها.'},
+           groups:[
+             {label:{en:'East Cairo', ar:'شرق القاهرة'}, rows:[
+               {k:{en:'iCity New Cairo — Mountain Park · Lagoon Beach Park',ar:'آي سيتي القاهرة الجديدة — ماونتن بارك · لاجون بيتش بارك'}, v:{en:'Launched 2021',ar:'أُطلق ٢٠٢١'}},
+               {k:{en:'Mountain View 1.1 — The Villas · The Park',ar:'ماونتن ڤيو ١٫١ — ذا فيلاز · ذا بارك'}, v:{en:'Launched 2022',ar:'أُطلق ٢٠٢٢'}},
+               {k:{en:'Aliva — River park · Fields park',ar:'أليفا — ريفر بارك · فيلدز بارك'}, v:{en:'Launched 2023',ar:'أُطلق ٢٠٢٣'}},
+               {k:{en:'Grand Valleys',ar:'جراند فالييز'},                v:{en:'Launched 2025',ar:'أُطلق ٢٠٢٥'}}]},
+             {label:{en:'West Cairo', ar:'غرب القاهرة'}, rows:[
+               {k:{en:'Chillout Park — Lakeside Villas',ar:'تشيل آوت بارك — ليك سايد فيلاز'}, v:{en:'Launched 2021',ar:'أُطلق ٢٠٢١'}},
+               {k:{en:'iCity October — Mountain Park · Lagoon Beach Park · Club park Phase 2',ar:'آي سيتي أكتوبر — ماونتن بارك · لاجون بيتش بارك · كلوب بارك المرحلة ٢'}, v:{en:'Launched 2022',ar:'أُطلق ٢٠٢٢'}},
+               {k:{en:'Kingsway by Mountain View Signature',ar:'كينجزواي من ماونتن ڤيو سيجنتشر'}, v:{en:'Launched 2024',ar:'أُطلق ٢٠٢٤'}},
+               {k:{en:'Jirian — Mountain View · Nations of Sky',ar:'جيريان — ماونتن ڤيو · نيشنز أوف سكاي'}, v:{en:'Launched 2025',ar:'أُطلق ٢٠٢٥'}}]},
+             {label:{en:'Coastal', ar:'الساحل'}, rows:[
+               {k:{en:'MV Ras El Hikma',ar:'إم ڤي رأس الحكمة'}, v:{en:'Lagoon opening summer 2026',ar:'افتتاح البحيرة صيف ٢٠٢٦'}},
+               {k:{en:'LVLS North Coast',ar:'لِفلز الساحل الشمالي'}, v:{en:'Launched 2023',ar:'أُطلق ٢٠٢٣'}},
+               {k:{en:'Crysta',ar:'كريستا'},                    v:{en:'Launched 2025',ar:'أُطلق ٢٠٢٥'}}]}
+           ]
+         }}
       ]
     },
     /* Marsa Baghush. Every line is quoted or translated from its brochure. It has

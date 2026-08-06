@@ -1689,6 +1689,68 @@ try {
     var immutable = (h.match(/max-age=31536000, immutable/g) || []).length >= 3;
     return revalidates && immutable;
   })());
+  /* Mountain View. The Sales Kit 2026 is carried the way Modon's brochure is:
+     photography above the logo, a projects map, and themed cards. Both
+     directions of the media wiring are asserted — a path with no file, and a
+     page extracted from the PDF that nothing on the site can show. */
+  (function(){
+    var fsx=require('fs'), pathx=require('path');
+    var MED = pathx.join(__dirname,'..','project-media','mountainview');
+    var used = {};
+    (api.DEV_GALLERY.mountainview||[]).forEach(function(s){ used[s]=1; });
+    var f = api.DEV_FEATURES.mountainview;
+    if(f && f.masterplan) used[f.masterplan.src]=1;
+    (f ? f.cards : []).forEach(function(c){ (c.imgs||[]).forEach(function(s){ used[s]=1; }); });
+    var refs = Object.keys(used);
+    var broken = refs.filter(function(r){
+      return r.indexOf('/project-media/mountainview/') !== 0 ||
+             !fsx.existsSync(pathx.join(MED, r.replace('/project-media/mountainview/','')));
+    });
+    var disk = fsx.readdirSync(MED).map(function(n){ return '/project-media/mountainview/'+n; });
+    var orphan = disk.filter(function(d){ return !used[d]; });
+    ck('mountainview: every brochure image path exists on disk',
+       refs.length >= 25 && broken.length === 0,
+       refs.length+' refs'+(broken.length?' broken: '+broken.slice(0,3):''));
+    ck('mountainview: every extracted page is reachable in the UI',
+       orphan.length === 0, orphan.length ? 'orphaned: '+orphan.slice(0,3) : 'all '+disk.length+' shown');
+  })();
+  (function(){
+    var n = api.V.developer('mountainview').node, t = txt(n);
+    var srcs = qsa(n,'img').map(function(i){ return (i.getAttribute&&i.getAttribute('src'))||''; });
+    var shown = srcs.filter(function(s){ return s.indexOf('/project-media/mountainview/')===0; });
+    // the figures the kit prints, which nothing else on the site would notice going stale
+    // one frame from the gallery (arrows flip the rest), the projects map, and a
+    // thumbnail per card — the same shape the Modon page renders.
+    var f2 = api.DEV_FEATURES.mountainview;
+    var want = {imgs:shown.length >= 1 + f2.cards.length,
+                plan:shown.indexOf(f2.masterplan.src) > -1,
+                tagline:/Experience Happiness/.test(t),
+                map:/Projects Map/.test(t), numbers:/Success in Numbers/.test(t),
+                budget:/EGP 25 billion/.test(t), landbank:/6,000 acres/.test(t)};
+    var miss = Object.keys(want).filter(function(k){ return !want[k]; });
+    ck('mountainview: the page carries the kit — gallery, projects map and cards',
+       miss.length===0, miss.length ? 'missing: '+miss.join(',')+' imgs='+shown.length : 'imgs='+shown.length);
+  })();
+  ck('mountainview: the kit\'s copy is complete in both languages', (function(){
+    var f = api.DEV_FEATURES.mountainview;
+    if(!f || !f.masterplan.en || !f.masterplan.ar || f.cards.length < 5) return false;
+    return f.cards.every(function(c){
+      if(!c.en || !c.ar || !c.imgs.length || !c.copy || !c.copy.lead.en || !c.copy.lead.ar) return false;
+      if(c.copy.more && (!c.copy.more.en || !c.copy.more.ar)) return false;
+      return (c.copy.groups||[]).every(function(g){
+        return g.label.en && g.label.ar &&
+          g.rows.every(function(r){ return r.k.en && r.k.ar && r.v.en && r.v.ar; });
+      });
+    });
+  })(), 'ok');
+  /* The kit spells the name «ماونتن ڤيو» with a Persian veh; everyone types it
+     with a plain fa. Search has to fold the two or the developer disappears in
+     Arabic — which it silently did until arNorm learned the letter. */
+  ck('search: an Arabic name printed with ڤ is still found when typed with ف', (function(){
+    return api.arNorm('ماونتن ڤيو') === api.arNorm('ماونتن فيو') &&
+           api.arNorm('پارك') === api.arNorm('بارك');
+  })(), 'ok');
+
   /* M squared. Five projects whose cards come from the company profile and
      whose unit media comes from the client sheet, so nothing else in the suite
      would notice a media path going stale or a delivered file being shown by
