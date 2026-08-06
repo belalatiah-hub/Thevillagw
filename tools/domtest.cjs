@@ -1734,6 +1734,33 @@ try {
     ck('mountainview: the page carries the kit — gallery, projects map and cards',
        miss.length===0, miss.length ? 'missing: '+miss.join(',')+' imgs='+shown.length : 'imgs='+shown.length);
   })();
+  /* The developer hero is a wide band. An upright crop dropped into it fills
+     the frame with whatever happens to be at the top of the picture — the
+     Mountain View kit's gate photo showed a roof and a patch of sky. Nothing
+     else in the suite reads image dimensions, so this parses the WebP header
+     directly. Marakez ships four near-square frames the owner is happy with,
+     so the bar is "not markedly taller than wide", not "strictly landscape". */
+  ck('devgal: no hero frame is markedly taller than it is wide', (function(){
+    var fsx=require('fs'), pathx=require('path');
+    function dim(f){
+      if(!fsx.existsSync(f)) return null;
+      var b = fsx.readFileSync(f);
+      if(b.toString('ascii',0,4)!=='RIFF' || b.toString('ascii',8,12)!=='WEBP') return null;
+      var fc = b.toString('ascii',12,16);
+      if(fc==='VP8 ') return {w:b.readUInt16LE(26)&0x3fff, h:b.readUInt16LE(28)&0x3fff};
+      if(fc==='VP8L'){ var n=b.readUInt32LE(21); return {w:(n&0x3fff)+1, h:((n>>14)&0x3fff)+1}; }
+      if(fc==='VP8X') return {w:(b[24]|b[25]<<8|b[26]<<16)+1, h:(b[27]|b[28]<<8|b[29]<<16)+1};
+      return null;
+    }
+    var bad = [];
+    Object.keys(api.DEV_GALLERY).forEach(function(k){
+      (api.DEV_GALLERY[k]||[]).forEach(function(s){
+        var d = dim(pathx.join(__dirname,'..',String(s).replace(/^\//,'')));
+        if(!d || d.w / d.h < 0.9) bad.push(k+':'+String(s).split('/').pop()+(d?' '+d.w+'x'+d.h:' unreadable'));
+      });
+    });
+    return bad.length === 0 || bad;
+  })() === true, 'ok');
   /* The eight cards standing in until the price lists arrive. A card with no
      sheet behind it must claim nothing — no price, no down payment, no
      instalment period, no delivery date and no unit mix — and must not be one
