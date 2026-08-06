@@ -1689,9 +1689,10 @@ try {
     var immutable = (h.match(/max-age=31536000, immutable/g) || []).length >= 3;
     return revalidates && immutable;
   })());
-  /* M squared. Six projects built entirely from the company profile — no client
-     sheet, no unit schedule — so nothing else in the suite would notice a media
-     path going stale or a brochure page being delivered and never shown. */
+  /* M squared. Five projects whose cards come from the company profile and
+     whose unit media comes from the client sheet, so nothing else in the suite
+     would notice a media path going stale or a delivered file being shown by
+     no page at all. Both directions are asserted. */
   (function(){
     var fsx=require('fs'), pathx=require('path');
     var MED = pathx.join(__dirname,'..','project-media','msquared');
@@ -1731,13 +1732,38 @@ try {
       });
     });
     ck('msquared: a gallery resolves to real files at runtime, not just in source',
-       bad.length === 0, bad.length ? bad.slice(0,3).join(', ') : 'all six galleries resolve');
+       bad.length === 0, bad.length ? bad.slice(0,3).join(', ') : 'all five galleries resolve');
   })();
-  /* A project claims terms only where a price list exists for it. Masyaf,
-     31 WEST and MIST have one in the client sheet; TRIO and 41 Business
-     District have none and must stay silent. Ashgar Darna was withdrawn — it
-     was delivered between 2015 and 2019 and is fully sold — and must not come
-     back with the rest of the developer's content. */
+  /* The sheet's frame order is data, not presentation. 41 Business District's
+     second office runs -0, -01, -03, -02 — an order a filename sort would
+     silently "fix" — so it is pinned here alongside the TRIO galleries. The
+     same block checks that an office carries no bedroom or bathroom count,
+     since the sheet leaves both blank and an invented 0 would render as one. */
+  ck('msquared: TRIO and 41 keep the sheet\'s own frame order', (function(){
+    var W = '/project-media/msquared/units/';
+    var want = {
+      'MS-TR-01': ['ap1-trio-0','ap1-trio-01','ap1-trio-02','ap1-trio-03','ap1-trio-04','ap1-trio-05'],
+      'MS-TR-06': ['to1-trio-0','to1-trio-01','to1-trio-02'],
+      'MS-TR-07': ['ap6-trio-0','ap6-trio-01','ap6-trio-02','ap6-trio-03'],
+      'MS-41-02': ['off2-41-0','off2-41-01','off2-41-03','off2-41-02'],
+      'MS-41-05': ['off1-41-0','off1-41-01','off1-41-02']
+    };
+    var okOrder = Object.keys(want).every(function(id){
+      var got = api.UNIT_GALLERY[id] || [];
+      return got.join('|') === want[id].map(function(n){ return W + n + '.webp'; }).join('|');
+    });
+    var offices = api.UNITS.filter(function(u){ return u.project === '41-business-district'; });
+    var noBeds = offices.length === 5 && offices.every(function(u){ return u.beds == null && u.baths == null; });
+    // Four of the five office sizes are published as a band, not one figure.
+    var banded = offices.filter(function(u){ return u.areaTo > u.area; }).length === 4;
+    return okOrder && noBeds && banded;
+  })());
+  /* A project claims terms only where a price list exists for it. All five
+     M squared projects now have one in the client sheet, and each project's
+     stated entry price must be the cheapest unit actually listed under it —
+     the commonest way a price list and a card drift apart. Ashgar Darna was
+     withdrawn — it was delivered between 2015 and 2019 and is fully sold — and
+     must not come back with the rest of the developer's content. */
   ck('msquared: terms are claimed only where a price list exists', (function(){
     var ps = api.PROJECTS.filter(function(p){ return p.dev === 'msquared'; });
     if(ps.length !== 5) return false;
@@ -1745,19 +1771,22 @@ try {
     // and nothing it left behind
     if(/ms_ash_/.test(Object.keys(api.AMENITY_CAT).join(','))) return false;
     var by = {}; ps.forEach(function(p){ by[p.slug] = p; });
-    var priced = {'masyaf-ras-alhekma': [12190419, 10, 10, 'MS-MA-', 15],
-                  '31-west-october':    [13237120,  5, 10, 'MS-3W-', 13],
-                  'mist-new-cairo':     [17602921,  5, 10, 'MS-MI-',  6]};
+    var priced = {'masyaf-ras-alhekma':   [12190419, 10, 10, 'MS-MA-', 15],
+                  '31-west-october':      [13237120,  5, 10, 'MS-3W-', 13],
+                  'mist-new-cairo':       [17602921,  5, 10, 'MS-MI-',  6],
+                  'trio-new-cairo':       [11637891, 10, 10, 'MS-TR-',  7],
+                  '41-business-district': [13962832, 10,  8, 'MS-41-',  5]};
     var allUnits = api.UNITS.filter(function(u){ return by[u.project]; });
     var okPriced = Object.keys(priced).every(function(slug){
       var p = by[slug], w = priced[slug];
       if(!p || p.price !== w[0] || p.dp !== w[1] || p.years !== w[2]) return false;
       var us = allUnits.filter(function(u){ return u.project === slug; });
-      return us.length === w[4] && us.every(function(u){ return u.id.indexOf(w[3]) === 0; });
+      if(us.length !== w[4] || !us.every(function(u){ return u.id.indexOf(w[3]) === 0; })) return false;
+      return p.price === Math.min.apply(null, us.map(function(u){ return u.price; }));
     });
     var silent = ps.filter(function(p){ return !priced[p.slug]; })
                    .every(function(p){ return p.price == null && p.dp == null && p.years == null; });
-    return okPriced && silent && allUnits.length === 34;
+    return okPriced && silent && allUnits.length === 46;
   })());
   ck('sec: build inputs are excluded from the deploy', (function(){
      var ig = require('fs').readFileSync(__dirname + '/../.assetsignore', 'utf8');
