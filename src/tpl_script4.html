@@ -293,17 +293,27 @@
     }
 
     // unit types (clear icons) + available units (image + specs)
-    var typesEn=(p.types.en||'').split(' · ');
+    /* `types` is optional. A project whose price list has not arrived yet knows
+       its name and its place but not its unit mix, and guessing one would put
+       chips on the page for homes nobody has confirmed exist — so the row is
+       simply skipped rather than filled in. */
+    var typesEn=(p.types && p.types.en) ? p.types.en.split(' · ') : [];
     var utsec=h('section',{class:'section--tight band'}), utw=h('div',{class:'wrap'});
     utw.appendChild(sectionHead('', t('unit_types_h'), t('unit_types_p')));
-    var trow=h('div',{class:'type-row'});
-    typesEn.forEach(function(te){ var c=normalizeUnitType(te); trow.appendChild(h('div',{class:'type-chip'}, typeIconC(c), h('span',null, typeLabelC(c)))); });
-    utw.appendChild(trow);
+    if(typesEn.length){
+      var trow=h('div',{class:'type-row'});
+      typesEn.forEach(function(te){ var c=normalizeUnitType(te); trow.appendChild(h('div',{class:'type-chip'}, typeIconC(c), h('span',null, typeLabelC(c)))); });
+      utw.appendChild(trow);
+    }
     var us=unitsIn(p.slug);
     if(us.length){
       utw.appendChild(h('h3',{style:'font-size:1.25rem;margin:28px 0 10px'}, t('avail_units')));
       var asum=availSummary(us); if(asum) utw.appendChild(asum);
       utw.appendChild(h('div',{class:'grid grid--3'}, us.map(unitCard)));
+    } else if(!typesEn.length){
+      // neither a declared mix nor a price list: say so rather than leave the
+      // band looking like the project has nothing to sell
+      utw.appendChild(h('p',{class:'muted',style:'margin:4px 0 0'}, ic('info'), h('span',null,' '+t('awaiting_list'))));
     }
     utw.appendChild(h('p',{class:'muted',style:'font-size:.78rem;margin-top:16px'}, t('art_note')));
     utsec.appendChild(utw); node.appendChild(utsec);

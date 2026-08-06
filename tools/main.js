@@ -264,7 +264,7 @@ readmin:"min read", legal_priv:"Privacy notice", legal_terms:"Terms of use",
 brand_note:"Identity derived from The Village master logo. Approved brand sign-off pending.",
 foot_blocker:"Launch note: verified contacts, live inventory, CRM lead delivery and legal review are pending owner input.",
 choose_lang:"العربية", metric_installments:"yr plan",
-nav_units:"Units", avail_units:"Available units", new_release:"New release", release_h:"New release price list", release_p:"Updated prices released by the developer for these projects. Primary sale, direct from the developer.", release_units:"Units in this release", fs_installments:"Installments", fs_quarterly:"quarterly", fs_floorplan:"Floor plan", eoi:"EOI", eoi_note:"Expression of interest — refundable reservation to join the release.", no_units_type:"No available units found for this unit type.",
+nav_units:"Units", avail_units:"Available units", new_release:"New release", release_h:"New release price list", release_p:"Updated prices released by the developer for these projects. Primary sale, direct from the developer.", release_units:"Units in this release", fs_installments:"Installments", fs_quarterly:"quarterly", fs_floorplan:"Floor plan", eoi:"EOI", eoi_note:"Expression of interest — refundable reservation to join the release.", no_units_type:"No available units found for this unit type.", awaiting_list:"The developer has not released a price list for this project yet. Ask an advisor for the current unit types, areas and payment terms.",
 home_units_h:"Featured units", home_units_p:"Illustrative sample units across our projects — bedrooms, area and price are examples to confirm with an advisor.",
 units_h:"Units", units_p:"Browse sample units by type. Figures are illustrative — confirm current availability and prices with an advisor.",
 filter_type:"Type", all_types:"All types",
@@ -387,7 +387,7 @@ readmin:"دقائق قراءة", legal_priv:"إشعار الخصوصية", legal
 brand_note:"الهوية مستمدة من شعار The Village الرئيسي. اعتماد الهوية النهائي قيد الانتظار.",
 foot_blocker:"ملاحظة إطلاق: بيانات التواصل الموثّقة والمعروض الحيّ وتسليم الطلبات للـCRM والمراجعة القانونية قيد إدخال صاحب الموقع.",
 choose_lang:"English", metric_installments:"سنوات تقسيط",
-nav_units:"الوحدات", avail_units:"وحدات متاحة", new_release:"إطلاق جديد", release_h:"قائمة أسعار الإطلاق الجديد", release_p:"أسعار محدَّثة أصدرها المطوّر لهذه المشاريع. بيع أولي مباشر من المطوّر.", release_units:"وحدات هذا الإطلاق", fs_installments:"عدد الأقساط", fs_quarterly:"قسط ربع سنوي", fs_floorplan:"مخطط الوحدة", eoi:"EOI", eoi_note:"خطاب رغبة — حجز مسترد للدخول في الإطلاق.", no_units_type:"لا توجد وحدات متاحة من هذا النوع.",
+nav_units:"الوحدات", avail_units:"وحدات متاحة", new_release:"إطلاق جديد", release_h:"قائمة أسعار الإطلاق الجديد", release_p:"أسعار محدَّثة أصدرها المطوّر لهذه المشاريع. بيع أولي مباشر من المطوّر.", release_units:"وحدات هذا الإطلاق", fs_installments:"عدد الأقساط", fs_quarterly:"قسط ربع سنوي", fs_floorplan:"مخطط الوحدة", eoi:"EOI", eoi_note:"خطاب رغبة — حجز مسترد للدخول في الإطلاق.", no_units_type:"لا توجد وحدات متاحة من هذا النوع.", awaiting_list:"لم يُصدر المطوّر قائمة أسعار لهذا المشروع بعد. اسأل المستشار عن أنواع الوحدات والمساحات وشروط السداد الحالية.",
 home_units_h:"وحدات مميّزة", home_units_p:"وحدات نموذجية استرشادية عبر مشروعاتنا — الغرف والمساحة والسعر أمثلة للتأكيد مع المستشار.",
 units_h:"الوحدات", units_p:"تصفّح وحدات نموذجية حسب النوع. الأرقام استرشادية — أكّد الإتاحة والأسعار الحالية مع المستشار.",
 filter_type:"النوع", all_types:"كل الأنواع",
@@ -527,6 +527,14 @@ var PROJECTS = [
 {slug:'badya-october', name:'Badya', name_ar:'بادية', dev:'palmhills', area:'october', status:'launch', price:5600000, dp:10, years:8, delivery:'2029', finishing:{en:'Fully finished / core & shell',ar:'تشطيب كامل / خرسانة'}, types:{en:'Apartment · Townhouse · Twin house · Villa',ar:'شقة · تاون هاوس · توين هاوس · فيلا'}, tags:{en:['6th of October','Master-planned city'],ar:['٦ أكتوبر','مدينة متكاملة']}, blurb:{en:'Palm Hills’ large master-planned city in West Cairo, organised into walkable districts with schools, parks and retail. Developer-direct primary units.',ar:'مدينة بالم هيلز المتكاملة الكبرى بغرب القاهرة، مقسّمة إلى أحياء صديقة للمشاة بمدارس وحدائق ومحال. وحدات أولية من المطوّر مباشرة.'}},
 {slug:'the-estates-zayed', name:'The Estates', name_ar:'ذي إستيتس', dev:'sodic', area:'zayed', status:'primary', price:12000000, dp:10, years:7, delivery:'2027', finishing:{en:'Semi-finished',ar:'نصف تشطيب'}, types:{en:'Apartment · Villa',ar:'شقة · فيلا'}, tags:{en:['New Zayed','Low-density'],ar:['زايد الجديدة','كثافة منخفضة']}, blurb:{en:'A SODIC community in New Zayed, west of Cairo — low-density residences set among landscaped open space. Developer-direct primary units.',ar:'مجتمع من سوديك بزايد الجديدة غرب القاهرة — وحدات بكثافة منخفضة وسط مساحات خضراء منسّقة. وحدات أولية من المطوّر مباشرة.'}},
 {slug:'aliva-mostakbal', name:'Aliva', name_ar:'أليفا', dev:'mountainview', area:'mostakbal', status:'launch', price:6000000, dp:5, years:9, delivery:'2029', finishing:{en:'Semi-finished',ar:'نصف تشطيب'}, types:{en:'Apartment · Townhouse · Villa',ar:'شقة · تاون هاوس · فيلا'}, tags:{en:['Mostakbal City','Parks & lifestyle'],ar:['مدينة المستقبل','حدائق ولايف ستايل']}, blurb:{en:'A Mountain View community in Mostakbal City built around the developer’s signature parks and lifestyle master plan. Developer-direct primary units.',ar:'مجتمع من ماونتن ڤيو بمدينة المستقبل مبني حول مخطط الحدائق واللايف ستايل المميّز للمطوّر. وحدات أولية من المطوّر مباشرة.'}},
+{slug:'mountain-view-11', name:'Mountain View 1.1', name_ar:'ماونتن ڤيو ١٫١', dev:'mountainview', area:'newcairo', status:'primary', tags:{en:['New Cairo','Launched 2022'],ar:['القاهرة الجديدة','أُطلق ٢٠٢٢']}, blurb:{en:'A Mountain View development in East Cairo, launched in 2022 and building in two phases the company kit names The Villas and The Park.',ar:'مشروع من ماونتن ڤيو بشرق القاهرة، أُطلق عام ٢٠٢٢ ويُبنى على مرحلتين يسمّيهما كتيّب الشركة «ذا فيلاز» و«ذا بارك».'}},
+{slug:'grand-valleys', name:'Grand Valleys', name_ar:'جراند فالييز', dev:'mountainview', area:'newcairo', status:'primary', tags:{en:['New Cairo','Launched 2025'],ar:['القاهرة الجديدة','أُطلق ٢٠٢٥']}, blurb:{en:'Mountain View’s East Cairo launch of 2025, already photographed under construction in the company kit.',ar:'إطلاق ماونتن ڤيو بشرق القاهرة لعام ٢٠٢٥، ويظهر في كتيّب الشركة قيد الإنشاء بالفعل.'}},
+{slug:'icity-october', name:'Mountain View iCity October', name_ar:'ماونتن ڤيو آي سيتي أكتوبر', dev:'mountainview', area:'october', status:'primary', tags:{en:['6th of October','Launched 2017'],ar:['٦ أكتوبر','أُطلق ٢٠١٧']}, blurb:{en:'The West Cairo iCity, launched in 2017. Club park Phase 1 and MV Park are handed over, while Mountain Park, Lagoon Beach Park and Club park Phase 2 have been building since 2022.',ar:'آي سيتي غرب القاهرة، أُطلقت عام ٢٠١٧. سُلّمت «كلوب بارك المرحلة ١» و«إم ڤي بارك»، بينما يجري بناء «ماونتن بارك» و«لاجون بيتش بارك» و«كلوب بارك المرحلة ٢» منذ ٢٠٢٢.'}},
+{slug:'kingsway-october', name:'Kingsway', name_ar:'كينجزواي', dev:'mountainview', area:'october', status:'primary', tags:{en:['6th of October','Mountain View Signature'],ar:['٦ أكتوبر','ماونتن ڤيو سيجنتشر']}, blurb:{en:'Launched in 2024 under the Mountain View Signature line, and on site in West Cairo since.',ar:'أُطلق عام ٢٠٢٤ ضمن خط «ماونتن ڤيو سيجنتشر»، والعمل جارٍ في موقعه بغرب القاهرة منذ ذلك الحين.'}},
+{slug:'jirian', name:'Jirian', name_ar:'جيريان', dev:'mountainview', area:'october', status:'primary', tags:{en:['West Cairo','With Nations of Sky'],ar:['غرب القاهرة','بالشراكة مع نيشنز أوف سكاي']}, blurb:{en:'A 2025 launch in West Cairo, developed by Mountain View together with Nations of Sky and drawn along the water.',ar:'إطلاق ٢٠٢٥ في غرب القاهرة، تطوّره ماونتن ڤيو بالشراكة مع «نيشنز أوف سكاي»، ومرسوم على امتداد الماء.'}},
+{slug:'lvls-north-coast', name:'LVLS', name_ar:'لِفلز', dev:'mountainview', area:'sahel', status:'primary', tags:{en:['North Coast','Launched 2023'],ar:['الساحل الشمالي','أُطلق ٢٠٢٣']}, blurb:{en:'Mountain View’s North Coast development, launched in 2023 and under construction on the shore.',ar:'مشروع ماونتن ڤيو على الساحل الشمالي، أُطلق عام ٢٠٢٣ وتحت الإنشاء على الشاطئ.'}},
+{slug:'plage-north-coast', name:'plage', name_ar:'بلاج', dev:'mountainview', area:'sahel', status:'primary', tags:{en:['North Coast','Launched 2024'],ar:['الساحل الشمالي','أُطلق ٢٠٢٤']}, blurb:{en:'A 2024 Mountain View launch on the North Coast.',ar:'إطلاق من ماونتن ڤيو على الساحل الشمالي عام ٢٠٢٤.'}},
+{slug:'crysta-north-coast', name:'Crysta', name_ar:'كريستا', dev:'mountainview', area:'sahel', status:'primary', tags:{en:['North Coast','Launched 2025'],ar:['الساحل الشمالي','أُطلق ٢٠٢٥']}, blurb:{en:'Mountain View’s newest coastal launch, dated 2025 in the company kit.',ar:'أحدث إطلاق ساحلي من ماونتن ڤيو، ومؤرَّخ بعام ٢٠٢٥ في كتيّب الشركة.'}},
 {slug:'fouka-bay', name:'Fouka Bay', name_ar:'فوكا باي', dev:'tatweer', area:'sahel', status:'primary', price:13900000, dp:5, years:9, delivery:'2030', finishing:{en:'Fully finished',ar:'تشطيب كامل'}, types:{en:'Chalet · Apartment',ar:'شاليه · شقة'}, tags:{en:['North Coast','Turquoise lagoons'],ar:['الساحل الشمالي','بحيرات فيروزية']}, blurb:{en:'Tatweer Misr’s North Coast resort near Ras El Hekma, known for terraced beachfront and turquoise swimmable lagoons. Developer-direct primary units.',ar:'منتجع تطوير مصر على الساحل الشمالي قرب رأس الحكمة، معروف بالشاطئ المتدرّج والبحيرات الفيروزية للسباحة. وحدات أولية من المطوّر مباشرة.'}},
 {slug:'vinci-capital', name:'Vinci', name_ar:'فينشي', dev:'misritalia', area:'capital', status:'primary', price:6500000, dp:10, years:8, delivery:'2028', finishing:{en:'Semi-finished',ar:'نصف تشطيب'}, types:{en:'Apartment · Villa',ar:'شقة · فيلا'}, tags:{en:['New Capital','Green living'],ar:['العاصمة الإدارية','معيشة خضراء']}, blurb:{en:'Misr Italia’s green, technology-enabled community in the New Administrative Capital, with generous landscaping and amenities. Developer-direct primary units.',ar:'مجتمع مصر إيطاليا الأخضر المزوّد بالتقنيات بالعاصمة الإدارية الجديدة، بمساحات خضراء ومرافق واسعة. وحدات أولية من المطوّر مباشرة.'}},
 {slug:'masyaf-ras-alhekma', name:'Masyaf Ras Alhekma', name_ar:'مصياف رأس الحكمة', dev:'msquared', area:'raselhekma', status:'primary', price:12190419, dp:10, years:10, delivery:'2028–2030', types:{en:'Chalet · Duplex · Penthouse · Townhouse · Villa',ar:'شاليه · دوبلكس · بنتهاوس · تاون هاوس · فيلا'}, tags:{en:['Ras Al Hekma','112 feddans','730 m beachfront'],ar:['رأس الحكمة','١١٢ فدان','٧٣٠ م واجهة بحرية']}, blurb:{en:'Inspired by Greek architecture, where floating seascapes and natural simplicity live indoors, Masyaf Ras Alhekma stretches over 112 feddans of land lapping a pristine 730-metre beachfront on the Mediterranean shore. Master planned by M squared, it lifts its homes onto elevated platforms so every owner gets an equal view. Its own downtown carries Ritsa, the Barten restaurant, the Peppermint wellbeing centre and the Marmarica boutique cabanas.',ar:'مستوحى من العمارة اليونانية حيث تعيش المشاهد البحرية والبساطة الطبيعية في الداخل، يمتد مصياف رأس الحكمة على ١١٢ فداناً بواجهة بحرية بكر بطول ٧٣٠ متراً على شاطئ المتوسط. وضعت إم سكويرد مخططه العام ورفعت منازله على منصات متدرّجة ليحصل كل مالك على إطلالة متساوية. ويضم داون تاون خاصاً به يحوي «ريتسا» ومطعم «بارتن» ومركز «بيبرمنت» للعافية وكابانات «مرماريكا» البوتيكية.'}},
@@ -1154,6 +1162,14 @@ var PROJECT_COVERS = {
 'park-central':'/project-media/hassan-allam/pc-ap1-r1.webp',
 'the-great-lawn':'/project-media/hassan-allam/gl-ap1-r1.webp',
 'swan-lake-west':'/project-media/hassan-allam/sl-ap1-r1.webp',
+'mountain-view-11':'/project-media/mountainview/mv11-villas.webp',
+'grand-valleys':'/project-media/mountainview/grand-valleys.webp',
+'icity-october':'/project-media/mountainview/icity-october-mountain-park.webp',
+'kingsway-october':'/project-media/mountainview/kingsway.webp',
+'jirian':'/project-media/mountainview/jirian.webp',
+'lvls-north-coast':'/project-media/mountainview/lvls.webp',
+'plage-north-coast':'/project-media/mountainview/plage.webp',
+'crysta-north-coast':'/project-media/mountainview/crysta.webp',
 };
 var PROJECT_GROUPS = [
 {slug:'stei8ht', dev:'lmd', name:'Stei8ht', name_ar:'ستيت',
@@ -6380,17 +6396,21 @@ lsw.appendChild(sectionHead(t('nav_launches'), t('home_launch_h'), t('home_launc
 lsw.appendChild(comingSoonLaunch(false));
 lsec.appendChild(lsw); node.appendChild(lsec);
 }
-var typesEn=(p.types.en||'').split(' · ');
+var typesEn=(p.types && p.types.en) ? p.types.en.split(' · ') : [];
 var utsec=h('section',{class:'section--tight band'}), utw=h('div',{class:'wrap'});
 utw.appendChild(sectionHead('', t('unit_types_h'), t('unit_types_p')));
+if(typesEn.length){
 var trow=h('div',{class:'type-row'});
 typesEn.forEach(function(te){ var c=normalizeUnitType(te); trow.appendChild(h('div',{class:'type-chip'}, typeIconC(c), h('span',null, typeLabelC(c)))); });
 utw.appendChild(trow);
+}
 var us=unitsIn(p.slug);
 if(us.length){
 utw.appendChild(h('h3',{style:'font-size:1.25rem;margin:28px 0 10px'}, t('avail_units')));
 var asum=availSummary(us); if(asum) utw.appendChild(asum);
 utw.appendChild(h('div',{class:'grid grid--3'}, us.map(unitCard)));
+} else if(!typesEn.length){
+utw.appendChild(h('p',{class:'muted',style:'margin:4px 0 0'}, ic('info'), h('span',null,' '+t('awaiting_list'))));
 }
 utw.appendChild(h('p',{class:'muted',style:'font-size:.78rem;margin-top:16px'}, t('art_note')));
 utsec.appendChild(utw); node.appendChild(utsec);

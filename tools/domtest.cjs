@@ -1696,11 +1696,14 @@ try {
   (function(){
     var fsx=require('fs'), pathx=require('path');
     var MED = pathx.join(__dirname,'..','project-media','mountainview');
-    var used = {};
-    (api.DEV_GALLERY.mountainview||[]).forEach(function(s){ used[s]=1; });
-    var f = api.DEV_FEATURES.mountainview;
-    if(f && f.masterplan) used[f.masterplan.src]=1;
-    (f ? f.cards : []).forEach(function(c){ (c.imgs||[]).forEach(function(s){ used[s]=1; }); });
+    // Scan the shipped bundle rather than named maps: the kit's photography is
+    // reached from DEV_GALLERY, DEV_FEATURES and PROJECT_COVERS, and a fourth
+    // map added later would silently fall outside a hand-listed scan.
+    var bundle = fsx.readFileSync(pathx.join(__dirname,'main.js'),'utf8');
+    var used = {}, m, re = /['"](\/project-media\/mountainview\/[^'"]+)['"]/g;
+    while((m = re.exec(bundle))) used[m[1]] = 1;
+    re = /MV\s*\+\s*'([^']+)'/g;
+    while((m = re.exec(bundle))) used['/project-media/mountainview/' + m[1]] = 1;
     var refs = Object.keys(used);
     var broken = refs.filter(function(r){
       return r.indexOf('/project-media/mountainview/') !== 0 ||
@@ -1731,6 +1734,41 @@ try {
     ck('mountainview: the page carries the kit — gallery, projects map and cards',
        miss.length===0, miss.length ? 'missing: '+miss.join(',')+' imgs='+shown.length : 'imgs='+shown.length);
   })();
+  /* The eight cards standing in until the price lists arrive. A card with no
+     sheet behind it must claim nothing — no price, no down payment, no
+     instalment period, no delivery date and no unit mix — and must not be one
+     of the communities the kit files as handed over. */
+  ck('mountainview: a card with no price list claims no terms', (function(){
+    var awaiting = ['mountain-view-11','grand-valleys','icity-october','kingsway-october',
+                    'jirian','lvls-north-coast','plage-north-coast','crysta-north-coast'];
+    var ps = api.PROJECTS.filter(function(p){ return p.dev === 'mountainview'; });
+    if(ps.length !== awaiting.length + 2) return false;   // + iCity New Cairo and Aliva
+    var by = {}; ps.forEach(function(p){ by[p.slug] = p; });
+    var silent = awaiting.every(function(s){
+      var p = by[s];
+      return p && p.price == null && p.dp == null && p.years == null &&
+             p.delivery == null && p.types == null && p.finishing == null &&
+             api.UNITS.filter(function(u){ return u.project === s; }).length === 0;
+    });
+    // the delivered communities stay off the primary-sale listings
+    var delivered = /mountain-view-1$|mountain-view-2|hyde-park|october-park|giza-plateau|chillout|katameya|sokhna|mv-park|mountain-view-3|mountain-view-4|heartwork/;
+    var noSold = !ps.some(function(p){ return delivered.test(p.slug); });
+    // and each still shows its own photograph rather than generated artwork
+    var covered = awaiting.every(function(s){
+      var c = api.projectCoverSrc(by[s]);
+      return typeof c === 'string' && c.indexOf('/project-media/mountainview/') === 0;
+    });
+    return silent && noSold && covered;
+  })(), 'ok');
+  ck('mountainview: an awaiting project page says so instead of showing an empty band', (function(){
+    var n = api.V.project('jirian').node, t = txt(n);
+    // it names itself, states that no price list has been released, and shows
+    // no unit-type chip — the row a missing `types` used to throw on
+    return t.indexOf('Jirian') > -1 &&
+           /has not released a price list/.test(t) &&
+           countClass(n, 'type-chip') === 0 &&
+           !/EGP\s*0\b|undefined|NaN/.test(t);
+  })(), 'ok');
   ck('mountainview: the kit\'s copy is complete in both languages', (function(){
     var f = api.DEV_FEATURES.mountainview;
     if(!f || !f.masterplan.en || !f.masterplan.ar || f.cards.length < 5) return false;
