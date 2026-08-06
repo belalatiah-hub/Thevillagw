@@ -314,7 +314,9 @@ try {
   ck('listings: Modon developer added', api.DEVELOPERS.some(d=>d.key==='modon'));
   ck('listings: 3 new projects present', ['ogami-north-coast','ramla-ras-el-hekma','beach-plaza-premium'].every(s=>!!api.projBySlug(s)));
   var ogami=api.projBySlug('ogami-north-coast');
-  ck('listings: Ogami real figures (Botanica from 16.5M)', ogami.price===16500000 && ogami.dp===5 && ogami.years===8 && ogami.delivery==='2029' && ogami.dev==='sodic' && ogami.area==='raselhekma');
+  /* Ogami's figures now come from the client sheet, which supersedes the three
+     earlier rows: ten unit types, entry price the cheapest of them. */
+  ck('listings: Ogami real figures (from the client sheet)', ogami.price===22329000 && ogami.dp===5 && ogami.years===8 && ogami.delivery==='2029–2030' && ogami.dev==='sodic' && ogami.area==='raselhekma');
   ck('listings: 5 owner projects classified under Ras El Hekma', ['ogami-north-coast','ramla-ras-el-hekma','beach-plaza-premium','caesar-north-coast','june-north-coast'].every(s=>api.projBySlug(s).area==='raselhekma'));
   ck('listings: Ramla/Modon real from-prices', api.projBySlug('ramla-ras-el-hekma').price===23418000 && api.projBySlug('beach-plaza-premium').price===19900000);
   ck('listings: Ramla has full unit mix from the availability sheet', api.UNITS.filter(u=>u.project==='ramla-ras-el-hekma').length>=10);
@@ -333,10 +335,11 @@ try {
     return u && u.project==='aeon' && u.area===246 && u.price===36000000 && u.years===4; })());
   ck('listings: Caesar + June (SODIC North Coast) added', api.projBySlug('caesar-north-coast').price===39200000 && api.projBySlug('june-north-coast').price===89300000 && api.projBySlug('caesar-north-coast').dev==='sodic' && api.projBySlug('june-north-coast').dev==='sodic');
   var pv=api.V.project('ogami-north-coast');
-  ck('listings: project detail renders (h1) + real price shown', pv && countTag(pv.node,'h1')>=1 && txt(pv.node).indexOf('16,500,000')>=0);
+  ck('listings: project detail renders (h1) + real price shown', pv && countTag(pv.node,'h1')>=1 && txt(pv.node).indexOf('22,329,000')>=0);
   api.setFilter(Object.assign(api.defaultFilter(),{projects:['ogami-north-coast']}));
   var ogu=api.filterUnits(api.getFilter());
-  ck('listings: Ogami units listed with real prices (SODIC trimmed to 20 units)', ogu.length===3 && ogu.every(u=>u.price>0));
+  ck('listings: Ogami lists the sheet\'s ten unit types, all priced', ogu.length===10 && ogu.every(u=>u.price>0) &&
+     Math.min.apply(null, ogu.map(u=>u.price))===api.projBySlug('ogami-north-coast').price);
   api.setFilter(api.defaultFilter());
 
   // ---- Floating contact rail + 30s nudge ----
@@ -508,7 +511,7 @@ try {
 
   // ---- UI refinements ----
   api.setFilter(api.defaultFilter());
-  ck('count: SODIC shows 20 units dynamically (facet from data)', api.devFacets().sodic===20, 'sodic='+api.devFacets().sodic);
+  ck('count: SODIC shows 27 units dynamically (facet from data)', api.devFacets().sodic===27, 'sodic='+api.devFacets().sodic);
   api.setFilter(api.defaultFilter());
   ck('overview: project page renders a collapsed <details> accordion', (function(){
     var n=api.V.project('villette').node; var det=qsa(n,'.accordion')[0];
@@ -607,9 +610,12 @@ try {
   // ---- master/floor plans + amenities + unit feature row ----
   ck('plans: master & floor resolvers map to /project-media/plans', (function(){
     var u=api.unitById('JN-CR1'), mp=api.unitMasterplans(u), fp=api.unitFloorplans(u);
-    var ofp=api.unitFloorplans(api.unitById('OG-WC1'));
+    // Ogami moved to its own directory when the sheet arrived; a bare filename
+    // still resolves under /plans, a rooted path is left alone.
+    var ofp=api.unitFloorplans(api.unitById('OG-03'));
     return mp.length===1 && /\/project-media\/plans\/mp-JN-CR1\.webp$/.test(mp[0])
-      && fp.length===1 && /\/project-media\/plans\/fp-JN-CR1-1\.webp$/.test(fp[0]) && ofp.length===2;
+      && fp.length===1 && /\/project-media\/plans\/fp-JN-CR1-1\.webp$/.test(fp[0])
+      && ofp.length===2 && ofp.every(function(s){ return s.indexOf('/project-media/ogami/units/')===0; });
   })(), 'ok');
   ck('plans: unit with plans shows all 4 feature chips', (function(){
     var chips=qsa(api.V.unit('JN-CR1').node,'.ufeat');
@@ -1689,6 +1695,50 @@ try {
     var immutable = (h.match(/max-age=31536000, immutable/g) || []).length >= 3;
     return revalidates && immutable;
   })());
+  /* Ogami's price list. Ten unit types keyed by the ids the client sheet
+     writes, so a typo in either direction is invisible without a check: a
+     reference with no file, and a file the owner sent that no page can reach. */
+  (function(){
+    var fsx=require('fs'), pathx=require('path');
+    var MED = pathx.join(__dirname,'..','project-media','ogami','units');
+    var used = {};
+    api.UNITS.filter(function(u){ return u.project==='ogami-north-coast'; }).forEach(function(u){
+      [api.UNIT_IMAGES[u.id]].concat(api.UNIT_GALLERY[u.id]||[], api.UNIT_MASTERPLANS[u.id]||[],
+        api.UNIT_FLOORPLANS[u.id]||[], api.UNIT_LOCATIONS[u.id]||[])
+        .forEach(function(s){ if(s) used[s]=1; });
+    });
+    var refs = Object.keys(used);
+    var broken = refs.filter(function(r){
+      return r.indexOf('/project-media/ogami/units/') !== 0 ||
+             !fsx.existsSync(pathx.join(MED, r.replace('/project-media/ogami/units/','')));
+    });
+    var disk = fsx.readdirSync(MED).map(function(n){ return '/project-media/ogami/units/'+n; });
+    var orphan = disk.filter(function(d){ return !used[d]; });
+    ck('ogami: every media path the sheet names exists on disk',
+       refs.length >= 35 && broken.length === 0, refs.length+' refs'+(broken.length?' broken: '+broken.slice(0,3):''));
+    ck('ogami: every delivered image is reachable in the UI',
+       orphan.length === 0, orphan.length ? 'orphaned: '+orphan.slice(0,3) : 'all '+disk.length+' shown');
+  })();
+  /* The sheet gives the 226 m² town house its own first frame and then three of
+     the TWIN house's. Those three are deliberately not loaded — a gallery must
+     not show a different home — so this pins the decision rather than leaving it
+     to be undone by a later "fix the missing images" pass. */
+  ck('ogami: the town house shows no other unit type\'s render', (function(){
+    var th = api.UNIT_GALLERY['OG-03'] || [];
+    var tw = api.UNIT_GALLERY['OG-02'] || [];
+    var overlap = th.filter(function(s){ return tw.indexOf(s) > -1; });
+    return th.length === 1 && /th2-ogami-0\.webp$/.test(th[0]) && overlap.length === 0;
+  })(), 'ok');
+  /* Two apartments legitimately share one render set — the sheet says so on both
+     rows — and each must still open on the sheet's first frame in its order. */
+  ck('ogami: a shared render set keeps each unit\'s own frame order', (function(){
+    var W='/project-media/ogami/units/';
+    var want=[W+'ap1-ogami-0.webp', W+'ap1-ogami-01.webp', W+'ap1-ogami-02.webp'];
+    return (api.UNIT_GALLERY['OG-08']||[]).join('|')===want.join('|') &&
+           (api.UNIT_GALLERY['OG-09']||[]).join('|')===want.join('|') &&
+           api.UNIT_IMAGES['OG-08']===want[0] && api.UNIT_IMAGES['OG-09']===want[0];
+  })(), 'ok');
+
   /* SODIC. Same treatment as Modon's brochure and Mountain View's kit, and the
      same two-way media check: a path with no file, and a page extracted from
      the PDF that nothing on the site can show. */
@@ -1747,7 +1797,7 @@ try {
   ck('sodic: the brochure work left the existing price list untouched', (function(){
     var ps = api.PROJECTS.filter(function(p){ return p.dev === 'sodic'; });
     var us = api.UNITS.filter(function(u){ return ps.some(function(p){ return p.slug === u.project; }); });
-    return ps.length === 8 && us.length === 20 &&
+    return ps.length === 8 && us.length === 27 &&
            ps.every(function(p){ return p.price > 0 && p.types && p.types.en; });
   })(), 'ok');
 
