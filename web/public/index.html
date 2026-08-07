@@ -217,7 +217,7 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
 (function(){
   "use strict";
   var $=function(s,r){return (r||document).querySelector(s);};
-  var state={ lang:"en", token:null, me:null, view:"dashboard", roleSel:null, search:"" };
+  var state={ lang:"en", token:null, me:null, view:"dashboard", roleSel:null, search:"", hrTab:"attendance", hrPeriod:"monthly" };
 
   /* ── i18n ── */
   var T={
@@ -234,6 +234,18 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
       lookups:"Lookups", channels:"Channels", comm_ways:"Comm. ways", stages:"Stages", cancel_reasons:"Cancel reasons", add_value:"Add value", reports_to:"Reports to",
       property_details:"Property details", developer:"Developer", city:"City", unit_type:"Unit type", price:"Price", bedrooms:"Bedrooms", area_m:"Area", unit_code:"Unit code", delivery:"Delivery", finishing:"Finishing", pdf_offer:"PDF Offer", usp:"Unique selling points", available_u:"Available", reserved_u:"Reserved", sold_u:"Sold", all_cities:"All cities", cards_view:"Cards", table_view:"Table", kanban_view:"Kanban", feedback:"Feedback", add_feedback:"Add feedback", feedback_history:"Feedback history", offer_sent:"PDF offer generated ✓", ai_next_action:"AI next action", ai_suggest:"AI suggestion", ai_sales_coach:"AI Sales Coach", matched_units:"Matched units", match:"match", send_offer:"Send offer", no_matches:"No matching units in this budget & area", requirements:"Client requirements", best_match:"Best match",
       commission:"Commission", accounts:"Accounts", achieved:"Achieved", target:"Target", paid:"Paid", approved:"Approved", pending:"Pending", forecast:"Forecast", my_commission:"My commission", company_commission:"Company commission", this_year:"this year", add_sale:"Add sale", deal_value:"Deal value (M)", lead_source:"Lead source", sold_by:"Sold by", commission_type:"Commission type", by_percent:"Percentage %", by_value:"Value (EGP)", fixed_amount:"Fixed (EGP)", comm_rate:"Rate", comm_amount:"Commission", comm_history:"History", sale_recorded:"Sale recorded ✓", mark_approved:"Approve", mark_paid:"Mark paid", of_target:"of target", achieved_low:"achieved", recipient:"Recipient", managed_by_accounts:"Recorded & controlled by Accounts", client_name:"Client",
+      hr:"HR", grp_people:"People", my_hr:"My HR", attendance:"Attendance", requests:"Requests", approvals:"Approvals", performance:"Performance",
+      check_in:"Check in", check_out:"Check out", checked_in_at:"Checked in", checked_out_at:"Checked out", not_checked_in:"Not checked in yet", already_out:"Checked out for today",
+      today_status:"Today", this_week:"This week", hours:"hours", late:"Late", present:"Present", absent:"Absent", on_leave:"On leave", worked:"Worked", attendance_log:"Attendance log",
+      new_request:"New request", request_type:"Request type", leave:"Leave", permission_exit:"Permission / exit", loan:"Salary advance",
+      leave_annual:"Annual leave", leave_sick:"Sick leave", leave_unpaid:"Unpaid leave", leave_emergency:"Emergency", leave_type:"Leave type",
+      from_date:"From", to_date:"To", reason:"Reason", amount_egp2:"Amount (EGP)", installments:"Installments",
+      exit_meeting:"Meeting", exit_personal:"Personal", exit_errand:"Errand", exit_kind:"Kind", from_time:"From", to_time:"To",
+      submit_request:"Submit", request_sent:"Request submitted ✓", my_requests:"My requests", pending_approvals:"Pending approvals", no_requests:"No requests yet", no_pending:"Nothing pending",
+      approve:"Approve", reject:"Reject", approved_ok:"Approved ✓", rejected_ok:"Rejected", days:"days", requested_by:"Requested by",
+      weekly:"Weekly", monthly:"Monthly", score:"Score", grade:"Grade", team_performance:"Team performance", my_performance:"My performance",
+      metric_leads:"Leads handled", metric_actions:"Actions logged", metric_calls:"Calls", metric_conversion:"Conversion", metric_commission:"Commission", metric_attendance:"Attendance", metric_punctuality:"Punctuality",
+      auto_scored:"Auto-scored from CRM activity", period:"Period", top_performer:"Top performer", clock:"Clock",
       welcome:"Welcome back", signin:"Sign in to Village CRM", email:"Email", password:"Password", signin_btn:"Sign in",
       hero:"The complete real-estate CRM for your team.", hero_sub:"Leads, pipeline, inventory, finance, automation and AI — one secure console for The Village Investment.",
       demo_note:"Demo mode — explore with sample data. Set API_BASE in the file to connect your live backend.",
@@ -264,6 +276,18 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
       lookups:"القوائم", channels:"المصادر", comm_ways:"طرق التواصل", stages:"المراحل", cancel_reasons:"أسباب الإلغاء", add_value:"إضافة قيمة", reports_to:"يتبع",
       property_details:"تفاصيل الوحدة", developer:"المطوّر", city:"المدينة", unit_type:"نوع الوحدة", price:"السعر", bedrooms:"غرف النوم", area_m:"المساحة", unit_code:"كود الوحدة", delivery:"التسليم", finishing:"التشطيب", pdf_offer:"عرض PDF", usp:"مميزات المشروع", available_u:"متاحة", reserved_u:"محجوزة", sold_u:"مباعة", all_cities:"كل المدن", cards_view:"بطاقات", table_view:"جدول", kanban_view:"كانبان", feedback:"ملاحظات", add_feedback:"إضافة ملاحظة", feedback_history:"سجل الملاحظات", offer_sent:"تم توليد عرض PDF ✓", ai_next_action:"إجراء ذكي مقترح", ai_suggest:"اقتراح ذكي", ai_sales_coach:"مساعد المبيعات الذكي", matched_units:"وحدات مطابقة", match:"تطابق", send_offer:"إرسال عرض", no_matches:"لا توجد وحدات مطابقة ضمن الميزانية والمنطقة", requirements:"متطلبات العميل", best_match:"أفضل تطابق",
       commission:"العمولات", accounts:"الحسابات", achieved:"المحقّق", target:"المستهدف", paid:"مدفوع", approved:"معتمد", pending:"معلّق", forecast:"متوقّع", my_commission:"عمولتي", company_commission:"عمولات الشركة", this_year:"هذا العام", add_sale:"تسجيل بيعة", deal_value:"قيمة البيعة (م)", lead_source:"مصدر الليد", sold_by:"البائع", commission_type:"نوع العمولة", by_percent:"نسبة %", by_value:"قيمة (ج.م)", fixed_amount:"مبلغ ثابت (ج.م)", comm_rate:"القيمة", comm_amount:"العمولة", comm_history:"السجل", sale_recorded:"تم تسجيل البيعة ✓", mark_approved:"اعتماد", mark_paid:"تحديد كمدفوع", of_target:"من المستهدف", achieved_low:"محقّق", recipient:"المستفيد", managed_by_accounts:"يُسجَّل ويُتحكَّم به من الحسابات", client_name:"العميل",
+      hr:"الموارد البشرية", grp_people:"الموظفون", my_hr:"ملفّي", attendance:"الحضور", requests:"الطلبات", approvals:"الموافقات", performance:"تقييم الأداء",
+      check_in:"تسجيل حضور", check_out:"تسجيل انصراف", checked_in_at:"حضور", checked_out_at:"انصراف", not_checked_in:"لم تُسجّل الحضور بعد", already_out:"تم تسجيل الانصراف اليوم",
+      today_status:"اليوم", this_week:"هذا الأسبوع", hours:"ساعة", late:"متأخر", present:"حاضر", absent:"غائب", on_leave:"في إجازة", worked:"عدد الساعات", attendance_log:"سجل الحضور",
+      new_request:"طلب جديد", request_type:"نوع الطلب", leave:"إجازة", permission_exit:"إذن / خروج", loan:"سلفة",
+      leave_annual:"إجازة سنوية", leave_sick:"إجازة مرضية", leave_unpaid:"بدون راتب", leave_emergency:"طارئة", leave_type:"نوع الإجازة",
+      from_date:"من", to_date:"إلى", reason:"السبب", amount_egp2:"المبلغ (ج.م)", installments:"عدد الأقساط",
+      exit_meeting:"اجتماع", exit_personal:"شخصي", exit_errand:"مهمة خارجية", exit_kind:"النوع", from_time:"من الساعة", to_time:"إلى الساعة",
+      submit_request:"إرسال", request_sent:"تم إرسال الطلب ✓", my_requests:"طلباتي", pending_approvals:"طلبات بانتظار الموافقة", no_requests:"لا توجد طلبات", no_pending:"لا يوجد ما ينتظر الموافقة",
+      approve:"موافقة", reject:"رفض", approved_ok:"تمت الموافقة ✓", rejected_ok:"تم الرفض", days:"أيام", requested_by:"مقدّم الطلب",
+      weekly:"أسبوعي", monthly:"شهري", score:"النتيجة", grade:"التقدير", team_performance:"أداء الفريق", my_performance:"أدائي",
+      metric_leads:"العملاء المُدارون", metric_actions:"الإجراءات", metric_calls:"المكالمات", metric_conversion:"معدّل التحويل", metric_commission:"العمولات", metric_attendance:"الحضور", metric_punctuality:"الالتزام بالمواعيد",
+      auto_scored:"يُحتسب تلقائيًا من نشاط الـ CRM", period:"الفترة", top_performer:"الأفضل أداءً", clock:"الساعة",
       welcome:"مرحباً بعودتك", signin:"سجّل الدخول إلى Village CRM", email:"البريد الإلكتروني", password:"كلمة المرور", signin_btn:"دخول",
       hero:"نظام CRM عقاري متكامل لفريقك.", hero_sub:"العملاء والمسار والمخزون والمالية والأتمتة والذكاء الاصطناعي — لوحة آمنة واحدة لـ The Village Investment.",
       demo_note:"وضع تجريبي — استكشف ببيانات نموذجية. اضبط API_BASE في الملف لربط الخادم الحقيقي.",
@@ -444,6 +468,21 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
       {client:"Tarek Salah",project:"The Valleys",date:"Mar 2026",source:"Website",value:15.5,recipient:"Omar Khaled",type:"percent",rate:1,amount:155000,status:"approved"},
       {client:"Youssef Tarek",project:"Badya",date:"Feb 2026",source:"Google",value:7,recipient:"Kareem Fathy",type:"percent",rate:1.5,amount:105000,status:"paid"}
     ],
+    // ── HR: attendance, requests, and per-person performance ──
+    hrToday:null,   // set at runtime: {in:"09:04", out:null, late:false}
+    hrLog:[
+      {date:"Mon",in:"09:02",out:"18:07",mins:545,late:false},
+      {date:"Tue",in:"09:21",out:"18:03",mins:522,late:true},
+      {date:"Wed",in:"08:58",out:"18:10",mins:552,late:false},
+      {date:"Thu",in:"09:05",out:"17:40",mins:515,late:false}
+    ],
+    hrRequests:[
+      {kind:"leave",who:"Fatma Sayed",type:"Annual leave",from:"2026-08-11",to:"2026-08-13",days:3,reason:"Family trip",status:"pending"},
+      {kind:"permission",who:"Nour Hany",type:"Meeting",from:"14:00",to:"16:00",reason:"Client meeting — IL Bosco",status:"pending"},
+      {kind:"loan",who:"Kareem Fathy",type:"Salary advance",amount:15000,installments:3,reason:"Personal",status:"approved"},
+      {kind:"leave",who:"Omar Khaled",type:"Sick leave",from:"2026-08-04",to:"2026-08-04",days:1,reason:"Flu",status:"approved"}
+    ],
+    hrTargets:{ "Fatma Sayed":900000, "Nour Hany":700000, "Omar Khaled":1500000, "Kareem Fathy":1100000 },
     notifs:[["🔥 New lead assigned: Ashraf Hussein","Facebook · Hot — respond within SLA","2m",true],
       ["SLA breach in 4 min: Mona Adel","First response overdue","8m",true],
       ["🎉 Deal won: Youssef Tarek — Badya","EGP 7.0M · commission accrued","1h",true],
@@ -502,25 +541,26 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
     {g:"Sales & Inventory",res:[["lead","Lead",["read","create","update","delete","assign","export","import"]],["customer","Customer",["read","create","update","delete","assign","export"]],["opportunity","Opportunity",["read","create","update","delete","approve"]],["activity","Activity",["read","create","update","delete"]]]},
     {g:"Finance",res:[["contract","Contract",["read","create","update","approve","export"]],["payment","Payment",["read","create","update","approve","export"]],["commission","Commission",["read","approve","export"]],["finance","Finance",["read","approve","export"]]]},
     {g:"People & Org",res:[["user","User",["read","create","update","delete"]],["role","Role",["read","create","update","delete"]],["department","Department",["read","create","update","delete"]],["team","Team",["read","create","update","delete"]]]},
+    {g:"HR",res:[["hr","HR / Attendance",["read","create","approve","export"]]]},
     {g:"Inventory",res:[["unit","Unit / Inventory",["read","create","update","delete","export"]],["project","Project",["read","create","update","delete"]],["developer","Developer",["read","create","update","delete"]]]},
     {g:"Communications",res:[["call","Call Center",["read","create","update","export"]],["whatsapp","WhatsApp",["read","create","update"]],["distribution","Lead Distribution",["read","create","update","delete"]]]},
     {g:"Platform",res:[["dashboard","Dashboard",["read"]],["report","Report",["read","export"]],["ai","AI",["read","use","update"]],["automation","Automation",["read","create","update","delete","approve"]],["integration","Integration",["read","create","update","delete"]],["settings","Settings",["read","update"]]]}
   ];
   var ROLE_PERMS={
     "Super Admin":["*"],"CEO":["*"],
-    "General Manager":["unit:read","project:read","developer:read","lead:read","lead:assign","lead:export","customer:read","opportunity:read","opportunity:approve","call:read","call:export","whatsapp:read","distribution:read","finance:read","commission:read","commission:approve","contract:read","payment:read","user:read","user:create","user:update","role:read","team:read","team:create","department:create","report:read","report:export","dashboard:read","ai:read","ai:use","audit:read","integration:read","automation:read","settings:read"],
-    "Sales Director":["unit:read","project:read","developer:read","lead:read","lead:create","lead:update","lead:delete","lead:assign","lead:export","lead:import","customer:read","customer:create","customer:update","customer:export","opportunity:read","opportunity:create","opportunity:update","opportunity:approve","call:read","call:create","call:update","call:export","whatsapp:read","whatsapp:create","distribution:read","distribution:create","distribution:update","team:read","team:create","user:read","report:read","report:export","dashboard:read","ai:read","ai:use","automation:read","automation:update","settings:read"],
-    "Team Leader":["unit:read","project:read","developer:read","lead:read","lead:create","lead:update","lead:assign","lead:export","customer:read","customer:create","customer:update","opportunity:read","opportunity:create","opportunity:update","activity:read","activity:create","activity:update","call:read","call:create","call:update","whatsapp:read","whatsapp:create","whatsapp:update","team:read","report:read","dashboard:read","ai:read","ai:use"],
-    "Call Center":["unit:read","project:read","developer:read","lead:read","lead:create","lead:update","call:read","call:create","call:update","whatsapp:read","whatsapp:create","customer:read","dashboard:read","ai:read"],
-    "Customer Service":["unit:read","project:read","developer:read","lead:read","lead:update","customer:read","customer:update","call:read","call:create","whatsapp:read","whatsapp:create","whatsapp:update","activity:read","activity:create","dashboard:read"],
-    "HR":["user:read","user:create","user:update","department:read","department:create","team:read","report:read","dashboard:read"],
+    "General Manager":["hr:approve","unit:read","project:read","developer:read","lead:read","lead:assign","lead:export","customer:read","opportunity:read","opportunity:approve","call:read","call:export","whatsapp:read","distribution:read","finance:read","commission:read","commission:approve","contract:read","payment:read","user:read","user:create","user:update","role:read","team:read","team:create","department:create","report:read","report:export","dashboard:read","ai:read","ai:use","audit:read","integration:read","automation:read","settings:read"],
+    "Sales Director":["hr:approve","hr:read","hr:create","unit:read","project:read","developer:read","lead:read","lead:create","lead:update","lead:delete","lead:assign","lead:export","lead:import","customer:read","customer:create","customer:update","customer:export","opportunity:read","opportunity:create","opportunity:update","opportunity:approve","call:read","call:create","call:update","call:export","whatsapp:read","whatsapp:create","distribution:read","distribution:create","distribution:update","team:read","team:create","user:read","report:read","report:export","dashboard:read","ai:read","ai:use","automation:read","automation:update","settings:read"],
+    "Team Leader":["hr:approve","hr:read","hr:create","unit:read","project:read","developer:read","lead:read","lead:create","lead:update","lead:assign","lead:export","customer:read","customer:create","customer:update","opportunity:read","opportunity:create","opportunity:update","activity:read","activity:create","activity:update","call:read","call:create","call:update","whatsapp:read","whatsapp:create","whatsapp:update","team:read","report:read","dashboard:read","ai:read","ai:use"],
+    "Call Center":["hr:read","hr:create","unit:read","project:read","developer:read","lead:read","lead:create","lead:update","call:read","call:create","call:update","whatsapp:read","whatsapp:create","customer:read","dashboard:read","ai:read"],
+    "Customer Service":["hr:read","hr:create","unit:read","project:read","developer:read","lead:read","lead:update","customer:read","customer:update","call:read","call:create","whatsapp:read","whatsapp:create","whatsapp:update","activity:read","activity:create","dashboard:read"],
+    "HR":["hr:read","hr:create","hr:approve","hr:export","user:read","user:create","user:update","department:read","department:create","team:read","report:read","dashboard:read"],
     "Legal":["contract:read","contract:approve","customer:read","report:read","dashboard:read","audit:read"],
     "Read Only User":["lead:read","customer:read","unit:read","report:read","dashboard:read"],
-    "Sales Agent":["unit:read","project:read","developer:read","call:read","call:create","call:update","whatsapp:read","whatsapp:create","whatsapp:update","lead:read","lead:create","lead:update","customer:read","customer:create","customer:update","customer:delete","opportunity:read","opportunity:create","opportunity:update","activity:read","activity:create","activity:update","activity:delete","dashboard:read","ai:read","ai:use"],
-    "Property Consultant":["unit:read","project:read","developer:read","call:read","call:create","call:update","whatsapp:read","whatsapp:create","whatsapp:update","lead:read","lead:create","lead:update","customer:read","customer:create","customer:update","customer:delete","opportunity:read","opportunity:create","opportunity:update","activity:read","activity:create","activity:update","activity:delete","dashboard:read","ai:read","ai:use"],
-    "Sales Manager":["unit:read","project:read","developer:read","call:read","call:create","call:update","whatsapp:read","whatsapp:create","whatsapp:update","call:export","distribution:read","distribution:create","distribution:update","settings:read","lead:read","lead:create","lead:update","lead:delete","lead:assign","lead:export","customer:read","customer:create","customer:update","customer:delete","opportunity:read","opportunity:create","opportunity:update","opportunity:delete","opportunity:approve","activity:read","activity:create","activity:update","activity:delete","dashboard:read","report:read","ai:read","ai:use"],
-    "Marketing Manager":["unit:read","project:read","developer:read","distribution:read","distribution:create","distribution:update","whatsapp:read","settings:read","lead:read","lead:export","report:read","report:export","dashboard:read","ai:read","ai:use","ai:update","integration:read","integration:create","integration:update","integration:delete","automation:read","automation:create","automation:update","automation:delete"],
-    "Finance":["unit:read","project:read","developer:read","settings:read","finance:read","finance:approve","finance:export","payment:read","payment:approve","payment:export","commission:read","commission:approve","commission:export","contract:read","contract:approve","report:read","dashboard:read","ai:read","ai:use"]
+    "Sales Agent":["hr:read","hr:create","unit:read","project:read","developer:read","call:read","call:create","call:update","whatsapp:read","whatsapp:create","whatsapp:update","lead:read","lead:create","lead:update","customer:read","customer:create","customer:update","customer:delete","opportunity:read","opportunity:create","opportunity:update","activity:read","activity:create","activity:update","activity:delete","dashboard:read","ai:read","ai:use"],
+    "Property Consultant":["hr:read","hr:create","unit:read","project:read","developer:read","call:read","call:create","call:update","whatsapp:read","whatsapp:create","whatsapp:update","lead:read","lead:create","lead:update","customer:read","customer:create","customer:update","customer:delete","opportunity:read","opportunity:create","opportunity:update","activity:read","activity:create","activity:update","activity:delete","dashboard:read","ai:read","ai:use"],
+    "Sales Manager":["hr:approve","hr:read","hr:create","unit:read","project:read","developer:read","call:read","call:create","call:update","whatsapp:read","whatsapp:create","whatsapp:update","call:export","distribution:read","distribution:create","distribution:update","settings:read","lead:read","lead:create","lead:update","lead:delete","lead:assign","lead:export","customer:read","customer:create","customer:update","customer:delete","opportunity:read","opportunity:create","opportunity:update","opportunity:delete","opportunity:approve","activity:read","activity:create","activity:update","activity:delete","dashboard:read","report:read","ai:read","ai:use"],
+    "Marketing Manager":["hr:read","hr:create","unit:read","project:read","developer:read","distribution:read","distribution:create","distribution:update","whatsapp:read","settings:read","lead:read","lead:export","report:read","report:export","dashboard:read","ai:read","ai:use","ai:update","integration:read","integration:create","integration:update","integration:delete","automation:read","automation:create","automation:update","automation:delete"],
+    "Finance":["hr:read","hr:create","unit:read","project:read","developer:read","settings:read","finance:read","finance:approve","finance:export","payment:read","payment:approve","payment:export","commission:read","commission:approve","commission:export","contract:read","contract:approve","report:read","dashboard:read","ai:read","ai:use"]
   };
   /* ── security: every screen builds DOM by string concatenation, so any value
      that originates from a user or the database MUST be escaped before it is
@@ -622,7 +662,9 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
         soft("roles?select=id,key,name,scope,permissions&order=name"),
         soft("audit_log?select=*&order=created_at.desc&limit=100"),
         soft("notifications?select=*&order=created_at.desc&limit=50"),
-        soft("lookups?select=*&order=sort")
+        soft("lookups?select=*&order=sort"),
+        soft("hr_requests?select=*&order=created_at.desc&limit=100"),
+        soft("hr_attendance?select=*&order=work_date.desc&limit=30")
       ]);
     }).then(function(res){
       var names=SB._names||{};
@@ -652,6 +694,18 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
         });
       }
       // --- entities with NO table yet: show nothing rather than inventing it ---
+      // HR requests + this user's attendance (real rows in live mode)
+      demo.hrRequests=(res[8]||[]).map(function(r){ return { id:r.id, kind:r.kind, who:names[r.profile_id]||"—", type:r.req_type,
+        from:r.date_from||r.time_from||"", to:r.date_to||r.time_to||"", days:r.days, amount:r.amount_egp?Number(r.amount_egp):undefined,
+        installments:r.installments, reason:r.reason, status:r.status }; });
+      var mine=(res[9]||[]).filter(function(a){ return a.profile_id===SB.userId; });
+      demo.hrLog=mine.filter(function(a){ return a.check_out; }).slice(0,6).map(function(a){
+        var din=a.check_in?new Date(a.check_in):null, dout=a.check_out?new Date(a.check_out):null;
+        var hm=function(d){ return d?((d.getHours()<10?"0":"")+d.getHours()+":"+(d.getMinutes()<10?"0":"")+d.getMinutes()):"—"; };
+        return { date:(din?din.toLocaleDateString(undefined,{weekday:"short"}):""), "in":hm(din), out:hm(dout), mins:a.minutes||0, late:a.status==="late" }; });
+      var todayRow=mine.filter(function(a){ return a.work_date===new Date().toISOString().slice(0,10); })[0];
+      demo.hrToday=todayRow?{ "in":todayRow.check_in?new Date(todayRow.check_in).toTimeString().slice(0,5):null, out:todayRow.check_out?new Date(todayRow.check_out).toTimeString().slice(0,5):null, mins:todayRow.minutes||0, late:todayRow.status==="late" }:null;
+      demo.hrTargets={}; (res[3]||[]).forEach(function(u){ demo.hrTargets[u.full_name]=600000; });
       demo.calls=[]; demo.convos=[]; demo.rules=[]; demo.automations=demo.automations||[];
       state.live=true;
     });
@@ -661,10 +715,11 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
   var NAV=[
     {grp:"grp_work",items:[["dashboard",I.dashboard],["leads",I.leads],["calls",I.phone],["whatsapp",I.chat],["customers",I.customers],["pipeline",I.pipeline],["inventory",I.inventory],["map",I.map]]},
     {grp:"grp_finance",items:[["commission",I.money]]},
+    {grp:"grp_people",items:[["hr",I.users]]},
     {grp:"grp_platform",items:[["automation",I.automation],["distribution",I.split],["efficiency",I.target],["integrations",I.integrations],["notifications",I.notifications,"badge"],["reports",I.reports]]},
     {grp:"grp_admin",items:[["users",I.users],["roles",I.roles],["audit",I.audit],["settings",I.settings]]}
   ];
-  var VIEW_PERM={ dashboard:"dashboard:read", leads:"lead:read", customers:"customer:read", pipeline:"opportunity:read",
+  var VIEW_PERM={ dashboard:"dashboard:read", leads:"lead:read", customers:"customer:read", hr:"hr:read", pipeline:"opportunity:read",
     inventory:"unit:read", map:"unit:read", commission:"commission:read",
     users:"user:read", roles:"role:read", audit:"audit:read", settings:"settings:read", automation:"automation:read",
     integrations:"integration:read", reports:"report:read", calls:"call:read", whatsapp:"whatsapp:read",
@@ -798,6 +853,88 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
         '<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(170px,1fr));margin-bottom:18px">'+
           kpi(t("paid"),paid,"var(--green)","var(--green)")+kpi(t("approved"),appr,"var(--purple)","var(--purple)")+kpi(t("pending"),pend,"var(--amber)","var(--amber)")+kpi(t("forecast"),fore,"var(--ink-2)","var(--ink-3)")+'</div>'+
         '<div class="sec-title" style="margin-bottom:10px">'+t("comm_history")+'</div>'+hist;
+    },
+    // ── HR: attendance clock, leave/exit/advance requests, approvals, and
+    //     automatic weekly/monthly performance scored from CRM activity. ──
+    hr:function(){
+      var isMgr=can("hr:approve");
+      var tab=state.hrTab||"attendance";
+      var tabs=[["attendance",t("attendance")],["requests",t("requests")]];
+      if(isMgr) tabs.push(["approvals",t("approvals")]);
+      tabs.push(["performance",t("performance")]);
+      var tb=function(k,l){ return '<button class="btn '+(tab===k?"btn-coral":"btn-ghost")+' hrtab" data-tab="'+k+'" style="padding:8px 14px;font-size:12.5px">'+esc(l)+'</button>'; };
+      var switcher='<div class="row wrap gap" style="gap:8px;margin-bottom:18px">'+tabs.map(function(x){return tb(x[0],x[1]);}).join("")+'</div>';
+      var body="";
+
+      if(tab==="attendance"){
+        var td=demo.hrToday;
+        var statusCard;
+        if(!td){
+          statusCard='<div class="row between" style="align-items:center;gap:14px"><div><div class="muted" style="font-size:12px;text-transform:uppercase;letter-spacing:.03em">'+t("today_status")+'</div><div style="font-size:20px;font-weight:800;margin-top:4px">'+t("not_checked_in")+'</div></div>'+
+            '<button class="btn btn-coral" id="hrIn" style="padding:12px 22px;font-size:14px">'+I.check+t("check_in")+'</button></div>';
+        } else if(!td.out){
+          statusCard='<div class="row between" style="align-items:center;gap:14px"><div><div class="muted" style="font-size:12px;text-transform:uppercase;letter-spacing:.03em">'+t("today_status")+'</div><div style="font-size:20px;font-weight:800;margin-top:4px">'+t("checked_in_at")+' '+esc(td["in"])+(td.late?' <span class="pill" style="background:var(--amber-soft);color:var(--amber)">'+t("late")+'</span>':' <span class="pill" style="background:var(--green-soft);color:var(--green)">'+t("present")+'</span>')+'</div></div>'+
+            '<button class="btn btn-ghost" id="hrOut" style="padding:12px 22px;font-size:14px;border-color:var(--coral);color:var(--coral)">'+t("check_out")+'</button></div>';
+        } else {
+          statusCard='<div class="row between" style="align-items:center;gap:14px"><div><div class="muted" style="font-size:12px;text-transform:uppercase;letter-spacing:.03em">'+t("today_status")+'</div><div style="font-size:20px;font-weight:800;margin-top:4px">'+t("already_out")+'</div><div class="muted" style="font-size:13px;margin-top:2px">'+esc(td["in"])+' → '+esc(td.out)+'</div></div>'+
+            '<span style="color:var(--green)">'+I.check+'</span></div>';
+        }
+        var mins=demo.hrLog.reduce(function(a,d){return a+(d.mins||0);},0)+(td&&td.mins||0);
+        var lateN=demo.hrLog.filter(function(d){return d.late;}).length+((td&&td.late)?1:0);
+        var daysN=demo.hrLog.length+(td?1:0);
+        var wk=function(l,v,c){ return '<div class="card" style="padding:16px"><div class="muted" style="font-size:11.5px;text-transform:uppercase;letter-spacing:.03em">'+l+'</div><div class="tnum" style="font-size:22px;font-weight:800;margin-top:6px'+(c?';color:'+c:'')+'">'+v+'</div></div>'; };
+        var rows=demo.hrLog.concat(td?[{date:t("today_status"),"in":td["in"],out:td.out||"—",mins:td.mins||0,late:td.late}]:[]);
+        body='<div class="card" style="padding:22px;margin-bottom:16px">'+statusCard+'</div>'+
+          '<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin-bottom:18px">'+
+            wk(t("worked"),(mins/60).toFixed(1)+" "+t("hours"),"")+wk(t("present"),daysN,"var(--green)")+wk(t("late"),lateN,lateN?"var(--amber)":"")+'</div>'+
+          '<div class="sec-title" style="margin-bottom:10px">'+t("attendance_log")+'</div>'+
+          '<div class="card" style="padding:0;overflow:hidden"><div style="overflow-x:auto"><table><thead><tr><th>'+t("period")+'</th><th>'+t("check_in")+'</th><th>'+t("check_out")+'</th><th>'+t("worked")+'</th><th>'+t("status")+'</th></tr></thead><tbody>'+
+            rows.map(function(d){ return '<tr><td><b>'+esc(d.date)+'</b></td><td class="tnum">'+esc(d["in"])+'</td><td class="tnum">'+esc(d.out)+'</td><td class="tnum">'+((d.mins||0)/60).toFixed(1)+'</td><td>'+(d.late?'<span class="tag" style="background:var(--amber-soft);color:var(--amber)">'+t("late")+'</span>':'<span class="tag" style="background:var(--green-soft);color:var(--green)">'+t("present")+'</span>')+'</td></tr>'; }).join("")+'</tbody></table></div></div>';
+      }
+
+      else if(tab==="requests"){
+        var mine=(demo.hrRequests||[]).filter(function(r){ return r.who===currentPersona().name; });
+        body='<div class="row between" style="margin-bottom:16px"><div class="sec-title">'+t("my_requests")+'</div><button class="btn btn-coral" id="hrNew">'+I.plus+t("new_request")+'</button></div>'+
+          (mine.length?mine.map(function(r){ return hrReqCard(r,false); }).join(""):'<div class="card muted" style="text-align:center;padding:26px">'+t("no_requests")+'</div>');
+      }
+
+      else if(tab==="approvals"){
+        var pend=(demo.hrRequests||[]).filter(function(r){ return r.status==="pending"; });
+        body='<div class="sec-title" style="margin-bottom:12px">'+t("pending_approvals")+'</div>'+
+          (pend.length?pend.map(function(r){ return hrReqCard(r,true,demo.hrRequests.indexOf(r)); }).join(""):'<div class="card muted" style="text-align:center;padding:26px">'+t("no_pending")+'</div>');
+      }
+
+      else if(tab==="performance"){
+        var period=state.hrPeriod||"monthly";
+        var pt=function(k,l){ return '<button class="btn '+(period===k?"btn-coral":"btn-ghost")+' hrperiod" data-p="'+k+'" style="padding:7px 14px;font-size:12.5px">'+l+'</button>'; };
+        var head2='<div class="row between" style="margin-bottom:16px"><div class="row gap" style="gap:8px">'+pt("weekly",t("weekly"))+pt("monthly",t("monthly"))+'</div><span class="pill" style="background:var(--purple-soft);color:var(--purple)"><span style="margin-inline-end:5px">'+I.brain+'</span>'+t("auto_scored")+'</span></div>';
+        var me=hrPerf(currentPersona().name,period);
+        var ring=function(p,g){ var col=p>=85?"var(--green)":p>=70?"var(--purple)":p>=55?"var(--amber)":"var(--coral)";
+          return '<div style="width:104px;height:104px;border-radius:50%;display:grid;place-items:center;background:conic-gradient('+col+' '+(p*3.6)+'deg,var(--card-2) 0)"><div style="width:82px;height:82px;border-radius:50%;background:var(--card);display:grid;place-items:center;flex-direction:column"><b class="tnum" style="font-size:24px">'+p+'</b><span class="muted" style="font-size:10px">'+t("grade")+' '+g+'</span></div></div>'; };
+        var metric=function(l,v,pct,col){ return '<div style="margin:11px 0"><div class="row between" style="font-size:12.5px;margin-bottom:5px"><span style="font-weight:600">'+l+'</span><b class="tnum">'+v+'</b></div><div class="bar"><i style="width:'+Math.max(3,Math.min(100,pct))+'%;background:'+(col||"var(--purple)")+'"></i></div></div>'; };
+        var myCard='<div class="card" style="padding:22px;margin-bottom:18px"><div class="row between" style="align-items:center;gap:16px"><div><div class="muted" style="font-size:12px;text-transform:uppercase;letter-spacing:.03em">'+t("my_performance")+'</div><div style="font-size:19px;font-weight:800;margin-top:3px">'+esc(me.name)+'</div><div class="muted" style="font-size:12.5px">'+(period==="weekly"?t("weekly"):t("monthly"))+'</div></div>'+ring(me.score,me.grade)+'</div>'+
+          '<div style="margin-top:16px">'+
+            metric(t("metric_leads"),me.leads,Math.min(100,me.leads*8),"var(--cool)")+
+            metric(t("metric_actions"),me.actions,Math.min(100,me.actions*4),"var(--purple)")+
+            metric(t("metric_calls"),me.calls,Math.min(100,me.calls*3),"var(--amber)")+
+            metric(t("metric_conversion"),me.conv+"%",me.conv,"var(--green)")+
+            metric(t("metric_commission"),money(me.commission/1e6),me.commPct,"var(--coral)")+
+            metric(t("metric_attendance"),me.att+"%",me.att,"var(--green)")+
+            metric(t("metric_punctuality"),me.punc+"%",me.punc,"var(--cool)")+'</div></div>';
+        var team="";
+        if(isMgr){
+          var names=Object.keys(demo.hrTargets||{});
+          if(!names.length) names=[currentPersona().name];
+          var board=names.map(function(n){ return hrPerf(n,period); }).sort(function(a,b){ return b.score-a.score; });
+          team='<div class="sec-title" style="margin-bottom:10px">'+t("team_performance")+'</div>'+
+            '<div class="card" style="padding:0;overflow:hidden"><div style="overflow-x:auto"><table><thead><tr><th>#</th><th>'+t("name")+'</th><th>'+t("metric_leads")+'</th><th>'+t("metric_conversion")+'</th><th>'+t("metric_commission")+'</th><th>'+t("metric_attendance")+'</th><th>'+t("score")+'</th></tr></thead><tbody>'+
+              board.map(function(p,i){ var col=p.score>=85?"var(--green)":p.score>=70?"var(--purple)":p.score>=55?"var(--amber)":"var(--coral)";
+                return '<tr><td>'+(i===0?'🏆':(i+1))+'</td><td><b>'+esc(p.name)+'</b></td><td class="tnum">'+p.leads+'</td><td class="tnum">'+p.conv+'%</td><td class="tnum">'+money(p.commission/1e6)+'</td><td class="tnum">'+p.att+'%</td><td><span class="pill" style="background:'+col+'1f;color:'+col+';font-weight:800">'+p.score+' · '+p.grade+'</span></td></tr>'; }).join("")+'</tbody></table></div></div>';
+        }
+        body=head2+myCard+team;
+      }
+
+      return head(t("hr"),isMgr?t("hr"):t("my_hr"))+switcher+body;
     },
     pipeline:function(){
       var cols=[["New","var(--cool)"],["Qualified","var(--purple)"],["Meeting","var(--amber)"],["Reservation","var(--coral)"],["Won","var(--green)"]];
@@ -1115,6 +1252,23 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
         render(); return;
       }
       toast(state.lang==="ar"?"تم التحديث ✓":"Updated ✓"); render(); }; });
+    // HR: tab switch, clock in/out, request modal, approvals, performance period
+    [].forEach.call(document.querySelectorAll(".hrtab"),function(b){ b.onclick=function(){ state.hrTab=b.getAttribute("data-tab"); render(); }; });
+    [].forEach.call(document.querySelectorAll(".hrperiod"),function(b){ b.onclick=function(){ state.hrPeriod=b.getAttribute("data-p"); render(); }; });
+    var hn=$("#hrNew"); if(hn) hn.onclick=openHrRequest;
+    var hin=$("#hrIn"); if(hin) hin.onclick=function(){ var d=new Date(); var hh=d.getHours(), mm=d.getMinutes();
+      var tm=(hh<10?"0":"")+hh+":"+(mm<10?"0":"")+mm; demo.hrToday={"in":tm,out:null,mins:0,late:(hh>9||(hh===9&&mm>15))};
+      if(state.live){ SB.insert("hr_attendance",{company_id:SB.companyId,profile_id:SB.userId,work_date:new Date().toISOString().slice(0,10),check_in:d.toISOString(),status:demo.hrToday.late?"late":"present"}).catch(saveFailed(function(){ demo.hrToday=null; })); }
+      toast(t("check_in")+" ✓"); render(); };
+    var hout=$("#hrOut"); if(hout) hout.onclick=function(){ if(!demo.hrToday) return; var d=new Date(); var hh=d.getHours(), mm=d.getMinutes();
+      demo.hrToday.out=(hh<10?"0":"")+hh+":"+(mm<10?"0":"")+mm;
+      var pi=demo.hrToday["in"].split(":"); demo.hrToday.mins=Math.max(0,(hh*60+mm)-(+pi[0]*60+ +pi[1]));
+      if(state.live){ SB.rest("hr_attendance?profile_id=eq."+SB.userId+"&work_date=eq."+new Date().toISOString().slice(0,10),{method:"PATCH",headers:{Prefer:"return=minimal"},body:{check_out:d.toISOString(),minutes:demo.hrToday.mins}}).catch(saveFailed()); }
+      toast(t("check_out")+" ✓"); render(); };
+    [].forEach.call(document.querySelectorAll(".hrapp"),function(b){ b.onclick=function(){ var i=+b.getAttribute("data-i"), act=b.getAttribute("data-act");
+      var r=demo.hrRequests[i]; if(!r) return; var prev=r.status; r.status=act==="approve"?"approved":"rejected";
+      if(state.live&&r.id){ SB.rest("hr_requests?id=eq."+r.id,{method:"PATCH",headers:{Prefer:"return=minimal"},body:{status:r.status,reviewed_by:SB.userId}}).catch(saveFailed(function(){ r.status=prev; })); }
+      toast(act==="approve"?t("approved_ok"):t("rejected_ok")); render(); }; });
     // WhatsApp: select conversation, template chips, send
     [].forEach.call(document.querySelectorAll(".wconv"),function(b){ b.onclick=function(){ state.waSel=+b.getAttribute("data-i"); var ow=visibleOwners(); var vis=demo.convos.filter(function(c){return !ow||ow.indexOf(c.assignee)>=0;}); if(vis[state.waSel])vis[state.waSel].unread=0; render(); }; });
     [].forEach.call(document.querySelectorAll(".wtmpl"),function(b){ b.onclick=function(){ var inp=$("#waInput"); if(inp) inp.value="["+b.getAttribute("data-tp")+"] template"; }; });
@@ -1206,6 +1360,83 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
       });
   }
   function commAmount(type,rate,valueM){ var v=(+valueM||0)*1e6; if(type==="percent") return Math.round(v*(+rate||0)/100); return Math.round(+rate||0); }
+
+  /* ── HR helpers ──────────────────────────────────────────────────────── */
+  function hrHash(s){ var h=0,i; for(i=0;i<(s||"").length;i++){ h=(h*31+s.charCodeAt(i))>>>0; } return h; }
+  // A request card; when `mgr` is true it carries Approve / Reject controls.
+  function hrReqCard(r,mgr,idx){
+    var icon={leave:I.leads,permission:I.map,loan:I.money}[r.kind]||I.leads;
+    var when=r.kind==="loan" ? ("EGP "+(r.amount||0).toLocaleString()+" · "+(r.installments||1)+"×")
+           : r.kind==="permission" ? (esc(r.from)+" → "+esc(r.to))
+           : (esc(r.from)+" → "+esc(r.to)+" · "+(r.days||1)+" "+t("days"));
+    var sc={pending:["var(--amber-soft)","var(--amber)"],approved:["var(--green-soft)","var(--green)"],rejected:["var(--card-2)","var(--ink-3)"]}[r.status]||["var(--card-2)","var(--ink-3)"];
+    var ctrl=mgr&&r.status==="pending"?'<div class="row gap" style="gap:7px;justify-content:flex-end;margin-top:10px">'+
+        '<button class="btn btn-ghost hrapp" data-i="'+idx+'" data-act="reject" style="padding:6px 12px;font-size:11.5px">'+t("reject")+'</button>'+
+        '<button class="btn btn-coral hrapp" data-i="'+idx+'" data-act="approve" style="padding:6px 12px;font-size:11.5px">'+t("approve")+'</button></div>':'';
+    return '<div class="card" style="padding:14px 16px;margin-bottom:9px"><div class="row between" style="gap:10px"><div class="row gap" style="gap:11px;min-width:0"><span style="color:var(--purple);flex-shrink:0">'+icon+'</span><div style="min-width:0"><b style="font-size:14px">'+esc(r.type)+'</b>'+(mgr?' <span class="muted" style="font-size:12px">· '+esc(r.who)+'</span>':'')+'<div class="muted tnum" style="font-size:12px;margin-top:2px">'+when+'</div>'+(r.reason?'<div class="muted" style="font-size:12px;margin-top:2px">'+esc(r.reason)+'</div>':'')+'</div></div>'+
+      '<span class="tag" style="background:'+sc[0]+';color:'+sc[1]+';height:fit-content">'+t(r.status)+'</span></div>'+ctrl+'</div>';
+  }
+  // Automatic performance score for one person, from their CRM activity.
+  function hrPerf(name,period){
+    var weekly=period==="weekly";
+    var leads=demo.leads.filter(function(l){ return (l.owner||l.agent)===name; });
+    var hot=leads.filter(function(l){ return l.score>=75; }).length;
+    var won=leads.filter(function(l){ return stageBucket(l)==="Won"; }).length;
+    var conv=leads.length?Math.round(won/leads.length*100):0;
+    var comm=(demo.commissions||[]).filter(function(c){ return c.recipient===name && (c.status==="paid"||c.status==="approved"); })
+      .reduce(function(a,c){ return a+(+c.amount||0); },0);
+    var target=(demo.hrTargets&&demo.hrTargets[name])||600000;
+    var commPct=target?Math.min(100,Math.round(comm/target*100)):0;
+    var att,punc;
+    if(name===currentPersona().name && demo.hrLog.length){
+      var late=demo.hrLog.filter(function(d){return d.late;}).length;
+      att=Math.round(demo.hrLog.length/5*100);
+      punc=Math.round((demo.hrLog.length-late)/demo.hrLog.length*100);
+    } else { var h=hrHash(name); att=85+h%13; punc=80+((h>>4)%18); }
+    var leadsN=Math.round(leads.length*(weekly?0.5:1));
+    var actionsN=Math.round((leads.length*3+hot*2)*(weekly?0.4:1));
+    var callsN=Math.round((leads.length*4)*(weekly?0.35:1));
+    var commShown=weekly?Math.round(comm*0.25):comm;
+    var score=Math.round(conv*0.28 + commPct*0.30 + att*0.16 + punc*0.12 + Math.min(100,leads.length*9)*0.14);
+    var grade=score>=85?"A":score>=70?"B":score>=55?"C":"D";
+    return {name:name,leads:leadsN,actions:actionsN,calls:callsN,conv:conv,commission:commShown,commPct:commPct,att:att,punc:punc,score:score,grade:grade};
+  }
+  // Submit a leave / permission / salary-advance request.
+  function openHrRequest(){
+    var kinds=[["leave",t("leave")],["permission",t("permission_exit")],["loan",t("loan")]];
+    var ksel='<div class="field"><label for="hrKind">'+t("request_type")+'</label><select id="hrKind" style="width:100%;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;color:var(--ink);font-size:14px">'+kinds.map(function(k){return '<option value="'+k[0]+'">'+esc(k[1])+'</option>';}).join("")+'</select></div>';
+    var dyn='<div id="hrDyn"></div>';
+    var ov=openModal(t("new_request"),ksel+dyn,function(o){
+      var kind=o.querySelector("#hrKind").value, req={kind:kind,who:currentPersona().name,status:"pending"};
+      if(kind==="leave"){ req.type=o.querySelector("#hrLeaveType").value; req.from=o.querySelector("#hrFrom").value; req.to=o.querySelector("#hrTo").value;
+        req.days=Math.max(1,Math.round((new Date(req.to)-new Date(req.from))/864e5)+1)||1; req.reason=o.querySelector("#hrReason").value; if(!req.from){ return false; } }
+      else if(kind==="permission"){ req.type=o.querySelector("#hrExitKind").value; req.from=o.querySelector("#hrFromT").value; req.to=o.querySelector("#hrToT").value; req.reason=o.querySelector("#hrReason").value; }
+      else { req.type=t("loan"); req.amount=parseInt(o.querySelector("#hrAmt").value,10)||0; req.installments=parseInt(o.querySelector("#hrInst").value,10)||1; req.reason=o.querySelector("#hrReason").value; if(req.amount<=0){ o.querySelector("#hrAmt").focus(); return false; } }
+      demo.hrRequests.unshift(req);
+      if(state.live){ SB.insert("hr_requests",hrToRow(req)).catch(saveFailed(function(){ demo.hrRequests.shift(); })); }
+      toast(t("request_sent")); render();
+    });
+    var paint=function(){
+      var kind=ov.querySelector("#hrKind").value, d=ov.querySelector("#hrDyn");
+      var input=function(id,lab,type,val){ return '<div class="field"><label for="'+id+'">'+lab+'</label><input id="'+id+'" type="'+type+'" value="'+(val||"")+'"/></div>'; };
+      if(kind==="leave"){
+        var lt=[["Annual leave",t("leave_annual")],["Sick leave",t("leave_sick")],["Unpaid leave",t("leave_unpaid")],["Emergency",t("leave_emergency")]];
+        d.innerHTML='<div class="field"><label for="hrLeaveType">'+t("leave_type")+'</label><select id="hrLeaveType" style="width:100%;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;color:var(--ink);font-size:14px">'+lt.map(function(x){return '<option value="'+x[0]+'">'+esc(x[1])+'</option>';}).join("")+'</select></div>'+
+          '<div class="row gap" style="gap:10px">'+input("hrFrom",t("from_date"),"date")+input("hrTo",t("to_date"),"date")+'</div>'+input("hrReason",t("reason"),"text");
+      } else if(kind==="permission"){
+        var ek=[["Meeting",t("exit_meeting")],["Personal",t("exit_personal")],["Errand",t("exit_errand")]];
+        d.innerHTML='<div class="field"><label for="hrExitKind">'+t("exit_kind")+'</label><select id="hrExitKind" style="width:100%;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;color:var(--ink);font-size:14px">'+ek.map(function(x){return '<option value="'+x[0]+'">'+esc(x[1])+'</option>';}).join("")+'</select></div>'+
+          '<div class="row gap" style="gap:10px">'+input("hrFromT",t("from_time"),"time","14:00")+input("hrToT",t("to_time"),"time","16:00")+'</div>'+input("hrReason",t("reason"),"text");
+      } else {
+        d.innerHTML='<div class="row gap" style="gap:10px">'+input("hrAmt",t("amount_egp2"),"number","5000")+input("hrInst",t("installments"),"number","3")+'</div>'+input("hrReason",t("reason"),"text");
+      }
+    };
+    ov.querySelector("#hrKind").onchange=paint; paint();
+  }
+  function hrToRow(r){ return { company_id:SB.companyId, profile_id:SB.userId, kind:r.kind, req_type:r.type,
+    date_from:r.from&&/^\d{4}-/.test(r.from)?r.from:null, date_to:r.to&&/^\d{4}-/.test(r.to)?r.to:null,
+    time_from:r.from&&/^\d{2}:/.test(r.from)?r.from:null, time_to:r.to&&/^\d{2}:/.test(r.to)?r.to:null,
+    days:r.days||null, amount_egp:r.amount||null, installments:r.installments||null, reason:r.reason||null, status:"pending" }; }
   // Finance-only: record a sale + its commission (by %, by value, or fixed amount).
   function openAddSale(){
     var projects=[]; (demo.units||[]).forEach(function(u){ if(projects.indexOf(u.project)<0) projects.push(u.project); }); if(!projects.length) projects=["—"];
