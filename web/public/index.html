@@ -246,6 +246,7 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
       weekly:"Weekly", monthly:"Monthly", score:"Score", grade:"Grade", team_performance:"Team performance", my_performance:"My performance",
       metric_leads:"Leads handled", metric_actions:"Actions logged", metric_calls:"Calls", metric_conversion:"Conversion", metric_commission:"Commission", metric_attendance:"Attendance", metric_punctuality:"Punctuality",
       auto_scored:"Auto-scored from CRM activity", period:"Period", top_performer:"Top performer", clock:"Clock",
+      payroll:"Payroll", my_payslip:"My payslip", base_salary:"Base salary", allowances:"Allowances", deductions:"Deductions", advance_deduction:"Advance instalment", unpaid_leave_ded:"Unpaid leave", gross:"Gross", net_salary:"Net salary", generate_payroll:"Generate payroll", total_payroll:"Total payroll", salary_month:"Month", mark_run_paid:"Mark paid", payroll_generated:"Payroll generated ✓", employees:"employees",
       welcome:"Welcome back", signin:"Sign in to Village CRM", email:"Email", password:"Password", signin_btn:"Sign in",
       hero:"The complete real-estate CRM for your team.", hero_sub:"Leads, pipeline, inventory, finance, automation and AI — one secure console for The Village Investment.",
       demo_note:"Demo mode — explore with sample data. Set API_BASE in the file to connect your live backend.",
@@ -288,6 +289,7 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
       weekly:"أسبوعي", monthly:"شهري", score:"النتيجة", grade:"التقدير", team_performance:"أداء الفريق", my_performance:"أدائي",
       metric_leads:"العملاء المُدارون", metric_actions:"الإجراءات", metric_calls:"المكالمات", metric_conversion:"معدّل التحويل", metric_commission:"العمولات", metric_attendance:"الحضور", metric_punctuality:"الالتزام بالمواعيد",
       auto_scored:"يُحتسب تلقائيًا من نشاط الـ CRM", period:"الفترة", top_performer:"الأفضل أداءً", clock:"الساعة",
+      payroll:"الرواتب", my_payslip:"قسيمة راتبي", base_salary:"الراتب الأساسي", allowances:"البدلات", deductions:"الخصومات", advance_deduction:"قسط السلفة", unpaid_leave_ded:"إجازة بدون راتب", gross:"الإجمالي", net_salary:"صافي الراتب", generate_payroll:"احتساب الرواتب", total_payroll:"إجمالي الرواتب", salary_month:"الشهر", mark_run_paid:"تحديد كمدفوع", payroll_generated:"تم احتساب الرواتب ✓", employees:"موظف",
       welcome:"مرحباً بعودتك", signin:"سجّل الدخول إلى Village CRM", email:"البريد الإلكتروني", password:"كلمة المرور", signin_btn:"دخول",
       hero:"نظام CRM عقاري متكامل لفريقك.", hero_sub:"العملاء والمسار والمخزون والمالية والأتمتة والذكاء الاصطناعي — لوحة آمنة واحدة لـ The Village Investment.",
       demo_note:"وضع تجريبي — استكشف ببيانات نموذجية. اضبط API_BASE في الملف لربط الخادم الحقيقي.",
@@ -483,6 +485,8 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
       {kind:"leave",who:"Omar Khaled",type:"Sick leave",from:"2026-08-04",to:"2026-08-04",days:1,reason:"Flu",status:"approved"}
     ],
     hrTargets:{ "Fatma Sayed":900000, "Nour Hany":700000, "Omar Khaled":1500000, "Kareem Fathy":1100000 },
+    salaries:{ "Fatma Sayed":14000, "Nour Hany":12000, "Omar Khaled":25000, "Kareem Fathy":18000, "Village Admin":30000 },
+    payrollMonth:"2026-08", payrollStatus:{},
     notifs:[["🔥 New lead assigned: Ashraf Hussein","Facebook · Hot — respond within SLA","2m",true],
       ["SLA breach in 4 min: Mona Adel","First response overdue","8m",true],
       ["🎉 Deal won: Youssef Tarek — Badya","EGP 7.0M · commission accrued","1h",true],
@@ -539,7 +543,7 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
 
   var permGroups=[
     {g:"Sales & Inventory",res:[["lead","Lead",["read","create","update","delete","assign","export","import"]],["customer","Customer",["read","create","update","delete","assign","export"]],["opportunity","Opportunity",["read","create","update","delete","approve"]],["activity","Activity",["read","create","update","delete"]]]},
-    {g:"Finance",res:[["contract","Contract",["read","create","update","approve","export"]],["payment","Payment",["read","create","update","approve","export"]],["commission","Commission",["read","approve","export"]],["finance","Finance",["read","approve","export"]]]},
+    {g:"Finance",res:[["payroll","Payroll",["read","approve","export"]],["contract","Contract",["read","create","update","approve","export"]],["payment","Payment",["read","create","update","approve","export"]],["commission","Commission",["read","approve","export"]],["finance","Finance",["read","approve","export"]]]},
     {g:"People & Org",res:[["user","User",["read","create","update","delete"]],["role","Role",["read","create","update","delete"]],["department","Department",["read","create","update","delete"]],["team","Team",["read","create","update","delete"]]]},
     {g:"HR",res:[["hr","HR / Attendance",["read","create","approve","export"]]]},
     {g:"Inventory",res:[["unit","Unit / Inventory",["read","create","update","delete","export"]],["project","Project",["read","create","update","delete"]],["developer","Developer",["read","create","update","delete"]]]},
@@ -548,19 +552,19 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
   ];
   var ROLE_PERMS={
     "Super Admin":["*"],"CEO":["*"],
-    "General Manager":["hr:approve","unit:read","project:read","developer:read","lead:read","lead:assign","lead:export","customer:read","opportunity:read","opportunity:approve","call:read","call:export","whatsapp:read","distribution:read","finance:read","commission:read","commission:approve","contract:read","payment:read","user:read","user:create","user:update","role:read","team:read","team:create","department:create","report:read","report:export","dashboard:read","ai:read","ai:use","audit:read","integration:read","automation:read","settings:read"],
-    "Sales Director":["hr:approve","hr:read","hr:create","unit:read","project:read","developer:read","lead:read","lead:create","lead:update","lead:delete","lead:assign","lead:export","lead:import","customer:read","customer:create","customer:update","customer:export","opportunity:read","opportunity:create","opportunity:update","opportunity:approve","call:read","call:create","call:update","call:export","whatsapp:read","whatsapp:create","distribution:read","distribution:create","distribution:update","team:read","team:create","user:read","report:read","report:export","dashboard:read","ai:read","ai:use","automation:read","automation:update","settings:read"],
-    "Team Leader":["hr:approve","hr:read","hr:create","unit:read","project:read","developer:read","lead:read","lead:create","lead:update","lead:assign","lead:export","customer:read","customer:create","customer:update","opportunity:read","opportunity:create","opportunity:update","activity:read","activity:create","activity:update","call:read","call:create","call:update","whatsapp:read","whatsapp:create","whatsapp:update","team:read","report:read","dashboard:read","ai:read","ai:use"],
+    "General Manager":["payroll:read","payroll:approve","hr:approve","unit:read","project:read","developer:read","lead:read","lead:assign","lead:export","customer:read","opportunity:read","opportunity:approve","call:read","call:export","whatsapp:read","distribution:read","finance:read","commission:read","commission:approve","contract:read","payment:read","user:read","user:create","user:update","role:read","team:read","team:create","department:create","report:read","report:export","dashboard:read","ai:read","ai:use","audit:read","integration:read","automation:read","settings:read"],
+    "Sales Director":["payroll:read","payroll:approve","hr:approve","hr:read","hr:create","unit:read","project:read","developer:read","lead:read","lead:create","lead:update","lead:delete","lead:assign","lead:export","lead:import","customer:read","customer:create","customer:update","customer:export","opportunity:read","opportunity:create","opportunity:update","opportunity:approve","call:read","call:create","call:update","call:export","whatsapp:read","whatsapp:create","distribution:read","distribution:create","distribution:update","team:read","team:create","user:read","report:read","report:export","dashboard:read","ai:read","ai:use","automation:read","automation:update","settings:read"],
+    "Team Leader":["payroll:read","hr:approve","hr:read","hr:create","unit:read","project:read","developer:read","lead:read","lead:create","lead:update","lead:assign","lead:export","customer:read","customer:create","customer:update","opportunity:read","opportunity:create","opportunity:update","activity:read","activity:create","activity:update","call:read","call:create","call:update","whatsapp:read","whatsapp:create","whatsapp:update","team:read","report:read","dashboard:read","ai:read","ai:use"],
     "Call Center":["hr:read","hr:create","unit:read","project:read","developer:read","lead:read","lead:create","lead:update","call:read","call:create","call:update","whatsapp:read","whatsapp:create","customer:read","dashboard:read","ai:read"],
     "Customer Service":["hr:read","hr:create","unit:read","project:read","developer:read","lead:read","lead:update","customer:read","customer:update","call:read","call:create","whatsapp:read","whatsapp:create","whatsapp:update","activity:read","activity:create","dashboard:read"],
-    "HR":["hr:read","hr:create","hr:approve","hr:export","user:read","user:create","user:update","department:read","department:create","team:read","report:read","dashboard:read"],
+    "HR":["payroll:read","payroll:approve","hr:read","hr:create","hr:approve","hr:export","user:read","user:create","user:update","department:read","department:create","team:read","report:read","dashboard:read"],
     "Legal":["contract:read","contract:approve","customer:read","report:read","dashboard:read","audit:read"],
     "Read Only User":["lead:read","customer:read","unit:read","report:read","dashboard:read"],
-    "Sales Agent":["hr:read","hr:create","unit:read","project:read","developer:read","call:read","call:create","call:update","whatsapp:read","whatsapp:create","whatsapp:update","lead:read","lead:create","lead:update","customer:read","customer:create","customer:update","customer:delete","opportunity:read","opportunity:create","opportunity:update","activity:read","activity:create","activity:update","activity:delete","dashboard:read","ai:read","ai:use"],
-    "Property Consultant":["hr:read","hr:create","unit:read","project:read","developer:read","call:read","call:create","call:update","whatsapp:read","whatsapp:create","whatsapp:update","lead:read","lead:create","lead:update","customer:read","customer:create","customer:update","customer:delete","opportunity:read","opportunity:create","opportunity:update","activity:read","activity:create","activity:update","activity:delete","dashboard:read","ai:read","ai:use"],
-    "Sales Manager":["hr:approve","hr:read","hr:create","unit:read","project:read","developer:read","call:read","call:create","call:update","whatsapp:read","whatsapp:create","whatsapp:update","call:export","distribution:read","distribution:create","distribution:update","settings:read","lead:read","lead:create","lead:update","lead:delete","lead:assign","lead:export","customer:read","customer:create","customer:update","customer:delete","opportunity:read","opportunity:create","opportunity:update","opportunity:delete","opportunity:approve","activity:read","activity:create","activity:update","activity:delete","dashboard:read","report:read","ai:read","ai:use"],
+    "Sales Agent":["payroll:read","hr:read","hr:create","unit:read","project:read","developer:read","call:read","call:create","call:update","whatsapp:read","whatsapp:create","whatsapp:update","lead:read","lead:create","lead:update","customer:read","customer:create","customer:update","customer:delete","opportunity:read","opportunity:create","opportunity:update","activity:read","activity:create","activity:update","activity:delete","dashboard:read","ai:read","ai:use"],
+    "Property Consultant":["payroll:read","hr:read","hr:create","unit:read","project:read","developer:read","call:read","call:create","call:update","whatsapp:read","whatsapp:create","whatsapp:update","lead:read","lead:create","lead:update","customer:read","customer:create","customer:update","customer:delete","opportunity:read","opportunity:create","opportunity:update","activity:read","activity:create","activity:update","activity:delete","dashboard:read","ai:read","ai:use"],
+    "Sales Manager":["payroll:read","hr:approve","hr:read","hr:create","unit:read","project:read","developer:read","call:read","call:create","call:update","whatsapp:read","whatsapp:create","whatsapp:update","call:export","distribution:read","distribution:create","distribution:update","settings:read","lead:read","lead:create","lead:update","lead:delete","lead:assign","lead:export","customer:read","customer:create","customer:update","customer:delete","opportunity:read","opportunity:create","opportunity:update","opportunity:delete","opportunity:approve","activity:read","activity:create","activity:update","activity:delete","dashboard:read","report:read","ai:read","ai:use"],
     "Marketing Manager":["hr:read","hr:create","unit:read","project:read","developer:read","distribution:read","distribution:create","distribution:update","whatsapp:read","settings:read","lead:read","lead:export","report:read","report:export","dashboard:read","ai:read","ai:use","ai:update","integration:read","integration:create","integration:update","integration:delete","automation:read","automation:create","automation:update","automation:delete"],
-    "Finance":["hr:read","hr:create","unit:read","project:read","developer:read","settings:read","finance:read","finance:approve","finance:export","payment:read","payment:approve","payment:export","commission:read","commission:approve","commission:export","contract:read","contract:approve","report:read","dashboard:read","ai:read","ai:use"]
+    "Finance":["payroll:read","payroll:approve","hr:read","hr:create","unit:read","project:read","developer:read","settings:read","finance:read","finance:approve","finance:export","payment:read","payment:approve","payment:export","commission:read","commission:approve","commission:export","contract:read","contract:approve","report:read","dashboard:read","ai:read","ai:use"]
   };
   /* ── security: every screen builds DOM by string concatenation, so any value
      that originates from a user or the database MUST be escaped before it is
@@ -862,6 +866,7 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
       var tabs=[["attendance",t("attendance")],["requests",t("requests")]];
       if(isMgr) tabs.push(["approvals",t("approvals")]);
       tabs.push(["performance",t("performance")]);
+      if(can("payroll:read")) tabs.push(["payroll",t("payroll")]);
       var tb=function(k,l){ return '<button class="btn '+(tab===k?"btn-coral":"btn-ghost")+' hrtab" data-tab="'+k+'" style="padding:8px 14px;font-size:12.5px">'+esc(l)+'</button>'; };
       var switcher='<div class="row wrap gap" style="gap:8px;margin-bottom:18px">'+tabs.map(function(x){return tb(x[0],x[1]);}).join("")+'</div>';
       var body="";
@@ -932,6 +937,35 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
                 return '<tr><td>'+(i===0?'🏆':(i+1))+'</td><td><b>'+esc(p.name)+'</b></td><td class="tnum">'+p.leads+'</td><td class="tnum">'+p.conv+'%</td><td class="tnum">'+money(p.commission/1e6)+'</td><td class="tnum">'+p.att+'%</td><td><span class="pill" style="background:'+col+'1f;color:'+col+';font-weight:800">'+p.score+' · '+p.grade+'</span></td></tr>'; }).join("")+'</tbody></table></div></div>';
         }
         body=head2+myCard+team;
+      }
+
+      else if(tab==="payroll"){
+        var canRun=can("payroll:approve");
+        var money0=function(n){ return "EGP "+Math.round(n||0).toLocaleString(); };
+        var mine=payslip(currentPersona().name);
+        var slipRow=function(k,v,neg){ return '<div class="row between" style="padding:9px 0;border-bottom:1px solid var(--line)"><span style="font-weight:600;font-size:13px">'+k+'</span><b class="tnum" style="font-size:13.5px'+(neg?';color:var(--coral)':'')+'">'+(neg&&v?"− ":"")+money0(v)+'</b></div>'; };
+        var myslip='<div class="card" style="padding:20px;margin-bottom:18px;max-width:520px"><div class="row between" style="margin-bottom:8px"><div class="sec-title" style="margin:0">'+t("my_payslip")+'</div><span class="muted" style="font-size:12.5px">'+esc(demo.payrollMonth)+'</span></div>'+
+          slipRow(t("base_salary"),mine.base)+
+          slipRow(t("comm_amount"),mine.comm)+
+          (mine.advance?slipRow(t("advance_deduction"),mine.advance,true):'')+
+          (mine.unpaidDed?slipRow(t("unpaid_leave_ded")+" ("+mine.unpaidDays+" "+t("days")+")",mine.unpaidDed,true):'')+
+          '<div class="row between" style="padding:12px 0 0"><b style="font-size:15px">'+t("net_salary")+'</b><b class="tnum" style="font-size:20px;color:var(--green)">'+money0(mine.net)+'</b></div></div>';
+        body=myslip;
+        if(canRun){
+          var people=Object.keys(demo.salaries||{});
+          var slips=people.map(function(n){ return payslip(n); });
+          var totBase=0,totComm=0,totDed=0,totNet=0;
+          slips.forEach(function(s2){ totBase+=s2.base; totComm+=s2.comm; totDed+=s2.ded; totNet+=s2.net; });
+          var runStatus=demo.payrollStatus[demo.payrollMonth];
+          var actions='<div class="row gap" style="gap:8px">'+
+            (runStatus?'<span class="pill" style="background:var(--green-soft);color:var(--green)">'+t(runStatus==="paid"?"paid":"approved")+'</span>':'')+
+            '<button class="btn btn-coral" id="hrRunPay">'+I.money+t("generate_payroll")+'</button></div>';
+          body+='<div class="page-head" style="padding:0;margin:6px 0 14px"><div><div class="sec-title" style="margin:0">'+t("total_payroll")+' · '+esc(demo.payrollMonth)+'</div><div class="muted" style="font-size:12.5px">'+people.length+' '+t("employees")+' · '+money0(totNet)+'</div></div>'+actions+'</div>'+
+            '<div class="card" style="padding:0;overflow:hidden"><div style="overflow-x:auto"><table><thead><tr><th>'+t("name")+'</th><th>'+t("base_salary")+'</th><th>'+t("comm_amount")+'</th><th>'+t("deductions")+'</th><th>'+t("net_salary")+'</th></tr></thead><tbody>'+
+              slips.map(function(s2){ return '<tr><td><b>'+esc(s2.name)+'</b></td><td class="tnum">'+money0(s2.base)+'</td><td class="tnum">'+money0(s2.comm)+'</td><td class="tnum" style="color:'+(s2.ded?"var(--coral)":"var(--ink-3)")+'">'+(s2.ded?"− ":"")+money0(s2.ded)+'</td><td class="tnum"><b>'+money0(s2.net)+'</b></td></tr>'; }).join("")+
+              '<tr style="border-top:2px solid var(--line-2)"><td><b>'+t("total_payroll")+'</b></td><td class="tnum"><b>'+money0(totBase)+'</b></td><td class="tnum"><b>'+money0(totComm)+'</b></td><td class="tnum"><b style="color:var(--coral)">− '+money0(totDed)+'</b></td><td class="tnum"><b style="color:var(--green)">'+money0(totNet)+'</b></td></tr>'+
+              '</tbody></table></div></div>';
+        }
       }
 
       return head(t("hr"),isMgr?t("hr"):t("my_hr"))+switcher+body;
@@ -1256,6 +1290,9 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
     [].forEach.call(document.querySelectorAll(".hrtab"),function(b){ b.onclick=function(){ state.hrTab=b.getAttribute("data-tab"); render(); }; });
     [].forEach.call(document.querySelectorAll(".hrperiod"),function(b){ b.onclick=function(){ state.hrPeriod=b.getAttribute("data-p"); render(); }; });
     var hn=$("#hrNew"); if(hn) hn.onclick=openHrRequest;
+    var hrp=$("#hrRunPay"); if(hrp) hrp.onclick=function(){ demo.payrollStatus[demo.payrollMonth]="approved";
+      if(state.live){ SB.insert("payroll_runs",{company_id:SB.companyId,period_month:demo.payrollMonth+"-01",status:"approved",created_by:SB.userId}).catch(function(){}); }
+      toast(t("payroll_generated")); render(); };
     var hin=$("#hrIn"); if(hin) hin.onclick=function(){ var d=new Date(); var hh=d.getHours(), mm=d.getMinutes();
       var tm=(hh<10?"0":"")+hh+":"+(mm<10?"0":"")+mm; demo.hrToday={"in":tm,out:null,mins:0,late:(hh>9||(hh===9&&mm>15))};
       if(state.live){ SB.insert("hr_attendance",{company_id:SB.companyId,profile_id:SB.userId,work_date:new Date().toISOString().slice(0,10),check_in:d.toISOString(),status:demo.hrToday.late?"late":"present"}).catch(saveFailed(function(){ demo.hrToday=null; })); }
@@ -1400,6 +1437,20 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
     var score=Math.round(conv*0.28 + commPct*0.30 + att*0.16 + punc*0.12 + Math.min(100,leads.length*9)*0.14);
     var grade=score>=85?"A":score>=70?"B":score>=55?"C":"D";
     return {name:name,leads:leadsN,actions:actionsN,calls:callsN,conv:conv,commission:commShown,commPct:commPct,att:att,punc:punc,score:score,grade:grade};
+  }
+  // Monthly payslip for one person: base + commission earned − advance instalments
+  // − unpaid-leave days. Everything is derived from HR + Commission data.
+  function payslip(name){
+    var base=(demo.salaries&&demo.salaries[name])||0;
+    var comm=(demo.commissions||[]).filter(function(c){ return c.recipient===name && (c.status==="paid"||c.status==="approved"); })
+      .reduce(function(a,c){ return a+(+c.amount||0); },0);
+    var advance=(demo.hrRequests||[]).filter(function(r){ return r.who===name && r.kind==="loan" && r.status==="approved"; })
+      .reduce(function(a,r){ return a+Math.round((r.amount||0)/(r.installments||1)); },0);
+    var unpaidDays=(demo.hrRequests||[]).filter(function(r){ return r.who===name && r.kind==="leave" && r.status==="approved" && /Unpaid/i.test(r.type||""); })
+      .reduce(function(a,r){ return a+(+r.days||0); },0);
+    var unpaidDed=Math.round(unpaidDays*(base/22));
+    var gross=base+comm, ded=advance+unpaidDed, net=gross-ded;
+    return {name:name,base:base,comm:comm,advance:advance,unpaidDed:unpaidDed,unpaidDays:unpaidDays,gross:gross,ded:ded,net:net};
   }
   // Submit a leave / permission / salary-advance request.
   function openHrRequest(){
