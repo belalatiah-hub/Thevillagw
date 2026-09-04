@@ -336,7 +336,7 @@
     ar: {
       dir: 'rtl',
       title: 'فيلا B — تصميم ثلاثي الأبعاد',
-      sub: 'قطعة ١٢٫٢٥ × ٢٤٫٥٠ م · مسطح البناء ٨٫٠٥ × ١٣٫٨٠ م · ٣ أدوار',
+      sub: 'ثلاثة أدوار وبنتهاوس، مبنية على المساقط المقاسة بتاريخ ٦ فبراير ٢٠٢٦.',
       views: 'لقطات', levels: 'الأدوار', options: 'خيارات',
       all: 'الكل', ground: 'أرضي', first: 'أول', penthouse: 'بنتهاوس',
       furniture: 'الفرش', labels: 'أسماء الغرف', siteT: 'الحديقة', night: 'إضاءة ليلية',
@@ -347,7 +347,7 @@
     en: {
       dir: 'ltr',
       title: 'Villa B — 3D concept',
-      sub: 'Plot 12.25 × 24.50 m · footprint 8.05 × 13.80 m · 3 floors',
+      sub: 'Three floors and a penthouse, built from the dimensioned plans of 6 February 2026.',
       views: 'Views', levels: 'Levels', options: 'Options',
       all: 'All', ground: 'Ground', first: 'First', penthouse: 'Penthouse',
       furniture: 'Furniture', labels: 'Room names', siteT: 'Garden', night: 'Night lighting',
