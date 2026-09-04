@@ -319,6 +319,8 @@
     garden:    { ar: 'الحديقة والمسبح',  en: 'Pool & garden', pos: P(0.80, 18.32, 2.42), look: P(8.40, 22.10, 0.55), level: 'all', fov: 60 },
     pergola:   { ar: 'البرجولة',          en: 'Pergola',       pos: P(4.60, 21.60, 2.05), look: P(10.70, 20.70, 1.10), level: 'all', fov: 58 },
     street:    { ar: 'الواجهة',           en: 'Street',        pos: P(6.0, -13.5, 7.0),  look: P(6.0, 7.0, 2.5),  level: 'all' },
+    // the reference's own angle: eye level, across the driveway, on the corner
+    corner:    { ar: 'ثلاثة أرباع',       en: 'Three-quarter', pos: P(19.5, -7.5, 3.20), look: P(6.30, 8.60, 4.40), level: 'all', fov: 52 },
     // interior cameras stand inside the room with every level shown, so the
     // ceiling is there: hiding the floors above would open the room to the sky
     reception: { ar: 'الريسبشن',          en: 'Reception',     pos: P(7.68, 13.35, 1.62), look: P(2.90, 16.80, 1.10), level: 'all', fov: 62 },
@@ -441,8 +443,8 @@
   ui.sun.oninput = function () { state.sun = +ui.sun.value / 100; applySun(); };
 
   document.addEventListener('keydown', function (e) {
-    var keys = { '1': 'aerial', '2': 'garden', '3': 'pergola', '4': 'street', '5': 'reception',
-                 '6': 'kitchen', '7': 'master', '8': 'playroom', '9': 'roof', '0': 'plan' };
+    var keys = { '1': 'aerial', '2': 'corner', '3': 'garden', '4': 'pergola', '5': 'street',
+                 '6': 'reception', '7': 'kitchen', '8': 'master', '9': 'playroom', '0': 'plan' };
     if (keys[e.key]) setView(keys[e.key]);
     if (e.key === 'n' || e.key === 'N') { state.night = !state.night; applySun(); renderUI(); }
   });
@@ -450,7 +452,9 @@
   /* --------------------------------------------------------- design notes */
   var NOTES = {
     ar: [
-      ['الطراز', 'بوهيمي عملي: بياض جيري، خشب بلوط وجوز، خيزران وروطان، كليم وجوت، فخار وتراكوتا — فوق تخزين مغلق وأقمشة قابلة للغسل.'],
+      ['الواجهات', 'حجر جيري بمداميك أفقية ٣٠ سم، وبلاطات طائرة بحواف رفيعة وفتحة ظل تحتها: بروز ٥٥ سم عند الدور الأول و٩٥ سم عند البنتهاوس، وسقف علوي كابولي ١٫٦٥ م بشرائح خشبية تحته.'],
+      ['الزجاج', 'زجاج كامل الارتفاع بإطارات ألومنيوم سوداء رفيعة، وزاوية زجاجية بالكامل في الركن الجنوبي الشرقي بقائم ٧ سم فقط، مع شرائح خشب رأسية تكسر الحجر.'],
+      ['الطراز الداخلي', 'بوهيمي عملي: بياض جيري، خشب بلوط وجوز، خيزران وروطان، كليم وجوت، فخار وتراكوتا — فوق تخزين مغلق وأقمشة قابلة للغسل.'],
       ['الأرضي', 'ريسبشن ٧٫٧٥ × ٤٫٨٥ م مفتوح على الحديقة بواجهة زجاجية منزلقة، سفرة ٨ أفراد، مطبخ بجزيرة، تواليت ضيوف، وغرفة سائق بحمام.'],
       ['الأول', 'أربع غرف ماستر بحمامات خاصة + غرفة ملابس + تراس شمالي يطل على المسبح.'],
       ['البنتهاوس', 'دور الأطفال: غرفة ألعاب ٣٫٠٠ × ٣٫٢٠ م بحمام، تفتح مباشرة على تراس مظلل تحت برجولة السطح ٤٫٧٠ × ٢٫٢٠ م.'],
@@ -459,10 +463,13 @@
       ['ركن الأطفال', 'في الحديقة الأمامية — مسوّر، مرئي من شباك المطبخ، وبعيد عن المياه.'],
       ['التنسيق', 'الحديقة الخلفية مقسّمة شرائط موازية لواجهة الريسبشن الزجاجية، فيقرأ المسبح كامتداد للغرفة لا كجسم منفصل.'],
       ['ملاحظة عملية', 'المطبخ عمقه ٢٫٩٥ م فقط، فالجزيرة هنا جزيرة تحضير ١٫٥٥ × ٠٫٧٨ م بدون كراسي — إضافة بار جلوس كانت ستترك ممرًا أقل من ٤٠ سم.'],
+      ['السور الأمامي', 'انخفض إلى ٩٥ سم حجر بدل سور وبوابة ٢٫٠٥ م، لأن السور العالي كان يخفي الواجهة كلها من الشارع. سور الجار الشرقي بقي بارتفاعه من عمق ٦٫٩٠ م شمالًا لخصوصية الممر والحديقة.'],
       ['افتراضات', 'المساقط لا تحمل سهم شمال، فالنموذج يفترض أن الشارع في الجنوب؛ استخدم متحكم الشمس لمراجعة الظل بعد تأكيد التوجيه. ارتفاع الدور ٣٫٤٠ م بصافي ٣٫٠٠ م افتراض أيضًا — المساقط مقيسة أفقيًا فقط.']
     ],
     en: [
-      ['Style', 'Bohemian but practical: lime plaster, oak and walnut, cane and rattan, kilim and jute, terracotta — over closed storage and washable covers.'],
+      ['Facade', 'Coursed travertine in 300 mm beds, with floating slab bands on slim fascias over a shadow reveal: 0.55 m at first floor, 0.95 m at penthouse, and a 1.65 m roof cantilever with timber blades beneath it.'],
+      ['Glazing', 'Full-height glass in slim black aluminium, turning the south-east corner on a 70 mm mullion alone, with vertical oak fins breaking the stone.'],
+      ['Interior style', 'Bohemian but practical: lime plaster, oak and walnut, cane and rattan, kilim and jute, terracotta — over closed storage and washable covers.'],
       ['Ground', 'Reception 7.75 × 4.85 m opening to the garden through a sliding glass wall, dining for 8, island kitchen, guest WC, driver room with bath.'],
       ['First', 'Four master bedrooms, all en-suite, plus a dressing room and a north terrace over the pool.'],
       ['Penthouse', "The children's floor: a 3.00 × 3.20 m playroom with its own bath, opening onto a shaded terrace under the 4.70 × 2.20 m roof pergola."],
@@ -471,6 +478,7 @@
       ['Kids corner', 'In the front garden — walled, visible from the kitchen window, and on the far side of the house from the water.'],
       ['Layout', "The back garden is banded parallel to the reception's glass wall, so the pool reads as an extension of the room."],
       ['A practical call', 'The kitchen is only 2.95 m deep, so it takes a 1.55 × 0.78 m prep island with no stools — a breakfast bar would have left under 400 mm to walk past.'],
+      ['Front wall', 'Dropped to a 0.95 m stone landscape wall from a 2.05 m gate wall, which hid the whole elevation from the road. The east boundary stays full height from 6.90 m northward, for the side passage and garden.'],
       ['Assumptions', 'The plans carry no north point, so the model treats the street as south; use the sun slider to check shading once the orientation is confirmed. The 3.40 m floor-to-floor with a 3.00 m clear height is an assumption too — the drawings are dimensioned in plan only.']
     ]
   };

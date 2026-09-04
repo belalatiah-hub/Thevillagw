@@ -508,6 +508,102 @@ var FURN = (function () {
     return g;
   }
 
+  /* Date palm — the plant that sets the register of the whole street in the
+     reference: a tall clear trunk with a ring of arching fronds. */
+  function palm(h, spread) {
+    var g = group('palm');
+    spread = spread || h * 0.58;             // full crown diameter
+    var seg = 9, th = h * 0.70;
+    for (var i = 0; i < seg; i++) {
+      var t = i / seg;
+      var r = 0.21 * (1 - t * 0.38);
+      var sg = cyl(r, r * 1.05, th / seg + 0.02, 9, M.trunk);
+      sg.position.set(Math.sin(t * 2.0) * h * 0.026, th * t + th / seg / 2, 0);
+      g.add(sg);
+    }
+
+    /* A frond is a NARROW feather, not a paddle: eight overlapping blades
+       0.11 m wide strung along an arc that rises a little and then falls hard.
+       Width and droop are what separate a date palm from a fern — earlier
+       passes had both wrong and the crown read as bracken. */
+    function frond(a, len, rise, drop, mat, wide) {
+      for (var q = 1; q <= 8; q++) {
+        var u = q / 8, rr = len * u;
+        var yy = len * (rise * u - drop * u * u);
+        var bl = new T.Mesh(new T.SphereGeometry(1, 7, 4), mat);
+        bl.scale.set(len * 0.105, 0.030, (wide || 0.115) * (1.2 - u * 0.7));
+        bl.position.set(Math.cos(a) * rr, yy, Math.sin(a) * rr);
+        bl.rotation.order = 'YZX';
+        bl.rotation.y = -a;
+        bl.rotation.z = -Math.atan(rise - 2 * drop * u) * 0.85;
+        bl.castShadow = q <= 4;
+        g.add(bl);
+      }
+    }
+
+    var N = 18, top = th + 0.16, R = spread / 2;
+    for (var k = 0; k < N; k++) {
+      var a = k / N * Math.PI * 2 + 0.35;
+      var tier = k % 3;
+      var len = R * (0.70 + tier * 0.15) * (0.92 + Math.random() * 0.16);
+      var crownG = group('frond');
+      var rise = [0.62, 0.30, 0.02][tier], drop = [1.05, 0.95, 0.80][tier];
+      var sub = group('f'); g.add(sub); sub.position.y = top;
+      var save = g; g = sub;
+      frond(a, len, rise, drop, k % 2 ? M.leaf : M.leafLight);
+      g = save;
+    }
+    // the skirt of spent fronds every date palm carries under the crown
+    for (var d = 0; d < 9; d++) {
+      var ad = d / 9 * Math.PI * 2 + 0.9;
+      var sub2 = group('skirt'); g.add(sub2); sub2.position.y = top - 0.12;
+      var save2 = g; g = sub2;
+      frond(ad, R * 0.40, -0.35, 0.85, M.trunkLight, 0.095);
+      g = save2;
+    }
+    var crown = sphere(0.27, M.trunkLight, 9);
+    crown.scale.y = 0.75;
+    g.add(crown.translateY(th + 0.06));
+    return g;
+  }
+
+  /* Agave / spiky succulent for the ground-cover beds. */
+  function agave(r) {
+    var g = group('agave');
+    r = r || 0.55;
+    for (var i = 0; i < 14; i++) {
+      var a = i / 14 * Math.PI * 2 + Math.random() * 0.25;
+      // outer blades lie almost flat; only the heart stands up
+      var lean = (i % 4 === 0) ? 0.30 : 0.75 + (i % 3) * 0.22;
+      var L = r * (0.80 + (i % 3) * 0.16);
+      var bl = new T.Mesh(new T.ConeGeometry(0.085, L, 4), i % 2 ? M.agaveA : M.agaveB);
+      bl.position.set(Math.cos(a) * L * 0.30, 0.10 + Math.cos(lean) * L * 0.42,
+        Math.sin(a) * L * 0.30);
+      bl.rotation.order = 'YZX';
+      bl.rotation.y = -a;
+      bl.rotation.z = lean;
+      bl.castShadow = true;
+      g.add(bl);
+    }
+    return g;
+  }
+
+  /* Bougainvillea — the magenta the reference plants either side of the door. */
+  function bougainvillea(h, r) {
+    var g = group('bougainvillea');
+    h = h || 1.6; r = r || 0.55;
+    add(g, cyl(0.05, 0.07, h * 0.42, 7, M.trunk), 0, h * 0.21, 0);
+    for (var i = 0; i < 26; i++) {
+      var a = Math.random() * Math.PI * 2, rr = Math.pow(Math.random(), 0.6) * r;
+      var s = sphere(0.13 + Math.random() * 0.09,
+        i % 3 === 0 ? M.leaf : (i % 3 === 1 ? M.bougain : M.bougainDeep), 8);
+      s.position.set(Math.cos(a) * rr, h * 0.42 + Math.random() * h * 0.55,
+        Math.sin(a) * rr);
+      g.add(s);
+    }
+    return g;
+  }
+
   /* Tall clumping bamboo / screening hedge along a boundary. */
   function hedge(len, h, thick) {
     var g = group('hedge');
@@ -755,6 +851,7 @@ var FURN = (function () {
     sideboard: sideboard, shelf: shelf, wardrobe: wardrobe, bed: bed,
     nightstand: nightstand, kitchenRun: kitchenRun, island: island, bathroom: bathroom,
     pot: pot, plant: plant, hangPlant: hangPlant, tree: tree, hedge: hedge, bed_: bed_,
+    palm: palm, agave: agave, bougainvillea: bougainvillea,
     lantern: lantern, floorLamp: floorLamp, bollard: bollard,
     teepee: teepee, toyStorage: toyStorage, kidsTable: kidsTable, playArch: playArch,
     beanbag: beanbag, lounger: lounger, parasol: parasol, outdoorSofa: outdoorSofa,

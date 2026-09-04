@@ -61,11 +61,84 @@ var BUILDING = (function () {
     return g;
   }
 
-  /* Parapet / balustrade around a terrace edge. */
+  /* ====================================================== FACADE KIT ==== *
+     The exterior is one idea repeated: a coursed travertine box, cut open in
+     tall dark-framed panels, with a floating slab band at every level whose
+     shadow line does the composing. Everything below builds those parts.
+     ---------------------------------------------------------------------- */
+
+  /* A projecting floor / roof slab: a stone band with a slim fascia, a shadow
+     reveal cut under it and a soffit on the underside. `out` is the overhang
+     per side {s,e,n,w} — the west face is on the boundary and cannot project,
+     which is why every band here is asymmetric. */
+  function slabBand(g, x0, y0, x1, y1, top, thick, out) {
+    out = out || {};
+    var sx0 = x0 - (out.w || 0), sx1 = x1 + (out.e || 0),
+        sy0 = y0 - (out.s || 0), sy1 = y1 + (out.n || 0);
+    // the shadow gap first, so the band above reads as separate from the wall
+    var rev = slabAt(sx0 + 0.02, sy0 + 0.02, sx1 - 0.02, sy1 - 0.02,
+      top - thick - 0.055, 0.055, M.reveal);
+    rev.castShadow = false; g.add(rev);
+    // the band, clad on its edges
+    var w = sx1 - sx0, d = sy1 - sy0;
+    var band = V.tbox(w, thick, d, M.fascia, 1.30);
+    band.position.set(px((sx0 + sx1) / 2), top - thick / 2, pz((sy0 + sy1) / 2));
+    g.add(band);
+    // soffit: the flat underside a deep overhang shows from below
+    var sof = slabAt(sx0, sy0, sx1, sy1, top - thick - 0.02, 0.02, M.soffit);
+    sof.castShadow = false; g.add(sof);
+    return g;
+  }
+
+  /* Vertical timber battens — the one warm note against all that stone.
+     Runs along a wall line between `a0` and `a1`, from `y0` up to `y1`. */
+  function fins(g, x0, y0, x1, y1, base, height, opt) {
+    opt = opt || {};
+    var dx = x1 - x0, dy = y1 - y0, len = Math.hypot(dx, dy);
+    var ux = dx / len, uy = dy / len, ang = Math.atan2(-dy, dx);
+    var pitch = opt.pitch || 0.13, w = opt.w || 0.055, depth = opt.depth || 0.11;
+    // a recessed dark backing board, so the gaps between battens read as gaps
+    var bk = box(len, height, 0.03, M.frameDark);
+    bk.position.set(px(x0 + ux * len / 2), base + height / 2, pz(y0 + uy * len / 2));
+    bk.rotation.y = ang; bk.castShadow = false; g.add(bk);
+    var n = Math.max(2, Math.round(len / pitch));
+    for (var i = 0; i < n; i++) {
+      var a = (i + 0.5) * (len / n);
+      var f = box(w, height, depth, M.oak);
+      f.position.set(px(x0 + ux * a), base + height / 2, pz(y0 + uy * a));
+      f.rotation.y = ang;
+      g.add(f);
+    }
+    return g;
+  }
+
+  /* Two panes meeting on an open corner with nothing but a slim mullion —
+     the move the reference elevation is built around. */
+  function cornerGlazing(g, cx, cy, base, h, armX, armY) {
+    var post = box(0.07, h, 0.07, M.frameDark);
+    post.position.set(px(cx), base + h / 2, pz(cy));
+    g.add(post);
+    var a = box(Math.abs(armX), h - 0.10, 0.024, M.glassFacade);
+    a.position.set(px(cx + armX / 2), base + h / 2, pz(cy));
+    a.castShadow = false; g.add(a);
+    var b2 = box(0.024, h - 0.10, Math.abs(armY), M.glassFacade);
+    b2.position.set(px(cx), base + h / 2, pz(cy + armY / 2));
+    b2.castShadow = false; g.add(b2);
+    return g;
+  }
+
+  /* Parapet / balustrade around a terrace edge, clad and capped like the rest
+     of the envelope. */
   function parapet(g, pts, base, h, mat) {
+    h = h || 1.05;
     for (var i = 0; i < pts.length - 1; i++) {
       wall(g, pts[i][0], pts[i][1], pts[i + 1][0], pts[i + 1][1],
-        { t: 0.14, h: h || 1.05, base: base, mat: mat || M.plaster });
+        { t: 0.16, h: h, base: base, mat: mat || M.clad, uv: V.CLAD_TILE });
+      var a = pts[i], c = pts[i + 1];
+      var len = Math.hypot(c[0] - a[0], c[1] - a[1]);
+      var cap = box(Math.abs(c[0] - a[0]) + 0.20, 0.07, Math.abs(c[1] - a[1]) + 0.20, M.fascia);
+      cap.position.set(px((a[0] + c[0]) / 2), base + h + 0.035, pz((a[1] + c[1]) / 2));
+      g.add(cap);
     }
     return g;
   }
@@ -77,54 +150,64 @@ var BUILDING = (function () {
     floor(shell, S.bx0, S.by0, S.bx1, S.by1, b, M.floorIn);
 
     /* --- envelope ------------------------------------------------------- */
-    // south (street) — entrance door, kitchen and driver-bath windows
-    wall(shell, S.bx0, S.by0, S.bx1, S.by0, {
-      base: b, h: h, openings: [
-        { at: 0.70, w: 1.70, sill: 1.00, h: 1.40 },     // kitchen
-        { at: 4.15, w: 1.10, sill: 0.00, h: 2.40, glass: false },  // front door
-        { at: 6.55, w: 0.70, sill: 1.70, h: 0.80 }      // driver bath
-      ]
-    });
-    // west — kitchen, service bath, and the three reception windows
-    wall(shell, S.bx0, S.by0, S.bx0, S.by1, {
-      base: b, h: h, openings: [
-        { at: 0.85, w: 1.40, sill: 1.00, h: 1.35 },
-        { at: 3.90, w: 0.60, sill: 1.70, h: 0.80 },
-        { at: 8.90, w: 1.00, sill: 0.90, h: 1.90 },
-        { at: 10.55, w: 1.60, sill: 0.90, h: 1.90 },
-        { at: 12.20, w: 1.00, sill: 0.90, h: 1.90 }
-      ]
-    });
-    // east — driver suite, guest WC, dining and reception
-    wall(shell, S.bx1, S.by0, S.bx1, S.by1, {
-      base: b, h: h, openings: [
-        { at: 0.35, w: 0.60, sill: 1.70, h: 0.80 },
-        { at: 2.10, w: 1.00, sill: 1.10, h: 1.20 },
-        { at: 4.45, w: 0.60, sill: 1.70, h: 0.80 },
-        { at: 6.30, w: 1.80, sill: 0.90, h: 1.90 },
-        { at: 9.80, w: 1.40, sill: 0.90, h: 1.90 },
-        { at: 11.90, w: 1.00, sill: 0.90, h: 1.90 }
-      ]
-    });
-    // north — the reception opens to the garden through two sliding walls
-    wall(shell, S.bx0, S.by1, S.bx1, S.by1, {
-      base: b, h: h, openings: [
-        { at: 0.80, w: 2.60, sill: 0.02, h: 2.55 },
-        { at: 4.20, w: 3.30, sill: 0.02, h: 2.55 }
-      ]
-    });
+    var CLAD = { mat: M.clad, uv: V.CLAD_TILE, glassMat: M.glassFacade };
+    function ext(x0, y0, x1, y1, ops) {
+      wall(shell, x0, y0, x1, y1, {
+        base: b, h: h, mat: CLAD.mat, uv: CLAD.uv, glassMat: CLAD.glassMat,
+        openings: ops
+      });
+    }
 
-    /* --- entrance porch -------------------------------------------------- */
-    floor(shell, 4.20, 3.10, 6.05, S.by0, b, M.floorOut, 0.12);
-    var can = slabAt(4.05, 2.95, 6.20, S.by0 + 0.05, b + 2.70, 0.18, M.plaster);
-    shell.add(can);
-    [[4.35, 3.25], [5.90, 3.25]].forEach(function (p) {
-      var c = cyl(0.10, 0.11, 2.70, 12, M.plaster);
-      c.position.set(px(p[0]), b + 1.35, pz(p[1])); shell.add(c);
+    // south (street) — a solid stone pier at each end, a tall glazed panel for
+    // the kitchen, and the full-height timber front door
+    ext(S.bx0, S.by0, S.bx1, S.by0, [
+      { at: 0.65, w: 2.05, sill: 0.85, h: 2.00, mullions: 1 },   // kitchen
+      { at: 4.00, w: 1.30, sill: 0.00, h: 2.70, timber: true },  // front door
+      { at: 6.70, w: 0.42, sill: 1.45, h: 1.15 }                 // slot: driver bath
+    ]);
+    // west — 0.25 m off the boundary, so it stays quiet: modest openings only
+    ext(S.bx0, S.by0, S.bx0, S.by1, [
+      { at: 0.85, w: 1.40, sill: 0.95, h: 1.60 },
+      { at: 3.90, w: 0.42, sill: 1.45, h: 1.15 },
+      { at: 8.90, w: 1.10, sill: 0.85, h: 1.95 },
+      { at: 10.55, w: 1.70, sill: 0.85, h: 1.95, mullions: 1 },
+      { at: 12.25, w: 1.10, sill: 0.85, h: 1.95 }
+    ]);
+    // east — the driveway elevation, and the one a visitor actually reads:
+    // narrow service slots give way to two full-height glazed bays
+    ext(S.bx1, S.by0, S.bx1, S.by1, [
+      { at: 0.40, w: 0.42, sill: 1.45, h: 1.15 },
+      { at: 2.10, w: 1.10, sill: 1.00, h: 1.45 },
+      { at: 4.55, w: 0.42, sill: 1.45, h: 1.15 },
+      { at: 5.95, w: 2.45, sill: 0.06, h: 2.72, mullions: 1 },   // dining
+      { at: 9.45, w: 2.15, sill: 0.06, h: 2.72, mullions: 1 },   // reception
+      { at: 11.90, w: 1.35, sill: 0.06, h: 2.72 }
+    ]);
+    // north — the reception opens to the garden through two sliding walls
+    ext(S.bx0, S.by1, S.bx1, S.by1, [
+      { at: 0.80, w: 2.60, sill: 0.02, h: 2.72, mullions: 1 },
+      { at: 4.20, w: 3.30, sill: 0.02, h: 2.72, mullions: 2 }
+    ]);
+    // timber fins beside the front door and against the driveway pier
+    fins(shell, 5.65, S.by0 - 0.01, 6.55, S.by0 - 0.01, b + 0.10, 2.75);
+    fins(shell, S.bx1 + 0.01, 8.60, S.bx1 + 0.01, 9.35, b + 0.10, 2.75);
+
+    /* --- entrance -------------------------------------------------------- */
+    // no separate porch canopy: the first-floor band below already oversails
+    // the door by 0.55 m, so the entrance is a stone reveal cut into the base
+    floor(shell, 4.00, 2.95, 6.10, S.by0, b, M.floorOut, 0.12);
+    // reveal jambs, set proud, framing the timber leaf
+    [[4.10, 0.22], [5.55, 0.22]].forEach(function (p) {
+      var j = V.tbox(p[1], 2.95, 0.34, M.clad, V.CLAD_TILE);
+      j.position.set(px(p[0]), b + 1.475, pz(S.by0 - 0.10));
+      shell.add(j);
     });
+    var head = V.tbox(1.67, 0.22, 0.34, M.fascia, 1.30);
+    head.position.set(px(4.825), b + 3.06, pz(S.by0 - 0.10));
+    shell.add(head);
     // three shallow entry steps
     for (var i = 0; i < 3; i++) {
-      shell.add(slabAt(4.20 - i * 0.05, 3.10 - (i + 1) * 0.30, 6.05 + i * 0.05, 3.10 - i * 0.30,
+      shell.add(slabAt(4.00 - i * 0.06, 2.95 - (i + 1) * 0.32, 6.10 + i * 0.06, 2.95 - i * 0.32,
         b - (i + 1) * 0.15, 0.15, M.floorOut));
     }
 
@@ -157,6 +240,14 @@ var BUILDING = (function () {
     /* --- stair ----------------------------------------------------------- */
     stair(shell, 2.45, 3.65, 8.30, 12.40, b, S.lv[1] - S.lv[0]);
     // void through the first-floor slab is handled by the slab layout above
+
+    /* The first-floor slab reads on the elevation as a band that oversails the
+       ground storey by 0.55 m — shading the glazing, throwing the horizontal
+       shadow the whole composition hangs off, and covering the front door so
+       no separate porch canopy is needed. It cannot project west: there is
+       only 0.25 m between that wall and the boundary. */
+    slabBand(shell, S.bx0, S.by0, S.bx1, S.by1, S.lv[1], 0.42,
+      { s: 0.55, e: 0.55, n: 0.45, w: 0.08 });
 
     /* ================================================ furnishing: ground = */
     /* Reception — the heart of the house. Two low modular sofas facing each
@@ -228,34 +319,42 @@ var BUILDING = (function () {
     floor(shell, S.bx0, S.by0, S.bx1, S.by1, b, M.floorIn);
     floor(shell, 3.90, S.by1, S.bx1, 18.55, b, M.floorOut, 0.22);   // north terrace
 
-    wall(shell, S.bx0, S.by0, S.bx1, S.by0, {
-      base: b, h: h, openings: [
-        { at: 0.90, w: 1.80, sill: 0.85, h: 1.85 },
-        { at: 4.60, w: 1.80, sill: 0.85, h: 1.85 }
-      ]
-    });
-    wall(shell, S.bx0, S.by0, S.bx0, S.by1, {
-      base: b, h: h, openings: [
-        { at: 1.05, w: 1.50, sill: 0.85, h: 1.85 },
-        { at: 4.05, w: 0.60, sill: 1.70, h: 0.80 },
-        { at: 8.90, w: 0.60, sill: 1.70, h: 0.80 },
-        { at: 11.05, w: 1.50, sill: 0.85, h: 1.85 }
-      ]
-    });
-    wall(shell, S.bx1, S.by0, S.bx1, S.by1, {
-      base: b, h: h, openings: [
-        { at: 1.10, w: 1.60, sill: 0.85, h: 1.85 },
-        { at: 4.15, w: 0.70, sill: 1.70, h: 0.80 },
-        { at: 8.85, w: 0.70, sill: 1.70, h: 0.80 },
-        { at: 11.00, w: 1.60, sill: 0.85, h: 1.85 }
-      ]
-    });
-    wall(shell, S.bx0, S.by1, S.bx1, S.by1, {
-      base: b, h: h, openings: [
-        { at: 1.00, w: 1.60, sill: 0.85, h: 1.85 },
-        { at: 4.30, w: 2.20, sill: 0.02, h: 2.35 }        // door to the terrace
-      ]
-    });
+    var CLAD = { mat: M.clad, uv: V.CLAD_TILE, glassMat: M.glassFacade };
+    function ext(x0, y0, x1, y1, ops) {
+      wall(shell, x0, y0, x1, y1, {
+        base: b, h: h, mat: CLAD.mat, uv: CLAD.uv, glassMat: CLAD.glassMat,
+        openings: ops
+      });
+    }
+
+    /* The south-east corner is glazed right through — both walls stop short of
+       the corner and only a 70 mm mullion turns it. That single detail is what
+       makes the upper storey read as a glass box sitting on a stone one. */
+    ext(S.bx0, S.by0, S.bx1, S.by0, [
+      { at: 0.70, w: 2.10, sill: 0.42, h: 2.40, mullions: 1 },
+      { at: 5.15, w: 2.90, sill: 0.42, h: 2.40, mullions: 1 }   // ends on the corner
+    ]);
+    ext(S.bx1, S.by0, S.bx1, S.by1, [
+      { at: 0.00, w: 2.55, sill: 0.42, h: 2.40, mullions: 1 },  // starts on the corner
+      { at: 4.15, w: 0.42, sill: 1.45, h: 1.15 },
+      { at: 8.85, w: 0.42, sill: 1.45, h: 1.15 },
+      { at: 10.85, w: 2.35, sill: 0.42, h: 2.40, mullions: 1 }
+    ]);
+    cornerGlazing(shell, S.bx1, S.by0, b + 0.42, 2.40, -2.90, 2.55);
+
+    ext(S.bx0, S.by0, S.bx0, S.by1, [
+      { at: 1.05, w: 1.60, sill: 0.85, h: 1.95 },
+      { at: 4.05, w: 0.42, sill: 1.45, h: 1.15 },
+      { at: 8.90, w: 0.42, sill: 1.45, h: 1.15 },
+      { at: 11.05, w: 1.60, sill: 0.85, h: 1.95 }
+    ]);
+    ext(S.bx0, S.by1, S.bx1, S.by1, [
+      { at: 1.00, w: 1.70, sill: 0.85, h: 1.95 },
+      { at: 4.30, w: 2.20, sill: 0.02, h: 2.40, mullions: 1 }   // door to the terrace
+    ]);
+    // a fin screen on the stone between the two south bays, and one more east
+    fins(shell, 3.15, S.by0 - 0.01, 5.30, S.by0 - 0.01, b + 0.42, 2.40, { pitch: 0.16 });
+    fins(shell, S.bx1 + 0.01, 7.30, S.bx1 + 0.01, 8.60, b + 0.42, 2.40, { pitch: 0.16 });
 
     // cantilevered terrace + its balustrade
     parapet(shell, [[3.90, S.by1], [3.90, 18.55], [S.bx1, 18.55], [S.bx1, S.by1]], b, 1.05);
@@ -289,6 +388,11 @@ var BUILDING = (function () {
     Pt(3.20, 9.10, 3.20, 12.55);                               // stair / lobby
 
     stair(shell, 2.45, 3.65, 8.30, 12.40, b, S.lv[2] - S.lv[1]);
+
+    /* The deepest line on the building: 0.95 m of eave over the upper glazing,
+       which is what keeps a full-height glass corner habitable in this sun. */
+    slabBand(shell, S.bx0, S.by0, S.bx1, S.by1, S.lv[2], 0.44,
+      { s: 0.95, e: 0.95, n: 0.20, w: 0.08 });
 
     /* ================================================= furnishing: first = */
     function bedroom(cx, cy, bw, bl, rot, rugMat, wx, wy, wrot, ww, ar, en) {
@@ -410,8 +514,16 @@ var BUILDING = (function () {
     Pt(3.30, 7.75, 3.30, 9.15);
     Pt(3.30, 11.35, 6.35, 11.35, [{ at: 0.80, w: 1.40, sill: 0, h: 2.30, glass: false }]);
 
-    // flat roof over the enclosed core, with a small overhang for shade
-    shell.add(slabAt(0.15, 7.45, 6.60, 12.90, b + h, 0.28, M.plaster));
+    /* The crown: the penthouse roof carried 1.65 m out over the south terrace
+       on a slim fascia, with timber blades hung under the cantilever so the
+       terrace below it is shaded rather than merely covered. */
+    slabBand(shell, 0.15, 7.45, 6.60, 12.90, b + h, 0.34,
+      { s: 1.65, e: 0.85, n: 0.35, w: 0.10 });
+    for (var bl = 0; bl < 9; bl++) {
+      var blade = box(6.90, 0.30, 0.075, M.oak);
+      blade.position.set(px(3.55), b + h - 0.52, pz(5.95 + bl * 0.185));
+      shell.add(blade);
+    }
 
     stair(shell, 2.45, 3.65, 8.30, 12.40, b, 0.0);   // arrival landing only
     // (the flight itself belongs to the first floor group)
@@ -537,5 +649,6 @@ var BUILDING = (function () {
     return { levels: levels, rooms: ROOMS, pergola: pergola };
   }
 
-  return { build: build, pergola: pergola, rooms: ROOMS };
+  return { build: build, pergola: pergola, rooms: ROOMS,
+           slabBand: slabBand, fins: fins };
 })();

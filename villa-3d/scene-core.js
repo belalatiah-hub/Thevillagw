@@ -207,8 +207,65 @@ var VILLA = (function () {
     return tex(c, 4, 2);
   }
 
+  /* Coursed sawn travertine — the cladding the whole exterior is built from.
+     One tile is CLAD_TILE metres square, and every clad box gets world-scaled
+     UVs (see tbox) so a course reads the same height on an 8 m wall as on a
+     0.6 m pier. Without that the courses stretch to fit whatever box they
+     land on and the facade stops looking like stone. */
+  var CLAD_TILE = 2.40;                    // metres per tile: 8 courses of 0.30
+  function travertineTexture(base, courses) {
+    var N = courses || 8, P = 512, ch = P / N;
+    var c = cv(P, P), g = c.getContext('2d');
+    g.fillStyle = hex(base); g.fillRect(0, 0, P, P);
+    for (var r = 0; r < N; r++) {
+      var y = r * ch;
+      // each course a shade of its own, the way sawn stone arrives
+      g.fillStyle = 'rgba(' + (r % 3 === 0 ? '255,250,238' : '150,132,104') + ',' +
+        (0.03 + Math.random() * 0.05).toFixed(3) + ')';
+      g.fillRect(0, y, P, ch);
+      // travertine's horizontal veining
+      for (var v = 0; v < 26; v++) {
+        g.fillStyle = 'rgba(146,126,96,' + (0.03 + Math.random() * 0.06).toFixed(3) + ')';
+        g.fillRect(Math.random() * P, y + 3 + Math.random() * (ch - 8),
+          20 + Math.random() * 90, 1 + Math.random() * 2);
+      }
+      // bed joint: a fine dark line with a light arris above it
+      g.fillStyle = 'rgba(120,104,80,0.42)'; g.fillRect(0, y, P, 2);
+      g.fillStyle = 'rgba(255,252,244,0.30)'; g.fillRect(0, y + 2, P, 1);
+      // staggered perpends
+      var off = (r % 2) * 0.5;
+      for (var k = 0; k < 3; k++) {
+        var x = ((k + off) / 3) * P;
+        g.fillStyle = 'rgba(120,104,80,0.24)'; g.fillRect(x, y + 2, 1.5, ch - 2);
+      }
+    }
+    return tex(c, 1, 1);
+  }
+
+  /* Interlocking driveway blocks, laid in running bond. */
+  function paverTexture() {
+    var c = cv(256, 256), g = c.getContext('2d');
+    g.fillStyle = '#B9B2A4'; g.fillRect(0, 0, 256, 256);
+    var bw = 64, bh = 32;
+    for (var r = 0; r < 256 / bh; r++) {
+      var off = (r % 2) * bw / 2;
+      for (var k = -1; k < 256 / bw + 1; k++) {
+        var x = k * bw + off, y = r * bh;
+        var t = 0.06 + Math.random() * 0.12;
+        g.fillStyle = 'rgba(' + (Math.random() > .5 ? '255,250,240' : '90,84,76') + ',' + t.toFixed(3) + ')';
+        g.fillRect(x + 1.5, y + 1.5, bw - 3, bh - 3);
+        g.strokeStyle = 'rgba(88,82,74,0.45)'; g.lineWidth = 1.5;
+        g.strokeRect(x + 1.5, y + 1.5, bw - 3, bh - 3);
+      }
+    }
+    return tex(c, 1, 1);
+  }
+
   var TX = {};
   function initTextures() {
+    TX.clad       = travertineTexture(0xE2D8C3, 8);
+    TX.cladFine   = travertineTexture(0xE7DFCC, 4);   // slab edges: fewer, taller courses
+    TX.paver      = paverTexture();
     TX.kilimWarm  = kilimTexture(C.cream, C.rust, C.ochre, C.charcoal);
     TX.kilimOlive = kilimTexture(C.linen, C.olive, C.terracotta, C.walnut);
     TX.kilimKids  = kilimTexture(C.white, C.teal, C.ochre, C.terracotta);
@@ -228,6 +285,23 @@ var VILLA = (function () {
     function std(o) { return new T.MeshStandardMaterial(o); }
     M.plaster    = std({ color: C.plaster, roughness: 0.95 });
     M.plasterIn  = std({ color: C.plasterIn, roughness: 0.96 });
+
+    /* ---- the exterior envelope -------------------------------------- */
+    // walls: coursed travertine. fascia: the same stone sawn smoother, which
+    // is what makes a projecting slab edge read as an edge and not as wall.
+    M.clad       = std({ map: TX.clad, roughness: 0.82, envMapIntensity: 0.5 });
+    M.fascia     = std({ map: TX.cladFine, color: 0xF2EBDC, roughness: 0.72, envMapIntensity: 0.6 });
+    M.soffit     = std({ color: 0xDFD6C4, roughness: 0.9 });
+    M.reveal     = std({ color: 0x8E8375, roughness: 0.95 });   // shadow gap under a slab
+    M.frameDark  = std({ color: 0x24262A, roughness: 0.42, metalness: 0.55 });
+    M.paver      = std({ map: TX.paver, roughness: 0.88 });
+    // facade glass reflects far more than the interior sliders do — that
+    // mirrored sky and palm is half of what the reference elevation is made of
+    M.glassFacade = new T.MeshPhysicalMaterial({
+      color: 0xAFC6CC, roughness: 0.035, metalness: 0.25,
+      transmission: 0.62, transparent: true, opacity: 0.52,
+      envMapIntensity: 1.5, side: T.DoubleSide
+    });
     M.accentRust = std({ color: C.rust, roughness: 0.92 });
     M.accentOlive= std({ color: C.olive, roughness: 0.92 });
     M.accentTeal = std({ color: C.teal, roughness: 0.9 });
@@ -257,6 +331,11 @@ var VILLA = (function () {
     M.leaf       = std({ color: C.leaf, roughness: 0.9 });
     M.leafLight  = std({ color: C.leafLight, roughness: 0.9 });
     M.trunk      = std({ color: C.trunk, roughness: 0.95 });
+    M.trunkLight = std({ color: 0x8A7358, roughness: 0.95 });
+    M.bougain    = std({ color: 0xC2417E, roughness: 0.9 });
+    M.agaveA     = std({ color: 0x5F7A55, roughness: 0.92 });
+    M.agaveB     = std({ color: 0x7C9468, roughness: 0.92 });
+    M.bougainDeep= std({ color: 0x93275C, roughness: 0.9 });
     M.pot        = std({ color: 0xB9724F, roughness: 0.9 });
     M.glass      = new T.MeshPhysicalMaterial({
       color: C.glass, roughness: 0.06, metalness: 0, transmission: 0.92,
@@ -292,6 +371,25 @@ var VILLA = (function () {
     m.castShadow = true; m.receiveShadow = true;
     return m;
   }
+  /* Rescale a BoxGeometry's UVs from 0..1-per-face to metres-per-face, so a
+     tiling material keeps a constant real-world size whatever the box. Face
+     order in BoxGeometry is +X, -X, +Y, -Y, +Z, -Z, four vertices each. */
+  function worldUV(geo, w, h, d, tile) {
+    var uv = geo.attributes.uv;
+    var size = [[d, h], [d, h], [w, d], [w, d], [w, h], [w, h]];
+    for (var f = 0; f < 6; f++) {
+      var su = size[f][0] / tile, sv = size[f][1] / tile;
+      for (var i = f * 4; i < f * 4 + 4; i++) uv.setXY(i, uv.getX(i) * su, uv.getY(i) * sv);
+    }
+    uv.needsUpdate = true;
+    return geo;
+  }
+  /* A box with its own geometry and world-scaled UVs — for clad surfaces. */
+  function tbox(w, h, d, mat, tile) {
+    var m = new T.Mesh(worldUV(new T.BoxGeometry(w, h, d), w, h, d, tile || CLAD_TILE), mat);
+    m.castShadow = true; m.receiveShadow = true;
+    return m;
+  }
   /* A box positioned by its plan footprint: x0..x1 east, y0..y1 north. */
   function slabAt(x0, y0, x1, y1, base, h, mat) {
     var m = box(Math.abs(x1 - x0), h, Math.abs(y1 - y0), mat);
@@ -311,45 +409,71 @@ var VILLA = (function () {
   function group(name) { var g = new T.Group(); g.name = name || ''; return g; }
 
   /*  A straight wall run in plan coordinates, with rectangular openings.
-      openings: [{ at, w, sill, h }]  — `at` measured from (x0,y0). */
+
+      openings: [{ at, w, sill, h }] — `at` measured from (x0,y0). Per opening:
+        glass:false   a solid void (a doorway through a partition)
+        timber:true   an oak panel instead of glass (the front door)
+        mullions:n    n vertical glazing bars, the way a wide window is built
+      opt.uv sets metres-per-tile for a clad wall; opt.frame picks the frame
+      material, and the frame is a real four-sided one — slim dark jambs, head
+      and sill — because a facade's character lives in that line.            */
   function wall(g, x0, y0, x1, y1, opt) {
     opt = opt || {};
     var t   = opt.t   != null ? opt.t   : S.ext,
         h   = opt.h   != null ? opt.h   : S.ceil,
         base= opt.base!= null ? opt.base: 0,
         mat = opt.mat || M.plaster,
+        uv  = opt.uv || 0,
+        fmat= opt.frame || M.frameDark,
+        gmat= opt.glassMat || M.glass,
         ops = (opt.openings || []).slice().sort(function (a, b) { return a.at - b.at; });
 
     var dx = x1 - x0, dy = y1 - y0, len = Math.hypot(dx, dy);
     var ux = dx / len, uy = dy / len;
     var ang = Math.atan2(-dy, dx);           // plan -> world rotation about Y
 
+    /* place a box of size (along, up, through) centred at distance `a` along
+       the run and height `yy` above base */
+    function at(along, up, through, a, yy, m2) {
+      var msh = uv ? tbox(along, up, through, m2, uv) : box(along, up, through, m2);
+      msh.position.set(px(x0 + ux * a), base + yy, pz(y0 + uy * a));
+      msh.rotation.y = ang;
+      g.add(msh);
+      return msh;
+    }
     function piece(a0, a1, yy0, yy1) {
       if (a1 - a0 < 0.004 || yy1 - yy0 < 0.004) return;
-      var m = box(a1 - a0, yy1 - yy0, t, mat);
-      var mid = (a0 + a1) / 2;
-      m.position.set(px(x0 + ux * mid), base + (yy0 + yy1) / 2, pz(y0 + uy * mid));
-      m.rotation.y = ang;
-      g.add(m);
+      at(a1 - a0, yy1 - yy0, t, (a0 + a1) / 2, (yy0 + yy1) / 2, mat);
     }
+
     var cur = 0;
     ops.forEach(function (o) {
       piece(cur, o.at, 0, h);                             // solid before
       piece(o.at, o.at + o.w, 0, o.sill);                 // under sill
       piece(o.at, o.at + o.w, o.sill + o.h, h);           // over head
       cur = o.at + o.w;
-      if (o.glass !== false && o.sill + o.h > o.sill) {
-        var gl = box(o.w - 0.06, o.h - 0.06, 0.03, M.glass);
-        var mid = o.at + o.w / 2;
-        gl.position.set(px(x0 + ux * mid), base + o.sill + o.h / 2, pz(y0 + uy * mid));
-        gl.rotation.y = ang;
-        gl.castShadow = false;
-        g.add(gl);
-        if (o.frame !== false) {
-          var fr = box(o.w, 0.06, t * 0.6, M.walnut);
-          fr.position.set(px(x0 + ux * mid), base + o.sill + o.h, pz(y0 + uy * mid));
-          fr.rotation.y = ang; g.add(fr);
-        }
+      if (o.glass === false && !o.timber) return;         // a plain void
+
+      var mid = o.at + o.w / 2, cy = o.sill + o.h / 2;
+      if (o.timber) {
+        var d = at(o.w - 0.05, o.h - 0.04, t * 0.55, mid, cy, M.oak);
+        d.castShadow = true;
+        // a slim vertical pull, the full height of the leaf
+        at(0.035, o.h * 0.45, 0.05, mid + o.w * 0.36, cy, M.frameDark);
+        return;
+      }
+
+      var gl = at(o.w - 0.11, o.h - 0.11, 0.024, mid, cy, gmat);
+      gl.castShadow = false;
+      // four-sided frame, set just proud of the reveal
+      var fd = Math.min(t * 0.8, 0.13), fw = 0.055;
+      at(o.w, fw, fd, mid, o.sill + fw / 2, fmat);              // sill
+      at(o.w, fw, fd, mid, o.sill + o.h - fw / 2, fmat);        // head
+      at(fw, o.h, fd, o.at + fw / 2, cy, fmat);                 // jamb
+      at(fw, o.h, fd, o.at + o.w - fw / 2, cy, fmat);           // jamb
+      var n = o.mullions || 0;
+      for (var k = 1; k <= n; k++) {
+        at(0.045, o.h - fw * 2, fd * 0.85, o.at + o.w * k / (n + 1), cy, fmat);
       }
     });
     piece(cur, len, 0, h);
@@ -372,10 +496,11 @@ var VILLA = (function () {
   }
 
   return {
-    T: T, S: S, C: C, M: M, TX: TX,
+    T: T, S: S, C: C, M: M, TX: TX, CLAD_TILE: CLAD_TILE,
     px: px, pz: pz,
     initTextures: initTextures, initMaterials: initMaterials,
-    box: box, slabAt: slabAt, cyl: cyl, sphere: sphere, group: group,
+    box: box, tbox: tbox, worldUV: worldUV,
+    slabAt: slabAt, cyl: cyl, sphere: sphere, group: group,
     wall: wall, archTop: archTop, tex: tex, cv: cv, hex: hex
   };
 })();

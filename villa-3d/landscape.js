@@ -180,50 +180,51 @@ var LANDSCAPE = (function () {
 
   /* -------------------------------------------------------- front garden */
   function frontGarden(g, furn) {
-    // driveway + carport
-    paved(g, 8.30, 0.10, 12.15, 6.20, 0.02, M.floorOut, 0.12);
-    var post = [[8.75, 0.55], [11.85, 0.55], [8.75, 5.40], [11.85, 5.40]];
-    post.forEach(function (p) {
-      var c = box(0.16, 2.75, 0.16, M.teak);
-      c.position.set(px(p[0]), 1.375, pz(p[1])); g.add(c);
-    });
-    var beams = group('carport');
-    [0.55, 5.40].forEach(function (yy) {
-      var bm = box(3.35, 0.18, 0.10, M.teak);
-      bm.position.set(px(10.30), 2.83, pz(yy)); beams.add(bm);
-    });
-    for (var i = 0; i <= 11; i++) {
-      var r = box(0.07, 0.14, 5.10, M.teak);
-      r.position.set(px(8.75 + i * (3.10 / 11)), 2.98, pz(2.97)); beams.add(r);
-    }
-    g.add(beams);
-    car(g, 10.30, 2.90);
+    // the whole approach in interlocking blocks, sweeping from the street
+    // opening to the door and on to the carport
+    paved(g, 3.85, 0.10, 12.15, 6.40, 0.02, M.paver, 0.12);
+    // the car stands in the open on the blockwork, as it does in the reference:
+    // a canopy here would sit square in front of the entrance elevation
+    car(g, 10.40, 3.10);
 
-    // entry walk — stone slabs floating on gravel
-    paved(g, 4.05, 0.10, 6.20, 2.80, 0.01, M.floorOut, 0.10);
-    for (var s = 0; s < 4; s++) {
-      paved(g, 4.35, 0.45 + s * 0.62, 5.90, 0.95 + s * 0.62, 0.06, M.stoneTop, 0.08);
+    // a broad stone threshold across the door, flush with the pavers
+    for (var s2 = 0; s2 < 3; s2++) {
+      paved(g, 3.95, 0.55 + s2 * 0.80, 6.15, 1.15 + s2 * 0.80, 0.06, M.floorOut, 0.08);
     }
 
     // lawn + children's play corner, walled and away from the water
-    paved(g, 0.35, 0.35, 3.95, 3.85, 0.01, M.grass, 0.12);
-    place(g, F.tree(3.30, 2.00), 1.05, 3.25, 0, 0.10);
-    place(g, F.tree(2.60, 1.55, M.olive), 3.45, 0.85, 0, 0.10);
-    place(furn, F.teepee(1.45), 2.35, 2.75, -25, 0.10);
-    place(furn, F.rug(1.90, 1.50, M.rugKids), 2.30, 1.65, 0, 0.11);
-    place(furn, F.beanbag(0.36, M.terra), 1.60, 1.45, 0, 0.10);
-    place(furn, F.beanbag(0.33, M.ochre), 3.00, 1.35, 0, 0.10);
+    paved(g, 0.35, 0.35, 3.55, 3.85, 0.01, M.grass, 0.12);
+    // clear of the entrance axis: a palm on the door line reads as a mistake
+    place(g, F.palm(6.40, 4.20), 1.00, 3.35, 0, 0.10);
+    place(g, F.palm(4.90, 3.40), 1.95, 0.85, 0, 0.10);
+    place(furn, F.teepee(1.45), 2.20, 2.55, -25, 0.10);
+    place(furn, F.rug(1.90, 1.50, M.rugKids), 2.15, 1.55, 0, 0.11);
+    place(furn, F.beanbag(0.36, M.terra), 1.45, 1.35, 0, 0.10);
+    place(furn, F.beanbag(0.33, M.ochre), 2.85, 1.25, 0, 0.10);
     place(furn, F.playArch(), 0.95, 1.75, 0, 0.10);
-    place(furn, F.bollard(0.55), 4.15, 1.20, 0, 0.02);
-    place(furn, F.bollard(0.55), 4.15, 3.30, 0, 0.02);
-    place(g, F.bed_(3.40, 0.45), 2.15, 0.30, 0, 0.10);
-    label('ركن لعب الأطفال', 'Kids play corner', 2.20, 2.20, 0);
-    label('الجراج', 'Carport', 10.30, 2.90, 0);
+
+    // planting: agave in the gravel bed, bougainvillea flanking the entrance
+    var bed = paved(g, 3.60, 0.35, 3.90, 3.85, 0.03, M.floorOut, 0.10);
+    [[3.72, 0.90], [3.72, 1.90], [3.72, 2.90], [3.72, 3.60]].forEach(function (p) {
+      place(g, F.agave(0.52), p[0], p[1], 0, 0.04);
+    });
+    [[6.55, 3.30], [7.55, 3.30]].forEach(function (p) {
+      place(furn, F.pot(0.32, 0.52), p[0], p[1], 0, 0.03);
+      place(furn, F.bougainvillea(1.55, 0.52), p[0], p[1], 0, 0.50);
+    });
+    place(g, F.palm(5.80, 3.90), 11.55, 6.05, 0, 0.03);
+    [[8.60, 0.55], [8.60, 1.55], [8.60, 2.55]].forEach(function (p) {
+      place(g, F.agave(0.46), p[0], p[1], 0, 0.04);
+    });
+    place(furn, F.bollard(0.55), 3.98, 1.20, 0, 0.02);
+    place(furn, F.bollard(0.55), 3.98, 3.30, 0, 0.02);
+    label('ركن لعب الأطفال', 'Kids play corner', 2.05, 2.10, 0);
+    label('موقف السيارة', 'Parking', 10.40, 3.10, 0);
   }
 
   /* -------------------------------------------------------- side passage */
   function sidePassage(g, furn) {
-    paved(g, 8.45, 6.20, 12.05, 18.30, 0.01, M.floorOut, 0.12);
+    paved(g, 8.45, 6.40, 12.05, 18.30, 0.01, M.paver, 0.12);
     for (var i = 0; i < 9; i++) {
       paved(g, 9.60, 6.80 + i * 1.25, 10.85, 7.65 + i * 1.25, 0.05, M.stoneTop, 0.08);
     }
@@ -248,37 +249,37 @@ var LANDSCAPE = (function () {
     var H = 2.40, t = 0.20, mat = M.plaster;
     wall(g, 0.00, 0.00, 0.00, S.plotD, { t: t, h: H, base: 0, mat: mat });
     wall(g, 0.00, S.plotD, S.plotW, S.plotD, { t: t, h: H, base: 0, mat: mat });
-    wall(g, S.plotW, 0.00, S.plotW, S.plotD, { t: t, h: H, base: 0, mat: mat });
+    // the driveway side is open for its first 7 m — a 2.40 m wall there stood
+    // between the street and the whole elevation — then full height for the
+    // private zone alongside the passage and the pool
+    wall(g, S.plotW, 6.90, S.plotW, S.plotD, { t: t, h: H, base: 0, mat: mat });
+    wall(g, S.plotW, 0.00, S.plotW, 6.90, { t: t, h: 0.95, base: 0, mat: M.clad, uv: V.CLAD_TILE });
+    wall(g, S.plotW, 0.00, S.plotW, 6.90, { t: t + 0.10, h: 0.07, base: 0.95, mat: M.fascia });
     // a stone coping band, so 2.40 m of plaster does not read as a blank slab
-    [[0, 0, 0, S.plotD], [0, S.plotD, S.plotW, S.plotD], [S.plotW, 0, S.plotW, S.plotD]]
+    [[0, 0, 0, S.plotD], [0, S.plotD, S.plotW, S.plotD], [S.plotW, 6.90, S.plotW, S.plotD]]
       .forEach(function (r) {
         wall(g, r[0], r[1], r[2], r[3], { t: t + 0.08, h: 0.12, base: H, mat: M.floorOut });
         wall(g, r[0], r[1], r[2], r[3], { t: t + 0.05, h: 0.06, base: H - 0.42, mat: M.floorOut });
       });
-    // street frontage: solid piers, a pedestrian gate and a sliding car gate
-    wall(g, 0.00, 0.00, 4.05, 0.00, { t: t, h: 1.90, base: 0, mat: mat });
-    wall(g, 6.20, 0.00, 8.30, 0.00, { t: t, h: 1.90, base: 0, mat: mat });
-    [0.00, 4.05, 6.20, 8.30, 12.25].forEach(function (x) {
-      var p = box(0.34, 2.20, 0.34, mat);
-      p.position.set(px(x), 1.10, pz(0)); g.add(p);
-      var cap = box(0.44, 0.08, 0.44, M.floorOut);
-      cap.position.set(px(x), 2.24, pz(0)); g.add(cap);
+    /* The street frontage is a 0.95 m landscape wall, not a 2.05 m gate wall:
+       a compound elevation this considered is worth seeing from the road, and
+       a full-height gate would hide everything below the first-floor band.
+       Raise LOW_FRONT back to 2.05 and put the slat gates back in one edit if
+       a closed, private front is wanted instead. */
+    var LOW_FRONT = 0.95;
+    wall(g, 0.00, 0.00, 3.55, 0.00, { t: t, h: LOW_FRONT, base: 0, mat: M.clad, uv: V.CLAD_TILE });
+    wall(g, 0.00, 0.00, 3.55, 0.00, { t: t + 0.10, h: 0.07, base: LOW_FRONT, mat: M.fascia });
+    [0.00, 3.55].forEach(function (x) {
+      var p = V.tbox(0.36, LOW_FRONT + 0.30, 0.36, M.clad, V.CLAD_TILE);
+      p.position.set(px(x), (LOW_FRONT + 0.30) / 2, pz(0)); g.add(p);
+      var cap = box(0.46, 0.08, 0.46, M.fascia);
+      cap.position.set(px(x), LOW_FRONT + 0.34, pz(0)); g.add(cap);
     });
-    // timber slat gates
-    function gate(x0, x1, h) {
-      var n = Math.round((x1 - x0) / 0.16);
-      for (var i = 0; i < n; i++) {
-        var s = box(0.09, h, 0.06, M.teak);
-        s.position.set(px(x0 + 0.08 + i * ((x1 - x0) / n)), h / 2 + 0.05, pz(0));
-        g.add(s);
-      }
-      [0.20, h - 0.15].forEach(function (yy) {
-        var r = box(x1 - x0, 0.10, 0.05, M.walnut);
-        r.position.set(px((x0 + x1) / 2), yy, pz(0) - 0.05); g.add(r);
-      });
+    // a planted kerb along the open frontage, and the street trees behind it
+    paved(g, 3.85, -0.55, 12.25, -0.05, 0.03, M.grass, 0.14);
+    for (var q = 0; q < 6; q++) {
+      place(g, F.agave(0.40 + Math.random() * 0.16), 4.40 + q * 1.45, -0.30, 0, 0.05);
     }
-    gate(4.05, 6.20, 2.05);
-    gate(8.30, 12.25, 2.05);
     // creeper spilling over the top of the north boundary wall
     for (var i = 0; i < 18; i++) {
       var s = sphere(0.11 + Math.random() * 0.07, i % 3 ? M.leaf : M.leafLight, 8);
@@ -290,17 +291,26 @@ var LANDSCAPE = (function () {
   /* --------------------------------------------------- a stylised saloon */
   function car(g, x, y) {
     var c = group('car');
-    var body = box(1.82, 0.62, 4.42, new T.MeshStandardMaterial({ color: 0x2B3138, roughness: .35, metalness: .5 }));
-    body.position.y = 0.68; c.add(body);
-    var cabin = box(1.62, 0.56, 2.30, new T.MeshStandardMaterial({ color: 0x23282E, roughness: .2, metalness: .4 }));
-    cabin.position.set(0, 1.22, -0.12); c.add(cabin);
-    var gl = box(1.66, 0.42, 2.10, M.glass); gl.position.set(0, 1.24, -0.12); c.add(gl);
-    [[-0.82, 1.42], [0.82, 1.42], [-0.82, -1.42], [0.82, -1.42]].forEach(function (w) {
-      var t2 = new T.Mesh(new T.TorusGeometry(0.33, 0.13, 8, 16), M.charcoal);
-      t2.rotation.y = Math.PI / 2; t2.position.set(w[0], 0.34, w[1]);
+    var paint = new T.MeshStandardMaterial({ color: 0xD9DCDE, roughness: .22, metalness: .65 });
+    var lower = box(1.86, 0.42, 4.55, paint);  lower.position.y = 0.50; c.add(lower);
+    var shoulder = box(1.80, 0.20, 4.25, paint); shoulder.position.y = 0.81; c.add(shoulder);
+    var cabin = box(1.52, 0.34, 1.95, paint); cabin.position.set(0, 1.06, -0.22); c.add(cabin);
+    var gl = box(1.56, 0.28, 2.10, M.glass); gl.position.set(0, 1.06, -0.22);
+    gl.castShadow = false; c.add(gl);
+    // raked screens front and back
+    [[1.02, -0.55], [-1.02, 0.62]].forEach(function (p) {
+      var s2 = box(1.52, 0.60, 0.05, M.glass);
+      s2.position.set(0, 1.22, p[1] > 0 ? 0.92 : -1.30);
+      s2.rotation.x = p[0] > 0 ? 0.62 : -0.62;
+      s2.castShadow = false; c.add(s2);
+    });
+    [[-0.88, 1.48], [0.88, 1.48], [-0.88, -1.48], [0.88, -1.48]].forEach(function (w) {
+      var t2 = new T.Mesh(new T.TorusGeometry(0.34, 0.13, 8, 16), M.charcoal);
+      t2.rotation.y = Math.PI / 2; t2.position.set(w[0], 0.35, w[1]);
       t2.castShadow = true; c.add(t2);
     });
     c.position.set(px(x), 0.02, pz(y));
+    c.rotation.y = 0.14;
     g.add(c);
     return c;
   }
@@ -345,9 +355,10 @@ var LANDSCAPE = (function () {
       var pr = box(n[2] + 0.3, 0.9, n[3] + 0.3, nb);
       pr.position.set(n[0], n[4] + 0.45, n[1]); g.add(pr);
     });
-    [[-11.0, 10.5], [-11.0, -6.0], [11.0, 10.0], [11.0, -6.0], [11.0, -17.0],
-     [-11.0, -17.0]].forEach(function (p) {
-      var t2 = F.tree(4.4 + Math.random() * 1.0, 2.4);
+    [[-12.5, 11.5], [-12.5, -7.0], [12.5, 11.0], [12.5, -7.0], [12.5, -18.0],
+     [-12.5, -18.0], [-5.5, 17.5], [6.5, 17.5]].forEach(function (p, i) {
+      var t2 = i % 3 === 2 ? F.tree(4.4 + Math.random(), 2.4)
+                           : F.palm(6.2 + Math.random() * 1.6, 4.2);
       t2.position.set(p[0], 0, p[1]); g.add(t2);
     });
   }
