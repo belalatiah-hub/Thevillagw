@@ -247,7 +247,7 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
       weekly:"Weekly", monthly:"Monthly", score:"Score", grade:"Grade", team_performance:"Team performance", my_performance:"My performance",
       metric_leads:"Leads handled", metric_actions:"Actions logged", metric_calls:"Calls", metric_conversion:"Conversion", metric_commission:"Commission", metric_attendance:"Attendance", metric_punctuality:"Punctuality",
       auto_scored:"Auto-scored from CRM activity", period:"Period", top_performer:"Top performer", clock:"Clock",
-      payroll:"Payroll", my_payslip:"My payslip", base_salary:"Base salary", allowances:"Allowances", deductions:"Deductions", advance_deduction:"Advance instalment", unpaid_leave_ded:"Unpaid leave", gross:"Gross", net_salary:"Net salary", generate_payroll:"Generate payroll", total_payroll:"Total payroll", salary_month:"Month", mark_run_paid:"Mark paid", payroll_generated:"Payroll generated ✓", employees:"employees", mark_all_read:"Mark all read", by_source:"By source", settings_saved:"Settings saved ✓", call_logged:"Call logged ✓", rule_added:"Rule added ✓", direction:"Direction", outcome:"Outcome", duration:"Duration", strategy:"Strategy",
+      payroll:"Payroll", my_payslip:"My payslip", base_salary:"Base salary", allowances:"Allowances", deductions:"Deductions", advance_deduction:"Advance instalment", unpaid_leave_ded:"Unpaid leave", gross:"Gross", net_salary:"Net salary", generate_payroll:"Generate payroll", total_payroll:"Total payroll", salary_month:"Month", mark_run_paid:"Mark paid", payroll_generated:"Payroll generated ✓", employees:"employees", mark_all_read:"Mark all read", by_source:"By source", payslip:"Payslip", print_pdf:"Print / PDF", export_csv2:"Export CSV", settings_saved:"Settings saved ✓", call_logged:"Call logged ✓", rule_added:"Rule added ✓", direction:"Direction", outcome:"Outcome", duration:"Duration", strategy:"Strategy",
       welcome:"Welcome back", signin:"Sign in to Village CRM", email:"Email", password:"Password", signin_btn:"Sign in",
       hero:"The complete real-estate CRM for your team.", hero_sub:"Leads, pipeline, inventory, finance, automation and AI — one secure console for The Village Investment.",
       demo_note:"Demo mode — explore with sample data. Set API_BASE in the file to connect your live backend.",
@@ -290,7 +290,7 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
       weekly:"أسبوعي", monthly:"شهري", score:"النتيجة", grade:"التقدير", team_performance:"أداء الفريق", my_performance:"أدائي",
       metric_leads:"العملاء المُدارون", metric_actions:"الإجراءات", metric_calls:"المكالمات", metric_conversion:"معدّل التحويل", metric_commission:"العمولات", metric_attendance:"الحضور", metric_punctuality:"الالتزام بالمواعيد",
       auto_scored:"يُحتسب تلقائيًا من نشاط الـ CRM", period:"الفترة", top_performer:"الأفضل أداءً", clock:"الساعة",
-      payroll:"الرواتب", my_payslip:"قسيمة راتبي", base_salary:"الراتب الأساسي", allowances:"البدلات", deductions:"الخصومات", advance_deduction:"قسط السلفة", unpaid_leave_ded:"إجازة بدون راتب", gross:"الإجمالي", net_salary:"صافي الراتب", generate_payroll:"احتساب الرواتب", total_payroll:"إجمالي الرواتب", salary_month:"الشهر", mark_run_paid:"تحديد كمدفوع", payroll_generated:"تم احتساب الرواتب ✓", employees:"موظف", mark_all_read:"تعليم الكل كمقروء", by_source:"حسب المصدر", settings_saved:"تم حفظ الإعدادات ✓", call_logged:"تم تسجيل المكالمة ✓", rule_added:"تمت إضافة القاعدة ✓", direction:"الاتجاه", outcome:"النتيجة", duration:"المدة", strategy:"الاستراتيجية",
+      payroll:"الرواتب", my_payslip:"قسيمة راتبي", base_salary:"الراتب الأساسي", allowances:"البدلات", deductions:"الخصومات", advance_deduction:"قسط السلفة", unpaid_leave_ded:"إجازة بدون راتب", gross:"الإجمالي", net_salary:"صافي الراتب", generate_payroll:"احتساب الرواتب", total_payroll:"إجمالي الرواتب", salary_month:"الشهر", mark_run_paid:"تحديد كمدفوع", payroll_generated:"تم احتساب الرواتب ✓", employees:"موظف", mark_all_read:"تعليم الكل كمقروء", by_source:"حسب المصدر", payslip:"قسيمة راتب", print_pdf:"طباعة / PDF", export_csv2:"تصدير CSV", settings_saved:"تم حفظ الإعدادات ✓", call_logged:"تم تسجيل المكالمة ✓", rule_added:"تمت إضافة القاعدة ✓", direction:"الاتجاه", outcome:"النتيجة", duration:"المدة", strategy:"الاستراتيجية",
       welcome:"مرحباً بعودتك", signin:"سجّل الدخول إلى Village CRM", email:"البريد الإلكتروني", password:"كلمة المرور", signin_btn:"دخول",
       hero:"نظام CRM عقاري متكامل لفريقك.", hero_sub:"العملاء والمسار والمخزون والمالية والأتمتة والذكاء الاصطناعي — لوحة آمنة واحدة لـ The Village Investment.",
       demo_note:"وضع تجريبي — استكشف ببيانات نموذجية. اضبط API_BASE في الملف لربط الخادم الحقيقي.",
@@ -576,6 +576,62 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
   // Demo mode is a real, self-contained app: persist every change to the browser
   // so it survives reloads. (Live mode persists to Supabase instead.)
   function saveDemo(){ if(state.live) return; try{ localStorage.setItem("village_demo", JSON.stringify(demo)); }catch(e){} }
+  // ── Real CSV export (works in any normal browser; not an artifact sandbox) ──
+  function csvCell(v){ v=(v==null?"":String(v)); return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v; }
+  function downloadCSV(filename,headers,rows){
+    var lines=[headers.map(csvCell).join(",")].concat(rows.map(function(r){ return r.map(csvCell).join(","); }));
+    var blob=new Blob(["﻿"+lines.join("\n")],{type:"text/csv;charset=utf-8"});
+    var url=URL.createObjectURL(blob), a=document.createElement("a");
+    a.href=url; a.download=filename; document.body.appendChild(a); a.click();
+    setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(url); },120);
+    toast(state.lang==="ar"?"تم التصدير ✓":"Exported ✓");
+  }
+  // Export whatever the current screen is showing.
+  function exportCurrent(){
+    var v=state.view, money0=function(n){ return Math.round(n||0); };
+    if(v==="leads"||v==="customers"){
+      var vis=visibleLeads();
+      downloadCSV("village-leads.csv",["Name","Area","Budget (M)","Source","Agent","Status","Score"],
+        vis.map(function(l){ return [l.n,l.area,l.budget,l.src,l.owner||l.agent||"",l.status,l.score]; }));
+    } else if(v==="audit"){
+      downloadCSV("village-audit.csv",["Action","Type","Actor","Entity","IP","Time"], (demo.audit||[]).map(function(a){ return a.slice(0,6); }));
+    } else if(v==="commission"){
+      var isFin=can("commission:approve"); var rows=(demo.commissions||[]).slice();
+      if(!state.live&&!isFin) rows=rows.filter(function(r){ return r.recipient===currentPersona().name; });
+      downloadCSV("village-commissions.csv",["Client","Project","Date","Source","Recipient","Rate","Amount (EGP)","Status"],
+        rows.map(function(r){ return [r.client,r.project,r.date,r.source,r.recipient,r.rate,money0(r.amount),r.status]; }));
+    } else if(v==="reports"){
+      var vis2=visibleLeads(), bySrc={};
+      vis2.forEach(function(l){ var s=l.src||"—"; bySrc[s]=(bySrc[s]||0)+1; });
+      downloadCSV("village-report-by-source.csv",["Source","Leads"], Object.keys(bySrc).map(function(k){ return [k,bySrc[k]]; }));
+    } else if(v==="hr"&&state.hrTab==="payroll"){
+      var slips=Object.keys(demo.salaries||{}).map(function(n){ return payslip(n); });
+      downloadCSV("village-payroll-"+demo.payrollMonth+".csv",["Employee","Base","Commission","Advance","Unpaid leave","Net"],
+        slips.map(function(s){ return [s.name,money0(s.base),money0(s.comm),money0(s.advance),money0(s.unpaidDed),money0(s.net)]; }));
+    } else {
+      toast(state.lang==="ar"?"لا توجد بيانات للتصدير هنا":"Nothing to export on this screen");
+    }
+  }
+  // Printable payslip → the browser's "Save as PDF" is the PDF export.
+  function printPayslip(name){
+    var s=payslip(name), st=demo.settings||{}, money0=function(n){ return "EGP "+Math.round(n||0).toLocaleString(); };
+    var line=function(k,v,neg){ return '<tr><td style="padding:7px 0;color:#444">'+esc(k)+'</td><td style="padding:7px 0;text-align:right;font-weight:600'+(neg?';color:#c0392b':'')+'">'+(neg&&v?"− ":"")+money0(v)+'</td></tr>'; };
+    var html='<!doctype html><html><head><meta charset="utf-8"><title>Payslip — '+esc(name)+'</title>'+
+      '<style>body{font-family:-apple-system,Segoe UI,Arial,sans-serif;color:#111;max-width:560px;margin:32px auto;padding:0 20px}'+
+      'h1{font-size:20px;margin:0}.muted{color:#777;font-size:13px}table{width:100%;border-collapse:collapse;margin-top:18px}'+
+      '.net{border-top:2px solid #111;font-size:18px}.net td{padding-top:12px;font-weight:800}</style></head><body>'+
+      '<div style="display:flex;justify-content:space-between;align-items:flex-start"><div><h1>'+esc(st.company||"The Village Investment")+'</h1><div class="muted">'+t("payslip")+' · '+esc(demo.payrollMonth||"")+'</div></div>'+
+      '<div style="text-align:right"><b>'+esc(name)+'</b></div></div>'+
+      '<table>'+line(t("base_salary"),s.base)+line(t("comm_amount"),s.comm)+
+      (s.advance?line(t("advance_deduction"),s.advance,true):'')+
+      (s.unpaidDed?line(t("unpaid_leave_ded"),s.unpaidDed,true):'')+
+      '<tr class="net"><td>'+t("net_salary")+'</td><td style="text-align:right">'+money0(s.net)+'</td></tr></table>'+
+      '<p class="muted" style="margin-top:26px">Generated by Village CRM.</p></body></html>';
+    var w=window.open("","_blank");
+    if(!w){ toast(state.lang==="ar"?"اسمح بالنوافذ المنبثقة للطباعة":"Allow pop-ups to print"); return; }
+    w.document.write(html); w.document.close(); w.focus();
+    setTimeout(function(){ w.print(); },250);
+  }
   // Escape for a value placed inside a quoted HTML attribute we control.
   function escAttr(v){ return esc(v); }
 
@@ -961,7 +1017,8 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
           slipRow(t("comm_amount"),mine.comm)+
           (mine.advance?slipRow(t("advance_deduction"),mine.advance,true):'')+
           (mine.unpaidDed?slipRow(t("unpaid_leave_ded")+" ("+mine.unpaidDays+" "+t("days")+")",mine.unpaidDed,true):'')+
-          '<div class="row between" style="padding:12px 0 0"><b style="font-size:15px">'+t("net_salary")+'</b><b class="tnum" style="font-size:20px;color:var(--green)">'+money0(mine.net)+'</b></div></div>';
+          '<div class="row between" style="padding:12px 0 0"><b style="font-size:15px">'+t("net_salary")+'</b><b class="tnum" style="font-size:20px;color:var(--green)">'+money0(mine.net)+'</b></div>'+
+          '<button class="btn btn-ghost" id="hrPrintSlip" style="width:100%;justify-content:center;margin-top:14px">'+I.dl+t("print_pdf")+'</button></div>';
         body=myslip;
         if(canRun){
           var people=Object.keys(demo.salaries||{});
@@ -971,6 +1028,7 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
           var runStatus=demo.payrollStatus[demo.payrollMonth];
           var actions='<div class="row gap" style="gap:8px">'+
             (runStatus?'<span class="pill" style="background:var(--green-soft);color:var(--green)">'+t(runStatus==="paid"?"paid":"approved")+'</span>':'')+
+            '<button class="btn btn-ghost" data-act="export">'+I.dl+t("export_csv2")+'</button>'+
             '<button class="btn btn-coral" id="hrRunPay">'+I.money+t("generate_payroll")+'</button></div>';
           body+='<div class="page-head" style="padding:0;margin:6px 0 14px"><div><div class="sec-title" style="margin:0">'+t("total_payroll")+' · '+esc(demo.payrollMonth)+'</div><div class="muted" style="font-size:12.5px">'+people.length+' '+t("employees")+' · '+money0(totNet)+'</div></div>'+actions+'</div>'+
             '<div class="card" style="padding:0;overflow:hidden"><div style="overflow-x:auto"><table><thead><tr><th>'+t("name")+'</th><th>'+t("base_salary")+'</th><th>'+t("comm_amount")+'</th><th>'+t("deductions")+'</th><th>'+t("net_salary")+'</th></tr></thead><tbody>'+
@@ -1292,7 +1350,7 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
         if(a==="add"&&state.view==="leads"&&!can("lead:create")) return;
         if(a==="addsale"&&!can("commission:approve")) return;
         if(a==="backroles"){ state.roleSel=null; render(); }
-        else if(a==="export"){ toast(state.lang==="ar"?"تم التصدير (تجريبي)":"Exported (demo)"); }
+        else if(a==="export"){ exportCurrent(); }
         else if(a==="add"&&state.view==="users"){ openAddUser(); }
         else if(a==="add"&&state.view==="leads"){ openAddLead(); }
         else if(a==="addsale"){ openAddSale(); }
@@ -1356,6 +1414,7 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
     var ss1=$("#setSave"); if(ss1) ss1.onclick=setSaveFn;
     var ss2=$("#setSave2"); if(ss2) ss2.onclick=setSaveFn;
     var s2fa=$("#set2fa"); if(s2fa) s2fa.onclick=function(){ demo.settings.require2fa=!demo.settings.require2fa; render(); };
+    var hps=$("#hrPrintSlip"); if(hps) hps.onclick=function(){ printPayslip(currentPersona().name); };
     var hrp=$("#hrRunPay"); if(hrp) hrp.onclick=function(){ demo.payrollStatus[demo.payrollMonth]="approved";
       if(state.live){ SB.insert("payroll_runs",{company_id:SB.companyId,period_month:demo.payrollMonth+"-01",status:"approved",created_by:SB.userId}).catch(function(){}); }
       toast(t("payroll_generated")); render(); };
