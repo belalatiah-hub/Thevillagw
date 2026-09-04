@@ -119,6 +119,22 @@ try {
     console.log(JSON.stringify(paths));
     process.exit(0);
   }
+  /* `--dump-data` prints the whole content model as JSON and exits. The data
+     lives in JavaScript literals that reference each other through shared path
+     and amenity variables, so it cannot be parsed out of the source — it has to
+     be read after the bundle has run. The Postgres migration and the publish
+     pipeline both consume this, which keeps one definition of what the site
+     holds instead of a second copy that drifts. */
+  if (process.argv.includes('--dump-data')) {
+    const pick = ['AREAS','DEVELOPERS','PROJECTS','UNITS','RELEASES','PROJECT_GROUPS','RESEARCH',
+                  'UNIT_EXTRA','PROJECT_COVERS','UNIT_IMAGES','UNIT_GALLERY','UNIT_MASTERPLANS',
+                  'UNIT_FLOORPLANS','UNIT_LOCATIONS','DEV_LOGOS','DEV_GALLERY','PROJECT_LOGOS',
+                  'PROJECT_AMENITIES','AMENITY_CAT','DEV_AMENITIES','DEV_FEATURES','HERO_SLIDES'];
+    const out = {};
+    pick.forEach(function(k){ if (api[k] !== undefined) out[k] = api[k]; });
+    console.log(JSON.stringify(out));
+    process.exit(0);
+  }
   ck('#main populated after boot', doc.getElementById('main').childElementCount>0, 'children='+doc.getElementById('main').childElementCount);
   ck('chat FAB appended to body', countClass(doc.body,'chat-fab')>=1);
   // Home view
