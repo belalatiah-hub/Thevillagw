@@ -23,3 +23,8 @@ data-import-kit/
 src/
 tools/
 unrar-0.4-py3-none-any.whl
+
+# A client's own villa, modelled from their dimensioned plans. It belongs in
+# the repo, but it is private design work and not part of the public website —
+# delete this line if it is ever meant to be served.
+villa-3d/

@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark light">
+<meta name="robots" content="noindex">
+<title>فيلا B — تصميم ثلاثي الأبعاد | Villa B 3D concept</title>
+<meta name="description" content="نموذج ثلاثي الأبعاد لفيلا B بالفرش البوهيمي العملي، مع حمام سباحة وبرجولة وغرفة ألعاب للأطفال — مبني على المقاسات المعتمدة.">
+<style>
+  :root{
+    --bone:#F3EFE6; --ink:#0E1A20; --ink-2:#16262E; --line:rgba(243,239,230,.14);
+    --teal:#115F7D; --teal-2:#1B7E96; --ochre:#D9A441; --terra:#C0684A;
+    --muted:rgba(243,239,230,.62);
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; background:var(--ink); color:var(--bone);
+    font:15px/1.55 "Segoe UI","Noto Sans Arabic",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+    overflow:hidden; overscroll-behavior:none;
+  }
+  #view{position:fixed; inset:0; width:100%; height:100%; display:block; touch-action:none; cursor:grab}
+  #view:active{cursor:grabbing}
+
+  /* ---- side panel ---- */
+  #panel{
+    position:fixed; inset-inline-start:0; inset-block:0; width:330px; max-width:86vw;
+    background:linear-gradient(180deg,rgba(14,26,32,.94),rgba(14,26,32,.88));
+    backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+    border-inline-end:1px solid var(--line);
+    padding:18px 18px 22px; overflow-y:auto; z-index:5;
+    transition:transform .28s cubic-bezier(.4,0,.2,1);
+  }
+  body.collapsed #panel{transform:translateX(calc(var(--dirsign,-1) * 100%))}
+  html[dir=rtl] body{--dirsign:1}
+  html[dir=ltr] body{--dirsign:-1}
+
+  #title{margin:0 0 3px; font-size:19px; font-weight:700; letter-spacing:.1px}
+  #sub{margin:0 0 16px; font-size:12.5px; color:var(--muted); line-height:1.7}
+
+  h2{
+    margin:16px 0 8px; font-size:11px; font-weight:700; letter-spacing:.14em;
+    text-transform:uppercase; color:rgba(243,239,230,.45);
+  }
+  .row{display:flex; flex-wrap:wrap; gap:6px}
+  .chip{
+    font:inherit; font-size:12.5px; line-height:1;
+    padding:8px 11px; border-radius:999px; cursor:pointer;
+    background:rgba(243,239,230,.07); color:var(--bone);
+    border:1px solid rgba(243,239,230,.16);
+    transition:background .15s, border-color .15s, color .15s;
+  }
+  .chip:hover{background:rgba(243,239,230,.14)}
+  .chip.on{background:var(--teal-2); border-color:var(--teal-2); color:#fff; font-weight:600}
+  .chip:focus-visible{outline:2px solid var(--ochre); outline-offset:2px}
+
+  .sunwrap{display:flex; align-items:center; gap:10px; margin-top:6px}
+  .sunwrap span{font-size:12px; color:var(--muted); white-space:nowrap}
+  input[type=range]{
+    flex:1; accent-color:var(--ochre); height:22px; background:transparent; cursor:pointer;
+  }
+
+  #notes{margin-top:20px; border-top:1px solid var(--line); padding-top:14px}
+  #notes h3{margin:0 0 10px; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:rgba(243,239,230,.45); font-weight:700}
+  .note{margin:0 0 10px; font-size:12.5px; line-height:1.65; color:rgba(243,239,230,.80)}
+  .note b{display:block; color:var(--ochre); font-weight:600; font-size:11.5px; letter-spacing:.04em; margin-bottom:1px}
+
+  #bar{
+    position:fixed; inset-block-end:14px; inset-inline-end:14px; z-index:6;
+    display:flex; gap:8px; align-items:center;
+  }
+  #hint{
+    position:fixed; inset-block-end:16px; inset-inline-start:352px; z-index:4;
+    font-size:11.5px; color:rgba(243,239,230,.42); pointer-events:none;
+    text-shadow:0 1px 6px rgba(0,0,0,.6);
+  }
+  body.collapsed #hint{inset-inline-start:18px}
+
+  #toggle{
+    position:fixed; inset-block-start:14px; inset-inline-start:346px; z-index:7;
+    width:36px; height:36px; border-radius:10px; cursor:pointer;
+    background:rgba(14,26,32,.86); color:var(--bone);
+    border:1px solid var(--line); font-size:17px; line-height:1;
+    backdrop-filter:blur(10px); transition:inset-inline-start .28s cubic-bezier(.4,0,.2,1);
+  }
+  body.collapsed #toggle{inset-inline-start:14px}
+
+  #loading{
+    position:fixed; inset:0; z-index:9; display:grid; place-items:center;
+    background:var(--ink); color:var(--muted); font-size:13px; letter-spacing:.05em;
+    transition:opacity .5s;
+  }
+  body.ready #loading{opacity:0; pointer-events:none}
+
+  @media (max-width:760px){
+    #panel{width:300px}
+    #toggle{inset-inline-start:316px}
+    #hint{display:none}
+    body:not(.collapsed) #bar{display:none}
+  }
+</style>
+</head>
+<body class="">
+  <canvas id="view"></canvas>
+
+  <div id="panel">
+    <h1 id="title">فيلا B — تصميم ثلاثي الأبعاد</h1>
+    <p id="sub"></p>
+
+    <h2 id="h-views">لقطات</h2>
+    <div class="row" id="views"></div>
+
+    <h2 id="h-levels">الأدوار</h2>
+    <div class="row" id="levels"></div>
+
+    <h2 id="h-opts">خيارات</h2>
+    <div class="row" id="opts"></div>
+
+    <div class="sunwrap">
+      <span id="sun-label">حركة الشمس</span>
+      <input id="sun" type="range" min="4" max="96" value="30" aria-label="sun">
+    </div>
+
+    <div id="notes"></div>
+  </div>
+
+  <button id="toggle" type="button" aria-label="panel">☰</button>
+
+  <div id="bar">
+    <button class="chip" id="reset" type="button">إعادة الضبط</button>
+    <button class="chip" id="lang" type="button">EN</button>
+  </div>
+
+  <p id="hint"></p>
+
+  <div id="loading">…building the model</div>
+
+  <script src="three.min.js"></script>
+  <script src="scene-core.js"></script>
+  <script src="furniture.js"></script>
+  <script src="building.js"></script>
+  <script src="landscape.js"></script>
+  <script src="app.js"></script>
+  <script>
+    document.getElementById('toggle').addEventListener('click', function () {
+      document.body.classList.toggle('collapsed');
+    });
+  </script>
+</body>
+</html>
