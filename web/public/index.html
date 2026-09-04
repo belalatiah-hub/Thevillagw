@@ -164,6 +164,7 @@
       <div class="field"><label id="lEmail" for="email">Email</label><input type="email" id="email" autocomplete="username" required/></div>
       <div class="field"><label id="lPass" for="password">Password</label><input type="password" id="password" autocomplete="current-password" required/></div>
       <button class="btn btn-coral" id="lBtn" type="submit" style="width:100%;justify-content:center;padding:13px;margin-top:6px">Sign in</button>
+      <button class="btn btn-ghost" id="lDemoBtn" type="button" style="width:100%;justify-content:center;padding:12px;margin-top:9px">Explore the demo</button>
       <div class="row between" style="margin-top:16px">
         <button type="button" class="btn btn-ghost" id="lLang" style="padding:8px 12px;font-size:12.5px">العربية</button>
         <button type="button" class="btn btn-ghost" id="lTheme" style="padding:8px 12px;font-size:12.5px">🌙 / ☀︎</button>
@@ -246,7 +247,7 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
       weekly:"Weekly", monthly:"Monthly", score:"Score", grade:"Grade", team_performance:"Team performance", my_performance:"My performance",
       metric_leads:"Leads handled", metric_actions:"Actions logged", metric_calls:"Calls", metric_conversion:"Conversion", metric_commission:"Commission", metric_attendance:"Attendance", metric_punctuality:"Punctuality",
       auto_scored:"Auto-scored from CRM activity", period:"Period", top_performer:"Top performer", clock:"Clock",
-      payroll:"Payroll", my_payslip:"My payslip", base_salary:"Base salary", allowances:"Allowances", deductions:"Deductions", advance_deduction:"Advance instalment", unpaid_leave_ded:"Unpaid leave", gross:"Gross", net_salary:"Net salary", generate_payroll:"Generate payroll", total_payroll:"Total payroll", salary_month:"Month", mark_run_paid:"Mark paid", payroll_generated:"Payroll generated ✓", employees:"employees",
+      payroll:"Payroll", my_payslip:"My payslip", base_salary:"Base salary", allowances:"Allowances", deductions:"Deductions", advance_deduction:"Advance instalment", unpaid_leave_ded:"Unpaid leave", gross:"Gross", net_salary:"Net salary", generate_payroll:"Generate payroll", total_payroll:"Total payroll", salary_month:"Month", mark_run_paid:"Mark paid", payroll_generated:"Payroll generated ✓", employees:"employees", mark_all_read:"Mark all read", by_source:"By source", settings_saved:"Settings saved ✓", call_logged:"Call logged ✓", rule_added:"Rule added ✓", direction:"Direction", outcome:"Outcome", duration:"Duration", strategy:"Strategy",
       welcome:"Welcome back", signin:"Sign in to Village CRM", email:"Email", password:"Password", signin_btn:"Sign in",
       hero:"The complete real-estate CRM for your team.", hero_sub:"Leads, pipeline, inventory, finance, automation and AI — one secure console for The Village Investment.",
       demo_note:"Demo mode — explore with sample data. Set API_BASE in the file to connect your live backend.",
@@ -289,7 +290,7 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
       weekly:"أسبوعي", monthly:"شهري", score:"النتيجة", grade:"التقدير", team_performance:"أداء الفريق", my_performance:"أدائي",
       metric_leads:"العملاء المُدارون", metric_actions:"الإجراءات", metric_calls:"المكالمات", metric_conversion:"معدّل التحويل", metric_commission:"العمولات", metric_attendance:"الحضور", metric_punctuality:"الالتزام بالمواعيد",
       auto_scored:"يُحتسب تلقائيًا من نشاط الـ CRM", period:"الفترة", top_performer:"الأفضل أداءً", clock:"الساعة",
-      payroll:"الرواتب", my_payslip:"قسيمة راتبي", base_salary:"الراتب الأساسي", allowances:"البدلات", deductions:"الخصومات", advance_deduction:"قسط السلفة", unpaid_leave_ded:"إجازة بدون راتب", gross:"الإجمالي", net_salary:"صافي الراتب", generate_payroll:"احتساب الرواتب", total_payroll:"إجمالي الرواتب", salary_month:"الشهر", mark_run_paid:"تحديد كمدفوع", payroll_generated:"تم احتساب الرواتب ✓", employees:"موظف",
+      payroll:"الرواتب", my_payslip:"قسيمة راتبي", base_salary:"الراتب الأساسي", allowances:"البدلات", deductions:"الخصومات", advance_deduction:"قسط السلفة", unpaid_leave_ded:"إجازة بدون راتب", gross:"الإجمالي", net_salary:"صافي الراتب", generate_payroll:"احتساب الرواتب", total_payroll:"إجمالي الرواتب", salary_month:"الشهر", mark_run_paid:"تحديد كمدفوع", payroll_generated:"تم احتساب الرواتب ✓", employees:"موظف", mark_all_read:"تعليم الكل كمقروء", by_source:"حسب المصدر", settings_saved:"تم حفظ الإعدادات ✓", call_logged:"تم تسجيل المكالمة ✓", rule_added:"تمت إضافة القاعدة ✓", direction:"الاتجاه", outcome:"النتيجة", duration:"المدة", strategy:"الاستراتيجية",
       welcome:"مرحباً بعودتك", signin:"سجّل الدخول إلى Village CRM", email:"البريد الإلكتروني", password:"كلمة المرور", signin_btn:"دخول",
       hero:"نظام CRM عقاري متكامل لفريقك.", hero_sub:"العملاء والمسار والمخزون والمالية والأتمتة والذكاء الاصطناعي — لوحة آمنة واحدة لـ The Village Investment.",
       demo_note:"وضع تجريبي — استكشف ببيانات نموذجية. اضبط API_BASE في الملف لربط الخادم الحقيقي.",
@@ -487,6 +488,7 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
     hrTargets:{ "Fatma Sayed":900000, "Nour Hany":700000, "Omar Khaled":1500000, "Kareem Fathy":1100000 },
     salaries:{ "Fatma Sayed":14000, "Nour Hany":12000, "Omar Khaled":25000, "Kareem Fathy":18000, "Village Admin":30000 },
     payrollMonth:"2026-08", payrollStatus:{},
+    settings:{ company:"The Village Investment", currency:"EGP", timezone:"Africa/Cairo", require2fa:false, pwdMin:8, sessionTO:720, firstResponse:15, followUp:120, brandColor:"#e0603a" },
     notifs:[["🔥 New lead assigned: Ashraf Hussein","Facebook · Hot — respond within SLA","2m",true],
       ["SLA breach in 4 min: Mona Adel","First response overdue","8m",true],
       ["🎉 Deal won: Youssef Tarek — Badya","EGP 7.0M · commission accrued","1h",true],
@@ -570,7 +572,10 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
      that originates from a user or the database MUST be escaped before it is
      interpolated into innerHTML. esc() is that boundary. ── */
   var ESC_MAP={"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"};
-  function esc(v){ return v==null?"":String(v).replace(/[&<>"']/g,function(c){ return ESC_MAP[c]; }); }
+  function esc(v){ return v==null?"":String(v).replace(/[&<>"\']/g,function(c){ return ESC_MAP[c]; }); }
+  // Demo mode is a real, self-contained app: persist every change to the browser
+  // so it survives reloads. (Live mode persists to Supabase instead.)
+  function saveDemo(){ if(state.live) return; try{ localStorage.setItem("village_demo", JSON.stringify(demo)); }catch(e){} }
   // Escape for a value placed inside a quoted HTML attribute we control.
   function escAttr(v){ return esc(v); }
 
@@ -829,8 +834,15 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
       return head(t("leads"),vis.length+" "+t("leads").toLowerCase(),actions)+switcher+body;
     },
     customers:function(){
-      if(state.live) return head(t("customers"),"")+notConnected(t("customers"),"customers");
-      return head(t("customers"),"")+listPlaceholder(t("customers"));
+      // Customers = the contacts behind the scoped leads (deduped by name).
+      var seen={}, rows=[];
+      visibleLeads().forEach(function(l){ if(seen[l.n]) return; seen[l.n]=1;
+        rows.push({ n:l.n, area:l.area, budget:l.budget, src:l.src, owner:l.owner||l.agent, status:l.status, id:l.id }); });
+      rows=applySearch(rows,["n","area","src","owner","status"]);
+      var actions=can("customer:create")?'<button class="btn btn-coral" data-act="add">'+I.plus+t("add_lead")+'</button>':'';
+      return head(t("customers"),rows.length+" "+t("customers").toLowerCase(),actions)+
+        '<div class="card" style="padding:0;overflow:hidden"><div style="overflow-x:auto"><table><thead><tr><th>'+t("name")+'</th><th>Area</th><th>'+t("value")+'</th><th>'+t("source")+'</th><th>'+t("agent")+'</th><th>'+t("status")+'</th></tr></thead><tbody>'+
+          (rows.length?rows.map(function(c){ return '<tr class="leadrow" data-lead="'+escAttr(c.n)+'" style="cursor:pointer"><td><b>'+esc(c.n)+'</b></td><td class="muted">'+esc(c.area)+'</td><td class="tnum">'+money(c.budget)+'</td><td class="muted">'+esc(c.src)+'</td><td class="muted">'+esc(c.owner)+'</td><td><span class="tag" style="background:var(--card-2);color:var(--ink-2)">'+esc(c.status)+'</span></td></tr>'; }).join(""):'<tr><td colspan="6" class="muted" style="text-align:center;padding:24px">—</td></tr>')+'</tbody></table></div></div>';
     },
     // Commission / Accounts — everyone sees their own; Finance records sales & controls status.
     commission:function(){
@@ -1037,7 +1049,7 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
       var s2=demo.callStats;
       var kpis=[[t("calls"),s.total,I.phone],[t("answered"),s.answered,I.check],[t("missed"),s.missed,I.phone],[t("answer_rate"),s.rate+"%",I.target]];
       var oc={INTERESTED:"var(--green)",MEETING_BOOKED:"var(--green)",NO_ANSWER:"var(--ink-3)",CALLBACK:"var(--amber)",NOT_INTERESTED:"var(--red)"};
-      return head(t("call_center"),"",'<div class="row gap">'+scopeBadge()+(can("call:create")?'<button class="btn btn-coral" data-act="toast">'+I.phone+t("log_call")+'</button>':'')+'</div>')+
+      return head(t("call_center"),"",'<div class="row gap">'+scopeBadge()+(can("call:create")?'<button class="btn btn-coral" data-act="logcall">'+I.phone+t("log_call")+'</button>':'')+'</div>')+
         '<div class="grid kpis" style="margin-bottom:16px">'+kpis.map(function(k){return '<div class="card kpi"><div class="l">'+k[2]+k[0]+'</div><div class="v tnum">'+k[1]+'</div></div>';}).join("")+'</div>'+
         '<div class="card" style="padding:0;overflow:hidden"><div style="overflow-x:auto"><table><thead><tr><th>'+t("name")+'</th><th>'+t("agent")+'</th><th>'+t("direction")+'</th><th>'+t("outcome")+'</th><th>'+t("duration")+'</th><th>'+t("time")+'</th></tr></thead><tbody>'+
           (vis.length?vis.map(function(c){ var col=oc[c.outcome]||"var(--ink-3)"; var dur=c.dur?Math.floor(c.dur/60)+"m "+(c.dur%60)+"s":"—";
@@ -1067,7 +1079,7 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
       if(state.live) return head(t("distribution"),"")+notConnected(t("distribution"),"distribution_rules");
       var STR={ROUND_ROBIN:state.lang==="ar"?"بالتناوب":"Round-robin",LEAST_BUSY:state.lang==="ar"?"الأقل انشغالاً":"Least busy",SPECIFIC_TEAM:state.lang==="ar"?"فريق محدد":"Specific team",SPECIFIC_USER:state.lang==="ar"?"مندوب محدد":"Specific user"};
       var SC={ROUND_ROBIN:"var(--purple)",LEAST_BUSY:"var(--cool)",SPECIFIC_TEAM:"var(--amber)",SPECIFIC_USER:"var(--green)"};
-      return head(t("distribution"),state.lang==="ar"?"توزيع العملاء تلقائياً على المندوبين":"Auto-route incoming leads to agents",can("distribution:create")?'<button class="btn btn-coral" data-act="toast">'+I.plus+t("new_rule")+'</button>':'')+
+      return head(t("distribution"),state.lang==="ar"?"توزيع العملاء تلقائياً على المندوبين":"Auto-route incoming leads to agents",can("distribution:create")?'<button class="btn btn-coral" data-act="newrule">'+I.plus+t("new_rule")+'</button>':'')+
         demo.distRules.map(function(r,i){ return '<div class="card" style="padding:16px 18px;margin-bottom:12px'+(r.enabled?'':';opacity:.6')+'"><div class="row between" style="align-items:flex-start"><div class="grow"><div class="row gap" style="gap:9px"><b style="font-size:15px">'+r.name+'</b><span class="pill" style="background:'+SC[r.strategy]+'1f;color:'+SC[r.strategy]+'">'+STR[r.strategy]+'</span>'+(r.enabled?'':'<span class="pill" style="background:var(--card-2);color:var(--ink-3)">'+t("disabled")+'</span>')+'</div>'+
           '<div class="row gap" style="gap:18px;margin-top:8px;flex-wrap:wrap"><span class="muted" style="font-size:12.5px"><b style="color:var(--ink-2)">'+t("conditions")+':</b> '+r.cond+'</span><span class="muted" style="font-size:12.5px"><b style="color:var(--ink-2)">'+t("daily_cap")+':</b> '+(r.cap?r.cap+" "+t("per_agent"):t("uncapped"))+'</span></div></div>'+
           '<span style="color:'+SC[r.strategy]+'">'+I.split+'</span></div></div>'; }).join("");
@@ -1104,22 +1116,48 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
     automation:function(){
       if(state.live) return head(t("automation"),"")+notConnected(t("automation"),"automation_rules");
       return head(t("automation"),"Automation Engine")+
-        demo.rules.map(function(r){ return '<div class="card" style="padding:16px 18px;margin-bottom:12px"><div class="row between"><div><div class="row gap" style="gap:8px"><b style="font-size:15px">'+r[0]+'</b><span class="pill" style="background:'+(r[3]?"var(--green-soft);color:var(--green)":"var(--card-2);color:var(--ink-3)")+'">'+(r[3]?t("enabled"):t("disabled"))+'</span></div><div class="muted" style="font-size:12.5px;margin-top:4px">IF '+r[1]+' · '+r[2]+' '+t("runs")+'</div></div><span style="color:var(--purple)">'+I.automation+'</span></div></div>'; }).join("");
+        demo.rules.map(function(r,ri){ return '<div class="card" style="padding:16px 18px;margin-bottom:12px"><div class="row between"><div><div class="row gap" style="gap:8px"><b style="font-size:15px">'+esc(r[0])+'</b><span class="pill" style="background:'+(r[3]?"var(--green-soft);color:var(--green)":"var(--card-2);color:var(--ink-3)")+'">'+(r[3]?t("enabled"):t("disabled"))+'</span></div><div class="muted" style="font-size:12.5px;margin-top:4px">IF '+r[1]+' · '+r[2]+' '+t("runs")+'</div></div><button class="btn '+(r[3]?"btn-coral":"btn-ghost")+' autotog" data-i="'+ri+'" style="padding:6px 12px;font-size:12px">'+(r[3]?"ON":"OFF")+'</button></div></div>'; }).join("");
     },
     integrations:function(){
       if(state.live) return head(t("integrations"),"")+notConnected(t("integrations"),"integrations");
       return head(t("integrations"),"Integration Center")+
-        '<div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(240px,1fr))">'+demo.providers.map(function(p){
-          return '<div class="card" style="padding:16px"><div class="row between"><div class="row gap"><div class="av" style="width:40px;height:40px;border-radius:11px;background:'+p[2]+'">'+p[3]+'</div><b style="font-size:14px">'+p[0]+'</b></div></div><div class="row between" style="margin-top:14px"><span class="pill" style="background:'+(p[1]?"var(--green-soft);color:var(--green)":"var(--card-2);color:var(--ink-3)")+'"><span class="dot-s" style="background:'+(p[1]?"var(--green)":"var(--ink-3)")+'"></span>'+(p[1]?t("connected"):t("not_connected"))+'</span>'+(p[1]?'':'<button class="btn btn-ghost" style="padding:6px 12px;font-size:12px" data-act="toast">'+t("connect")+'</button>')+'</div></div>';
+        '<div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(240px,1fr))">'+demo.providers.map(function(p,pi){
+          return '<div class="card" style="padding:16px"><div class="row between"><div class="row gap"><div class="av" style="width:40px;height:40px;border-radius:11px;background:'+p[2]+'">'+p[3]+'</div><b style="font-size:14px">'+p[0]+'</b></div></div><div class="row between" style="margin-top:14px"><span class="pill" style="background:'+(p[1]?"var(--green-soft);color:var(--green)":"var(--card-2);color:var(--ink-3)")+'"><span class="dot-s" style="background:'+(p[1]?"var(--green)":"var(--ink-3)")+'"></span>'+(p[1]?t("connected"):t("not_connected"))+'</span>'+'<button class="btn '+(p[1]?"btn-ghost":"btn-coral")+' intconn" data-i="'+pi+'" style="padding:6px 12px;font-size:12px">'+(p[1]?t("connected"):t("connect"))+'</button>'+'</div></div>';
         }).join("")+'</div>';
     },
     notifications:function(){
-      return head(t("notifications"),"")+demo.notifs.map(function(n){
-        return '<div class="card" style="padding:14px 16px;margin-bottom:10px'+(n[3]?';border-inline-start:3px solid var(--coral)':'')+'"><div class="row between"><div><b style="font-size:14px">'+n[0]+'</b><div class="muted" style="font-size:12.5px;margin-top:2px">'+n[1]+'</div></div><span class="muted" style="font-size:12px">'+n[2]+'</span></div></div>';
+      var unread=demo.notifs.filter(function(n){return n[3];}).length;
+      return head(t("notifications"),unread?unread+" "+(state.lang==="ar"?"غير مقروء":"unread"):"",unread?'<button class="btn btn-ghost" data-act="markread">'+t("mark_all_read")+'</button>':"")+demo.notifs.map(function(n,ni){
+        return '<div class="card notif" data-i="'+ni+'" style="cursor:pointer;padding:14px 16px;margin-bottom:10px'+(n[3]?';border-inline-start:3px solid var(--coral)':'')+'"><div class="row between"><div><b style="font-size:14px">'+esc(n[0])+'</b><div class="muted" style="font-size:12.5px;margin-top:2px">'+esc(n[1])+'</div></div><span class="muted" style="font-size:12px">'+esc(n[2])+'</span></div></div>';
       }).join("");
     },
-    reports:function(){ if(state.live) return head(t("reports"),"")+notConnected(t("reports"),"reporting views");
-      return head(t("reports"),"")+listPlaceholder(t("reports")); },
+    reports:function(){
+      // Real analytics computed from the scoped leads + commissions.
+      var vis=visibleLeads();
+      var bySource={}, byStage={}, byAgent={};
+      vis.forEach(function(l){
+        var sr=l.src||"—"; bySource[sr]=(bySource[sr]||0)+1;
+        var bk=stageBucket(l); byStage[bk]=(byStage[bk]||0)+1;
+        var ag=l.owner||l.agent||"—"; byAgent[ag]=byAgent[ag]||{leads:0,won:0}; byAgent[ag].leads++;
+        if(bk==="Won") byAgent[ag].won++;
+      });
+      var won=vis.filter(function(l){return stageBucket(l)==="Won";}).length;
+      var pipeline=vis.reduce(function(a,l){ return a+(stageBucket(l)!=="Won"?(+l.budget||0):0); },0);
+      var commTot=(demo.commissions||[]).reduce(function(a,c){ return a+(+c.amount||0); },0);
+      var kpis=[[t("total_leads"),vis.length,I.leads],[t("won"),won,I.money],[t("open_pipeline"),money(pipeline),I.pipeline],[t("conversion"),(vis.length?Math.round(won/vis.length*100):0)+"%",I.target]];
+      var bar=function(title,obj,color){
+        var keys=Object.keys(obj); var max=Math.max(1,Math.max.apply(null,keys.map(function(k){return typeof obj[k]==="object"?obj[k].leads:obj[k];})));
+        return '<div class="card" style="padding:20px"><div class="sec-title">'+title+'</div>'+
+          (keys.length?keys.map(function(k){ var v=typeof obj[k]==="object"?obj[k].leads:obj[k];
+            return '<div style="margin:10px 0"><div class="row between" style="font-size:12.5px;margin-bottom:5px"><span style="font-weight:600">'+esc(k)+'</span><b class="tnum">'+v+'</b></div><div class="bar"><i style="width:'+Math.round(v/max*100)+'%;background:'+color+'"></i></div></div>'; }).join(""):'<div class="muted" style="font-size:13px">—</div>')+'</div>';
+      };
+      var agentRows=Object.keys(byAgent).sort(function(a,b){return byAgent[b].leads-byAgent[a].leads;});
+      return head(t("reports"),"",'<button class="btn btn-ghost" data-act="export">'+I.dl+t("export_csv")+'</button>')+
+        '<div class="grid kpis" style="margin-bottom:16px">'+kpis.map(function(k){ return '<div class="card kpi"><div class="l">'+k[2]+k[0]+'</div><div class="v tnum">'+k[1]+'</div></div>'; }).join("")+'</div>'+
+        '<div class="grid" style="grid-template-columns:1fr 1fr;align-items:start">'+bar(t("by_source")||"By source",bySource,"var(--cool)")+bar(t("by_stage"),byStage,"var(--purple)")+'</div>'+
+        '<div class="card" style="padding:0;overflow:hidden;margin-top:16px"><div style="padding:16px 20px 0"><div class="sec-title">'+t("team_performance")+'</div></div><div style="overflow-x:auto"><table><thead><tr><th>'+t("agent")+'</th><th>'+t("total_leads")+'</th><th>'+t("won")+'</th><th>'+t("conversion")+'</th></tr></thead><tbody>'+
+          (agentRows.length?agentRows.map(function(a){ var r=byAgent[a]; return '<tr><td><b>'+esc(a)+'</b></td><td class="tnum">'+r.leads+'</td><td class="tnum" style="color:var(--green)">'+r.won+'</td><td class="tnum">'+Math.round(r.won/r.leads*100)+'%</td></tr>'; }).join(""):'<tr><td colspan="4" class="muted" style="text-align:center;padding:20px">—</td></tr>')+'</tbody></table></div></div>';
+    },
     users:function(){
       return head(t("users"),demo.users.length+" "+t("users").toLowerCase(),(can("user:create")?'<button class="btn btn-coral" data-act="add">'+I.plus+t("add_user")+'</button>':''))+
         '<div class="card" style="padding:0;overflow:hidden"><div style="overflow-x:auto"><table><thead><tr><th>'+t("name")+'</th><th>'+t("role")+'</th><th>'+t("department")+'</th><th>'+t("status")+'</th></tr></thead><tbody>'+
@@ -1140,17 +1178,20 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
           return '<tr><td><span class="dot-s" style="background:'+col+';display:inline-block;margin-inline-end:8px"></span><b>'+a[0]+'</b></td><td>'+a[2]+'</td><td class="muted">'+a[3]+'</td><td class="muted tnum">'+a[4]+'</td><td class="muted">'+a[5]+'</td></tr>'; }).join("")+'</tbody></table></div></div>';
     },
     settings:function(){
-      var s=demo.report;
-      return head(t("settings"),"")+
+      var st=demo.settings, canEdit=can("settings:update");
+      var fld=function(id,val,type){ return '<input id="'+id+'" type="'+(type||"text")+'" value="'+escAttr(val)+'" '+(canEdit?'':'disabled')+' style="width:130px;text-align:end;background:var(--card);border:1px solid var(--line);border-radius:9px;padding:7px 10px;color:var(--ink);font-size:13px"/>'; };
+      var srow=function(label,id,val,type){ return '<div class="row between" style="padding:9px 0;border-bottom:1px solid var(--line)"><span style="font-weight:600;font-size:13px">'+label+'</span>'+fld(id,val,type)+'</div>'; };
+      return head(t("settings"),"",canEdit?'<button class="btn btn-coral" id="setSave">'+t("save")+'</button>':'')+
         '<div class="grid" style="grid-template-columns:1fr 1fr;align-items:start">'+
           '<div class="card" style="padding:20px"><div class="sec-title">'+t("company_profile")+'</div>'+
-            sRow(t("name"),"The Village Investment")+sRow("Currency","EGP")+sRow("Timezone","Africa/Cairo")+'</div>'+
+            srow(t("name"),"setCompany",st.company)+srow("Currency","setCurrency",st.currency)+srow("Timezone","setTz",st.timezone)+'</div>'+
           '<div class="card" style="padding:20px"><div class="sec-title">'+t("security")+'</div>'+
-            sToggle(t("require2fa"),false)+sRow(t("pwd_min"),"8")+sRow(t("session_to"),"720")+'</div>'+
+            '<div class="row between" style="padding:9px 0;border-bottom:1px solid var(--line)"><span style="font-weight:600;font-size:13px">'+t("require2fa")+'</span><button class="btn '+(st.require2fa?"btn-coral":"btn-ghost")+'" id="set2fa" '+(canEdit?'':'disabled')+' style="padding:5px 14px;font-size:12px">'+(st.require2fa?"ON":"OFF")+'</button></div>'+
+            srow(t("pwd_min"),"setPwd",st.pwdMin,"number")+srow(t("session_to"),"setSess",st.sessionTO,"number")+'</div>'+
           '<div class="card" style="padding:20px"><div class="sec-title">'+t("sla")+'</div>'+
-            sRow(t("first_response"),"15")+sRow(t("follow_up"),"120")+'</div>'+
+            srow(t("first_response"),"setFR",st.firstResponse,"number")+srow(t("follow_up"),"setFU",st.followUp,"number")+'</div>'+
           '<div class="card" style="padding:20px"><div class="sec-title">'+t("branding")+'</div>'+
-            '<div class="row between" style="padding:11px 0"><span style="font-weight:600">'+t("branding")+'</span><span class="row gap"><span style="width:22px;height:22px;border-radius:7px;background:var(--coral);border:1px solid var(--line)"></span><span class="muted tnum">#e0603a</span></span></div></div>'+
+            '<div class="row between" style="padding:9px 0"><span style="font-weight:600;font-size:13px">'+t("branding")+'</span><input id="setColor" type="color" value="'+escAttr(st.brandColor)+'" '+(canEdit?'':'disabled')+' style="width:44px;height:30px;border:1px solid var(--line);border-radius:8px;background:none"/></div></div>'+
         '</div>'+
         '<div class="sec-title" style="margin:26px 0 12px;font-size:16px">'+t("lookups")+'</div>'+
         '<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr))">'+
@@ -1159,7 +1200,7 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
           lookupCard(t("cancel_reasons"),"CANCEL_REASON",demo.lookups.CANCEL_REASON)+
           lookupCard(t("comm_ways"),"COMM_WAY",demo.lookups.COMM_WAY)+
         '</div>'+
-        '<button class="btn btn-coral" data-act="toast" style="margin-top:18px">'+t("save")+'</button>';
+        (canEdit?'<button class="btn btn-coral" id="setSave2" style="margin-top:18px">'+t("save")+'</button>':'');
     }
   };
   function lookupCard(title,type,items,colored){
@@ -1255,6 +1296,9 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
         else if(a==="add"&&state.view==="users"){ openAddUser(); }
         else if(a==="add"&&state.view==="leads"){ openAddLead(); }
         else if(a==="addsale"){ openAddSale(); }
+        else if(a==="logcall"){ openLogCall(); }
+        else if(a==="newrule"){ openNewRule(); }
+        else if(a==="markread"){ demo.notifs.forEach(function(n){ n[3]=false; }); toast(t("mark_all_read")+" ✓"); render(); }
         else toast(state.lang==="ar"?"إجراء تجريبي":"Demo action"); };
     });
     [].forEach.call(document.querySelectorAll(".rolecard"),function(c){ c.onclick=function(){ state.roleSel=c.getAttribute("data-role"); render(); }; });
@@ -1290,6 +1334,28 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
     [].forEach.call(document.querySelectorAll(".hrtab"),function(b){ b.onclick=function(){ state.hrTab=b.getAttribute("data-tab"); render(); }; });
     [].forEach.call(document.querySelectorAll(".hrperiod"),function(b){ b.onclick=function(){ state.hrPeriod=b.getAttribute("data-p"); render(); }; });
     var hn=$("#hrNew"); if(hn) hn.onclick=openHrRequest;
+    // Integrations connect/disconnect toggle
+    [].forEach.call(document.querySelectorAll(".intconn"),function(b){ b.onclick=function(){ var i=+b.getAttribute("data-i"); if(demo.providers[i]){ demo.providers[i][1]=!demo.providers[i][1]; toast(demo.providers[i][1]?t("connected")+" ✓":t("not_connected")); render(); } }; });
+    // Automation enable/disable
+    [].forEach.call(document.querySelectorAll(".autotog"),function(b){ b.onclick=function(){ var i=+b.getAttribute("data-i"); if(demo.rules[i]){ demo.rules[i][3]=!demo.rules[i][3]; render(); } }; });
+    // Notifications: click to mark read (clears the bell badge)
+    [].forEach.call(document.querySelectorAll(".notif"),function(b){ b.onclick=function(){ var i=+b.getAttribute("data-i"); if(demo.notifs[i]){ demo.notifs[i][3]=false; render(); } }; });
+    // Settings save
+    var setSaveFn=function(){ var g=function(id){ var e=$("#"+id); return e?e.value:null; };
+      var st=demo.settings;
+      if($("#setCompany")) st.company=$("#setCompany").value;
+      if($("#setCurrency")) st.currency=$("#setCurrency").value;
+      if($("#setTz")) st.timezone=$("#setTz").value;
+      if($("#setPwd")) st.pwdMin=+$("#setPwd").value||8;
+      if($("#setSess")) st.sessionTO=+$("#setSess").value||720;
+      if($("#setFR")) st.firstResponse=+$("#setFR").value||15;
+      if($("#setFU")) st.followUp=+$("#setFU").value||120;
+      if($("#setColor")) st.brandColor=$("#setColor").value;
+      if(state.live) SB.rest("companies?id=eq."+SB.companyId,{method:"PATCH",headers:{Prefer:"return=minimal"},body:{settings:st}}).catch(saveFailed());
+      toast(t("settings_saved")); render(); };
+    var ss1=$("#setSave"); if(ss1) ss1.onclick=setSaveFn;
+    var ss2=$("#setSave2"); if(ss2) ss2.onclick=setSaveFn;
+    var s2fa=$("#set2fa"); if(s2fa) s2fa.onclick=function(){ demo.settings.require2fa=!demo.settings.require2fa; render(); };
     var hrp=$("#hrRunPay"); if(hrp) hrp.onclick=function(){ demo.payrollStatus[demo.payrollMonth]="approved";
       if(state.live){ SB.insert("payroll_runs",{company_id:SB.companyId,period_month:demo.payrollMonth+"-01",status:"approved",created_by:SB.userId}).catch(function(){}); }
       toast(t("payroll_generated")); render(); };
@@ -1311,6 +1377,7 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
     [].forEach.call(document.querySelectorAll(".wtmpl"),function(b){ b.onclick=function(){ var inp=$("#waInput"); if(inp) inp.value="["+b.getAttribute("data-tp")+"] template"; }; });
     var waSend=$("#waSend"); if(waSend) waSend.onclick=function(){ var inp=$("#waInput"); var txt=inp&&inp.value.trim(); if(!txt) return; var ow=visibleOwners(); var vis=demo.convos.filter(function(c){return !ow||ow.indexOf(c.assignee)>=0;}); var sel=vis[state.waSel]; if(sel){ sel.msgs.push(["out",txt,"now"]); sel.last=txt; toast(state.lang==="ar"?"تم الإرسال ✓":"Sent ✓"); render(); } };
     var gs=$("#globalSearch");
+    saveDemo();
     gs.placeholder=t("search");
     if(gs.value!==state.search) gs.value=state.search;
     if(!gs._bound){ gs._bound=true;
@@ -1488,6 +1555,41 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
     date_from:r.from&&/^\d{4}-/.test(r.from)?r.from:null, date_to:r.to&&/^\d{4}-/.test(r.to)?r.to:null,
     time_from:r.from&&/^\d{2}:/.test(r.from)?r.from:null, time_to:r.to&&/^\d{2}:/.test(r.to)?r.to:null,
     days:r.days||null, amount_egp:r.amount||null, installments:r.installments||null, reason:r.reason||null, status:"pending" }; }
+
+  // Log a phone call against a lead.
+  function openLogCall(){
+    var leads=visibleLeads().map(function(l){ return l.n; }); if(!leads.length) leads=["—"];
+    var dirs=[["OUTBOUND",t("outbound")],["INBOUND",t("inbound")]];
+    var outs=["INTERESTED","MEETING_BOOKED","CALLBACK","NO_ANSWER","NOT_INTERESTED"];
+    var sel=function(id,opts){ return '<select id="'+id+'" style="width:100%;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;color:var(--ink);font-size:14px">'+opts.map(function(o){ var v=o[0]!==undefined&&o.length===2?o[0]:o, l=o.length===2?o[1]:o; return '<option value="'+escAttr(v)+'">'+esc(l)+'</option>'; }).join("")+'</select>'; };
+    openModal(t("log_call"),
+      '<div class="field"><label for="lcLead">'+t("name")+'</label>'+sel("lcLead",leads)+'</div>'+
+      '<div class="field"><label for="lcDir">'+t("direction")+'</label>'+sel("lcDir",dirs)+'</div>'+
+      '<div class="field"><label for="lcOut">'+t("outcome")+'</label>'+sel("lcOut",outs)+'</div>'+
+      field("lcDur",t("duration")+" (min)","3"),
+      function(o){
+        var lead=o.querySelector("#lcLead").value, dir=o.querySelector("#lcDir").value, out=o.querySelector("#lcOut").value, dur=(parseInt(o.querySelector("#lcDur").value,10)||0)*60;
+        var status=out==="NO_ANSWER"?"MISSED":"ANSWERED";
+        demo.calls.unshift({ lead:lead, agent:currentPersona().name, dir:dir, outcome:out, status:status, dur:dur, when:"now" });
+        if(state.live){ var lid=(demo.leads.filter(function(x){return x.n===lead;})[0]||{}).id;
+          SB.insert("calls",{company_id:SB.companyId,lead_id:lid||null,agent_id:SB.userId,direction:dir.toLowerCase(),status:status.toLowerCase(),outcome:out,duration_sec:dur}).catch(saveFailed(function(){ demo.calls.shift(); })); }
+        toast(t("call_logged")); render();
+      });
+  }
+  // Create a lead-distribution rule.
+  function openNewRule(){
+    var strat=[["ROUND_ROBIN",state.lang==="ar"?"بالتناوب":"Round-robin"],["LEAST_BUSY",state.lang==="ar"?"الأقل انشغالاً":"Least busy"],["SPECIFIC_TEAM",state.lang==="ar"?"فريق محدد":"Specific team"]];
+    var sel='<select id="drStrat" style="width:100%;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;color:var(--ink);font-size:14px">'+strat.map(function(x){return '<option value="'+x[0]+'">'+esc(x[1])+'</option>';}).join("")+'</select>';
+    openModal(t("new_rule"),
+      field("drName",t("name"),"")+'<div class="field"><label for="drStrat">'+t("strategy")+'</label>'+sel+'</div>'+field("drCond",t("conditions"),"All sources")+field("drCap",t("daily_cap"),"10"),
+      function(o){
+        var name=o.querySelector("#drName").value.trim(); if(!name){ o.querySelector("#drName").focus(); return false; }
+        var rule={ name:name, strategy:o.querySelector("#drStrat").value, cond:o.querySelector("#drCond").value||"—", cap:parseInt(o.querySelector("#drCap").value,10)||0, enabled:true };
+        demo.distRules.unshift(rule);
+        if(state.live){ SB.insert("distribution_rules",{company_id:SB.companyId,name:rule.name,strategy:rule.strategy.toLowerCase(),match_source:rule.cond,daily_cap:rule.cap||null,active:true}).catch(saveFailed(function(){ demo.distRules.shift(); })); }
+        toast(t("rule_added")); render();
+      });
+  }
   // Finance-only: record a sale + its commission (by %, by value, or fixed amount).
   function openAddSale(){
     var projects=[]; (demo.units||[]).forEach(function(u){ if(projects.indexOf(u.project)<0) projects.push(u.project); }); if(!projects.length) projects=["—"];
@@ -1613,6 +1715,9 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
   function showApp(){ $("#login").classList.add("hide"); $("#app").classList.remove("hide"); render(); }
   function logout(){ state.token=null; state.me=null; state.live=false; SB.token=null; SB.userId=null; SB.refreshToken=null; SB.expiresAt=null; try{localStorage.removeItem("village_token");localStorage.removeItem("village_sb");}catch(e){} $("#app").classList.add("hide"); $("#login").classList.remove("hide"); $("#lBtn").textContent=t("signin_btn"); }
 
+  function demoLogin(){ state.live=false; state.persona=PERSONAS[0];
+    state.me={ firstName:"Village", lastName:"Admin", email:"demo@thevillageinvestment.com", role:"Super Admin", permissions:["*"], scope:"all" };
+    showApp(); }
   function doLogin(e){ e.preventDefault();
     var email=$("#email").value, pass=$("#password").value, err=$("#lErr");
     err.style.display="none";
@@ -1652,7 +1757,7 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
     // login texts
     $("#lHero").textContent=t("hero"); $("#lSub").textContent=t("hero_sub"); $("#lWelcome").textContent=t("welcome");
     $("#lSignin").textContent=t("signin"); $("#lEmail").textContent=t("email"); $("#lPass").textContent=t("password");
-    $("#lBtn").textContent=t("signin_btn"); $("#lDemo").textContent=t("demo_note"); $("#lLang").textContent=state.lang==="ar"?"English":"العربية";
+    $("#lBtn").textContent=t("signin_btn"); $("#lDemo").textContent=t("demo_note"); var db=$("#lDemoBtn"); if(db) db.textContent=state.lang==="ar"?"تجربة النسخة التوضيحية":"Explore the demo"; $("#lLang").textContent=state.lang==="ar"?"English":"العربية";
     $("#lFeat").innerHTML=[["f1"],["f2"],["f3"]].map(function(f){return '<div>'+I.check+t(f[0])+'</div>';}).join("");
     $("#lDemo").style.display=(LIVE()||SUPA())?"none":"block";
     if(!$("#app").classList.contains("hide")) render();
@@ -1664,6 +1769,7 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
   /* ── boot ── */
   $("#loginLogo").src=LOGO; $("#sbLogo").src=LOGO;
   $("#loginForm").addEventListener("submit",doLogin);
+  $("#lDemoBtn").onclick=demoLogin;
   // Mobile nav: hamburger toggles the slide-over; scrim and any nav click close it.
   var setNav=function(open){ document.body.classList.toggle("nav-open",open); var h=$("#hmb"); if(h) h.setAttribute("aria-expanded",open?"true":"false"); };
   var hmb=$("#hmb"); if(hmb) hmb.onclick=function(e){ e.stopPropagation(); setNav(!document.body.classList.contains("nav-open")); };
@@ -1683,6 +1789,8 @@ var ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAA
       }).join("");
     [].forEach.call(document.querySelectorAll("#personaMenu .prow"),function(r){ r.onclick=function(ev){ ev.stopPropagation(); $("#personaMenu").classList.add("hide"); setPersona(PERSONAS[+r.getAttribute("data-i")]); }; });
   }
+  // Restore any saved demo state (so the showcase behaves like a real app).
+  try{ var savedDemo=localStorage.getItem("village_demo"); if(savedDemo){ var pd=JSON.parse(savedDemo); for(var dk in pd){ if(pd.hasOwnProperty(dk)) demo[dk]=pd[dk]; } } }catch(e){}
   applyLang();
   // Auto-resume live session if a token is stored.
   try{
