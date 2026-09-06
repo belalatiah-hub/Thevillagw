@@ -7439,8 +7439,7 @@ var submit=h('button',{class:'btn btn--primary btn--block', type:'submit', style
 form.appendChild(fName.wrap); form.appendChild(h('div',{class:'field-row'}, fPhone.wrap, fEmail.wrap));
 var consentErr=h('div',{class:'field-err', id:'err-consent', style:'color:var(--danger);font-size:.8rem;display:none'});
 form.appendChild(fArea); form.appendChild(fMsg); form.appendChild(consentWrap); form.appendChild(consentErr); form.appendChild(submit);
-form.appendChild(h('div',{'aria-hidden':'true',
-style:'position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden'},
+form.appendChild(h('div',{'aria-hidden':'true', class:'visually-hidden'},
 h('label',{for:'c-company'},'Company'),
 h('input',{type:'text', id:'c-company', name:'company', tabindex:'-1', autocomplete:'off'})));
 var openedAt = Date.now();
@@ -7494,8 +7493,7 @@ form.appendChild(fPhone.wrap);
 form.appendChild(h('div',{class:'field'}, msg));
 form.appendChild(submit);
 form.appendChild(note);
-form.appendChild(h('div',{'aria-hidden':'true',
-style:'position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden'},
+form.appendChild(h('div',{'aria-hidden':'true', class:'visually-hidden'},
 h('input',{type:'text', id:id('company'), name:'company', tabindex:'-1', autocomplete:'off'})));
 var openedAt = Date.now();
 form.addEventListener('submit', function(e){

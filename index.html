@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <!-- frame-ancestors/HSTS belong in HTTP response headers (see deploy runbook), not meta. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'sha256-0eB8s3A3aZQguW+SDJC/YssfCUQj66wY3V7A9qjdeKc=' 'sha256-yI6VCT38V7vjk7cAW7UM7qbGpBU7Ua/f8UOqpzWwxAc=' 'sha256-YvHevJmHHrhBzm9a+K1fYxwv5t1APr4XI8t4Am8p7D4=' 'sha256-RBNvo1WzZ4oRRq0W9+hknpT7T8If536DEMBg9hyq/4o=' 'sha256-6NHUNRfGc25A9seWpcyztzOKubO3tnRCaTPLhiLDyzI=' https://static.cloudflareinsights.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://cloudflareinsights.com; base-uri 'self'; form-action 'self'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'sha256-0eB8s3A3aZQguW+SDJC/YssfCUQj66wY3V7A9qjdeKc=' 'sha256-yI6VCT38V7vjk7cAW7UM7qbGpBU7Ua/f8UOqpzWwxAc=' 'sha256-YvHevJmHHrhBzm9a+K1fYxwv5t1APr4XI8t4Am8p7D4=' 'sha256-RBNvo1WzZ4oRRq0W9+hknpT7T8If536DEMBg9hyq/4o=' 'sha256-c1jfphN0DdUwj4eV2vk/cImnpgbFrFmtuRONdXI7hk0=' https://static.cloudflareinsights.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://cloudflareinsights.com; base-uri 'self'; form-action 'self'" />
   <meta name="theme-color" content="#073D52" />
   <meta name="color-scheme" content="light" />
   <meta name="format-detection" content="telephone=no" />
@@ -7724,8 +7724,7 @@ var submit=h('button',{class:'btn btn--primary btn--block', type:'submit', style
 form.appendChild(fName.wrap); form.appendChild(h('div',{class:'field-row'}, fPhone.wrap, fEmail.wrap));
 var consentErr=h('div',{class:'field-err', id:'err-consent', style:'color:var(--danger);font-size:.8rem;display:none'});
 form.appendChild(fArea); form.appendChild(fMsg); form.appendChild(consentWrap); form.appendChild(consentErr); form.appendChild(submit);
-form.appendChild(h('div',{'aria-hidden':'true',
-style:'position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden'},
+form.appendChild(h('div',{'aria-hidden':'true', class:'visually-hidden'},
 h('label',{for:'c-company'},'Company'),
 h('input',{type:'text', id:'c-company', name:'company', tabindex:'-1', autocomplete:'off'})));
 var openedAt = Date.now();
@@ -7779,8 +7778,7 @@ form.appendChild(fPhone.wrap);
 form.appendChild(h('div',{class:'field'}, msg));
 form.appendChild(submit);
 form.appendChild(note);
-form.appendChild(h('div',{'aria-hidden':'true',
-style:'position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden'},
+form.appendChild(h('div',{'aria-hidden':'true', class:'visually-hidden'},
 h('input',{type:'text', id:id('company'), name:'company', tabindex:'-1', autocomplete:'off'})));
 var openedAt = Date.now();
 form.addEventListener('submit', function(e){

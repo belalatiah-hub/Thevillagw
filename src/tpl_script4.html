@@ -1297,8 +1297,13 @@
        seconds. Either one firing drops the message silently — a bot told it
        failed just tries again. Both beat a CAPTCHA, which taxes every genuine
        enquiry to stop the same traffic. */
-    form.appendChild(h('div',{'aria-hidden':'true',
-      style:'position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden'},
+    /* Hidden with .visually-hidden, not left:-9999px. The offset version works
+       in English and breaks Arabic: in RTL the overflow region runs the other
+       way, so an element ten thousand pixels to the left is ten thousand
+       pixels of horizontal scroll — /ar/contact/ scrolled sideways by 9,999px
+       on a phone while /en/contact/ was fine. The clip-based utility has no
+       direction to get wrong. */
+    form.appendChild(h('div',{'aria-hidden':'true', class:'visually-hidden'},
       h('label',{for:'c-company'},'Company'),
       h('input',{type:'text', id:'c-company', name:'company', tabindex:'-1', autocomplete:'off'})));
     var openedAt = Date.now();
@@ -1366,8 +1371,8 @@
     form.appendChild(submit);
     form.appendChild(note);
     // the two traps from the contact form: a field no human sees, and a clock
-    form.appendChild(h('div',{'aria-hidden':'true',
-      style:'position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden'},
+    // (.visually-hidden rather than an offset, for the RTL reason above)
+    form.appendChild(h('div',{'aria-hidden':'true', class:'visually-hidden'},
       h('input',{type:'text', id:id('company'), name:'company', tabindex:'-1', autocomplete:'off'})));
     var openedAt = Date.now();
 
