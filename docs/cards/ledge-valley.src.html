@@ -1,0 +1,359 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ledge Valley</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* Sampled from the brochure: the ice ground, the pale sky of the cover,
+       and the navy the Ledge Valley wordmark is actually drawn in. */
+    --ice:#F4FBFA;
+    --sky:#E3F5FF;
+    --sky-2:#D3EAF7;
+    --navy:#243666;
+    --navy-deep:#1B2A50;
+    --ink:#25303F;
+    --ink-2:#4E5C6E;
+    --ink-3:#8593A3;
+    --rule:rgba(36,54,102,.16);
+    --rule-soft:rgba(36,54,102,.09);
+    --serif:'Cormorant Garamond','Times New Roman',serif;
+    --sans:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+    --pad:clamp(20px,5vw,74px);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--ice); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{display:block; max-width:100%}
+  .card{
+    max-width:1180px; margin:clamp(0px,3vw,44px) auto; background:var(--ice);
+    box-shadow:0 1px 2px rgba(36,54,102,.05), 0 14px 40px rgba(36,54,102,.09);
+    overflow:hidden;
+  }
+  .pad{padding-inline:var(--pad)}
+
+  /* ---------------------------------------------------- type */
+  .kicker{
+    font-size:10px; font-weight:600; letter-spacing:.26em; text-transform:uppercase;
+    color:var(--navy); margin:0 0 14px; opacity:.75;
+  }
+  h2{
+    font-family:var(--serif); font-style:italic; font-weight:300;
+    font-size:clamp(1.6rem,3.6vw,2.4rem); line-height:1.1; letter-spacing:.005em;
+    margin:0 0 8px; color:var(--navy);
+  }
+  h3{
+    font-family:var(--serif); font-style:italic; font-weight:400;
+    font-size:clamp(1.14rem,2.1vw,1.42rem); line-height:1.18; margin:0 0 8px;
+    color:var(--navy);
+  }
+  p{margin:0 0 14px; color:var(--ink-2); max-width:64ch}
+  .lead{font-size:16.5px; color:var(--ink)}
+  .say{
+    font-family:var(--serif); font-style:italic; font-weight:300;
+    font-size:clamp(1.12rem,2.1vw,1.4rem); line-height:1.4; color:var(--navy);
+    max-width:30ch; margin:0 0 18px;
+  }
+
+  /* -------------------------------------------------- header */
+  .bar{background:var(--navy-deep); padding:clamp(18px,2.6vw,26px) var(--pad); text-align:center}
+  .bar img{width:min(300px,66%); margin:0 auto}
+  header{text-align:center; padding-block:clamp(34px,6vw,66px) clamp(24px,3.5vw,34px)}
+  .wordmark{width:min(430px,80%); margin:0 auto}
+  .tagline{
+    font-size:10px; font-weight:600; letter-spacing:.34em; text-transform:uppercase;
+    color:var(--navy); opacity:.7; margin:clamp(18px,2.6vw,26px) auto 0; max-width:none;
+  }
+  .promise{
+    font-family:var(--serif); font-style:italic; font-weight:300;
+    font-size:clamp(1.16rem,2.4vw,1.6rem); color:var(--navy); line-height:1.4;
+    margin:clamp(20px,3vw,30px) auto 0; max-width:24ch;
+  }
+  .rail{
+    display:grid; grid-template-columns:repeat(2,1fr); gap:14px 0;
+    margin-top:clamp(26px,4vw,40px); padding:16px 0;
+    border-top:1px solid var(--rule); border-bottom:1px solid var(--rule);
+  }
+  @media(min-width:660px){ .rail{grid-template-columns:repeat(4,1fr); gap:0} }
+  .rail div{padding:0 clamp(10px,2vw,20px); text-align:center; border-inline-end:1px solid var(--rule-soft)}
+  .rail div:nth-child(2n){border-inline-end:0}
+  @media(min-width:660px){
+    .rail div:nth-child(2n){border-inline-end:1px solid var(--rule-soft)}
+    .rail div:last-child{border-inline-end:0}
+  }
+  .rail dt{font-size:9.5px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-3); margin:0 0 3px}
+  .rail dd{margin:0; font-size:13.5px; font-weight:500; color:var(--ink)}
+
+  /* --------------------------------------------------- hero */
+  figure{margin:0}
+  .hero img{width:100%}
+
+  /* ------------------------------------------------ figures */
+  .figures{display:grid; grid-template-columns:repeat(2,1fr); background:var(--sky)}
+  @media(min-width:820px){ .figures{grid-template-columns:repeat(4,1fr)} }
+  .figures > div{
+    padding:clamp(22px,3.2vw,32px) clamp(14px,2vw,22px);
+    border-inline-end:1px solid rgba(36,54,102,.10);
+    border-bottom:1px solid rgba(36,54,102,.10);
+  }
+  .figures > div:nth-child(2n){border-inline-end:0}
+  @media(min-width:820px){
+    .figures > div{border-bottom:0; border-inline-end:1px solid rgba(36,54,102,.10)}
+    .figures > div:last-child{border-inline-end:0}
+  }
+  .figures .n{
+    font-family:var(--serif); font-weight:300; line-height:1;
+    font-size:clamp(1.65rem,4vw,2.3rem); color:var(--navy); letter-spacing:.01em;
+  }
+  .figures .n span{font-size:.42em; letter-spacing:.06em; margin-inline-start:4px; opacity:.6}
+  .figures .l{
+    font-size:9.5px; font-weight:600; letter-spacing:.19em; text-transform:uppercase;
+    color:var(--ink-3); margin-top:9px;
+  }
+  .mix{
+    background:var(--sky); padding:0 var(--pad) clamp(24px,3.4vw,32px);
+    display:flex; flex-wrap:wrap; align-items:baseline; gap:6px 14px;
+  }
+  .mix b{font-size:10px; font-weight:600; letter-spacing:.19em; text-transform:uppercase; color:var(--ink-3)}
+  .mix span{font-size:14.5px; color:var(--navy); font-weight:500}
+
+  /* ------------------------------------------------ layout */
+  section{padding-block:clamp(36px,5.6vw,66px); border-top:1px solid var(--rule-soft)}
+  section.flush{border-top:0}
+  .head{margin-bottom:clamp(22px,3vw,32px)}
+  .two{display:grid; gap:clamp(24px,4vw,54px)}
+  @media(min-width:840px){ .two{grid-template-columns:1.02fr .98fr; align-items:start} }
+
+  .rows{width:100%; border-collapse:collapse}
+  .rows th,.rows td{padding:11px 0; border-bottom:1px solid var(--rule-soft); font-weight:400; vertical-align:baseline}
+  .rows th{text-align:start; font-size:10px; font-weight:600; letter-spacing:.17em; text-transform:uppercase; color:var(--ink-3); width:56%}
+  .rows td{text-align:end; font-size:14px; font-weight:500; color:var(--ink)}
+  .rows tr:last-child th,.rows tr:last-child td{border-bottom:0}
+
+  /* --------------------------------------------- principles */
+  .three{display:grid; gap:clamp(20px,2.8vw,30px)}
+  @media(min-width:780px){ .three{grid-template-columns:repeat(3,1fr)} }
+  .three img{width:100%; aspect-ratio:3/4; object-fit:cover}
+  .three h3{margin-top:16px}
+  .three .say{font-size:1.02rem; margin-bottom:10px; max-width:none}
+  .three p{font-size:13.8px; margin-bottom:0}
+
+  /* --------------------------------------------- masterplan */
+  .plan{background:#fff; padding:clamp(16px,3vw,34px); border:1px solid var(--rule-soft)}
+
+  /* ------------------------------------------------ gallery */
+  .strip{display:grid; gap:clamp(14px,2vw,20px); margin-top:clamp(22px,3vw,30px)}
+  @media(min-width:700px){ .strip{grid-template-columns:repeat(3,1fr)} }
+  .strip img{width:100%; aspect-ratio:4/3; object-fit:cover}
+
+  /* --------------------------------------------- collection */
+  .coll{display:grid; gap:clamp(18px,2.6vw,26px)}
+  @media(min-width:760px){ .coll{grid-template-columns:1fr 1fr} }
+  .coll figure img{width:100%; aspect-ratio:16/9; object-fit:cover}
+  .coll figcaption{
+    font-size:10px; font-weight:600; letter-spacing:.19em; text-transform:uppercase;
+    color:var(--ink-3); padding-top:10px;
+  }
+
+  /* ----------------------------------------------- the town */
+  .town{background:var(--sky); padding:clamp(30px,4.6vw,54px) var(--pad)}
+  .town .note{
+    font-size:11.5px; line-height:1.6; color:var(--ink-2); border-inline-start:2px solid var(--navy);
+    padding-inline-start:14px; margin:0 0 24px; max-width:62ch; opacity:.85;
+  }
+  .town ul{list-style:none; margin:0; padding:0}
+  .town li{position:relative; padding-inline-start:19px; margin-bottom:11px; font-size:14px; color:var(--ink-2)}
+  .town li::before{content:''; position:absolute; inset-inline-start:0; top:.66em; width:8px; height:1px; background:var(--navy); opacity:.5}
+  .town li b{color:var(--navy); font-weight:600}
+
+  /* ------------------------------------------------- footer */
+  footer{border-top:1px solid var(--rule); padding-block:clamp(26px,4vw,40px); background:var(--sky-2)}
+  footer p{max-width:none}
+  .disclaim{font-size:11.5px; line-height:1.65; color:var(--ink-2)}
+  .disclaim strong{color:var(--navy); font-weight:600}
+  .source{
+    margin-top:18px; padding-top:16px; border-top:1px solid var(--rule-soft);
+    font-size:10px; letter-spacing:.17em; text-transform:uppercase; color:var(--ink-3);
+  }
+
+  @media print{
+    body{background:#fff}
+    .card{box-shadow:none; margin:0; max-width:none}
+    section{break-inside:avoid}
+  }
+</style>
+
+<article class="card">
+
+  <div class="bar"><img src="__LOCKUP__" alt="Makadi Heights, by Orascom Development"></div>
+
+  <header class="pad">
+    <img class="wordmark" src="__WORDMARK__" alt="Ledge Valley">
+    <p class="tagline">Carried by water</p>
+    <p class="promise">A neighborhood where water and nature shape everyday living.</p>
+    <dl class="rail">
+      <div><dt>Developer</dt><dd>Orascom Development</dd></div>
+      <div><dt>Destination</dt><dd>Makadi Heights</dd></div>
+      <div><dt>Location</dt><dd>Makadi Bay, Red Sea</dd></div>
+      <div><dt>Unit mix</dt><dd>1–4 bedroom residences</dd></div>
+    </dl>
+  </header>
+
+  <figure class="hero"><img src="__HERO__" alt="Ledge Valley — homes along the lagoon" width="1600" height="663"></figure>
+
+  <div class="figures">
+    <div><div class="n">91,049<span>m²</span></div><div class="l">Land area</div></div>
+    <div><div class="n">28,000<span>m²</span></div><div class="l">Total BUA</div></div>
+    <div><div class="n">15,000<span>m²</span></div><div class="l">Footprint</div></div>
+    <div><div class="n">274</div><div class="l">Units</div></div>
+  </div>
+  <section class="pad flush">
+    <div class="two">
+      <div>
+        <p class="kicker">About Ledge Valley</p>
+        <h2>A waterfront destination<br>within Makadi Heights</h2>
+        <p class="lead">The neighborhood brings together a curated mix of residences, expansive
+          lagoons, landscaped open spaces, and outdoor experiences, creating a distinctive
+          waterfront destination within Makadi Heights.</p>
+      </div>
+      <div>
+        <p class="kicker">The site</p>
+        <table class="rows">
+          <tr><th>Land area</th><td>91,049 m²</td></tr>
+          <tr><th>Total BUA</th><td>28,000 m²</td></tr>
+          <tr><th>Footprint</th><td>15,000 m²</td></tr>
+          <tr><th>Number of units</th><td>274</td></tr>
+          <tr><th>Unit mix</th><td>1 – 4 bedroom residences</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="pad">
+    <div class="head">
+      <p class="kicker">Master plan</p>
+      <h2>Shaped around the water</h2>
+    </div>
+    <div class="plan"><img src="__PLAN__" alt="Ledge Valley master plan" loading="lazy"></div>
+  </section>
+
+  <section class="pad">
+    <div class="head">
+      <p class="kicker">What sets it apart</p>
+      <h2>Carried by water</h2>
+    </div>
+    <div class="three">
+      <div>
+        <img src="__FLOATING__" alt="A private deck over the lagoon" loading="lazy">
+        <h3>Floating Waterfront Living</h3>
+        <p class="say">Private decks extending directly over the lagoons.</p>
+        <p>Experience a rare waterfront lifestyle where your home seamlessly connects to the water
+          through private floating decks and uninterrupted lagoon views.</p>
+      </div>
+      <div>
+        <img src="__NATURE__" alt="Valley-inspired landscape and planting" loading="lazy">
+        <h3>Nature Shaped Serenity</h3>
+        <p class="say">Landscape and water working together.</p>
+        <p>Thoughtfully designed around lagoons, lush greenery, and valley-inspired landscapes to
+          create a calm and restorative living environment.</p>
+      </div>
+      <div>
+        <img src="__OUTDOOR__" alt="Terraces and gardens between the homes" loading="lazy">
+        <h3>Seamless Outdoor Living</h3>
+        <p class="say">Designed for life beyond the walls.</p>
+        <p>Large terraces, gardens, promenades, and waterfront spaces encourage residents to embrace
+          the outdoors every day.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="pad">
+    <div class="two">
+      <div>
+        <p class="kicker">Design story</p>
+        <h2>Blending architecture<br>with landscape</h2>
+        <p class="lead">Blending architecture with landscape for seamless living experience.</p>
+        <p>Inspired by nature's colors and forms, the architecture creates a neighborhood defined by
+          openness, serenity, and connection to the outdoors.</p>
+      </div>
+      <div><img src="__DESIGN__" alt="Sculptural architecture meeting the lagoon" loading="lazy"></div>
+    </div>
+    <div class="strip">
+      <img src="__PROMENADE__" alt="The lagoon promenade" loading="lazy">
+      <img src="__PARK__" alt="Landscaped open space between the residences" loading="lazy">
+      <img src="__NEIGHBOURHOOD__" alt="The neighbourhood seen across the water" loading="lazy">
+    </div>
+  </section>
+
+  <section class="pad">
+    <div class="head">
+      <p class="kicker">The Island Collection</p>
+      <h2>Floating Chalet A &amp; A Mirror</h2>
+    </div>
+    <div class="coll">
+      <figure>
+        <img src="__CHALET_LAGOON__" alt="Floating Chalet A and A Mirror, lagoon view" loading="lazy">
+        <figcaption>Lagoon view</figcaption>
+      </figure>
+      <figure>
+        <img src="__CHALET_STREET__" alt="Floating Chalet A and A Mirror, street view" loading="lazy">
+        <figcaption>Street view</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="town">
+    <p class="kicker">Within Makadi Heights</p>
+    <h2>The town around it</h2>
+    <p class="note">Everything in this section describes <strong>Makadi Heights</strong>, the wider
+      town Ledge Valley sits inside — not Ledge Valley itself.</p>
+    <div class="two">
+      <div>
+        <p>A serene international coastal town by Orascom Development, spanning 4.75 million square
+          meters and reaching 78 meters above sea level. Makadi Heights is designed as a fully
+          integrated town, seamlessly combining residential units, serviced apartments, commercial
+          areas, and hotels, offering a diversified mix of products that cater to a vibrant,
+          year-round lifestyle.</p>
+        <p>Strategically located in the heart of Makadi Bay, it gives residents and visitors seamless
+          access to all major destinations along the Red Sea coast.</p>
+        <table class="rows" style="margin-top:20px">
+          <tr><th>El Gouna</th><td>45 mins</td></tr>
+          <tr><th>Hurghada International Airport</th><td>20 mins</td></tr>
+          <tr><th>Downtown Hurghada</th><td>30 mins</td></tr>
+        </table>
+      </div>
+      <div>
+        <p class="kicker" style="margin-top:4px">Town facilities</p>
+        <ul>
+          <li><b>Coastal living</b> — beachfront living flows from swimming and kitesurfing to
+            kayaking and snorkeling, with beach lounges and social spots by the Red Sea.</li>
+          <li><b>Hospitality &amp; entertainment</b> — a curated mix of boutique and full-scale
+            hotels, complemented by The Haus, a landmark venue with 3,400-guest capacity, hosting
+            concerts, weddings, summits, and cultural events year round.</li>
+          <li><b>Sports &amp; fitness</b> — a dedicated clubhouse with football, padel and tennis
+            courts alongside a fully equipped gym, complemented by tranquil yoga spaces.</li>
+          <li><b>Retail &amp; dining</b> — a vibrant mix catering to every mood, from casual cafés to
+            curated restaurants, alongside essential outlets for daily needs.</li>
+          <li><b>Medical</b> — on-site clinics providing essential care and quick health support for
+            residents and visitors.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer class="pad">
+    <p class="disclaim">
+      <strong>Illustrative.</strong> All renders, visuals and layouts are for illustrative purposes
+      only. Drawings are not to scale; areas, dimensions and specifications are subject to change
+      without prior notice. Prices, payment plans and delivery dates are not published in this
+      brochure and are therefore not stated here — confirm current figures and availability with an
+      advisor.
+    </p>
+    <p class="source">Source — Ledge Valley brochure, Makadi Heights, Orascom Development</p>
+  </footer>
+
+</article>
