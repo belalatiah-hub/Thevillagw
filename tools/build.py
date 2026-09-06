@@ -182,6 +182,64 @@ def pin_script_hashes(doc):
     return out
 
 
+# Two keys whose Arabic value is Latin on purpose. Listed with the reason, so
+# the exception is a decision on the record rather than a hole in the check.
+LATIN_ON_PURPOSE = {
+    # The language switch names the language you would switch *to*, so the
+    # Arabic page's label reads "English". Translating it would be the bug.
+    'choose_lang',
+    # "EOI" is how an expression of interest is written in the Egyptian
+    # market, in both languages. eoi_note carries the Arabic explanation.
+    'eoi',
+}
+
+
+def check_bilingual(doc):
+    """Every interface string exists in both languages, or the build stops.
+
+    "Any change in EN has to be matched in AR, and the other way round" is the
+    owner's rule, and until now it was kept by hand on the public site while
+    the dashboard build enforced it. A missing key does not fail loudly at
+    runtime — t() falls back to English — so an Arabic page quietly serves an
+    English label and nobody notices until a customer does.
+
+    Three ways to fail: a key on one side only, an empty value, or an "Arabic"
+    string that is really English, which is what a half-finished translation
+    looks like.
+    """
+    m = re.search(r'\n  var I18N = \{\n(.*?)\n  \};', doc, re.S)
+    if not m:
+        raise SystemExit('build aborted: could not find the I18N table')
+    body = m.group(1)
+    halves = re.split(r'\n    (en|ar): \{\n', '\n' + body)
+    # ['', 'en', <en body>, 'ar', <ar body>]
+    if len(halves) != 5 or halves[1] != 'en' or halves[3] != 'ar':
+        raise SystemExit('build aborted: I18N is not the expected en/ar shape')
+    side = {}
+    for name, chunk in (('en', halves[2]), ('ar', halves[4])):
+        side[name] = dict(re.findall(r'(\w+)\s*:\s*"((?:[^"\\]|\\.)*)"', chunk))
+
+    bad = []
+    for key in sorted(set(side['en']) | set(side['ar'])):
+        en, ar = side['en'].get(key), side['ar'].get(key)
+        if en is None:
+            bad.append(key + ' (English side missing)')
+        elif ar is None:
+            bad.append(key + ' (Arabic side missing)')
+        elif not en.strip() or not ar.strip():
+            bad.append(key + ' (empty)')
+        # A value that carries no Arabic letters but three consecutive Latin
+        # ones is an untranslated string. Numerals, punctuation and a brand
+        # name kept in Latin on purpose all pass.
+        elif (key not in LATIN_ON_PURPOSE
+              and not re.search(r'[؀-ۿ]', ar) and re.search(r'[A-Za-z]{3}', ar)):
+            bad.append(key + ' (Arabic side looks English)')
+    if bad:
+        raise SystemExit('build aborted: %d string(s) not bilingual: %s'
+                         % (len(bad), ', '.join(bad[:8])))
+    return len(side['en'])
+
+
 def main():
     raw = '--raw' in sys.argv
     doc = '\n'.join(read(p) for p in PARTS)
@@ -197,6 +255,8 @@ def main():
     left = doc.count('__LOGO') + doc.count('__INTRO_VIDEO__') + doc.count('__FAVICON__')
     if left:
         raise SystemExit('build aborted: %d placeholder(s) left unresolved' % left)
+
+    keys = check_bilingual(doc)
 
     # The site builds every node through h(), which sets text with textContent
     # and never parses markup, and that is the whole reason a developer's blurb
@@ -240,8 +300,9 @@ def main():
         f.write(main_js)
 
     saved = before - after
-    note = '' if raw else '  (minified: -%s KB, -%.0f%%)' % (round(saved / 1024), 100.0 * saved / before)
-    print('index.html %s KB%s' % (round(after / 1024), note))
+    note = '' if raw else ', minified: -%s KB, -%.0f%%' % (round(saved / 1024), 100.0 * saved / before)
+    print('index.html %s KB  (%d bilingual strings%s)'
+          % (round(after / 1024), keys, note))
 
 
 if __name__ == '__main__':
