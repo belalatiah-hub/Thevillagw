@@ -1,0 +1,469 @@
+  <script>
+/* =====================================================================
+   The screens. Each content entity is a short declaration handed to the
+   list/drawer engine; only the dashboard, the importer and the publisher
+   draw anything of their own.
+   ===================================================================== */
+(function () {
+  'use strict';
+  var C = window.CMS, h = C.h, ic = C.ic, t = C.t, fill = C.fill, api = C.api;
+  var shell = C.shell, crud = C.crud;
+
+  /* Lookups the drawers need. Fetched once per screen open, not per row. */
+  var LOOKUP = { developers: [], locations: [], projects: [] };
+
+  function loadLookups() {
+    return Promise.all([
+      api.select('developers', { select: 'id,slug,name_en,name_ar', order: 'name_en.asc' }),
+      api.select('locations', { select: 'id,slug,name_en,name_ar,level', order: 'level.asc,name_en.asc' }),
+      api.select('projects', { select: 'id,slug,name_en,name_ar', order: 'name_en.asc' })
+    ]).then(function (r) {
+      LOOKUP.developers = r[0].data || [];
+      LOOKUP.locations = r[1].data || [];
+      LOOKUP.projects = r[2].data || [];
+    });
+  }
+
+  function opts(list, valueKey) {
+    return list.map(function (x) {
+      return { value: x[valueKey || 'id'], text: (C.isAr() && x.name_ar) ? x.name_ar : x.name_en };
+    });
+  }
+
+  function nameOf(list, id) {
+    for (var i = 0; i < list.length; i++) if (list[i].id === id) {
+      return (C.isAr() && list[i].name_ar) ? list[i].name_ar : list[i].name_en;
+    }
+    return '—';
+  }
+
+  function statusChip(s) {
+    var cls = s === 'published' ? 'chip--ok' : s === 'draft' ? 'chip--warn' : '';
+    return h('span', { class: 'chip ' + cls, text: t(s === 'published' ? 'published' : s === 'draft' ? 'draft' : 'archived') });
+  }
+
+  var STATUS_OPTS = function () {
+    return [{ value: 'published', text: t('published') },
+            { value: 'draft', text: t('draft') },
+            { value: 'archived', text: t('archived') }];
+  };
+
+  function slugCheck(v) {
+    return /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(v) ? null
+      : (C.isAr() ? 'حروف صغيرة وأرقام وشرطات فقط' : 'Lowercase letters, digits and hyphens only');
+  }
+
+  /* Typing an English name fills an empty slug; an existing slug is never
+     touched, because it is a published URL. */
+  function slugFrom(sourceName) {
+    return function (el, form) {
+      var slug = form.controls.slug;
+      if (!slug || slug.el.dataset.touched === '1') return;
+      slug.el.value = C.slugify(el.value);
+    };
+  }
+  function markTouched(el) { el.dataset.touched = '1'; }
+
+  /* --------------------------------------------------------- dashboard */
+  shell.route('dashboard', {
+    icon: 'home', group: '', label: 'dashboard',
+    render: function (host) {
+      var stats = h('div', { class: 'stats' });
+      fill(host, stats, h('div', { class: 'card' },
+        h('div', { class: 'card__head' }, h('h2', { text: t('audit') })),
+        h('div', { class: 'card__body', id: 'recent' },
+          h('div', { class: 'skel', style: 'width:70%' }))));
+
+      function count(table, params) {
+        return api.select(table, Object.assign({ select: 'id' }, params || {}), [0, 0])
+          .then(function (r) { return r.range ? Number(String(r.range).split('/')[1]) : 0; })
+          .catch(function () { return null; });
+      }
+
+      return Promise.all([
+        count('projects'), count('units'), count('developers'), count('media_assets'),
+        count('projects', { status: 'eq.draft' }),
+        count('projects', { price_from: 'is.null' })
+      ]).then(function (n) {
+        var cards = [
+          ['total_projects', n[0]], ['total_units', n[1]], ['total_devs', n[2]],
+          ['total_media', n[3]], ['drafts', n[4]], ['no_price', n[5]]
+        ];
+        fill(stats);
+        cards.forEach(function (c) {
+          stats.appendChild(h('div', { class: 'stat' },
+            h('b', { text: c[1] == null ? '—' : C.num(c[1]) }),
+            h('span', { text: t(c[0]) })));
+        });
+        return api.select('audit_log',
+          { select: 'id,action,entity,entity_label,actor_email,created_at', order: 'created_at.desc' }, [0, 9]);
+      }).then(function (r) {
+        var rows = (r && r.data) || [];
+        var box = document.getElementById('recent');
+        if (!box) return;
+        if (!rows.length) {
+          fill(box, h('div', { class: 'empty' }, ic('history'), h('div', { text: t('nothing') })));
+          return;
+        }
+        var tb = h('tbody');
+        rows.forEach(function (a) {
+          tb.appendChild(h('tr', null,
+            h('td', null, h('span', { class: 'chip chip--teal', text: a.action })),
+            h('td', { text: (a.entity || '') + (a.entity_label ? ' · ' + a.entity_label : '') }),
+            h('td', { text: a.actor_email || '—' }),
+            h('td', { class: 'num', text: C.dateFmt(a.created_at) })));
+        });
+        fill(box, h('div', { class: 'tablewrap' }, h('table', null, tb)));
+      });
+    }
+  });
+
+  /* -------------------------------------------------------- developers */
+  shell.route('developers', {
+    icon: 'building', group: 'content', label: 'developers',
+    render: function (host) {
+      return crud.renderList(host, {
+        table: 'developers', pk: 'id', title: 'developers', sort: 'name_en',
+        searchOn: ['name_en', 'name_ar', 'slug'],
+        filters: [{ label: 'status', param: 'status', value: function (v) { return 'eq.' + v; }, options: STATUS_OPTS }],
+        columns: [
+          { label: 'name_en', sortOn: 'name_en', render: function (r) { return r.name_en; } },
+          { label: 'name_ar', render: function (r) { return r.name_ar; } },
+          { label: 'slug', render: function (r) { return h('code', { text: r.slug }); } },
+          { label: 'founded', cls: 'num', render: function (r) { return r.founded_year || '—'; } },
+          { label: 'status', render: function (r) { return statusChip(r.status); } }
+        ],
+        rowTitle: function (r) { return r.name_en; },
+        blank: function () { return { status: 'draft' }; },
+        groups: [
+          { legend: 'content', fields: [
+            { name: 'name_en', label: 'name_en', required: true, half: true, pairWith: 'nm', oninput: slugFrom() },
+            { name: 'name_ar', label: 'name_ar', required: true, ar: true, half: true, pairWith: 'nm' },
+            { name: 'slug', label: 'slug', hint: 'slug_hint', required: true, check: slugCheck,
+              oninput: function (el) { markTouched(el); } },
+            { name: 'tagline_en', label: 'tagline_en', half: true, pairWith: 'tl' },
+            { name: 'tagline_ar', label: 'tagline_ar', ar: true, half: true, pairWith: 'tl' },
+            { name: 'description_en', label: 'desc_en', type: 'textarea' },
+            { name: 'description_ar', label: 'desc_ar', type: 'textarea', ar: true },
+            { name: 'areas_line_en', label: 'areas_en', half: true, pairWith: 'ar' },
+            { name: 'areas_line_ar', label: 'areas_ar', ar: true, half: true, pairWith: 'ar' }
+          ] },
+          { legend: 'operations', fields: [
+            { name: 'founded_year', label: 'founded', type: 'number', min: 1800, max: 2100, half: true, pairWith: 'meta' },
+            { name: 'brand_colour', label: 'colour', half: true, pairWith: 'meta' },
+            { name: 'status', label: 'status', type: 'select', options: STATUS_OPTS, blank: false, required: true }
+          ] }
+        ]
+      });
+    }
+  });
+
+  /* ---------------------------------------------------------- locations */
+  shell.route('locations', {
+    icon: 'pin', group: 'content', label: 'locations',
+    render: function (host) {
+      return loadLookups().then(function () {
+        return crud.renderList(host, {
+          table: 'locations', pk: 'id', title: 'locations', sort: 'level',
+          searchOn: ['name_en', 'name_ar', 'slug'],
+          columns: [
+            { label: 'name_en', sortOn: 'name_en', render: function (r) { return r.name_en; } },
+            { label: 'name_ar', render: function (r) { return r.name_ar; } },
+            { label: 'level', render: function (r) { return h('span', { class: 'chip', text: r.level }); } },
+            { label: 'parent', render: function (r) { return nameOf(LOOKUP.locations, r.parent_id); } },
+            { label: 'slug', render: function (r) { return h('code', { text: r.slug }); } }
+          ],
+          rowTitle: function (r) { return r.name_en; },
+          blank: function () { return { level: 'area', status: 'published' }; },
+          groups: [{ fields: [
+            { name: 'name_en', label: 'name_en', required: true, half: true, pairWith: 'nm', oninput: slugFrom() },
+            { name: 'name_ar', label: 'name_ar', required: true, ar: true, half: true, pairWith: 'nm' },
+            { name: 'slug', label: 'slug', hint: 'slug_hint', required: true, check: slugCheck,
+              oninput: function (el) { markTouched(el); } },
+            { name: 'level', label: 'level', type: 'select', blank: false, required: true,
+              options: [{ value: 'country', text: 'country' }, { value: 'governorate', text: 'governorate' },
+                        { value: 'area', text: 'area' }, { value: 'district', text: 'district' }] },
+            { name: 'parent_id', label: 'parent', type: 'select', options: function () { return opts(LOOKUP.locations); } },
+            { name: 'blurb_en', label: 'blurb_en', type: 'textarea' },
+            { name: 'blurb_ar', label: 'blurb_ar', type: 'textarea', ar: true },
+            { name: 'status', label: 'status', type: 'select', options: STATUS_OPTS, blank: false, required: true }
+          ] }]
+        });
+      });
+    }
+  });
+
+  /* ----------------------------------------------------------- projects */
+  shell.route('projects', {
+    icon: 'layers', group: 'content', label: 'projects',
+    render: function (host) {
+      return loadLookups().then(function () {
+        return crud.renderList(host, {
+          table: 'projects', pk: 'id', title: 'projects', sort: 'name_en',
+          searchOn: ['name_en', 'name_ar', 'slug'],
+          filters: [
+            { label: 'status', param: 'status', value: function (v) { return 'eq.' + v; }, options: STATUS_OPTS },
+            { label: 'developer', param: 'developer_id', value: function (v) { return 'eq.' + v; },
+              options: function () { return opts(LOOKUP.developers); } }
+          ],
+          columns: [
+            { label: 'name_en', sortOn: 'name_en', render: function (r) { return r.name_en; } },
+            { label: 'developer', render: function (r) { return nameOf(LOOKUP.developers, r.developer_id); } },
+            { label: 'location', render: function (r) { return nameOf(LOOKUP.locations, r.location_id); } },
+            { label: 'price_from', cls: 'num', sortOn: 'price_from',
+              render: function (r) { return r.price_from == null ? h('span', { class: 'chip chip--warn', text: t('no_price') }) : C.money(r.price_from); } },
+            { label: 'status', render: function (r) { return statusChip(r.status); } }
+          ],
+          rowTitle: function (r) { return r.name_en; },
+          blank: function () { return { status: 'draft', stage: 'primary' }; },
+          groups: [
+            { legend: 'content', fields: [
+              { name: 'name_en', label: 'name_en', required: true, half: true, pairWith: 'nm', oninput: slugFrom() },
+              { name: 'name_ar', label: 'name_ar', required: true, ar: true, half: true, pairWith: 'nm' },
+              { name: 'slug', label: 'slug', hint: 'slug_hint', required: true, check: slugCheck,
+                oninput: function (el) { markTouched(el); } },
+              { name: 'developer_id', label: 'developer', type: 'select', required: true,
+                options: function () { return opts(LOOKUP.developers); } },
+              { name: 'location_id', label: 'location', type: 'select', required: true,
+                options: function () { return opts(LOOKUP.locations.filter(function (l) { return l.level === 'area'; })); } },
+              { name: 'description_en', label: 'desc_en', type: 'textarea', rows: 5 },
+              { name: 'description_ar', label: 'desc_ar', type: 'textarea', rows: 5, ar: true }
+            ] },
+            { legend: 'operations', fields: [
+              { name: 'stage', label: 'stage', type: 'select', blank: false,
+                options: [{ value: 'primary', text: 'primary' }, { value: 'launch', text: 'launch' },
+                          { value: 'ready', text: 'ready' }, { value: 'resale', text: 'resale' }] },
+              { name: 'price_from', label: 'price_from', type: 'number', min: 0, half: true, pairWith: 'money' },
+              { name: 'down_payment_pct', label: 'down_payment', type: 'number', min: 0, max: 100, half: true, pairWith: 'money' },
+              { name: 'instalment_years', label: 'years', type: 'number', min: 0, max: 40, half: true, pairWith: 'plan' },
+              { name: 'delivery_label', label: 'delivery', half: true, pairWith: 'plan' },
+              { name: 'finishing_en', label: 'finishing_en', half: true, pairWith: 'fin' },
+              { name: 'finishing_ar', label: 'finishing_ar', ar: true, half: true, pairWith: 'fin' },
+              { name: 'unit_types_en', label: 'types_en', half: true, pairWith: 'ty' },
+              { name: 'unit_types_ar', label: 'types_ar', ar: true, half: true, pairWith: 'ty' },
+              { name: 'tags_en', label: 'tags_en', hint: 'tags_hint', half: true, pairWith: 'tg',
+                get: function (r) { return (r.tags_en || []).join(', '); },
+                set: function (o, v) { o.tags_en = v ? v.split(',').map(function (s) { return s.trim(); }).filter(Boolean) : []; } },
+              { name: 'tags_ar', label: 'tags_ar', hint: 'tags_hint', ar: true, half: true, pairWith: 'tg',
+                get: function (r) { return (r.tags_ar || []).join(', '); },
+                set: function (o, v) { o.tags_ar = v ? v.split(',').map(function (s) { return s.trim(); }).filter(Boolean) : []; } },
+              { name: 'status', label: 'status', type: 'select', options: STATUS_OPTS, blank: false, required: true }
+            ] }
+          ]
+        });
+      });
+    }
+  });
+
+  /* -------------------------------------------------------------- units */
+  shell.route('units', {
+    icon: 'grid', group: 'content', label: 'units',
+    render: function (host) {
+      return loadLookups().then(function () {
+        return crud.renderList(host, {
+          table: 'units', pk: 'id', title: 'units', sort: 'unit_code',
+          searchOn: ['unit_code', 'unit_type_en', 'label_en', 'label_ar'],
+          filters: [
+            { label: 'project', param: 'project_id', value: function (v) { return 'eq.' + v; },
+              options: function () { return opts(LOOKUP.projects); } },
+            { label: 'availability', param: 'availability', value: function (v) { return 'eq.' + v; },
+              options: [{ value: 'available', text: 'available' }, { value: 'limited', text: 'limited' },
+                        { value: 'reserved', text: 'reserved' }, { value: 'sold', text: 'sold' },
+                        { value: 'to-confirm', text: 'to-confirm' }] }
+          ],
+          columns: [
+            { label: 'unit_code', sortOn: 'unit_code', render: function (r) { return h('code', { text: r.unit_code }); } },
+            { label: 'project', render: function (r) { return nameOf(LOOKUP.projects, r.project_id); } },
+            { label: 'unit_type', render: function (r) { return r.unit_type_en; } },
+            { label: 'beds', cls: 'num', render: function (r) { return r.bedrooms == null ? '—' : C.num(r.bedrooms); } },
+            { label: 'bua', cls: 'num', sortOn: 'bua',
+              render: function (r) { return r.bua == null ? '—' : C.num(r.bua) + (r.bua_to ? '–' + C.num(r.bua_to) : ''); } },
+            { label: 'price', cls: 'num', sortOn: 'price', render: function (r) { return C.money(r.price); } },
+            { label: 'availability', render: function (r) {
+                return h('span', { class: 'chip ' + (r.availability === 'sold' ? 'chip--danger' : r.availability === 'available' ? 'chip--ok' : 'chip--warn'), text: r.availability }); } }
+          ],
+          rowTitle: function (r) { return r.unit_code; },
+          blank: function () { return { status: 'draft', availability: 'available' }; },
+          groups: [
+            { legend: 'content', fields: [
+              { name: 'unit_code', label: 'unit_code', required: true, half: true, pairWith: 'id',
+                check: function (v) { return /^[A-Za-z0-9][A-Za-z0-9._-]*$/.test(v) ? null : (C.isAr() ? 'كود غير صالح' : 'Invalid code'); } },
+              { name: 'project_id', label: 'project', type: 'select', required: true, half: true, pairWith: 'id',
+                options: function () { return opts(LOOKUP.projects); } },
+              { name: 'unit_type_en', label: 'unit_type', required: true },
+              { name: 'label_en', label: 'label_en', half: true, pairWith: 'lbl' },
+              { name: 'label_ar', label: 'label_ar', ar: true, half: true, pairWith: 'lbl' }
+            ] },
+            { legend: 'operations', fields: [
+              { name: 'bedrooms', label: 'beds', type: 'number', min: 0, max: 20, half: true, pairWith: 'rooms' },
+              { name: 'bathrooms', label: 'baths', type: 'number', min: 0, max: 20, half: true, pairWith: 'rooms' },
+              { name: 'bua', label: 'bua', type: 'number', min: 0, half: true, pairWith: 'area' },
+              { name: 'bua_to', label: 'bua_to', type: 'number', min: 0, half: true, pairWith: 'area' },
+              { name: 'price', label: 'price', type: 'number', min: 0, half: true, pairWith: 'money' },
+              { name: 'down_payment_pct', label: 'down_payment', type: 'number', min: 0, max: 100, half: true, pairWith: 'money' },
+              { name: 'instalment_years', label: 'years', type: 'number', min: 0, max: 40, half: true, pairWith: 'plan' },
+              { name: 'delivery_label', label: 'delivery', half: true, pairWith: 'plan' },
+              { name: 'floor', label: 'floor', half: true, pairWith: 'st' },
+              { name: 'availability', label: 'availability', type: 'select', blank: false, half: true, pairWith: 'st',
+                options: [{ value: 'available', text: 'available' }, { value: 'limited', text: 'limited' },
+                          { value: 'reserved', text: 'reserved' }, { value: 'sold', text: 'sold' },
+                          { value: 'to-confirm', text: 'to-confirm' }] },
+              { name: 'status', label: 'status', type: 'select', options: STATUS_OPTS, blank: false, required: true }
+            ] }
+          ],
+          beforeSave: function (patch) {
+            if (patch.bua != null && patch.bua_to != null && Number(patch.bua_to) < Number(patch.bua)) {
+              return C.isAr() ? 'الحد الأعلى للمساحة أصغر من الأدنى' : 'Upper area is below the lower one';
+            }
+            return null;
+          }
+        });
+      });
+    }
+  });
+
+  /* -------------------------------------------------------------- media */
+  shell.route('media', {
+    icon: 'image', group: 'content', label: 'media',
+    render: function (host) {
+      return crud.renderList(host, {
+        table: 'media_assets', pk: 'id', title: 'media', sort: 'path',
+        searchOn: ['path', 'alt_en', 'alt_ar'],
+        creatable: false, deletable: false,
+        columns: [
+          { label: 'media', render: function (r) {
+              return h('img', { class: 'thumb', src: r.path, alt: '', loading: 'lazy' }); } },
+          { label: 'slug', sortOn: 'path', render: function (r) { return h('code', { text: r.path }); } },
+          { label: 'desc_en', render: function (r) { return r.alt_en || '—'; } },
+          { label: 'desc_ar', render: function (r) { return r.alt_ar || '—'; } }
+        ],
+        rowTitle: function (r) { return r.path; },
+        groups: [{ fields: [
+          { name: 'path', label: 'slug', readonly: true },
+          { name: 'alt_en', label: 'desc_en' },
+          { name: 'alt_ar', label: 'desc_ar', ar: true }
+        ] }]
+      });
+    }
+  });
+
+  /* -------------------------------------------------------------- audit */
+  shell.route('audit', {
+    icon: 'history', group: 'operations', label: 'audit',
+    render: function (host) {
+      return crud.renderList(host, {
+        table: 'audit_log', pk: 'id', title: 'audit', sort: 'created_at',
+        creatable: false, deletable: false,
+        searchOn: ['entity', 'entity_label', 'actor_email'],
+        columns: [
+          { label: 'audit', sortOn: 'created_at', cls: 'num', render: function (r) { return C.dateFmt(r.created_at); } },
+          { label: 'role', render: function (r) { return h('span', { class: 'chip chip--teal', text: r.action }); } },
+          { label: 'content', render: function (r) { return (r.entity || '') + (r.entity_label ? ' · ' + r.entity_label : ''); } },
+          { label: 'email', render: function (r) { return r.actor_email || '—'; } }
+        ],
+        rowTitle: function (r) { return r.action + ' · ' + (r.entity || ''); },
+        groups: [{ fields: [
+          { name: 'created_at', label: 'audit', readonly: true },
+          { name: 'action', label: 'role', readonly: true },
+          { name: 'entity', label: 'content', readonly: true },
+          { name: 'entity_label', label: 'name_en', readonly: true },
+          { name: 'actor_email', label: 'email', readonly: true }
+        ] }]
+      });
+    }
+  });
+
+  /* --------------------------------------------------------------- team */
+  shell.route('admins', {
+    icon: 'users', group: 'operations', label: 'admins', needs: 'owner',
+    render: function (host) {
+      var box = h('div');
+      fill(host, box);
+      return api.select('admins', { select: '*', order: 'created_at.asc' }).then(function (r) {
+        var rows = r.data || [];
+        var tb = h('tbody');
+        rows.forEach(function (a) {
+          tb.appendChild(h('tr', null,
+            h('td', { text: a.full_name || '—' }),
+            h('td', { text: a.email }),
+            h('td', null, h('span', { class: 'chip chip--teal', text: a.role })),
+            h('td', null, h('span', { class: 'chip ' + (a.is_active ? 'chip--ok' : ''), text: a.is_active ? t('active') : t('archived') })),
+            h('td', { class: 'num', text: C.dateFmt(a.last_seen_at) })));
+        });
+        fill(box,
+          h('div', { class: 'card' },
+            h('div', { class: 'card__head' }, h('h2', { text: t('admins') })),
+            h('div', { class: 'tablewrap' }, h('table', null,
+              h('thead', null, h('tr', null,
+                h('th', { text: t('name_en') }), h('th', { text: t('email') }),
+                h('th', { text: t('role') }), h('th', { text: t('status') }), h('th', { text: t('audit') }))),
+              tb))),
+          h('div', { style: 'height:18px' }),
+          inviteCard());
+      });
+
+      function inviteCard() {
+        var email = h('input', { type: 'email', id: 'inv_email', required: true });
+        var role = h('select', { id: 'inv_role' },
+          h('option', { value: 'viewer' }, 'viewer'),
+          h('option', { value: 'editor' }, 'editor'),
+          h('option', { value: 'owner' }, 'owner'));
+        var out = h('div');
+        var list = h('div');
+
+        function refresh() {
+          api.select('admin_invites', { select: '*', order: 'created_at.desc' }).then(function (r) {
+            var rows = (r.data || []).filter(function (i) { return !i.accepted_at; });
+            if (!rows.length) { fill(list, h('div', { class: 'empty', text: t('nothing') })); return; }
+            var tb = h('tbody');
+            rows.forEach(function (i) {
+              tb.appendChild(h('tr', null,
+                h('td', { text: i.email }),
+                h('td', null, h('span', { class: 'chip chip--teal', text: i.role })),
+                h('td', { class: 'num', text: C.dateFmt(i.created_at) }),
+                h('td', { class: 'act' }, h('button', {
+                  class: 'btn btn--danger btn--sm', type: 'button',
+                  onclick: function () {
+                    api.remove('admin_invites', { email: 'eq.' + i.email })
+                      .then(refresh).catch(function (e) { C.toast(e.message, 'err'); });
+                  }
+                }, ic('trash')))));
+            });
+            fill(list, h('div', { class: 'tablewrap' }, h('table', null,
+              h('thead', null, h('tr', null,
+                h('th', { text: t('email') }), h('th', { text: t('role') }),
+                h('th', { text: t('invited') }), h('th'))),
+              tb)));
+          }).catch(function (e) { fill(list, h('div', { class: 'note note--err', text: e.message })); });
+        }
+        refresh();
+
+        return h('div', { class: 'card' },
+          h('div', { class: 'card__head' }, h('h2', { text: t('invite') })),
+          h('div', { class: 'card__body' },
+            h('p', { class: 'f__hint', text: t('create_sub'), style: 'margin-bottom:12px' }),
+            h('div', { class: 'row row--2' },
+              h('div', { class: 'f' }, h('label', { for: 'inv_email', text: t('email') }), email),
+              h('div', { class: 'f' }, h('label', { for: 'inv_role', text: t('role') }), role)),
+            h('div', { style: 'margin-top:12px;display:flex;gap:10px;align-items:center' },
+              h('button', {
+                class: 'btn btn--primary btn--sm', type: 'button',
+                onclick: function () {
+                  var addr = email.value.trim();
+                  if (!addr) { email.focus(); return; }
+                  api.insert('admin_invites', { email: addr, role: role.value })
+                    .then(function () { email.value = ''; fill(out); refresh(); C.toast(t('saved'), 'ok'); })
+                    .catch(function (e) { fill(out, h('span', { class: 'f__err', text: e.message })); });
+                }
+              }, ic('plus'), t('invite')),
+              out),
+            h('div', { style: 'height:14px' }),
+            list));
+      }
+    }
+  });
+
+  window.CMS.views = { LOOKUP: LOOKUP, loadLookups: loadLookups, opts: opts, nameOf: nameOf,
+                       statusChip: statusChip, slugCheck: slugCheck, STATUS_OPTS: STATUS_OPTS };
+})();
+  </script>

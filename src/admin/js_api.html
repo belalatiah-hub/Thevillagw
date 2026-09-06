@@ -1,0 +1,219 @@
+  <script>
+/* =====================================================================
+   Supabase, over fetch.
+
+   The official client is ~40 KB of JavaScript served from a CDN. This page
+   needs two endpoints — GoTrue for the token, PostgREST for the rows — so
+   it talks to them directly and stays a single self-contained file behind
+   a CSP that allows no third-party script at all.
+
+   Everything below assumes row-level security is doing the real work. The
+   token this file carries says who you are; the database decides what that
+   is worth.
+   ===================================================================== */
+(function () {
+  'use strict';
+  var CFG = window.CMS.CFG, t = window.CMS.t;
+
+  var SESSION_KEY = 'tvi_admin_session';
+  var session = null;      // { access_token, refresh_token, expires_at, user }
+  var refreshing = null;   // in-flight refresh, so ten 401s cause one refresh
+
+  function load() {
+    try {
+      var raw = localStorage.getItem(SESSION_KEY);
+      session = raw ? JSON.parse(raw) : null;
+    } catch (e) { session = null; }
+    return session;
+  }
+  function store(s) {
+    session = s;
+    try {
+      if (s) localStorage.setItem(SESSION_KEY, JSON.stringify(s));
+      else localStorage.removeItem(SESSION_KEY);
+    } catch (e) {}
+  }
+
+  /* A GoTrue response carries expires_in; turn it into a wall clock so a
+     tab left open overnight knows the token is stale before it tries. */
+  function adopt(json) {
+    if (!json || !json.access_token) return null;
+    store({
+      access_token: json.access_token,
+      refresh_token: json.refresh_token,
+      expires_at: Date.now() + (Number(json.expires_in || 3600) * 1000),
+      user: json.user || null
+    });
+    return session;
+  }
+
+  function authHeaders(extra) {
+    var hd = { apikey: CFG.key, 'Content-Type': 'application/json' };
+    if (session && session.access_token) hd.Authorization = 'Bearer ' + session.access_token;
+    for (var k in extra || {}) hd[k] = extra[k];
+    return hd;
+  }
+
+  function readErr(res, body) {
+    if (res.status === 401 || res.status === 400) {
+      if (body && /invalid|credential|grant/i.test(body.error_description || body.msg || body.message || ''))
+        return t('err_auth');
+    }
+    if (res.status === 403) return t('err_perm');
+    return (body && (body.message || body.error_description || body.msg || body.hint)) ||
+           ('HTTP ' + res.status);
+  }
+
+  function jsonOf(res) {
+    return res.text().then(function (txt) {
+      if (!txt) return null;
+      try { return JSON.parse(txt); } catch (e) { return { message: txt }; }
+    });
+  }
+
+  /* ------------------------------------------------------------- auth */
+  function authPost(path, body, headers) {
+    return fetch(CFG.url + '/auth/v1/' + path, {
+      method: 'POST', headers: authHeaders(headers), body: JSON.stringify(body)
+    }).then(function (res) {
+      return jsonOf(res).then(function (j) {
+        if (!res.ok) throw new Error(readErr(res, j));
+        return j;
+      });
+    }, function () { throw new Error(t('err_net')); });
+  }
+
+  function signIn(email, password) {
+    return authPost('token?grant_type=password', { email: email, password: password })
+      .then(function (j) { return adopt(j); });
+  }
+
+  function signUp(email, password) {
+    return authPost('signup', {
+      email: email, password: password,
+      // Confirmation and recovery links come back here, not to the public site.
+      options: { emailRedirectTo: location.origin + '/admin/' }
+    }).then(function (j) { return j.access_token ? adopt(j) : null; });
+  }
+
+  function resetPassword(email) {
+    return authPost('recover', { email: email, redirect_to: location.origin + '/admin/' });
+  }
+
+  function updatePassword(password) {
+    return fetch(CFG.url + '/auth/v1/user', {
+      method: 'PUT', headers: authHeaders(), body: JSON.stringify({ password: password })
+    }).then(function (res) {
+      return jsonOf(res).then(function (j) {
+        if (!res.ok) throw new Error(readErr(res, j));
+        return j;
+      });
+    });
+  }
+
+  function refresh() {
+    if (!session || !session.refresh_token) return Promise.reject(new Error('no session'));
+    if (refreshing) return refreshing;
+    refreshing = authPost('token?grant_type=refresh_token', { refresh_token: session.refresh_token })
+      .then(function (j) { refreshing = null; return adopt(j); },
+            function (e) { refreshing = null; store(null); throw e; });
+    return refreshing;
+  }
+
+  function signOut() {
+    var had = session;
+    store(null);
+    if (!had) return Promise.resolve();
+    return fetch(CFG.url + '/auth/v1/logout', {
+      method: 'POST',
+      headers: { apikey: CFG.key, Authorization: 'Bearer ' + had.access_token }
+    }).catch(function () {});
+  }
+
+  /* Supabase sends the recovery token in the URL fragment. Adopt it, then
+     wipe it from the address bar so a shared screenshot is not a session. */
+  function adoptUrlToken() {
+    var frag = location.hash.replace(/^#/, '');
+    if (!frag || frag.indexOf('access_token=') < 0) return null;
+    var p = {};
+    frag.split('&').forEach(function (kv) {
+      var i = kv.indexOf('='); if (i > 0) p[kv.slice(0, i)] = decodeURIComponent(kv.slice(i + 1));
+    });
+    if (!p.access_token) return null;
+    adopt({ access_token: p.access_token, refresh_token: p.refresh_token, expires_in: p.expires_in });
+    history.replaceState(null, '', location.pathname + location.search);
+    return p.type || 'session';
+  }
+
+  /* --------------------------------------------------------- PostgREST */
+  function rest(path, opts) {
+    opts = opts || {};
+    var url = CFG.url + '/rest/v1/' + path;
+    var headers = authHeaders(opts.headers);
+    // PostgREST serves one schema per request; the CMS is not in `public`.
+    if (opts.method && opts.method !== 'GET' && opts.method !== 'HEAD') headers['Content-Profile'] = CFG.schema;
+    else headers['Accept-Profile'] = CFG.schema;
+
+    function attempt(retry) {
+      return fetch(url, {
+        method: opts.method || 'GET',
+        headers: headers,
+        body: opts.body != null ? JSON.stringify(opts.body) : undefined
+      }).then(function (res) {
+        if (res.status === 401 && retry && session && session.refresh_token) {
+          return refresh().then(function () {
+            headers.Authorization = 'Bearer ' + session.access_token;
+            return attempt(false);
+          });
+        }
+        return jsonOf(res).then(function (j) {
+          if (!res.ok) throw new Error(readErr(res, j));
+          return { data: j, range: res.headers.get('content-range') };
+        });
+      }, function () { throw new Error(t('err_net')); });
+    }
+    return attempt(true);
+  }
+
+  /* A tiny query builder. Enough for lists, and no more. */
+  function qs(o) {
+    var out = [];
+    for (var k in o) {
+      if (o[k] == null || o[k] === '') continue;
+      out.push(encodeURIComponent(k) + '=' + encodeURIComponent(o[k]));
+    }
+    return out.length ? '?' + out.join('&') : '';
+  }
+
+  function select(table, params, range) {
+    var opts = {};
+    if (range) opts.headers = { Range: range[0] + '-' + range[1], Prefer: 'count=exact' };
+    return rest(table + qs(params), opts);
+  }
+
+  function insert(table, row) {
+    return rest(table, { method: 'POST', body: row, headers: { Prefer: 'return=representation' } })
+      .then(function (r) { return Array.isArray(r.data) ? r.data[0] : r.data; });
+  }
+
+  function update(table, match, patch) {
+    return rest(table + qs(match), { method: 'PATCH', body: patch, headers: { Prefer: 'return=representation' } })
+      .then(function (r) { return Array.isArray(r.data) ? r.data[0] : r.data; });
+  }
+
+  function remove(table, match) {
+    return rest(table + qs(match), { method: 'DELETE' });
+  }
+
+  function rpc(fn, args) {
+    return rest('rpc/' + fn, { method: 'POST', body: args || {} }).then(function (r) { return r.data; });
+  }
+
+  window.CMS.api = {
+    load: load, session: function () { return session; },
+    signIn: signIn, signUp: signUp, signOut: signOut, refresh: refresh,
+    resetPassword: resetPassword, updatePassword: updatePassword, adoptUrlToken: adoptUrlToken,
+    select: select, insert: insert, update: update, remove: remove, rpc: rpc, rest: rest, qs: qs
+  };
+})();
+  </script>

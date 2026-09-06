@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <!--
+    Same policy as the public site, plus one addition: connect-src has to reach
+    Supabase, because unlike the site this page does query the database at
+    runtime. Everything else is still 'self' — no third-party script, no CDN,
+    no analytics. build_admin.py replaces 'unsafe-inline' in script-src with
+    the sha256 of each inline block, so a script this build did not produce
+    does not run even if it reaches the document.
+  -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'unsafe-inline'; connect-src 'self' https://xvcrgoeavdwykqflhuiw.supabase.co; base-uri 'self'; form-action 'none'" />
+  <meta name="theme-color" content="#073D52" />
+  <meta name="color-scheme" content="light" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="robots" content="noindex, nofollow, noarchive" />
+  <title>Admin · The Village Investment</title>
+  <link rel="icon" href="/favicon.png" sizes="any" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+  <script>
+  /* Preload only the faces the first screen actually paints. */
+  (function () {
+    var ar = (localStorage.getItem('tvi_admin_lang') || 'en') === 'ar';
+    var faces = ar ? ['tajawal-400-arabic', 'tajawal-500-arabic']
+                   : ['fraunces-latin', 'plus-jakarta-sans-latin'];
+    for (var i = 0; i < faces.length; i++) {
+      var l = document.createElement('link');
+      l.rel = 'preload'; l.as = 'font'; l.type = 'font/woff2';
+      l.href = '/fonts/' + faces[i] + '.woff2'; l.crossOrigin = 'anonymous';
+      document.head.appendChild(l);
+    }
+  })();
+  </script>

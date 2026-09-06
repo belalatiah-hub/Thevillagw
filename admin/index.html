@@ -1,0 +1,1915 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <!--
+    Same policy as the public site, plus one addition: connect-src has to reach
+    Supabase, because unlike the site this page does query the database at
+    runtime. Everything else is still 'self' — no third-party script, no CDN,
+    no analytics. build_admin.py replaces 'unsafe-inline' in script-src with
+    the sha256 of each inline block, so a script this build did not produce
+    does not run even if it reaches the document.
+  -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'sha256-PK3LGwx5GHHO666ewBy1d0Jtxog107b6s3ML84vNnBc=' 'sha256-09uogaNuYRC4ehBAWkF7amfBQfsIyMLoUPbh4J2wO9c=' 'sha256-NVOZ2dvGHDPQsMjtwFocsBrtCX2EvdDBYcv43lAq7bE=' 'sha256-6SbD3M70TNzm7jXWhD9zq2kfpU1BH9v1Qf6PErl2KAg=' 'sha256-YceixxFrYmxtX63Ngz13sepQul/xcdjOFzjvAiE/4/w=' 'sha256-cBM8ggGKCjAmHetFzz2pYJgGerIaeW1nAPBD22yrN5U=' 'sha256-GoVXjYJA0ITjxI8Dh3mpjem97QyQCnF6XefLPC3sgOg=' 'sha256-osDzXrcl+rq8IT7A2qXIe5XxSraN0Te9Sssjo3gIV08=' 'sha256-39ZxWwq5wq5+e/VgGnABthg4nwMOGS+EqtCBj+7p50A=' 'sha256-/zZHDQ1tauDysx8O1GJrpb4EMQ7UszUi0oTMTa2C8m4='; connect-src 'self' https://xvcrgoeavdwykqflhuiw.supabase.co; base-uri 'self'; form-action 'none'" />
+  <meta name="theme-color" content="#073D52" />
+  <meta name="color-scheme" content="light" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="robots" content="noindex, nofollow, noarchive" />
+  <title>Admin · The Village Investment</title>
+  <link rel="icon" href="/favicon.png" sizes="any" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+  <script>(function () {
+var ar = (localStorage.getItem('tvi_admin_lang') || 'en') === 'ar';
+var faces = ar ? ['tajawal-400-arabic', 'tajawal-500-arabic']
+: ['fraunces-latin', 'plus-jakarta-sans-latin'];
+for (var i = 0; i < faces.length; i++) {
+var l = document.createElement('link');
+l.rel = 'preload'; l.as = 'font'; l.type = 'font/woff2';
+l.href = '/fonts/' + faces[i] + '.woff2'; l.crossOrigin = 'anonymous';
+document.head.appendChild(l);
+}
+})();</script>
+
+  <style>@font-face{font-family:'Fraunces';font-style:normal;font-weight:400 700;font-display:swap;src:url(/fonts/fraunces-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}@font-face{font-family:'Fraunces';font-style:normal;font-weight:400 700;font-display:swap;src:url(/fonts/fraunces-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-weight:400 700;font-display:swap;src:url(/fonts/plus-jakarta-sans-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}@font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-weight:400 700;font-display:swap;src:url(/fonts/plus-jakarta-sans-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'Tajawal';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/tajawal-400-arabic.woff2) format('woff2');unicode-range:U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0897-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC,U+102E0-102FB,U+10E60-10E7E,U+10EC2-10EC4,U+10EFC-10EFF,U+1EE00-1EE03,U+1EE05-1EE1F,U+1EE21-1EE22,U+1EE24,U+1EE27,U+1EE29-1EE32,U+1EE34-1EE37,U+1EE39,U+1EE3B,U+1EE42,U+1EE47,U+1EE49,U+1EE4B,U+1EE4D-1EE4F,U+1EE51-1EE52,U+1EE54,U+1EE57,U+1EE59,U+1EE5B,U+1EE5D,U+1EE5F,U+1EE61-1EE62,U+1EE64,U+1EE67-1EE6A,U+1EE6C-1EE72,U+1EE74-1EE77,U+1EE79-1EE7C,U+1EE7E,U+1EE80-1EE89,U+1EE8B-1EE9B,U+1EEA1-1EEA3,U+1EEA5-1EEA9,U+1EEAB-1EEBB,U+1EEF0-1EEF1}@font-face{font-family:'Tajawal';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/tajawal-400-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'Tajawal';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/tajawal-500-arabic.woff2) format('woff2');unicode-range:U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0897-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC,U+102E0-102FB,U+10E60-10E7E,U+10EC2-10EC4,U+10EFC-10EFF,U+1EE00-1EE03,U+1EE05-1EE1F,U+1EE21-1EE22,U+1EE24,U+1EE27,U+1EE29-1EE32,U+1EE34-1EE37,U+1EE39,U+1EE3B,U+1EE42,U+1EE47,U+1EE49,U+1EE4B,U+1EE4D-1EE4F,U+1EE51-1EE52,U+1EE54,U+1EE57,U+1EE59,U+1EE5B,U+1EE5D,U+1EE5F,U+1EE61-1EE62,U+1EE64,U+1EE67-1EE6A,U+1EE6C-1EE72,U+1EE74-1EE77,U+1EE79-1EE7C,U+1EE7E,U+1EE80-1EE89,U+1EE8B-1EE9B,U+1EEA1-1EEA3,U+1EEA5-1EEA9,U+1EEAB-1EEBB,U+1EEF0-1EEF1}@font-face{font-family:'Tajawal';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/tajawal-500-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'Tajawal';font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/tajawal-700-arabic.woff2) format('woff2');unicode-range:U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0897-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC,U+102E0-102FB,U+10E60-10E7E,U+10EC2-10EC4,U+10EFC-10EFF,U+1EE00-1EE03,U+1EE05-1EE1F,U+1EE21-1EE22,U+1EE24,U+1EE27,U+1EE29-1EE32,U+1EE34-1EE37,U+1EE39,U+1EE3B,U+1EE42,U+1EE47,U+1EE49,U+1EE4B,U+1EE4D-1EE4F,U+1EE51-1EE52,U+1EE54,U+1EE57,U+1EE59,U+1EE5B,U+1EE5D,U+1EE5F,U+1EE61-1EE62,U+1EE64,U+1EE67-1EE6A,U+1EE6C-1EE72,U+1EE74-1EE77,U+1EE79-1EE7C,U+1EE7E,U+1EE80-1EE89,U+1EE8B-1EE9B,U+1EEA1-1EEA3,U+1EEA5-1EEA9,U+1EEAB-1EEBB,U+1EEF0-1EEF1}@font-face{font-family:'Tajawal';font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/tajawal-700-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}:root{--teal-900:#052e3d;--teal-800:#073D52;--teal-700:#0b4a63;--teal-600:#115F7D;--teal-500:#1a7ba0;--teal-400:#3fa3c4;--teal-050:#e7f0f3;--ink:#0e1a1f;--ink-2:#3c525b;--ink-3:#526a71;--bone:#F3EFE6;--bone-2:#faf7f0;--paper:#ffffff;--line:#e5ddcf;--line-2:#efe9dd;--line-cool:#dfe6e8;--ok:#1f7a54;--ok-bg:#e6f3ec;--warn-ink:#8a5a12;--warn-bg:#f6edda;--danger:#b23a2e;--danger-bg:#fbecea;--focus:#0b4a63;--shadow-sm:0 1px 2px rgba(7,61,82,.06),0 1px 3px rgba(7,61,82,.05);--shadow-md:0 6px 18px -6px rgba(7,61,82,.18),0 2px 6px rgba(7,61,82,.06);--shadow-lg:0 24px 48px -18px rgba(7,61,82,.30);--r-sm:8px;--r:14px;--r-lg:20px;--r-pill:999px;--sans:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;--serif:"Fraunces",Georgia,"Iowan Old Style","Times New Roman",serif;--arab:"Tajawal","Segoe UI",Tahoma,Arial,system-ui,sans-serif;--mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;--t:180ms cubic-bezier(.2,.6,.2,1);--rail:248px;--topbar:60px}html[dir="rtl"]{--sans:var(--arab);--serif:var(--arab)}*,*::before,*::after{box-sizing:border-box}html{-webkit-text-size-adjust:100%}body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--bone-2);line-height:1.55;font-size:15.5px;-webkit-font-smoothing:antialiased;min-height:100vh}img{max-width:100%;display:block;height:auto}a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit;color:inherit}button{cursor:pointer}h1,h2,h3{font-family:var(--serif);font-weight:700;line-height:1.15;margin:0;letter-spacing:-.01em}html[dir="rtl"] h1,html[dir="rtl"] h2,html[dir="rtl"] h3{letter-spacing:0}p{margin:0}:focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:4px}[hidden]{display:none!important}.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}.gate{min-height:100vh;display:grid;place-items:center;padding:24px;background:radial-gradient(1200px 600px at 50% -10%,var(--teal-050),var(--bone-2))}.gate__card{width:100%;max-width:400px;background:var(--paper);border:1px solid var(--line-2);border-radius:var(--r-lg);padding:clamp(24px,5vw,36px);box-shadow:var(--shadow-lg)}.gate__mark{width:52px;height:52px;border-radius:14px;background:var(--teal-800);display:grid;place-items:center;margin-bottom:18px}.gate__mark svg{width:26px;height:26px;color:var(--bone)}.gate h1{font-size:1.5rem;margin-bottom:6px}.gate__sub{color:var(--ink-2);font-size:.92rem;margin-bottom:22px}.gate form{display:grid;gap:14px}.gate__alt{margin-top:18px;padding-top:16px;border-top:1px solid var(--line-2);display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.gate__alt button{background:none;border:0;color:var(--teal-700);font-weight:600;font-size:.86rem;padding:4px;text-decoration:underline;text-underline-offset:3px}.f{display:grid;gap:6px}.f>label{font-weight:600;font-size:.82rem;color:var(--ink-2)}.f__hint{font-size:.78rem;color:var(--ink-3)}.f__err{font-size:.78rem;color:var(--danger);font-weight:600}input[type=text],input[type=email],input[type=password],input[type=number],input[type=search],input[type=url],select,textarea{width:100%;padding:.62em .8em;border:1.5px solid var(--line-cool);border-radius:var(--r-sm);background:var(--paper);transition:var(--t);min-height:42px}textarea{min-height:96px;resize:vertical;line-height:1.5}input:focus,select:focus,textarea:focus{border-color:var(--teal-600);outline:0;box-shadow:0 0 0 3px rgba(17,95,125,.14)}input[aria-invalid="true"],textarea[aria-invalid="true"]{border-color:var(--danger)}input:disabled,select:disabled,textarea:disabled{background:var(--bone-2);color:var(--ink-3)}.f--ar input,.f--ar textarea{direction:rtl;text-align:right;font-family:var(--arab)}.row{display:grid;gap:14px}@media (min-width:720px){.row--2{grid-template-columns:1fr 1fr}.row--3{grid-template-columns:repeat(3,1fr)}}.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;padding:.6em 1.1em;border-radius:var(--r-pill);border:1.5px solid transparent;font-weight:600;font-size:.9rem;transition:var(--t);min-height:42px;white-space:nowrap;line-height:1}.btn svg{width:1.05em;height:1.05em;flex:none}.btn--primary{background:var(--teal-800);color:var(--bone)}.btn--primary:hover:not(:disabled){background:var(--teal-700);box-shadow:var(--shadow-md)}.btn--ghost{background:transparent;border-color:var(--line-cool)}.btn--ghost:hover:not(:disabled){border-color:var(--teal-600);color:var(--teal-700);background:var(--teal-050)}.btn--danger{background:var(--danger-bg);color:var(--danger);border-color:#f0cfca}.btn--danger:hover:not(:disabled){background:var(--danger);color:#fff}.btn--sm{padding:.42em .8em;min-height:34px;font-size:.82rem}.btn--full{width:100%}.btn:disabled{opacity:.55;cursor:not-allowed}.app{display:grid;grid-template-columns:var(--rail) 1fr;min-height:100vh}.rail{background:var(--teal-900);color:var(--bone);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto}.rail__brand{display:flex;align-items:center;gap:10px;padding:18px 18px 14px;border-bottom:1px solid rgba(243,239,230,.12)}.rail__brand img{width:34px;height:34px;border-radius:9px}.rail__brand b{font-family:var(--serif);font-size:.98rem;font-weight:700;line-height:1.2}.rail__brand span{display:block;font-family:var(--sans);font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--teal-400);margin-top:2px}html[dir="rtl"] .rail__brand span{letter-spacing:.04em}.rail nav{padding:12px 10px;display:grid;gap:2px;flex:1}.rail__group{font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(243,239,230,.42);padding:14px 10px 6px}html[dir="rtl"] .rail__group{letter-spacing:.04em}.rail a{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:var(--r-sm);font-size:.9rem;font-weight:500;color:rgba(243,239,230,.82);transition:var(--t)}.rail a svg{width:17px;height:17px;flex:none;opacity:.75}.rail a:hover{background:rgba(243,239,230,.08);color:var(--bone)}.rail a[aria-current="page"]{background:var(--teal-700);color:#fff;font-weight:600}.rail a[aria-current="page"] svg{opacity:1}.rail__foot{padding:12px;border-top:1px solid rgba(243,239,230,.12);font-size:.8rem}.rail__who{color:rgba(243,239,230,.7);margin-bottom:8px;word-break:break-all}.rail__who b{display:block;color:var(--bone);font-weight:600}.rail__acts{display:flex;gap:6px}.rail__acts button{flex:1;background:rgba(243,239,230,.1);border:0;color:var(--bone);padding:7px;border-radius:var(--r-sm);font-size:.78rem;font-weight:600;transition:var(--t)}.rail__acts button:hover{background:rgba(243,239,230,.2)}.main{min-width:0;display:flex;flex-direction:column}.topbar{height:var(--topbar);display:flex;align-items:center;gap:12px;padding:0 clamp(14px,3vw,26px);background:var(--paper);border-bottom:1px solid var(--line-2);position:sticky;top:0;z-index:20}.topbar h1{font-size:1.12rem;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.burger{display:none;background:none;border:0;padding:6px;border-radius:var(--r-sm)}.burger svg{width:22px;height:22px}.content{padding:clamp(16px,3vw,28px);flex:1;min-width:0}@media (max-width:900px){.app{grid-template-columns:1fr}.rail{position:fixed;inset-inline-start:0;top:0;width:min(84vw,var(--rail));z-index:60;transform:translateX(-100%);transition:transform var(--t)}html[dir="rtl"] .rail{transform:translateX(100%)}.rail[data-open="1"]{transform:none;box-shadow:var(--shadow-lg)}.burger{display:grid;place-items:center}.scrim{position:fixed;inset:0;background:rgba(5,46,61,.45);z-index:50}}.card{background:var(--paper);border:1px solid var(--line-2);border-radius:var(--r);box-shadow:var(--shadow-sm)}.card__head{padding:14px 16px;border-bottom:1px solid var(--line-2);display:flex;align-items:center;gap:10px;flex-wrap:wrap}.card__head h2{font-size:1rem;flex:1;min-width:0}.card__body{padding:16px}.stats{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));margin-bottom:20px}.stat{background:var(--paper);border:1px solid var(--line-2);border-radius:var(--r);padding:14px 16px}.stat b{display:block;font-family:var(--serif);font-size:1.75rem;font-weight:700;line-height:1.1}.stat span{font-size:.78rem;color:var(--ink-3);font-weight:600;letter-spacing:.04em;text-transform:uppercase}html[dir="rtl"] .stat span{letter-spacing:0;text-transform:none}.tablewrap{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:.88rem}th,td{padding:9px 12px;text-align:start;border-bottom:1px solid var(--line-2);vertical-align:middle}th{font-size:.74rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);background:var(--bone-2);position:sticky;top:0;white-space:nowrap}html[dir="rtl"] th{letter-spacing:0;text-transform:none;font-size:.8rem}tbody tr:hover{background:var(--teal-050)}td.num{font-variant-numeric:tabular-nums;white-space:nowrap}td.act{text-align:end;white-space:nowrap}.thumb{width:44px;height:32px;object-fit:cover;border-radius:5px;background:var(--bone);flex:none}.chip{display:inline-flex;align-items:center;gap:.35em;padding:.2em .6em;border-radius:var(--r-pill);font-size:.74rem;font-weight:700;letter-spacing:.02em;background:var(--bone);color:var(--ink-2)}.chip--ok{background:var(--ok-bg);color:var(--ok)}.chip--warn{background:var(--warn-bg);color:var(--warn-ink)}.chip--danger{background:var(--danger-bg);color:var(--danger)}.chip--teal{background:var(--teal-050);color:var(--teal-700)}.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}.toolbar input[type=search]{flex:1;min-width:180px;max-width:340px}.toolbar select{width:auto;min-width:130px}.spacer{flex:1}.empty{padding:44px 16px;text-align:center;color:var(--ink-3)}.empty svg{width:34px;height:34px;margin:0 auto 10px;opacity:.4}.pager{display:flex;gap:8px;align-items:center;justify-content:center;padding:14px}.pager span{font-size:.82rem;color:var(--ink-3);font-variant-numeric:tabular-nums}.drawer{position:fixed;inset:0;z-index:80;display:flex;justify-content:flex-end}html[dir="rtl"] .drawer{justify-content:flex-start}.drawer__scrim{position:absolute;inset:0;background:rgba(5,46,61,.42)}.drawer__panel{position:relative;background:var(--paper);width:min(560px,100%);height:100%;display:flex;flex-direction:column;box-shadow:var(--shadow-lg)}.drawer__head{padding:16px;border-bottom:1px solid var(--line-2);display:flex;align-items:center;gap:10px}.drawer__head h2{font-size:1.05rem;flex:1}.drawer__body{padding:16px;overflow-y:auto;flex:1;display:grid;gap:16px;align-content:start}.drawer__foot{padding:14px 16px;border-top:1px solid var(--line-2);display:flex;gap:10px;align-items:center;background:var(--bone-2)}.iconbtn{background:none;border:0;padding:7px;border-radius:var(--r-sm);display:grid;place-items:center}.iconbtn:hover{background:var(--bone)}.iconbtn svg{width:18px;height:18px}fieldset{border:1px solid var(--line-2);border-radius:var(--r-sm);padding:14px;margin:0;display:grid;gap:14px}legend{font-size:.76rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--teal-600);padding:0 6px}html[dir="rtl"] legend{letter-spacing:0;text-transform:none;font-size:.84rem}.toasts{position:fixed;inset-block-end:18px;inset-inline-end:18px;z-index:100;display:grid;gap:8px;max-width:min(400px,90vw)}.toast{background:var(--teal-900);color:var(--bone);padding:11px 15px;border-radius:var(--r-sm);box-shadow:var(--shadow-lg);font-size:.88rem;display:flex;gap:9px;align-items:flex-start}.toast svg{width:17px;height:17px;flex:none;margin-top:1px}.toast--ok{background:var(--ok)}.toast--err{background:var(--danger)}.diff{font-variant-numeric:tabular-nums}.diff del{color:var(--ink-3);text-decoration:line-through;margin-inline-end:.4em}.diff ins{color:var(--ok);text-decoration:none;font-weight:700}.drop{border:2px dashed var(--line-cool);border-radius:var(--r);padding:32px 18px;text-align:center;transition:var(--t);background:var(--bone-2)}.drop[data-over="1"]{border-color:var(--teal-600);background:var(--teal-050)}.drop svg{width:32px;height:32px;margin:0 auto 10px;opacity:.5}.note{padding:11px 14px;border-radius:var(--r-sm);font-size:.85rem;display:flex;gap:9px;align-items:flex-start}.note svg{width:17px;height:17px;flex:none;margin-top:1px}.note--warn{background:var(--warn-bg);color:var(--warn-ink)}.note--err{background:var(--danger-bg);color:var(--danger)}.note--ok{background:var(--ok-bg);color:var(--ok)}.note--info{background:var(--teal-050);color:var(--teal-700)}.skel{background:linear-gradient(90deg,var(--line-2),var(--bone-2),var(--line-2));background-size:200% 100%;animation:sk 1.2s linear infinite;border-radius:var(--r-sm);height:14px}@keyframes sk{to{background-position:-200% 0}}@media (prefers-reduced-motion:reduce){.skel{animation:none}}</style>
+
+</head>
+<body>
+  <a class="sr" href="#main">Skip to content</a>
+  <div id="root" role="application" aria-busy="true"></div>
+  <div class="toasts" id="toasts" role="status" aria-live="polite"></div>
+
+  <script>(function () {
+'use strict';
+var CFG = {
+url: 'https://xvcrgoeavdwykqflhuiw.supabase.co',
+key: 'sb_publishable_woDsgBCs_AfH9h6AXwpOCg_5dNPxxiM',
+schema: 'cms'
+};
+function safeUrl(u) {
+if (u == null) return false;
+var s = String(u).trim();
+if (!s) return false;
+if (/^(https?:|mailto:|tel:|\/|#|\.\/|\.\.\/)/i.test(s)) return true;
+return !/:/.test(s.split(/[?#]/)[0]);
+}
+function h(tag, props) {
+var e = document.createElement(tag), i, k;
+if (props) for (k in props) {
+if (!Object.prototype.hasOwnProperty.call(props, k)) continue;
+var v = props[k];
+if (k === 'class') { if (v) e.className = v; }
+else if (k === 'text') e.textContent = v == null ? '' : String(v);
+else if (k === 'html') {  }
+else if (k === 'dataset') { for (var d in v) e.dataset[d] = v[d]; }
+else if (k === 'value') e.value = v == null ? '' : String(v);
+else if (k.slice(0, 2) === 'on') { if (typeof v === 'function') e.addEventListener(k.slice(2), v); }
+else if ((k === 'href' || k === 'src') && !safeUrl(v)) {  }
+else if (v === true) e.setAttribute(k, '');
+else if (v !== false && v != null) e.setAttribute(k, v);
+}
+for (i = 2; i < arguments.length; i++) append(e, arguments[i]);
+return e;
+}
+function append(parent, child) {
+if (child == null || child === false || child === '') return;
+if (Array.isArray(child)) { child.forEach(function (c) { append(parent, c); }); return; }
+if (child.nodeType) { parent.appendChild(child); return; }
+parent.appendChild(document.createTextNode(String(child)));
+}
+function clear(el) { while (el.firstChild) el.removeChild(el.firstChild); return el; }
+function fill(el) {
+clear(el);
+for (var i = 1; i < arguments.length; i++) append(el, arguments[i]);
+return el;
+}
+var PATHS = {
+home:       ['M3 10.5 12 3l9 7.5', 'M5 9.5V21h14V9.5'],
+building:   ['M4 21V5a1 1 0 0 1 1-1h9a1 1 0 0 1 1 1v16', 'M15 9h4a1 1 0 0 1 1 1v11', 'M8 8h3M8 12h3M8 16h3', 'M2 21h20'],
+layers:     ['m12 2 9 5-9 5-9-5 9-5', 'm3 12 9 5 9-5', 'm3 17 9 5 9-5'],
+pin:        ['M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z', 'M12 12.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z'],
+grid:       ['M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z'],
+image:      ['M3 5h18v14H3z', 'm3 16 5-5 4 4 3-3 6 6', 'M9 9.5a1.2 1.2 0 1 0 0-2.4 1.2 1.2 0 0 0 0 2.4Z'],
+upload:     ['M12 16V4', 'm7 9 5-5 5 5', 'M4 17v2a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-2'],
+history:    ['M12 7v5l3 2', 'M3.5 12a8.5 8.5 0 1 0 2.6-6.1', 'M3 4v4h4'],
+users:      ['M16 20v-1.5a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4V20', 'M9.5 10.5a3.25 3.25 0 1 0 0-6.5 3.25 3.25 0 0 0 0 6.5', 'M21 20v-1.5a4 4 0 0 0-3-3.87', 'M15 4.13a4 4 0 0 1 0 7.75'],
+rocket:     ['M5 15c-1.5 1.5-2 5-2 5s3.5-.5 5-2c.85-.85.9-2.2.05-3.05A2.14 2.14 0 0 0 5 15Z', 'M9 12.5 4.5 11l2-3.5 3.7-.4', 'M11.5 15 13 19.5l3.5-2 .4-3.7', 'M18.5 9.5A8.5 8.5 0 0 0 15 3c-4 2-6.5 5-8 9l5 5c4-1.5 7-4 9-8Z'],
+logout:     ['M9 21H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h4', 'm16 16 4-4-4-4', 'M20 12H9'],
+close:      ['m6 6 12 12M18 6 6 18'],
+plus:       ['M12 5v14M5 12h14'],
+pencil:     ['M4 20h4L20 8l-4-4L4 16z', 'm14 6 4 4'],
+trash:      ['M4 7h16', 'M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2', 'M6 7v13a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7', 'M10 11v6M14 11v6'],
+search:     ['M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z', 'm21 21-4.3-4.3'],
+check:      ['m4.5 12.5 5 5 10-11'],
+alert:      ['M12 8v5', 'M12 17h.01', 'M12 3 2 20h20L12 3Z'],
+info:       ['M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z', 'M12 11v5', 'M12 7.5h.01'],
+menu:       ['M4 6h16M4 12h16M4 18h16'],
+chevronL:   ['m14 6-6 6 6 6'],
+chevronR:   ['m10 6 6 6-6 6'],
+file:       ['M14 3H7a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7z', 'M14 3v4h4'],
+eye:        ['M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12Z', 'M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z'],
+tag:        ['M3 11V4a1 1 0 0 1 1-1h7l9 9-8 8-9-9Z', 'M7.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1'],
+inbox:      ['M3 12h5l2 3h4l2-3h5', 'M5 5h14l2 7v7a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-7l2-7Z']
+};
+function ic(name, cls) {
+var s = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+s.setAttribute('viewBox', '0 0 24 24'); s.setAttribute('fill', 'none');
+s.setAttribute('stroke', 'currentColor'); s.setAttribute('stroke-width', '1.8');
+s.setAttribute('stroke-linecap', 'round'); s.setAttribute('stroke-linejoin', 'round');
+s.setAttribute('aria-hidden', 'true');
+if (cls) s.setAttribute('class', cls);
+(PATHS[name] || []).forEach(function (d) {
+var p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+p.setAttribute('d', d); s.appendChild(p);
+});
+return s;
+}
+var STR = {
+signin:        ['Sign in', 'تسجيل الدخول'],
+signin_sub:    ['Editorial access to The Village Investment.', 'الدخول التحريري إلى The Village Investment.'],
+email:         ['Email', 'البريد الإلكتروني'],
+password:      ['Password', 'كلمة المرور'],
+signing_in:    ['Signing in…', 'جارٍ الدخول…'],
+forgot:        ['Forgot password', 'نسيت كلمة المرور'],
+first_time:    ['First time here', 'أول مرة هنا'],
+create_account:['Create your account', 'أنشئ حسابك'],
+create_sub:    ['Only an address that has been invited can become an admin.', 'العنوان المدعو فقط هو الذي يصبح مشرفاً.'],
+back_signin:   ['Back to sign in', 'رجوع لتسجيل الدخول'],
+reset_sent:    ['If that address has an account, a reset link is on its way.', 'إن كان لهذا العنوان حساب، فرابط إعادة التعيين في الطريق.'],
+check_email:   ['Check your inbox to confirm the address, then sign in.', 'راجع بريدك لتأكيد العنوان ثم سجّل الدخول.'],
+no_access:     ['This account is signed in but has no dashboard access. Ask an owner to invite it.', 'هذا الحساب مسجّل دخوله لكن بلا صلاحية على اللوحة. اطلب من المالك دعوته.'],
+sign_out:      ['Sign out', 'خروج'],
+dashboard:     ['Dashboard', 'اللوحة'],
+content:       ['Content', 'المحتوى'],
+operations:    ['Operations', 'التشغيل'],
+developers:    ['Developers', 'المطوّرون'],
+locations:     ['Locations', 'المناطق'],
+projects:      ['Projects', 'المشاريع'],
+units:         ['Units', 'الوحدات'],
+media:         ['Media', 'الصور'],
+price_import:  ['Price import', 'تحديث الأسعار'],
+audit:         ['Activity', 'السجل'],
+admins:        ['Team', 'الفريق'],
+publish:       ['Publish', 'النشر'],
+search:        ['Search', 'بحث'],
+all:           ['All', 'الكل'],
+new:           ['New', 'جديد'],
+edit:          ['Edit', 'تعديل'],
+save:          ['Save', 'حفظ'],
+saving:        ['Saving…', 'جارٍ الحفظ…'],
+cancel:        ['Cancel', 'إلغاء'],
+del:           ['Delete', 'حذف'],
+confirm_del:   ['Delete this? It is removed from the site on the next publish.', 'حذف هذا؟ سيختفي من الموقع عند النشر التالي.'],
+saved:         ['Saved', 'تم الحفظ'],
+deleted:       ['Deleted', 'تم الحذف'],
+loading:       ['Loading…', 'جارٍ التحميل…'],
+nothing:       ['Nothing here yet', 'لا يوجد شيء بعد'],
+required:      ['Required', 'مطلوب'],
+of:            ['of', 'من'],
+rows:          ['rows', 'صف'],
+prev:          ['Previous', 'السابق'],
+next:          ['Next', 'التالي'],
+name_en:       ['Name (English)', 'الاسم (إنجليزي)'],
+name_ar:       ['Name (Arabic)', 'الاسم (عربي)'],
+slug:          ['Slug', 'المعرّف'],
+slug_hint:     ['The URL segment. Changing it changes a live address.', 'جزء الرابط. تغييره يغيّر عنواناً منشوراً.'],
+tagline_en:    ['Tagline (English)', 'الشعار (إنجليزي)'],
+tagline_ar:    ['Tagline (Arabic)', 'الشعار (عربي)'],
+desc_en:       ['Description (English)', 'الوصف (إنجليزي)'],
+desc_ar:       ['Description (Arabic)', 'الوصف (عربي)'],
+areas_en:      ['Areas line (English)', 'سطر المناطق (إنجليزي)'],
+areas_ar:      ['Areas line (Arabic)', 'سطر المناطق (عربي)'],
+founded:       ['Founded', 'سنة التأسيس'],
+colour:        ['Brand colour', 'لون العلامة'],
+developer:     ['Developer', 'المطوّر'],
+location:      ['Location', 'المنطقة'],
+stage:         ['Stage', 'المرحلة'],
+status:        ['Status', 'الحالة'],
+price_from:    ['Price from (EGP)', 'السعر من (ج.م)'],
+down_payment:  ['Down payment %', 'المقدم %'],
+years:         ['Years', 'سنوات'],
+delivery:      ['Delivery', 'التسليم'],
+finishing_en:  ['Finishing (English)', 'التشطيب (إنجليزي)'],
+finishing_ar:  ['Finishing (Arabic)', 'التشطيب (عربي)'],
+types_en:      ['Unit types (English)', 'أنواع الوحدات (إنجليزي)'],
+types_ar:      ['Unit types (Arabic)', 'أنواع الوحدات (عربي)'],
+tags_en:       ['Tags (English)', 'الوسوم (إنجليزي)'],
+tags_ar:       ['Tags (Arabic)', 'الوسوم (عربي)'],
+tags_hint:     ['Comma separated.', 'مفصولة بفواصل.'],
+unit_code:     ['Unit code', 'كود الوحدة'],
+unit_type:     ['Unit type', 'نوع الوحدة'],
+label_en:      ['Label (English)', 'المسمّى (إنجليزي)'],
+label_ar:      ['Label (Arabic)', 'المسمّى (عربي)'],
+project:       ['Project', 'المشروع'],
+beds:          ['Bedrooms', 'غرف النوم'],
+baths:         ['Bathrooms', 'الحمّامات'],
+bua:           ['Built-up area (m²)', 'المساحة (م²)'],
+bua_to:        ['…up to (m²)', '…حتى (م²)'],
+price:         ['Price (EGP)', 'السعر (ج.م)'],
+floor:         ['Floor', 'الدور'],
+availability:  ['Availability', 'التوفّر'],
+parent:        ['Parent', 'التابع لـ'],
+level:         ['Level', 'المستوى'],
+blurb_en:      ['Blurb (English)', 'نبذة (إنجليزي)'],
+blurb_ar:      ['Blurb (Arabic)', 'نبذة (عربي)'],
+role:          ['Role', 'الدور'],
+invite:        ['Invite', 'دعوة'],
+invited:       ['Invited', 'مدعو'],
+active:        ['Active', 'نشط'],
+published:     ['Published', 'منشور'],
+draft:         ['Draft', 'مسودة'],
+archived:      ['Archived', 'مؤرشف'],
+total_projects:['Projects', 'مشاريع'],
+total_units:   ['Units', 'وحدات'],
+total_devs:    ['Developers', 'مطوّرون'],
+total_media:   ['Images', 'صور'],
+drafts:        ['Drafts', 'مسودات'],
+no_price:      ['Awaiting price', 'بانتظار السعر'],
+imp_title:     ['Update prices from a spreadsheet', 'تحديث الأسعار من ملف'],
+imp_lead:      ['A spreadsheet can only change the price, the down payment, the term and the delivery date of units that already exist. It never creates one — the database refuses that, whatever the file says.', 'الملف يغيّر السعر والمقدم والمدة وتاريخ التسليم للوحدات الموجودة فقط. ولا ينشئ وحدة أبداً — الداتابيز ترفض ذلك مهما كان محتوى الملف.'],
+imp_drop:      ['Drop a .csv or .xlsx here, or choose a file', 'أفلت ملف .csv أو .xlsx هنا، أو اختر ملفاً'],
+imp_cols:      ['Needs a unit code column, plus any of: price, down payment, years, delivery.', 'يحتاج عمود كود الوحدة، مع أي من: السعر، المقدم، السنوات، التسليم.'],
+imp_preview:   ['Preview', 'معاينة'],
+imp_apply:     ['Apply these changes', 'طبّق هذه التغييرات'],
+imp_applied:   ['Applied', 'تم التطبيق'],
+imp_nochange:  ['No change', 'بدون تغيير'],
+imp_unknown:   ['Unknown unit code', 'كود وحدة غير معروف'],
+imp_invalid:   ['Value not a number', 'قيمة غير رقمية'],
+imp_will:      ['will change', 'ستتغيّر'],
+imp_skip:      ['skipped', 'متجاهَلة'],
+imp_confirm:   ['Nothing is written until you confirm.', 'لا شيء يُكتب قبل أن تؤكّد.'],
+pub_title:     ['Publish to the live site', 'النشر إلى الموقع'],
+pub_lead:      ['Publishing rebuilds the static site from what is in this database and deploys it. The site is not read from Postgres at runtime, so nothing changes for visitors until this runs.', 'النشر يعيد بناء الموقع الثابت من محتوى هذه الداتابيز وينشره. الموقع لا يقرأ من Postgres أثناء التشغيل، فلا شيء يتغيّر للزوار قبل تشغيل هذا.'],
+pub_pending:   ['changes since the last publish', 'تغيير منذ آخر نشر'],
+err_net:       ['Could not reach the server.', 'تعذّر الوصول إلى الخادم.'],
+err_auth:      ['Wrong email or password.', 'البريد أو كلمة المرور غير صحيحة.'],
+err_perm:      ['Your role does not allow that.', 'دورك لا يسمح بذلك.'],
+viewer_ro:     ['You have read-only access.', 'صلاحيتك للقراءة فقط.']
+};
+var lang = localStorage.getItem('tvi_admin_lang') === 'ar' ? 'ar' : 'en';
+function t(k) { var v = STR[k]; return v ? v[lang === 'ar' ? 1 : 0] : k; }
+function setLang(l) {
+lang = l === 'ar' ? 'ar' : 'en';
+try { localStorage.setItem('tvi_admin_lang', lang); } catch (e) {}
+document.documentElement.lang = lang;
+document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+document.documentElement.setAttribute('data-lang', lang);
+}
+function isAr() { return lang === 'ar'; }
+var AR_DIGITS = '٠١٢٣٤٥٦٧٨٩';
+function num(v) {
+if (v == null || v === '') return '—';
+var s = String(Math.round(Number(v) * 100) / 100).replace(/\B(?=(\d{3})+(?!\d))/, '');
+s = Number(v).toLocaleString(lang === 'ar' ? 'ar-EG' : 'en-US');
+return s;
+}
+function money(v) {
+if (v == null || v === '') return '—';
+var n = Number(v);
+return lang === 'ar' ? num(n) + ' ج.م' : 'EGP ' + num(n);
+}
+function dateFmt(iso) {
+if (!iso) return '—';
+var d = new Date(iso);
+if (isNaN(d)) return '—';
+return d.toLocaleString(lang === 'ar' ? 'ar-EG' : 'en-GB',
+{ year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+}
+function slugify(s) {
+return String(s || '').toLowerCase().trim()
+.replace(/['’]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+}
+function toast(msg, kind) {
+var host = document.getElementById('toasts');
+if (!host) return;
+var el = h('div', { class: 'toast' + (kind ? ' toast--' + kind : '') },
+ic(kind === 'err' ? 'alert' : kind === 'ok' ? 'check' : 'info'),
+h('span', { text: msg }));
+host.appendChild(el);
+setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 4200);
+}
+window.CMS = {
+CFG: CFG, h: h, ic: ic, fill: fill, clear: clear, append: append, safeUrl: safeUrl,
+t: t, setLang: setLang, isAr: isAr, STR: STR, lang: function () { return lang; },
+num: num, money: money, dateFmt: dateFmt, slugify: slugify, toast: toast
+};
+})();</script>
+
+  <script>(function () {
+'use strict';
+var CFG = window.CMS.CFG, t = window.CMS.t;
+var SESSION_KEY = 'tvi_admin_session';
+var session = null;
+var refreshing = null;
+function load() {
+try {
+var raw = localStorage.getItem(SESSION_KEY);
+session = raw ? JSON.parse(raw) : null;
+} catch (e) { session = null; }
+return session;
+}
+function store(s) {
+session = s;
+try {
+if (s) localStorage.setItem(SESSION_KEY, JSON.stringify(s));
+else localStorage.removeItem(SESSION_KEY);
+} catch (e) {}
+}
+function adopt(json) {
+if (!json || !json.access_token) return null;
+store({
+access_token: json.access_token,
+refresh_token: json.refresh_token,
+expires_at: Date.now() + (Number(json.expires_in || 3600) * 1000),
+user: json.user || null
+});
+return session;
+}
+function authHeaders(extra) {
+var hd = { apikey: CFG.key, 'Content-Type': 'application/json' };
+if (session && session.access_token) hd.Authorization = 'Bearer ' + session.access_token;
+for (var k in extra || {}) hd[k] = extra[k];
+return hd;
+}
+function readErr(res, body) {
+if (res.status === 401 || res.status === 400) {
+if (body && /invalid|credential|grant/i.test(body.error_description || body.msg || body.message || ''))
+return t('err_auth');
+}
+if (res.status === 403) return t('err_perm');
+return (body && (body.message || body.error_description || body.msg || body.hint)) ||
+('HTTP ' + res.status);
+}
+function jsonOf(res) {
+return res.text().then(function (txt) {
+if (!txt) return null;
+try { return JSON.parse(txt); } catch (e) { return { message: txt }; }
+});
+}
+function authPost(path, body, headers) {
+return fetch(CFG.url + '/auth/v1/' + path, {
+method: 'POST', headers: authHeaders(headers), body: JSON.stringify(body)
+}).then(function (res) {
+return jsonOf(res).then(function (j) {
+if (!res.ok) throw new Error(readErr(res, j));
+return j;
+});
+}, function () { throw new Error(t('err_net')); });
+}
+function signIn(email, password) {
+return authPost('token?grant_type=password', { email: email, password: password })
+.then(function (j) { return adopt(j); });
+}
+function signUp(email, password) {
+return authPost('signup', {
+email: email, password: password,
+options: { emailRedirectTo: location.origin + '/admin/' }
+}).then(function (j) { return j.access_token ? adopt(j) : null; });
+}
+function resetPassword(email) {
+return authPost('recover', { email: email, redirect_to: location.origin + '/admin/' });
+}
+function updatePassword(password) {
+return fetch(CFG.url + '/auth/v1/user', {
+method: 'PUT', headers: authHeaders(), body: JSON.stringify({ password: password })
+}).then(function (res) {
+return jsonOf(res).then(function (j) {
+if (!res.ok) throw new Error(readErr(res, j));
+return j;
+});
+});
+}
+function refresh() {
+if (!session || !session.refresh_token) return Promise.reject(new Error('no session'));
+if (refreshing) return refreshing;
+refreshing = authPost('token?grant_type=refresh_token', { refresh_token: session.refresh_token })
+.then(function (j) { refreshing = null; return adopt(j); },
+function (e) { refreshing = null; store(null); throw e; });
+return refreshing;
+}
+function signOut() {
+var had = session;
+store(null);
+if (!had) return Promise.resolve();
+return fetch(CFG.url + '/auth/v1/logout', {
+method: 'POST',
+headers: { apikey: CFG.key, Authorization: 'Bearer ' + had.access_token }
+}).catch(function () {});
+}
+function adoptUrlToken() {
+var frag = location.hash.replace(/^#/, '');
+if (!frag || frag.indexOf('access_token=') < 0) return null;
+var p = {};
+frag.split('&').forEach(function (kv) {
+var i = kv.indexOf('='); if (i > 0) p[kv.slice(0, i)] = decodeURIComponent(kv.slice(i + 1));
+});
+if (!p.access_token) return null;
+adopt({ access_token: p.access_token, refresh_token: p.refresh_token, expires_in: p.expires_in });
+history.replaceState(null, '', location.pathname + location.search);
+return p.type || 'session';
+}
+function rest(path, opts) {
+opts = opts || {};
+var url = CFG.url + '/rest/v1/' + path;
+var headers = authHeaders(opts.headers);
+if (opts.method && opts.method !== 'GET' && opts.method !== 'HEAD') headers['Content-Profile'] = CFG.schema;
+else headers['Accept-Profile'] = CFG.schema;
+function attempt(retry) {
+return fetch(url, {
+method: opts.method || 'GET',
+headers: headers,
+body: opts.body != null ? JSON.stringify(opts.body) : undefined
+}).then(function (res) {
+if (res.status === 401 && retry && session && session.refresh_token) {
+return refresh().then(function () {
+headers.Authorization = 'Bearer ' + session.access_token;
+return attempt(false);
+});
+}
+return jsonOf(res).then(function (j) {
+if (!res.ok) throw new Error(readErr(res, j));
+return { data: j, range: res.headers.get('content-range') };
+});
+}, function () { throw new Error(t('err_net')); });
+}
+return attempt(true);
+}
+function qs(o) {
+var out = [];
+for (var k in o) {
+if (o[k] == null || o[k] === '') continue;
+out.push(encodeURIComponent(k) + '=' + encodeURIComponent(o[k]));
+}
+return out.length ? '?' + out.join('&') : '';
+}
+function select(table, params, range) {
+var opts = {};
+if (range) opts.headers = { Range: range[0] + '-' + range[1], Prefer: 'count=exact' };
+return rest(table + qs(params), opts);
+}
+function insert(table, row) {
+return rest(table, { method: 'POST', body: row, headers: { Prefer: 'return=representation' } })
+.then(function (r) { return Array.isArray(r.data) ? r.data[0] : r.data; });
+}
+function update(table, match, patch) {
+return rest(table + qs(match), { method: 'PATCH', body: patch, headers: { Prefer: 'return=representation' } })
+.then(function (r) { return Array.isArray(r.data) ? r.data[0] : r.data; });
+}
+function remove(table, match) {
+return rest(table + qs(match), { method: 'DELETE' });
+}
+function rpc(fn, args) {
+return rest('rpc/' + fn, { method: 'POST', body: args || {} }).then(function (r) { return r.data; });
+}
+window.CMS.api = {
+load: load, session: function () { return session; },
+signIn: signIn, signUp: signUp, signOut: signOut, refresh: refresh,
+resetPassword: resetPassword, updatePassword: updatePassword, adoptUrlToken: adoptUrlToken,
+select: select, insert: insert, update: update, remove: remove, rpc: rpc, rest: rest, qs: qs
+};
+})();</script>
+
+  <script>(function () {
+'use strict';
+var C = window.CMS, h = C.h, ic = C.ic, t = C.t, fill = C.fill, api = C.api;
+var ME = null;
+var ROUTES = {};
+var ORDER = [];
+var current = null;
+function me() { return ME; }
+function canWrite() { return !!ME && (ME.role === 'owner' || ME.role === 'editor'); }
+function isOwner() { return !!ME && ME.role === 'owner'; }
+function route(name, spec) { ROUTES[name] = spec; ORDER.push(name); }
+function field(id, label, type, opts) {
+opts = opts || {};
+var input = h('input', {
+id: id, type: type || 'text', name: id, autocomplete: opts.autocomplete || 'off',
+required: opts.required !== false, placeholder: opts.placeholder || ''
+});
+return { wrap: h('div', { class: 'f' }, h('label', { for: id, text: label }), input), input: input };
+}
+function renderGate(mode, prefill) {
+var root = document.getElementById('root');
+var email = field('email', t('email'), 'email', { autocomplete: 'username' });
+var pass = field('password', t('password'), 'password',
+{ autocomplete: mode === 'signup' ? 'new-password' : 'current-password' });
+if (prefill) email.input.value = prefill;
+var msg = h('div', { class: 'f__err', role: 'alert' });
+var btn = h('button', { class: 'btn btn--primary btn--full', type: 'submit' },
+mode === 'signup' ? t('create_account') : t('signin'));
+var form = h('form', {
+novalidate: true,
+onsubmit: function (ev) {
+ev.preventDefault();
+fill(msg);
+btn.disabled = true;
+btn.textContent = t('signing_in');
+var work = mode === 'signup'
+? api.signUp(email.input.value.trim(), pass.input.value)
+: api.signIn(email.input.value.trim(), pass.input.value);
+work.then(function (s) {
+if (!s) {
+btn.disabled = false;
+btn.textContent = mode === 'signup' ? t('create_account') : t('signin');
+fill(msg, h('span', { class: 'note note--ok', text: t('check_email') }));
+return;
+}
+return boot();
+}).catch(function (e) {
+btn.disabled = false;
+btn.textContent = mode === 'signup' ? t('create_account') : t('signin');
+fill(msg, e.message || t('err_net'));
+pass.input.focus();
+});
+}
+}, email.wrap, pass.wrap, msg, btn);
+var alt = h('div', { class: 'gate__alt' },
+mode === 'signup'
+? h('button', { type: 'button', onclick: function () { renderGate('signin', email.input.value); } }, t('back_signin'))
+: h('button', {
+type: 'button',
+onclick: function () {
+var addr = email.input.value.trim();
+if (!addr) { email.input.focus(); return; }
+api.resetPassword(addr)
+.then(function () { fill(msg, h('span', { class: 'note note--ok', text: t('reset_sent') })); })
+.catch(function (e) { fill(msg, e.message); });
+}
+}, t('forgot')),
+mode === 'signup' ? null
+: h('button', { type: 'button', onclick: function () { renderGate('signup', email.input.value); } },
+t('first_time')));
+fill(root, h('div', { class: 'gate' },
+h('div', { class: 'gate__card' },
+h('div', { class: 'gate__mark' }, ic('building')),
+h('h1', { text: mode === 'signup' ? t('create_account') : t('signin') }),
+h('p', { class: 'gate__sub', text: mode === 'signup' ? t('create_sub') : t('signin_sub') }),
+form,
+alt,
+h('div', { class: 'gate__alt' },
+h('button', {
+type: 'button',
+onclick: function () { C.setLang(C.isAr() ? 'en' : 'ar'); renderGate(mode, email.input.value); }
+}, C.isAr() ? 'English' : 'العربية')))));
+root.setAttribute('aria-busy', 'false');
+email.input.focus();
+}
+function railLink(name) {
+var spec = ROUTES[name];
+var a = h('a', {
+href: '#/' + name,
+onclick: function (ev) { ev.preventDefault(); go(name); }
+}, ic(spec.icon), h('span', { text: t(spec.label || name) }));
+if (current === name) a.setAttribute('aria-current', 'page');
+return a;
+}
+function renderFrame() {
+var root = document.getElementById('root');
+var groups = {}, order = [];
+ORDER.forEach(function (n) {
+var s = ROUTES[n];
+if (s.needs === 'owner' && !isOwner()) return;
+if (!groups[s.group]) { groups[s.group] = []; order.push(s.group); }
+groups[s.group].push(n);
+});
+var nav = h('nav', { 'aria-label': t('dashboard') });
+order.forEach(function (g) {
+if (g) nav.appendChild(h('div', { class: 'rail__group', text: t(g) }));
+groups[g].forEach(function (n) { nav.appendChild(railLink(n)); });
+});
+var rail = h('aside', { class: 'rail', id: 'rail' },
+h('div', { class: 'rail__brand' },
+h('img', { src: '/apple-touch-icon.png', alt: '', width: 34, height: 34 }),
+h('div', null,
+h('b', { text: 'The Village' }),
+h('span', { text: t('dashboard') }))),
+nav,
+h('div', { class: 'rail__foot' },
+h('div', { class: 'rail__who' },
+h('b', { text: (ME && (ME.full_name || ME.email)) || '' }),
+h('span', { text: ME ? t(ME.role === 'owner' ? 'admins' : 'role') + ' · ' + ME.role : '' })),
+h('div', { class: 'rail__acts' },
+h('button', {
+type: 'button',
+onclick: function () { C.setLang(C.isAr() ? 'en' : 'ar'); render(); }
+}, C.isAr() ? 'EN' : 'ع'),
+h('button', {
+type: 'button',
+onclick: function () { api.signOut().then(boot); }
+}, t('sign_out')))));
+var title = h('h1', { text: t((ROUTES[current] && ROUTES[current].label) || current) });
+var body = h('div', { class: 'content', id: 'main', tabindex: '-1' });
+var main = h('div', { class: 'main' },
+h('header', { class: 'topbar' },
+h('button', {
+class: 'burger', type: 'button', 'aria-label': t('dashboard'),
+onclick: function () {
+var open = rail.dataset.open === '1';
+rail.dataset.open = open ? '0' : '1';
+if (!open) {
+var scrim = h('div', { class: 'scrim', onclick: function () { rail.dataset.open = '0'; scrim.remove(); } });
+root.appendChild(scrim);
+}
+}
+}, ic('menu')),
+title),
+body);
+fill(root, h('div', { class: 'app' }, rail, main));
+root.setAttribute('aria-busy', 'false');
+return body;
+}
+function render() {
+if (!ME) { renderGate('signin'); return; }
+var body = renderFrame();
+var spec = ROUTES[current];
+if (!spec) { current = ORDER[0]; spec = ROUTES[current]; }
+fill(body, h('div', { class: 'skel', style: 'width:180px' }));
+Promise.resolve()
+.then(function () { return spec.render(body); })
+.catch(function (e) {
+fill(body, h('div', { class: 'note note--err' }, ic('alert'), h('span', { text: e.message || String(e) })));
+});
+}
+function go(name, replace) {
+if (!ROUTES[name]) name = ORDER[0];
+current = name;
+var hash = '#/' + name;
+if (location.hash !== hash) {
+if (replace) history.replaceState(null, '', hash); else location.hash = hash;
+}
+render();
+}
+function fromHash() {
+var m = /^#\/([a-z-]+)/.exec(location.hash || '');
+return m && ROUTES[m[1]] ? m[1] : ORDER[0];
+}
+window.addEventListener('hashchange', function () {
+var n = fromHash();
+if (n !== current) { current = n; render(); }
+});
+function boot() {
+var root = document.getElementById('root');
+root.setAttribute('aria-busy', 'true');
+fill(root, h('div', { class: 'gate' }, h('div', { class: 'gate__card' },
+h('p', { class: 'gate__sub', text: t('loading') }))));
+api.load();
+var kind = api.adoptUrlToken();
+if (!api.session()) { ME = null; renderGate('signin'); return Promise.resolve(); }
+return api.select('admins', { select: '*', id: 'eq.' + jwtSub(), limit: 1 })
+.then(function (r) {
+var rows = r.data || [];
+ME = rows.length ? rows[0] : null;
+if (!ME || ME.is_active === false) {
+fill(root, h('div', { class: 'gate' }, h('div', { class: 'gate__card' },
+h('div', { class: 'gate__mark' }, ic('alert')),
+h('h1', { text: t('signin') }),
+h('p', { class: 'gate__sub', text: t('no_access') }),
+h('button', {
+class: 'btn btn--ghost btn--full', type: 'button',
+onclick: function () { api.signOut().then(boot); }
+}, t('sign_out')))));
+root.setAttribute('aria-busy', 'false');
+return;
+}
+current = fromHash();
+if (kind === 'recovery') { current = 'account'; }
+render();
+api.update('admins', { id: 'eq.' + ME.id }, { last_seen_at: new Date().toISOString() })
+.catch(function () {});
+})
+.catch(function (e) {
+ME = null;
+renderGate('signin');
+C.toast(e.message || t('err_net'), 'err');
+});
+}
+function jwtSub() {
+var s = api.session();
+if (!s || !s.access_token) return '';
+try {
+var p = s.access_token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
+return JSON.parse(decodeURIComponent(escape(atob(p)))).sub || '';
+} catch (e) { return ''; }
+}
+window.CMS.shell = {
+route: route, go: go, render: render, boot: boot,
+me: me, canWrite: canWrite, isOwner: isOwner, jwtSub: jwtSub,
+routes: ROUTES, order: ORDER, current: function () { return current; }
+};
+})();</script>
+
+  <script>(function () {
+'use strict';
+var C = window.CMS, h = C.h, ic = C.ic, t = C.t, fill = C.fill, api = C.api;
+var shell = C.shell;
+var PAGE = 50;
+function label(f) { return typeof f.label === 'function' ? f.label() : t(f.label); }
+function control(f, value, form) {
+var id = 'f_' + f.name, el;
+if (f.type === 'textarea') {
+el = h('textarea', { id: id, name: f.name, rows: f.rows || 4 });
+el.value = value == null ? '' : String(value);
+} else if (f.type === 'select') {
+el = h('select', { id: id, name: f.name });
+(typeof f.options === 'function' ? f.options() : f.options || []).forEach(function (o) {
+var opt = h('option', { value: o.value }, o.text);
+if (String(o.value) === String(value == null ? '' : value)) opt.selected = true;
+el.appendChild(opt);
+});
+if (value == null && f.blank !== false) {
+var b = h('option', { value: '' }, '—');
+el.insertBefore(b, el.firstChild); b.selected = true;
+}
+} else {
+el = h('input', {
+id: id, name: f.name, type: f.type || 'text',
+step: f.step || (f.type === 'number' ? 'any' : null),
+min: f.min == null ? null : f.min, max: f.max == null ? null : f.max,
+inputmode: f.type === 'number' ? 'decimal' : null
+});
+el.value = value == null ? '' : String(value);
+}
+if (f.readonly) el.setAttribute('readonly', '');
+if (!shell.canWrite()) el.setAttribute('disabled', '');
+if (f.oninput) el.addEventListener('input', function () { f.oninput(el, form); });
+return el;
+}
+function fieldRow(f, row, form) {
+var el = control(f, f.get ? f.get(row) : row[f.name], form);
+var err = h('div', { class: 'f__err', hidden: true });
+var wrap = h('div', { class: 'f' + (f.ar ? ' f--ar' : '') },
+h('label', { for: 'f_' + f.name, text: label(f) }),
+el,
+f.hint ? h('div', { class: 'f__hint', text: t(f.hint) }) : null,
+err);
+form.controls[f.name] = { el: el, err: err, spec: f };
+return wrap;
+}
+function readForm(form) {
+var out = {};
+for (var k in form.controls) {
+var c = form.controls[k], f = c.spec, v = c.el.value;
+if (f.readonly) continue;
+if (typeof v === 'string') v = v.trim();
+if (v === '') v = null;
+if (v != null && f.type === 'number') { v = Number(v); if (isNaN(v)) v = null; }
+if (f.set) f.set(out, v); else out[k] = v;
+}
+return out;
+}
+function validate(form, fields) {
+var ok = true, first = null;
+fields.forEach(function (f) {
+var c = form.controls[f.name];
+if (!c) return;
+c.err.hidden = true; c.el.removeAttribute('aria-invalid');
+var v = c.el.value == null ? '' : String(c.el.value).trim();
+var msg = null;
+if (f.required && !v) msg = t('required');
+else if (v && f.check) msg = f.check(v);
+if (msg) {
+ok = false;
+c.err.textContent = msg; c.err.hidden = false;
+c.el.setAttribute('aria-invalid', 'true');
+if (!first) first = c.el;
+}
+});
+if (first) first.focus();
+return ok;
+}
+function openDrawer(cfg, row, onDone) {
+var isNew = !row || !row[cfg.pk];
+row = row || (cfg.blank ? cfg.blank() : {});
+var form = { controls: {} };
+var body = h('div', { class: 'drawer__body' });
+(cfg.groups || [{ fields: cfg.fields }]).forEach(function (g) {
+var box = g.legend
+? h('fieldset', null, h('legend', { text: t(g.legend) }))
+: h('div', { class: 'row' });
+var rows = {};
+g.fields.forEach(function (f) {
+var node = fieldRow(f, row, form);
+if (f.half) {
+var key = f.pairWith || f.name;
+if (!rows[key]) { rows[key] = h('div', { class: 'row row--2' }); box.appendChild(rows[key]); }
+rows[key].appendChild(node);
+} else box.appendChild(node);
+});
+body.appendChild(box);
+});
+var err = h('div', { class: 'note note--err', hidden: true });
+body.appendChild(err);
+var saveBtn = h('button', { class: 'btn btn--primary', type: 'button' }, t('save'));
+var panel;
+function close() { if (panel && panel.parentNode) panel.parentNode.remove(); }
+saveBtn.addEventListener('click', function () {
+var flat = [];
+(cfg.groups || [{ fields: cfg.fields }]).forEach(function (g) { flat = flat.concat(g.fields); });
+if (!validate(form, flat)) return;
+var patch = readForm(form);
+if (cfg.beforeSave) {
+var problem = cfg.beforeSave(patch, row, isNew);
+if (problem) { err.hidden = false; fill(err, ic('alert'), h('span', { text: problem })); return; }
+}
+saveBtn.disabled = true; saveBtn.textContent = t('saving');
+err.hidden = true;
+var work = isNew
+? api.insert(cfg.table, patch)
+: api.update(cfg.table, matchPk(cfg, row), patch);
+work.then(function () {
+C.toast(t('saved'), 'ok');
+close();
+onDone();
+}).catch(function (e) {
+saveBtn.disabled = false; saveBtn.textContent = t('save');
+err.hidden = false; fill(err, ic('alert'), h('span', { text: e.message }));
+});
+});
+var foot = h('div', { class: 'drawer__foot' },
+shell.canWrite() ? saveBtn : h('span', { class: 'chip chip--warn', text: t('viewer_ro') }),
+h('button', { class: 'btn btn--ghost', type: 'button', onclick: close }, t('cancel')),
+h('div', { class: 'spacer' }),
+(!isNew && shell.canWrite() && cfg.deletable !== false)
+? h('button', {
+class: 'btn btn--danger btn--sm', type: 'button',
+onclick: function () {
+if (!confirm(t('confirm_del'))) return;
+api.remove(cfg.table, matchPk(cfg, row))
+.then(function () { C.toast(t('deleted'), 'ok'); close(); onDone(); })
+.catch(function (e) { C.toast(e.message, 'err'); });
+}
+}, ic('trash'), t('del'))
+: null);
+panel = h('div', { class: 'drawer', role: 'dialog', 'aria-modal': 'true' },
+h('div', { class: 'drawer__scrim', onclick: close }),
+h('div', { class: 'drawer__panel' },
+h('div', { class: 'drawer__head' },
+h('h2', { text: isNew ? t('new') + ' · ' + t(cfg.title) : (cfg.rowTitle ? cfg.rowTitle(row) : t('edit')) }),
+h('button', { class: 'iconbtn', type: 'button', 'aria-label': t('cancel'), onclick: close }, ic('close'))),
+body, foot));
+document.body.appendChild(panel);
+var firstInput = body.querySelector('input:not([readonly]),select,textarea');
+if (firstInput) firstInput.focus();
+document.addEventListener('keydown', function esc(ev) {
+if (ev.key === 'Escape') { close(); document.removeEventListener('keydown', esc); }
+});
+}
+function matchPk(cfg, row) {
+var m = {};
+m[cfg.pk] = 'eq.' + row[cfg.pk];
+return m;
+}
+function renderList(host, cfg) {
+var state = { page: 0, q: '', filters: {}, sort: cfg.sort || cfg.pk, dir: 'asc', total: null };
+function query() {
+var p = { select: cfg.select || '*', order: state.sort + '.' + state.dir };
+if (state.q && cfg.searchOn) {
+var esc = state.q.replace(/[(),]/g, ' ');
+p.or = '(' + cfg.searchOn.map(function (c) { return c + '.ilike.*' + esc + '*'; }).join(',') + ')';
+}
+for (var k in state.filters) if (state.filters[k]) p[k] = state.filters[k];
+if (cfg.baseFilter) for (var b in cfg.baseFilter) p[b] = cfg.baseFilter[b];
+return p;
+}
+var tbody = h('tbody');
+var pagerInfo = h('span');
+var prevBtn = h('button', { class: 'btn btn--ghost btn--sm', type: 'button' }, ic('chevronL'), t('prev'));
+var nextBtn = h('button', { class: 'btn btn--ghost btn--sm', type: 'button' }, t('next'), ic('chevronR'));
+function load() {
+fill(tbody, h('tr', null, h('td', { colspan: cfg.columns.length + 1 },
+h('div', { class: 'skel', style: 'width:60%' }))));
+var from = state.page * PAGE;
+api.select(cfg.table, query(), [from, from + PAGE - 1]).then(function (r) {
+var rows = r.data || [];
+state.total = r.range ? Number(String(r.range).split('/')[1]) : rows.length;
+draw(rows);
+}).catch(function (e) {
+fill(tbody, h('tr', null, h('td', { colspan: cfg.columns.length + 1 },
+h('div', { class: 'note note--err' }, ic('alert'), h('span', { text: e.message })))));
+});
+}
+function draw(rows) {
+fill(tbody);
+if (!rows.length) {
+tbody.appendChild(h('tr', null, h('td', { colspan: cfg.columns.length + 1 },
+h('div', { class: 'empty' }, ic('inbox'), h('div', { text: t('nothing') })))));
+}
+rows.forEach(function (row) {
+var tr = h('tr');
+cfg.columns.forEach(function (col) {
+var cell = h('td', { class: col.cls || '' });
+C.append(cell, col.render ? col.render(row) : (row[col.name] == null ? '—' : String(row[col.name])));
+tr.appendChild(cell);
+});
+tr.appendChild(h('td', { class: 'act' },
+h('button', {
+class: 'btn btn--ghost btn--sm', type: 'button',
+onclick: function () { openDrawer(cfg, row, load); }
+}, ic(shell.canWrite() ? 'pencil' : 'eye'), shell.canWrite() ? t('edit') : t('search'))));
+tbody.appendChild(tr);
+});
+var shown = state.total == null ? rows.length : state.total;
+pagerInfo.textContent = (state.page * PAGE + (rows.length ? 1 : 0)) + '–' +
+(state.page * PAGE + rows.length) + ' ' + t('of') + ' ' + shown + ' ' + t('rows');
+prevBtn.disabled = state.page === 0;
+nextBtn.disabled = (state.page + 1) * PAGE >= shown;
+}
+prevBtn.addEventListener('click', function () { if (state.page > 0) { state.page--; load(); } });
+nextBtn.addEventListener('click', function () { state.page++; load(); });
+var searchInput = h('input', {
+type: 'search', placeholder: t('search'), 'aria-label': t('search'),
+oninput: debounce(function (ev) { state.q = ev.target.value.trim(); state.page = 0; load(); }, 260)
+});
+var toolbar = h('div', { class: 'toolbar' });
+if (cfg.searchOn) toolbar.appendChild(searchInput);
+(cfg.filters || []).forEach(function (fl) {
+var sel = h('select', {
+'aria-label': t(fl.label),
+onchange: function (ev) {
+state.filters[fl.param] = ev.target.value ? fl.value(ev.target.value) : null;
+state.page = 0; load();
+}
+}, h('option', { value: '' }, t(fl.label) + ': ' + t('all')));
+(typeof fl.options === 'function' ? fl.options() : fl.options).forEach(function (o) {
+sel.appendChild(h('option', { value: o.value }, o.text));
+});
+toolbar.appendChild(sel);
+});
+toolbar.appendChild(h('div', { class: 'spacer' }));
+if (shell.canWrite() && cfg.creatable !== false) {
+toolbar.appendChild(h('button', {
+class: 'btn btn--primary btn--sm', type: 'button',
+onclick: function () { openDrawer(cfg, null, load); }
+}, ic('plus'), t('new')));
+}
+var thead = h('thead', null, h('tr', null,
+cfg.columns.map(function (col) {
+if (!col.sortOn) return h('th', { text: t(col.label) });
+return h('th', null, h('button', {
+class: 'btn btn--ghost btn--sm', type: 'button',
+onclick: function () {
+if (state.sort === col.sortOn) state.dir = state.dir === 'asc' ? 'desc' : 'asc';
+else { state.sort = col.sortOn; state.dir = 'asc'; }
+state.page = 0; load();
+}
+}, t(col.label)));
+}),
+h('th', { class: 'act' })));
+fill(host,
+toolbar,
+h('div', { class: 'card' },
+h('div', { class: 'tablewrap' }, h('table', null, thead, tbody)),
+h('div', { class: 'pager' }, prevBtn, pagerInfo, nextBtn)));
+load();
+}
+function debounce(fn, ms) {
+var timer;
+return function () {
+var self = this, args = arguments;
+clearTimeout(timer);
+timer = setTimeout(function () { fn.apply(self, args); }, ms);
+};
+}
+window.CMS.crud = { renderList: renderList, openDrawer: openDrawer, debounce: debounce, PAGE: PAGE };
+})();</script>
+
+  <script>(function () {
+'use strict';
+var C = window.CMS, h = C.h, ic = C.ic, t = C.t, fill = C.fill, api = C.api;
+var shell = C.shell, crud = C.crud;
+var LOOKUP = { developers: [], locations: [], projects: [] };
+function loadLookups() {
+return Promise.all([
+api.select('developers', { select: 'id,slug,name_en,name_ar', order: 'name_en.asc' }),
+api.select('locations', { select: 'id,slug,name_en,name_ar,level', order: 'level.asc,name_en.asc' }),
+api.select('projects', { select: 'id,slug,name_en,name_ar', order: 'name_en.asc' })
+]).then(function (r) {
+LOOKUP.developers = r[0].data || [];
+LOOKUP.locations = r[1].data || [];
+LOOKUP.projects = r[2].data || [];
+});
+}
+function opts(list, valueKey) {
+return list.map(function (x) {
+return { value: x[valueKey || 'id'], text: (C.isAr() && x.name_ar) ? x.name_ar : x.name_en };
+});
+}
+function nameOf(list, id) {
+for (var i = 0; i < list.length; i++) if (list[i].id === id) {
+return (C.isAr() && list[i].name_ar) ? list[i].name_ar : list[i].name_en;
+}
+return '—';
+}
+function statusChip(s) {
+var cls = s === 'published' ? 'chip--ok' : s === 'draft' ? 'chip--warn' : '';
+return h('span', { class: 'chip ' + cls, text: t(s === 'published' ? 'published' : s === 'draft' ? 'draft' : 'archived') });
+}
+var STATUS_OPTS = function () {
+return [{ value: 'published', text: t('published') },
+{ value: 'draft', text: t('draft') },
+{ value: 'archived', text: t('archived') }];
+};
+function slugCheck(v) {
+return /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(v) ? null
+: (C.isAr() ? 'حروف صغيرة وأرقام وشرطات فقط' : 'Lowercase letters, digits and hyphens only');
+}
+function slugFrom(sourceName) {
+return function (el, form) {
+var slug = form.controls.slug;
+if (!slug || slug.el.dataset.touched === '1') return;
+slug.el.value = C.slugify(el.value);
+};
+}
+function markTouched(el) { el.dataset.touched = '1'; }
+shell.route('dashboard', {
+icon: 'home', group: '', label: 'dashboard',
+render: function (host) {
+var stats = h('div', { class: 'stats' });
+fill(host, stats, h('div', { class: 'card' },
+h('div', { class: 'card__head' }, h('h2', { text: t('audit') })),
+h('div', { class: 'card__body', id: 'recent' },
+h('div', { class: 'skel', style: 'width:70%' }))));
+function count(table, params) {
+return api.select(table, Object.assign({ select: 'id' }, params || {}), [0, 0])
+.then(function (r) { return r.range ? Number(String(r.range).split('/')[1]) : 0; })
+.catch(function () { return null; });
+}
+return Promise.all([
+count('projects'), count('units'), count('developers'), count('media_assets'),
+count('projects', { status: 'eq.draft' }),
+count('projects', { price_from: 'is.null' })
+]).then(function (n) {
+var cards = [
+['total_projects', n[0]], ['total_units', n[1]], ['total_devs', n[2]],
+['total_media', n[3]], ['drafts', n[4]], ['no_price', n[5]]
+];
+fill(stats);
+cards.forEach(function (c) {
+stats.appendChild(h('div', { class: 'stat' },
+h('b', { text: c[1] == null ? '—' : C.num(c[1]) }),
+h('span', { text: t(c[0]) })));
+});
+return api.select('audit_log',
+{ select: 'id,action,entity,entity_label,actor_email,created_at', order: 'created_at.desc' }, [0, 9]);
+}).then(function (r) {
+var rows = (r && r.data) || [];
+var box = document.getElementById('recent');
+if (!box) return;
+if (!rows.length) {
+fill(box, h('div', { class: 'empty' }, ic('history'), h('div', { text: t('nothing') })));
+return;
+}
+var tb = h('tbody');
+rows.forEach(function (a) {
+tb.appendChild(h('tr', null,
+h('td', null, h('span', { class: 'chip chip--teal', text: a.action })),
+h('td', { text: (a.entity || '') + (a.entity_label ? ' · ' + a.entity_label : '') }),
+h('td', { text: a.actor_email || '—' }),
+h('td', { class: 'num', text: C.dateFmt(a.created_at) })));
+});
+fill(box, h('div', { class: 'tablewrap' }, h('table', null, tb)));
+});
+}
+});
+shell.route('developers', {
+icon: 'building', group: 'content', label: 'developers',
+render: function (host) {
+return crud.renderList(host, {
+table: 'developers', pk: 'id', title: 'developers', sort: 'name_en',
+searchOn: ['name_en', 'name_ar', 'slug'],
+filters: [{ label: 'status', param: 'status', value: function (v) { return 'eq.' + v; }, options: STATUS_OPTS }],
+columns: [
+{ label: 'name_en', sortOn: 'name_en', render: function (r) { return r.name_en; } },
+{ label: 'name_ar', render: function (r) { return r.name_ar; } },
+{ label: 'slug', render: function (r) { return h('code', { text: r.slug }); } },
+{ label: 'founded', cls: 'num', render: function (r) { return r.founded_year || '—'; } },
+{ label: 'status', render: function (r) { return statusChip(r.status); } }
+],
+rowTitle: function (r) { return r.name_en; },
+blank: function () { return { status: 'draft' }; },
+groups: [
+{ legend: 'content', fields: [
+{ name: 'name_en', label: 'name_en', required: true, half: true, pairWith: 'nm', oninput: slugFrom() },
+{ name: 'name_ar', label: 'name_ar', required: true, ar: true, half: true, pairWith: 'nm' },
+{ name: 'slug', label: 'slug', hint: 'slug_hint', required: true, check: slugCheck,
+oninput: function (el) { markTouched(el); } },
+{ name: 'tagline_en', label: 'tagline_en', half: true, pairWith: 'tl' },
+{ name: 'tagline_ar', label: 'tagline_ar', ar: true, half: true, pairWith: 'tl' },
+{ name: 'description_en', label: 'desc_en', type: 'textarea' },
+{ name: 'description_ar', label: 'desc_ar', type: 'textarea', ar: true },
+{ name: 'areas_line_en', label: 'areas_en', half: true, pairWith: 'ar' },
+{ name: 'areas_line_ar', label: 'areas_ar', ar: true, half: true, pairWith: 'ar' }
+] },
+{ legend: 'operations', fields: [
+{ name: 'founded_year', label: 'founded', type: 'number', min: 1800, max: 2100, half: true, pairWith: 'meta' },
+{ name: 'brand_colour', label: 'colour', half: true, pairWith: 'meta' },
+{ name: 'status', label: 'status', type: 'select', options: STATUS_OPTS, blank: false, required: true }
+] }
+]
+});
+}
+});
+shell.route('locations', {
+icon: 'pin', group: 'content', label: 'locations',
+render: function (host) {
+return loadLookups().then(function () {
+return crud.renderList(host, {
+table: 'locations', pk: 'id', title: 'locations', sort: 'level',
+searchOn: ['name_en', 'name_ar', 'slug'],
+columns: [
+{ label: 'name_en', sortOn: 'name_en', render: function (r) { return r.name_en; } },
+{ label: 'name_ar', render: function (r) { return r.name_ar; } },
+{ label: 'level', render: function (r) { return h('span', { class: 'chip', text: r.level }); } },
+{ label: 'parent', render: function (r) { return nameOf(LOOKUP.locations, r.parent_id); } },
+{ label: 'slug', render: function (r) { return h('code', { text: r.slug }); } }
+],
+rowTitle: function (r) { return r.name_en; },
+blank: function () { return { level: 'area', status: 'published' }; },
+groups: [{ fields: [
+{ name: 'name_en', label: 'name_en', required: true, half: true, pairWith: 'nm', oninput: slugFrom() },
+{ name: 'name_ar', label: 'name_ar', required: true, ar: true, half: true, pairWith: 'nm' },
+{ name: 'slug', label: 'slug', hint: 'slug_hint', required: true, check: slugCheck,
+oninput: function (el) { markTouched(el); } },
+{ name: 'level', label: 'level', type: 'select', blank: false, required: true,
+options: [{ value: 'country', text: 'country' }, { value: 'governorate', text: 'governorate' },
+{ value: 'area', text: 'area' }, { value: 'district', text: 'district' }] },
+{ name: 'parent_id', label: 'parent', type: 'select', options: function () { return opts(LOOKUP.locations); } },
+{ name: 'blurb_en', label: 'blurb_en', type: 'textarea' },
+{ name: 'blurb_ar', label: 'blurb_ar', type: 'textarea', ar: true },
+{ name: 'status', label: 'status', type: 'select', options: STATUS_OPTS, blank: false, required: true }
+] }]
+});
+});
+}
+});
+shell.route('projects', {
+icon: 'layers', group: 'content', label: 'projects',
+render: function (host) {
+return loadLookups().then(function () {
+return crud.renderList(host, {
+table: 'projects', pk: 'id', title: 'projects', sort: 'name_en',
+searchOn: ['name_en', 'name_ar', 'slug'],
+filters: [
+{ label: 'status', param: 'status', value: function (v) { return 'eq.' + v; }, options: STATUS_OPTS },
+{ label: 'developer', param: 'developer_id', value: function (v) { return 'eq.' + v; },
+options: function () { return opts(LOOKUP.developers); } }
+],
+columns: [
+{ label: 'name_en', sortOn: 'name_en', render: function (r) { return r.name_en; } },
+{ label: 'developer', render: function (r) { return nameOf(LOOKUP.developers, r.developer_id); } },
+{ label: 'location', render: function (r) { return nameOf(LOOKUP.locations, r.location_id); } },
+{ label: 'price_from', cls: 'num', sortOn: 'price_from',
+render: function (r) { return r.price_from == null ? h('span', { class: 'chip chip--warn', text: t('no_price') }) : C.money(r.price_from); } },
+{ label: 'status', render: function (r) { return statusChip(r.status); } }
+],
+rowTitle: function (r) { return r.name_en; },
+blank: function () { return { status: 'draft', stage: 'primary' }; },
+groups: [
+{ legend: 'content', fields: [
+{ name: 'name_en', label: 'name_en', required: true, half: true, pairWith: 'nm', oninput: slugFrom() },
+{ name: 'name_ar', label: 'name_ar', required: true, ar: true, half: true, pairWith: 'nm' },
+{ name: 'slug', label: 'slug', hint: 'slug_hint', required: true, check: slugCheck,
+oninput: function (el) { markTouched(el); } },
+{ name: 'developer_id', label: 'developer', type: 'select', required: true,
+options: function () { return opts(LOOKUP.developers); } },
+{ name: 'location_id', label: 'location', type: 'select', required: true,
+options: function () { return opts(LOOKUP.locations.filter(function (l) { return l.level === 'area'; })); } },
+{ name: 'description_en', label: 'desc_en', type: 'textarea', rows: 5 },
+{ name: 'description_ar', label: 'desc_ar', type: 'textarea', rows: 5, ar: true }
+] },
+{ legend: 'operations', fields: [
+{ name: 'stage', label: 'stage', type: 'select', blank: false,
+options: [{ value: 'primary', text: 'primary' }, { value: 'launch', text: 'launch' },
+{ value: 'ready', text: 'ready' }, { value: 'resale', text: 'resale' }] },
+{ name: 'price_from', label: 'price_from', type: 'number', min: 0, half: true, pairWith: 'money' },
+{ name: 'down_payment_pct', label: 'down_payment', type: 'number', min: 0, max: 100, half: true, pairWith: 'money' },
+{ name: 'instalment_years', label: 'years', type: 'number', min: 0, max: 40, half: true, pairWith: 'plan' },
+{ name: 'delivery_label', label: 'delivery', half: true, pairWith: 'plan' },
+{ name: 'finishing_en', label: 'finishing_en', half: true, pairWith: 'fin' },
+{ name: 'finishing_ar', label: 'finishing_ar', ar: true, half: true, pairWith: 'fin' },
+{ name: 'unit_types_en', label: 'types_en', half: true, pairWith: 'ty' },
+{ name: 'unit_types_ar', label: 'types_ar', ar: true, half: true, pairWith: 'ty' },
+{ name: 'tags_en', label: 'tags_en', hint: 'tags_hint', half: true, pairWith: 'tg',
+get: function (r) { return (r.tags_en || []).join(', '); },
+set: function (o, v) { o.tags_en = v ? v.split(',').map(function (s) { return s.trim(); }).filter(Boolean) : []; } },
+{ name: 'tags_ar', label: 'tags_ar', hint: 'tags_hint', ar: true, half: true, pairWith: 'tg',
+get: function (r) { return (r.tags_ar || []).join(', '); },
+set: function (o, v) { o.tags_ar = v ? v.split(',').map(function (s) { return s.trim(); }).filter(Boolean) : []; } },
+{ name: 'status', label: 'status', type: 'select', options: STATUS_OPTS, blank: false, required: true }
+] }
+]
+});
+});
+}
+});
+shell.route('units', {
+icon: 'grid', group: 'content', label: 'units',
+render: function (host) {
+return loadLookups().then(function () {
+return crud.renderList(host, {
+table: 'units', pk: 'id', title: 'units', sort: 'unit_code',
+searchOn: ['unit_code', 'unit_type_en', 'label_en', 'label_ar'],
+filters: [
+{ label: 'project', param: 'project_id', value: function (v) { return 'eq.' + v; },
+options: function () { return opts(LOOKUP.projects); } },
+{ label: 'availability', param: 'availability', value: function (v) { return 'eq.' + v; },
+options: [{ value: 'available', text: 'available' }, { value: 'limited', text: 'limited' },
+{ value: 'reserved', text: 'reserved' }, { value: 'sold', text: 'sold' },
+{ value: 'to-confirm', text: 'to-confirm' }] }
+],
+columns: [
+{ label: 'unit_code', sortOn: 'unit_code', render: function (r) { return h('code', { text: r.unit_code }); } },
+{ label: 'project', render: function (r) { return nameOf(LOOKUP.projects, r.project_id); } },
+{ label: 'unit_type', render: function (r) { return r.unit_type_en; } },
+{ label: 'beds', cls: 'num', render: function (r) { return r.bedrooms == null ? '—' : C.num(r.bedrooms); } },
+{ label: 'bua', cls: 'num', sortOn: 'bua',
+render: function (r) { return r.bua == null ? '—' : C.num(r.bua) + (r.bua_to ? '–' + C.num(r.bua_to) : ''); } },
+{ label: 'price', cls: 'num', sortOn: 'price', render: function (r) { return C.money(r.price); } },
+{ label: 'availability', render: function (r) {
+return h('span', { class: 'chip ' + (r.availability === 'sold' ? 'chip--danger' : r.availability === 'available' ? 'chip--ok' : 'chip--warn'), text: r.availability }); } }
+],
+rowTitle: function (r) { return r.unit_code; },
+blank: function () { return { status: 'draft', availability: 'available' }; },
+groups: [
+{ legend: 'content', fields: [
+{ name: 'unit_code', label: 'unit_code', required: true, half: true, pairWith: 'id',
+check: function (v) { return /^[A-Za-z0-9][A-Za-z0-9._-]*$/.test(v) ? null : (C.isAr() ? 'كود غير صالح' : 'Invalid code'); } },
+{ name: 'project_id', label: 'project', type: 'select', required: true, half: true, pairWith: 'id',
+options: function () { return opts(LOOKUP.projects); } },
+{ name: 'unit_type_en', label: 'unit_type', required: true },
+{ name: 'label_en', label: 'label_en', half: true, pairWith: 'lbl' },
+{ name: 'label_ar', label: 'label_ar', ar: true, half: true, pairWith: 'lbl' }
+] },
+{ legend: 'operations', fields: [
+{ name: 'bedrooms', label: 'beds', type: 'number', min: 0, max: 20, half: true, pairWith: 'rooms' },
+{ name: 'bathrooms', label: 'baths', type: 'number', min: 0, max: 20, half: true, pairWith: 'rooms' },
+{ name: 'bua', label: 'bua', type: 'number', min: 0, half: true, pairWith: 'area' },
+{ name: 'bua_to', label: 'bua_to', type: 'number', min: 0, half: true, pairWith: 'area' },
+{ name: 'price', label: 'price', type: 'number', min: 0, half: true, pairWith: 'money' },
+{ name: 'down_payment_pct', label: 'down_payment', type: 'number', min: 0, max: 100, half: true, pairWith: 'money' },
+{ name: 'instalment_years', label: 'years', type: 'number', min: 0, max: 40, half: true, pairWith: 'plan' },
+{ name: 'delivery_label', label: 'delivery', half: true, pairWith: 'plan' },
+{ name: 'floor', label: 'floor', half: true, pairWith: 'st' },
+{ name: 'availability', label: 'availability', type: 'select', blank: false, half: true, pairWith: 'st',
+options: [{ value: 'available', text: 'available' }, { value: 'limited', text: 'limited' },
+{ value: 'reserved', text: 'reserved' }, { value: 'sold', text: 'sold' },
+{ value: 'to-confirm', text: 'to-confirm' }] },
+{ name: 'status', label: 'status', type: 'select', options: STATUS_OPTS, blank: false, required: true }
+] }
+],
+beforeSave: function (patch) {
+if (patch.bua != null && patch.bua_to != null && Number(patch.bua_to) < Number(patch.bua)) {
+return C.isAr() ? 'الحد الأعلى للمساحة أصغر من الأدنى' : 'Upper area is below the lower one';
+}
+return null;
+}
+});
+});
+}
+});
+shell.route('media', {
+icon: 'image', group: 'content', label: 'media',
+render: function (host) {
+return crud.renderList(host, {
+table: 'media_assets', pk: 'id', title: 'media', sort: 'path',
+searchOn: ['path', 'alt_en', 'alt_ar'],
+creatable: false, deletable: false,
+columns: [
+{ label: 'media', render: function (r) {
+return h('img', { class: 'thumb', src: r.path, alt: '', loading: 'lazy' }); } },
+{ label: 'slug', sortOn: 'path', render: function (r) { return h('code', { text: r.path }); } },
+{ label: 'desc_en', render: function (r) { return r.alt_en || '—'; } },
+{ label: 'desc_ar', render: function (r) { return r.alt_ar || '—'; } }
+],
+rowTitle: function (r) { return r.path; },
+groups: [{ fields: [
+{ name: 'path', label: 'slug', readonly: true },
+{ name: 'alt_en', label: 'desc_en' },
+{ name: 'alt_ar', label: 'desc_ar', ar: true }
+] }]
+});
+}
+});
+shell.route('audit', {
+icon: 'history', group: 'operations', label: 'audit',
+render: function (host) {
+return crud.renderList(host, {
+table: 'audit_log', pk: 'id', title: 'audit', sort: 'created_at',
+creatable: false, deletable: false,
+searchOn: ['entity', 'entity_label', 'actor_email'],
+columns: [
+{ label: 'audit', sortOn: 'created_at', cls: 'num', render: function (r) { return C.dateFmt(r.created_at); } },
+{ label: 'role', render: function (r) { return h('span', { class: 'chip chip--teal', text: r.action }); } },
+{ label: 'content', render: function (r) { return (r.entity || '') + (r.entity_label ? ' · ' + r.entity_label : ''); } },
+{ label: 'email', render: function (r) { return r.actor_email || '—'; } }
+],
+rowTitle: function (r) { return r.action + ' · ' + (r.entity || ''); },
+groups: [{ fields: [
+{ name: 'created_at', label: 'audit', readonly: true },
+{ name: 'action', label: 'role', readonly: true },
+{ name: 'entity', label: 'content', readonly: true },
+{ name: 'entity_label', label: 'name_en', readonly: true },
+{ name: 'actor_email', label: 'email', readonly: true }
+] }]
+});
+}
+});
+shell.route('admins', {
+icon: 'users', group: 'operations', label: 'admins', needs: 'owner',
+render: function (host) {
+var box = h('div');
+fill(host, box);
+return api.select('admins', { select: '*', order: 'created_at.asc' }).then(function (r) {
+var rows = r.data || [];
+var tb = h('tbody');
+rows.forEach(function (a) {
+tb.appendChild(h('tr', null,
+h('td', { text: a.full_name || '—' }),
+h('td', { text: a.email }),
+h('td', null, h('span', { class: 'chip chip--teal', text: a.role })),
+h('td', null, h('span', { class: 'chip ' + (a.is_active ? 'chip--ok' : ''), text: a.is_active ? t('active') : t('archived') })),
+h('td', { class: 'num', text: C.dateFmt(a.last_seen_at) })));
+});
+fill(box,
+h('div', { class: 'card' },
+h('div', { class: 'card__head' }, h('h2', { text: t('admins') })),
+h('div', { class: 'tablewrap' }, h('table', null,
+h('thead', null, h('tr', null,
+h('th', { text: t('name_en') }), h('th', { text: t('email') }),
+h('th', { text: t('role') }), h('th', { text: t('status') }), h('th', { text: t('audit') }))),
+tb))),
+h('div', { style: 'height:18px' }),
+inviteCard());
+});
+function inviteCard() {
+var email = h('input', { type: 'email', id: 'inv_email', required: true });
+var role = h('select', { id: 'inv_role' },
+h('option', { value: 'viewer' }, 'viewer'),
+h('option', { value: 'editor' }, 'editor'),
+h('option', { value: 'owner' }, 'owner'));
+var out = h('div');
+var list = h('div');
+function refresh() {
+api.select('admin_invites', { select: '*', order: 'created_at.desc' }).then(function (r) {
+var rows = (r.data || []).filter(function (i) { return !i.accepted_at; });
+if (!rows.length) { fill(list, h('div', { class: 'empty', text: t('nothing') })); return; }
+var tb = h('tbody');
+rows.forEach(function (i) {
+tb.appendChild(h('tr', null,
+h('td', { text: i.email }),
+h('td', null, h('span', { class: 'chip chip--teal', text: i.role })),
+h('td', { class: 'num', text: C.dateFmt(i.created_at) }),
+h('td', { class: 'act' }, h('button', {
+class: 'btn btn--danger btn--sm', type: 'button',
+onclick: function () {
+api.remove('admin_invites', { email: 'eq.' + i.email })
+.then(refresh).catch(function (e) { C.toast(e.message, 'err'); });
+}
+}, ic('trash')))));
+});
+fill(list, h('div', { class: 'tablewrap' }, h('table', null,
+h('thead', null, h('tr', null,
+h('th', { text: t('email') }), h('th', { text: t('role') }),
+h('th', { text: t('invited') }), h('th'))),
+tb)));
+}).catch(function (e) { fill(list, h('div', { class: 'note note--err', text: e.message })); });
+}
+refresh();
+return h('div', { class: 'card' },
+h('div', { class: 'card__head' }, h('h2', { text: t('invite') })),
+h('div', { class: 'card__body' },
+h('p', { class: 'f__hint', text: t('create_sub'), style: 'margin-bottom:12px' }),
+h('div', { class: 'row row--2' },
+h('div', { class: 'f' }, h('label', { for: 'inv_email', text: t('email') }), email),
+h('div', { class: 'f' }, h('label', { for: 'inv_role', text: t('role') }), role)),
+h('div', { style: 'margin-top:12px;display:flex;gap:10px;align-items:center' },
+h('button', {
+class: 'btn btn--primary btn--sm', type: 'button',
+onclick: function () {
+var addr = email.value.trim();
+if (!addr) { email.focus(); return; }
+api.insert('admin_invites', { email: addr, role: role.value })
+.then(function () { email.value = ''; fill(out); refresh(); C.toast(t('saved'), 'ok'); })
+.catch(function (e) { fill(out, h('span', { class: 'f__err', text: e.message })); });
+}
+}, ic('plus'), t('invite')),
+out),
+h('div', { style: 'height:14px' }),
+list));
+}
+}
+});
+window.CMS.views = { LOOKUP: LOOKUP, loadLookups: loadLookups, opts: opts, nameOf: nameOf,
+statusChip: statusChip, slugCheck: slugCheck, STATUS_OPTS: STATUS_OPTS };
+})();</script>
+
+  <script>(function () {
+'use strict';
+function parseCsv(text) {
+text = String(text).replace(/^﻿/, '');
+var delim = (text.split('\n')[0].split(';').length >
+text.split('\n')[0].split(',').length) ? ';' : ',';
+var rows = [], row = [], cell = '', i = 0, inQ = false;
+while (i < text.length) {
+var c = text[i];
+if (inQ) {
+if (c === '"') {
+if (text[i + 1] === '"') { cell += '"'; i += 2; continue; }
+inQ = false; i++; continue;
+}
+cell += c; i++; continue;
+}
+if (c === '"') { inQ = true; i++; continue; }
+if (c === delim) { row.push(cell); cell = ''; i++; continue; }
+if (c === '\r') { i++; continue; }
+if (c === '\n') { row.push(cell); rows.push(row); row = []; cell = ''; i++; continue; }
+cell += c; i++;
+}
+if (cell !== '' || row.length) { row.push(cell); rows.push(row); }
+return rows;
+}
+function readZip(buf) {
+var dv = new DataView(buf), u8 = new Uint8Array(buf);
+var eocd = -1;
+for (var p = u8.length - 22; p >= 0 && p > u8.length - 66000; p--) {
+if (dv.getUint32(p, true) === 0x06054b50) { eocd = p; break; }
+}
+if (eocd < 0) throw new Error('not a zip');
+var count = dv.getUint16(eocd + 10, true);
+var start = dv.getUint32(eocd + 16, true);
+var files = {}, off = start;
+for (var n = 0; n < count; n++) {
+if (dv.getUint32(off, true) !== 0x02014b50) break;
+var method = dv.getUint16(off + 10, true);
+var csize = dv.getUint32(off + 20, true);
+var nameLen = dv.getUint16(off + 28, true);
+var extraLen = dv.getUint16(off + 30, true);
+var commentLen = dv.getUint16(off + 32, true);
+var local = dv.getUint32(off + 42, true);
+var name = new TextDecoder().decode(u8.subarray(off + 46, off + 46 + nameLen));
+files[name] = { method: method, csize: csize, local: local };
+off += 46 + nameLen + extraLen + commentLen;
+}
+return {
+names: Object.keys(files),
+read: function (name) {
+var f = files[name];
+if (!f) return Promise.resolve(null);
+var ln = dv.getUint16(f.local + 26, true);
+var le = dv.getUint16(f.local + 28, true);
+var dataAt = f.local + 30 + ln + le;
+var raw = u8.subarray(dataAt, dataAt + f.csize);
+if (f.method === 0) return Promise.resolve(new TextDecoder().decode(raw));
+if (typeof DecompressionStream !== 'function') {
+return Promise.reject(new Error('This browser cannot open .xlsx — save the sheet as CSV.'));
+}
+var ds = new DecompressionStream('deflate-raw');
+var stream = new Blob([raw]).stream().pipeThrough(ds);
+return new Response(stream).text();
+}
+};
+}
+function colIndex(ref) {
+var m = /^([A-Z]+)/.exec(ref || '');
+if (!m) return 0;
+var n = 0;
+for (var i = 0; i < m[1].length; i++) n = n * 26 + (m[1].charCodeAt(i) - 64);
+return n - 1;
+}
+function textOf(node) {
+var ts = node.getElementsByTagName('t');
+if (!ts.length) return '';
+var s = '';
+for (var i = 0; i < ts.length; i++) s += ts[i].textContent;
+return s;
+}
+function parseXlsx(buf) {
+var zip;
+try { zip = readZip(buf); } catch (e) { return Promise.reject(new Error('Not a readable .xlsx file.')); }
+var sheetName = null;
+zip.names.forEach(function (n) {
+if (/^xl\/worksheets\/sheet\d+\.xml$/.test(n) && (!sheetName || n < sheetName)) sheetName = n;
+});
+if (!sheetName) return Promise.reject(new Error('No worksheet found in the file.'));
+return Promise.all([zip.read('xl/sharedStrings.xml'), zip.read(sheetName)])
+.then(function (parts) {
+var shared = [];
+if (parts[0]) {
+var sdoc = new DOMParser().parseFromString(parts[0], 'application/xml');
+var sis = sdoc.getElementsByTagName('si');
+for (var i = 0; i < sis.length; i++) shared.push(textOf(sis[i]));
+}
+var doc = new DOMParser().parseFromString(parts[1], 'application/xml');
+var rowEls = doc.getElementsByTagName('row');
+var rows = [];
+for (var r = 0; r < rowEls.length; r++) {
+var cells = rowEls[r].getElementsByTagName('c');
+var out = [];
+for (var c = 0; c < cells.length; c++) {
+var cell = cells[c];
+var idx = colIndex(cell.getAttribute('r'));
+var ty = cell.getAttribute('t');
+var val = '';
+if (ty === 'inlineStr') val = textOf(cell);
+else {
+var vs = cell.getElementsByTagName('v');
+var raw = vs.length ? vs[0].textContent : '';
+if (ty === 's') val = shared[Number(raw)] || '';
+else val = raw;
+}
+while (out.length < idx) out.push('');
+out[idx] = val;
+}
+rows.push(out);
+}
+return rows;
+});
+}
+function readFile(file) {
+var name = (file.name || '').toLowerCase();
+if (/\.(csv|tsv|txt)$/.test(name)) {
+return file.text().then(parseCsv);
+}
+if (/\.xlsx$/.test(name)) {
+return file.arrayBuffer().then(parseXlsx);
+}
+if (/\.xls$/.test(name)) {
+return Promise.reject(new Error('The old .xls format is not supported — save as .xlsx or .csv.'));
+}
+return file.text().then(parseCsv);
+}
+function trim(rows) {
+var out = rows.map(function (r) { return r.map(function (c) { return String(c == null ? '' : c).trim(); }); })
+.filter(function (r) { return r.some(function (c) { return c !== ''; }); });
+var width = 0;
+out.forEach(function (r) { for (var i = r.length - 1; i >= 0; i--) if (r[i] !== '') { width = Math.max(width, i + 1); break; } });
+return out.map(function (r) { r.length = width; return Array.prototype.map.call(r, function (c) { return c == null ? '' : c; }); });
+}
+window.CMS.sheet = { parseCsv: parseCsv, parseXlsx: parseXlsx, readFile: readFile, trim: trim, colIndex: colIndex };
+})();</script>
+
+  <script>(function () {
+'use strict';
+var C = window.CMS, h = C.h, ic = C.ic, t = C.t, fill = C.fill, api = C.api;
+var shell = C.shell, sheet = C.sheet;
+var HEADERS = {
+unit_code:        ['unit code', 'unitcode', 'unit', 'code', 'unit id', 'unit_id', 'id',
+'كود', 'كود الوحدة', 'الوحدة', 'رقم الوحدة'],
+price:            ['price', 'new price', 'total price', 'unit price', 'amount', 'egp',
+'السعر', 'السعر الجديد', 'إجمالي السعر', 'الاجمالي', 'سعر'],
+down_payment_pct: ['down payment', 'downpayment', 'dp', 'dp %', 'down payment %', 'deposit',
+'المقدم', 'الدفعة المقدمة', 'نسبة المقدم'],
+instalment_years: ['years', 'instalment years', 'installment years', 'plan', 'plan years', 'term',
+'سنوات', 'مدة التقسيط', 'عدد السنوات', 'التقسيط'],
+delivery_label:   ['delivery', 'handover', 'delivery date', 'handover date',
+'التسليم', 'تاريخ التسليم', 'الاستلام']
+};
+function normHead(s) {
+return String(s || '').toLowerCase().replace(/[ً-ْ]/g, '')
+.replace(/[^a-z0-9؀-ۿ%]+/g, ' ').trim();
+}
+function mapColumns(headerRow) {
+var map = {};
+headerRow.forEach(function (cell, i) {
+var n = normHead(cell);
+if (!n) return;
+for (var field in HEADERS) {
+if (map[field] != null) continue;
+for (var j = 0; j < HEADERS[field].length; j++) {
+if (n === HEADERS[field][j] || n === normHead(HEADERS[field][j])) { map[field] = i; return; }
+}
+}
+});
+headerRow.forEach(function (cell, i) {
+var n = normHead(cell);
+if (!n) return;
+for (var field in HEADERS) {
+if (map[field] != null) continue;
+for (var j = 0; j < HEADERS[field].length; j++) {
+if (n.indexOf(normHead(HEADERS[field][j])) >= 0) { map[field] = i; return; }
+}
+}
+});
+return map;
+}
+function toNumber(v) {
+if (v == null) return null;
+var s = String(v).trim();
+if (!s) return null;
+s = s.replace(/[٠-٩]/g, function (d) { return String(d.charCodeAt(0) - 0x0660); })
+.replace(/[۰-۹]/g, function (d) { return String(d.charCodeAt(0) - 0x06F0); })
+.replace(/[٬,\s]/g, '').replace(/[٫]/g, '.')
+.replace(/(egp|جنيه|ج\.م|%)/gi, '').trim();
+if (!/^-?\d*\.?\d+$/.test(s)) return NaN;
+return Number(s);
+}
+function fieldLabel(f) {
+return { price: t('price'), down_payment_pct: t('down_payment'),
+instalment_years: t('years'), delivery_label: t('delivery') }[f] || f;
+}
+shell.route('price-import', {
+icon: 'upload', group: 'operations', label: 'price_import',
+render: function (host) {
+var state = { rows: null, map: null, file: null, batch: null };
+var out = h('div');
+var fileInput = h('input', {
+type: 'file', accept: '.csv,.tsv,.txt,.xlsx', hidden: true,
+onchange: function (ev) { if (ev.target.files[0]) take(ev.target.files[0]); }
+});
+var drop = h('div', {
+class: 'drop',
+ondragover: function (ev) { ev.preventDefault(); drop.dataset.over = '1'; },
+ondragleave: function () { drop.dataset.over = '0'; },
+ondrop: function (ev) {
+ev.preventDefault(); drop.dataset.over = '0';
+var f = ev.dataTransfer && ev.dataTransfer.files && ev.dataTransfer.files[0];
+if (f) take(f);
+}
+},
+ic('upload'),
+h('div', { text: t('imp_drop'), style: 'margin-bottom:10px' }),
+h('button', { class: 'btn btn--ghost btn--sm', type: 'button',
+onclick: function () { fileInput.click(); } }, ic('file'), t('imp_preview')),
+h('div', { class: 'f__hint', style: 'margin-top:12px', text: t('imp_cols') }),
+fileInput);
+fill(host,
+h('div', { class: 'card' },
+h('div', { class: 'card__head' }, h('h2', { text: t('imp_title') })),
+h('div', { class: 'card__body' },
+h('div', { class: 'note note--info', style: 'margin-bottom:16px' },
+ic('info'), h('span', { text: t('imp_lead') })),
+shell.canWrite() ? drop
+: h('div', { class: 'note note--warn' }, ic('alert'), h('span', { text: t('viewer_ro') })))),
+h('div', { style: 'height:18px' }),
+out);
+function take(file) {
+state.file = file;
+fill(out, h('div', { class: 'card' }, h('div', { class: 'card__body' },
+h('div', { class: 'skel', style: 'width:50%' }))));
+sheet.readFile(file)
+.then(function (rows) { return preview(sheet.trim(rows)); })
+.catch(function (e) {
+fill(out, h('div', { class: 'note note--err' }, ic('alert'), h('span', { text: e.message })));
+});
+}
+function preview(rows) {
+if (!rows.length) throw new Error(t('nothing'));
+var map = mapColumns(rows[0]);
+if (map.unit_code == null) {
+throw new Error(C.isAr()
+? 'لم أجد عمود كود الوحدة في الملف.'
+: 'No unit-code column found in the file.');
+}
+var fields = ['price', 'down_payment_pct', 'instalment_years', 'delivery_label']
+.filter(function (f) { return map[f] != null; });
+if (!fields.length) {
+throw new Error(C.isAr()
+? 'الملف لا يحمل أي عمود قابل للتحديث.'
+: 'The file carries no updatable column.');
+}
+var body = rows.slice(1);
+var codes = [];
+body.forEach(function (r) {
+var code = String(r[map.unit_code] || '').trim();
+if (code) codes.push(code);
+});
+if (!codes.length) throw new Error(t('nothing'));
+var uniq = codes.filter(function (v, i, a) { return a.indexOf(v) === i; });
+var chunks = [];
+for (var i = 0; i < uniq.length; i += 200) chunks.push(uniq.slice(i, i + 200));
+return Promise.all(chunks.map(function (ch) {
+return api.select('units', {
+select: 'id,unit_code,price,down_payment_pct,instalment_years,delivery_label',
+unit_code: 'in.(' + ch.map(function (c) { return '"' + c.replace(/"/g, '""') + '"'; }).join(',') + ')'
+});
+})).then(function (res) {
+var known = {};
+res.forEach(function (r) {
+(r.data || []).forEach(function (u) { known[u.unit_code.toLowerCase()] = u; });
+});
+state.rows = analyse(body, map, fields, known);
+state.map = map;
+draw(fields);
+});
+}
+function analyse(body, map, fields, known) {
+return body.map(function (r, i) {
+var code = String(r[map.unit_code] || '').trim();
+var row = { n: i + 2, code: code, changes: [], verdict: 'ok', message: '', unit: null };
+if (!code) { row.verdict = 'skip'; row.message = t('imp_nochange'); return row; }
+var unit = known[code.toLowerCase()];
+if (!unit) { row.verdict = 'unknown'; row.message = t('imp_unknown'); return row; }
+row.unit = unit;
+fields.forEach(function (f) {
+var raw = r[map[f]];
+if (raw == null || String(raw).trim() === '') return;
+var next, cur;
+if (f === 'delivery_label') {
+next = String(raw).trim();
+cur = unit.delivery_label == null ? '' : String(unit.delivery_label);
+if (next === cur) return;
+} else {
+next = toNumber(raw);
+if (next == null) return;
+if (isNaN(next)) { row.verdict = 'invalid'; row.message = t('imp_invalid') + ' · ' + fieldLabel(f); return; }
+cur = unit[f] == null ? null : Number(unit[f]);
+if (cur === next) return;
+}
+row.changes.push({ field: f, from: unit[f], to: next });
+});
+if (row.verdict === 'ok' && !row.changes.length) { row.verdict = 'skip'; row.message = t('imp_nochange'); }
+return row;
+});
+}
+function draw(fields) {
+var rows = state.rows;
+var willChange = rows.filter(function (r) { return r.verdict === 'ok'; });
+var skipped = rows.length - willChange.length;
+var tb = h('tbody');
+rows.forEach(function (r) {
+var cls = r.verdict === 'ok' ? 'chip--ok'
+: r.verdict === 'unknown' ? 'chip--danger'
+: r.verdict === 'invalid' ? 'chip--danger' : '';
+var detail;
+if (r.verdict === 'ok') {
+detail = h('div', { class: 'diff' }, r.changes.map(function (c) {
+var from = c.field === 'delivery_label' ? (c.from || '—')
+: c.field === 'price' ? C.money(c.from) : (c.from == null ? '—' : C.num(c.from));
+var to = c.field === 'delivery_label' ? c.to
+: c.field === 'price' ? C.money(c.to) : C.num(c.to);
+return h('div', null,
+h('span', { class: 'chip', text: fieldLabel(c.field) }), ' ',
+h('del', { text: String(from) }), h('ins', { text: String(to) }));
+}));
+} else {
+detail = h('span', { class: 'f__hint', text: r.message });
+}
+tb.appendChild(h('tr', null,
+h('td', { class: 'num', text: r.n }),
+h('td', null, h('code', { text: r.code || '—' })),
+h('td', null, h('span', { class: 'chip ' + cls, text: r.verdict })),
+h('td', null, detail)));
+});
+fill(out,
+h('div', { class: 'toolbar' },
+h('span', { class: 'chip chip--ok', text: C.num(willChange.length) + ' ' + t('imp_will') }),
+h('span', { class: 'chip', text: C.num(skipped) + ' ' + t('imp_skip') }),
+h('span', { class: 'f__hint', text: state.file ? state.file.name : '' }),
+h('div', { class: 'spacer' }),
+h('button', {
+class: 'btn btn--primary btn--sm', type: 'button',
+disabled: !willChange.length || !shell.canWrite(),
+onclick: function (ev) { apply(ev.currentTarget, willChange); }
+}, ic('check'), t('imp_apply'))),
+h('div', { class: 'note note--warn', style: 'margin-bottom:14px' },
+ic('info'), h('span', { text: t('imp_confirm') })),
+h('div', { class: 'card' },
+h('div', { class: 'tablewrap' }, h('table', null,
+h('thead', null, h('tr', null,
+h('th', { text: '#' }), h('th', { text: t('unit_code') }),
+h('th', { text: t('status') }), h('th', { text: t('imp_preview') }))),
+tb))));
+}
+function apply(btn, willChange) {
+if (!confirm(C.isAr()
+? 'تطبيق ' + willChange.length + ' تغيير على الوحدات؟'
+: 'Apply ' + willChange.length + ' change(s) to units?')) return;
+btn.disabled = true; btn.textContent = t('saving');
+api.insert('import_batches', {
+filename: state.file ? state.file.name : 'upload',
+uploaded_by: shell.jwtSub(),
+status: 'pending',
+rows_total: state.rows.length,
+rows_valid: willChange.length,
+rows_invalid: state.rows.length - willChange.length
+}).then(function (batch) {
+state.batch = batch;
+var payload = state.rows.map(function (r) {
+var row = {
+batch_id: batch.id, row_number: r.n, unit_code: r.code,
+unit_id: r.unit ? r.unit.id : null,
+verdict: r.verdict, message: r.message || null,
+changed_fields: r.changes.map(function (c) { return c.field; })
+};
+r.changes.forEach(function (c) {
+row['old_' + c.field] = c.from;
+row['new_' + c.field] = c.to;
+});
+return row;
+});
+return api.rest('import_rows', { method: 'POST', body: payload });
+}).then(function () {
+return api.rpc('apply_price_import', { p_batch_id: state.batch.id });
+}).then(function (applied) {
+C.toast(t('imp_applied') + ' · ' + C.num(applied), 'ok');
+fill(out, h('div', { class: 'note note--ok' }, ic('check'),
+h('span', { text: t('imp_applied') + ': ' + C.num(applied) })));
+}).catch(function (e) {
+btn.disabled = false; btn.textContent = t('imp_apply');
+C.toast(e.message, 'err');
+});
+}
+}
+});
+window.CMS.importer = { mapColumns: mapColumns, toNumber: toNumber, normHead: normHead, HEADERS: HEADERS };
+})();</script>
+
+  <script>(function () {
+'use strict';
+var C = window.CMS, h = C.h, ic = C.ic, t = C.t, fill = C.fill, api = C.api;
+var shell = C.shell;
+shell.route('publish', {
+icon: 'rocket', group: 'operations', label: 'publish',
+render: function (host) {
+var box = h('div');
+fill(host, box, h('div', { class: 'skel', style: 'width:40%' }));
+return api.select('audit_log',
+{ select: 'id,action,entity_type,entity_label,field,actor_email,created_at',
+order: 'created_at.desc' }, [0, 199])
+.then(function (r) {
+var rows = r.data || [];
+var lastPublish = null;
+for (var i = 0; i < rows.length; i++) {
+if (rows[i].action === 'publish') { lastPublish = rows[i]; break; }
+}
+var since = lastPublish
+? rows.filter(function (a) { return a.created_at > lastPublish.created_at && a.action !== 'publish'; })
+: rows.filter(function (a) { return a.action !== 'publish'; });
+var list = h('tbody');
+since.slice(0, 40).forEach(function (a) {
+list.appendChild(h('tr', null,
+h('td', null, h('span', { class: 'chip chip--teal', text: a.action })),
+h('td', { text: (a.entity_type || '') + (a.entity_label ? ' · ' + a.entity_label : '') }),
+h('td', { text: a.field || '—' }),
+h('td', { text: a.actor_email || '—' }),
+h('td', { class: 'num', text: C.dateFmt(a.created_at) })));
+});
+fill(host,
+h('div', { class: 'card' },
+h('div', { class: 'card__head' }, h('h2', { text: t('pub_title') })),
+h('div', { class: 'card__body' },
+h('div', { class: 'note note--info', style: 'margin-bottom:16px' },
+ic('info'), h('span', { text: t('pub_lead') })),
+h('div', { class: 'stats' },
+h('div', { class: 'stat' },
+h('b', { text: C.num(since.length) }),
+h('span', { text: t('pub_pending') })),
+h('div', { class: 'stat' },
+h('b', { style: 'font-size:1rem', text: lastPublish ? C.dateFmt(lastPublish.created_at) : '—' }),
+h('span', { text: t('publish') }))),
+h('div', { style: 'display:flex;gap:10px;flex-wrap:wrap;align-items:center' },
+h('button', {
+class: 'btn btn--primary', type: 'button',
+disabled: !shell.isOwner(),
+onclick: function (ev) { markPublished(ev.currentTarget, since.length); }
+}, ic('rocket'), t('publish')),
+h('a', {
+class: 'btn btn--ghost', href: '/en/', target: '_blank', rel: 'noopener'
+}, ic('eye'), t('imp_preview'))),
+shell.isOwner() ? null
+: h('div', { class: 'note note--warn', style: 'margin-top:14px' },
+ic('alert'), h('span', { text: t('err_perm') })))),
+h('div', { style: 'height:18px' }),
+since.length
+? h('div', { class: 'card' },
+h('div', { class: 'card__head' }, h('h2', { text: t('audit') })),
+h('div', { class: 'tablewrap' }, h('table', null,
+h('thead', null, h('tr', null,
+h('th', { text: t('role') }), h('th', { text: t('content') }),
+h('th', { text: t('status') }), h('th', { text: t('email') }),
+h('th', { text: t('audit') }))),
+list)))
+: h('div', { class: 'card' }, h('div', { class: 'card__body' },
+h('div', { class: 'empty' }, ic('check'), h('div', { text: t('nothing') })))));
+});
+function markPublished(btn, pending) {
+if (!confirm(C.isAr()
+? 'تسجيل النشر لـ ' + pending + ' تغيير؟ سيبدأ البناء من الداتابيز.'
+: 'Record a publish for ' + pending + ' change(s)? The build will read from the database.')) return;
+btn.disabled = true; btn.textContent = t('saving');
+api.insert('audit_log', {
+actor_id: shell.jwtSub(),
+actor_email: (shell.me() || {}).email,
+action: 'publish',
+entity_type: 'site',
+entity_label: 'Static rebuild',
+new_value: { pending_changes: pending }
+}).then(function () {
+C.toast(t('saved'), 'ok');
+shell.render();
+}).catch(function (e) {
+btn.disabled = false; btn.textContent = t('publish');
+C.toast(e.message, 'err');
+});
+}
+}
+});
+})();</script>
+  <script>(function () {
+'use strict';
+window.CMS.setLang(window.CMS.lang());
+window.CMS.shell.boot();
+})();</script>
+</body>
+</html>

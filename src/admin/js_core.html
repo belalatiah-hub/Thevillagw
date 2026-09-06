@@ -1,0 +1,300 @@
+  <script>
+/* =====================================================================
+   THE VILLAGE INVESTMENT — admin core
+   Safe DOM building, icons, bilingual strings, small helpers.
+
+   The same rule as the public site: nothing here ever assigns innerHTML.
+   Every string reaches the page as a text node, so a project name typed
+   into the dashboard is a project name on screen, not markup.
+   ===================================================================== */
+(function () {
+  'use strict';
+
+  /* ---------------------------------------------------------- config
+     The Supabase URL and publishable key are not secrets. A publishable
+     key identifies the project and nothing else: every table is behind
+     row-level security, and this file has already proved that a signed-in
+     user with no cms.admins row reads zero rows and writes nothing. The
+     password never appears here — Supabase Auth holds it, and the browser
+     exchanges it for a short-lived token.                                */
+  var CFG = {
+    url: 'https://xvcrgoeavdwykqflhuiw.supabase.co',
+    key: 'sb_publishable_woDsgBCs_AfH9h6AXwpOCg_5dNPxxiM',
+    schema: 'cms'
+  };
+
+  /* ------------------------------------------------------------- DOM */
+  function safeUrl(u) {
+    if (u == null) return false;
+    var s = String(u).trim();
+    if (!s) return false;
+    if (/^(https?:|mailto:|tel:|\/|#|\.\/|\.\.\/)/i.test(s)) return true;
+    return !/:/.test(s.split(/[?#]/)[0]);
+  }
+
+  function h(tag, props) {
+    var e = document.createElement(tag), i, k;
+    if (props) for (k in props) {
+      if (!Object.prototype.hasOwnProperty.call(props, k)) continue;
+      var v = props[k];
+      if (k === 'class') { if (v) e.className = v; }
+      else if (k === 'text') e.textContent = v == null ? '' : String(v);
+      else if (k === 'html') { /* deliberately unsupported: no raw HTML sink */ }
+      else if (k === 'dataset') { for (var d in v) e.dataset[d] = v[d]; }
+      else if (k === 'value') e.value = v == null ? '' : String(v);
+      else if (k.slice(0, 2) === 'on') { if (typeof v === 'function') e.addEventListener(k.slice(2), v); }
+      else if ((k === 'href' || k === 'src') && !safeUrl(v)) { /* dropped */ }
+      else if (v === true) e.setAttribute(k, '');
+      else if (v !== false && v != null) e.setAttribute(k, v);
+    }
+    for (i = 2; i < arguments.length; i++) append(e, arguments[i]);
+    return e;
+  }
+
+  function append(parent, child) {
+    if (child == null || child === false || child === '') return;
+    if (Array.isArray(child)) { child.forEach(function (c) { append(parent, c); }); return; }
+    if (child.nodeType) { parent.appendChild(child); return; }
+    parent.appendChild(document.createTextNode(String(child)));
+  }
+
+  function clear(el) { while (el.firstChild) el.removeChild(el.firstChild); return el; }
+  function fill(el) {
+    clear(el);
+    for (var i = 1; i < arguments.length; i++) append(el, arguments[i]);
+    return el;
+  }
+
+  /* ------------------------------------------------------------ icons
+     One 24x24 stroke set, drawn as SVG nodes rather than markup.       */
+  var PATHS = {
+    home:       ['M3 10.5 12 3l9 7.5', 'M5 9.5V21h14V9.5'],
+    building:   ['M4 21V5a1 1 0 0 1 1-1h9a1 1 0 0 1 1 1v16', 'M15 9h4a1 1 0 0 1 1 1v11', 'M8 8h3M8 12h3M8 16h3', 'M2 21h20'],
+    layers:     ['m12 2 9 5-9 5-9-5 9-5', 'm3 12 9 5 9-5', 'm3 17 9 5 9-5'],
+    pin:        ['M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z', 'M12 12.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z'],
+    grid:       ['M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z'],
+    image:      ['M3 5h18v14H3z', 'm3 16 5-5 4 4 3-3 6 6', 'M9 9.5a1.2 1.2 0 1 0 0-2.4 1.2 1.2 0 0 0 0 2.4Z'],
+    upload:     ['M12 16V4', 'm7 9 5-5 5 5', 'M4 17v2a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-2'],
+    history:    ['M12 7v5l3 2', 'M3.5 12a8.5 8.5 0 1 0 2.6-6.1', 'M3 4v4h4'],
+    users:      ['M16 20v-1.5a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4V20', 'M9.5 10.5a3.25 3.25 0 1 0 0-6.5 3.25 3.25 0 0 0 0 6.5', 'M21 20v-1.5a4 4 0 0 0-3-3.87', 'M15 4.13a4 4 0 0 1 0 7.75'],
+    rocket:     ['M5 15c-1.5 1.5-2 5-2 5s3.5-.5 5-2c.85-.85.9-2.2.05-3.05A2.14 2.14 0 0 0 5 15Z', 'M9 12.5 4.5 11l2-3.5 3.7-.4', 'M11.5 15 13 19.5l3.5-2 .4-3.7', 'M18.5 9.5A8.5 8.5 0 0 0 15 3c-4 2-6.5 5-8 9l5 5c4-1.5 7-4 9-8Z'],
+    logout:     ['M9 21H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h4', 'm16 16 4-4-4-4', 'M20 12H9'],
+    close:      ['m6 6 12 12M18 6 6 18'],
+    plus:       ['M12 5v14M5 12h14'],
+    pencil:     ['M4 20h4L20 8l-4-4L4 16z', 'm14 6 4 4'],
+    trash:      ['M4 7h16', 'M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2', 'M6 7v13a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7', 'M10 11v6M14 11v6'],
+    search:     ['M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z', 'm21 21-4.3-4.3'],
+    check:      ['m4.5 12.5 5 5 10-11'],
+    alert:      ['M12 8v5', 'M12 17h.01', 'M12 3 2 20h20L12 3Z'],
+    info:       ['M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z', 'M12 11v5', 'M12 7.5h.01'],
+    menu:       ['M4 6h16M4 12h16M4 18h16'],
+    chevronL:   ['m14 6-6 6 6 6'],
+    chevronR:   ['m10 6 6 6-6 6'],
+    file:       ['M14 3H7a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7z', 'M14 3v4h4'],
+    eye:        ['M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12Z', 'M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z'],
+    tag:        ['M3 11V4a1 1 0 0 1 1-1h7l9 9-8 8-9-9Z', 'M7.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1'],
+    inbox:      ['M3 12h5l2 3h4l2-3h5', 'M5 5h14l2 7v7a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-7l2-7Z']
+  };
+
+  function ic(name, cls) {
+    var s = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    s.setAttribute('viewBox', '0 0 24 24'); s.setAttribute('fill', 'none');
+    s.setAttribute('stroke', 'currentColor'); s.setAttribute('stroke-width', '1.8');
+    s.setAttribute('stroke-linecap', 'round'); s.setAttribute('stroke-linejoin', 'round');
+    s.setAttribute('aria-hidden', 'true');
+    if (cls) s.setAttribute('class', cls);
+    (PATHS[name] || []).forEach(function (d) {
+      var p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      p.setAttribute('d', d); s.appendChild(p);
+    });
+    return s;
+  }
+
+  /* --------------------------------------------------------- language
+     Every label is a pair. A missing Arabic string is a bug the build
+     catches, not something a reader discovers.                          */
+  var STR = {
+    signin:        ['Sign in', 'تسجيل الدخول'],
+    signin_sub:    ['Editorial access to The Village Investment.', 'الدخول التحريري إلى The Village Investment.'],
+    email:         ['Email', 'البريد الإلكتروني'],
+    password:      ['Password', 'كلمة المرور'],
+    signing_in:    ['Signing in…', 'جارٍ الدخول…'],
+    forgot:        ['Forgot password', 'نسيت كلمة المرور'],
+    first_time:    ['First time here', 'أول مرة هنا'],
+    create_account:['Create your account', 'أنشئ حسابك'],
+    create_sub:    ['Only an address that has been invited can become an admin.', 'العنوان المدعو فقط هو الذي يصبح مشرفاً.'],
+    back_signin:   ['Back to sign in', 'رجوع لتسجيل الدخول'],
+    reset_sent:    ['If that address has an account, a reset link is on its way.', 'إن كان لهذا العنوان حساب، فرابط إعادة التعيين في الطريق.'],
+    check_email:   ['Check your inbox to confirm the address, then sign in.', 'راجع بريدك لتأكيد العنوان ثم سجّل الدخول.'],
+    no_access:     ['This account is signed in but has no dashboard access. Ask an owner to invite it.', 'هذا الحساب مسجّل دخوله لكن بلا صلاحية على اللوحة. اطلب من المالك دعوته.'],
+    sign_out:      ['Sign out', 'خروج'],
+
+    dashboard:     ['Dashboard', 'اللوحة'],
+    content:       ['Content', 'المحتوى'],
+    operations:    ['Operations', 'التشغيل'],
+    developers:    ['Developers', 'المطوّرون'],
+    locations:     ['Locations', 'المناطق'],
+    projects:      ['Projects', 'المشاريع'],
+    units:         ['Units', 'الوحدات'],
+    media:         ['Media', 'الصور'],
+    price_import:  ['Price import', 'تحديث الأسعار'],
+    audit:         ['Activity', 'السجل'],
+    admins:        ['Team', 'الفريق'],
+    publish:       ['Publish', 'النشر'],
+
+    search:        ['Search', 'بحث'],
+    all:           ['All', 'الكل'],
+    new:           ['New', 'جديد'],
+    edit:          ['Edit', 'تعديل'],
+    save:          ['Save', 'حفظ'],
+    saving:        ['Saving…', 'جارٍ الحفظ…'],
+    cancel:        ['Cancel', 'إلغاء'],
+    del:           ['Delete', 'حذف'],
+    confirm_del:   ['Delete this? It is removed from the site on the next publish.', 'حذف هذا؟ سيختفي من الموقع عند النشر التالي.'],
+    saved:         ['Saved', 'تم الحفظ'],
+    deleted:       ['Deleted', 'تم الحذف'],
+    loading:       ['Loading…', 'جارٍ التحميل…'],
+    nothing:       ['Nothing here yet', 'لا يوجد شيء بعد'],
+    required:      ['Required', 'مطلوب'],
+    of:            ['of', 'من'],
+    rows:          ['rows', 'صف'],
+    prev:          ['Previous', 'السابق'],
+    next:          ['Next', 'التالي'],
+
+    name_en:       ['Name (English)', 'الاسم (إنجليزي)'],
+    name_ar:       ['Name (Arabic)', 'الاسم (عربي)'],
+    slug:          ['Slug', 'المعرّف'],
+    slug_hint:     ['The URL segment. Changing it changes a live address.', 'جزء الرابط. تغييره يغيّر عنواناً منشوراً.'],
+    tagline_en:    ['Tagline (English)', 'الشعار (إنجليزي)'],
+    tagline_ar:    ['Tagline (Arabic)', 'الشعار (عربي)'],
+    desc_en:       ['Description (English)', 'الوصف (إنجليزي)'],
+    desc_ar:       ['Description (Arabic)', 'الوصف (عربي)'],
+    areas_en:      ['Areas line (English)', 'سطر المناطق (إنجليزي)'],
+    areas_ar:      ['Areas line (Arabic)', 'سطر المناطق (عربي)'],
+    founded:       ['Founded', 'سنة التأسيس'],
+    colour:        ['Brand colour', 'لون العلامة'],
+    developer:     ['Developer', 'المطوّر'],
+    location:      ['Location', 'المنطقة'],
+    stage:         ['Stage', 'المرحلة'],
+    status:        ['Status', 'الحالة'],
+    price_from:    ['Price from (EGP)', 'السعر من (ج.م)'],
+    down_payment:  ['Down payment %', 'المقدم %'],
+    years:         ['Years', 'سنوات'],
+    delivery:      ['Delivery', 'التسليم'],
+    finishing_en:  ['Finishing (English)', 'التشطيب (إنجليزي)'],
+    finishing_ar:  ['Finishing (Arabic)', 'التشطيب (عربي)'],
+    types_en:      ['Unit types (English)', 'أنواع الوحدات (إنجليزي)'],
+    types_ar:      ['Unit types (Arabic)', 'أنواع الوحدات (عربي)'],
+    tags_en:       ['Tags (English)', 'الوسوم (إنجليزي)'],
+    tags_ar:       ['Tags (Arabic)', 'الوسوم (عربي)'],
+    tags_hint:     ['Comma separated.', 'مفصولة بفواصل.'],
+    unit_code:     ['Unit code', 'كود الوحدة'],
+    unit_type:     ['Unit type', 'نوع الوحدة'],
+    label_en:      ['Label (English)', 'المسمّى (إنجليزي)'],
+    label_ar:      ['Label (Arabic)', 'المسمّى (عربي)'],
+    project:       ['Project', 'المشروع'],
+    beds:          ['Bedrooms', 'غرف النوم'],
+    baths:         ['Bathrooms', 'الحمّامات'],
+    bua:           ['Built-up area (m²)', 'المساحة (م²)'],
+    bua_to:        ['…up to (m²)', '…حتى (م²)'],
+    price:         ['Price (EGP)', 'السعر (ج.م)'],
+    floor:         ['Floor', 'الدور'],
+    availability:  ['Availability', 'التوفّر'],
+    parent:        ['Parent', 'التابع لـ'],
+    level:         ['Level', 'المستوى'],
+    blurb_en:      ['Blurb (English)', 'نبذة (إنجليزي)'],
+    blurb_ar:      ['Blurb (Arabic)', 'نبذة (عربي)'],
+    role:          ['Role', 'الدور'],
+    invite:        ['Invite', 'دعوة'],
+    invited:       ['Invited', 'مدعو'],
+    active:        ['Active', 'نشط'],
+
+    published:     ['Published', 'منشور'],
+    draft:         ['Draft', 'مسودة'],
+    archived:      ['Archived', 'مؤرشف'],
+
+    total_projects:['Projects', 'مشاريع'],
+    total_units:   ['Units', 'وحدات'],
+    total_devs:    ['Developers', 'مطوّرون'],
+    total_media:   ['Images', 'صور'],
+    drafts:        ['Drafts', 'مسودات'],
+    no_price:      ['Awaiting price', 'بانتظار السعر'],
+
+    imp_title:     ['Update prices from a spreadsheet', 'تحديث الأسعار من ملف'],
+    imp_lead:      ['A spreadsheet can only change the price, the down payment, the term and the delivery date of units that already exist. It never creates one — the database refuses that, whatever the file says.', 'الملف يغيّر السعر والمقدم والمدة وتاريخ التسليم للوحدات الموجودة فقط. ولا ينشئ وحدة أبداً — الداتابيز ترفض ذلك مهما كان محتوى الملف.'],
+    imp_drop:      ['Drop a .csv or .xlsx here, or choose a file', 'أفلت ملف .csv أو .xlsx هنا، أو اختر ملفاً'],
+    imp_cols:      ['Needs a unit code column, plus any of: price, down payment, years, delivery.', 'يحتاج عمود كود الوحدة، مع أي من: السعر، المقدم، السنوات، التسليم.'],
+    imp_preview:   ['Preview', 'معاينة'],
+    imp_apply:     ['Apply these changes', 'طبّق هذه التغييرات'],
+    imp_applied:   ['Applied', 'تم التطبيق'],
+    imp_nochange:  ['No change', 'بدون تغيير'],
+    imp_unknown:   ['Unknown unit code', 'كود وحدة غير معروف'],
+    imp_invalid:   ['Value not a number', 'قيمة غير رقمية'],
+    imp_will:      ['will change', 'ستتغيّر'],
+    imp_skip:      ['skipped', 'متجاهَلة'],
+    imp_confirm:   ['Nothing is written until you confirm.', 'لا شيء يُكتب قبل أن تؤكّد.'],
+
+    pub_title:     ['Publish to the live site', 'النشر إلى الموقع'],
+    pub_lead:      ['Publishing rebuilds the static site from what is in this database and deploys it. The site is not read from Postgres at runtime, so nothing changes for visitors until this runs.', 'النشر يعيد بناء الموقع الثابت من محتوى هذه الداتابيز وينشره. الموقع لا يقرأ من Postgres أثناء التشغيل، فلا شيء يتغيّر للزوار قبل تشغيل هذا.'],
+    pub_pending:   ['changes since the last publish', 'تغيير منذ آخر نشر'],
+
+    err_net:       ['Could not reach the server.', 'تعذّر الوصول إلى الخادم.'],
+    err_auth:      ['Wrong email or password.', 'البريد أو كلمة المرور غير صحيحة.'],
+    err_perm:      ['Your role does not allow that.', 'دورك لا يسمح بذلك.'],
+    viewer_ro:     ['You have read-only access.', 'صلاحيتك للقراءة فقط.']
+  };
+
+  var lang = localStorage.getItem('tvi_admin_lang') === 'ar' ? 'ar' : 'en';
+  function t(k) { var v = STR[k]; return v ? v[lang === 'ar' ? 1 : 0] : k; }
+  function setLang(l) {
+    lang = l === 'ar' ? 'ar' : 'en';
+    try { localStorage.setItem('tvi_admin_lang', lang); } catch (e) {}
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    document.documentElement.setAttribute('data-lang', lang);
+  }
+  function isAr() { return lang === 'ar'; }
+
+  /* ------------------------------------------------------- formatting */
+  var AR_DIGITS = '٠١٢٣٤٥٦٧٨٩';
+  function num(v) {
+    if (v == null || v === '') return '—';
+    var s = String(Math.round(Number(v) * 100) / 100).replace(/\B(?=(\d{3})+(?!\d))/, '');
+    s = Number(v).toLocaleString(lang === 'ar' ? 'ar-EG' : 'en-US');
+    return s;
+  }
+  function money(v) {
+    if (v == null || v === '') return '—';
+    var n = Number(v);
+    return lang === 'ar' ? num(n) + ' ج.م' : 'EGP ' + num(n);
+  }
+  function dateFmt(iso) {
+    if (!iso) return '—';
+    var d = new Date(iso);
+    if (isNaN(d)) return '—';
+    return d.toLocaleString(lang === 'ar' ? 'ar-EG' : 'en-GB',
+      { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+  }
+  function slugify(s) {
+    return String(s || '').toLowerCase().trim()
+      .replace(/['’]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+  }
+
+  /* ------------------------------------------------------------ toast */
+  function toast(msg, kind) {
+    var host = document.getElementById('toasts');
+    if (!host) return;
+    var el = h('div', { class: 'toast' + (kind ? ' toast--' + kind : '') },
+      ic(kind === 'err' ? 'alert' : kind === 'ok' ? 'check' : 'info'),
+      h('span', { text: msg }));
+    host.appendChild(el);
+    setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 4200);
+  }
+
+  window.CMS = {
+    CFG: CFG, h: h, ic: ic, fill: fill, clear: clear, append: append, safeUrl: safeUrl,
+    t: t, setLang: setLang, isAr: isAr, STR: STR, lang: function () { return lang; },
+    num: num, money: money, dateFmt: dateFmt, slugify: slugify, toast: toast
+  };
+})();
+  </script>

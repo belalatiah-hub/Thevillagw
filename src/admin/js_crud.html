@@ -1,0 +1,315 @@
+  <script>
+/* =====================================================================
+   One list, one drawer, many tables.
+
+   Every content screen is the same shape: a searchable, sortable, paged
+   table and a side drawer that edits one row. Writing that five times
+   would mean fixing every bug five times, so it is written once and each
+   entity supplies a short description of its columns and fields.
+   ===================================================================== */
+(function () {
+  'use strict';
+  var C = window.CMS, h = C.h, ic = C.ic, t = C.t, fill = C.fill, api = C.api;
+  var shell = C.shell;
+
+  var PAGE = 50;
+
+  /* ------------------------------------------------------------ fields */
+  function label(f) { return typeof f.label === 'function' ? f.label() : t(f.label); }
+
+  function control(f, value, form) {
+    var id = 'f_' + f.name, el;
+    if (f.type === 'textarea') {
+      el = h('textarea', { id: id, name: f.name, rows: f.rows || 4 });
+      el.value = value == null ? '' : String(value);
+    } else if (f.type === 'select') {
+      el = h('select', { id: id, name: f.name });
+      (typeof f.options === 'function' ? f.options() : f.options || []).forEach(function (o) {
+        var opt = h('option', { value: o.value }, o.text);
+        if (String(o.value) === String(value == null ? '' : value)) opt.selected = true;
+        el.appendChild(opt);
+      });
+      if (value == null && f.blank !== false) {
+        var b = h('option', { value: '' }, '—');
+        el.insertBefore(b, el.firstChild); b.selected = true;
+      }
+    } else {
+      el = h('input', {
+        id: id, name: f.name, type: f.type || 'text',
+        step: f.step || (f.type === 'number' ? 'any' : null),
+        min: f.min == null ? null : f.min, max: f.max == null ? null : f.max,
+        inputmode: f.type === 'number' ? 'decimal' : null
+      });
+      el.value = value == null ? '' : String(value);
+    }
+    if (f.readonly) el.setAttribute('readonly', '');
+    if (!shell.canWrite()) el.setAttribute('disabled', '');
+    if (f.oninput) el.addEventListener('input', function () { f.oninput(el, form); });
+    return el;
+  }
+
+  function fieldRow(f, row, form) {
+    var el = control(f, f.get ? f.get(row) : row[f.name], form);
+    var err = h('div', { class: 'f__err', hidden: true });
+    var wrap = h('div', { class: 'f' + (f.ar ? ' f--ar' : '') },
+      h('label', { for: 'f_' + f.name, text: label(f) }),
+      el,
+      f.hint ? h('div', { class: 'f__hint', text: t(f.hint) }) : null,
+      err);
+    form.controls[f.name] = { el: el, err: err, spec: f };
+    return wrap;
+  }
+
+  function readForm(form) {
+    var out = {};
+    for (var k in form.controls) {
+      var c = form.controls[k], f = c.spec, v = c.el.value;
+      if (f.readonly) continue;
+      if (typeof v === 'string') v = v.trim();
+      if (v === '') v = null;
+      if (v != null && f.type === 'number') { v = Number(v); if (isNaN(v)) v = null; }
+      if (f.set) f.set(out, v); else out[k] = v;
+    }
+    return out;
+  }
+
+  function validate(form, fields) {
+    var ok = true, first = null;
+    fields.forEach(function (f) {
+      var c = form.controls[f.name];
+      if (!c) return;
+      c.err.hidden = true; c.el.removeAttribute('aria-invalid');
+      var v = c.el.value == null ? '' : String(c.el.value).trim();
+      var msg = null;
+      if (f.required && !v) msg = t('required');
+      else if (v && f.check) msg = f.check(v);
+      if (msg) {
+        ok = false;
+        c.err.textContent = msg; c.err.hidden = false;
+        c.el.setAttribute('aria-invalid', 'true');
+        if (!first) first = c.el;
+      }
+    });
+    if (first) first.focus();
+    return ok;
+  }
+
+  /* ------------------------------------------------------------ drawer */
+  function openDrawer(cfg, row, onDone) {
+    var isNew = !row || !row[cfg.pk];
+    row = row || (cfg.blank ? cfg.blank() : {});
+    var form = { controls: {} };
+
+    var body = h('div', { class: 'drawer__body' });
+    (cfg.groups || [{ fields: cfg.fields }]).forEach(function (g) {
+      var box = g.legend
+        ? h('fieldset', null, h('legend', { text: t(g.legend) }))
+        : h('div', { class: 'row' });
+      var rows = {};
+      g.fields.forEach(function (f) {
+        var node = fieldRow(f, row, form);
+        if (f.half) {
+          var key = f.pairWith || f.name;
+          if (!rows[key]) { rows[key] = h('div', { class: 'row row--2' }); box.appendChild(rows[key]); }
+          rows[key].appendChild(node);
+        } else box.appendChild(node);
+      });
+      body.appendChild(box);
+    });
+
+    var err = h('div', { class: 'note note--err', hidden: true });
+    body.appendChild(err);
+
+    var saveBtn = h('button', { class: 'btn btn--primary', type: 'button' }, t('save'));
+    var panel;
+
+    function close() { if (panel && panel.parentNode) panel.parentNode.remove(); }
+
+    saveBtn.addEventListener('click', function () {
+      var flat = [];
+      (cfg.groups || [{ fields: cfg.fields }]).forEach(function (g) { flat = flat.concat(g.fields); });
+      if (!validate(form, flat)) return;
+      var patch = readForm(form);
+      if (cfg.beforeSave) {
+        var problem = cfg.beforeSave(patch, row, isNew);
+        if (problem) { err.hidden = false; fill(err, ic('alert'), h('span', { text: problem })); return; }
+      }
+      saveBtn.disabled = true; saveBtn.textContent = t('saving');
+      err.hidden = true;
+      var work = isNew
+        ? api.insert(cfg.table, patch)
+        : api.update(cfg.table, matchPk(cfg, row), patch);
+      work.then(function () {
+        C.toast(t('saved'), 'ok');
+        close();
+        onDone();
+      }).catch(function (e) {
+        saveBtn.disabled = false; saveBtn.textContent = t('save');
+        err.hidden = false; fill(err, ic('alert'), h('span', { text: e.message }));
+      });
+    });
+
+    var foot = h('div', { class: 'drawer__foot' },
+      shell.canWrite() ? saveBtn : h('span', { class: 'chip chip--warn', text: t('viewer_ro') }),
+      h('button', { class: 'btn btn--ghost', type: 'button', onclick: close }, t('cancel')),
+      h('div', { class: 'spacer' }),
+      (!isNew && shell.canWrite() && cfg.deletable !== false)
+        ? h('button', {
+            class: 'btn btn--danger btn--sm', type: 'button',
+            onclick: function () {
+              if (!confirm(t('confirm_del'))) return;
+              api.remove(cfg.table, matchPk(cfg, row))
+                .then(function () { C.toast(t('deleted'), 'ok'); close(); onDone(); })
+                .catch(function (e) { C.toast(e.message, 'err'); });
+            }
+          }, ic('trash'), t('del'))
+        : null);
+
+    panel = h('div', { class: 'drawer', role: 'dialog', 'aria-modal': 'true' },
+      h('div', { class: 'drawer__scrim', onclick: close }),
+      h('div', { class: 'drawer__panel' },
+        h('div', { class: 'drawer__head' },
+          h('h2', { text: isNew ? t('new') + ' · ' + t(cfg.title) : (cfg.rowTitle ? cfg.rowTitle(row) : t('edit')) }),
+          h('button', { class: 'iconbtn', type: 'button', 'aria-label': t('cancel'), onclick: close }, ic('close'))),
+        body, foot));
+
+    document.body.appendChild(panel);
+    var firstInput = body.querySelector('input:not([readonly]),select,textarea');
+    if (firstInput) firstInput.focus();
+    document.addEventListener('keydown', function esc(ev) {
+      if (ev.key === 'Escape') { close(); document.removeEventListener('keydown', esc); }
+    });
+  }
+
+  function matchPk(cfg, row) {
+    var m = {};
+    m[cfg.pk] = 'eq.' + row[cfg.pk];
+    return m;
+  }
+
+  /* -------------------------------------------------------------- list */
+  function renderList(host, cfg) {
+    var state = { page: 0, q: '', filters: {}, sort: cfg.sort || cfg.pk, dir: 'asc', total: null };
+
+    function query() {
+      var p = { select: cfg.select || '*', order: state.sort + '.' + state.dir };
+      if (state.q && cfg.searchOn) {
+        var esc = state.q.replace(/[(),]/g, ' ');
+        p.or = '(' + cfg.searchOn.map(function (c) { return c + '.ilike.*' + esc + '*'; }).join(',') + ')';
+      }
+      for (var k in state.filters) if (state.filters[k]) p[k] = state.filters[k];
+      if (cfg.baseFilter) for (var b in cfg.baseFilter) p[b] = cfg.baseFilter[b];
+      return p;
+    }
+
+    var tbody = h('tbody');
+    var pagerInfo = h('span');
+    var prevBtn = h('button', { class: 'btn btn--ghost btn--sm', type: 'button' }, ic('chevronL'), t('prev'));
+    var nextBtn = h('button', { class: 'btn btn--ghost btn--sm', type: 'button' }, t('next'), ic('chevronR'));
+
+    function load() {
+      fill(tbody, h('tr', null, h('td', { colspan: cfg.columns.length + 1 },
+        h('div', { class: 'skel', style: 'width:60%' }))));
+      var from = state.page * PAGE;
+      api.select(cfg.table, query(), [from, from + PAGE - 1]).then(function (r) {
+        var rows = r.data || [];
+        state.total = r.range ? Number(String(r.range).split('/')[1]) : rows.length;
+        draw(rows);
+      }).catch(function (e) {
+        fill(tbody, h('tr', null, h('td', { colspan: cfg.columns.length + 1 },
+          h('div', { class: 'note note--err' }, ic('alert'), h('span', { text: e.message })))));
+      });
+    }
+
+    function draw(rows) {
+      fill(tbody);
+      if (!rows.length) {
+        tbody.appendChild(h('tr', null, h('td', { colspan: cfg.columns.length + 1 },
+          h('div', { class: 'empty' }, ic('inbox'), h('div', { text: t('nothing') })))));
+      }
+      rows.forEach(function (row) {
+        var tr = h('tr');
+        cfg.columns.forEach(function (col) {
+          var cell = h('td', { class: col.cls || '' });
+          C.append(cell, col.render ? col.render(row) : (row[col.name] == null ? '—' : String(row[col.name])));
+          tr.appendChild(cell);
+        });
+        tr.appendChild(h('td', { class: 'act' },
+          h('button', {
+            class: 'btn btn--ghost btn--sm', type: 'button',
+            onclick: function () { openDrawer(cfg, row, load); }
+          }, ic(shell.canWrite() ? 'pencil' : 'eye'), shell.canWrite() ? t('edit') : t('search'))));
+        tbody.appendChild(tr);
+      });
+      var shown = state.total == null ? rows.length : state.total;
+      pagerInfo.textContent = (state.page * PAGE + (rows.length ? 1 : 0)) + '–' +
+        (state.page * PAGE + rows.length) + ' ' + t('of') + ' ' + shown + ' ' + t('rows');
+      prevBtn.disabled = state.page === 0;
+      nextBtn.disabled = (state.page + 1) * PAGE >= shown;
+    }
+
+    prevBtn.addEventListener('click', function () { if (state.page > 0) { state.page--; load(); } });
+    nextBtn.addEventListener('click', function () { state.page++; load(); });
+
+    var searchInput = h('input', {
+      type: 'search', placeholder: t('search'), 'aria-label': t('search'),
+      oninput: debounce(function (ev) { state.q = ev.target.value.trim(); state.page = 0; load(); }, 260)
+    });
+
+    var toolbar = h('div', { class: 'toolbar' });
+    if (cfg.searchOn) toolbar.appendChild(searchInput);
+    (cfg.filters || []).forEach(function (fl) {
+      var sel = h('select', {
+        'aria-label': t(fl.label),
+        onchange: function (ev) {
+          state.filters[fl.param] = ev.target.value ? fl.value(ev.target.value) : null;
+          state.page = 0; load();
+        }
+      }, h('option', { value: '' }, t(fl.label) + ': ' + t('all')));
+      (typeof fl.options === 'function' ? fl.options() : fl.options).forEach(function (o) {
+        sel.appendChild(h('option', { value: o.value }, o.text));
+      });
+      toolbar.appendChild(sel);
+    });
+    toolbar.appendChild(h('div', { class: 'spacer' }));
+    if (shell.canWrite() && cfg.creatable !== false) {
+      toolbar.appendChild(h('button', {
+        class: 'btn btn--primary btn--sm', type: 'button',
+        onclick: function () { openDrawer(cfg, null, load); }
+      }, ic('plus'), t('new')));
+    }
+
+    var thead = h('thead', null, h('tr', null,
+      cfg.columns.map(function (col) {
+        if (!col.sortOn) return h('th', { text: t(col.label) });
+        return h('th', null, h('button', {
+          class: 'btn btn--ghost btn--sm', type: 'button',
+          onclick: function () {
+            if (state.sort === col.sortOn) state.dir = state.dir === 'asc' ? 'desc' : 'asc';
+            else { state.sort = col.sortOn; state.dir = 'asc'; }
+            state.page = 0; load();
+          }
+        }, t(col.label)));
+      }),
+      h('th', { class: 'act' })));
+
+    fill(host,
+      toolbar,
+      h('div', { class: 'card' },
+        h('div', { class: 'tablewrap' }, h('table', null, thead, tbody)),
+        h('div', { class: 'pager' }, prevBtn, pagerInfo, nextBtn)));
+    load();
+  }
+
+  function debounce(fn, ms) {
+    var timer;
+    return function () {
+      var self = this, args = arguments;
+      clearTimeout(timer);
+      timer = setTimeout(function () { fn.apply(self, args); }, ms);
+    };
+  }
+
+  window.CMS.crud = { renderList: renderList, openDrawer: openDrawer, debounce: debounce, PAGE: PAGE };
+})();
+  </script>

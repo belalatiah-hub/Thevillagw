@@ -1,0 +1,184 @@
+  <script>
+/* =====================================================================
+   Reading a spreadsheet without a spreadsheet library.
+
+   A .xlsx is a ZIP of XML. Browsers now ship both halves of what it takes
+   to open one — DecompressionStream inflates the entries, DOMParser reads
+   the XML — so the file is parsed here rather than by 400 KB of vendored
+   JavaScript that the page's CSP would have to make an exception for.
+
+   CSV is handled too, because "Save as CSV" is the one escape hatch that
+   works when a file turns out to be something exotic.
+   ===================================================================== */
+(function () {
+  'use strict';
+
+  /* --------------------------------------------------------------- CSV
+     RFC 4180: quotes protect commas and newlines, a doubled quote is a
+     literal one. Also tolerates semicolons, which is what Excel writes in
+     locales where the comma is a decimal separator.                     */
+  function parseCsv(text) {
+    text = String(text).replace(/^﻿/, '');
+    var delim = (text.split('\n')[0].split(';').length >
+                 text.split('\n')[0].split(',').length) ? ';' : ',';
+    var rows = [], row = [], cell = '', i = 0, inQ = false;
+    while (i < text.length) {
+      var c = text[i];
+      if (inQ) {
+        if (c === '"') {
+          if (text[i + 1] === '"') { cell += '"'; i += 2; continue; }
+          inQ = false; i++; continue;
+        }
+        cell += c; i++; continue;
+      }
+      if (c === '"') { inQ = true; i++; continue; }
+      if (c === delim) { row.push(cell); cell = ''; i++; continue; }
+      if (c === '\r') { i++; continue; }
+      if (c === '\n') { row.push(cell); rows.push(row); row = []; cell = ''; i++; continue; }
+      cell += c; i++;
+    }
+    if (cell !== '' || row.length) { row.push(cell); rows.push(row); }
+    return rows;
+  }
+
+  /* --------------------------------------------------------------- ZIP
+     Only what a .xlsx needs: walk the central directory, and inflate the
+     one or two entries we care about. Stored (method 0) and deflate
+     (method 8) are the only methods Excel writes.                       */
+  function readZip(buf) {
+    var dv = new DataView(buf), u8 = new Uint8Array(buf);
+    // End of central directory: scan back from the tail for its signature.
+    var eocd = -1;
+    for (var p = u8.length - 22; p >= 0 && p > u8.length - 66000; p--) {
+      if (dv.getUint32(p, true) === 0x06054b50) { eocd = p; break; }
+    }
+    if (eocd < 0) throw new Error('not a zip');
+    var count = dv.getUint16(eocd + 10, true);
+    var start = dv.getUint32(eocd + 16, true);
+    var files = {}, off = start;
+    for (var n = 0; n < count; n++) {
+      if (dv.getUint32(off, true) !== 0x02014b50) break;
+      var method = dv.getUint16(off + 10, true);
+      var csize = dv.getUint32(off + 20, true);
+      var nameLen = dv.getUint16(off + 28, true);
+      var extraLen = dv.getUint16(off + 30, true);
+      var commentLen = dv.getUint16(off + 32, true);
+      var local = dv.getUint32(off + 42, true);
+      var name = new TextDecoder().decode(u8.subarray(off + 46, off + 46 + nameLen));
+      files[name] = { method: method, csize: csize, local: local };
+      off += 46 + nameLen + extraLen + commentLen;
+    }
+    return {
+      names: Object.keys(files),
+      read: function (name) {
+        var f = files[name];
+        if (!f) return Promise.resolve(null);
+        // The local header repeats the name and extra length; the data
+        // starts after them, and only the local copy of extraLen is right.
+        var ln = dv.getUint16(f.local + 26, true);
+        var le = dv.getUint16(f.local + 28, true);
+        var dataAt = f.local + 30 + ln + le;
+        var raw = u8.subarray(dataAt, dataAt + f.csize);
+        if (f.method === 0) return Promise.resolve(new TextDecoder().decode(raw));
+        if (typeof DecompressionStream !== 'function') {
+          return Promise.reject(new Error('This browser cannot open .xlsx — save the sheet as CSV.'));
+        }
+        var ds = new DecompressionStream('deflate-raw');
+        var stream = new Blob([raw]).stream().pipeThrough(ds);
+        return new Response(stream).text();
+      }
+    };
+  }
+
+  /* Excel columns are letters: A, B, …, Z, AA. */
+  function colIndex(ref) {
+    var m = /^([A-Z]+)/.exec(ref || '');
+    if (!m) return 0;
+    var n = 0;
+    for (var i = 0; i < m[1].length; i++) n = n * 26 + (m[1].charCodeAt(i) - 64);
+    return n - 1;
+  }
+
+  function textOf(node) {
+    // A shared string can be split across runs; concatenate every <t>.
+    var ts = node.getElementsByTagName('t');
+    if (!ts.length) return '';
+    var s = '';
+    for (var i = 0; i < ts.length; i++) s += ts[i].textContent;
+    return s;
+  }
+
+  function parseXlsx(buf) {
+    var zip;
+    try { zip = readZip(buf); } catch (e) { return Promise.reject(new Error('Not a readable .xlsx file.')); }
+
+    var sheetName = null;
+    zip.names.forEach(function (n) {
+      if (/^xl\/worksheets\/sheet\d+\.xml$/.test(n) && (!sheetName || n < sheetName)) sheetName = n;
+    });
+    if (!sheetName) return Promise.reject(new Error('No worksheet found in the file.'));
+
+    return Promise.all([zip.read('xl/sharedStrings.xml'), zip.read(sheetName)])
+      .then(function (parts) {
+        var shared = [];
+        if (parts[0]) {
+          var sdoc = new DOMParser().parseFromString(parts[0], 'application/xml');
+          var sis = sdoc.getElementsByTagName('si');
+          for (var i = 0; i < sis.length; i++) shared.push(textOf(sis[i]));
+        }
+        var doc = new DOMParser().parseFromString(parts[1], 'application/xml');
+        var rowEls = doc.getElementsByTagName('row');
+        var rows = [];
+        for (var r = 0; r < rowEls.length; r++) {
+          var cells = rowEls[r].getElementsByTagName('c');
+          var out = [];
+          for (var c = 0; c < cells.length; c++) {
+            var cell = cells[c];
+            var idx = colIndex(cell.getAttribute('r'));
+            var ty = cell.getAttribute('t');
+            var val = '';
+            if (ty === 'inlineStr') val = textOf(cell);
+            else {
+              var vs = cell.getElementsByTagName('v');
+              var raw = vs.length ? vs[0].textContent : '';
+              if (ty === 's') val = shared[Number(raw)] || '';
+              else val = raw;
+            }
+            while (out.length < idx) out.push('');
+            out[idx] = val;
+          }
+          rows.push(out);
+        }
+        return rows;
+      });
+  }
+
+  function readFile(file) {
+    var name = (file.name || '').toLowerCase();
+    if (/\.(csv|tsv|txt)$/.test(name)) {
+      return file.text().then(parseCsv);
+    }
+    if (/\.xlsx$/.test(name)) {
+      return file.arrayBuffer().then(parseXlsx);
+    }
+    if (/\.xls$/.test(name)) {
+      return Promise.reject(new Error('The old .xls format is not supported — save as .xlsx or .csv.'));
+    }
+    // No recognisable extension: try both, text first.
+    return file.text().then(parseCsv);
+  }
+
+  /* Trailing empty rows and columns are what a spreadsheet leaves behind
+     when someone deletes a block; drop them so a file does not appear to
+     have 900 blank units. */
+  function trim(rows) {
+    var out = rows.map(function (r) { return r.map(function (c) { return String(c == null ? '' : c).trim(); }); })
+                  .filter(function (r) { return r.some(function (c) { return c !== ''; }); });
+    var width = 0;
+    out.forEach(function (r) { for (var i = r.length - 1; i >= 0; i--) if (r[i] !== '') { width = Math.max(width, i + 1); break; } });
+    return out.map(function (r) { r.length = width; return Array.prototype.map.call(r, function (c) { return c == null ? '' : c; }); });
+  }
+
+  window.CMS.sheet = { parseCsv: parseCsv, parseXlsx: parseXlsx, readFile: readFile, trim: trim, colIndex: colIndex };
+})();
+  </script>

@@ -1,0 +1,307 @@
+  <script>
+/* =====================================================================
+   Price import: read, match, show, and only then write.
+
+   The rule the owner set is absolute — a spreadsheet updates units that
+   already exist and never creates one. That rule is enforced by a trigger
+   in the database, not by this screen; what this screen owes the editor is
+   an honest preview, so nobody discovers what a file did after it did it.
+   ===================================================================== */
+(function () {
+  'use strict';
+  var C = window.CMS, h = C.h, ic = C.ic, t = C.t, fill = C.fill, api = C.api;
+  var shell = C.shell, sheet = C.sheet;
+
+  /* Header synonyms. A developer's sheet is written by a person, not a
+     schema, so `Unit`, `Code`, `كود` and `Unit ID` all mean the same. */
+  var HEADERS = {
+    unit_code:        ['unit code', 'unitcode', 'unit', 'code', 'unit id', 'unit_id', 'id',
+                       'كود', 'كود الوحدة', 'الوحدة', 'رقم الوحدة'],
+    price:            ['price', 'new price', 'total price', 'unit price', 'amount', 'egp',
+                       'السعر', 'السعر الجديد', 'إجمالي السعر', 'الاجمالي', 'سعر'],
+    down_payment_pct: ['down payment', 'downpayment', 'dp', 'dp %', 'down payment %', 'deposit',
+                       'المقدم', 'الدفعة المقدمة', 'نسبة المقدم'],
+    instalment_years: ['years', 'instalment years', 'installment years', 'plan', 'plan years', 'term',
+                       'سنوات', 'مدة التقسيط', 'عدد السنوات', 'التقسيط'],
+    delivery_label:   ['delivery', 'handover', 'delivery date', 'handover date',
+                       'التسليم', 'تاريخ التسليم', 'الاستلام']
+  };
+
+  function normHead(s) {
+    return String(s || '').toLowerCase().replace(/[ً-ْ]/g, '')
+      .replace(/[^a-z0-9؀-ۿ%]+/g, ' ').trim();
+  }
+
+  function mapColumns(headerRow) {
+    var map = {};
+    headerRow.forEach(function (cell, i) {
+      var n = normHead(cell);
+      if (!n) return;
+      for (var field in HEADERS) {
+        if (map[field] != null) continue;
+        for (var j = 0; j < HEADERS[field].length; j++) {
+          if (n === HEADERS[field][j] || n === normHead(HEADERS[field][j])) { map[field] = i; return; }
+        }
+      }
+    });
+    // Second pass, looser: a header that merely contains the word.
+    headerRow.forEach(function (cell, i) {
+      var n = normHead(cell);
+      if (!n) return;
+      for (var field in HEADERS) {
+        if (map[field] != null) continue;
+        for (var j = 0; j < HEADERS[field].length; j++) {
+          if (n.indexOf(normHead(HEADERS[field][j])) >= 0) { map[field] = i; return; }
+        }
+      }
+    });
+    return map;
+  }
+
+  /* Arabic-Indic digits, thousands separators, a stray currency word. */
+  function toNumber(v) {
+    if (v == null) return null;
+    var s = String(v).trim();
+    if (!s) return null;
+    s = s.replace(/[٠-٩]/g, function (d) { return String(d.charCodeAt(0) - 0x0660); })
+         .replace(/[۰-۹]/g, function (d) { return String(d.charCodeAt(0) - 0x06F0); })
+         .replace(/[٬,\s]/g, '').replace(/[٫]/g, '.')
+         .replace(/(egp|جنيه|ج\.م|%)/gi, '').trim();
+    if (!/^-?\d*\.?\d+$/.test(s)) return NaN;
+    return Number(s);
+  }
+
+  function fieldLabel(f) {
+    return { price: t('price'), down_payment_pct: t('down_payment'),
+             instalment_years: t('years'), delivery_label: t('delivery') }[f] || f;
+  }
+
+  shell.route('price-import', {
+    icon: 'upload', group: 'operations', label: 'price_import',
+    render: function (host) {
+      var state = { rows: null, map: null, file: null, batch: null };
+      var out = h('div');
+      var fileInput = h('input', {
+        type: 'file', accept: '.csv,.tsv,.txt,.xlsx', hidden: true,
+        onchange: function (ev) { if (ev.target.files[0]) take(ev.target.files[0]); }
+      });
+
+      var drop = h('div', {
+        class: 'drop',
+        ondragover: function (ev) { ev.preventDefault(); drop.dataset.over = '1'; },
+        ondragleave: function () { drop.dataset.over = '0'; },
+        ondrop: function (ev) {
+          ev.preventDefault(); drop.dataset.over = '0';
+          var f = ev.dataTransfer && ev.dataTransfer.files && ev.dataTransfer.files[0];
+          if (f) take(f);
+        }
+      },
+        ic('upload'),
+        h('div', { text: t('imp_drop'), style: 'margin-bottom:10px' }),
+        h('button', { class: 'btn btn--ghost btn--sm', type: 'button',
+                      onclick: function () { fileInput.click(); } }, ic('file'), t('imp_preview')),
+        h('div', { class: 'f__hint', style: 'margin-top:12px', text: t('imp_cols') }),
+        fileInput);
+
+      fill(host,
+        h('div', { class: 'card' },
+          h('div', { class: 'card__head' }, h('h2', { text: t('imp_title') })),
+          h('div', { class: 'card__body' },
+            h('div', { class: 'note note--info', style: 'margin-bottom:16px' },
+              ic('info'), h('span', { text: t('imp_lead') })),
+            shell.canWrite() ? drop
+              : h('div', { class: 'note note--warn' }, ic('alert'), h('span', { text: t('viewer_ro') })))),
+        h('div', { style: 'height:18px' }),
+        out);
+
+      function take(file) {
+        state.file = file;
+        fill(out, h('div', { class: 'card' }, h('div', { class: 'card__body' },
+          h('div', { class: 'skel', style: 'width:50%' }))));
+        sheet.readFile(file)
+          .then(function (rows) { return preview(sheet.trim(rows)); })
+          .catch(function (e) {
+            fill(out, h('div', { class: 'note note--err' }, ic('alert'), h('span', { text: e.message })));
+          });
+      }
+
+      function preview(rows) {
+        if (!rows.length) throw new Error(t('nothing'));
+        var map = mapColumns(rows[0]);
+        if (map.unit_code == null) {
+          throw new Error(C.isAr()
+            ? 'لم أجد عمود كود الوحدة في الملف.'
+            : 'No unit-code column found in the file.');
+        }
+        var fields = ['price', 'down_payment_pct', 'instalment_years', 'delivery_label']
+          .filter(function (f) { return map[f] != null; });
+        if (!fields.length) {
+          throw new Error(C.isAr()
+            ? 'الملف لا يحمل أي عمود قابل للتحديث.'
+            : 'The file carries no updatable column.');
+        }
+
+        var body = rows.slice(1);
+        var codes = [];
+        body.forEach(function (r) {
+          var code = String(r[map.unit_code] || '').trim();
+          if (code) codes.push(code);
+        });
+        if (!codes.length) throw new Error(t('nothing'));
+
+        // Ask the database what those codes are worth today. `in.(…)` needs
+        // the values quoted, because a code may contain a comma.
+        var uniq = codes.filter(function (v, i, a) { return a.indexOf(v) === i; });
+        var chunks = [];
+        for (var i = 0; i < uniq.length; i += 200) chunks.push(uniq.slice(i, i + 200));
+
+        return Promise.all(chunks.map(function (ch) {
+          return api.select('units', {
+            select: 'id,unit_code,price,down_payment_pct,instalment_years,delivery_label',
+            unit_code: 'in.(' + ch.map(function (c) { return '"' + c.replace(/"/g, '""') + '"'; }).join(',') + ')'
+          });
+        })).then(function (res) {
+          var known = {};
+          res.forEach(function (r) {
+            (r.data || []).forEach(function (u) { known[u.unit_code.toLowerCase()] = u; });
+          });
+          state.rows = analyse(body, map, fields, known);
+          state.map = map;
+          draw(fields);
+        });
+      }
+
+      function analyse(body, map, fields, known) {
+        return body.map(function (r, i) {
+          var code = String(r[map.unit_code] || '').trim();
+          var row = { n: i + 2, code: code, changes: [], verdict: 'ok', message: '', unit: null };
+          if (!code) { row.verdict = 'skip'; row.message = t('imp_nochange'); return row; }
+          var unit = known[code.toLowerCase()];
+          if (!unit) { row.verdict = 'unknown'; row.message = t('imp_unknown'); return row; }
+          row.unit = unit;
+
+          fields.forEach(function (f) {
+            var raw = r[map[f]];
+            if (raw == null || String(raw).trim() === '') return;   // column left blank: not a change
+            var next, cur;
+            if (f === 'delivery_label') {
+              next = String(raw).trim();
+              cur = unit.delivery_label == null ? '' : String(unit.delivery_label);
+              if (next === cur) return;
+            } else {
+              next = toNumber(raw);
+              if (next == null) return;
+              if (isNaN(next)) { row.verdict = 'invalid'; row.message = t('imp_invalid') + ' · ' + fieldLabel(f); return; }
+              cur = unit[f] == null ? null : Number(unit[f]);
+              if (cur === next) return;
+            }
+            row.changes.push({ field: f, from: unit[f], to: next });
+          });
+
+          if (row.verdict === 'ok' && !row.changes.length) { row.verdict = 'skip'; row.message = t('imp_nochange'); }
+          return row;
+        });
+      }
+
+      function draw(fields) {
+        var rows = state.rows;
+        var willChange = rows.filter(function (r) { return r.verdict === 'ok'; });
+        var skipped = rows.length - willChange.length;
+
+        var tb = h('tbody');
+        rows.forEach(function (r) {
+          var cls = r.verdict === 'ok' ? 'chip--ok'
+                  : r.verdict === 'unknown' ? 'chip--danger'
+                  : r.verdict === 'invalid' ? 'chip--danger' : '';
+          var detail;
+          if (r.verdict === 'ok') {
+            detail = h('div', { class: 'diff' }, r.changes.map(function (c) {
+              var from = c.field === 'delivery_label' ? (c.from || '—')
+                       : c.field === 'price' ? C.money(c.from) : (c.from == null ? '—' : C.num(c.from));
+              var to = c.field === 'delivery_label' ? c.to
+                     : c.field === 'price' ? C.money(c.to) : C.num(c.to);
+              return h('div', null,
+                h('span', { class: 'chip', text: fieldLabel(c.field) }), ' ',
+                h('del', { text: String(from) }), h('ins', { text: String(to) }));
+            }));
+          } else {
+            detail = h('span', { class: 'f__hint', text: r.message });
+          }
+          tb.appendChild(h('tr', null,
+            h('td', { class: 'num', text: r.n }),
+            h('td', null, h('code', { text: r.code || '—' })),
+            h('td', null, h('span', { class: 'chip ' + cls, text: r.verdict })),
+            h('td', null, detail)));
+        });
+
+        fill(out,
+          h('div', { class: 'toolbar' },
+            h('span', { class: 'chip chip--ok', text: C.num(willChange.length) + ' ' + t('imp_will') }),
+            h('span', { class: 'chip', text: C.num(skipped) + ' ' + t('imp_skip') }),
+            h('span', { class: 'f__hint', text: state.file ? state.file.name : '' }),
+            h('div', { class: 'spacer' }),
+            h('button', {
+              class: 'btn btn--primary btn--sm', type: 'button',
+              disabled: !willChange.length || !shell.canWrite(),
+              onclick: function (ev) { apply(ev.currentTarget, willChange); }
+            }, ic('check'), t('imp_apply'))),
+          h('div', { class: 'note note--warn', style: 'margin-bottom:14px' },
+            ic('info'), h('span', { text: t('imp_confirm') })),
+          h('div', { class: 'card' },
+            h('div', { class: 'tablewrap' }, h('table', null,
+              h('thead', null, h('tr', null,
+                h('th', { text: '#' }), h('th', { text: t('unit_code') }),
+                h('th', { text: t('status') }), h('th', { text: t('imp_preview') }))),
+              tb))));
+      }
+
+      /* The write. A batch row, its rows, then one RPC that does the work
+         inside a transaction — so a half-applied file is not a state the
+         database can be left in. */
+      function apply(btn, willChange) {
+        if (!confirm(C.isAr()
+          ? 'تطبيق ' + willChange.length + ' تغيير على الوحدات؟'
+          : 'Apply ' + willChange.length + ' change(s) to units?')) return;
+        btn.disabled = true; btn.textContent = t('saving');
+
+        api.insert('import_batches', {
+          filename: state.file ? state.file.name : 'upload',
+          uploaded_by: shell.jwtSub(),
+          status: 'pending',
+          rows_total: state.rows.length,
+          rows_valid: willChange.length,
+          rows_invalid: state.rows.length - willChange.length
+        }).then(function (batch) {
+          state.batch = batch;
+          var payload = state.rows.map(function (r) {
+            var row = {
+              batch_id: batch.id, row_number: r.n, unit_code: r.code,
+              unit_id: r.unit ? r.unit.id : null,
+              verdict: r.verdict, message: r.message || null,
+              changed_fields: r.changes.map(function (c) { return c.field; })
+            };
+            r.changes.forEach(function (c) {
+              row['old_' + c.field] = c.from;
+              row['new_' + c.field] = c.to;
+            });
+            return row;
+          });
+          // POST accepts an array; one round trip for the whole file.
+          return api.rest('import_rows', { method: 'POST', body: payload });
+        }).then(function () {
+          return api.rpc('apply_price_import', { p_batch_id: state.batch.id });
+        }).then(function (applied) {
+          C.toast(t('imp_applied') + ' · ' + C.num(applied), 'ok');
+          fill(out, h('div', { class: 'note note--ok' }, ic('check'),
+            h('span', { text: t('imp_applied') + ': ' + C.num(applied) })));
+        }).catch(function (e) {
+          btn.disabled = false; btn.textContent = t('imp_apply');
+          C.toast(e.message, 'err');
+        });
+      }
+    }
+  });
+
+  window.CMS.importer = { mapColumns: mapColumns, toNumber: toNumber, normHead: normHead, HEADERS: HEADERS };
+})();
+  </script>

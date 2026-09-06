@@ -1,0 +1,121 @@
+  <script>
+/* =====================================================================
+   Publish.
+
+   The public site is a static file. It does not read Postgres, which is
+   why it stays fast and why a database outage cannot take it down — and
+   also why an edit made here is invisible to visitors until the site is
+   rebuilt from the database and deployed. This screen says that plainly,
+   shows what is waiting, and hands the job to the build pipeline.
+   ===================================================================== */
+(function () {
+  'use strict';
+  var C = window.CMS, h = C.h, ic = C.ic, t = C.t, fill = C.fill, api = C.api;
+  var shell = C.shell;
+
+  shell.route('publish', {
+    icon: 'rocket', group: 'operations', label: 'publish',
+    render: function (host) {
+      var box = h('div');
+      fill(host, box, h('div', { class: 'skel', style: 'width:40%' }));
+
+      return api.select('audit_log',
+        { select: 'id,action,entity_type,entity_label,field,actor_email,created_at',
+          order: 'created_at.desc' }, [0, 199])
+        .then(function (r) {
+          var rows = r.data || [];
+          var lastPublish = null;
+          for (var i = 0; i < rows.length; i++) {
+            if (rows[i].action === 'publish') { lastPublish = rows[i]; break; }
+          }
+          var since = lastPublish
+            ? rows.filter(function (a) { return a.created_at > lastPublish.created_at && a.action !== 'publish'; })
+            : rows.filter(function (a) { return a.action !== 'publish'; });
+
+          var list = h('tbody');
+          since.slice(0, 40).forEach(function (a) {
+            list.appendChild(h('tr', null,
+              h('td', null, h('span', { class: 'chip chip--teal', text: a.action })),
+              h('td', { text: (a.entity_type || '') + (a.entity_label ? ' · ' + a.entity_label : '') }),
+              h('td', { text: a.field || '—' }),
+              h('td', { text: a.actor_email || '—' }),
+              h('td', { class: 'num', text: C.dateFmt(a.created_at) })));
+          });
+
+          fill(host,
+            h('div', { class: 'card' },
+              h('div', { class: 'card__head' }, h('h2', { text: t('pub_title') })),
+              h('div', { class: 'card__body' },
+                h('div', { class: 'note note--info', style: 'margin-bottom:16px' },
+                  ic('info'), h('span', { text: t('pub_lead') })),
+                h('div', { class: 'stats' },
+                  h('div', { class: 'stat' },
+                    h('b', { text: C.num(since.length) }),
+                    h('span', { text: t('pub_pending') })),
+                  h('div', { class: 'stat' },
+                    h('b', { style: 'font-size:1rem', text: lastPublish ? C.dateFmt(lastPublish.created_at) : '—' }),
+                    h('span', { text: t('publish') }))),
+                h('div', { style: 'display:flex;gap:10px;flex-wrap:wrap;align-items:center' },
+                  h('button', {
+                    class: 'btn btn--primary', type: 'button',
+                    disabled: !shell.isOwner(),
+                    onclick: function (ev) { markPublished(ev.currentTarget, since.length); }
+                  }, ic('rocket'), t('publish')),
+                  h('a', {
+                    class: 'btn btn--ghost', href: '/en/', target: '_blank', rel: 'noopener'
+                  }, ic('eye'), t('imp_preview'))),
+                shell.isOwner() ? null
+                  : h('div', { class: 'note note--warn', style: 'margin-top:14px' },
+                      ic('alert'), h('span', { text: t('err_perm') })))),
+            h('div', { style: 'height:18px' }),
+            since.length
+              ? h('div', { class: 'card' },
+                  h('div', { class: 'card__head' }, h('h2', { text: t('audit') })),
+                  h('div', { class: 'tablewrap' }, h('table', null,
+                    h('thead', null, h('tr', null,
+                      h('th', { text: t('role') }), h('th', { text: t('content') }),
+                      h('th', { text: t('status') }), h('th', { text: t('email') }),
+                      h('th', { text: t('audit') }))),
+                    list)))
+              : h('div', { class: 'card' }, h('div', { class: 'card__body' },
+                  h('div', { class: 'empty' }, ic('check'), h('div', { text: t('nothing') })))));
+        });
+
+      /* Recording the intent is this app's half of the job. The build that
+         regenerates index.html runs in CI, reads the database, and deploys;
+         this row is what it looks for, and what the next screen counts
+         "since". Nothing here can deploy on its own, by design. */
+      function markPublished(btn, pending) {
+        if (!confirm(C.isAr()
+          ? 'تسجيل النشر لـ ' + pending + ' تغيير؟ سيبدأ البناء من الداتابيز.'
+          : 'Record a publish for ' + pending + ' change(s)? The build will read from the database.')) return;
+        btn.disabled = true; btn.textContent = t('saving');
+        api.insert('audit_log', {
+          actor_id: shell.jwtSub(),
+          actor_email: (shell.me() || {}).email,
+          action: 'publish',
+          entity_type: 'site',
+          entity_label: 'Static rebuild',
+          new_value: { pending_changes: pending }
+        }).then(function () {
+          C.toast(t('saved'), 'ok');
+          shell.render();
+        }).catch(function (e) {
+          btn.disabled = false; btn.textContent = t('publish');
+          C.toast(e.message, 'err');
+        });
+      }
+    }
+  });
+})();
+  </script>
+  <script>
+/* Boot last, once every route has registered itself. */
+(function () {
+  'use strict';
+  window.CMS.setLang(window.CMS.lang());
+  window.CMS.shell.boot();
+})();
+  </script>
+</body>
+</html>

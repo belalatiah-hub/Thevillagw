@@ -1,0 +1,265 @@
+  <script>
+/* =====================================================================
+   The frame: who is signed in, what they may see, and where they are.
+   ===================================================================== */
+(function () {
+  'use strict';
+  var C = window.CMS, h = C.h, ic = C.ic, t = C.t, fill = C.fill, api = C.api;
+
+  var ME = null;          // the cms.admins row, or null
+  var ROUTES = {};        // name -> { icon, group, render, needs }
+  var ORDER = [];
+  var current = null;
+
+  function me() { return ME; }
+  function canWrite() { return !!ME && (ME.role === 'owner' || ME.role === 'editor'); }
+  function isOwner() { return !!ME && ME.role === 'owner'; }
+
+  function route(name, spec) { ROUTES[name] = spec; ORDER.push(name); }
+
+  /* ------------------------------------------------------------- gate */
+  function field(id, label, type, opts) {
+    opts = opts || {};
+    var input = h('input', {
+      id: id, type: type || 'text', name: id, autocomplete: opts.autocomplete || 'off',
+      required: opts.required !== false, placeholder: opts.placeholder || ''
+    });
+    return { wrap: h('div', { class: 'f' }, h('label', { for: id, text: label }), input), input: input };
+  }
+
+  function renderGate(mode, prefill) {
+    var root = document.getElementById('root');
+    var email = field('email', t('email'), 'email', { autocomplete: 'username' });
+    var pass = field('password', t('password'), 'password',
+      { autocomplete: mode === 'signup' ? 'new-password' : 'current-password' });
+    if (prefill) email.input.value = prefill;
+
+    var msg = h('div', { class: 'f__err', role: 'alert' });
+    var btn = h('button', { class: 'btn btn--primary btn--full', type: 'submit' },
+      mode === 'signup' ? t('create_account') : t('signin'));
+
+    var form = h('form', {
+      novalidate: true,
+      onsubmit: function (ev) {
+        ev.preventDefault();
+        fill(msg);
+        btn.disabled = true;
+        btn.textContent = t('signing_in');
+        var work = mode === 'signup'
+          ? api.signUp(email.input.value.trim(), pass.input.value)
+          : api.signIn(email.input.value.trim(), pass.input.value);
+        work.then(function (s) {
+          if (!s) { // signup that needs email confirmation first
+            btn.disabled = false;
+            btn.textContent = mode === 'signup' ? t('create_account') : t('signin');
+            fill(msg, h('span', { class: 'note note--ok', text: t('check_email') }));
+            return;
+          }
+          return boot();
+        }).catch(function (e) {
+          btn.disabled = false;
+          btn.textContent = mode === 'signup' ? t('create_account') : t('signin');
+          fill(msg, e.message || t('err_net'));
+          pass.input.focus();
+        });
+      }
+    }, email.wrap, pass.wrap, msg, btn);
+
+    var alt = h('div', { class: 'gate__alt' },
+      mode === 'signup'
+        ? h('button', { type: 'button', onclick: function () { renderGate('signin', email.input.value); } }, t('back_signin'))
+        : h('button', {
+            type: 'button',
+            onclick: function () {
+              var addr = email.input.value.trim();
+              if (!addr) { email.input.focus(); return; }
+              api.resetPassword(addr)
+                .then(function () { fill(msg, h('span', { class: 'note note--ok', text: t('reset_sent') })); })
+                .catch(function (e) { fill(msg, e.message); });
+            }
+          }, t('forgot')),
+      mode === 'signup' ? null
+        : h('button', { type: 'button', onclick: function () { renderGate('signup', email.input.value); } },
+            t('first_time')));
+
+    fill(root, h('div', { class: 'gate' },
+      h('div', { class: 'gate__card' },
+        h('div', { class: 'gate__mark' }, ic('building')),
+        h('h1', { text: mode === 'signup' ? t('create_account') : t('signin') }),
+        h('p', { class: 'gate__sub', text: mode === 'signup' ? t('create_sub') : t('signin_sub') }),
+        form,
+        alt,
+        h('div', { class: 'gate__alt' },
+          h('button', {
+            type: 'button',
+            onclick: function () { C.setLang(C.isAr() ? 'en' : 'ar'); renderGate(mode, email.input.value); }
+          }, C.isAr() ? 'English' : 'العربية')))));
+    root.setAttribute('aria-busy', 'false');
+    email.input.focus();
+  }
+
+  /* ------------------------------------------------------------ frame */
+  function railLink(name) {
+    var spec = ROUTES[name];
+    var a = h('a', {
+      href: '#/' + name,
+      onclick: function (ev) { ev.preventDefault(); go(name); }
+    }, ic(spec.icon), h('span', { text: t(spec.label || name) }));
+    if (current === name) a.setAttribute('aria-current', 'page');
+    return a;
+  }
+
+  function renderFrame() {
+    var root = document.getElementById('root');
+    var groups = {}, order = [];
+    ORDER.forEach(function (n) {
+      var s = ROUTES[n];
+      if (s.needs === 'owner' && !isOwner()) return;
+      if (!groups[s.group]) { groups[s.group] = []; order.push(s.group); }
+      groups[s.group].push(n);
+    });
+
+    var nav = h('nav', { 'aria-label': t('dashboard') });
+    order.forEach(function (g) {
+      if (g) nav.appendChild(h('div', { class: 'rail__group', text: t(g) }));
+      groups[g].forEach(function (n) { nav.appendChild(railLink(n)); });
+    });
+
+    var rail = h('aside', { class: 'rail', id: 'rail' },
+      h('div', { class: 'rail__brand' },
+        h('img', { src: '/apple-touch-icon.png', alt: '', width: 34, height: 34 }),
+        h('div', null,
+          h('b', { text: 'The Village' }),
+          h('span', { text: t('dashboard') }))),
+      nav,
+      h('div', { class: 'rail__foot' },
+        h('div', { class: 'rail__who' },
+          h('b', { text: (ME && (ME.full_name || ME.email)) || '' }),
+          h('span', { text: ME ? t(ME.role === 'owner' ? 'admins' : 'role') + ' · ' + ME.role : '' })),
+        h('div', { class: 'rail__acts' },
+          h('button', {
+            type: 'button',
+            onclick: function () { C.setLang(C.isAr() ? 'en' : 'ar'); render(); }
+          }, C.isAr() ? 'EN' : 'ع'),
+          h('button', {
+            type: 'button',
+            onclick: function () { api.signOut().then(boot); }
+          }, t('sign_out')))));
+
+    var title = h('h1', { text: t((ROUTES[current] && ROUTES[current].label) || current) });
+    var body = h('div', { class: 'content', id: 'main', tabindex: '-1' });
+
+    var main = h('div', { class: 'main' },
+      h('header', { class: 'topbar' },
+        h('button', {
+          class: 'burger', type: 'button', 'aria-label': t('dashboard'),
+          onclick: function () {
+            var open = rail.dataset.open === '1';
+            rail.dataset.open = open ? '0' : '1';
+            if (!open) {
+              var scrim = h('div', { class: 'scrim', onclick: function () { rail.dataset.open = '0'; scrim.remove(); } });
+              root.appendChild(scrim);
+            }
+          }
+        }, ic('menu')),
+        title),
+      body);
+
+    fill(root, h('div', { class: 'app' }, rail, main));
+    root.setAttribute('aria-busy', 'false');
+    return body;
+  }
+
+  function render() {
+    if (!ME) { renderGate('signin'); return; }
+    var body = renderFrame();
+    var spec = ROUTES[current];
+    if (!spec) { current = ORDER[0]; spec = ROUTES[current]; }
+    fill(body, h('div', { class: 'skel', style: 'width:180px' }));
+    Promise.resolve()
+      .then(function () { return spec.render(body); })
+      .catch(function (e) {
+        fill(body, h('div', { class: 'note note--err' }, ic('alert'), h('span', { text: e.message || String(e) })));
+      });
+  }
+
+  function go(name, replace) {
+    if (!ROUTES[name]) name = ORDER[0];
+    current = name;
+    var hash = '#/' + name;
+    if (location.hash !== hash) {
+      if (replace) history.replaceState(null, '', hash); else location.hash = hash;
+    }
+    render();
+  }
+
+  function fromHash() {
+    var m = /^#\/([a-z-]+)/.exec(location.hash || '');
+    return m && ROUTES[m[1]] ? m[1] : ORDER[0];
+  }
+
+  window.addEventListener('hashchange', function () {
+    var n = fromHash();
+    if (n !== current) { current = n; render(); }
+  });
+
+  /* ------------------------------------------------------------- boot */
+  function boot() {
+    var root = document.getElementById('root');
+    root.setAttribute('aria-busy', 'true');
+    fill(root, h('div', { class: 'gate' }, h('div', { class: 'gate__card' },
+      h('p', { class: 'gate__sub', text: t('loading') }))));
+
+    api.load();
+    var kind = api.adoptUrlToken();
+
+    if (!api.session()) { ME = null; renderGate('signin'); return Promise.resolve(); }
+
+    // Who am I? The answer comes from the database, never from the token.
+    return api.select('admins', { select: '*', id: 'eq.' + jwtSub(), limit: 1 })
+      .then(function (r) {
+        var rows = r.data || [];
+        ME = rows.length ? rows[0] : null;
+        if (!ME || ME.is_active === false) {
+          fill(root, h('div', { class: 'gate' }, h('div', { class: 'gate__card' },
+            h('div', { class: 'gate__mark' }, ic('alert')),
+            h('h1', { text: t('signin') }),
+            h('p', { class: 'gate__sub', text: t('no_access') }),
+            h('button', {
+              class: 'btn btn--ghost btn--full', type: 'button',
+              onclick: function () { api.signOut().then(boot); }
+            }, t('sign_out')))));
+          root.setAttribute('aria-busy', 'false');
+          return;
+        }
+        current = fromHash();
+        if (kind === 'recovery') { current = 'account'; }
+        render();
+        // Best effort, and deliberately not awaited: a failed heartbeat must
+        // never keep an editor out of the dashboard.
+        api.update('admins', { id: 'eq.' + ME.id }, { last_seen_at: new Date().toISOString() })
+           .catch(function () {});
+      })
+      .catch(function (e) {
+        ME = null;
+        renderGate('signin');
+        C.toast(e.message || t('err_net'), 'err');
+      });
+  }
+
+  function jwtSub() {
+    var s = api.session();
+    if (!s || !s.access_token) return '';
+    try {
+      var p = s.access_token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
+      return JSON.parse(decodeURIComponent(escape(atob(p)))).sub || '';
+    } catch (e) { return ''; }
+  }
+
+  window.CMS.shell = {
+    route: route, go: go, render: render, boot: boot,
+    me: me, canWrite: canWrite, isOwner: isOwner, jwtSub: jwtSub,
+    routes: ROUTES, order: ORDER, current: function () { return current; }
+  };
+})();
+  </script>

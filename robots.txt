@@ -3,6 +3,9 @@ User-agent: *
 Allow: /
 Disallow: /*/compare/
 Disallow: /*/search/
+# The editorial dashboard. It is behind a login and reads nothing without one,
+# but there is no reason for it to appear in a result page either.
+Disallow: /admin/
 
 # Crawlers that collect pages to train on are not. This is a request, not a
 # control: one that ignores robots.txt is stopped at Cloudflare, not here.

@@ -62,6 +62,15 @@
 /index.html
   Cache-Control: public, max-age=0, must-revalidate
 
+# The editorial dashboard. It holds a session token in localStorage, so it is
+# the one page on this origin where a cached copy or an indexed URL would
+# actually matter. Never store it, never index it, never frame it.
+/admin/*
+  Cache-Control: no-store
+  X-Robots-Tag: noindex, nofollow, noarchive
+  X-Frame-Options: DENY
+  Referrer-Policy: no-referrer
+
 # NOTE — this file is read by the Cloudflare Workers deploy only. GitHub Pages
 # ignores _headers entirely, so if www.thevillageinvestment.com is ever pointed
 # at Pages instead of the Worker, every header above silently stops applying:
