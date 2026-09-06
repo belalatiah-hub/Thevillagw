@@ -1,5 +1,6 @@
 -- Every image path the site references, stored once.
 insert into cms.media_assets (path) values
+  ('/project-media/ora/mp-z2.webp'),
   ('/project-media/ora/mp-zed.webp'),
   ('/project-media/ora/mp-zw.webp'),
   ('/project-media/ora/pen-sw-0.webp'),

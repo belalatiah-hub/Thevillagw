@@ -36,7 +36,24 @@ from (values
   ('HHN-V1','hacienda-heneish','Villa',null,null,5,5,302,null,55000000,null,null,null,null,'limited'),
   ('HWS-C1','hacienda-west','Chalet',null,null,2,2,111,null,23800000,null,null,null,null,'available'),
   ('HWS-B1','hacienda-west','Cabin',null,null,2,2,95,null,36600000,null,null,null,null,'available'),
-  ('HWS-V1','hacienda-west','Villa',null,null,4,4,340,null,113600000,null,null,null,null,'limited')
+  ('HWS-V1','hacienda-west','Villa',null,null,4,4,340,null,113600000,null,null,null,null,'limited'),
+  ('LV-01','ledge-valley','Chalet','Lagoon Chalet','شاليه لاجون',3,3,114,null,22430000,10,7,'2030',null,'available'),
+  ('LV-02','ledge-valley','Chalet','Loft Lagoon Chalet','لوفت شاليه لاجون',3,3,132,null,24000000,10,7,'2030',null,'available'),
+  ('LV-03','ledge-valley','Chalet','Lagoon Chalet','شاليه لاجون',2,2,103,null,18445000,10,7,'2030',null,'available'),
+  ('LV-04','ledge-valley','Penthouse','Pent House Garden Lagoon','بنت هاوس جاردن لاجون',3,3,117,null,21215000,10,7,'2030',null,'available'),
+  ('LV-05','ledge-valley','Chalet','Garden Chalet','شاليه جاردن',2,2,102,null,18725000,10,7,'2030',null,'available'),
+  ('LV-06','ledge-valley','Chalet','Chalet','شاليه',2,2,83,null,13225000,10,7,'2030',null,'available'),
+  ('LV-07','ledge-valley','Chalet','Chalet Garden','شاليه جاردن',2,2,90,null,17000000,10,7,'2030',null,'available'),
+  ('LV-08','ledge-valley','Penthouse','Pent House','بنت هاوس',2,2,99,null,14895000,10,7,'2030',null,'available'),
+  ('LV-09','ledge-valley','Penthouse','Pent House','بنت هاوس',2,2,88,null,13385000,10,7,'2030',null,'available'),
+  ('LV-10','ledge-valley','Chalet','Chalet Garden','شاليه جاردن',1,2,75,null,11410000,10,7,'2030',null,'available'),
+  ('SY-01','siyal','Villa','Signature Villa','سيجنتشر فيلا',5,5,250,null,50580000,10,7,'2030',null,'available'),
+  ('SY-02','siyal','Villa','Courtyard Villa','كورتيارد فيلا',4,5,210,null,49130000,10,7,'2030',null,'available'),
+  ('SY-03','siyal','Villa','Courtyard Villa','كورتيارد فيلا',4,4,190,null,36000000,10,7,'2030',null,'available'),
+  ('SY-04','siyal','Villa','Deluxe Villa','ديلوكس فيلا',4,4,175,null,32615000,10,7,'2030',null,'available'),
+  ('SY-05','siyal','Villa','Boutique Villa','بوتيك فيلا',3,4,160,null,31145000,10,7,'2030',null,'available'),
+  ('SY-06','siyal','Twin House','Twin Villa','توين فيلا',3,4,144,null,23735000,10,7,'2030',null,'available'),
+  ('SY-07','siyal','Townhouse','Town Villa','تاون فيلا',3,3,138,null,24000000,10,7,'2030',null,'available')
 ) as v(unit_code, project_slug, unit_type_en, label_en, label_ar, bedrooms, bathrooms,
        bua, bua_to, price, dp, years, delivery_label, floor, availability)
 join cms.projects p on p.slug = v.project_slug

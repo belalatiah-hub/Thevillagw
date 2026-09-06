@@ -28,6 +28,7 @@ from (values
   ('/project-media/' || 'lmd/cover-stei8ht-there.webp','cover',0,array['stei8ht-there']),
   ('/project-media/' || 'lmd/cover-three-sixty.webp','cover',0,array['three-sixty']),
   ('/project-media/' || 'lmd/cover-zoya.webp','cover',0,array['zoya']),
+  ('/project-media/' || 'marakez/shams-soma/hero.webp','cover',0,array['shams-soma']),
   ('/project-media/' || 'marakez/units/ap1-d-04.webp','cover',0,array['district-5']),
   ('/project-media/' || 'marakez/units/v2-cr-0.webp','cover',0,array['crescent-walk']),
   ('/project-media/' || 'modon/ap1-bp-03.webp','cover',0,array['beach-plaza-premium']),

@@ -212,6 +212,7 @@ call:"Call", whatsapp:"WhatsApp", email_label:"Email",
 send_wa:"Send on WhatsApp", send_email:"Send by email",
 unit_types_h:"Unit types", unit_types_p:"Unit types available in this project. Layouts are illustrative — confirm current availability and prices with an advisor.",
 art_note:"Images are original brand illustrations, not photographs of the actual project. Real photography can replace them once supplied with usage rights.",
+art_note_dev:"Images are the developer's own renders from the project brochure, not photographs of the finished project.",
 devmark_note:"Official developer logos are shown where provided with usage rights; the remaining developers use original placeholder marks until their logos are supplied.",
 lead_handoff:"Your enquiry is ready. Send it to an advisor on WhatsApp, or by email.",
 derived:"Count derived from projects shown on this site — not full live inventory",
@@ -335,6 +336,7 @@ call:"اتصال", whatsapp:"واتساب", email_label:"البريد",
 send_wa:"أرسل عبر واتساب", send_email:"أرسل عبر البريد",
 unit_types_h:"أنواع الوحدات", unit_types_p:"أنواع الوحدات المتاحة في هذا المشروع. التصاميم استرشادية — أكّد الإتاحة والأسعار الحالية مع المستشار.",
 art_note:"الصور رسوم أصلية للعلامة وليست صوراً فوتوغرافية للمشروع الفعلي. يمكن استبدالها بتصوير حقيقي عند توفيره بحقوق الاستخدام.",
+art_note_dev:"الصور رندرات المطوّر نفسه من بروشور المشروع، وليست صوراً فوتوغرافية للمشروع بعد إنجازه.",
 devmark_note:"تُعرض شعارات المطوّرين الرسمية حيثما تم توفيرها بحقوق الاستخدام؛ وتظهر بقية المطوّرين بعلامات أصلية مؤقتة لحين توفير شعاراتهم.",
 lead_handoff:"استفسارك جاهز. أرسله إلى مستشار عبر واتساب أو البريد.",
 derived:"العدد محسوب من المشروعات المعروضة على الموقع — وليس كامل المعروض الفعلي",
@@ -453,7 +455,7 @@ var DEVELOPERS = [
 {key:'ora', c1:'#6d52a3', name:{en:'ORA Developers',ar:'أورا'}, since:2016, areas:{en:'New Cairo · Sheikh Zayed · North Coast',ar:'القاهرة الجديدة · الشيخ زايد · الساحل الشمالي'}, tagline:{en:'Premium, design-led destinations',ar:'وجهات راقية بتصميم مميّز'}, desc:{en:'A premium developer creating high-design lifestyle destinations with strong architecture and amenities.',ar:'مطوّر راقٍ يبتكر وجهات لايف ستايل عالية التصميم بعمارة ومرافق قوية.'}},
 {key:'tatweer', c1:'#b0692c', name:{en:'Tatweer Misr',ar:'تطوير مصر'}, since:2014, areas:{en:'Ain Sokhna · Mostakbal City · Ras El Hekma · North Coast · Sheikh Zayed',ar:'العين السخنة · مدينة المستقبل · رأس الحكمة · الساحل الشمالي · الشيخ زايد'}, tagline:{en:'Value communities & coastal resorts',ar:'مجتمعات اقتصادية ومنتجعات ساحلية'}, desc:{en:'A developer focused on integrated communities and coastal resorts with a value orientation.',ar:'مطوّر يركّز على المجتمعات المتكاملة والمنتجعات الساحلية بتوجّه اقتصادي.'}},
 {key:'misritalia', c1:'#2f8f6a', name:{en:'Misr Italia Properties',ar:'مصر إيطاليا'}, since:1996, areas:{en:'New Administrative Capital · North Coast',ar:'العاصمة الإدارية · الساحل الشمالي'}, tagline:{en:'Biophilic, tech-enabled communities',ar:'مجتمعات خضراء بتقنيات حديثة'}, desc:{en:'A developer associated with green, technology-enabled communities, active in the New Capital and on the coast.',ar:'مطوّر مرتبط بمجتمعات خضراء مزوّدة بالتقنيات، نشط في العاصمة الإدارية والساحل.'}},
-{key:'marakez', c1:'#b0473f', name:{en:'Marakez',ar:'مراكز'}, since:2014, areas:{en:'New Cairo · 6th of October · Ras El Hekma',ar:'القاهرة الجديدة · ٦ أكتوبر · رأس الحكمة'}, tagline:{en:'Egypt’s leading mixed-use developer',ar:'المطوّر الرائد متعدد الاستخدامات في مصر'}, desc:{en:'The leading mixed-use developer in Egypt, and the only one that builds the mall, the offices and the entertainment its homes sit around. Grown from a single asset — Mall of Arabia — into Aeon, District Five, Crescent Walk and ramla, and backed by Fawaz Al Hokair Group and its own contractor, FAS Construction.',ar:'المطوّر الرائد متعدد الاستخدامات في مصر، والوحيد الذي يبني المول والمكاتب والترفيه التي تلتف حولها مساكنه. نمت من أصل واحد — مول العرب — إلى إيون وديستريكت فايف وكريسنت ووك ورملة، بدعم من مجموعة فواز الحكير ومقاولها الخاص «FAS Construction».'}},
+{key:'marakez', c1:'#b0473f', name:{en:'Marakez',ar:'مراكز'}, since:2014, areas:{en:'New Cairo · 6th of October · Ras El Hekma · Red Sea',ar:'القاهرة الجديدة · ٦ أكتوبر · رأس الحكمة · البحر الأحمر'}, tagline:{en:'Egypt’s leading mixed-use developer',ar:'المطوّر الرائد متعدد الاستخدامات في مصر'}, desc:{en:'The leading mixed-use developer in Egypt, and the only one that builds the mall, the offices and the entertainment its homes sit around. Grown from a single asset — Mall of Arabia — into Aeon, District Five, Crescent Walk and ramla, and backed by Fawaz Al Hokair Group and its own contractor, FAS Construction.',ar:'المطوّر الرائد متعدد الاستخدامات في مصر، والوحيد الذي يبني المول والمكاتب والترفيه التي تلتف حولها مساكنه. نمت من أصل واحد — مول العرب — إلى إيون وديستريكت فايف وكريسنت ووك ورملة، بدعم من مجموعة فواز الحكير ومقاولها الخاص «FAS Construction».'}},
 {key:'lmd', c1:'#3a5a8c', name:{en:'LMD',ar:'إل إم دي'}, since:2013, areas:{en:'New Cairo · North Coast',ar:'القاهرة الجديدة · الساحل الشمالي'}, tagline:{en:'Design-forward communities',ar:'مجتمعات بتصميم متقدّم'}, desc:{en:'A developer known for design-forward, art-infused communities and walkable urban districts.',ar:'مطوّر معروف بمجتمعات بتصميم متقدّم وطابع فني وأحياء حضرية.'}},
 {key:'hydepark', c1:'#3f7d3a', name:{en:'Hyde Park Developments',ar:'هايد بارك'}, since:2011, areas:{en:'New Cairo · North Coast',ar:'القاهرة الجديدة · الساحل الشمالي'}, tagline:{en:'Central-park living in East Cairo',ar:'حياة حول حديقة مركزية بشرق القاهرة'}, desc:{en:'A developer building large park-centred communities in East Cairo and coastal projects.',ar:'مطوّر يبني مجتمعات كبيرة حول حدائق مركزية بشرق القاهرة ومشروعات ساحلية.'}},
 {key:'marasem', c1:'#8a6d33', name:{en:'Al Marasem Development',ar:'المراسم'}, since:2002, areas:{en:'Fifth Settlement · New Cairo',ar:'التجمع الخامس · القاهرة الجديدة'}, tagline:{en:'Prime Fifth Settlement communities',ar:'مجتمعات مميّزة بالتجمع الخامس'}, desc:{en:'A developer with a prime footprint in the Fifth Settlement and a background in construction and hospitality.',ar:'مطوّر بحضور مميّز في التجمع الخامس وخلفية في الإنشاءات والضيافة.'}},
@@ -561,6 +563,7 @@ var PROJECTS = [
 {slug:'hacienda-heneish', name:'Hacienda Heneish', name_ar:'هاسيندا حنيش', dev:'palmhills', area:'raselhekma', status:'primary', price:16000000, dp:5, years:8, delivery:'2029', finishing:{en:'Fully finished',ar:'تشطيب كامل'}, types:{en:'Apartment · Chalet · Townhouse · Villa',ar:'شقة · شاليه · تاون هاوس · فيلا'}, tags:{en:['Ras El Hekma','Marriott hotel'],ar:['رأس الحكمة','فندق ماريوت']}, blurb:{en:'A 420-feddan Palm Hills resort on the North Coast with a Marriott hotel, strip mall and 1.1km of beachfront — G+3 apartments, chalets, townhouses and standalone villas. Developer-direct primary units.',ar:'منتجع بالم هيلز على ٤٢٠ فداناً بالساحل الشمالي بفندق ماريوت وممشى تجاري وواجهة بحرية ١٫١ كم — شقق أرضي+٣ وشاليهات وتاون هاوس وفيلات مستقلة. وحدات أولية من المطوّر مباشرة.'}},
 {slug:'hacienda-west', name:'Hacienda West', name_ar:'هاسيندا ويست', dev:'palmhills', area:'raselhekma', status:'primary', price:23800000, dp:10, years:7, delivery:'2027', finishing:{en:'Fully finished / core & shell',ar:'تشطيب كامل / خرسانة'}, types:{en:'Chalet · Cabin · Villa',ar:'شاليه · كابين · فيلا'}, tags:{en:['Ras El Hekma','Beachfront'],ar:['رأس الحكمة','واجهة بحرية']}, blurb:{en:'A 132-feddan Palm Hills beach community at Ras El Hekma (Km 208) with a hotel, clubhouse, lagoons and a 400m beach — chalets, cabins and villas. Developer-direct primary units.',ar:'مجتمع بالم هيلز الشاطئي على ١٣٢ فداناً برأس الحكمة (كيلو ٢٠٨) بفندق وكلوب هاوس وبحيرات وشاطئ ٤٠٠ متر — شاليهات وكبائن وفيلات. وحدات أولية من المطوّر مباشرة.'}},
 {slug:'siyal', name:'Siyal', name_ar:'سيال', dev:'orascom', area:'redsea', status:'primary', price:23735000, dp:10, years:7, delivery:'2030', finishing:{en:'Fully finished',ar:'تشطيب كامل'}, types:{en:'Villa · Twin house · Townhouse',ar:'فيلا · توين هاوس · تاون هاوس'}, tags:{en:['Red Sea','Makadi Bay','Lagoons'],ar:['البحر الأحمر','خليج مكادي','بحيرات']}, blurb:{en:'A neighbourhood of 78 homes inside Makadi Heights, built on 82,500 m² with only about 12% of the site covered — the rest given to open landscape, lagoons and communal ground.',ar:'حي من ٧٨ وحدة داخل مدن مكادي هايتس على ٨٢٬٥٠٠ م²، لا تشغل المباني سوى نحو ١٢٪ من الأرض — والباقي مساحات مفتوحة وبحيرات وأماكن مشتركة.'}},
+{slug:'shams-soma', name:'Shams Soma', name_ar:'شمس سوما', dev:'marakez', area:'redsea', status:'primary', tags:{en:['Red Sea','Somabay','700m coastline'],ar:['البحر الأحمر','سوما باي','واجهة بحرية ٧٠٠م']}, blurb:{en:'630 homes and one hotel on 80 feddan inside Somabay, with 700 metres of coastline and two valleys running from the town down to the beach. The homes step down the natural slope of the land so the sea stays in view.',ar:'٦٣٠ وحدة وفندق واحد على ٨٠ فداناً داخل سوما باي، بواجهة بحرية طولها ٧٠٠ متر وواديين ينحدران من المدينة إلى الشاطئ. وتتدرّج الوحدات مع ميل الأرض الطبيعي ليبقى البحر في المشهد.'}},
 {slug:'ledge-valley', name:'Ledge Valley', name_ar:'ليدج فالي', dev:'orascom', area:'redsea', status:'primary', price:11410000, dp:10, years:7, delivery:'2030', types:{en:'Chalet · Penthouse',ar:'شاليه · بنتهاوس'}, tags:{en:['Red Sea','Makadi Bay','Lagoons','Waterfront'],ar:['البحر الأحمر','خليج مكادي','بحيرات','على الماء']}, blurb:{en:'A waterfront neighbourhood of 274 homes on 91,049 m² inside Makadi Heights, built around expansive lagoons and landscaped open space, with a mix of one to four bedroom residences.',ar:'حي على الماء من ٢٧٤ وحدة على ٩١٬٠٤٩ م² داخل مدن مكادي هايتس، مبني حول بحيرات واسعة ومساحات مفتوحة منسّقة، بوحدات من غرفة إلى أربع غرف.'}}
 ];
 var UNITS = [
@@ -1128,6 +1131,7 @@ sEl('circle',{cx:x-7,cy:y-13,r:'8',fill:'#20855f'}),
 sEl('circle',{cx:x+7,cy:y-13,r:'8',fill:'#20855f'})); }
 var PROJECT_COVERS = {
 'ledge-valley':'/project-media/orascom/ledge-valley/hero.webp',
+'shams-soma':'/project-media/marakez/shams-soma/hero.webp',
 'siyal':'/project-media/orascom/siyal/lagoon-beach.webp',
 'aeon':'/project-media/ramla/units/ap-a-03.webp',
 'district-5':'/project-media/marakez/units/ap1-d-04.webp',
@@ -3321,6 +3325,10 @@ return media;
 }
 var MSQ = '/project-media/msquared/';
 var PROJECT_GALLERY = {
+'shams-soma': ['hero','aerial-sea','overview','valley-sunset','valley-ride','valley-walk',
+'valley-fountain','infinity-pool','communal-pool','social-nodes','sandy-beach',
+'jetty','beach-bar','elevated-decks','boardwalk','coastline','elevated-living']
+.map(function(f){ return '/project-media/marakez/shams-soma/'+f+'.webp'; }),
 'ledge-valley': ['hero','promenade','lagoon','design','poolside','park','neighbourhood','island','chalet-lagoon','chalet-street','floating','outdoor']
 .map(function(f){ return '/project-media/orascom/ledge-valley/'+f+'.webp'; }),
 'siyal': ['lagoon-beach','courtyard','lagoon-park','signature-villa','courtyard-villa','grand-villa','boutique-villa','townhouse','interior','social','walkability']
@@ -4363,6 +4371,7 @@ function devFeatures(key){ return DEV_FEATURES[key] || null; }
 var AAR = '/project-media/qataridiar/alam-al-roum/';
 var SIY = '/project-media/orascom/siyal/';
 var LDV = '/project-media/orascom/ledge-valley/';
+var SHS = '/project-media/marakez/shams-soma/';
 var PROJECT_BROCHURE = {
 'alam-al-roum': {
 title: {en:'Digital Brochure', ar:'البروشور الرقمي'},
@@ -4419,6 +4428,71 @@ AAR+'pages/p47.webp'
 }
 };
 var PROJECT_FEATURES = {
+'shams-soma': {
+masterplan: {en:'Master plan', ar:'الماستر بلان', icon:'layers', src:SHS+'masterplan.webp'},
+cards: [
+{en:'About Shams Soma', ar:'عن شمس سوما', icon:'shield', imgs:[SHS+'hero.webp'],
+copy:{
+lead:{en:'Shams Soma is a place that celebrates nature and outdoor living, where everyday life becomes lighter, more intentional, and deeply connected to the sea and the landscape.',
+ar:'شمس سوما مكان يحتفي بالطبيعة والحياة في الهواء الطلق، حيث تصير الحياة اليومية أخفّ وأكثر قصداً وأعمق اتصالاً بالبحر والمكان.'},
+groups:[
+{label:{en:'The site', ar:'الأرض'}, rows:[
+{k:{en:'Land area',ar:'مساحة الأرض'},       v:{en:'80 feddan',ar:'٨٠ فداناً'}},
+{k:{en:'Coastline',ar:'الواجهة البحرية'},   v:{en:'700 m',ar:'٧٠٠ متر'}},
+{k:{en:'Number of units',ar:'عدد الوحدات'}, v:{en:'630',ar:'٦٣٠'}},
+{k:{en:'Hotel',ar:'الفنادق'},               v:{en:'1',ar:'١'}},
+{k:{en:'Within',ar:'داخل'},                 v:{en:'Somabay, Red Sea',ar:'سوما باي، البحر الأحمر'}}]}],
+more:{en:'The deck sets out what the place is meant to be: active without being rushed, vibrant without being overwhelming, peaceful without being isolated.',
+ar:'ويحدّد العرض ما يُراد للمكان أن يكونه: نشِط دون تعجّل، نابض دون إرهاق، هادئ دون عزلة.'}
+}},
+{en:'The Valleys', ar:'الواديان', icon:'spark', imgs:[SHS+'valley-sunset.webp', SHS+'valley-ride.webp'],
+copy:{
+lead:{en:'Two valleys run down through the community to the water, each sloping the whole way so the sea stays in view along its length.',
+ar:'واديان ينحدران عبر المجتمع نزولاً إلى الماء، ينحدر كلٌّ منهما على طوله ليبقى البحر في المشهد من أوله إلى آخره.'},
+groups:[
+{label:{en:'Where each one runs', ar:'مسار كلٍّ منهما'}, rows:[
+{k:{en:'North Valley',ar:'الوادي الشمالي'}, v:{en:'From the gate down to the beach',ar:'من البوابة نزولاً إلى الشاطئ'}},
+{k:{en:'South Valley',ar:'الوادي الجنوبي'}, v:{en:'From the town down to the beach',ar:'من المدينة نزولاً إلى الشاطئ'}}]}],
+list:[
+{en:'Two infinity pools on the higher levels, overlooking the valley and the beach, with decks and social areas',ar:'حمّامَا سباحة لا نهائيان في المستويات الأعلى يطلّان على الوادي والشاطئ، بتراسات ومساحات للتجمّع'},
+{en:'Communal pools distributed through the community, surrounded by lounging areas',ar:'حمّامات سباحة مشتركة موزّعة في أنحاء المجتمع، تحيط بها أماكن للاسترخاء'},
+{en:'Social gathering, an outdoor gym, a kids area and multi-purpose courts along the way',ar:'أماكن للتجمّع وصالة رياضية في الهواء الطلق ومنطقة أطفال وملاعب متعدّدة الاستخدامات على الطريق'}],
+more:{en:'Social nodes are placed throughout the community — informal seating, shade and everyday activity — so people meet without arranging to.',
+ar:'وتتوزّع نقاط التجمّع في أنحاء المجتمع — مقاعد غير رسمية وظلال ونشاط يومي — فيلتقي الناس دون موعد.'}
+}},
+{en:'Elevated Living', ar:'المعيشة المرتفعة', icon:'home', imgs:[SHS+'elevated-living.webp', SHS+'elevated-decks.webp'],
+copy:{
+lead:{en:'Homes are arranged across different levels, following the natural slope of the land to open up views towards the sea.',
+ar:'تتوزّع الوحدات على مستويات مختلفة تتبع ميل الأرض الطبيعي لتفتح الإطلالات نحو البحر.'},
+more:{en:'This elevated setting brings more light, privacy, and uninterrupted views while creating a natural flow through the community. The 56 pages supplied stop before the Architecture section, so no unit type, area, bedroom count or price is published here — because none is published there.',
+ar:'يمنح هذا الوضع المرتفع مزيداً من الضوء والخصوصية وإطلالات لا تنقطع، ويخلق انسياباً طبيعياً في المجتمع. وتنتهي الصفحات الـ٥٦ المتاحة قبل قسم العمارة، فلم يُذكر هنا نوع وحدة ولا مساحة ولا عدد غرف ولا سعر — لأن أياً منها غير منشور هناك.'}
+}},
+{en:'The Active Coastline', ar:'الساحل النشِط', icon:'star', imgs:[SHS+'sandy-beach.webp', SHS+'jetty.webp', SHS+'beach-bar.webp'],
+copy:{
+lead:{en:'Seven hundred metres of coastline, programmed from the sandy beach at one end to the boardwalk at the other.',
+ar:'سبعمائة متر من الواجهة البحرية، مبرمَجة من الشاطئ الرملي في طرفٍ إلى الممشى الخشبي في الطرف الآخر.'},
+list:[
+{en:'Sandy beach — two stretches with chaise-longues and umbrellas, and a laid-back beach restaurant',ar:'شاطئ رملي — امتدادان بكراسي استرخاء ومظلات، ومطعم شاطئي بسيط'},
+{en:'Jetties — two, extending into the sea for swimming and for launching canoes and kayaks',ar:'رصيفان بحريان — يمتدّان في البحر للسباحة وإنزال الكانو والكاياك'},
+{en:'Activity Ring — elevated along the cliff edge; a flexible space to work out, meditate or pause, doubling as a lookout over the coast',ar:'حلقة النشاط — مرتفعة على حافة الجرف؛ مساحة مرنة للتمرين أو التأمّل أو الوقفة، تصلح كذلك مطلّاً على الساحل'},
+{en:'Elevated decks — a series of lookout spaces above the sea, set along the cliff edge',ar:'تراسات مرتفعة — سلسلة من المطلّات فوق البحر على امتداد حافة الجرف'},
+{en:'Beach bar, beach restaurant, multi-purpose court and a boardwalk running the length of it',ar:'بار شاطئي ومطعم شاطئي وملعب متعدّد الاستخدامات وممشى خشبي يمتدّ على طوله'}]
+}},
+{en:'Inside Somabay', ar:'داخل سوما باي', icon:'pin', imgs:[SHS+'somabay.webp', SHS+'somabay-jetty.webp'],
+copy:{
+lead:{en:'Shams Soma sits inside Somabay, a fully integrated, low-density mixed-use destination of more than 7,000 residential homes — over 3,500 under construction and more than 1,700 already handed over. What follows belongs to the destination, not to Shams Soma.',
+ar:'يقع شمس سوما داخل سوما باي، وجهة متكاملة منخفضة الكثافة متعددة الاستخدامات تضم أكثر من ٧٬٠٠٠ وحدة سكنية — منها ما يزيد على ٣٬٥٠٠ تحت الإنشاء وأكثر من ١٬٧٠٠ سُلّمت بالفعل. وما يلي يخصّ الوجهة لا شمس سوما.'},
+list:[
+{en:'The Somabay Marina, with mooring services, retail and dining at quayside',ar:'مارينا سوما باي، بخدمات الرسو والمحالّ والمطاعم على الرصيف'},
+{en:'An 18-hole, Par 72 Gary Player championship golf course, a 9-hole Par 3 course, the Hidden Coves course and the Soma Bay Golf Academy',ar:'ملعب جولف بطولات من ١٨ حفرة بار ٧٢ لجاري بلاير، وملعب من ٩ حفر بار ٣، وملعب هيدن كوفز، وأكاديمية سوما باي للجولف'},
+{en:'The Sports Arena — gym, Olympic and semi-Olympic pools, football pitches, tennis, squash and padel courts, and the S Tennis Academy',ar:'الصالة الرياضية — جيم وحمّامات سباحة أولمبية وشبه أولمبية وملاعب كرة قدم وتنس واسكواش وبادل، وأكاديمية إس للتنس'},
+{en:'Diving at Orca Dive Center, kitesurfing at 7BFT Kitehouse and Soma Splash Aqua Park',ar:'الغطس في مركز أوركا للغوص، والتزلج الشراعي في ٧BFT كايت هاوس، وسوما سبلاش أكوا بارك'},
+{en:'Public beaches — Wyte, Seba and Zouni — a 420 m jetty and a promenade for walking and cycling',ar:'شواطئ عامة — وايت وسيبا وزوني — ورصيف بحري بطول ٤٢٠ متراً وممشى للسير وركوب الدراجات'},
+{en:'The Cascades Spa & Thalasso, an award-winning spa over 7,500 m² with 65 treatment rooms',ar:'ذا كاسكيدز سبا آند ثالاسو، منتجع صحي حائز على جوائز على ٧٬٥٠٠ م² بـ٦٥ غرفة علاج'},
+{en:'GISS – GEMS International School (Pre-KG to Grade 12) and KOMPASS International School',ar:'مدرسة جيس – جيمس الدولية (من ما قبل الروضة إلى الصف ١٢) ومدرسة كومباس الدولية'}]
+}}
+]
+},
 'ledge-valley': {
 masterplan: {en:'Master plan', ar:'الماستر بلان', icon:'layers', src:LDV+'masterplan.webp'},
 cards: [
@@ -6886,7 +6960,8 @@ utw.appendChild(h('div',{class:'grid grid--3'}, us.map(unitCard)));
 } else if(!typesEn.length){
 utw.appendChild(h('p',{class:'muted',style:'margin:4px 0 0'}, ic('info'), h('span',null,' '+t('awaiting_list'))));
 }
-utw.appendChild(h('p',{class:'muted',style:'font-size:.78rem;margin-top:16px'}, t('art_note')));
+utw.appendChild(h('p',{class:'muted',style:'font-size:.78rem;margin-top:16px'},
+t(PROJECT_GALLERY[p.slug] ? 'art_note_dev' : 'art_note')));
 utsec.appendChild(utw); node.appendChild(utsec);
 var rel = projInArea(p.area).filter(function(x){return x.slug!==p.slug;}).slice(0,3);
 if(rel.length) node.appendChild(listSection('', t('related'), '', rel.map(projectCard), null, 'band'));

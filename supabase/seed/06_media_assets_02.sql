@@ -77,6 +77,7 @@ insert into cms.media_assets (path) values
   ('/project-media/marakez/d5-campus.webp'),
   ('/project-media/marakez/mall-of-arabia.webp'),
   ('/project-media/marakez/ramla-aerial.webp'),
+  ('/project-media/marakez/shams-soma/hero.webp'),
   ('/project-media/marakez/the-park.webp'),
   ('/project-media/marakez/units/ap1-cr-0.webp'),
   ('/project-media/marakez/units/ap1-cr-00.webp'),
@@ -459,6 +460,5 @@ insert into cms.media_assets (path) values
   ('/project-media/msquared/units/ap1-trio-03.webp'),
   ('/project-media/msquared/units/ap1-trio-04.webp'),
   ('/project-media/msquared/units/ap1-trio-05.webp'),
-  ('/project-media/msquared/units/ap1-west-0.webp'),
-  ('/project-media/msquared/units/ap1-west-01.webp')
+  ('/project-media/msquared/units/ap1-west-0.webp')
 on conflict (path) do nothing;

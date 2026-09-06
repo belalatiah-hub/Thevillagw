@@ -52,6 +52,8 @@
   // "Sacred Summers" renders deck) under /project-media/ramla — no external hotlinking.
   var PROJECT_COVERS = {
     'ledge-valley':'/project-media/orascom/ledge-valley/hero.webp',
+    // Shams Soma: the aerial the deck opens its masterplan section with.
+    'shams-soma':'/project-media/marakez/shams-soma/hero.webp',
     // Siyal has no unit cards for a cover to clash with, so the hero render
     // that opens the brochure opens the project card too.
     'siyal':'/project-media/orascom/siyal/lagoon-beach.webp',
@@ -2415,6 +2417,14 @@
      renders of its own but no unit schedule has nowhere else to show them. */
   var MSQ = '/project-media/msquared/';
   var PROJECT_GALLERY = {
+    /* Shams Soma, in the deck's own page order: the masterplan seen from the
+       air, the two valleys, the pools, then the coastline from the sandy beach
+       out to the boardwalk. Renders only — the deck's pages carry a header and
+       a CONFIDENTIAL footer, so what is published is the artwork inside them. */
+    'shams-soma': ['hero','aerial-sea','overview','valley-sunset','valley-ride','valley-walk',
+                   'valley-fountain','infinity-pool','communal-pool','social-nodes','sandy-beach',
+                   'jetty','beach-bar','elevated-decks','boardwalk','coastline','elevated-living']
+      .map(function(f){ return '/project-media/marakez/shams-soma/'+f+'.webp'; }),
     /* Ledge Valley, in the brochure's order: the water, the architecture,
        the neighbourhood, then the one collection it shows. */
     'ledge-valley': ['hero','promenade','lagoon','design','poolside','park','neighbourhood','island','chalet-lagoon','chalet-street','floating','outdoor']
@@ -3596,6 +3606,7 @@
   var AAR = '/project-media/qataridiar/alam-al-roum/';
   var SIY = '/project-media/orascom/siyal/';
   var LDV = '/project-media/orascom/ledge-valley/';
+  var SHS = '/project-media/marakez/shams-soma/';
   var PROJECT_BROCHURE = {
     'alam-al-roum': {
       title: {en:'Digital Brochure', ar:'البروشور الرقمي'},
@@ -3652,6 +3663,81 @@
     }
   };
   var PROJECT_FEATURES = {
+    /* Shams Soma — Marakez, inside Somabay on the Red Sea. Every figure and
+       every line of copy below is the sales presentation's own; where the deck
+       writes a paragraph, that paragraph is what is here, translated.
+
+       The 56 pages supplied end with the Masterplan section, before
+       Architecture, so there are no unit types, areas, bedroom counts, prices,
+       payment plans or delivery dates in the source and none is written. The
+       last card is about Somabay, the destination the project sits inside, and
+       says so — those amenities belong to the destination, not to Shams Soma.
+       Drive times are in the deck and are left out here, as everywhere else. */
+    'shams-soma': {
+      masterplan: {en:'Master plan', ar:'الماستر بلان', icon:'layers', src:SHS+'masterplan.webp'},
+      cards: [
+        {en:'About Shams Soma', ar:'عن شمس سوما', icon:'shield', imgs:[SHS+'hero.webp'],
+         copy:{
+           lead:{en:'Shams Soma is a place that celebrates nature and outdoor living, where everyday life becomes lighter, more intentional, and deeply connected to the sea and the landscape.',
+                 ar:'شمس سوما مكان يحتفي بالطبيعة والحياة في الهواء الطلق، حيث تصير الحياة اليومية أخفّ وأكثر قصداً وأعمق اتصالاً بالبحر والمكان.'},
+           groups:[
+             {label:{en:'The site', ar:'الأرض'}, rows:[
+               {k:{en:'Land area',ar:'مساحة الأرض'},       v:{en:'80 feddan',ar:'٨٠ فداناً'}},
+               {k:{en:'Coastline',ar:'الواجهة البحرية'},   v:{en:'700 m',ar:'٧٠٠ متر'}},
+               {k:{en:'Number of units',ar:'عدد الوحدات'}, v:{en:'630',ar:'٦٣٠'}},
+               {k:{en:'Hotel',ar:'الفنادق'},               v:{en:'1',ar:'١'}},
+               {k:{en:'Within',ar:'داخل'},                 v:{en:'Somabay, Red Sea',ar:'سوما باي، البحر الأحمر'}}]}],
+           more:{en:'The deck sets out what the place is meant to be: active without being rushed, vibrant without being overwhelming, peaceful without being isolated.',
+                 ar:'ويحدّد العرض ما يُراد للمكان أن يكونه: نشِط دون تعجّل، نابض دون إرهاق، هادئ دون عزلة.'}
+         }},
+        {en:'The Valleys', ar:'الواديان', icon:'spark', imgs:[SHS+'valley-sunset.webp', SHS+'valley-ride.webp'],
+         copy:{
+           lead:{en:'Two valleys run down through the community to the water, each sloping the whole way so the sea stays in view along its length.',
+                 ar:'واديان ينحدران عبر المجتمع نزولاً إلى الماء، ينحدر كلٌّ منهما على طوله ليبقى البحر في المشهد من أوله إلى آخره.'},
+           groups:[
+             {label:{en:'Where each one runs', ar:'مسار كلٍّ منهما'}, rows:[
+               {k:{en:'North Valley',ar:'الوادي الشمالي'}, v:{en:'From the gate down to the beach',ar:'من البوابة نزولاً إلى الشاطئ'}},
+               {k:{en:'South Valley',ar:'الوادي الجنوبي'}, v:{en:'From the town down to the beach',ar:'من المدينة نزولاً إلى الشاطئ'}}]}],
+           list:[
+             {en:'Two infinity pools on the higher levels, overlooking the valley and the beach, with decks and social areas',ar:'حمّامَا سباحة لا نهائيان في المستويات الأعلى يطلّان على الوادي والشاطئ، بتراسات ومساحات للتجمّع'},
+             {en:'Communal pools distributed through the community, surrounded by lounging areas',ar:'حمّامات سباحة مشتركة موزّعة في أنحاء المجتمع، تحيط بها أماكن للاسترخاء'},
+             {en:'Social gathering, an outdoor gym, a kids area and multi-purpose courts along the way',ar:'أماكن للتجمّع وصالة رياضية في الهواء الطلق ومنطقة أطفال وملاعب متعدّدة الاستخدامات على الطريق'}],
+           more:{en:'Social nodes are placed throughout the community — informal seating, shade and everyday activity — so people meet without arranging to.',
+                 ar:'وتتوزّع نقاط التجمّع في أنحاء المجتمع — مقاعد غير رسمية وظلال ونشاط يومي — فيلتقي الناس دون موعد.'}
+         }},
+        {en:'Elevated Living', ar:'المعيشة المرتفعة', icon:'home', imgs:[SHS+'elevated-living.webp', SHS+'elevated-decks.webp'],
+         copy:{
+           lead:{en:'Homes are arranged across different levels, following the natural slope of the land to open up views towards the sea.',
+                 ar:'تتوزّع الوحدات على مستويات مختلفة تتبع ميل الأرض الطبيعي لتفتح الإطلالات نحو البحر.'},
+           more:{en:'This elevated setting brings more light, privacy, and uninterrupted views while creating a natural flow through the community. The 56 pages supplied stop before the Architecture section, so no unit type, area, bedroom count or price is published here — because none is published there.',
+                 ar:'يمنح هذا الوضع المرتفع مزيداً من الضوء والخصوصية وإطلالات لا تنقطع، ويخلق انسياباً طبيعياً في المجتمع. وتنتهي الصفحات الـ٥٦ المتاحة قبل قسم العمارة، فلم يُذكر هنا نوع وحدة ولا مساحة ولا عدد غرف ولا سعر — لأن أياً منها غير منشور هناك.'}
+         }},
+        {en:'The Active Coastline', ar:'الساحل النشِط', icon:'star', imgs:[SHS+'sandy-beach.webp', SHS+'jetty.webp', SHS+'beach-bar.webp'],
+         copy:{
+           lead:{en:'Seven hundred metres of coastline, programmed from the sandy beach at one end to the boardwalk at the other.',
+                 ar:'سبعمائة متر من الواجهة البحرية، مبرمَجة من الشاطئ الرملي في طرفٍ إلى الممشى الخشبي في الطرف الآخر.'},
+           list:[
+             {en:'Sandy beach — two stretches with chaise-longues and umbrellas, and a laid-back beach restaurant',ar:'شاطئ رملي — امتدادان بكراسي استرخاء ومظلات، ومطعم شاطئي بسيط'},
+             {en:'Jetties — two, extending into the sea for swimming and for launching canoes and kayaks',ar:'رصيفان بحريان — يمتدّان في البحر للسباحة وإنزال الكانو والكاياك'},
+             {en:'Activity Ring — elevated along the cliff edge; a flexible space to work out, meditate or pause, doubling as a lookout over the coast',ar:'حلقة النشاط — مرتفعة على حافة الجرف؛ مساحة مرنة للتمرين أو التأمّل أو الوقفة، تصلح كذلك مطلّاً على الساحل'},
+             {en:'Elevated decks — a series of lookout spaces above the sea, set along the cliff edge',ar:'تراسات مرتفعة — سلسلة من المطلّات فوق البحر على امتداد حافة الجرف'},
+             {en:'Beach bar, beach restaurant, multi-purpose court and a boardwalk running the length of it',ar:'بار شاطئي ومطعم شاطئي وملعب متعدّد الاستخدامات وممشى خشبي يمتدّ على طوله'}]
+         }},
+        {en:'Inside Somabay', ar:'داخل سوما باي', icon:'pin', imgs:[SHS+'somabay.webp', SHS+'somabay-jetty.webp'],
+         copy:{
+           lead:{en:'Shams Soma sits inside Somabay, a fully integrated, low-density mixed-use destination of more than 7,000 residential homes — over 3,500 under construction and more than 1,700 already handed over. What follows belongs to the destination, not to Shams Soma.',
+                 ar:'يقع شمس سوما داخل سوما باي، وجهة متكاملة منخفضة الكثافة متعددة الاستخدامات تضم أكثر من ٧٬٠٠٠ وحدة سكنية — منها ما يزيد على ٣٬٥٠٠ تحت الإنشاء وأكثر من ١٬٧٠٠ سُلّمت بالفعل. وما يلي يخصّ الوجهة لا شمس سوما.'},
+           list:[
+             {en:'The Somabay Marina, with mooring services, retail and dining at quayside',ar:'مارينا سوما باي، بخدمات الرسو والمحالّ والمطاعم على الرصيف'},
+             {en:'An 18-hole, Par 72 Gary Player championship golf course, a 9-hole Par 3 course, the Hidden Coves course and the Soma Bay Golf Academy',ar:'ملعب جولف بطولات من ١٨ حفرة بار ٧٢ لجاري بلاير، وملعب من ٩ حفر بار ٣، وملعب هيدن كوفز، وأكاديمية سوما باي للجولف'},
+             {en:'The Sports Arena — gym, Olympic and semi-Olympic pools, football pitches, tennis, squash and padel courts, and the S Tennis Academy',ar:'الصالة الرياضية — جيم وحمّامات سباحة أولمبية وشبه أولمبية وملاعب كرة قدم وتنس واسكواش وبادل، وأكاديمية إس للتنس'},
+             {en:'Diving at Orca Dive Center, kitesurfing at 7BFT Kitehouse and Soma Splash Aqua Park',ar:'الغطس في مركز أوركا للغوص، والتزلج الشراعي في ٧BFT كايت هاوس، وسوما سبلاش أكوا بارك'},
+             {en:'Public beaches — Wyte, Seba and Zouni — a 420 m jetty and a promenade for walking and cycling',ar:'شواطئ عامة — وايت وسيبا وزوني — ورصيف بحري بطول ٤٢٠ متراً وممشى للسير وركوب الدراجات'},
+             {en:'The Cascades Spa & Thalasso, an award-winning spa over 7,500 m² with 65 treatment rooms',ar:'ذا كاسكيدز سبا آند ثالاسو، منتجع صحي حائز على جوائز على ٧٬٥٠٠ م² بـ٦٥ غرفة علاج'},
+             {en:'GISS – GEMS International School (Pre-KG to Grade 12) and KOMPASS International School',ar:'مدرسة جيس – جيمس الدولية (من ما قبل الروضة إلى الصف ١٢) ومدرسة كومباس الدولية'}]
+         }}
+      ]
+    },
     /* Ledge Valley — Orascom Development, inside Makadi Heights on the Red
        Sea. Every figure is the project brochure's own. The supplied file holds
        sections 01-07 of twelve, so The Valley Collection, the finishing

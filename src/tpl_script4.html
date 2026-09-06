@@ -392,7 +392,11 @@
       // band looking like the project has nothing to sell
       utw.appendChild(h('p',{class:'muted',style:'margin:4px 0 0'}, ic('info'), h('span',null,' '+t('awaiting_list'))));
     }
-    utw.appendChild(h('p',{class:'muted',style:'font-size:.78rem;margin-top:16px'}, t('art_note')));
+    // Which note is true depends on where the pictures came from. A project
+    // with a supplied gallery is showing the developer's own brochure renders;
+    // one without is showing the artwork this site generated for it.
+    utw.appendChild(h('p',{class:'muted',style:'font-size:.78rem;margin-top:16px'},
+      t(PROJECT_GALLERY[p.slug] ? 'art_note_dev' : 'art_note')));
     utsec.appendChild(utw); node.appendChild(utsec);
 
     // related

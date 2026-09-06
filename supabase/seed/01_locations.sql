@@ -13,6 +13,9 @@ insert into cms.locations (slug, level, parent_id, name_en, name_ar)
 select 'matrouh', 'governorate', id, 'Matrouh', 'مطروح' from cms.locations where slug = 'egypt'
 on conflict (slug) do update set name_en = excluded.name_en, name_ar = excluded.name_ar;
 insert into cms.locations (slug, level, parent_id, name_en, name_ar)
+select 'redsea-gov', 'governorate', id, 'Red Sea', 'البحر الأحمر' from cms.locations where slug = 'egypt'
+on conflict (slug) do update set name_en = excluded.name_en, name_ar = excluded.name_ar;
+insert into cms.locations (slug, level, parent_id, name_en, name_ar)
 select 'suez', 'governorate', id, 'Suez', 'السويس' from cms.locations where slug = 'egypt'
 on conflict (slug) do update set name_en = excluded.name_en, name_ar = excluded.name_ar;
 
@@ -50,5 +53,9 @@ on conflict (slug) do update set name_en = excluded.name_en, name_ar = excluded.
   blurb_en = excluded.blurb_en, blurb_ar = excluded.blurb_ar, sort_order = excluded.sort_order;
 insert into cms.locations (slug, level, parent_id, name_en, name_ar, blurb_en, blurb_ar, sort_order)
 select 'sokhna', 'area', id, 'Ain Sokhna', 'العين السخنة', 'Red Sea coast close to Cairo for weekend homes.', 'ساحل البحر الأحمر القريب من القاهرة لمنازل نهاية الأسبوع.', 8 from cms.locations where slug = 'suez'
+on conflict (slug) do update set name_en = excluded.name_en, name_ar = excluded.name_ar,
+  blurb_en = excluded.blurb_en, blurb_ar = excluded.blurb_ar, sort_order = excluded.sort_order;
+insert into cms.locations (slug, level, parent_id, name_en, name_ar, blurb_en, blurb_ar, sort_order)
+select 'redsea', 'area', id, 'Red Sea', 'البحر الأحمر', 'The Hurghada coast — Makadi Bay, Soma Bay and El Gouna.', 'ساحل الغردقة — خليج مكادي وسوما باي والجونة.', 9 from cms.locations where slug = 'redsea-gov'
 on conflict (slug) do update set name_en = excluded.name_en, name_ar = excluded.name_ar,
   blurb_en = excluded.blurb_en, blurb_ar = excluded.blurb_ar, sort_order = excluded.sort_order;
