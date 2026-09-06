@@ -153,6 +153,19 @@
     color:var(--ink-3); padding-top:10px;
   }
 
+  .variants{overflow-x:auto; margin-top:clamp(20px,3vw,28px)}
+  .variants table{width:100%; border-collapse:collapse; min-width:560px}
+  .variants th, .variants td{
+    padding:10px 14px 10px 0; border-bottom:1px solid var(--rule-soft);
+    text-align:end; font-size:13.5px; font-weight:400; color:var(--ink-2);
+  }
+  .variants th:first-child, .variants td:first-child{text-align:start; font-weight:500; color:var(--ink)}
+  .variants thead th{
+    font-size:9.5px; font-weight:600; letter-spacing:.17em; text-transform:uppercase;
+    color:var(--ink-3); border-bottom:1px solid var(--rule);
+  }
+  .fine{font-size:12.5px; line-height:1.55; color:var(--ink-3)}
+
   /* ----------------------------------------------- the town */
   .town{background:var(--sky); padding:clamp(30px,4.6vw,54px) var(--pad)}
   .town .note{
@@ -300,6 +313,38 @@
     </div>
   </section>
 
+  <section class="pad">
+    <div class="head">
+      <p class="kicker">Units &amp; prices</p>
+      <h2>Ten types, priced</h2>
+      <p>From the developer's price list — the collections the brochure names, with figures
+        attached. Every value is the list's own. All ten share the same terms:
+        <strong>10% down payment, 7 years, 2030 handover</strong>.</p>
+    </div>
+    <div class="variants">
+      <table>
+        <thead>
+          <tr><th>Type</th><th>Bed</th><th>Bath</th><th>BUA</th><th>Price (EGP)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Lagoon Chalet</td><td>3</td><td>3</td><td>114 m²</td><td>22,430,000</td></tr>
+          <tr><td>Loft Lagoon Chalet</td><td>3</td><td>3</td><td>132 m²</td><td>24,000,000</td></tr>
+          <tr><td>Lagoon Chalet</td><td>2</td><td>2</td><td>103 m²</td><td>18,445,000</td></tr>
+          <tr><td>Pent House Garden Lagoon</td><td>3</td><td>3</td><td>117 m²</td><td>21,215,000</td></tr>
+          <tr><td>Garden Chalet</td><td>2</td><td>2</td><td>102 m²</td><td>18,725,000</td></tr>
+          <tr><td>Chalet</td><td>2</td><td>2</td><td>83 m²</td><td>13,225,000</td></tr>
+          <tr><td>Chalet Garden</td><td>2</td><td>2</td><td>90 m²</td><td>17,000,000</td></tr>
+          <tr><td>Pent House</td><td>2</td><td>2</td><td>99 m²</td><td>14,895,000</td></tr>
+          <tr><td>Pent House</td><td>2</td><td>2</td><td>88 m²</td><td>13,385,000</td></tr>
+          <tr><td>Chalet Garden</td><td>1</td><td>2</td><td>75 m²</td><td>11,410,000</td></tr>
+        </tbody>
+      </table>
+      <p class="fine" style="margin-top:12px">The floor plans place the first four in the
+        <em>Island collection</em> as Floating Chalet A and B, and the rest in the
+        <em>Valley collection</em> as Type A and Type B.</p>
+    </div>
+  </section>
+
   <section class="town">
     <p class="kicker">Within Makadi Heights</p>
     <h2>The town around it</h2>
@@ -343,11 +388,11 @@
     <p class="disclaim">
       <strong>Illustrative.</strong> All renders, visuals and layouts are for illustrative purposes
       only. Drawings are not to scale; areas, dimensions and specifications are subject to change
-      without prior notice. Prices, payment plans and delivery dates are not published in this
-      brochure and are therefore not stated here — confirm current figures and availability with an
-      advisor.
+      without prior notice. Prices, payment terms and the handover year come from the developer's
+      price list, not from the brochure, and are illustrative — confirm current figures and
+      availability with an advisor.
     </p>
-    <p class="source">Source — Ledge Valley brochure, Makadi Heights, Orascom Development</p>
+    <p class="source">Sources — Ledge Valley brochure and the developer's price list · Makadi Heights, Orascom Development</p>
   </footer>
 
 </article>
