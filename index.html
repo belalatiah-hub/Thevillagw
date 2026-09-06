@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <!-- frame-ancestors/HSTS belong in HTTP response headers (see deploy runbook), not meta. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'sha256-0eB8s3A3aZQguW+SDJC/YssfCUQj66wY3V7A9qjdeKc=' 'sha256-yI6VCT38V7vjk7cAW7UM7qbGpBU7Ua/f8UOqpzWwxAc=' 'sha256-YvHevJmHHrhBzm9a+K1fYxwv5t1APr4XI8t4Am8p7D4=' 'sha256-RBNvo1WzZ4oRRq0W9+hknpT7T8If536DEMBg9hyq/4o=' 'sha256-c1jfphN0DdUwj4eV2vk/cImnpgbFrFmtuRONdXI7hk0=' https://static.cloudflareinsights.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://cloudflareinsights.com; base-uri 'self'; form-action 'self'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'sha256-0eB8s3A3aZQguW+SDJC/YssfCUQj66wY3V7A9qjdeKc=' 'sha256-yI6VCT38V7vjk7cAW7UM7qbGpBU7Ua/f8UOqpzWwxAc=' 'sha256-YvHevJmHHrhBzm9a+K1fYxwv5t1APr4XI8t4Am8p7D4=' 'sha256-RBNvo1WzZ4oRRq0W9+hknpT7T8If536DEMBg9hyq/4o=' 'sha256-Tc97nzClalXq9tsZ05daYM0i4Ic0mxgvXcCbkCKGMUQ=' https://static.cloudflareinsights.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://cloudflareinsights.com; base-uri 'self'; form-action 'self'" />
   <meta name="theme-color" content="#073D52" />
   <meta name="color-scheme" content="light" />
   <meta name="format-detection" content="telephone=no" />
@@ -728,7 +728,8 @@ var AREAS = [
 {key:'zayed', name:{en:'Sheikh Zayed',ar:'الشيخ زايد'}, blurb:{en:'Established West Cairo living with mature communities.',ar:'حياة راقية بغرب القاهرة بمجتمعات مكتملة.'}},
 {key:'october', name:{en:'6th of October',ar:'٦ أكتوبر'}, blurb:{en:'Spacious West Cairo city with a wide price range.',ar:'مدينة واسعة بغرب القاهرة بنطاق أسعار متنوع.'}},
 {key:'mostakbal', name:{en:'Mostakbal City',ar:'مدينة المستقبل'}, blurb:{en:'Fast-growing East Cairo corridor with new launches.',ar:'محور سريع النمو بشرق القاهرة مع إطلاقات جديدة.'}},
-{key:'sokhna', name:{en:'Ain Sokhna',ar:'العين السخنة'}, blurb:{en:'Red Sea coast close to Cairo for weekend homes.',ar:'ساحل البحر الأحمر القريب من القاهرة لمنازل نهاية الأسبوع.'}}
+{key:'sokhna', name:{en:'Ain Sokhna',ar:'العين السخنة'}, blurb:{en:'Red Sea coast close to Cairo for weekend homes.',ar:'ساحل البحر الأحمر القريب من القاهرة لمنازل نهاية الأسبوع.'}},
+{key:'redsea', name:{en:'Red Sea',ar:'البحر الأحمر'}, blurb:{en:'The Hurghada coast — Makadi Bay, Soma Bay and El Gouna.',ar:'ساحل الغردقة — خليج مكادي وسوما باي والجونة.'}}
 ];
 var DEVELOPERS = [
 {key:'sodic', c1:'#0d6e7d', name:{en:'SODIC',ar:'سوديك'}, since:1996, areas:{en:'New Cairo · Sheikh Zayed · Ras El Hekma',ar:'القاهرة الجديدة · الشيخ زايد · رأس الحكمة'}, tagline:{en:'Design-led living, East & West Cairo',ar:'حياة بتصميم مميّز شرق وغرب القاهرة'}, desc:{en:'Listed on the EGX since 1996 and 85% owned by the ALDAR–ADQ consortium since 2021. Twenty-eight years of operations in West Cairo, East Cairo and the North Coast, with over 14,000 units delivered — 91% of them ahead of schedule — and communities that are home to more than 30,000 people.',ar:'مقيّدة في البورصة المصرية منذ ١٩٩٦، ويملك تحالف «الدار وADQ» ٨٥٪ منها منذ ٢٠٢١. ثمانية وعشرون عاماً من العمل في غرب القاهرة وشرقها وعلى الساحل الشمالي، بأكثر من ١٤٬٠٠٠ وحدة مسلَّمة — ٩١٪ منها قبل موعدها — ومجتمعات يسكنها أكثر من ٣٠٬٠٠٠ نسمة.'}},
@@ -843,7 +844,8 @@ var PROJECTS = [
 {slug:'hacienda-blue', name:'Hacienda Blue', name_ar:'هاسيندا بلو', dev:'palmhills', area:'raselhekma', status:'primary', price:19600000, dp:2.5, years:12, delivery:'2030', finishing:{en:'Fully finished (no kitchen/AC)',ar:'تشطيب كامل (بدون مطبخ وتكييف)'}, types:{en:'Apartment · Cabin · Townhouse · Villa',ar:'شقة · كابين · تاون هاوس · فيلا'}, tags:{en:['Ras El Hekma','400m beachfront'],ar:['رأس الحكمة','واجهة بحرية ٤٠٠م']}, blurb:{en:'Palm Hills’ 118-acre beachfront resort at Ras El Hekma (Km 166) with lagoons, parks and a 400m beach — G+1 apartments, cabins, townhouses and water villas. Developer-direct primary units.',ar:'منتجع بالم هيلز الشاطئي على ١١٨ فداناً برأس الحكمة (كيلو ١٦٦) ببحيرات وحدائق وشاطئ ٤٠٠ متر — شقق أرضي+١ وكبائن وتاون هاوس وفيلات مائية. وحدات أولية من المطوّر مباشرة.'}},
 {slug:'hacienda-waters', name:'Hacienda Waters', name_ar:'هاسيندا ووترز', dev:'palmhills', area:'raselhekma', status:'primary', price:14100000, dp:2.5, years:12, delivery:'2029', finishing:{en:'Fully finished (no kitchen/AC)',ar:'تشطيب كامل (بدون مطبخ وتكييف)'}, types:{en:'Chalet · Cabin · Villa',ar:'شاليه · كابين · فيلا'}, tags:{en:['Ras El Hekma','Aqua park'],ar:['رأس الحكمة','أكوا بارك']}, blurb:{en:'A 161-acre Palm Hills beachfront community at Ras El Hekma (Km 191) with lagoons, an aqua park and a 400m beach — chalets, cabins and water villas. Developer-direct primary units.',ar:'مجتمع بالم هيلز الشاطئي على ١٦١ فداناً برأس الحكمة (كيلو ١٩١) ببحيرات وأكوا بارك وشاطئ ٤٠٠ متر — شاليهات وكبائن وفيلات مائية. وحدات أولية من المطوّر مباشرة.'}},
 {slug:'hacienda-heneish', name:'Hacienda Heneish', name_ar:'هاسيندا حنيش', dev:'palmhills', area:'raselhekma', status:'primary', price:16000000, dp:5, years:8, delivery:'2029', finishing:{en:'Fully finished',ar:'تشطيب كامل'}, types:{en:'Apartment · Chalet · Townhouse · Villa',ar:'شقة · شاليه · تاون هاوس · فيلا'}, tags:{en:['Ras El Hekma','Marriott hotel'],ar:['رأس الحكمة','فندق ماريوت']}, blurb:{en:'A 420-feddan Palm Hills resort on the North Coast with a Marriott hotel, strip mall and 1.1km of beachfront — G+3 apartments, chalets, townhouses and standalone villas. Developer-direct primary units.',ar:'منتجع بالم هيلز على ٤٢٠ فداناً بالساحل الشمالي بفندق ماريوت وممشى تجاري وواجهة بحرية ١٫١ كم — شقق أرضي+٣ وشاليهات وتاون هاوس وفيلات مستقلة. وحدات أولية من المطوّر مباشرة.'}},
-{slug:'hacienda-west', name:'Hacienda West', name_ar:'هاسيندا ويست', dev:'palmhills', area:'raselhekma', status:'primary', price:23800000, dp:10, years:7, delivery:'2027', finishing:{en:'Fully finished / core & shell',ar:'تشطيب كامل / خرسانة'}, types:{en:'Chalet · Cabin · Villa',ar:'شاليه · كابين · فيلا'}, tags:{en:['Ras El Hekma','Beachfront'],ar:['رأس الحكمة','واجهة بحرية']}, blurb:{en:'A 132-feddan Palm Hills beach community at Ras El Hekma (Km 208) with a hotel, clubhouse, lagoons and a 400m beach — chalets, cabins and villas. Developer-direct primary units.',ar:'مجتمع بالم هيلز الشاطئي على ١٣٢ فداناً برأس الحكمة (كيلو ٢٠٨) بفندق وكلوب هاوس وبحيرات وشاطئ ٤٠٠ متر — شاليهات وكبائن وفيلات. وحدات أولية من المطوّر مباشرة.'}}
+{slug:'hacienda-west', name:'Hacienda West', name_ar:'هاسيندا ويست', dev:'palmhills', area:'raselhekma', status:'primary', price:23800000, dp:10, years:7, delivery:'2027', finishing:{en:'Fully finished / core & shell',ar:'تشطيب كامل / خرسانة'}, types:{en:'Chalet · Cabin · Villa',ar:'شاليه · كابين · فيلا'}, tags:{en:['Ras El Hekma','Beachfront'],ar:['رأس الحكمة','واجهة بحرية']}, blurb:{en:'A 132-feddan Palm Hills beach community at Ras El Hekma (Km 208) with a hotel, clubhouse, lagoons and a 400m beach — chalets, cabins and villas. Developer-direct primary units.',ar:'مجتمع بالم هيلز الشاطئي على ١٣٢ فداناً برأس الحكمة (كيلو ٢٠٨) بفندق وكلوب هاوس وبحيرات وشاطئ ٤٠٠ متر — شاليهات وكبائن وفيلات. وحدات أولية من المطوّر مباشرة.'}},
+{slug:'siyal', name:'Siyal', name_ar:'سيال', dev:'orascom', area:'redsea', status:'primary', finishing:{en:'Fully finished',ar:'تشطيب كامل'}, types:{en:'Villa · Twin house · Townhouse',ar:'فيلا · توين هاوس · تاون هاوس'}, tags:{en:['Red Sea','Makadi Bay','Lagoons'],ar:['البحر الأحمر','خليج مكادي','بحيرات']}, blurb:{en:'A neighbourhood of 78 homes inside Makadi Heights, built on 82,500 m² with only about 12% of the site covered — the rest given to open landscape, lagoons and communal ground.',ar:'حي من ٧٨ وحدة داخل مدن مكادي هايتس على ٨٢٬٥٠٠ م²، لا تشغل المباني سوى نحو ١٢٪ من الأرض — والباقي مساحات مفتوحة وبحيرات وأماكن مشتركة.'}}
 ];
 var UNITS = [
 {id:'SB-ST-01', project:'sumou-boulevard', type:'Studio', beds:1, baths:1, area:31, areaTo:33, price:2480000},
@@ -1392,6 +1394,7 @@ sEl('circle',{cx:x,cy:y-19,r:'12',fill:'#1e7a5a'}),
 sEl('circle',{cx:x-7,cy:y-13,r:'8',fill:'#20855f'}),
 sEl('circle',{cx:x+7,cy:y-13,r:'8',fill:'#20855f'})); }
 var PROJECT_COVERS = {
+'siyal':'/project-media/orascom/siyal/lagoon-beach.webp',
 'aeon':'/project-media/ramla/units/ap-a-03.webp',
 'district-5':'/project-media/marakez/units/ap1-d-04.webp',
 'crescent-walk':'/project-media/marakez/units/v2-cr-0.webp',
@@ -3499,6 +3502,8 @@ return media;
 }
 var MSQ = '/project-media/msquared/';
 var PROJECT_GALLERY = {
+'siyal': ['lagoon-beach','courtyard','lagoon-park','signature-villa','courtyard-villa','grand-villa','boutique-villa','townhouse','interior','social','walkability']
+.map(function(f){ return '/project-media/orascom/siyal/'+f+'.webp'; }),
 'alam-al-roum': ['city','coast','story','masterplan','boulevard','beach','lagoon',
 'spine','arch','marina','golf']
 .map(function(f){ return '/project-media/qataridiar/alam-al-roum/'+f+'.webp'; }),
@@ -4535,6 +4540,7 @@ groups:[
 };
 function devFeatures(key){ return DEV_FEATURES[key] || null; }
 var AAR = '/project-media/qataridiar/alam-al-roum/';
+var SIY = '/project-media/orascom/siyal/';
 var PROJECT_BROCHURE = {
 'alam-al-roum': {
 title: {en:'Digital Brochure', ar:'البروشور الرقمي'},
@@ -4591,6 +4597,74 @@ AAR+'pages/p47.webp'
 }
 };
 var PROJECT_FEATURES = {
+'siyal': {
+masterplan: {en:'Master plan', ar:'الماستر بلان', icon:'layers', src:SIY+'masterplan.webp'},
+cards: [
+{en:'About Siyal', ar:'عن سيال', icon:'shield', imgs:[SIY+'lagoon-park.webp'],
+copy:{
+lead:{en:'Rooted in the ease of beachside living, Siyal is a neighbourhood defined by openness, calm and rhythm — a living canvas where contemporary architecture meets the flow of coastal life. Homes are designed not just to be lived in, but to be lived with.',
+ar:'ينبع سيال من بساطة الحياة على الشاطئ، حي يقوم على الانفتاح والهدوء والإيقاع — لوحة حية يلتقي فيها التصميم المعاصر بانسياب الحياة الساحلية. وحدات صُمّمت لا لتُسكن فحسب، بل لتُعاش.'},
+more:{en:'Siyal is intentionally designed with a limited footprint representing approximately 12% of the site, ensuring that the majority is dedicated to open landscapes, water features and communal outdoor spaces.',
+ar:'صُمّم سيال عن قصد بمساحة بناء محدودة تمثّل نحو ١٢٪ من الأرض، بحيث تُخصَّص الغالبية للمساحات المفتوحة والعناصر المائية والأماكن المشتركة.'},
+groups:[
+{label:{en:'The site', ar:'الأرض'}, rows:[
+{k:{en:'Land area',ar:'مساحة الأرض'},      v:{en:'82,500 m²',ar:'٨٢٬٥٠٠ م²'}},
+{k:{en:'Total BUA',ar:'إجمالي المباني'},   v:{en:'12,910 m²',ar:'١٢٬٩١٠ م²'}},
+{k:{en:'Footprint',ar:'مساحة البناء'},     v:{en:'9,240 m²',ar:'٩٬٢٤٠ م²'}},
+{k:{en:'Number of units',ar:'عدد الوحدات'},v:{en:'78',ar:'٧٨'}},
+{k:{en:'Built footprint',ar:'نسبة البناء'},v:{en:'≈ 12% of site',ar:'نحو ١٢٪ من الأرض'}}]}]
+}},
+{en:'Design Story', ar:'قصة التصميم', icon:'spark', imgs:[SIY+'courtyard.webp', SIY+'walkability.webp'],
+copy:{
+lead:{en:'Characterised by soft desert tones and sculptural forms, the architecture is animated by natural light and shifting shadows through the day. Select homes feature double-height entrances and elevated ceilings, enhancing openness and spatial clarity.',
+ar:'تتميّز العمارة بألوان صحراوية هادئة وكتل نحتية، يحرّكها الضوء الطبيعي وتبدّل الظلال عبر النهار. وتضم وحدات مختارة مداخل بارتفاع مضاعف وأسقفاً مرتفعة تعزّز الإحساس بالاتساع.'},
+list:[
+{en:'Every home is positioned to enjoy open views — over landscaped greenery, tranquil lagoons or the water features woven through the neighbourhood',ar:'كل وحدة موجّهة لإطلالة مفتوحة — على المساحات الخضراء أو البحيرات الهادئة أو العناصر المائية المتخللة للحي'},
+{en:'A walkable design that makes daily movement effortless, with planned pathways and accessible amenities',ar:'تصميم قابل للمشي يجعل الحركة اليومية سهلة، بممرات مدروسة ومرافق قريبة'},
+{en:'Energy-efficient systems, recycling facilities and environmentally responsible materials',ar:'أنظمة موفّرة للطاقة ومرافق لإعادة التدوير ومواد مسؤولة بيئياً'}]
+}},
+{en:'Facilities', ar:'المرافق', icon:'star', imgs:[SIY+'social.webp', SIY+'interior.webp'],
+copy:{
+lead:{en:'A holistic approach to wellness through outdoor and water-based experiences: an open-air gym immersed in nature, a water gym for low-impact training that supports strength, flexibility, balance and cardiovascular health, and a tranquil outdoor yoga space.',
+ar:'نهج متكامل للعافية عبر تجارب في الهواء الطلق وأخرى مائية: صالة مفتوحة وسط الطبيعة، وصالة مائية لتمارين منخفضة الأثر تدعم القوة والمرونة والاتزان وصحة القلب، ومساحة يوجا خارجية هادئة.'},
+list:[
+{en:'A central gathering area at the heart of the community',ar:'ساحة تجمّع مركزية في قلب المجتمع'},
+{en:'Versatile lawn spaces for leisure or quiet moments',ar:'مساحات خضراء مرنة للترفيه أو للهدوء'},
+{en:'Seating and chaise lounge areas with open views',ar:'أماكن جلوس ومقاعد استرخاء بإطلالات مفتوحة'},
+{en:'An intimate outdoor workspace',ar:'مساحة عمل خارجية صغيرة'}],
+more:{en:'Within the wider town: boutique and full-scale hotels and The Haus, a landmark venue for over 3,400 guests; a clubhouse with football, padel and tennis courts and a fully equipped gym; retail and dining; on-site medical clinics; and a dedicated preschool.',
+ar:'وفي المدينة الأوسع: فنادق بوتيك وفنادق كاملة و«ذا هاوس»، صالة بارزة تتّسع لأكثر من ٣٬٤٠٠ ضيف؛ ونادٍ يضم ملاعب كرة قدم وبادل وتنس وصالة رياضية مجهّزة؛ ومحال ومطاعم؛ وعيادات طبية داخل الموقع؛ وحضانة مخصّصة.'}
+}},
+{en:'Home Types', ar:'أنواع الوحدات', icon:'home', imgs:[SIY+'signature-villa.webp', SIY+'courtyard-villa.webp', SIY+'grand-villa.webp', SIY+'boutique-villa.webp', SIY+'townhouse.webp'],
+copy:{
+lead:{en:'Seven types across 78 homes, every one delivered fully finished. Areas are the brochure\'s own; drawings are not to scale and specifications are subject to change.',
+ar:'سبعة أنواع ضمن ٧٨ وحدة، تُسلَّم جميعها بتشطيب كامل. المساحات من البروشور نفسه؛ الرسومات ليست بمقياس رسم والمواصفات قابلة للتغيير.'},
+groups:[
+{label:{en:'Built-up area, by type', ar:'مساحة البناء حسب النوع'}, rows:[
+{k:{en:'Signature Villa · 5 bed',ar:'سيجنتشر فيلا · ٥ غرف'},  v:{en:'250 m²',ar:'٢٥٠ م²'}},
+{k:{en:'Courtyard Villa · 4 bed',ar:'كورتيارد فيلا · ٤ غرف'}, v:{en:'210 m²',ar:'٢١٠ م²'}},
+{k:{en:'Grand Villa · 4 bed',ar:'جراند فيلا · ٤ غرف'},        v:{en:'190 m²',ar:'١٩٠ م²'}},
+{k:{en:'Deluxe Villa · 4 bed',ar:'ديلوكس فيلا · ٤ غرف'},      v:{en:'175 m²',ar:'١٧٥ م²'}},
+{k:{en:'Boutique Villa · 3 bed',ar:'بوتيك فيلا · ٣ غرف'},     v:{en:'160 m²',ar:'١٦٠ م²'}},
+{k:{en:'Twin Villa · 3 bed',ar:'توين فيلا · ٣ غرف'},          v:{en:'144–145 m²',ar:'١٤٤–١٤٥ م²'}},
+{k:{en:'Townhouse · 3 bed',ar:'تاون هاوس · ٣ غرف'},           v:{en:'136–138 m²',ar:'١٣٦–١٣٨ م²'}}]}],
+more:{en:'Each layout also includes a nanny\'s room with bathroom. Finishing is local marble or porcelain to floors, paint to walls and ceilings, ceramic to bathrooms, oak veneer doors, and Ideal Standard, Duravit or Roca sanitary fittings or equivalent. Furniture, garden landscape, AC units, water heaters, lighting fixtures, kitchen appliances and swimming pools are not included in the contract price.',
+ar:'يضم كل تخطيط أيضاً غرفة خادمة بحمام. التشطيب رخام محلي أو بورسلين للأرضيات، ودهان للحوائط والأسقف، وسيراميك للحمامات، وأبواب بقشرة سنديان، وأطقم صحية «إيديال ستاندرد» أو «دورافيت» أو «روكا» أو ما يعادلها. ولا يشمل سعر التعاقد الأثاث ولا تنسيق الحديقة ولا وحدات التكييف ولا السخانات ولا وحدات الإنارة ولا أجهزة المطبخ ولا حمامات السباحة.'}
+}},
+{en:'Location & Partners', ar:'الموقع والشركاء', icon:'pin', imgs:[SIY+'lagoon-beach.webp'],
+copy:{
+lead:{en:'Siyal sits inside Makadi Heights, a serene international coastal town by Orascom Development spanning 4.75 million square metres and reaching 78 metres above sea level — planned as a fully integrated town of residences, serviced apartments, commercial areas and hotels.',
+ar:'يقع سيال داخل مدن مكادي هايتس، مدينة ساحلية دولية هادئة من أوراسكوم للتطوير تمتد على ٤٫٧٥ مليون متر مربع وترتفع ٧٨ متراً فوق سطح البحر — مخطّطة كمدينة متكاملة من المساكن والشقق الفندقية والمناطق التجارية والفنادق.'},
+groups:[
+{label:{en:'Drive times', ar:'أزمنة الوصول'}, rows:[
+{k:{en:'Hurghada International Airport',ar:'مطار الغردقة الدولي'}, v:{en:'20 min',ar:'٢٠ دقيقة'}},
+{k:{en:'Downtown Hurghada',ar:'وسط الغردقة'},                     v:{en:'30 min',ar:'٣٠ دقيقة'}},
+{k:{en:'El Gouna',ar:'الجونة'},                                    v:{en:'45 min',ar:'٤٥ دقيقة'}}]}],
+more:{en:'EDSA shaped the urbanisation and mixed-use design from a strategic downtown location at the heart of Makadi Heights; Die Stadt designed the community-focused layout for walkability and connectivity; F&R Partnership pushed the design while preserving the connection to the environment; and Innovation Design Studio delivered the contextual detail.',
+ar:'صاغ مكتب «إي دي إس إيه» التخطيط العمراني والاستخدام المختلط انطلاقاً من موقع مركزي في قلب مكادي هايتس؛ وصمّم «دي شتات» التخطيط المجتمعي ليخدم المشي والترابط؛ ودفع «إف آند آر بارتنرشيب» حدود التصميم مع الحفاظ على صلته بالبيئة؛ وقدّم «إنوفيشن ديزاين ستوديو» التفاصيل المرتبطة بالمكان.'}
+}}
+]
+},
 'alam-al-roum': {
 masterplan: {en:'Masterplan', ar:'الماستر بلان', icon:'layers', src:AAR+'masterplan.webp'},
 cards: [

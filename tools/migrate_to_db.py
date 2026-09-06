@@ -32,6 +32,10 @@ GOVERNORATE = {
     'sahel':           ('matrouh', 'Matrouh',  'مطروح'),
     'raselhekma':      ('matrouh', 'Matrouh',  'مطروح'),
     'sokhna':          ('suez',    'Suez',     'السويس'),
+    # The governorate takes a suffixed slug because the area already owns
+    # `redsea`, and locations.slug is unique across every level. db_to_src
+    # emits an area's slug verbatim as its site key, so the area must keep it.
+    'redsea':          ('redsea-gov', 'Red Sea', 'البحر الأحمر'),
 }
 
 

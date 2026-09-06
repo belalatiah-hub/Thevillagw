@@ -1,5 +1,11 @@
 {
- "AREAS": {},
+ "AREAS": {
+  "redsea": [
+   "    /* Makadi Bay and Hurghada are not Ain Sokhna — some 400 km separate them,",
+   "       and the site had no area that could hold a project there. Orascom's own",
+   "       record already called the region \"Red Sea\", so that is the name used. */"
+  ]
+ },
  "DEVELOPERS": {
   "sumou": [
    "    // Sumou Investment — all figures below come from the Sumou Boulevard",
@@ -63,6 +69,13 @@
   ],
   "village-de-la-capitale": [
    "    /* --- Palm Hills projects (May fact sheet) — figures from the developer's official fact sheet; all commercial numbers remain illustrative/badged. --- */"
+  ],
+  "siyal": [
+   "    /* Orascom Development — Siyal, inside Makadi Heights on the Red Sea.",
+   "       Every value below is the project brochure's own. It publishes no price,",
+   "       no down payment, no instalment term and no delivery date, so none of",
+   "       those keys is written: the project page shows the awaiting-price-list",
+   "       notice rather than a number nobody quoted. */"
   ]
  },
  "UNITS": {
