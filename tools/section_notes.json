@@ -1,0 +1,121 @@
+{
+ "AREAS": {},
+ "DEVELOPERS": {
+  "sumou": [
+   "    // Sumou Investment — all figures below come from the Sumou Boulevard",
+   "    // prelaunch brochure. No founding year is stated there (it gives \"16+ years",
+   "    // of achievements\"), so `since` is deliberately absent rather than derived."
+  ],
+  "baghush": [
+   "    /* No founding year: the brochure dates El Abd's discovery of the bay to",
+   "       \"over 30 years ago\" but never says when BAM itself was formed. */",
+   "    /* Marsa Baghush. The brochure brands the destination itself and never names a",
+   "       parent company, a founding year, or a vision/mission statement, so none is",
+   "       claimed here. */"
+  ]
+ },
+ "PROJECTS": {
+  "sumou-boulevard": [
+   "    // Sumou Boulevard — prelaunch. Every figure is from the client sheet",
+   "    // (price, 10% down, 10 years, 2030) or the brochure (land/BUA, mixed use)."
+  ],
+  "marsa-baghush": [
+   "    /* Marsa Baghush. The brochure carries no price, no payment plan and no delivery",
+   "       date, so the record carries none and the page reads \"On request\". Unit areas",
+   "       run 115-615 m2 across thirteen type codes; those are on the clusters card. */"
+  ],
+  "alam-al-roum": [
+   "    /* Conceptual brochure only: it names no price, no payment plan, no delivery",
+   "       date and no unit areas, so those fields stay off the record and the page",
+   "       shows \"On request\" rather than a number nobody published. */",
+   "    /* Beit Al Bahr sells five named neighbourhoods off one resort master plan.",
+   "       The client sheet lists each as its own project, so each gets its own card",
+   "       and page, titled exactly as the sheet writes it. Slugs carry a bab- prefix",
+   "       because Hills and Shores are names another developer could reuse. */",
+   "    /* Alam Al Roum, from Qatari Diar Egypt's Digital Brochure. The brochure",
+   "       carries no price, payment plan or delivery date, and no unit schedule,",
+   "       so none is stated here; the brochure itself lives on the project page. */"
+  ],
+  "ogami-north-coast": [
+   "    /* --- The Village's own listed projects (Ras El Hekma, North Coast) — figures from the owner's project files; all commercial numbers remain illustrative/badged. --- */"
+  ],
+  "mountain-view-11": [
+   "    /* --- Mountain View, from the Sales Kit 2026 — the eight developments the",
+   "       kit still shows under construction, one card each. The kit publishes no",
+   "       price, plan, delivery date or unit mix for any of them, so none is",
+   "       claimed here: the cards carry the name, the district and the launch year",
+   "       it prints, and the page says the price list has not been released.",
+   "       Everything the kit files under \"Livable Communities\" is left out — those",
+   "       are handed over and lived in, not on primary sale. --- */"
+  ],
+  "masyaf-ras-alhekma": [
+   "    /* --- M squared (6 projects) — every figure is quoted from the company",
+   "       profile. The brochure publishes no price list, payment plan or unit",
+   "       schedule for the live projects, so those fields are absent rather than",
+   "       guessed; Ashgar Darna is the exception and carries the delivered-project",
+   "       figures the profile does print. --- */"
+  ],
+  "zed-east": [
+   "    /* --- ORA (7 projects, 58 unit types) — every figure below is read straight",
+   "       from the client sheet's ORA block: project name, area, type, beds, baths,",
+   "       size, price, down payment, tenor and handover. The sheet carries no",
+   "       finishing column for ORA, so no finishing is claimed. --- */"
+  ],
+  "village-de-la-capitale": [
+   "    /* --- Palm Hills projects (May fact sheet) — figures from the developer's official fact sheet; all commercial numbers remain illustrative/badged. --- */"
+  ]
+ },
+ "UNITS": {
+  "SB-ST-01": [
+   "    // ---- Sumou Boulevard (Mostakbal City) ----------------------------------",
+   "    // Straight from the client sheet: type, beds, area range, price, 10% down,",
+   "    // 10 years, 2030 delivery. `areaTo` carries the upper bound of the range",
+   "    // the sheet gives (\"31-33\"); `area` is the lower bound, matching the",
+   "    // \"starting from\" price beside it. Offices carry no bed/bath count because",
+   "    // the sheet gives none and the site suppresses those fields for commercial."
+  ],
+  "OG-01": [
+   "    /* The Village's own listings — specs & prices from the owner's project files (illustrative/badged). */",
+   "    /* SODIC — 10 unit types at Ogami, one row per type in the client sheet.",
+   "       These replace the three earlier Ogami rows, whose prices the sheet",
+   "       supersedes. The 226 m² town house carries only its own render: the sheet",
+   "       lists three of the TWIN house's frames as its extras, which would put",
+   "       another home's photographs in its gallery, so they are held back. --- */"
+  ],
+  "MS-MI-01": [
+   "    /* M squared — 6 unit types at MIST, one row per type in the client sheet.",
+   "       Three of the four flats share one render set; the sheet says so and each",
+   "       still carries its own floor plan, which is what separates them. --- */"
+  ],
+  "MS-3W-01": [
+   "    /* M squared — 13 unit types at 31 WEST, one row per type in the client",
+   "       sheet. Eight of the eleven apartments share one render set; that is the",
+   "       sheet's own choice and is preserved rather than de-duplicated. --- */"
+  ],
+  "MS-MA-01": [
+   "    /* M squared — 15 unit types at Masyaf Ras Alhekma, one row per type in the",
+   "       client sheet. The sheet calls the project \"El Masyaf\"; the card keeps the",
+   "       company profile's own \"Masyaf Ras Alhekma\", which is the same place named",
+   "       in full. `label` holds the sheet's finer wording where the site's type",
+   "       vocabulary is broader (Lagoon Chalet, Staggered Chalet). --- */"
+  ],
+  "MS-TR-01": [
+   "    /* M squared — 7 unit types at TRIO, one row per type in the client sheet.",
+   "       Several lifestyle renders recur across types; that is the sheet's own",
+   "       choice and is preserved rather than de-duplicated. --- */"
+  ],
+  "MS-41-01": [
+   "    /* M squared — 5 office sizes at 41 Business District, one row per size in",
+   "       the client sheet. Offices carry no bedroom or bathroom count, and four of",
+   "       the sizes are published as a band, which `areaTo` keeps intact. --- */"
+  ],
+  "OR-ZE-01": [
+   "    /* ORA — 58 unit types across seven projects, one row per type in the sheet.",
+   "       `label` keeps the sheet's own wording where it is finer than the site's",
+   "       type vocabulary (Duplex Upper, Villa 4A, Ground Chalet). --- */"
+  ],
+  "VDC-A1": [
+   "    /* --- Palm Hills units (May fact sheet) — starting sizes/prices per the developer's fact sheet; illustrative/badged. --- */"
+  ]
+ }
+}
