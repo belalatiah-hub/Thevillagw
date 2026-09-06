@@ -76,6 +76,17 @@
    "       no down payment, no instalment term and no delivery date, so none of",
    "       those keys is written: the project page shows the awaiting-price-list",
    "       notice rather than a number nobody quoted. */"
+  ],
+  "ledge-valley": [
+   "    /* Orascom Development — Ledge Valley, the second Makadi Heights",
+   "       neighbourhood. Only sections 01-07 of the brochure's twelve were",
+   "       supplied, so The Valley Collection, the finishing specifications and",
+   "       the partners are absent here because they are absent there. It",
+   "       publishes no price, plan or delivery date either, so those keys are",
+   "       omitted and the page shows the awaiting-price-list notice.",
+   "       `types` names the one product the brochure actually shows — the",
+   "       Floating Chalet of the Island Collection. The 1-4 bedroom mix is in",
+   "       the blurb, because a bedroom count is not a unit type. */"
   ]
  },
  "UNITS": {

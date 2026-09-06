@@ -51,6 +51,7 @@
   // Marakez Ramla renders are now self-hosted (extracted from the official Ramla
   // "Sacred Summers" renders deck) under /project-media/ramla — no external hotlinking.
   var PROJECT_COVERS = {
+    'ledge-valley':'/project-media/orascom/ledge-valley/hero.webp',
     // Siyal has no unit cards for a cover to clash with, so the hero render
     // that opens the brochure opens the project card too.
     'siyal':'/project-media/orascom/siyal/lagoon-beach.webp',
@@ -2321,6 +2322,10 @@
      renders of its own but no unit schedule has nowhere else to show them. */
   var MSQ = '/project-media/msquared/';
   var PROJECT_GALLERY = {
+    /* Ledge Valley, in the brochure's order: the water, the architecture,
+       the neighbourhood, then the one collection it shows. */
+    'ledge-valley': ['hero','promenade','lagoon','design','poolside','park','neighbourhood','island','chalet-lagoon','chalet-street','floating','outdoor']
+      .map(function(f){ return '/project-media/orascom/ledge-valley/'+f+'.webp'; }),
     /* Siyal, in the brochure's own order: the place, the architecture, the
        homes, then what is inside them. */
     'siyal': ['lagoon-beach','courtyard','lagoon-park','signature-villa','courtyard-villa','grand-villa','boutique-villa','townhouse','interior','social','walkability']
@@ -3497,6 +3502,7 @@
      Everything here is read off the uploaded Digital Brochure and nothing else. */
   var AAR = '/project-media/qataridiar/alam-al-roum/';
   var SIY = '/project-media/orascom/siyal/';
+  var LDV = '/project-media/orascom/ledge-valley/';
   var PROJECT_BROCHURE = {
     'alam-al-roum': {
       title: {en:'Digital Brochure', ar:'البروشور الرقمي'},
@@ -3553,6 +3559,64 @@
     }
   };
   var PROJECT_FEATURES = {
+    /* Ledge Valley — Orascom Development, inside Makadi Heights on the Red
+       Sea. Every figure is the project brochure's own. The supplied file holds
+       sections 01-07 of twelve, so The Valley Collection, the finishing
+       specifications, Homify and the partners have no card: they are not in
+       the source. */
+    'ledge-valley': {
+      masterplan: {en:'Master plan', ar:'الماستر بلان', icon:'layers', src:LDV+'masterplan.webp'},
+      cards: [
+        {en:'About Ledge Valley', ar:'عن ليدج فالي', icon:'shield', imgs:[LDV+'lagoon.webp'],
+         copy:{
+           lead:{en:'The neighborhood brings together a curated mix of residences, expansive lagoons, landscaped open spaces, and outdoor experiences, creating a distinctive waterfront destination within Makadi Heights.',
+                 ar:'يجمع الحي مزيجاً منتقى من الوحدات السكنية والبحيرات الواسعة والمساحات المفتوحة المنسّقة والتجارب الخارجية، ليصنع وجهة مميزة على الماء داخل مدن مكادي هايتس.'},
+           groups:[
+             {label:{en:'The site', ar:'الأرض'}, rows:[
+               {k:{en:'Land area',ar:'مساحة الأرض'},      v:{en:'91,049 m²',ar:'٩١٬٠٤٩ م²'}},
+               {k:{en:'Total BUA',ar:'إجمالي المباني'},   v:{en:'28,000 m²',ar:'٢٨٬٠٠٠ م²'}},
+               {k:{en:'Footprint',ar:'مساحة البناء'},     v:{en:'15,000 m²',ar:'١٥٬٠٠٠ م²'}},
+               {k:{en:'Number of units',ar:'عدد الوحدات'},v:{en:'274',ar:'٢٧٤'}},
+               {k:{en:'Unit mix',ar:'أنواع الوحدات'},     v:{en:'1 – 4 bedroom residences',ar:'من غرفة إلى ٤ غرف'}}]}]
+         }},
+        {en:'Carried by Water', ar:'محمول على الماء', icon:'spark', imgs:[LDV+'floating.webp', LDV+'promenade.webp'],
+         copy:{
+           lead:{en:'Private decks extending directly over the lagoons. Experience a rare waterfront lifestyle where your home seamlessly connects to the water through private floating decks and uninterrupted lagoon views.',
+                 ar:'تراسات خاصة تمتد فوق البحيرات مباشرة. أسلوب حياة نادر على الماء يتصل فيه البيت بالماء عبر تراسات عائمة خاصة وإطلالات لا ينقطع فيها منظر البحيرة.'},
+           list:[
+             {en:'Landscape and water working together — designed around lagoons, lush greenery and valley-inspired landscapes',ar:'المسطحات الخضراء والماء معاً — تصميم حول البحيرات والمساحات الخضراء الوافرة ومناظر مستوحاة من الوادي'},
+             {en:'Designed for life beyond the walls — large terraces, gardens, promenades and waterfront spaces',ar:'مصمّم لحياة خارج الجدران — تراسات واسعة وحدائق وممشى ومساحات على الماء'}],
+           more:{en:'Together they create a calm and restorative living environment, and encourage residents to embrace the outdoors every day.',
+                 ar:'ومعاً تصنع بيئة معيشة هادئة تبعث على الراحة، وتشجّع السكان على الخروج إلى الهواء الطلق كل يوم.'}
+         }},
+        {en:'Design Story', ar:'قصة التصميم', icon:'home', imgs:[LDV+'design.webp', LDV+'neighbourhood.webp'],
+         copy:{
+           lead:{en:'Blending architecture with landscape for seamless living experience.',
+                 ar:'مزج العمارة بالمسطحات الطبيعية لتجربة معيشة متصلة.'},
+           more:{en:'Inspired by nature\'s colors and forms, the architecture creates a neighborhood defined by openness, serenity, and connection to the outdoors.',
+                 ar:'مستوحاة من ألوان الطبيعة وأشكالها، تصنع العمارة حياً يقوم على الانفتاح والسكينة والاتصال بالخارج.'}
+         }},
+        {en:'The Island Collection', ar:'مجموعة الجزيرة', icon:'star', imgs:[LDV+'chalet-lagoon.webp', LDV+'chalet-street.webp', LDV+'island.webp'],
+         copy:{
+           lead:{en:'Floating Chalet A & A Mirror, shown in lagoon view and street view with its ground and first floor building plans.',
+                 ar:'فلوتنج شاليه A و A ميرور، معروضاً بإطلالة البحيرة وإطلالة الشارع مع مخططي الدور الأرضي والأول.'},
+           more:{en:'The brochure publishes no area, bedroom count, price or payment plan for it, so none is stated here.',
+                 ar:'لا ينشر البروشور مساحة ولا عدد غرف ولا سعراً ولا خطة سداد لهذا النموذج، فلم يُذكر أي منها هنا.'}
+         }},
+        {en:'Within Makadi Heights', ar:'داخل مكادي هايتس', icon:'pin', imgs:[LDV+'park.webp'],
+         copy:{
+           lead:{en:'Ledge Valley sits inside Makadi Heights, a serene international coastal town by Orascom Development spanning 4.75 million square meters and reaching 78 meters above sea level — a fully integrated town of residential units, serviced apartments, commercial areas and hotels.',
+                 ar:'يقع ليدج فالي داخل مدن مكادي هايتس، مدينة ساحلية دولية هادئة من أوراسكوم للتطوير تمتد على ٤٫٧٥ مليون متر مربع وترتفع ٧٨ متراً فوق سطح البحر — مدينة متكاملة من الوحدات السكنية والشقق الفندقية والمناطق التجارية والفنادق.'},
+           groups:[
+             {label:{en:'Drive times', ar:'أزمنة الوصول'}, rows:[
+               {k:{en:'Hurghada International Airport',ar:'مطار الغردقة الدولي'}, v:{en:'20 mins',ar:'٢٠ دقيقة'}},
+               {k:{en:'Downtown Hurghada',ar:'وسط الغردقة'},                     v:{en:'30 mins',ar:'٣٠ دقيقة'}},
+               {k:{en:'El Gouna',ar:'الجونة'},                                    v:{en:'45 mins',ar:'٤٥ دقيقة'}}]}],
+           more:{en:'The town carries beachfront swimming, kitesurfing, kayaking and snorkeling; boutique and full-scale hotels with The Haus, a landmark venue with 3,400-guest capacity; a clubhouse with football, padel and tennis courts and a fully equipped gym; retail and dining; and on-site clinics.',
+                 ar:'وتضم المدينة السباحة والتزلج الشراعي والكاياك والغطس على الشاطئ؛ وفنادق بوتيك وفنادق كاملة مع «ذا هاوس»، صالة بارزة تتّسع لـ ٣٬٤٠٠ ضيف؛ ونادياً بملاعب كرة قدم وبادل وتنس وصالة رياضية مجهّزة؛ ومحالّ ومطاعم؛ وعيادات داخل الموقع.'}
+         }}
+      ]
+    },
     /* Siyal — Orascom Development, inside Makadi Heights on the Red Sea.
        Every figure is the project brochure's own; it publishes no price, no
        payment plan and no delivery date, and none is written here. */

@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <!-- frame-ancestors/HSTS belong in HTTP response headers (see deploy runbook), not meta. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'sha256-0eB8s3A3aZQguW+SDJC/YssfCUQj66wY3V7A9qjdeKc=' 'sha256-yI6VCT38V7vjk7cAW7UM7qbGpBU7Ua/f8UOqpzWwxAc=' 'sha256-YvHevJmHHrhBzm9a+K1fYxwv5t1APr4XI8t4Am8p7D4=' 'sha256-RBNvo1WzZ4oRRq0W9+hknpT7T8If536DEMBg9hyq/4o=' 'sha256-Tc97nzClalXq9tsZ05daYM0i4Ic0mxgvXcCbkCKGMUQ=' https://static.cloudflareinsights.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://cloudflareinsights.com; base-uri 'self'; form-action 'self'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'sha256-0eB8s3A3aZQguW+SDJC/YssfCUQj66wY3V7A9qjdeKc=' 'sha256-yI6VCT38V7vjk7cAW7UM7qbGpBU7Ua/f8UOqpzWwxAc=' 'sha256-YvHevJmHHrhBzm9a+K1fYxwv5t1APr4XI8t4Am8p7D4=' 'sha256-RBNvo1WzZ4oRRq0W9+hknpT7T8If536DEMBg9hyq/4o=' 'sha256-kiKF3jBxLdCXKKaObGFkVAzzS6c/taFhoxrh+amasig=' https://static.cloudflareinsights.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://cloudflareinsights.com; base-uri 'self'; form-action 'self'" />
   <meta name="theme-color" content="#073D52" />
   <meta name="color-scheme" content="light" />
   <meta name="format-detection" content="telephone=no" />
@@ -845,7 +845,8 @@ var PROJECTS = [
 {slug:'hacienda-waters', name:'Hacienda Waters', name_ar:'هاسيندا ووترز', dev:'palmhills', area:'raselhekma', status:'primary', price:14100000, dp:2.5, years:12, delivery:'2029', finishing:{en:'Fully finished (no kitchen/AC)',ar:'تشطيب كامل (بدون مطبخ وتكييف)'}, types:{en:'Chalet · Cabin · Villa',ar:'شاليه · كابين · فيلا'}, tags:{en:['Ras El Hekma','Aqua park'],ar:['رأس الحكمة','أكوا بارك']}, blurb:{en:'A 161-acre Palm Hills beachfront community at Ras El Hekma (Km 191) with lagoons, an aqua park and a 400m beach — chalets, cabins and water villas. Developer-direct primary units.',ar:'مجتمع بالم هيلز الشاطئي على ١٦١ فداناً برأس الحكمة (كيلو ١٩١) ببحيرات وأكوا بارك وشاطئ ٤٠٠ متر — شاليهات وكبائن وفيلات مائية. وحدات أولية من المطوّر مباشرة.'}},
 {slug:'hacienda-heneish', name:'Hacienda Heneish', name_ar:'هاسيندا حنيش', dev:'palmhills', area:'raselhekma', status:'primary', price:16000000, dp:5, years:8, delivery:'2029', finishing:{en:'Fully finished',ar:'تشطيب كامل'}, types:{en:'Apartment · Chalet · Townhouse · Villa',ar:'شقة · شاليه · تاون هاوس · فيلا'}, tags:{en:['Ras El Hekma','Marriott hotel'],ar:['رأس الحكمة','فندق ماريوت']}, blurb:{en:'A 420-feddan Palm Hills resort on the North Coast with a Marriott hotel, strip mall and 1.1km of beachfront — G+3 apartments, chalets, townhouses and standalone villas. Developer-direct primary units.',ar:'منتجع بالم هيلز على ٤٢٠ فداناً بالساحل الشمالي بفندق ماريوت وممشى تجاري وواجهة بحرية ١٫١ كم — شقق أرضي+٣ وشاليهات وتاون هاوس وفيلات مستقلة. وحدات أولية من المطوّر مباشرة.'}},
 {slug:'hacienda-west', name:'Hacienda West', name_ar:'هاسيندا ويست', dev:'palmhills', area:'raselhekma', status:'primary', price:23800000, dp:10, years:7, delivery:'2027', finishing:{en:'Fully finished / core & shell',ar:'تشطيب كامل / خرسانة'}, types:{en:'Chalet · Cabin · Villa',ar:'شاليه · كابين · فيلا'}, tags:{en:['Ras El Hekma','Beachfront'],ar:['رأس الحكمة','واجهة بحرية']}, blurb:{en:'A 132-feddan Palm Hills beach community at Ras El Hekma (Km 208) with a hotel, clubhouse, lagoons and a 400m beach — chalets, cabins and villas. Developer-direct primary units.',ar:'مجتمع بالم هيلز الشاطئي على ١٣٢ فداناً برأس الحكمة (كيلو ٢٠٨) بفندق وكلوب هاوس وبحيرات وشاطئ ٤٠٠ متر — شاليهات وكبائن وفيلات. وحدات أولية من المطوّر مباشرة.'}},
-{slug:'siyal', name:'Siyal', name_ar:'سيال', dev:'orascom', area:'redsea', status:'primary', finishing:{en:'Fully finished',ar:'تشطيب كامل'}, types:{en:'Villa · Twin house · Townhouse',ar:'فيلا · توين هاوس · تاون هاوس'}, tags:{en:['Red Sea','Makadi Bay','Lagoons'],ar:['البحر الأحمر','خليج مكادي','بحيرات']}, blurb:{en:'A neighbourhood of 78 homes inside Makadi Heights, built on 82,500 m² with only about 12% of the site covered — the rest given to open landscape, lagoons and communal ground.',ar:'حي من ٧٨ وحدة داخل مدن مكادي هايتس على ٨٢٬٥٠٠ م²، لا تشغل المباني سوى نحو ١٢٪ من الأرض — والباقي مساحات مفتوحة وبحيرات وأماكن مشتركة.'}}
+{slug:'siyal', name:'Siyal', name_ar:'سيال', dev:'orascom', area:'redsea', status:'primary', finishing:{en:'Fully finished',ar:'تشطيب كامل'}, types:{en:'Villa · Twin house · Townhouse',ar:'فيلا · توين هاوس · تاون هاوس'}, tags:{en:['Red Sea','Makadi Bay','Lagoons'],ar:['البحر الأحمر','خليج مكادي','بحيرات']}, blurb:{en:'A neighbourhood of 78 homes inside Makadi Heights, built on 82,500 m² with only about 12% of the site covered — the rest given to open landscape, lagoons and communal ground.',ar:'حي من ٧٨ وحدة داخل مدن مكادي هايتس على ٨٢٬٥٠٠ م²، لا تشغل المباني سوى نحو ١٢٪ من الأرض — والباقي مساحات مفتوحة وبحيرات وأماكن مشتركة.'}},
+{slug:'ledge-valley', name:'Ledge Valley', name_ar:'ليدج فالي', dev:'orascom', area:'redsea', status:'primary', types:{en:'Chalet',ar:'شاليه'}, tags:{en:['Red Sea','Makadi Bay','Lagoons','Waterfront'],ar:['البحر الأحمر','خليج مكادي','بحيرات','على الماء']}, blurb:{en:'A waterfront neighbourhood of 274 homes on 91,049 m² inside Makadi Heights, built around expansive lagoons and landscaped open space, with a mix of one to four bedroom residences.',ar:'حي على الماء من ٢٧٤ وحدة على ٩١٬٠٤٩ م² داخل مدن مكادي هايتس، مبني حول بحيرات واسعة ومساحات مفتوحة منسّقة، بوحدات من غرفة إلى أربع غرف.'}}
 ];
 var UNITS = [
 {id:'SB-ST-01', project:'sumou-boulevard', type:'Studio', beds:1, baths:1, area:31, areaTo:33, price:2480000},
@@ -1394,6 +1395,7 @@ sEl('circle',{cx:x,cy:y-19,r:'12',fill:'#1e7a5a'}),
 sEl('circle',{cx:x-7,cy:y-13,r:'8',fill:'#20855f'}),
 sEl('circle',{cx:x+7,cy:y-13,r:'8',fill:'#20855f'})); }
 var PROJECT_COVERS = {
+'ledge-valley':'/project-media/orascom/ledge-valley/hero.webp',
 'siyal':'/project-media/orascom/siyal/lagoon-beach.webp',
 'aeon':'/project-media/ramla/units/ap-a-03.webp',
 'district-5':'/project-media/marakez/units/ap1-d-04.webp',
@@ -3502,6 +3504,8 @@ return media;
 }
 var MSQ = '/project-media/msquared/';
 var PROJECT_GALLERY = {
+'ledge-valley': ['hero','promenade','lagoon','design','poolside','park','neighbourhood','island','chalet-lagoon','chalet-street','floating','outdoor']
+.map(function(f){ return '/project-media/orascom/ledge-valley/'+f+'.webp'; }),
 'siyal': ['lagoon-beach','courtyard','lagoon-park','signature-villa','courtyard-villa','grand-villa','boutique-villa','townhouse','interior','social','walkability']
 .map(function(f){ return '/project-media/orascom/siyal/'+f+'.webp'; }),
 'alam-al-roum': ['city','coast','story','masterplan','boulevard','beach','lagoon',
@@ -4541,6 +4545,7 @@ groups:[
 function devFeatures(key){ return DEV_FEATURES[key] || null; }
 var AAR = '/project-media/qataridiar/alam-al-roum/';
 var SIY = '/project-media/orascom/siyal/';
+var LDV = '/project-media/orascom/ledge-valley/';
 var PROJECT_BROCHURE = {
 'alam-al-roum': {
 title: {en:'Digital Brochure', ar:'البروشور الرقمي'},
@@ -4597,6 +4602,59 @@ AAR+'pages/p47.webp'
 }
 };
 var PROJECT_FEATURES = {
+'ledge-valley': {
+masterplan: {en:'Master plan', ar:'الماستر بلان', icon:'layers', src:LDV+'masterplan.webp'},
+cards: [
+{en:'About Ledge Valley', ar:'عن ليدج فالي', icon:'shield', imgs:[LDV+'lagoon.webp'],
+copy:{
+lead:{en:'The neighborhood brings together a curated mix of residences, expansive lagoons, landscaped open spaces, and outdoor experiences, creating a distinctive waterfront destination within Makadi Heights.',
+ar:'يجمع الحي مزيجاً منتقى من الوحدات السكنية والبحيرات الواسعة والمساحات المفتوحة المنسّقة والتجارب الخارجية، ليصنع وجهة مميزة على الماء داخل مدن مكادي هايتس.'},
+groups:[
+{label:{en:'The site', ar:'الأرض'}, rows:[
+{k:{en:'Land area',ar:'مساحة الأرض'},      v:{en:'91,049 m²',ar:'٩١٬٠٤٩ م²'}},
+{k:{en:'Total BUA',ar:'إجمالي المباني'},   v:{en:'28,000 m²',ar:'٢٨٬٠٠٠ م²'}},
+{k:{en:'Footprint',ar:'مساحة البناء'},     v:{en:'15,000 m²',ar:'١٥٬٠٠٠ م²'}},
+{k:{en:'Number of units',ar:'عدد الوحدات'},v:{en:'274',ar:'٢٧٤'}},
+{k:{en:'Unit mix',ar:'أنواع الوحدات'},     v:{en:'1 – 4 bedroom residences',ar:'من غرفة إلى ٤ غرف'}}]}]
+}},
+{en:'Carried by Water', ar:'محمول على الماء', icon:'spark', imgs:[LDV+'floating.webp', LDV+'promenade.webp'],
+copy:{
+lead:{en:'Private decks extending directly over the lagoons. Experience a rare waterfront lifestyle where your home seamlessly connects to the water through private floating decks and uninterrupted lagoon views.',
+ar:'تراسات خاصة تمتد فوق البحيرات مباشرة. أسلوب حياة نادر على الماء يتصل فيه البيت بالماء عبر تراسات عائمة خاصة وإطلالات لا ينقطع فيها منظر البحيرة.'},
+list:[
+{en:'Landscape and water working together — designed around lagoons, lush greenery and valley-inspired landscapes',ar:'المسطحات الخضراء والماء معاً — تصميم حول البحيرات والمساحات الخضراء الوافرة ومناظر مستوحاة من الوادي'},
+{en:'Designed for life beyond the walls — large terraces, gardens, promenades and waterfront spaces',ar:'مصمّم لحياة خارج الجدران — تراسات واسعة وحدائق وممشى ومساحات على الماء'}],
+more:{en:'Together they create a calm and restorative living environment, and encourage residents to embrace the outdoors every day.',
+ar:'ومعاً تصنع بيئة معيشة هادئة تبعث على الراحة، وتشجّع السكان على الخروج إلى الهواء الطلق كل يوم.'}
+}},
+{en:'Design Story', ar:'قصة التصميم', icon:'home', imgs:[LDV+'design.webp', LDV+'neighbourhood.webp'],
+copy:{
+lead:{en:'Blending architecture with landscape for seamless living experience.',
+ar:'مزج العمارة بالمسطحات الطبيعية لتجربة معيشة متصلة.'},
+more:{en:'Inspired by nature\'s colors and forms, the architecture creates a neighborhood defined by openness, serenity, and connection to the outdoors.',
+ar:'مستوحاة من ألوان الطبيعة وأشكالها، تصنع العمارة حياً يقوم على الانفتاح والسكينة والاتصال بالخارج.'}
+}},
+{en:'The Island Collection', ar:'مجموعة الجزيرة', icon:'star', imgs:[LDV+'chalet-lagoon.webp', LDV+'chalet-street.webp', LDV+'island.webp'],
+copy:{
+lead:{en:'Floating Chalet A & A Mirror, shown in lagoon view and street view with its ground and first floor building plans.',
+ar:'فلوتنج شاليه A و A ميرور، معروضاً بإطلالة البحيرة وإطلالة الشارع مع مخططي الدور الأرضي والأول.'},
+more:{en:'The brochure publishes no area, bedroom count, price or payment plan for it, so none is stated here.',
+ar:'لا ينشر البروشور مساحة ولا عدد غرف ولا سعراً ولا خطة سداد لهذا النموذج، فلم يُذكر أي منها هنا.'}
+}},
+{en:'Within Makadi Heights', ar:'داخل مكادي هايتس', icon:'pin', imgs:[LDV+'park.webp'],
+copy:{
+lead:{en:'Ledge Valley sits inside Makadi Heights, a serene international coastal town by Orascom Development spanning 4.75 million square meters and reaching 78 meters above sea level — a fully integrated town of residential units, serviced apartments, commercial areas and hotels.',
+ar:'يقع ليدج فالي داخل مدن مكادي هايتس، مدينة ساحلية دولية هادئة من أوراسكوم للتطوير تمتد على ٤٫٧٥ مليون متر مربع وترتفع ٧٨ متراً فوق سطح البحر — مدينة متكاملة من الوحدات السكنية والشقق الفندقية والمناطق التجارية والفنادق.'},
+groups:[
+{label:{en:'Drive times', ar:'أزمنة الوصول'}, rows:[
+{k:{en:'Hurghada International Airport',ar:'مطار الغردقة الدولي'}, v:{en:'20 mins',ar:'٢٠ دقيقة'}},
+{k:{en:'Downtown Hurghada',ar:'وسط الغردقة'},                     v:{en:'30 mins',ar:'٣٠ دقيقة'}},
+{k:{en:'El Gouna',ar:'الجونة'},                                    v:{en:'45 mins',ar:'٤٥ دقيقة'}}]}],
+more:{en:'The town carries beachfront swimming, kitesurfing, kayaking and snorkeling; boutique and full-scale hotels with The Haus, a landmark venue with 3,400-guest capacity; a clubhouse with football, padel and tennis courts and a fully equipped gym; retail and dining; and on-site clinics.',
+ar:'وتضم المدينة السباحة والتزلج الشراعي والكاياك والغطس على الشاطئ؛ وفنادق بوتيك وفنادق كاملة مع «ذا هاوس»، صالة بارزة تتّسع لـ ٣٬٤٠٠ ضيف؛ ونادياً بملاعب كرة قدم وبادل وتنس وصالة رياضية مجهّزة؛ ومحالّ ومطاعم؛ وعيادات داخل الموقع.'}
+}}
+]
+},
 'siyal': {
 masterplan: {en:'Master plan', ar:'الماستر بلان', icon:'layers', src:SIY+'masterplan.webp'},
 cards: [
