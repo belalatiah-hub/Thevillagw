@@ -73,6 +73,12 @@ jobs:
       - name: Confirm the sitemap matches the routes
         run: python3 tools/sitemap.py --check
 
+      # An edit made in the dashboard can break the head without touching the
+      # body — a renamed project that collides with another page's title, a
+      # blurb deleted down to nothing. This is the check that notices.
+      - name: Audit the head of every published URL
+        run: node tools/seoaudit.cjs
+
       - name: Stop if nothing changed
         id: diff
         run: |
