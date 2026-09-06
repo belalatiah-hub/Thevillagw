@@ -1,0 +1,492 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shams Soma — Presentation Kit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* Sampled from the deck, not chosen. The navy is the cover field, the
+       darker navy the section bars, the cream the content pages, the aqua the
+       wave that divides every divider slide. */
+    --navy:#18346e;
+    --navy-deep:#0b1f45;
+    --navy-ink:#071636;
+    --cream:#edebe0;
+    --aqua:#8cbec9;
+    --coral:#d16053;
+
+    /* the studio: a warm seamless, one step down from the deck's paper so the
+       sheets read as the brightest thing in frame */
+    --ground:#e4e0d7;
+    --ground-2:#d6d1c6;
+    --ink:#20242c;
+    --ink-2:#5a5f69;
+    --ink-3:#8b8f98;
+    --rule:rgba(32,36,44,.13);
+    --rule-soft:rgba(32,36,44,.07);
+
+    --sans:'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --pad:clamp(20px,5vw,72px);
+    --max:1180px;
+
+    --mark:url("__MARK__");
+    /* board tooth. one texture, reused at three strengths. */
+    --tooth:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--ground); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{display:block; max-width:100%}
+  figure{margin:0}
+  .defs{position:absolute; width:0; height:0; overflow:hidden}
+
+  .kit{max-width:var(--max); margin:0 auto; padding:0 var(--pad) clamp(40px,7vw,96px)}
+
+  /* ------------------------------------------------------------- header */
+  header{padding:clamp(44px,8vw,104px) 0 clamp(28px,4vw,44px)}
+  .lockup{
+    width:104px; height:32px; background:var(--navy);
+    -webkit-mask:var(--mark) no-repeat center/contain;
+            mask:var(--mark) no-repeat center/contain;
+  }
+  h1{
+    margin:clamp(22px,3vw,34px) 0 0; font-size:clamp(32px,7vw,60px);
+    font-weight:600; letter-spacing:-.022em; line-height:1.02; color:var(--navy-ink);
+  }
+  .sub{
+    margin:10px 0 0; font-size:clamp(14px,2.4vw,18px); font-weight:300;
+    color:var(--ink-2); letter-spacing:.01em;
+  }
+  .rail{
+    display:grid; gap:clamp(14px,3vw,26px); margin:clamp(30px,5vw,46px) 0 0;
+    grid-template-columns:repeat(auto-fit,minmax(148px,1fr));
+    border-top:1px solid var(--rule); padding-top:18px;
+  }
+  .rail dt{
+    font-size:10px; font-weight:600; letter-spacing:.15em; text-transform:uppercase;
+    color:var(--ink-3);
+  }
+  .rail dd{margin:5px 0 0; font-size:13.5px; color:var(--ink); line-height:1.45}
+
+  /* -------------------------------------------------------------- plate */
+  .plate{margin:clamp(46px,9vw,110px) 0 0}
+  .plate:first-of-type{margin-top:clamp(26px,4.5vw,54px)}
+  .cap{
+    display:flex; align-items:baseline; gap:6px 14px; flex-wrap:wrap;
+    margin:0 0 clamp(16px,2.6vw,26px);
+    border-bottom:1px solid var(--rule-soft); padding-bottom:12px;
+  }
+  .cap b{
+    font-size:10px; font-weight:600; letter-spacing:.16em; color:var(--ink-3);
+    font-variant-numeric:tabular-nums;
+  }
+  .cap span{font-size:13.5px; font-weight:500; letter-spacing:.01em; color:var(--ink)}
+  .cap i{font-style:normal; font-size:12px; color:var(--ink-3); flex-basis:100%}
+  @media(min-width:620px){
+    .cap i{flex-basis:auto; margin-inline-start:auto; text-align:end}
+  }
+
+  /* the seamless the objects sit on */
+  .stage{
+    position:relative; container-type:inline-size; overflow:hidden;
+    background:
+      radial-gradient(78% 62% at 46% 24%, rgba(255,255,255,.72), transparent 62%),
+      radial-gradient(120% 100% at 50% 118%, rgba(90,80,66,.16), transparent 64%),
+      linear-gradient(178deg, #eae6dd, var(--ground) 44%, var(--ground-2));
+  }
+  .stage::after{             /* the seamless has tooth too, just less of it */
+    content:''; position:absolute; inset:0; background-image:var(--tooth);
+    background-size:180px 180px; opacity:.16; mix-blend-mode:multiply; pointer-events:none;
+  }
+
+  /* -------------------------------------------------------------- board */
+  /* Navy outside, cream inside — the deck's own two surfaces. */
+  .board{
+    background:
+      linear-gradient(128deg, #22417f 0%, var(--navy) 34%, #142c60 66%, var(--navy-deep) 100%);
+    position:relative;
+  }
+  .board::before{           /* key light, high and to the left */
+    content:''; position:absolute; inset:0;
+    background:
+      radial-gradient(96% 78% at 20% -6%, rgba(255,255,255,.20), transparent 58%),
+      radial-gradient(70% 54% at 84% 106%, rgba(140,190,201,.10), transparent 62%);
+    pointer-events:none;
+  }
+  .board::after{            /* uncoated stock: visible tooth */
+    content:''; position:absolute; inset:0; background-image:var(--tooth);
+    background-size:150px 150px; opacity:.30; mix-blend-mode:overlay; pointer-events:none;
+  }
+
+  /* a mark pressed into the board: dark wall at the top, lit wall at the bottom */
+  .deboss{
+    background:linear-gradient(178deg,
+      rgba(2,8,26,.66) 0 30%, rgba(12,28,62,.18) 58%, rgba(202,222,246,.38));
+    -webkit-mask:var(--mark) no-repeat center/contain;
+            mask:var(--mark) no-repeat center/contain;
+    filter:drop-shadow(0 1px .5px rgba(190,214,240,.13));
+  }
+  /* the same mark, foil-blocked on the cream interior */
+  .foil{
+    background:linear-gradient(150deg, #2c4c8e, #16306a 38%, #4f74b6 56%, #142c60 74%, #274687);
+    -webkit-mask:var(--mark) no-repeat center/contain;
+            mask:var(--mark) no-repeat center/contain;
+  }
+
+  /* A pocket is a second layer of board laid over the face, so it needs its
+     own width: an <svg> is a replaced element, and left/right alone would let
+     it fall back to the viewBox ratio and stop short of the edge. */
+  .pocket{position:absolute; left:0; bottom:0; width:100%; display:block; z-index:3}
+
+  /* -------------------------------------------------------------- sheet */
+  /* A page of the deck, at 16:9, with nothing laid over the artwork. Every
+     depth cue below sits outside the trim: shadow, edge, thickness. */
+  .sheet{
+    position:relative; aspect-ratio:16/9; background:var(--cream);
+    box-shadow:
+      0 .5px 1px rgba(40,34,24,.16),
+      0 4px 8px rgba(40,34,24,.10),
+      0 16px 30px rgba(40,34,24,.13),
+      0 40px 64px rgba(40,34,24,.10);
+  }
+  .sheet img{width:100%; height:100%}
+  .sheet::after{             /* the cut edge catching the light */
+    content:''; position:absolute; inset:0; pointer-events:none;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.22), inset 0 0 0 1.5px rgba(40,34,24,.10);
+  }
+
+  /* ------------------------------------------------- plate 01 · closed */
+  .p1{aspect-ratio:16/11}
+  /* folder, sheet and the line where they meet move as one object, so the
+     camera can sit a little off-axis without them coming apart */
+  .p1 .assembly{
+    position:absolute; inset:0;
+    transform:perspective(2800px) rotateX(3.4deg) rotateZ(-.9deg);
+    transform-origin:50% 72%;
+  }
+  .p1 .folder{
+    position:absolute; left:15%; bottom:11%; width:70%; aspect-ratio:1.6; z-index:2;
+    border-radius:2px;
+    box-shadow:
+      0 2px 0 rgba(168,198,236,.26) inset,   /* the board's cut edge, lit */
+      0 -2px 0 rgba(0,0,0,.46) inset,
+      3px 3px 4px rgba(30,26,20,.22),
+      10px 20px 28px rgba(30,26,20,.22),
+      22px 48px 74px rgba(30,26,20,.20);
+  }
+  /* the mark and the rule sit on the pocket, which is the face you see */
+  .p1 .folder .deboss{
+    position:absolute; left:8%; bottom:11%; width:21%; aspect-ratio:258/78; z-index:4;
+  }
+  .p1 .folder .rule{
+    position:absolute; left:8%; bottom:25.5%; width:13%; height:1px; z-index:4;
+    background:linear-gradient(90deg, rgba(198,220,240,.46), rgba(198,220,240,.05));
+  }
+  .p1 .pocket{height:46%}
+  .p1 .peek{                 /* the deck, standing in the folder */
+    position:absolute; left:21%; bottom:44%; width:58%; z-index:1;
+  }
+  .p1 .under{                /* a second sheet on the seamless, for depth */
+    position:absolute; right:4%; bottom:3%; width:40%; z-index:0;
+    transform:rotate(-6deg); transform-origin:50% 50%;
+  }
+  /* Where the folder's edge crosses the sheet: an occlusion line on the sheet
+     only, the width of the sheet, nothing laid over the artwork above it. */
+  .p1 .ao{
+    position:absolute; left:21%; width:58%; bottom:74.6%; height:1.4%; z-index:1;
+    background:linear-gradient(to top, rgba(6,14,34,.46), rgba(6,14,34,0));
+  }
+
+  /* --------------------------------------------------- plate 02 · open */
+  .p2{aspect-ratio:16/7}
+  .spread{
+    background:linear-gradient(150deg, #16305f 0%, #10254e 46%, #0a1b3d 78%, #061229 100%);
+    position:absolute; left:5%; top:50%; width:90%; aspect-ratio:3.2;
+    transform:translateY(-50%) perspective(2400px) rotateX(9deg);
+    transform-origin:50% 50%;
+    padding:1.5% 1.3%;                  /* the board's outside, seen at the rim */
+    display:grid; grid-template-columns:1fr 1.1% 1fr; border-radius:2px;
+    box-shadow:
+      0 2px 3px rgba(30,26,20,.20),
+      0 22px 34px rgba(30,26,20,.22),
+      0 56px 84px rgba(30,26,20,.18);
+  }
+  .panel{
+    position:relative; overflow:hidden;
+    background:linear-gradient(168deg, #f5f3ea, var(--cream) 46%, #ded9ca);
+    box-shadow:inset 0 1px 3px rgba(20,30,60,.26);   /* set down inside the board */
+  }
+  .panel::after{
+    content:''; position:absolute; inset:0; background-image:var(--tooth);
+    background-size:140px 140px; opacity:.26; mix-blend-mode:multiply; pointer-events:none;
+  }
+  .spine{                    /* the crease: two folds and the valley between */
+    background:linear-gradient(90deg,
+      rgba(4,12,32,.62), rgba(150,180,225,.26) 38%, rgba(4,12,32,.50) 62%, rgba(4,12,32,.66));
+  }
+  .panel .foil{position:absolute; left:8%; bottom:11%; width:19%; aspect-ratio:258/78}
+  .panel .card{              /* a card, set down in the folder */
+    position:absolute; left:33%; top:27%; width:31%; aspect-ratio:1.72;
+    border-radius:2px; transform:rotate(-2.4deg);
+    background:linear-gradient(140deg, #2a4a88, var(--navy) 44%, #0e2352);
+    box-shadow:
+      1px 1px 2px rgba(30,26,20,.30),
+      3px 7px 13px rgba(30,26,20,.22),
+      7px 16px 30px rgba(30,26,20,.14);
+  }
+  .panel .card .deboss{position:absolute; left:16%; top:35%; width:52%; aspect-ratio:258/78}
+  .p2 .pocket{height:40%}
+  .p2 .panel .deboss.on-pocket{
+    position:absolute; right:7%; bottom:7%; width:22%; aspect-ratio:258/78; z-index:4;
+  }
+  .p2 .held{
+    position:absolute; left:11%; bottom:13%; width:78%; z-index:2;
+  }
+
+  /* -------------------------------------------------- plate 03 · sheets */
+  .p3{aspect-ratio:16/8.6}
+  .p3 .sheet{position:absolute; width:44%}
+  .p3 .s1{left:4%;  top:13%; transform:rotate(-7deg)}
+  .p3 .s2{left:18%; top:22%; transform:rotate(-3deg)}
+  .p3 .s3{left:31%; top:12%; transform:rotate(1.2deg)}
+  .p3 .s4{left:52%; top:23%; transform:rotate(4.8deg)}
+  .p3 .s5{left:30%; top:45%; transform:rotate(-1.4deg)}
+
+  /* ------------------------------------------------- plate 04 · details */
+  .details{display:grid; gap:clamp(14px,2.4vw,22px); grid-template-columns:1fr}
+  @media(min-width:760px){ .details{grid-template-columns:1fr 1fr} }
+  .macro{aspect-ratio:4/3}
+  .macro .board{position:absolute; inset:0}
+  .macro .deboss{position:absolute; left:12%; top:33%; width:52%; aspect-ratio:258/78}
+  .macro .rule{
+    position:absolute; left:12%; top:57%; width:22%; height:1.5px;
+    background:linear-gradient(90deg, rgba(198,220,240,.50), rgba(198,220,240,.05));
+  }
+  .macro .pocket{position:absolute; left:0; right:0; bottom:0; height:34%; z-index:3}
+  .macro .grain{             /* this close, the tooth of the stock is the point */
+    position:absolute; inset:0; background-image:var(--tooth); background-size:38px 38px;
+    opacity:.72; mix-blend-mode:overlay; z-index:4; pointer-events:none;
+  }
+  .macro .rake{              /* one light, low and to the left */
+    position:absolute; inset:0; z-index:5; pointer-events:none;
+    background:
+      linear-gradient(100deg, rgba(255,255,255,.09) 0 7%, transparent 30%),
+      radial-gradient(140% 130% at 6% -4%, transparent 46%, rgba(2,8,24,.26));
+  }
+  .macro .board{background:linear-gradient(136deg, #1e3d75, #17326a 46%, #102757)}
+  .macro .board::before{background:radial-gradient(90% 70% at 16% -8%, rgba(255,255,255,.10), transparent 62%)}
+
+  .block{aspect-ratio:4/3}
+  /* The block of sheets seen from above: thickness comes from the sheets
+     underneath, each set down and to the right by a fraction of a millimetre. */
+  .block .stack{position:absolute; left:11%; top:22%; width:78%; transform:rotate(-1.6deg)}
+  .block .stack .sheet{position:relative; z-index:2}
+  .block .leaf{
+    position:absolute; left:0; width:100%; aspect-ratio:16/9; background:#f1efe6;
+    box-shadow:0 0 0 1px rgba(60,50,36,.13);
+  }
+  .block .l1{top:.35%; left:.3%;  z-index:1}
+  .block .l2{top:.8%;  left:.7%;  z-index:0}
+  .block .l3{top:1.3%; left:1.1%; z-index:-1; background:#eae7dc}
+  .block .l4{
+    top:1.9%; left:1.6%; z-index:-2; background:#e2ded1;
+    box-shadow:0 0 0 1px rgba(60,50,36,.13),
+               0 10px 20px rgba(30,26,20,.20), 0 28px 46px rgba(30,26,20,.16);
+  }
+
+  /* ----------------------------------------------------------- colophon */
+  .colophon{
+    margin:clamp(46px,9vw,104px) 0 0; border-top:1px solid var(--rule);
+    padding-top:clamp(20px,3vw,30px);
+    display:grid; gap:clamp(18px,3vw,34px); grid-template-columns:1fr;
+  }
+  @media(min-width:760px){ .colophon{grid-template-columns:1.35fr 1fr} }
+  .colophon h2{
+    margin:0 0 10px; font-size:10px; font-weight:600; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--ink-3);
+  }
+  .colophon p{margin:0 0 12px; font-size:13.5px; color:var(--ink-2); max-width:62ch}
+  .colophon p:last-child{margin-bottom:0}
+  .note{
+    border-inline-start:2px solid var(--coral); padding-inline-start:14px;
+  }
+  .note strong{color:var(--ink); font-weight:600}
+  .pages{
+    font-variant-numeric:tabular-nums; letter-spacing:.02em; color:var(--ink);
+  }
+
+  @media print{
+    body{background:#fff}
+    .plate{break-inside:avoid}
+  }
+</style>
+
+<!-- One set of gradients and one wave, shared by every pocket in the file.
+     The wave is the deck's own divider motif, kept at its own amplitude-to-
+     period ratio and cut into the pocket lip. -->
+<svg class="defs" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="pk" x1="0" y1="0" x2=".3" y2="1">
+      <stop offset="0"   stop-color="#2d5490"/>
+      <stop offset=".38" stop-color="#1c3c78"/>
+      <stop offset="1"   stop-color="#112b56"/>
+    </linearGradient>
+    <!-- the board behind the pocket is occluded right at the cut, nowhere else -->
+    <filter id="pkAO" x="-6%" y="-60%" width="112%" height="220%">
+      <feDropShadow dx="0" dy="-3" stdDeviation="4"
+                    flood-color="#03081a" flood-opacity=".72"/>
+    </filter>
+    <linearGradient id="pkLip" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0"   stop-color="#8cbec9" stop-opacity=".55"/>
+      <stop offset=".5"  stop-color="#cfe3e8" stop-opacity=".38"/>
+      <stop offset="1"   stop-color="#8cbec9" stop-opacity=".5"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<article class="kit">
+
+  <header>
+    <div class="lockup" role="img" aria-label="Marakez"></div>
+    <h1>Shams Soma</h1>
+    <p class="sub">Sales presentation kit — folder mockup</p>
+    <dl class="rail">
+      <div><dt>Developer</dt><dd>Marakez</dd></div>
+      <div><dt>Destination</dt><dd>Somabay, Red Sea</dd></div>
+      <div><dt>Format</dt><dd>Landscape folder, 16:9 sheets</dd></div>
+      <div><dt>Board</dt><dd>Navy outside, cream interior</dd></div>
+      <div><dt>Finish</dt><dd>Blind deboss, die-cut wave lip</dd></div>
+    </dl>
+  </header>
+
+  <!-- ============================================================ 01 -->
+  <section class="plate">
+    <p class="cap"><b>01</b><span>The kit, closed</span><i>Folder with the presentation seated in the pocket</i></p>
+    <div class="stage p1">
+
+      <figure class="sheet under">
+        <img src="__SHEET_DECKS__" alt="A page of the Shams Soma presentation, lying beside the folder" loading="lazy">
+      </figure>
+
+      <div class="assembly">
+
+      <figure class="sheet peek">
+        <img src="__SHEET_AERIAL__" alt="Shams Soma masterplan page, standing in the folder" loading="lazy">
+      </figure>
+      <div class="ao"></div>
+
+      <div class="board folder">
+        <div class="deboss" role="img" aria-label="Marakez, debossed"></div>
+        <div class="rule"></div>
+        <svg class="pocket" viewBox="0 0 1000 300" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <path fill="url(#pk)" filter="url(#pkAO)" d="M0,34 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0 L1000,300 L0,300 Z"/>
+          <path fill="none" stroke="url(#pkLip)" stroke-width="1.6" d="M0,34 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0"/>
+        </svg>
+      </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ 02 -->
+  <section class="plate">
+    <p class="cap"><b>02</b><span>Opened flat</span><i>Cream interior, die-cut pocket, card</i></p>
+    <div class="stage p2">
+      <div class="board spread">
+
+        <div class="panel">
+          <div class="card"><div class="deboss" role="img" aria-label="Marakez"></div></div>
+          <div class="foil" role="img" aria-label="Marakez, foil-blocked"></div>
+        </div>
+
+        <div class="spine"></div>
+
+        <div class="panel">
+          <figure class="sheet held">
+            <img src="__SHEET_VALLEY__" alt="A page of the Shams Soma presentation, held in the pocket" loading="lazy">
+          </figure>
+          <svg class="pocket" viewBox="0 0 1000 300" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+            <path fill="url(#pk)" filter="url(#pkAO)" d="M0,34 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0 L1000,300 L0,300 Z"/>
+            <path fill="none" stroke="url(#pkLip)" stroke-width="1.6" d="M0,34 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0 q20.83,-23.2 41.67,0 q20.83,23.2 41.67,0"/>
+          </svg>
+          <div class="deboss on-pocket" role="img" aria-label="Marakez, debossed"></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ 03 -->
+  <section class="plate">
+    <p class="cap"><b>03</b><span>The sheet set</span><i>Pages reproduced as supplied</i></p>
+    <div class="stage p3">
+      <figure class="sheet s1"><img src="__SHEET_DIVIDER__"  alt="Masterplan section divider" loading="lazy"></figure>
+      <figure class="sheet s2"><img src="__SHEET_LOCATION__" alt="Somabay location overview" loading="lazy"></figure>
+      <figure class="sheet s3"><img src="__SHEET_COVER__"    alt="Cover of the Shams Soma sales presentation" loading="lazy"></figure>
+      <figure class="sheet s4"><img src="__SHEET_PLAN__"     alt="Shams Soma masterplan" loading="lazy"></figure>
+      <figure class="sheet s5"><img src="__SHEET_POOL__"     alt="Infinity pools" loading="lazy"></figure>
+    </div>
+  </section>
+
+  <!-- ============================================================ 04 -->
+  <section class="plate">
+    <p class="cap"><b>04</b><span>Details</span><i>Deboss on uncoated navy · the block on edge</i></p>
+    <div class="details">
+
+      <div class="stage macro">
+        <div class="board">
+          <div class="deboss" role="img" aria-label="Marakez, debossed into the board"></div>
+          <div class="rule"></div>
+        </div>
+        <svg class="pocket" viewBox="0 0 1000 300" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <path fill="url(#pk)" filter="url(#pkAO)" d="M0,34 q41.67,-46.4 83.33,0 q41.67,46.4 83.33,0 q41.67,-46.4 83.33,0 q41.67,46.4 83.33,0 q41.67,-46.4 83.33,0 q41.67,46.4 83.33,0 q41.67,-46.4 83.33,0 q41.67,46.4 83.33,0 q41.67,-46.4 83.33,0 q41.67,46.4 83.33,0 q41.67,-46.4 83.33,0 q41.67,46.4 83.33,0 L1000,300 L0,300 Z"/>
+          <path fill="none" stroke="url(#pkLip)" stroke-width="2.4" d="M0,34 q41.67,-46.4 83.33,0 q41.67,46.4 83.33,0 q41.67,-46.4 83.33,0 q41.67,46.4 83.33,0 q41.67,-46.4 83.33,0 q41.67,46.4 83.33,0 q41.67,-46.4 83.33,0 q41.67,46.4 83.33,0 q41.67,-46.4 83.33,0 q41.67,46.4 83.33,0 q41.67,-46.4 83.33,0 q41.67,46.4 83.33,0"/>
+        </svg>
+        <div class="grain"></div>
+        <div class="rake"></div>
+      </div>
+
+      <div class="stage block">
+        <div class="stack">
+          <figure class="sheet"><img src="__SHEET_COAST__" alt="Shams Soma coastline, the top sheet of the block" loading="lazy"></figure>
+          <div class="leaf l1"></div>
+          <div class="leaf l2"></div>
+          <div class="leaf l3"></div>
+          <div class="leaf l4"></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================= colophon -->
+  <div class="colophon">
+    <div>
+      <h2>About this mockup</h2>
+      <p>The folder, the pocket, the deboss, the card and the studio are the mockup.
+         Every sheet in frame is a page of the supplied Shams Soma sales presentation,
+         reproduced at its original 16:9 proportion — no crop, no recolour, nothing laid
+         over the artwork. Depth is built around the pages: shadows on the surface they
+         rest on, a hairline where the paper is trimmed, and an occlusion line where the
+         pocket or the folder edge passes in front of one.</p>
+      <p>The navy, the cream and the aqua of the die-cut lip are sampled from the deck
+         itself rather than chosen, and the lip follows the wave that divides its
+         section slides.</p>
+      <p class="pages">Pages shown: 1 · 5 · 19 · 25 · 26 · 31 · 34 · 50 · 53</p>
+    </div>
+    <div class="note">
+      <h2>Before this goes out</h2>
+      <p><strong>The deck supplied is marked for internal use.</strong> Page 1 carries
+         “This document is for internal use only and subject to changes, updates,
+         refinement, and further details”, and every page footer reads
+         “SHAMS SOMA — SALES PRESENTATION | CONFIDENTIAL”.</p>
+      <p>Clear it with Marakez, or swap in a client-facing edition, before this kit is
+         used as outward-facing collateral.</p>
+    </div>
+  </div>
+
+</article>
