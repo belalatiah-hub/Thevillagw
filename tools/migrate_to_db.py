@@ -71,6 +71,27 @@ def write(name, sql):
     print('%-28s %6d bytes' % (name, len(sql)))
 
 
+CHUNK = 21000   # the MCP execute_sql channel takes one statement at a time
+
+
+def write_chunked(name_fmt, head, rows, tail):
+    """Split one long VALUES list across several standalone statements.
+
+    Each file repeats `head` and `tail` verbatim, so every chunk is a complete,
+    idempotent statement that can be run on its own and in any order.
+    """
+    chunks, cur, size = [], [], 0
+    for r in rows:
+        if cur and size + len(r) > CHUNK:
+            chunks.append(cur); cur, size = [], 0
+        cur.append(r); size += len(r) + 3
+    if cur:
+        chunks.append(cur)
+    for i, chunk in enumerate(chunks, 1):
+        write(name_fmt % i, head + ',\n'.join('  ' + r for r in chunk) + tail)
+    return len(chunks)
+
+
 def build_locations(d):
     rows = ["-- Egypt, its governorates, and the nine areas the site publishes.",
             "insert into cms.locations (slug, level, parent_id, name_en, name_ar, blurb_en, blurb_ar, sort_order) values"]
@@ -150,18 +171,20 @@ def build_projects(d):
             q(L(p.get('finishing'), 'en')), q(L(p.get('finishing'), 'ar')),
             q(L(p.get('types'), 'en')), q(L(p.get('types'), 'ar')),
             arr((p.get('tags') or {}).get('en')), arr((p.get('tags') or {}).get('ar'))))
-    sql = """-- 84 projects. Every one is `published`: they are all live on the site today,
--- and a migration must not quietly unpublish anything.
+    head = """-- Every project is `published`: they are all live on the site today, and a
+-- migration must not quietly unpublish anything. The array columns carry an
+-- explicit ::text[] because a literal in a VALUES list is otherwise plain text.
 insert into cms.projects (slug, name_en, name_ar, developer_id, location_id, stage,
   description_en, description_ar, price_from, down_payment_pct, instalment_years,
   delivery_label, finishing_en, finishing_ar, unit_types_en, unit_types_ar,
   tags_en, tags_ar, status, published_at)
 select v.slug, v.name_en, v.name_ar, dev.id, loc.id, v.stage::cms.project_stage,
-  v.description_en, v.description_ar, v.price_from, v.dp, v.years,
+  v.description_en, v.description_ar, v.price_from::bigint, v.dp::numeric, v.years::numeric,
   v.delivery_label, v.finishing_en, v.finishing_ar, v.unit_types_en, v.unit_types_ar,
-  v.tags_en, v.tags_ar, 'published', now()
+  v.tags_en::text[], v.tags_ar::text[], 'published', now()
 from (values
-""" + ',\n'.join('  ' + r for r in rows) + """
+"""
+    tail = """
 ) as v(slug, name_en, name_ar, dev_slug, area_slug, stage, description_en, description_ar,
        price_from, dp, years, delivery_label, finishing_en, finishing_ar,
        unit_types_en, unit_types_ar, tags_en, tags_ar)
@@ -177,7 +200,7 @@ on conflict (slug) do update set
   finishing_ar = excluded.finishing_ar, unit_types_en = excluded.unit_types_en,
   unit_types_ar = excluded.unit_types_ar, tags_en = excluded.tags_en, tags_ar = excluded.tags_ar;
 """
-    write('04_projects.sql', sql)
+    write_chunked('04_projects_%02d.sql', head, rows, tail)
 
 
 def build_units(d):
@@ -202,15 +225,17 @@ def build_units(d):
             q(u.get('beds')), q(u.get('baths')), q(u.get('area')), q(u.get('areaTo')),
             q(u.get('price')), q(u.get('dp')), q(u.get('years')), q(u.get('handover')),
             q(u.get('floor', ex.get('floor'))), q(u.get('avail') or 'available')))
-    sql = """-- 420 units, joined to their project by slug.
+    head = """-- Units, joined to their project by slug.
 insert into cms.units (unit_code, project_id, unit_type_en, label_en, label_ar,
   bedrooms, bathrooms, bua, bua_to, price, down_payment_pct, instalment_years,
   delivery_label, floor, availability, status, published_at)
 select v.unit_code, p.id, v.unit_type_en, v.label_en, v.label_ar,
-  v.bedrooms, v.bathrooms, v.bua, v.bua_to, v.price, v.dp, v.years,
+  v.bedrooms::smallint, v.bathrooms::smallint, v.bua::numeric, v.bua_to::numeric,
+  v.price::bigint, v.dp::numeric, v.years::numeric,
   v.delivery_label, v.floor, v.availability::cms.unit_availability, 'published', now()
 from (values
-""" + ',\n'.join('  ' + r for r in rows) + """
+"""
+    tail = """
 ) as v(unit_code, project_slug, unit_type_en, label_en, label_ar, bedrooms, bathrooms,
        bua, bua_to, price, dp, years, delivery_label, floor, availability)
 join cms.projects p on p.slug = v.project_slug
@@ -224,7 +249,7 @@ on conflict (lower(unit_code)) where deleted_at is null do update set
   delivery_label = excluded.delivery_label, floor = excluded.floor,
   availability = excluded.availability;
 """
-    write('05_units.sql', sql)
+    write_chunked('05_units_%02d.sql', head, rows, tail)
 
     # the two fields with no column of their own
     attr_rows = []
@@ -260,12 +285,23 @@ def build_media(d):
         assets[path] = True
         links.append((kind, owner, role, path, sort))
 
+    # The site stores some references as bare filenames and resolves them at
+    # render time — logos gain a base and swap .png for the .webp actually
+    # served, plans gain /project-media/plans/. The database keeps the resolved
+    # URL, so a row is the address the browser asks for and nothing downstream
+    # has to know these rules.
+    def logo_file(name):
+        return re.sub(r'\.(png|jpe?g)$', '.webp', str(name), flags=re.I)
+
+    def plan_url(path):
+        return path if str(path).startswith('/') else '/project-media/plans/' + path
+
     for slug, path in (d.get('PROJECT_COVERS') or {}).items():
         add('project', slug, 'cover', path)
-    for slug, path in (d.get('PROJECT_LOGOS') or {}).items():
-        add('project', slug, 'logo', path)
+    for slug, name in (d.get('PROJECT_LOGOS') or {}).items():
+        add('project', slug, 'logo', '/logos/projects/' + logo_file(name))
     for key, name in (d.get('DEV_LOGOS') or {}).items():
-        add('developer', key, 'logo', '/logos/' + name if not str(name).startswith('/') else name)
+        add('developer', key, 'logo', '/logos/' + logo_file(name))
     for key, paths in (d.get('DEV_GALLERY') or {}).items():
         for i, path in enumerate(paths or []):
             add('developer', key, 'gallery', path, i)
@@ -274,41 +310,60 @@ def build_media(d):
         add('unit', uid, 'cover', path)
     for map_name, role in (('UNIT_GALLERY', 'gallery'), ('UNIT_MASTERPLANS', 'masterplan'),
                            ('UNIT_FLOORPLANS', 'floorplan'), ('UNIT_LOCATIONS', 'location')):
+        plan = map_name in ('UNIT_MASTERPLANS', 'UNIT_FLOORPLANS')
         for uid, paths in (d.get(map_name) or {}).items():
             for i, path in enumerate(paths or []):
-                add('unit', uid, role, path, i)
+                add('unit', uid, role, plan_url(path) if plan else path, i)
 
-    sql = ["-- Every image path the site references, stored once.",
-           "insert into cms.media_assets (path) values"]
-    sql.append(',\n'.join('  (%s)' % q(p) for p in sorted(assets)))
-    sql.append("on conflict (path) do nothing;")
-    write('06_media_assets.sql', '\n'.join(sql) + '\n')
+    write_chunked('06_media_assets_%02d.sql',
+                  "-- Every image path the site references, stored once.\n"
+                  "insert into cms.media_assets (path) values\n",
+                  ['(%s)' % q(p) for p in sorted(assets)],
+                  "\non conflict (path) do nothing;\n")
 
     owner_tbl = {'project': ('cms.projects', 'slug', 'project_id'),
                  'developer': ('cms.developers', 'slug', 'developer_id'),
                  'unit': ('cms.units', 'unit_code', 'unit_id')}
-    by_kind = {}
-    for kind, owner, role, path, sort in links:
-        by_kind.setdefault(kind, []).append((owner, role, path, sort))
 
-    n = 0
-    for kind, items in sorted(by_kind.items()):
+    # Grouped by (kind, role, path, sort). The same masterplan is attached to
+    # every unit of a project and the same render to a shared set, so writing the
+    # path once and unnesting the owner codes cuts this to a third of its size.
+    grouped = {}
+    for kind, owner, role, path, sort in links:
+        grouped.setdefault((kind, role, path, sort), []).append(owner)
+
+    PREFIX = '/project-media/'
+    stmts = {}
+    for (kind, role, path, sort), owners in sorted(grouped.items()):
+        short = path[len(PREFIX):] if path.startswith(PREFIX) else path
+        pexpr = ("'%s' || %s" % (PREFIX, q(short))) if path.startswith(PREFIX) else q(path)
+        stmts.setdefault(kind, []).append(
+            "(%s,%s,%d,array[%s])" % (pexpr, q(role), sort,
+                                      ','.join(q(o) for o in owners)))
+
+    for kind, rows in sorted(stmts.items()):
         tbl, key, col = owner_tbl[kind]
-        # chunked so no single statement grows past what one round trip carries
-        for start in range(0, len(items), 900):
-            chunk = items[start:start + 900]
-            n += 1
-            rows = ',\n'.join('  (%s,%s,%s,%d)' % (q(p), q(o), q(r), s)
-                               for o, r, p, s in chunk)
-            write('07_media_links_%s_%02d.sql' % (kind, start // 900 + 1),
-                  "-- Where each image is attached. A link is only written when both the\n"
-                  "-- asset and its owner exist, so a stale reference inserts nothing rather\n"
-                  "-- than pointing at the wrong row.\n"
+        chunk, n, size = [], 0, 0
+        def flush(chunk, n):
+            if not chunk:
+                return
+            write('07_media_links_%s_%02d.sql' % (kind, n),
+                  "-- Where each image is attached. The path is written once and the owner\n"
+                  "-- codes are unnested beside it. A link is only written when both the asset\n"
+                  "-- and its owner exist, so a stale reference inserts nothing rather than\n"
+                  "-- pointing at the wrong row.\n"
                   "insert into cms.media_links (asset_id, %s, role, sort_order)\n"
                   "select a.id, o.id, v.role::cms.media_role, v.sort_order\n"
-                  "from (values\n%s\n) as v(path, owner, role, sort_order)\n"
+                  "from (values\n%s\n) as v(path, role, sort_order, owners)\n"
+                  "cross join lateral unnest(v.owners) as owner_code\n"
                   "join cms.media_assets a on a.path = v.path\n"
-                  "join %s o on lower(o.%s) = lower(v.owner);\n" % (col, rows, tbl, key))
+                  "join %s o on lower(o.%s) = lower(owner_code);\n"
+                  % (col, ',\n'.join('  ' + r for r in chunk), tbl, key))
+        for r in rows:
+            if size + len(r) > 21000:
+                n += 1; flush(chunk, n); chunk, size = [], 0
+            chunk.append(r); size += len(r) + 2
+        n += 1; flush(chunk, n)
 
     return len(assets), len(links)
 

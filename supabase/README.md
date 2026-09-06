@@ -25,6 +25,7 @@ schema. Nothing in `public` was renamed, moved or dropped.
 | `0003_media_admins_audit_imports.sql` | `media_assets`, `media_links`, `admins`, `audit_log`, import batches |
 | `0004_rls_and_price_import.sql` | every RLS policy, the price importer, the grants |
 | `0005_pin_function_search_paths.sql` | pins two functions the linter flagged |
+| `0006_fractional_instalment_years.sql` | retypes `instalment_years` so One Ninety's 3.5-year plan survives |
 
 `seed/` is generated, not hand-written:
 
@@ -38,6 +39,32 @@ The content model only ever existed as JavaScript literals inside
 variables — so they cannot be parsed out of the source and have to be read after
 the bundle has run. `--dump-data` does exactly that. Every seed statement is
 `on conflict do update`, so re-running corrects drift instead of duplicating.
+
+Long `values` lists are split across numbered files (`04_projects_01.sql`,
+`04_projects_02.sql`, …) because the SQL goes over the wire one statement at a
+time. Each file repeats the whole statement, so any one of them can be run alone
+and in any order.
+
+**Paths are stored resolved.** The site keeps some references as bare filenames
+and expands them at render time — a `.png` logo name becomes the `.webp` that is
+actually served, a bare plan name gains `/project-media/plans/`. The database
+holds the URL the browser asks for, so nothing downstream has to know those
+rules. All 1,830 stored paths exist on disk.
+
+## Checking the load
+
+Row counts only prove nothing was dropped. `tools/verify_db.py` digests the
+site's model field by field, and `tools/verify_db.sql` makes the database digest
+its own rows the same way:
+
+```sh
+python3 tools/verify_db.py /tmp/site_data.json   # then run tools/verify_db.sql
+```
+
+Eight md5s, one per table. Matching numbers mean every migrated value is
+identical to what the site publishes — 14 locations, 27 developers, 131
+amenities, 84 projects, 420 units, 1,830 media assets, 2,968 placements, 152
+project amenities.
 
 ## The two rules the schema enforces itself
 

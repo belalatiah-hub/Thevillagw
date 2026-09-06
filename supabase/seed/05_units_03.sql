@@ -1,0 +1,51 @@
+-- Units, joined to their project by slug.
+insert into cms.units (unit_code, project_id, unit_type_en, label_en, label_ar,
+  bedrooms, bathrooms, bua, bua_to, price, down_payment_pct, instalment_years,
+  delivery_label, floor, availability, status, published_at)
+select v.unit_code, p.id, v.unit_type_en, v.label_en, v.label_ar,
+  v.bedrooms::smallint, v.bathrooms::smallint, v.bua::numeric, v.bua_to::numeric,
+  v.price::bigint, v.dp::numeric, v.years::numeric,
+  v.delivery_label, v.floor, v.availability::cms.unit_availability, 'published', now()
+from (values
+  ('VC-VL1','vinci-capital','Villa',null,null,4,4,280,null,16000000,null,null,null,null,'limited'),
+  ('VDC-A1','village-de-la-capitale','Apartment',null,null,1,1,60,null,6400000,null,null,null,null,'available'),
+  ('VDC-T1','village-de-la-capitale','Townhouse',null,null,3,3,176,null,24100000,null,null,null,null,'available'),
+  ('VDC-V1','village-de-la-capitale','Villa',null,null,4,4,185,null,28700000,null,null,null,null,'limited'),
+  ('PHN-A1','palm-hills-new-cairo','Apartment',null,null,1,1,70,null,10400000,null,null,null,null,'available'),
+  ('PHN-A2','palm-hills-new-cairo','Apartment',null,null,2,2,114,null,14600000,null,null,null,null,'available'),
+  ('PHN-A3','palm-hills-new-cairo','Apartment',null,null,3,3,172,null,21000000,null,null,null,null,'available'),
+  ('97H-T1','97-hills','Townhouse',null,null,5,5,250,null,31200000,null,null,null,null,'available'),
+  ('97H-W1','97-hills','Twin house',null,null,5,5,250,null,36500000,null,null,null,null,'available'),
+  ('97H-V1','97-hills','Villa',null,null,4,5,250,null,37400000,null,null,null,null,'limited'),
+  ('PMT-O1','palmet-new-cairo','Office',null,null,null,1,68,null,13000000,null,null,null,null,'available'),
+  ('PMT-O2','palmet-new-cairo','Administrative Office',null,null,null,2,150,null,25000000,null,null,null,null,'available'),
+  ('PX-A1','px-new-cairo','Apartment',null,null,1,1,77,null,13500000,null,null,null,null,'available'),
+  ('PX-T1','px-new-cairo','Townhouse',null,null,4,4,231,null,26100000,null,null,null,null,'available'),
+  ('PX-V1','px-new-cairo','Villa',null,null,4,4,280,null,40200000,null,null,null,null,'limited'),
+  ('JRN-A1','jirian-zayed','Apartment',null,null,1,1,62,null,7800000,null,null,null,null,'available'),
+  ('JRN-A2','jirian-zayed','Apartment',null,null,3,3,150,null,16500000,null,null,null,null,'available'),
+  ('JRN-V1','jirian-zayed','Villa',null,null,3,4,196,null,34400000,null,null,null,null,'limited'),
+  ('HBL-C1','hacienda-blue','Cabin',null,null,1,1,42,null,19600000,null,null,null,null,'available'),
+  ('HBL-A1','hacienda-blue','Apartment',null,null,3,3,116,null,22400000,null,null,null,null,'available'),
+  ('HBL-V1','hacienda-blue','Villa',null,null,5,5,324,null,67000000,null,null,null,null,'limited'),
+  ('HWT-C1','hacienda-waters','Chalet',null,null,1,1,65,null,14100000,null,null,null,null,'available'),
+  ('HWT-C2','hacienda-waters','Chalet',null,null,3,3,141,null,19700000,null,null,null,null,'available'),
+  ('HWT-V1','hacienda-waters','Villa',null,null,5,5,320,null,70000000,null,null,null,null,'limited'),
+  ('HHN-A1','hacienda-heneish','Apartment',null,null,2,2,105,null,16000000,null,null,null,null,'available'),
+  ('HHN-C1','hacienda-heneish','Chalet',null,null,3,3,116,null,23000000,null,null,null,null,'available'),
+  ('HHN-V1','hacienda-heneish','Villa',null,null,5,5,302,null,55000000,null,null,null,null,'limited'),
+  ('HWS-C1','hacienda-west','Chalet',null,null,2,2,111,null,23800000,null,null,null,null,'available'),
+  ('HWS-B1','hacienda-west','Cabin',null,null,2,2,95,null,36600000,null,null,null,null,'available'),
+  ('HWS-V1','hacienda-west','Villa',null,null,4,4,340,null,113600000,null,null,null,null,'limited')
+) as v(unit_code, project_slug, unit_type_en, label_en, label_ar, bedrooms, bathrooms,
+       bua, bua_to, price, dp, years, delivery_label, floor, availability)
+join cms.projects p on p.slug = v.project_slug
+on conflict (lower(unit_code)) where deleted_at is null do update set
+  project_id = excluded.project_id, unit_type_en = excluded.unit_type_en,
+  label_en = excluded.label_en, label_ar = excluded.label_ar,
+  bedrooms = excluded.bedrooms, bathrooms = excluded.bathrooms,
+  bua = excluded.bua, bua_to = excluded.bua_to, price = excluded.price,
+  down_payment_pct = excluded.down_payment_pct,
+  instalment_years = excluded.instalment_years,
+  delivery_label = excluded.delivery_label, floor = excluded.floor,
+  availability = excluded.availability;
