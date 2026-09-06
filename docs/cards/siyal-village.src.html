@@ -1,0 +1,718 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Siyal Village</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* Sampled from the brochure itself, not chosen: the paper, the Siyal
+       terracotta and the Makadi Heights teal are the file's own values. */
+    --paper:#FCEBDF;
+    --paper-2:#F7E2D5;
+    --clay:#D58569;
+    --clay-deep:#B25E40;
+    --teal:#97C7C6;
+    --ink:#2C2521;
+    --ink-2:#5C4E46;
+    --ink-3:#8A7A70;
+    --rule:rgba(44,37,33,.14);
+    --rule-soft:rgba(44,37,33,.08);
+    --shadow:0 1px 2px rgba(44,37,33,.04), 0 12px 34px rgba(44,37,33,.07);
+    --serif:'Cormorant Garamond', 'Times New Roman', serif;
+    --sans:'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --pad:clamp(20px,5vw,72px);
+    --max:1180px;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{display:block; max-width:100%}
+
+  /* ---------------------------------------------------------- shell */
+  .card{
+    max-width:var(--max); margin:clamp(0px,3vw,44px) auto; background:var(--paper);
+    box-shadow:var(--shadow); overflow:hidden;
+  }
+  @media(min-width:900px){ .card{border:1px solid var(--rule-soft)} }
+  .pad{padding-inline:var(--pad)}
+
+  /* ------------------------------------------------------ typography */
+  .kicker{
+    font-size:10px; font-weight:600; letter-spacing:.26em; text-transform:uppercase;
+    color:var(--clay-deep); margin:0 0 14px;
+  }
+  .kicker--muted{color:var(--ink-3)}
+  h2{
+    font-family:var(--serif); font-weight:300; letter-spacing:.10em;
+    text-transform:uppercase; font-size:clamp(1.45rem,3.4vw,2.15rem);
+    margin:0 0 6px; line-height:1.12;
+  }
+  h3{
+    font-family:var(--serif); font-weight:400; letter-spacing:.02em;
+    font-size:clamp(1.08rem,2vw,1.3rem); margin:0 0 6px; line-height:1.2;
+  }
+  .sub{
+    font-size:11px; font-weight:600; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--clay-deep); margin:0 0 16px;
+  }
+  p{margin:0 0 14px; color:var(--ink-2); max-width:66ch}
+  .lead{font-size:16.5px; color:var(--ink-2)}
+  .fine{font-size:12.5px; line-height:1.55; color:var(--ink-3)}
+
+  /* ---------------------------------------------------------- header */
+  header{
+    padding-top:clamp(28px,5vw,56px); padding-bottom:clamp(22px,3.5vw,34px);
+    text-align:center;
+  }
+  .lockup{width:min(290px,60%); margin:0 auto clamp(30px,5.5vw,54px); opacity:.92}
+  .wordmark{width:min(300px,58%); margin:0 auto}
+  .tagline{
+    /* p{max-width:66ch} narrows the block, and a narrow block that is not
+       auto-centred puts centred text off to one side. */
+    font-size:10.5px; font-weight:600; letter-spacing:.30em; text-transform:uppercase;
+    color:var(--clay); margin:clamp(18px,2.8vw,26px) auto 0; line-height:1.9;
+    max-width:none;
+  }
+  /* Equal columns rather than centred flex: four items of different widths
+     centred as a group leave the rail visibly off-balance. */
+  .titlerail{
+    display:grid; grid-template-columns:repeat(2,1fr); gap:14px 0;
+    margin-top:clamp(24px,4vw,38px); border-top:1px solid var(--rule);
+    border-bottom:1px solid var(--rule); padding:16px 0;
+  }
+  @media(min-width:660px){ .titlerail{grid-template-columns:repeat(4,1fr); gap:0} }
+  .titlerail div{
+    padding:0 clamp(10px,2vw,20px); text-align:center;
+    border-inline-end:1px solid var(--rule-soft);
+  }
+  .titlerail div:nth-child(2n){border-inline-end:0}
+  @media(min-width:660px){
+    .titlerail div:nth-child(2n){border-inline-end:1px solid var(--rule-soft)}
+    .titlerail div:last-child{border-inline-end:0}
+  }
+  .titlerail dt{
+    font-size:9.5px; font-weight:600; letter-spacing:.2em; text-transform:uppercase;
+    color:var(--ink-3); margin:0 0 3px;
+  }
+  .titlerail dd{margin:0; font-size:13.5px; font-weight:500; letter-spacing:.02em}
+
+  /* ------------------------------------------------------------ hero */
+  figure{margin:0}
+  .hero img{width:100%; height:auto}
+  figcaption{
+    font-size:10px; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--ink-3); padding:9px 0 0;
+  }
+
+  /* --------------------------------------------------------- figures */
+  .figures{
+    display:grid; grid-template-columns:repeat(2,1fr);
+    border-top:1px solid var(--rule);
+  }
+  @media(min-width:760px){ .figures{grid-template-columns:repeat(4,1fr)} }
+  .figures > div{
+    padding:clamp(20px,3vw,30px) clamp(14px,2vw,22px);
+    border-inline-end:1px solid var(--rule-soft);
+    border-bottom:1px solid var(--rule-soft);
+  }
+  .figures > div:last-child{border-inline-end:0}
+  @media(min-width:760px){ .figures > div{border-bottom:0} }
+  .figures .n{
+    font-family:var(--serif); font-size:clamp(1.7rem,4vw,2.35rem); font-weight:300;
+    line-height:1; color:var(--clay-deep); letter-spacing:.01em;
+  }
+  .figures .n span{font-size:.44em; letter-spacing:.06em; margin-inline-start:3px; color:var(--ink-3)}
+  .figures .l{
+    font-size:9.5px; font-weight:600; letter-spacing:.19em; text-transform:uppercase;
+    color:var(--ink-3); margin-top:9px;
+  }
+
+  /* -------------------------------------------------------- sections */
+  section{padding-block:clamp(34px,5.5vw,64px); border-top:1px solid var(--rule)}
+  section.flush{border-top:0}
+  .head{margin-bottom:clamp(20px,3vw,30px)}
+  .two{display:grid; gap:clamp(22px,4vw,52px)}
+  @media(min-width:820px){ .two{grid-template-columns:1fr 1fr; align-items:start} }
+  .two--wide{grid-template-columns:1fr}
+  @media(min-width:820px){ .two--wide{grid-template-columns:1.05fr .95fr} }
+
+  /* ------------------------------------------------------------ rows */
+  .rows{width:100%; border-collapse:collapse; margin-top:4px}
+  .rows th, .rows td{
+    text-align:start; padding:11px 0; border-bottom:1px solid var(--rule-soft);
+    font-weight:400; vertical-align:baseline;
+  }
+  .rows th{
+    font-size:10px; font-weight:600; letter-spacing:.17em; text-transform:uppercase;
+    color:var(--ink-3); width:52%;
+  }
+  .rows td{text-align:end; font-size:14px; font-weight:500; color:var(--ink)}
+  .rows tr:last-child th, .rows tr:last-child td{border-bottom:0}
+
+  /* ----------------------------------------------------------- lists */
+  ul.ticks{list-style:none; margin:0; padding:0}
+  ul.ticks li{
+    position:relative; padding-inline-start:20px; margin-bottom:9px;
+    color:var(--ink-2); font-size:14.5px;
+  }
+  ul.ticks li::before{
+    content:''; position:absolute; inset-inline-start:0; top:.62em;
+    width:7px; height:1px; background:var(--clay);
+  }
+
+  /* ----------------------------------------------------------- chips */
+  .chips{display:flex; flex-wrap:wrap; gap:7px; margin-top:4px}
+  .chip{
+    border:1px solid var(--rule); border-radius:999px; padding:6px 13px;
+    font-size:12px; letter-spacing:.03em; color:var(--ink-2); background:var(--paper-2);
+  }
+
+  /* -------------------------------------------------------- triptych */
+  .triptych{display:grid; gap:clamp(18px,2.6vw,26px)}
+  @media(min-width:760px){ .triptych{grid-template-columns:repeat(3,1fr)} }
+  .triptych img{width:100%; aspect-ratio:4/3; object-fit:cover}
+  .triptych h3{margin-top:15px}
+  .triptych p{font-size:14px; margin-bottom:0}
+
+  /* ------------------------------------------------------ home types */
+  .types{display:grid; gap:clamp(20px,3vw,30px)}
+  @media(min-width:700px){ .types{grid-template-columns:repeat(2,1fr)} }
+  @media(min-width:1000px){ .types{grid-template-columns:repeat(3,1fr)} }
+  .type{
+    background:var(--paper-2); border:1px solid var(--rule-soft);
+    display:flex; flex-direction:column;
+  }
+  .type img{width:100%; aspect-ratio:16/10; object-fit:cover}
+  .type .body{padding:18px clamp(15px,2vw,20px) 20px; display:flex; flex-direction:column; flex:1}
+  .type .name{
+    font-family:var(--serif); font-size:1.16rem; letter-spacing:.06em;
+    text-transform:uppercase; font-weight:400; line-height:1.15;
+  }
+  .type .note{font-size:13px; color:var(--ink-2); margin:9px 0 15px; line-height:1.55}
+  .type .spec{margin-top:auto; border-top:1px solid var(--rule); padding-top:12px}
+  .type .spec dl{
+    display:grid; grid-template-columns:auto auto; gap:6px 10px;
+    margin:0; font-size:12.5px;
+  }
+  .type .spec dt{color:var(--ink-3); letter-spacing:.04em}
+  .type .spec dd{margin:0; text-align:end; font-weight:500; color:var(--ink)}
+  .type .beds{
+    display:flex; gap:14px; margin-top:12px; padding-top:11px;
+    border-top:1px solid var(--rule-soft); font-size:12px; color:var(--ink-2);
+  }
+  .type .beds b{font-weight:600; color:var(--ink)}
+
+  /* -------------------------------------------------------- variants */
+  .variants{overflow-x:auto; margin-top:clamp(22px,3vw,32px)}
+  .variants table{width:100%; border-collapse:collapse; min-width:560px}
+  .variants caption{
+    caption-side:top; text-align:start; font-size:10px; font-weight:600;
+    letter-spacing:.19em; text-transform:uppercase; color:var(--ink-3);
+    padding-bottom:12px;
+  }
+  .variants th, .variants td{
+    padding:10px 14px 10px 0; border-bottom:1px solid var(--rule-soft);
+    text-align:end; font-size:13.5px; font-weight:400; color:var(--ink-2);
+  }
+  .variants th:first-child, .variants td:first-child{
+    text-align:start; font-weight:500; color:var(--ink);
+  }
+  .variants thead th{
+    font-size:9.5px; font-weight:600; letter-spacing:.17em; text-transform:uppercase;
+    color:var(--ink-3); border-bottom:1px solid var(--rule);
+  }
+
+  /* -------------------------------------------------------- panelled */
+  .panel{background:var(--clay); color:#fff; padding:clamp(26px,4vw,44px)}
+  .panel h2, .panel h3{color:#fff}
+  .panel p{color:rgba(255,255,255,.9)}
+  .panel .kicker{color:rgba(255,255,255,.78)}
+  .panel .rows th{color:rgba(255,255,255,.72)}
+  .panel .rows td{color:#fff}
+  .panel .rows th, .panel .rows td{border-bottom-color:rgba(255,255,255,.22)}
+  .panel ul.ticks li{color:rgba(255,255,255,.92)}
+  .panel ul.ticks li::before{background:rgba(255,255,255,.8)}
+
+  /* ------------------------------------------------------ masterplan */
+  .plan{background:#fff; padding:clamp(16px,3vw,34px); border:1px solid var(--rule-soft)}
+  .plan img{width:100%; height:auto}
+
+  /* --------------------------------------------------------- gallery */
+  .strip{display:grid; gap:clamp(14px,2vw,20px); margin-top:clamp(20px,3vw,28px)}
+  @media(min-width:680px){ .strip{grid-template-columns:repeat(3,1fr)} }
+  .strip img{width:100%; aspect-ratio:1/1; object-fit:cover}
+
+  /* -------------------------------------------------------- partners */
+  .partners{display:grid; gap:clamp(18px,3vw,30px)}
+  @media(min-width:700px){ .partners{grid-template-columns:repeat(2,1fr)} }
+  .partner h3{font-size:1.02rem; letter-spacing:.09em; text-transform:uppercase}
+  .partner p{font-size:13.5px; margin-bottom:0}
+
+  /* ---------------------------------------------------------- footer */
+  footer{
+    border-top:1px solid var(--rule); padding-block:clamp(26px,4vw,40px);
+    background:var(--paper-2);
+  }
+  footer p{max-width:none}
+  .disclaim{font-size:11.5px; line-height:1.65; color:var(--ink-3)}
+  .disclaim strong{color:var(--ink-2); font-weight:600}
+  .source{
+    margin-top:18px; padding-top:16px; border-top:1px solid var(--rule-soft);
+    font-size:10px; letter-spacing:.17em; text-transform:uppercase; color:var(--ink-3);
+  }
+
+  @media print{
+    body{background:#fff}
+    .card{box-shadow:none; margin:0; max-width:none; border:0}
+    section{break-inside:avoid}
+    .type, .triptych > div{break-inside:avoid}
+  }
+</style>
+
+<article class="card">
+
+  <header class="pad">
+    <img class="lockup" src="__LOCKUP__" alt="Makadi Heights, by Orascom Development">
+    <img class="wordmark" src="__WORDMARK__" alt="Siyal">
+    <p class="tagline">A living canvas<br>shaped by the sea</p>
+    <dl class="titlerail">
+      <div><dt>Developer</dt><dd>Orascom Development</dd></div>
+      <div><dt>Destination</dt><dd>Makadi Heights</dd></div>
+      <div><dt>Location</dt><dd>Makadi Bay, Red Sea</dd></div>
+      <div><dt>Product</dt><dd>Villas &amp; townhouses</dd></div>
+    </dl>
+  </header>
+
+  <figure class="hero">
+    <img src="__HERO__" alt="Siyal — lagoon and beachfront homes" width="1600" height="802">
+  </figure>
+
+  <div class="figures">
+    <div><div class="n">82,500<span>m²</span></div><div class="l">Land area</div></div>
+    <div><div class="n">12,910<span>m²</span></div><div class="l">Total BUA</div></div>
+    <div><div class="n">9,240<span>m²</span></div><div class="l">Footprint</div></div>
+    <div><div class="n">78</div><div class="l">Homes</div></div>
+  </div>
+
+  <section class="pad flush">
+    <div class="two two--wide">
+      <div>
+        <p class="kicker">About Siyal</p>
+        <h2>A thoughtfully<br>planned neighbourhood</h2>
+        <p class="lead">Rooted in the ease of beachside living, Siyal is a neighbourhood defined by
+          openness, calm, and rhythm — a living canvas where contemporary architecture meets the flow
+          of coastal life.</p>
+        <p>Siyal is a place where life moves at its own pace, shaped by light, open views, and the
+          quiet presence of water. Homes are designed not just to be lived in, but to be lived with.</p>
+      </div>
+      <div>
+        <p class="kicker kicker--muted">The site</p>
+        <p>Siyal is intentionally designed with a limited footprint representing approximately
+          <strong>12% of the site</strong>, ensuring that the majority is dedicated to open landscapes,
+          water features, and communal outdoor spaces.</p>
+        <table class="rows">
+          <tr><th>Land area</th><td>82,500 m²</td></tr>
+          <tr><th>Total BUA</th><td>12,910 m²</td></tr>
+          <tr><th>Footprint</th><td>9,240 m²</td></tr>
+          <tr><th>Number of units</th><td>78</td></tr>
+          <tr><th>Built footprint</th><td>≈ 12% of site</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="pad">
+    <div class="head">
+      <p class="kicker">Location</p>
+      <h2>In the heart of Makadi Bay</h2>
+    </div>
+    <div class="two two--wide">
+      <div>
+        <p>Siyal sits inside <strong>Makadi Heights</strong>, a serene international coastal town by
+          Orascom Development. Spanning 4.75 million square metres and reaching 78 metres above sea
+          level, it is planned as a fully integrated town combining residential units, serviced
+          apartments, commercial areas and hotels.</p>
+        <p>Strategically located in the heart of Makadi Bay, it gives residents and visitors seamless
+          access to all major destinations along the Red Sea coast.</p>
+        <div class="chips">
+          <span class="chip">El Gouna</span>
+          <span class="chip">Sahl Hasheesh</span>
+          <span class="chip">Soma Bay</span>
+          <span class="chip">Downtown Hurghada</span>
+        </div>
+      </div>
+      <div>
+        <p class="kicker kicker--muted">Drive times</p>
+        <table class="rows">
+          <tr><th>Hurghada International Airport</th><td>20 min</td></tr>
+          <tr><th>Downtown Hurghada</th><td>30 min</td></tr>
+          <tr><th>El Gouna</th><td>45 min</td></tr>
+        </table>
+        <p class="kicker kicker--muted" style="margin-top:26px">Makadi Heights</p>
+        <table class="rows">
+          <tr><th>Total area</th><td>4.75 million m²</td></tr>
+          <tr><th>Elevation</th><td>78 m above sea level</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="pad">
+    <div class="head">
+      <p class="kicker">Design story</p>
+      <h2>Open outward to light</h2>
+    </div>
+    <div class="triptych">
+      <div>
+        <img src="__DESIGN__" alt="Sculptural forms in soft desert tones" loading="lazy">
+        <h3>Sculptural, in desert tones</h3>
+        <p>Characterised by soft desert tones and sculptural forms, the architecture is animated by
+          natural light and shifting shadows through the day. Select homes feature double-height
+          entrances and elevated ceilings.</p>
+      </div>
+      <div>
+        <img src="__LAGOON__" alt="Homes positioned to open views over the lagoons" loading="lazy">
+        <h3>Where life flows beyond walls</h3>
+        <p>Every home is positioned to enjoy open views — over landscaped greenery, tranquil lagoons,
+          or the water features woven through the neighbourhood, so views become an extension of daily
+          living.</p>
+      </div>
+      <div>
+        <img src="__WALK__" alt="Walkable pathways through the neighbourhood" loading="lazy">
+        <h3>Active by nature</h3>
+        <p>The town's walkable design makes daily movement effortless. Thoughtfully planned pathways
+          and accessible amenities create an environment where walking becomes a natural part of
+          everyday life.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="pad">
+    <div class="head">
+      <p class="kicker">Master plan</p>
+      <h2>A seamless fusion between<br>space and experience</h2>
+      <p>Every element is arranged to form a connection between architecture and everyday living —
+        the majority of the site given to open landscape, lagoons and communal ground.</p>
+    </div>
+    <div class="plan">
+      <img src="__PLAN__" alt="Siyal master plan" loading="lazy">
+    </div>
+  </section>
+
+  <section class="pad">
+    <div class="head">
+      <p class="kicker">Facilities</p>
+      <h2>Wellness, water and<br>the space between</h2>
+    </div>
+    <div class="two">
+      <div>
+        <h3>Wellness &amp; fitness</h3>
+        <p>A holistic approach to wellness through outdoor and water-based experiences.</p>
+        <ul class="ticks">
+          <li>Open-air gym immersed in nature</li>
+          <li>Water gym for low-impact training — strength, flexibility, balance and cardiovascular health</li>
+          <li>Tranquil outdoor yoga space</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Social &amp; communal spaces</h3>
+        <p>Designed to encourage connection, flexibility and everyday ease.</p>
+        <ul class="ticks">
+          <li>A central gathering area at the heart of the community</li>
+          <li>Versatile lawn spaces for leisure or quiet moments</li>
+          <li>Seating and chaise lounge areas with open views</li>
+          <li>An intimate outdoor workspace</li>
+        </ul>
+      </div>
+    </div>
+    <div class="strip">
+      <img src="__POOL__" alt="Lagoon swimming" loading="lazy">
+      <img src="__SOCIAL__" alt="Communal gathering on the lawn" loading="lazy">
+      <img src="__INTERIOR__" alt="Interior opening to the terrace" loading="lazy">
+    </div>
+  </section>
+
+  <section class="pad">
+    <div class="panel">
+      <p class="kicker">Within Makadi Heights</p>
+      <h2>The town around it</h2>
+      <p>Siyal's residents draw on the full amenity of the wider town.</p>
+      <div class="two" style="margin-top:22px">
+        <div>
+          <ul class="ticks">
+            <li><strong>Hospitality &amp; entertainment</strong> — boutique and full-scale hotels, and The Haus, a landmark multipurpose venue with capacity for over 3,400 guests, hosting concerts, weddings, summits and cultural events year round</li>
+            <li><strong>Coastal living</strong> — swimming, kitesurfing, kayaking and snorkelling, framed by beach lounges and social spots</li>
+            <li><strong>Sports &amp; fitness</strong> — a clubhouse with football, padel and tennis courts, a fully equipped gym, and yoga spaces distributed across the destination</li>
+          </ul>
+        </div>
+        <div>
+          <ul class="ticks">
+            <li><strong>Retail &amp; dining</strong> — casual cafés and everyday eateries through to curated restaurants, alongside essential retail outlets</li>
+            <li><strong>Medical</strong> — on-site clinics providing essential care and quick access to health support</li>
+            <li><strong>Education</strong> — a dedicated preschool nurturing early learning for young families</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pad">
+    <div class="head">
+      <p class="kicker">Home types</p>
+      <h2>Seven ways to live here</h2>
+      <p>Every home is delivered fully finished. Areas, dimensions and specifications are the
+        brochure's own and are subject to change.</p>
+    </div>
+
+    <div class="types">
+      <article class="type">
+        <img src="__T_SIGNATURE__" alt="Signature Villa, garden view" loading="lazy">
+        <div class="body">
+          <div class="name">Signature Villa</div>
+          <p class="note">Generous outdoor living with a first-floor terrace and an expansive rooftop.
+            A double-height entrance, a vibrant design and a private pool.</p>
+          <div class="spec">
+            <dl>
+              <dt>BUA</dt><dd>250 m²</dd>
+              <dt>Footprint</dt><dd>151 m²</dd>
+              <dt>Uncovered terrace</dt><dd>35 m²</dd>
+              <dt>Roof</dt><dd>86 m²</dd>
+            </dl>
+            <div class="beds"><span><b>5</b> bedrooms</span><span><b>5</b> bathrooms</span><span>+ nanny's room</span></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="type">
+        <img src="__T_COURTYARD__" alt="Courtyard Villa, garden view" loading="lazy">
+        <div class="body">
+          <div class="name">Courtyard Villa</div>
+          <p class="note">Designed around a private central courtyard with a pool at its heart, for
+            exceptional privacy and refined indoor–outdoor living.</p>
+          <div class="spec">
+            <dl>
+              <dt>BUA</dt><dd>210 m²</dd>
+              <dt>Footprint</dt><dd>233 m²</dd>
+              <dt>Roof</dt><dd>89 m²</dd>
+            </dl>
+            <div class="beds"><span><b>4</b> bedrooms</span><span><b>5</b> bathrooms</span><span>+ nanny's room</span></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="type">
+        <img src="__T_GRAND__" alt="Grand Villa, garden view" loading="lazy">
+        <div class="body">
+          <div class="name">Grand Villa</div>
+          <p class="note">Distinguished by an external staircase connecting the ground floor directly
+            to a spacious rooftop terrace.</p>
+          <div class="spec">
+            <dl>
+              <dt>BUA</dt><dd>190 m²</dd>
+              <dt>Footprint</dt><dd>135 m²</dd>
+              <dt>Uncovered terrace</dt><dd>38 m²</dd>
+              <dt>Roof</dt><dd>55 m²</dd>
+            </dl>
+            <div class="beds"><span><b>4</b> bedrooms</span><span><b>4</b> bathrooms</span><span>+ nanny's room</span></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="type">
+        <img src="__T_DELUXE__" alt="Deluxe Villa, garden view" loading="lazy">
+        <div class="body">
+          <div class="name">Deluxe Villa</div>
+          <p class="note">Inspired by the Grand Villa, with a generous terrace and expansive rooftop
+            for continuity between interior and open air.</p>
+          <div class="spec">
+            <dl>
+              <dt>BUA</dt><dd>175 m²</dd>
+              <dt>Footprint</dt><dd>144 m²</dd>
+              <dt>Uncovered terrace</dt><dd>80 m²</dd>
+              <dt>Roof</dt><dd>32 m²</dd>
+            </dl>
+            <div class="beds"><span><b>4</b> bedrooms</span><span><b>4</b> bathrooms</span><span>+ nanny's room</span></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="type">
+        <img src="__T_BOUTIQUE__" alt="Boutique Villa, garden view" loading="lazy">
+        <div class="body">
+          <div class="name">Boutique Villa</div>
+          <p class="note">Soaring ceilings that amplify light and space, connected to a large terrace —
+            intimacy with openness.</p>
+          <div class="spec">
+            <dl>
+              <dt>BUA</dt><dd>160 m²</dd>
+              <dt>Footprint</dt><dd>100 m²</dd>
+              <dt>Uncovered terrace</dt><dd>31 m²</dd>
+              <dt>Roof</dt><dd>56 m²</dd>
+            </dl>
+            <div class="beds"><span><b>3</b> bedrooms</span><span><b>4</b> bathrooms</span><span>+ nanny's room</span></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="type">
+        <img src="__T_TWIN__" alt="Twin Villa, garden view" loading="lazy">
+        <div class="body">
+          <div class="name">Twin Villa</div>
+          <p class="note">An asymmetrical layout giving each side a distinct spatial experience, with a
+            striking external staircase as its focal point. Two layouts, A and B.</p>
+          <div class="spec">
+            <dl>
+              <dt>BUA</dt><dd>144–145 m²</dd>
+              <dt>Roof</dt><dd>31–71 m²</dd>
+            </dl>
+            <div class="beds"><span><b>3</b> bedrooms</span><span><b>3</b> bathrooms</span><span>+ nanny's room</span></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="type">
+        <img src="__T_TOWNHOUSE__" alt="Townhouse, street view" loading="lazy">
+        <div class="body">
+          <div class="name">Townhouse</div>
+          <p class="note">Multiple terraces and generous outdoor space for light and airflow. Four
+            layouts, A through D.</p>
+          <div class="spec">
+            <dl>
+              <dt>BUA</dt><dd>136–138 m²</dd>
+              <dt>Footprint</dt><dd>70–82 m²</dd>
+              <dt>Roof</dt><dd>50–51 m²</dd>
+            </dl>
+            <div class="beds"><span><b>3</b> bedrooms</span><span><b>3</b> bathrooms</span><span>+ nanny's room</span></div>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="variants">
+      <table>
+        <caption>Twin Villa and Townhouse layouts, as published</caption>
+        <thead>
+          <tr><th>Layout</th><th>Footprint</th><th>BUA</th><th>Uncovered terrace</th><th>Roof</th><th>Bed / Bath</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Twin Villa A</td><td>71 m²</td><td>145 m²</td><td>—</td><td>71 m²</td><td>3 / 3</td></tr>
+          <tr><td>Twin Villa B</td><td>25 m²</td><td>144 m²</td><td>25 m²</td><td>31 m²</td><td>3 / 3</td></tr>
+          <tr><td>Townhouse A</td><td>82 m²</td><td>138 m²</td><td>9 m²</td><td>51 m²</td><td>3 / 3</td></tr>
+          <tr><td>Townhouse B</td><td>70 m²</td><td>136 m²</td><td>7 m²</td><td>50 m²</td><td>3 / 3</td></tr>
+          <tr><td>Townhouse C</td><td>81 m²</td><td>137 m²</td><td>2 m²</td><td>50 m²</td><td>3 / 3</td></tr>
+          <tr><td>Townhouse D</td><td>78 m²</td><td>138 m²</td><td>18 m²</td><td>51 m²</td><td>3 / 3</td></tr>
+        </tbody>
+      </table>
+      <p class="fine" style="margin-top:12px">Each layout also includes a nanny's room with bathroom.</p>
+    </div>
+  </section>
+
+  <section class="pad">
+    <div class="head">
+      <p class="kicker">Finishing specifications</p>
+      <h2>Delivered fully finished</h2>
+      <p>Fully delivered with high-quality materials throughout, including lower kitchen cabinets
+        executed in line with approved design specifications.</p>
+    </div>
+    <div class="two">
+      <div>
+        <table class="rows">
+          <tr><th>Living, dining &amp; bedrooms</th><td>Local marble / porcelain</td></tr>
+          <tr><th>Walls &amp; ceilings</th><td>Paint</td></tr>
+          <tr><th>Bathroom floors</th><td>Ceramic</td></tr>
+          <tr><th>Bathroom walls</th><td>Ceramic / paint</td></tr>
+          <tr><th>Kitchen</th><td>Lower cabinets only, with appliance provisions</td></tr>
+          <tr><th>Entrance &amp; internal doors</th><td>Oak veneer finish</td></tr>
+        </table>
+      </div>
+      <div>
+        <table class="rows">
+          <tr><th>Sanitary fixtures &amp; mixers</th><td>Ideal Standard / Duravit / Roca or equivalent</td></tr>
+          <tr><th>Accessible terraces</th><td>Local marble / porcelain</td></tr>
+          <tr><th>Inaccessible terraces</th><td>Terrazzo tiles</td></tr>
+          <tr><th>Glazing</th><td>6 mm single glazing</td></tr>
+          <tr><th>Air conditioning</th><td>Provisions only</td></tr>
+          <tr><th>Shutters &amp; shower cabinets</th><td>Not included</td></tr>
+        </table>
+      </div>
+    </div>
+    <div style="margin-top:clamp(24px,3.4vw,34px)">
+      <p class="kicker kicker--muted">Not included in the contract price</p>
+      <div class="chips">
+        <span class="chip">Furniture &amp; home accessories</span>
+        <span class="chip">Private garden landscape</span>
+        <span class="chip">AC units</span>
+        <span class="chip">Water heaters</span>
+        <span class="chip">Lighting fixtures</span>
+        <span class="chip">Kitchen appliances</span>
+        <span class="chip">Swimming pools</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="pad">
+    <div class="two">
+      <div>
+        <p class="kicker">Sustainability</p>
+        <h3>Eco-inspired living</h3>
+        <p>The development demonstrates a clear commitment to sustainability through energy-efficient
+          systems, recycling facilities, and environmentally responsible materials — measures that
+          together work to minimise the community's carbon footprint.</p>
+      </div>
+      <div>
+        <p class="kicker">Homify</p>
+        <h3>Turnkey, on arrival</h3>
+        <p>The community offers turnkey packages that make moving in effortless, complemented by
+          premium furnishings and meticulously designed landscaping services, with tailored management
+          solutions for each home.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="pad">
+    <div class="head">
+      <p class="kicker">Our partners</p>
+      <h2>Who shaped it</h2>
+    </div>
+    <div class="partners">
+      <div class="partner">
+        <h3>EDSA</h3>
+        <p>Contributed its expertise in urbanisation and mixed-use design, shaping every detail to
+          complement Siyal's character from a strategic downtown location at the heart of Makadi
+          Heights.</p>
+      </div>
+      <div class="partner">
+        <h3>Die Stadt</h3>
+        <p>Worked closely on Siyal to design a community-focused layout that encourages engagement,
+          walkability and connectivity, creating inviting outdoor spaces.</p>
+      </div>
+      <div class="partner">
+        <h3>F&amp;R Partnership</h3>
+        <p>Reimagined the space by pushing design boundaries while preserving a strong connection to
+          the environment — a setting that inspires creativity, belonging and a dynamic visual
+          experience.</p>
+      </div>
+      <div class="partner">
+        <h3>Innovation Design Studio</h3>
+        <p>Delivered a distinctive environment defined by innovation and contextual awareness,
+          blending functionality and aesthetics into a memorable destination.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="pad">
+    <p class="disclaim">
+      <strong>Illustrative.</strong> All renders, visuals and layouts are for illustrative purposes
+      only. Drawings are not to scale; areas, dimensions and specifications are subject to change
+      without prior notice. Private pools and landscapes shown are for illustrative purposes only.
+      Prices and payment terms are not published in this brochure and are therefore not stated here —
+      confirm current figures and availability with an advisor.
+    </p>
+    <p class="source">Source — Siyal brochure, Makadi Heights, Orascom Development</p>
+  </footer>
+
+</article>
