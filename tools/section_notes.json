@@ -140,6 +140,13 @@
   ],
   "VDC-A1": [
    "    /* --- Palm Hills units (May fact sheet) — starting sizes/prices per the developer's fact sheet; illustrative/badged. --- */"
+  ],
+  "LV-01": [
+   "    /* Orascom — Siyal and Ledge Valley, from the client sheet's 17 Orascom",
+   "       rows. Areas, bedrooms, bathrooms, prices, the 10% down payment, the",
+   "       7 years and the 2030 handover are the sheet's own. `label` carries the",
+   "       sheet's product name; `type` is the site's canonical type so the",
+   "       filters still work. */"
   ]
  }
 }

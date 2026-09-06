@@ -1247,13 +1247,18 @@ try {
       return /(^|\s)fchip(\s|$)/.test((b.getAttribute&&b.getAttribute('class'))||''); });
     var peek=chips.filter(function(b){ return /is-peek/.test(b.getAttribute('class')||''); });
     return /is-clipped/.test(row.getAttribute('class')||'')
-      && chips.length===9 && peek.length===3;   // 9 areas, 3 visible
+      // Count the areas rather than freezing the number: adding Red Sea for
+      // Siyal and Ledge Valley took it from 9 to 10, and the rule under test
+      // is "a long group clips and peeks at three", not "there are nine areas".
+      && chips.length===api.AREAS.length && peek.length===3;
   })(), 'ok');
   ck('facet: the toggle names how many are hidden', (function(){
     var node=api.V.units().node;
     var more=qsa(node,'button').filter(function(b){
       return (b.getAttribute&&b.getAttribute('id'))==='facet-more-areas'; })[0];
-    return more && /6/.test(more.textContent) && more.getAttribute('aria-expanded')==='false'
+    var hidden=api.AREAS.length-3;
+    return more && new RegExp('\\b'+hidden+'\\b').test(more.textContent)
+      && more.getAttribute('aria-expanded')==='false'
       && more.getAttribute('aria-controls')==='facet-row-areas';
   })(), 'ok');
   ck('facet: a selected option is always visible, even past the third', (function(){

@@ -264,10 +264,9 @@ from (values
   ('/project-media/' || 'ora/v5-sw-0.webp','cover',0,array['OR-SW-06']),
   ('/project-media/' || 'ora/v7-0.webp','cover',0,array['OR-SW-02']),
   ('/project-media/' || 'ora/v8-0.webp','cover',0,array['OR-SW-01']),
-  ('/project-media/' || 'ramla/units/DU3-0.webp','cover',0,array['RM-DX04']),
-  ('/project-media/' || 'ramla/units/ap-a-0.webp','cover',0,array['AE-AP01']),
-  ('/project-media/' || 'ramla/units/ch2-0.webp','cover',0,array['RM-CH01']),
-  ('/project-media/' || 'ramla/units/ch3-0.webp','cover',0,array['RM-CH02'])
+  ('/project-media/' || 'orascom/ledge-valley/units/ch1-mko-0.webp','cover',0,array['LV-01']),
+  ('/project-media/' || 'orascom/ledge-valley/units/ch1-mko-3.webp','cover',0,array['LV-03']),
+  ('/project-media/' || 'orascom/ledge-valley/units/ch1-mko-4.webp','cover',0,array['LV-02'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path

@@ -58,6 +58,8 @@ from (values
   ('/project-media/' || 'ora/du1-em-0.webp','cover',0,array['zed-east-emerald']),
   ('/project-media/' || 'ora/st-zw-0.webp','cover',0,array['zed-west']),
   ('/project-media/' || 'ora/v8-0.webp','cover',0,array['solana-west']),
+  ('/project-media/' || 'orascom/ledge-valley/hero.webp','cover',0,array['ledge-valley']),
+  ('/project-media/' || 'orascom/siyal/lagoon-beach.webp','cover',0,array['siyal']),
   ('/project-media/' || 'qataridiar/alam-al-roum/city.webp','cover',0,array['alam-al-roum']),
   ('/project-media/' || 'ramla/units/ap-a-03.webp','cover',0,array['aeon']),
   ('/project-media/' || 'sodic-east/apartment.webp','cover',0,array['sodic-east']),

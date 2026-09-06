@@ -181,7 +181,7 @@
        no down payment, no instalment term and no delivery date, so none of
        those keys is written: the project page shows the awaiting-price-list
        notice rather than a number nobody quoted. */
-    {slug:'siyal', name:'Siyal', name_ar:'سيال', dev:'orascom', area:'redsea', status:'primary', finishing:{en:'Fully finished',ar:'تشطيب كامل'}, types:{en:'Villa · Twin house · Townhouse',ar:'فيلا · توين هاوس · تاون هاوس'}, tags:{en:['Red Sea','Makadi Bay','Lagoons'],ar:['البحر الأحمر','خليج مكادي','بحيرات']}, blurb:{en:'A neighbourhood of 78 homes inside Makadi Heights, built on 82,500 m² with only about 12% of the site covered — the rest given to open landscape, lagoons and communal ground.',ar:'حي من ٧٨ وحدة داخل مدن مكادي هايتس على ٨٢٬٥٠٠ م²، لا تشغل المباني سوى نحو ١٢٪ من الأرض — والباقي مساحات مفتوحة وبحيرات وأماكن مشتركة.'}},
+    {slug:'siyal', name:'Siyal', name_ar:'سيال', dev:'orascom', area:'redsea', status:'primary', price:23735000, dp:10, years:7, delivery:'2030', finishing:{en:'Fully finished',ar:'تشطيب كامل'}, types:{en:'Villa · Twin house · Townhouse',ar:'فيلا · توين هاوس · تاون هاوس'}, tags:{en:['Red Sea','Makadi Bay','Lagoons'],ar:['البحر الأحمر','خليج مكادي','بحيرات']}, blurb:{en:'A neighbourhood of 78 homes inside Makadi Heights, built on 82,500 m² with only about 12% of the site covered — the rest given to open landscape, lagoons and communal ground.',ar:'حي من ٧٨ وحدة داخل مدن مكادي هايتس على ٨٢٬٥٠٠ م²، لا تشغل المباني سوى نحو ١٢٪ من الأرض — والباقي مساحات مفتوحة وبحيرات وأماكن مشتركة.'}},
     /* Orascom Development — Ledge Valley, the second Makadi Heights
        neighbourhood. Only sections 01-07 of the brochure's twelve were
        supplied, so The Valley Collection, the finishing specifications and
@@ -191,7 +191,7 @@
        `types` names the one product the brochure actually shows — the
        Floating Chalet of the Island Collection. The 1-4 bedroom mix is in
        the blurb, because a bedroom count is not a unit type. */
-    {slug:'ledge-valley', name:'Ledge Valley', name_ar:'ليدج فالي', dev:'orascom', area:'redsea', status:'primary', types:{en:'Chalet',ar:'شاليه'}, tags:{en:['Red Sea','Makadi Bay','Lagoons','Waterfront'],ar:['البحر الأحمر','خليج مكادي','بحيرات','على الماء']}, blurb:{en:'A waterfront neighbourhood of 274 homes on 91,049 m² inside Makadi Heights, built around expansive lagoons and landscaped open space, with a mix of one to four bedroom residences.',ar:'حي على الماء من ٢٧٤ وحدة على ٩١٬٠٤٩ م² داخل مدن مكادي هايتس، مبني حول بحيرات واسعة ومساحات مفتوحة منسّقة، بوحدات من غرفة إلى أربع غرف.'}}
+    {slug:'ledge-valley', name:'Ledge Valley', name_ar:'ليدج فالي', dev:'orascom', area:'redsea', status:'primary', price:11410000, dp:10, years:7, delivery:'2030', types:{en:'Chalet · Penthouse',ar:'شاليه · بنتهاوس'}, tags:{en:['Red Sea','Makadi Bay','Lagoons','Waterfront'],ar:['البحر الأحمر','خليج مكادي','بحيرات','على الماء']}, blurb:{en:'A waterfront neighbourhood of 274 homes on 91,049 m² inside Makadi Heights, built around expansive lagoons and landscaped open space, with a mix of one to four bedroom residences.',ar:'حي على الماء من ٢٧٤ وحدة على ٩١٬٠٤٩ م² داخل مدن مكادي هايتس، مبني حول بحيرات واسعة ومساحات مفتوحة منسّقة، بوحدات من غرفة إلى أربع غرف.'}}
   ];
 
   /* Representative UNITS — illustrative sample inventory (always badged).
@@ -650,7 +650,29 @@
     {id:'HHN-V1', project:'hacienda-heneish', type:'Villa', beds:5, baths:5, area:302, price:55000000, avail:'limited'},
     {id:'HWS-C1', project:'hacienda-west', type:'Chalet', beds:2, baths:2, area:111, price:23800000},
     {id:'HWS-B1', project:'hacienda-west', type:'Cabin', beds:2, baths:2, area:95, price:36600000},
-    {id:'HWS-V1', project:'hacienda-west', type:'Villa', beds:4, baths:4, area:340, price:113600000, avail:'limited'}
+    {id:'HWS-V1', project:'hacienda-west', type:'Villa', beds:4, baths:4, area:340, price:113600000, avail:'limited'},
+    /* Orascom — Siyal and Ledge Valley, from the client sheet's 17 Orascom
+       rows. Areas, bedrooms, bathrooms, prices, the 10% down payment, the
+       7 years and the 2030 handover are the sheet's own. `label` carries the
+       sheet's product name; `type` is the site's canonical type so the
+       filters still work. */
+    {id:'LV-01', project:'ledge-valley', type:'Chalet', label:{en:'Lagoon Chalet',ar:'شاليه لاجون'}, beds:3, baths:3, area:114, price:22430000, dp:10, years:7, handover:'2030'},
+    {id:'LV-02', project:'ledge-valley', type:'Chalet', label:{en:'Loft Lagoon Chalet',ar:'لوفت شاليه لاجون'}, beds:3, baths:3, area:132, price:24000000, dp:10, years:7, handover:'2030'},
+    {id:'LV-03', project:'ledge-valley', type:'Chalet', label:{en:'Lagoon Chalet',ar:'شاليه لاجون'}, beds:2, baths:2, area:103, price:18445000, dp:10, years:7, handover:'2030'},
+    {id:'LV-04', project:'ledge-valley', type:'Penthouse', label:{en:'Pent House Garden Lagoon',ar:'بنت هاوس جاردن لاجون'}, beds:3, baths:3, area:117, price:21215000, dp:10, years:7, handover:'2030'},
+    {id:'LV-05', project:'ledge-valley', type:'Chalet', label:{en:'Garden Chalet',ar:'شاليه جاردن'}, beds:2, baths:2, area:102, price:18725000, dp:10, years:7, handover:'2030'},
+    {id:'LV-06', project:'ledge-valley', type:'Chalet', label:{en:'Chalet',ar:'شاليه'}, beds:2, baths:2, area:83, price:13225000, dp:10, years:7, handover:'2030'},
+    {id:'LV-07', project:'ledge-valley', type:'Chalet', label:{en:'Chalet Garden',ar:'شاليه جاردن'}, beds:2, baths:2, area:90, price:17000000, dp:10, years:7, handover:'2030'},
+    {id:'LV-08', project:'ledge-valley', type:'Penthouse', label:{en:'Pent House',ar:'بنت هاوس'}, beds:2, baths:2, area:99, price:14895000, dp:10, years:7, handover:'2030'},
+    {id:'LV-09', project:'ledge-valley', type:'Penthouse', label:{en:'Pent House',ar:'بنت هاوس'}, beds:2, baths:2, area:88, price:13385000, dp:10, years:7, handover:'2030'},
+    {id:'LV-10', project:'ledge-valley', type:'Chalet', label:{en:'Chalet Garden',ar:'شاليه جاردن'}, beds:1, baths:2, area:75, price:11410000, dp:10, years:7, handover:'2030'},
+    {id:'SY-01', project:'siyal', type:'Villa', label:{en:'Signature Villa',ar:'سيجنتشر فيلا'}, beds:5, baths:5, area:250, price:50580000, dp:10, years:7, handover:'2030'},
+    {id:'SY-02', project:'siyal', type:'Villa', label:{en:'Courtyard Villa',ar:'كورتيارد فيلا'}, beds:4, baths:5, area:210, price:49130000, dp:10, years:7, handover:'2030'},
+    {id:'SY-03', project:'siyal', type:'Villa', label:{en:'Courtyard Villa',ar:'كورتيارد فيلا'}, beds:4, baths:4, area:190, price:36000000, dp:10, years:7, handover:'2030'},
+    {id:'SY-04', project:'siyal', type:'Villa', label:{en:'Deluxe Villa',ar:'ديلوكس فيلا'}, beds:4, baths:4, area:175, price:32615000, dp:10, years:7, handover:'2030'},
+    {id:'SY-05', project:'siyal', type:'Villa', label:{en:'Boutique Villa',ar:'بوتيك فيلا'}, beds:3, baths:4, area:160, price:31145000, dp:10, years:7, handover:'2030'},
+    {id:'SY-06', project:'siyal', type:'Twin House', label:{en:'Twin Villa',ar:'توين فيلا'}, beds:3, baths:4, area:144, price:23735000, dp:10, years:7, handover:'2030'},
+    {id:'SY-07', project:'siyal', type:'Townhouse', label:{en:'Town Villa',ar:'تاون فيلا'}, beds:3, baths:3, area:138, price:24000000, dp:10, years:7, handover:'2030'}
   ];
   // Floor / internal-level enrichment (illustrative). Units without a floor
   // remain "floor to confirm" and never pass a strict floor filter.

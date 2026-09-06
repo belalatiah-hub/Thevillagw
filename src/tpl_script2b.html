@@ -152,6 +152,24 @@
   function groupMembers(g){ return (g?g.members:[]).map(projBySlug).filter(Boolean); }
   function groupFrom(g){ var m=groupMembers(g).map(function(p){return p.price;}).filter(function(x){return x!=null;}); return m.length?Math.min.apply(null,m):null; }
   var UNIT_IMAGES = {
+    /* Orascom — the sheet's FIRST image id for each unit. */
+    'LV-01':'/project-media/orascom/ledge-valley/units/ch1-mko-0.webp',
+    'LV-02':'/project-media/orascom/ledge-valley/units/ch1-mko-4.webp',
+    'LV-03':'/project-media/orascom/ledge-valley/units/ch1-mko-3.webp',
+    'LV-04':'/project-media/orascom/ledge-valley/units/ch2-mko-0.webp',
+    'LV-05':'/project-media/orascom/ledge-valley/units/ch5-mko-0.webp',
+    'LV-06':'/project-media/orascom/ledge-valley/units/ch6-mko-0.webp',
+    'LV-07':'/project-media/orascom/ledge-valley/units/ch7-mko-0.webp',
+    'LV-08':'/project-media/orascom/ledge-valley/units/ch8-mko-0.webp',
+    'LV-09':'/project-media/orascom/ledge-valley/units/ch8-mko-1.webp',
+    'LV-10':'/project-media/orascom/ledge-valley/units/ch10-mko-0.webp',
+    'SY-01':'/project-media/orascom/siyal/units/v1-si-0.webp',
+    'SY-02':'/project-media/orascom/siyal/units/v2-si-0.webp',
+    'SY-03':'/project-media/orascom/siyal/units/v3-si-0.webp',
+    'SY-04':'/project-media/orascom/siyal/units/d1-si-0.webp',
+    'SY-05':'/project-media/orascom/siyal/units/v4-si-0.webp',
+    'SY-06':'/project-media/orascom/siyal/units/tv-si-0.webp',
+    'SY-07':'/project-media/orascom/siyal/units/th-si-0.webp',
     /* ORA — the sheet's FIRST image id for each unit; the rest follow in
        UNIT_GALLERY in the sheet's own order. */
     /* M squared — Masyaf, the sheet's first image per unit. */
@@ -548,6 +566,27 @@
   /* Per-unit render galleries (all photos for a unit) — opened as a numbered
      carousel from the unit hero and the "Photos" chip. LMD-populated. */
   var UNIT_GALLERY = {
+    /* Orascom — the sheet's row order, never sorted. Three Ledge Valley
+       units share one render set and start on a different frame, and two
+       more borrow frames from a neighbouring set; that is what the sheet
+       says, so it is what is written. */
+    'LV-01':['/project-media/orascom/ledge-valley/units/ch1-mko-0.webp', '/project-media/orascom/ledge-valley/units/ch1-mko-1.webp', '/project-media/orascom/ledge-valley/units/ch1-mko-2.webp', '/project-media/orascom/ledge-valley/units/ch1-mko-3.webp', '/project-media/orascom/ledge-valley/units/ch1-mko-4.webp'],
+    'LV-02':['/project-media/orascom/ledge-valley/units/ch1-mko-4.webp', '/project-media/orascom/ledge-valley/units/ch1-mko-3.webp', '/project-media/orascom/ledge-valley/units/ch1-mko-2.webp', '/project-media/orascom/ledge-valley/units/ch1-mko-1.webp', '/project-media/orascom/ledge-valley/units/ch1-mko-0.webp'],
+    'LV-03':['/project-media/orascom/ledge-valley/units/ch1-mko-3.webp', '/project-media/orascom/ledge-valley/units/ch1-mko-2.webp', '/project-media/orascom/ledge-valley/units/ch1-mko-1.webp', '/project-media/orascom/ledge-valley/units/ch1-mko-0.webp', '/project-media/orascom/ledge-valley/units/ch1-mko-4.webp'],
+    'LV-04':['/project-media/orascom/ledge-valley/units/ch2-mko-0.webp', '/project-media/orascom/ledge-valley/units/ch2-mko-1.webp', '/project-media/orascom/ledge-valley/units/ch2-mko-3.webp', '/project-media/orascom/ledge-valley/units/ch2-mko-2.webp'],
+    'LV-05':['/project-media/orascom/ledge-valley/units/ch5-mko-0.webp', '/project-media/orascom/ledge-valley/units/ch5-mko-1.webp', '/project-media/orascom/ledge-valley/units/ch5-mko-2.webp', '/project-media/orascom/ledge-valley/units/ch2-mko-0.webp', '/project-media/orascom/ledge-valley/units/ch2-mko-1.webp', '/project-media/orascom/ledge-valley/units/ch2-mko-3.webp', '/project-media/orascom/ledge-valley/units/ch2-mko-2.webp'],
+    'LV-06':['/project-media/orascom/ledge-valley/units/ch6-mko-0.webp', '/project-media/orascom/ledge-valley/units/ch6-mko-1.webp', '/project-media/orascom/ledge-valley/units/ch6-mko-2.webp', '/project-media/orascom/ledge-valley/units/ch6-mko-3.webp', '/project-media/orascom/ledge-valley/units/ch6-mko-4.webp'],
+    'LV-07':['/project-media/orascom/ledge-valley/units/ch7-mko-0.webp', '/project-media/orascom/ledge-valley/units/ch7-mko-1.webp', '/project-media/orascom/ledge-valley/units/ch7-mko-2.webp'],
+    'LV-08':['/project-media/orascom/ledge-valley/units/ch8-mko-0.webp', '/project-media/orascom/ledge-valley/units/ch8-mko-1.webp', '/project-media/orascom/ledge-valley/units/ch8-mko-2.webp'],
+    'LV-09':['/project-media/orascom/ledge-valley/units/ch8-mko-1.webp', '/project-media/orascom/ledge-valley/units/ch8-mko-2.webp', '/project-media/orascom/ledge-valley/units/ch8-mko-0.webp'],
+    'LV-10':['/project-media/orascom/ledge-valley/units/ch10-mko-0.webp', '/project-media/orascom/ledge-valley/units/ch10-mko-01.webp', '/project-media/orascom/ledge-valley/units/ch7-mko-0.webp', '/project-media/orascom/ledge-valley/units/ch7-mko-1.webp'],
+    'SY-01':['/project-media/orascom/siyal/units/v1-si-0.webp', '/project-media/orascom/siyal/units/v1-si-1.webp', '/project-media/orascom/siyal/units/v1-si-2.webp', '/project-media/orascom/siyal/units/v1-si-3.webp', '/project-media/orascom/siyal/units/v1-si-4.webp'],
+    'SY-02':['/project-media/orascom/siyal/units/v2-si-0.webp', '/project-media/orascom/siyal/units/v2-si-01.webp', '/project-media/orascom/siyal/units/v2-si-2.webp', '/project-media/orascom/siyal/units/v2-si-3.webp', '/project-media/orascom/siyal/units/v2-si-4.webp'],
+    'SY-03':['/project-media/orascom/siyal/units/v3-si-0.webp', '/project-media/orascom/siyal/units/v3-si-01.webp', '/project-media/orascom/siyal/units/v3-si-02.webp', '/project-media/orascom/siyal/units/v3-si-03.webp'],
+    'SY-04':['/project-media/orascom/siyal/units/d1-si-0.webp', '/project-media/orascom/siyal/units/d1-si-1.webp', '/project-media/orascom/siyal/units/d1-si-2.webp', '/project-media/orascom/siyal/units/d1-si-3.webp', '/project-media/orascom/siyal/units/d1-si-4.webp'],
+    'SY-05':['/project-media/orascom/siyal/units/v4-si-0.webp', '/project-media/orascom/siyal/units/v4-si-1.webp', '/project-media/orascom/siyal/units/v4-si-2.webp', '/project-media/orascom/siyal/units/v4-si-3.webp', '/project-media/orascom/siyal/units/v4-si-4.webp'],
+    'SY-06':['/project-media/orascom/siyal/units/tv-si-0.webp', '/project-media/orascom/siyal/units/tv-si-1.webp', '/project-media/orascom/siyal/units/tv-si-3.webp'],
+    'SY-07':['/project-media/orascom/siyal/units/th-si-0.webp', '/project-media/orascom/siyal/units/th-si-1.webp', '/project-media/orascom/siyal/units/th-si-2.webp', '/project-media/orascom/siyal/units/th-si-3.webp', '/project-media/orascom/siyal/units/th-si-4.webp'],
     /* ORA — image order is the sheet's, row by row, never sorted. Several
        units share a render set and start on a different frame; that is
        deliberate in the sheet and is preserved exactly. */
@@ -940,6 +979,24 @@
      guesswork. Two floor plans the sheet names (fp-th-3-cr, v4-cr-0) are
      corrupt inside the source archive and are therefore simply absent. */
   var UNIT_MASTERPLANS = {
+    /* Orascom — mp-siyal and mp-mko, per the sheet. */
+    'LV-01':['/project-media/orascom/ledge-valley/units/mp-mko.webp'],
+    'LV-02':['/project-media/orascom/ledge-valley/units/mp-mko.webp'],
+    'LV-03':['/project-media/orascom/ledge-valley/units/mp-mko.webp'],
+    'LV-04':['/project-media/orascom/ledge-valley/units/mp-mko.webp'],
+    'LV-05':['/project-media/orascom/ledge-valley/units/mp-mko.webp'],
+    'LV-06':['/project-media/orascom/ledge-valley/units/mp-mko.webp'],
+    'LV-07':['/project-media/orascom/ledge-valley/units/mp-mko.webp'],
+    'LV-08':['/project-media/orascom/ledge-valley/units/mp-mko.webp'],
+    'LV-09':['/project-media/orascom/ledge-valley/units/mp-mko.webp'],
+    'LV-10':['/project-media/orascom/ledge-valley/units/mp-mko.webp'],
+    'SY-01':['/project-media/orascom/siyal/units/mp-siyal.webp'],
+    'SY-02':['/project-media/orascom/siyal/units/mp-siyal.webp'],
+    'SY-03':['/project-media/orascom/siyal/units/mp-siyal.webp'],
+    'SY-04':['/project-media/orascom/siyal/units/mp-siyal.webp'],
+    'SY-05':['/project-media/orascom/siyal/units/mp-siyal.webp'],
+    'SY-06':['/project-media/orascom/siyal/units/mp-siyal.webp'],
+    'SY-07':['/project-media/orascom/siyal/units/mp-siyal.webp'],
     /* ORA */
     /* M squared — Masyaf */
     /* M squared — 31 WEST */
@@ -1308,6 +1365,24 @@
     'SL-SV15':["/project-media/hassan-allam/sl-sv15-mp1.webp"],
   };
   var UNIT_FLOORPLANS = {
+    /* Orascom — one or two plan sheets per unit, as the sheet lists them. */
+    'LV-01':['/project-media/orascom/ledge-valley/units/fp-ch1-mko.webp'],
+    'LV-02':['/project-media/orascom/ledge-valley/units/fp-ch2-mko.webp'],
+    'LV-03':['/project-media/orascom/ledge-valley/units/fp-ch3-mko.webp'],
+    'LV-04':['/project-media/orascom/ledge-valley/units/fp-ch4-mko.webp'],
+    'LV-05':['/project-media/orascom/ledge-valley/units/fp-ch5-mko.webp'],
+    'LV-06':['/project-media/orascom/ledge-valley/units/fp-ch6-mko.webp'],
+    'LV-07':['/project-media/orascom/ledge-valley/units/fp-ch7-mko.webp'],
+    'LV-08':['/project-media/orascom/ledge-valley/units/fp-ch8-mko.webp'],
+    'LV-09':['/project-media/orascom/ledge-valley/units/fp-ch9-mko.webp'],
+    'LV-10':['/project-media/orascom/ledge-valley/units/fp-ch10-mko.webp'],
+    'SY-01':['/project-media/orascom/siyal/units/fp-v1-si.webp', '/project-media/orascom/siyal/units/fp-v1-si-0.webp'],
+    'SY-02':['/project-media/orascom/siyal/units/fp-v2-si.webp', '/project-media/orascom/siyal/units/fp-v2-si-0.webp'],
+    'SY-03':['/project-media/orascom/siyal/units/fp-v3-si0.webp', '/project-media/orascom/siyal/units/fp-v3-si1.webp'],
+    'SY-04':['/project-media/orascom/siyal/units/fp-d1-0.webp', '/project-media/orascom/siyal/units/fp-d1-1.webp'],
+    'SY-05':['/project-media/orascom/siyal/units/fp-v4-si0.webp', '/project-media/orascom/siyal/units/fp-v4-si1.webp'],
+    'SY-06':['/project-media/orascom/siyal/units/fp-tv-0.webp', '/project-media/orascom/siyal/units/fp-tv-1.webp'],
+    'SY-07':['/project-media/orascom/siyal/units/fp-th-0.webp', '/project-media/orascom/siyal/units/fp-th-01.webp'],
     /* ORA */
     /* M squared — Masyaf */
     /* M squared — 31 WEST */
@@ -1672,6 +1747,24 @@
   /* Per-unit location renders (LMD). When present, the Location viewer shows the
      unit-specific aerial; otherwise it falls back to the area aerial. */
   var UNIT_LOCATIONS = {
+    /* Orascom — location siyal and location-mko, per the sheet. */
+    'LV-01':['/project-media/orascom/ledge-valley/units/location-mko.webp'],
+    'LV-02':['/project-media/orascom/ledge-valley/units/location-mko.webp'],
+    'LV-03':['/project-media/orascom/ledge-valley/units/location-mko.webp'],
+    'LV-04':['/project-media/orascom/ledge-valley/units/location-mko.webp'],
+    'LV-05':['/project-media/orascom/ledge-valley/units/location-mko.webp'],
+    'LV-06':['/project-media/orascom/ledge-valley/units/location-mko.webp'],
+    'LV-07':['/project-media/orascom/ledge-valley/units/location-mko.webp'],
+    'LV-08':['/project-media/orascom/ledge-valley/units/location-mko.webp'],
+    'LV-09':['/project-media/orascom/ledge-valley/units/location-mko.webp'],
+    'LV-10':['/project-media/orascom/ledge-valley/units/location-mko.webp'],
+    'SY-01':['/project-media/orascom/siyal/units/location-siyal.webp'],
+    'SY-02':['/project-media/orascom/siyal/units/location-siyal.webp'],
+    'SY-03':['/project-media/orascom/siyal/units/location-siyal.webp'],
+    'SY-04':['/project-media/orascom/siyal/units/location-siyal.webp'],
+    'SY-05':['/project-media/orascom/siyal/units/location-siyal.webp'],
+    'SY-06':['/project-media/orascom/siyal/units/location-siyal.webp'],
+    'SY-07':['/project-media/orascom/siyal/units/location-siyal.webp'],
     /* ORA */
     /* M squared — Masyaf */
     /* M squared — 31 WEST */

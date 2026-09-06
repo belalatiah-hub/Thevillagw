@@ -5,6 +5,24 @@
 insert into cms.media_links (asset_id, unit_id, role, sort_order)
 select a.id, o.id, v.role::cms.media_role, v.sort_order
 from (values
+  ('/project-media/' || 'orascom/ledge-valley/units/ch10-mko-0.webp','cover',0,array['LV-10']),
+  ('/project-media/' || 'orascom/ledge-valley/units/ch2-mko-0.webp','cover',0,array['LV-04']),
+  ('/project-media/' || 'orascom/ledge-valley/units/ch5-mko-0.webp','cover',0,array['LV-05']),
+  ('/project-media/' || 'orascom/ledge-valley/units/ch6-mko-0.webp','cover',0,array['LV-06']),
+  ('/project-media/' || 'orascom/ledge-valley/units/ch7-mko-0.webp','cover',0,array['LV-07']),
+  ('/project-media/' || 'orascom/ledge-valley/units/ch8-mko-0.webp','cover',0,array['LV-08']),
+  ('/project-media/' || 'orascom/ledge-valley/units/ch8-mko-1.webp','cover',0,array['LV-09']),
+  ('/project-media/' || 'orascom/siyal/units/d1-si-0.webp','cover',0,array['SY-04']),
+  ('/project-media/' || 'orascom/siyal/units/th-si-0.webp','cover',0,array['SY-07']),
+  ('/project-media/' || 'orascom/siyal/units/tv-si-0.webp','cover',0,array['SY-06']),
+  ('/project-media/' || 'orascom/siyal/units/v1-si-0.webp','cover',0,array['SY-01']),
+  ('/project-media/' || 'orascom/siyal/units/v2-si-0.webp','cover',0,array['SY-02']),
+  ('/project-media/' || 'orascom/siyal/units/v3-si-0.webp','cover',0,array['SY-03']),
+  ('/project-media/' || 'orascom/siyal/units/v4-si-0.webp','cover',0,array['SY-05']),
+  ('/project-media/' || 'ramla/units/DU3-0.webp','cover',0,array['RM-DX04']),
+  ('/project-media/' || 'ramla/units/ap-a-0.webp','cover',0,array['AE-AP01']),
+  ('/project-media/' || 'ramla/units/ch2-0.webp','cover',0,array['RM-CH01']),
+  ('/project-media/' || 'ramla/units/ch3-0.webp','cover',0,array['RM-CH02']),
   ('/project-media/' || 'ramla/units/ch4-0.webp','cover',0,array['RM-CH03']),
   ('/project-media/' || 'ramla/units/ch5-0.webp','cover',0,array['RM-CH04']),
   ('/project-media/' || 'ramla/units/ch6-0.webp','cover',0,array['RM-CH06']),
@@ -241,26 +259,7 @@ from (values
   ('/project-media/' || 'modon/fp-ap1-lhu-0.webp','floorplan',0,array['MD-LHU-01']),
   ('/project-media/' || 'modon/fp-ap1-lhu-01.webp','floorplan',1,array['MD-LHU-01']),
   ('/project-media/' || 'modon/fp-ap2-bl.webp','floorplan',0,array['MD-BL-02']),
-  ('/project-media/' || 'modon/fp-ap2-bp.webp','floorplan',0,array['MD-BP-02']),
-  ('/project-media/' || 'modon/fp-ap2-lh.webp','floorplan',0,array['MD-LH-02']),
-  ('/project-media/' || 'modon/fp-ap2-lhu-0.webp','floorplan',0,array['MD-LHU-02']),
-  ('/project-media/' || 'modon/fp-ap2-lhu-01.webp','floorplan',1,array['MD-LHU-02']),
-  ('/project-media/' || 'modon/fp-ap2-lhu-02.webp','floorplan',2,array['MD-LHU-02']),
-  ('/project-media/' || 'modon/fp-ap3-bl.webp','floorplan',0,array['MD-BL-03']),
-  ('/project-media/' || 'modon/fp-ap3-bp.webp','floorplan',0,array['MD-BP-03']),
-  ('/project-media/' || 'modon/fp-ap3-lh.webp','floorplan',0,array['MD-LH-03']),
-  ('/project-media/' || 'modon/fp-ap3-lhu-0.webp','floorplan',0,array['MD-LHU-03']),
-  ('/project-media/' || 'modon/fp-ap3-lhu-01.webp','floorplan',1,array['MD-LHU-03']),
-  ('/project-media/' || 'modon/fp-th-wd-0.webp','floorplan',0,array['MD-WD-01']),
-  ('/project-media/' || 'modon/fp-th-wd-01.webp','floorplan',1,array['MD-WD-01']),
-  ('/project-media/' || 'modon/fp-th2-wd-01.webp','floorplan',0,array['MD-WD-02']),
-  ('/project-media/' || 'modon/fp-v-wd-0.webp','floorplan',0,array['MD-WD-03']),
-  ('/project-media/' || 'modon/fp-v-wd-01.webp','floorplan',1,array['MD-WD-03']),
-  ('/project-media/' || 'modon/fp-v-wd-02.webp','floorplan',2,array['MD-WD-03']),
-  ('/project-media/' || 'modon/fp-v-wd-03.webp','floorplan',3,array['MD-WD-03']),
-  ('/project-media/' || 'modon/fp-v1-mon-0.webp','floorplan',0,array['MD-MON-01']),
-  ('/project-media/' || 'modon/fp-v1-mon-01.webp','floorplan',1,array['MD-MON-01']),
-  ('/project-media/' || 'modon/fp-v2-01.webp','floorplan',1,array['MD-WD-05'])
+  ('/project-media/' || 'modon/fp-ap2-bp.webp','floorplan',0,array['MD-BP-02'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path
