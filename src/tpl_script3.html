@@ -43,14 +43,26 @@
     return ps.length?Math.min.apply(null,ps):null;
   }
 
+  /* Building an Intl.NumberFormat is expensive — far more so than formatting
+     with one — and these two are the most-called functions in the app: every
+     price, area and bedroom count on every card goes through them, so a unit
+     grid was constructing a few thousand formatters to render one screen.
+     There are four in total (two locales x plain/rounded), so they are built
+     on first use and kept. Keyed by locale, not by `lang`, so switching
+     language reuses whatever has already been built. */
+  var FMT={};
+  function fmt(loc, opts, key){
+    return FMT[key] || (FMT[key] = new Intl.NumberFormat(loc, opts));
+  }
   function money(n){
     if(n==null) return t('tba');
     var loc = lang==='ar' ? 'ar-EG' : 'en-US';
-    try{ return new Intl.NumberFormat(loc,{maximumFractionDigits:0}).format(n) + ' ' + t('egp'); }
+    try{ return fmt(loc, {maximumFractionDigits:0}, loc+'/0').format(n) + ' ' + t('egp'); }
     catch(e){ return n + ' ' + t('egp'); }
   }
   function statusLabel(s){ return s==='launch'?t('launch'):s==='ready'?t('ready'):t('primary'); }
-  function num(n){ try{ return new Intl.NumberFormat(lang==='ar'?'ar-EG':'en-US').format(n); }catch(e){ return String(n); } }
+  function num(n){ var loc = lang==='ar' ? 'ar-EG' : 'en-US';
+    try{ return fmt(loc, undefined, loc).format(n); }catch(e){ return String(n); } }
   function U(p){ return BASE + p.replace(/^\//,''); } // locale path -> href with base
 
   /* ==================================================================

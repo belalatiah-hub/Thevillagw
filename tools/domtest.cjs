@@ -104,18 +104,42 @@ try {
   // consumes it, so the sitemap is derived from the same data the app renders
   // instead of being hand-maintained — it had drifted to 202 unit URLs for 223
   // units and 14 developer pages for 24 developers.
+  // A sitemap is a request to index, so it may contain only URLs the site is
+  // willing to have indexed at exactly the address it claims for them. Naming
+  // the paths here rather than asking the app for them had drifted three ways:
+  //   · /en/groups/ and /en/releases/ were listed, and neither is a route —
+  //     the parser only knows groups/:slug and releases/:slug, so both 404;
+  //   · the eight guide pages carry noindex deliberately (they have no
+  //     verified author or date), yet were being submitted for indexing;
+  //   · every unit was listed in upper case (/en/units/SB-ST-01/) while the
+  //     unit page's own canonical is lower case, so 840 URLs pointed a
+  //     crawler at an address the page it reached then disowned.
+  // So each candidate is now parsed and rendered, and what goes in is the
+  // canonical URL of the page that actually came back, if it is indexable.
   if (process.argv.includes('--routes')) {
-    const paths = ['', 'projects', 'units', 'new-launches', 'areas', 'developers',
-                   'groups', 'releases', 'insights', 'about', 'investors',
-                   'faqs', 'contact', 'privacy', 'terms']
+    const candidates = ['', 'projects', 'units', 'new-launches', 'areas',
+                        'developers', 'insights', 'about', 'investors',
+                        'faqs', 'contact', 'privacy', 'terms']
       .map(p => p ? `/en/${p}/` : '/en/');
-    api.PROJECTS.forEach(p => paths.push(`/en/projects/${p.slug}/`));
-    api.UNITS.forEach(u => paths.push(`/en/units/${u.id}/`));
-    api.DEVELOPERS.forEach(d => paths.push(`/en/developers/${d.key}/`));
-    api.AREAS.forEach(a => paths.push(`/en/areas/${a.key}/`));
-    api.RESEARCH.forEach(r => paths.push(`/en/insights/${r.slug}/`));
-    api.RELEASES.forEach(r => paths.push(`/en/releases/${r.slug}/`));
-    api.PROJECT_GROUPS.forEach(g => paths.push(`/en/groups/${g.slug}/`));
+    api.PROJECTS.forEach(p => candidates.push(`/en/projects/${p.slug}/`));
+    api.UNITS.forEach(u => candidates.push(`/en/units/${u.id}/`));
+    api.DEVELOPERS.forEach(d => candidates.push(`/en/developers/${d.key}/`));
+    api.AREAS.forEach(a => candidates.push(`/en/areas/${a.key}/`));
+    api.RESEARCH.forEach(r => candidates.push(`/en/insights/${r.slug}/`));
+    api.RELEASES.forEach(r => candidates.push(`/en/releases/${r.slug}/`));
+    api.PROJECT_GROUPS.forEach(g => candidates.push(`/en/groups/${g.slug}/`));
+    const paths = [], seen = new Set();
+    for (const c of candidates) {
+      const r = api.parse(c);
+      if (r.name === '404') continue;
+      api.render(r);
+      ALL.length = 0;   // 560 renders, and this register keeps every node built
+      const robots = doc.getElementById('meta-robots').getAttribute('content') || '';
+      if (robots.indexOf('noindex') > -1) continue;
+      const canon = doc.getElementById('lnk-canonical').getAttribute('href') || '';
+      const p = canon.replace(/^https?:\/\/[^/]+/, '');
+      if (p && !seen.has(p)) { seen.add(p); paths.push(p); }
+    }
     console.log(JSON.stringify(paths));
     process.exit(0);
   }

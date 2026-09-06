@@ -5110,14 +5110,19 @@ function areaFrom(k){
 var ps=projInArea(k).map(function(p){return p.price;}).filter(function(x){return x!=null;});
 return ps.length?Math.min.apply(null,ps):null;
 }
+var FMT={};
+function fmt(loc, opts, key){
+return FMT[key] || (FMT[key] = new Intl.NumberFormat(loc, opts));
+}
 function money(n){
 if(n==null) return t('tba');
 var loc = lang==='ar' ? 'ar-EG' : 'en-US';
-try{ return new Intl.NumberFormat(loc,{maximumFractionDigits:0}).format(n) + ' ' + t('egp'); }
+try{ return fmt(loc, {maximumFractionDigits:0}, loc+'/0').format(n) + ' ' + t('egp'); }
 catch(e){ return n + ' ' + t('egp'); }
 }
 function statusLabel(s){ return s==='launch'?t('launch'):s==='ready'?t('ready'):t('primary'); }
-function num(n){ try{ return new Intl.NumberFormat(lang==='ar'?'ar-EG':'en-US').format(n); }catch(e){ return String(n); } }
+function num(n){ var loc = lang==='ar' ? 'ar-EG' : 'en-US';
+try{ return fmt(loc, undefined, loc).format(n); }catch(e){ return String(n); } }
 function U(p){ return BASE + p.replace(/^\//,''); }
 function buildPath(name, params, lg){
 lg = lg||lang; params = params||{}; var b='/'+lg+'/';
@@ -6339,7 +6344,11 @@ lnode.appendChild(lhead);
 var lmain=h('section',{style:'padding-bottom:clamp(48px,8vw,96px)'});
 lmain.appendChild(h('div',{class:'wrap'}, launchStrip()));
 lnode.appendChild(lmain);
-return {node:lnode, title:t('nav_launches')+' · The Village Investment', desc:t('home_launch_p'), indexable:true,
+var nl = newLaunchProjects();
+return {node:lnode, title:t('nav_launches')+' · The Village Investment',
+desc:t('home_launch_p') + countLine(nl.length,
+Object.keys(nl.reduce(function(m,p){ m[p.dev]=1; return m; },{})).length),
+indexable:true,
 crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_launches')}]};
 }
 var qs = new URLSearchParams(CUR.search);
@@ -6440,7 +6449,9 @@ main.appendChild(wrap); node.appendChild(main);
 var items = list.map(function(p){ return {name:(lang==='ar'?p.name_ar:p.name), url:CONFIG.origin+buildPath('project',{slug:p.slug})}; });
 node.appendChild(ctaBand());
 return {node:node, title:(preset==='launch'?t('nav_launches'):t('nav_projects'))+' · The Village Investment',
-desc:preset==='launch'?t('home_launch_p'):t('home_feat_p'), indexable:true,
+desc:(preset==='launch'?t('home_launch_p'):t('home_feat_p'))
++ countLine(list.length, Object.keys(list.reduce(function(m,p){ m[p.dev]=1; return m; },{})).length),
+indexable:true,
 crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:preset==='launch'?t('nav_launches'):t('nav_projects')}],
 ld:{'@type':'CollectionPage','name':(preset==='launch'?t('nav_launches'):t('nav_projects')),
 'mainEntity':{'@type':'ItemList','numberOfItems':items.length,'itemListElement':items.map(function(it,i){return {'@type':'ListItem','position':i+1,'name':it.name,'url':it.url};})}}};
@@ -6509,6 +6520,49 @@ return [{'@type':'CollectionPage','name': t('finder_h'),
 'mainEntity': {'@type':'ItemList','numberOfItems': valid.length,
 'itemListElement': valid.slice(0,60).map(function(u,i){
 return {'@type':'ListItem','position':i+1,'item':unitOfferLD(projBySlug(u.project),u)}; })}}];
+}
+function projectDesc(p, dev, area){
+var b = L(p.blurb);
+var nm = lang==='ar' ? p.name_ar : p.name, ty = L(p.types);
+if(b) return b;
+if(lang==='ar'){
+return nm+' من '+L(dev.name)+' في '+L(area.name)+'.'
++ (ty ? (' وحدات '+ty+' للبيع من المطوّر مباشرة.') : '')
++ ' قارن الأسعار وخطط السداد وتحدّث مع مستشار عقاري.';
+}
+return nm+' by '+L(dev.name)+' in '+L(area.name)+'.'
++ (ty ? (' '+ty+' units for primary sale.') : '')
++ ' Compare prices and payment plans, and speak to a property advisor.';
+}
+function arCount(n, one, few, many){
+if(n <= 2) return one;
+return (n <= 10) ? few : many;
+}
+function countLine(projects, devs){
+if(!projects) return '';
+if(lang==='ar'){
+return ' '+num(projects)+' '+arCount(projects,'مشروع','مشاريع','مشروعًا')
++ ' للبيع الأولي من '+num(devs)+' '+arCount(devs,'مطوّر','مطوّرين','مطوّرًا')+'.';
+}
+return ' ' + projects + (projects===1?' primary-sale project':' primary-sale projects')
++ ' from ' + devs + (devs===1?' developer':' developers') + '.';
+}
+function areaDesc(a){
+var ps = projInArea(a.key), seen = {};
+ps.forEach(function(p){ seen[p.dev]=1; });
+return L(a.blurb) + (ps.length ? countLine(ps.length, Object.keys(seen).length) : '');
+}
+function devDesc(d){
+var ps = projByDev(d.key), seen = {};
+ps.forEach(function(p){ seen[p.area]=1; });
+var base = L(d.desc);
+if(!ps.length) return base;
+var n = Object.keys(seen).length;
+return base + (lang==='ar'
+? (' '+num(ps.length)+' '+arCount(ps.length,'مشروع','مشاريع','مشروعًا')
++' في '+num(n)+' '+arCount(n,'منطقة','مناطق','منطقة')+'.')
+: (' ' + ps.length + (ps.length===1?' project':' projects') + ' in '
++ n + (n===1?' area.':' areas.')));
 }
 V.project = function(slug){
 var p = projBySlug(slug); if(!p) return V.notfound();
@@ -6603,10 +6657,22 @@ utsec.appendChild(utw); node.appendChild(utsec);
 var rel = projInArea(p.area).filter(function(x){return x.slug!==p.slug;}).slice(0,3);
 if(rel.length) node.appendChild(listSection('', t('related'), '', rel.map(projectCard), null, 'band'));
 node.appendChild(ctaBand());
-return {node:node, title:nm+' — '+L(dev.name)+' · The Village Investment', desc:L(p.blurb),
+return {node:node, title:nm+' — '+L(dev.name)+' · The Village Investment', desc:projectDesc(p, dev, area),
 indexable:true, ld:listingLD(p),
 crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_projects'),path:buildPath('projects')},{label:nm}]};
 };
+var TWINS={};
+function unitTitleTwin(u){
+var c = TWINS[lang];
+if(!c){
+c = TWINS[lang] = {};
+UNITS.forEach(function(x){
+var k = x.project+'|'+unitDisplayName(x, unitTypeLabel(x))+'|'+areaValue(x);
+c[k] = (c[k]||0) + 1;
+});
+}
+return c[u.project+'|'+unitDisplayName(u, unitTypeLabel(u))+'|'+areaValue(u)] > 1;
+}
 function unitListingLD(u){
 var p=projBySlug(u.project), dev=devByKey(p.dev), area=areaByKey(p.area);
 var acc={ '@type':['Product', unitAccType(u)],
@@ -6631,6 +6697,9 @@ var p=projBySlug(u.project), dev=devByKey(p.dev), area=areaByKey(p.area);
 var pnm=lang==='ar'?p.name_ar:p.name, tl=unitTypeLabel(u);
 var uLabel=unitDisplayName(u, tl);
 var title=uLabel+' · '+pnm;
+var av=areaValue(u);
+var stem=title+(av ? (' · '+av+' m²') : '');
+var pageTitle=(unitTitleTwin(u) || !av) ? (stem+' · '+u.id) : stem;
 var node=h('div',null), top=h('section',{class:'section--tight'}), wrap=h('div',{class:'wrap'});
 wrap.appendChild(crumbNode([{label:t('nav_home'),path:buildPath('home')},{label:t('nav_units'),path:buildPath('units')},{label:title}]));
 var galItems=unitGalleryItems(u);
@@ -6693,8 +6762,8 @@ noW.appendChild(h('p',{class:'muted', style:'margin-top:4px'}, t('no_units_type'
 noSec.appendChild(noW); node.appendChild(noSec);
 }
 node.appendChild(ctaBand());
-var desc=uLabel+' — '+pnm+', '+L(area.name)+'. '+(u.price!=null?(t('conf_illustrative')+' '+money(u.price)+'. '):'')+t('finder_p');
-return {node:node, title:title+' — The Village Investment', desc:desc, indexable:true, ld:unitListingLD(u),
+var desc=uLabel+' — '+pnm+(lang==='ar'?'، ':', ')+L(area.name)+'. '+(u.price!=null?(t('conf_illustrative')+' '+money(u.price)+'. '):'')+t('finder_p');
+return {node:node, title:pageTitle+' — The Village Investment', desc:desc, indexable:true, ld:unitListingLD(u),
 crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_units'),path:buildPath('units')},{label:title}]};
 };
 var FACET_PEEK = 3;
@@ -7074,7 +7143,7 @@ h('div',{class:'empty-state'}, h('div',{class:'empty-ico'}, ic('home')),
 h('p',null, (lang==='ar'?'نضيف مشروعات '+L(d.name)+' حاليًا — تواصل مع مستشار لمعرفة المتاح الآن.':'We’re adding '+L(d.name)+'’s projects — talk to an advisor for current availability.')),
 h('a',{class:'btn btn--primary', href:U(buildPath('contact'))}, t('cta_talk'))))));
 node.appendChild(ctaBand());
-return {node:node, title:L(d.name)+' — '+t('nav_developers')+' · The Village Investment', desc:L(d.desc), indexable:true,
+return {node:node, title:L(d.name)+' — '+t('nav_developers')+' · The Village Investment', desc:devDesc(d), indexable:true,
 crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_developers'),path:buildPath('developers')},{label:L(d.name)}]};
 };
 function releaseMasterplanBtn(r, label){
@@ -7184,7 +7253,10 @@ sectionHead(t('hero_kicker'), t('home_area_h'), t('home_area_p'), 'h1')));
 node.appendChild(h('section',{style:'padding-bottom:clamp(40px,7vw,80px)'}, h('div',{class:'wrap'},
 resultsHeading(t('nav_areas')), h('div',{class:'grid grid--3'}, AREAS.map(areaTile)))));
 node.appendChild(ctaBand());
-return {node:node, title:t('nav_areas')+' · The Village Investment', desc:t('home_area_p'), indexable:true,
+return {node:node, title:t('nav_areas')+' · The Village Investment',
+desc:t('home_area_p') + countLine(PROJECTS.length,
+Object.keys(PROJECTS.reduce(function(m,p){ m[p.dev]=1; return m; },{})).length),
+indexable:true,
 crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_areas')}]};
 };
 V.area = function(key){
@@ -7205,7 +7277,7 @@ if(ps.length){ w.appendChild(resultsHeading()); w.appendChild(h('div',{class:'gr
 else w.appendChild(h('div',{class:'state'}, ic('pin'), h('h3',null,lang==='ar'?'لا مشروعات مُدرجة بعد':'No projects listed yet'), h('p',null,lang==='ar'?'تحدّث إلى مستشار لمعرفة الإطلاقات الحالية في هذه المنطقة.':'Talk to an advisor for current launches in this area.'), h('a',{class:'btn btn--primary mt-16', href:U(buildPath('contact'))}, t('cta_talk'))));
 sec.appendChild(w); node.appendChild(sec);
 node.appendChild(ctaBand());
-return {node:node, title:L(a.name)+' — '+t('nav_areas')+' · The Village Investment', desc:L(a.blurb), indexable:true,
+return {node:node, title:L(a.name)+' — '+t('nav_areas')+' · The Village Investment', desc:areaDesc(a), indexable:true,
 crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_areas'),path:buildPath('areas')},{label:L(a.name)}]};
 };
 V.compare = function(){
