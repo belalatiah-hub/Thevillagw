@@ -198,6 +198,23 @@ def main():
     if left:
         raise SystemExit('build aborted: %d placeholder(s) left unresolved' % left)
 
+    # The site builds every node through h(), which sets text with textContent
+    # and never parses markup, and that is the whole reason a developer's blurb
+    # or a unit label out of the database cannot become script. It held because
+    # everyone kept to it, not because anything checked — while the dashboard
+    # build has refused to ship a DOM sink since the day it was written. Same
+    # rule, same enforcement, now on the side that serves the public.
+    #
+    # Comments are stripped first: tpl_script1.html's own header promises "No
+    # innerHTML for dynamic content", and naming the hazard is not committing
+    # it. That false positive aborted the dashboard build once already.
+    code = ''.join(strip_js_comments(b) for b in
+                   re.findall(r'<script\b[^>]*>(.*?)</script>', doc, re.S))
+    for sink in ('innerHTML', 'outerHTML', 'insertAdjacentHTML', 'document.write',
+                 'eval(', 'new Function('):
+        if sink in code:
+            raise SystemExit('build aborted: %s is not allowed in the site' % sink)
+
     before = len(doc.encode('utf-8'))
     if not raw:
         doc = apply_to_blocks(doc, 'script', minify_js)

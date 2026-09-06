@@ -83,6 +83,61 @@ stored in this database or anywhere in this repository** — authentication is
 Supabase Auth's job. Three roles: `owner` (may manage admins), `editor` (may
 write content), `viewer` (read only).
 
+## Proving the policies, rather than reading them
+
+Reading a policy tells you what it says. Running a statement as the role tells
+you what it does. This impersonates each caller and records the outcome; the
+full results are in `docs/DASHBOARD_AND_SECURITY.md`.
+
+```sql
+create temp table probe(seq int generated always as identity,
+                        actor text, action text, outcome text);
+grant insert on probe to anon, authenticated;
+
+do $$
+declare n int;
+begin
+  -- An anonymous visitor: everything the publishable key alone can do.
+  set local role anon;
+  begin select count(*) into n from cms.units;
+    insert into probe(actor,action,outcome) values ('anon','SELECT units', n||' rows');
+  exception when others then
+    insert into probe(actor,action,outcome) values ('anon','SELECT units','BLOCKED: '||sqlerrm);
+  end;
+
+  -- A signed-in stranger: a real account that is not in cms.admins.
+  set local role authenticated;
+  perform set_config('request.jwt.claims',
+    '{"sub":"00000000-0000-0000-0000-0000000000ff","role":"authenticated"}', true);
+
+  select count(*) into n from cms.units;
+  insert into probe(actor,action,outcome) values ('stranger','SELECT units', n||' rows');
+
+  -- Row count, not success. A statement that matches no rows succeeds and
+  -- changes nothing; recording "succeeded" here would report a breach that is
+  -- not there.
+  update cms.units set price = price; get diagnostics n = row_count;
+  insert into probe(actor,action,outcome) values ('stranger','UPDATE units', n||' rows changed');
+
+  delete from cms.audit_log; get diagnostics n = row_count;
+  insert into probe(actor,action,outcome) values ('stranger','DELETE audit_log', n||' rows deleted');
+
+  begin insert into cms.admins(id,email,role,is_active)
+        values (gen_random_uuid(),'attacker@example.com','owner',true);
+    insert into probe(actor,action,outcome) values ('stranger','self-promote','SUCCEEDED');
+  exception when others then
+    insert into probe(actor,action,outcome) values ('stranger','self-promote','BLOCKED: '||sqlerrm);
+  end;
+  reset role;
+end $$;
+
+select actor, action, outcome from probe order by seq;
+```
+
+Expected: the anonymous role is refused at the schema level; the stranger reads
+zero rows, changes zero rows, and is refused outright when it tries to make
+itself an owner.
+
 ## Outstanding project settings
 
 Two things live in the Supabase dashboard, not in SQL, and are worth turning on:
