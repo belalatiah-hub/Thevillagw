@@ -14,7 +14,7 @@
  *   node tools/siteqa.cjs
  *   node tools/siteqa.cjs --all     # every route, not one of each kind
  */
-const { chromium } = require('/opt/node22/lib/node_modules/playwright');
+const { chromium } = require('./pw.cjs');
 const { execSync } = require('child_process');
 const path = require('path');
 

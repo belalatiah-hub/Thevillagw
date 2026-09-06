@@ -79,6 +79,24 @@ jobs:
       - name: Audit the head of every published URL
         run: node tools/seoaudit.cjs
 
+      # Content is exactly what breaks layout: a long Arabic project name, a
+      # unit label that will not wrap, a table one column wider than a phone.
+      # The shim-based tests cannot see any of it, so a real browser runs
+      # before a publish reaches the deploy branch.
+      - name: Install a browser
+        run: npx --yes playwright@latest install --with-deps chromium
+
+      - name: Look at it in a browser
+        run: |
+          python3 tools/serve.py &
+          for i in $(seq 1 20); do
+            curl -sf -o /dev/null http://127.0.0.1:8099/ && break
+            sleep 1
+          done
+          node tools/siteqa.cjs
+          node tools/adminqa.cjs
+          node tools/railqa.cjs
+
       - name: Stop if nothing changed
         id: diff
         run: |

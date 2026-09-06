@@ -17,7 +17,7 @@
  *   python3 tools/serve.py &        # must be running on :8099
  *   node tools/adminqa.cjs
  */
-const { chromium } = require('/opt/node22/lib/node_modules/playwright');
+const { chromium } = require('./pw.cjs');
 
 const URL = 'http://127.0.0.1:8099/admin/';
 const results = [];

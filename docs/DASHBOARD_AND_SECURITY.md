@@ -288,7 +288,39 @@ declare themselves canonical, and all carry a title no other page uses.
 
 ---
 
-## 8. How to re-run the review
+## 8. On a phone, and in Arabic
+
+Everything above runs in a DOM shim, which has no layout. That is the right
+place to test what the code decides and the wrong place to test what a browser
+does with the result: a table one column too wide, a drawer that opens
+off-screen, a page that sets `dir="rtl"` and still lays out left-to-right — all
+of them pass every shim test and are the first thing a visitor notices.
+
+Three suites run in real Chromium at 360px:
+
+| | |
+|---|---|
+| `node tools/siteqa.cjs` | the public site — no horizontal scroll, no uncaught error, exactly one `h1`, in both languages. `--all` sweeps every route |
+| `node tools/adminqa.cjs` | the dashboard — the gate renders and nothing behind it is in the document, the primary control is a real tap target, the computed direction actually flips, the layout fills the viewport in RTL, the language choice survives a reload |
+| `node tools/railqa.cjs` | the developer rail, whose whole behaviour is pointer state and layout |
+
+The full sweep — **1,110 page loads across 555 routes, English and Arabic, at
+phone width** — passes with no horizontal overflow anywhere.
+
+It found one defect on its first run, and it is the kind only a browser can
+see. Both contact honeypots (the invisible field that a form-filling bot fills
+and thereby identifies itself) were hidden with
+`position:absolute; left:-9999px`. That is the standard trick and it is correct
+in English, where content to the left of the origin creates no scroll. In
+Arabic the overflow region runs the other way, so ten thousand pixels to the
+left became ten thousand pixels of horizontal scroll: `/ar/contact/` scrolled
+sideways by 9,999px on a phone while `/en/contact/` was fine. Both now use the
+site's `.visually-hidden` utility, which clips rather than offsets and has no
+direction to get wrong. The trap still works — the wrapper renders 1×1 with
+`clip:rect(0,0,0,0)`, `elementFromPoint` at the field's centre returns null, and
+the input is still in the DOM for a bot to fill.
+
+## 9. How to re-run all of it
 
 ```
 python3 tools/build.py && python3 tools/build_admin.py
@@ -296,7 +328,16 @@ node tools/domtest.cjs        # 363 site assertions
 node tools/admintest.cjs      #  70 dashboard assertions
 python3 tools/sitemap.py --check
 node tools/seoaudit.cjs       # every published URL's head
+
+python3 tools/serve.py &      # the browser suites need it on :8099
+node tools/siteqa.cjs
+node tools/adminqa.cjs
+node tools/railqa.cjs
 ```
+
+Both builds also refuse to produce a bundle that breaks a rule: a DOM sink
+(`innerHTML` and its relatives), or an interface string missing one of its two
+languages — 323 on the site, 120 in the dashboard.
 
 The role probes in section 1 are SQL and run against the project directly; they
 are reproduced in `supabase/README.md`.
