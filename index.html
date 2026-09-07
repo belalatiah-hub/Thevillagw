@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <!-- frame-ancestors/HSTS belong in HTTP response headers (see deploy runbook), not meta. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'sha256-0eB8s3A3aZQguW+SDJC/YssfCUQj66wY3V7A9qjdeKc=' 'sha256-yI6VCT38V7vjk7cAW7UM7qbGpBU7Ua/f8UOqpzWwxAc=' 'sha256-YvHevJmHHrhBzm9a+K1fYxwv5t1APr4XI8t4Am8p7D4=' 'sha256-RBNvo1WzZ4oRRq0W9+hknpT7T8If536DEMBg9hyq/4o=' 'sha256-7b0pWt//CUjt9bPsMkSy06s9i1BZTfWJnraiAopYcLg=' https://static.cloudflareinsights.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://cloudflareinsights.com; base-uri 'self'; form-action 'self'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'sha256-0eB8s3A3aZQguW+SDJC/YssfCUQj66wY3V7A9qjdeKc=' 'sha256-yI6VCT38V7vjk7cAW7UM7qbGpBU7Ua/f8UOqpzWwxAc=' 'sha256-YvHevJmHHrhBzm9a+K1fYxwv5t1APr4XI8t4Am8p7D4=' 'sha256-RBNvo1WzZ4oRRq0W9+hknpT7T8If536DEMBg9hyq/4o=' 'sha256-hk6wKyxHUHBKAMmuXZU1xMdAmBGiWYlecttUUJRmbtM=' https://static.cloudflareinsights.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://cloudflareinsights.com; base-uri 'self'; form-action 'self'" />
   <meta name="theme-color" content="#073D52" />
   <meta name="color-scheme" content="light" />
   <meta name="format-detection" content="telephone=no" />
@@ -849,7 +849,7 @@ var PROJECTS = [
 {slug:'hacienda-west', name:'Hacienda West', name_ar:'هاسيندا ويست', dev:'palmhills', area:'raselhekma', status:'primary', price:23800000, dp:10, years:7, delivery:'2027', finishing:{en:'Fully finished / core & shell',ar:'تشطيب كامل / خرسانة'}, types:{en:'Chalet · Cabin · Villa',ar:'شاليه · كابين · فيلا'}, tags:{en:['Ras El Hekma','Beachfront'],ar:['رأس الحكمة','واجهة بحرية']}, blurb:{en:'A 132-feddan Palm Hills beach community at Ras El Hekma (Km 208) with a hotel, clubhouse, lagoons and a 400m beach — chalets, cabins and villas. Developer-direct primary units.',ar:'مجتمع بالم هيلز الشاطئي على ١٣٢ فداناً برأس الحكمة (كيلو ٢٠٨) بفندق وكلوب هاوس وبحيرات وشاطئ ٤٠٠ متر — شاليهات وكبائن وفيلات. وحدات أولية من المطوّر مباشرة.'}},
 {slug:'siyal', name:'Siyal', name_ar:'سيال', dev:'orascom', area:'redsea', status:'primary', price:23735000, dp:10, years:7, delivery:'2030', finishing:{en:'Fully finished',ar:'تشطيب كامل'}, types:{en:'Villa · Twin house · Townhouse',ar:'فيلا · توين هاوس · تاون هاوس'}, tags:{en:['Red Sea','Makadi Bay','Lagoons'],ar:['البحر الأحمر','خليج مكادي','بحيرات']}, blurb:{en:'A neighbourhood of 78 homes inside Makadi Heights, built on 82,500 m² with only about 12% of the site covered — the rest given to open landscape, lagoons and communal ground.',ar:'حي من ٧٨ وحدة داخل مدن مكادي هايتس على ٨٢٬٥٠٠ م²، لا تشغل المباني سوى نحو ١٢٪ من الأرض — والباقي مساحات مفتوحة وبحيرات وأماكن مشتركة.'}},
 {slug:'shams-soma', name:'Shams Soma', name_ar:'شمس سوما', dev:'marakez', area:'redsea', status:'primary', price:19500000, dp:10, years:8, delivery:'2030', types:{en:'Villa · Standalone villa · Townhouse · Chalet · Penthouse · Loft',ar:'فيلا · فيلا مستقلة · تاون هاوس · شاليه · بنتهاوس · لوفت'}, tags:{en:['Red Sea','Somabay','700m coastline'],ar:['البحر الأحمر','سوما باي','واجهة بحرية ٧٠٠م']}, blurb:{en:'630 homes and one hotel on 80 feddan inside Somabay, with 700 metres of coastline and two valleys running from the town down to the beach. The homes step down the natural slope of the land so the sea stays in view.',ar:'٦٣٠ وحدة وفندق واحد على ٨٠ فداناً داخل سوما باي، بواجهة بحرية طولها ٧٠٠ متر وواديين ينحدران من المدينة إلى الشاطئ. وتتدرّج الوحدات مع ميل الأرض الطبيعي ليبقى البحر في المشهد.'}},
-{slug:'marassi-red-sea', name:'Marassi Red Sea', name_ar:'مراسي البحر الأحمر', dev:'emaarmisr', area:'redsea', status:'launch', tags:{en:['Red Sea','600 berths','12 hotels'],ar:['البحر الأحمر','٦٠٠ مرسى','١٢ فندقاً']}, blurb:{en:'An Emaar Misr destination on the Red Sea, spanning 2,400 acres. The brochure sets out twelve luxury hotels and serviced residences, three marina experiences with 600 berths, thirty-two residential communities and 1.1 million square metres of waterbodies, alongside four beaches — the Main Beach, Island Beach, Infinity Beach and the Beach Lagoons — and a 1.5-kilometre elevated infinity beach.',ar:'وجهة من إعمار مصر على البحر الأحمر بمساحة ٢٬٤٠٠ أكر. يعرض البروشور اثني عشر فندقاً ومساكن فندقية، وثلاث تجارب مارينا بستمائة مرسى، واثنين وثلاثين مجتمعاً سكنياً، و١٫١ مليون متر مربع من المسطحات المائية، إلى جانب أربعة شواطئ — الشاطئ الرئيسي وشاطئ الجزيرة وشاطئ الإنفينيتي والبحيرات الشاطئية — وشاطئ إنفينيتي مرتفع بطول ١٫٥ كيلومتر.'}},
+{slug:'marassi-red-sea', name:'Marassi Red Sea', name_ar:'مراسي البحر الأحمر', dev:'emaarmisr', area:'redsea', status:'launch', price:28805888, dp:5, years:6, delivery:'2030', types:{en:'Apartment · Townhouse · Villa',ar:'شقة · تاون هاوس · فيلا'}, tags:{en:['Red Sea','600 berths','12 hotels'],ar:['البحر الأحمر','٦٠٠ مرسى','١٢ فندقاً']}, blurb:{en:'An Emaar Misr destination on the Red Sea, spanning 2,400 acres. The brochure sets out twelve luxury hotels and serviced residences, three marina experiences with 600 berths, thirty-two residential communities and 1.1 million square metres of waterbodies, alongside four beaches — the Main Beach, Island Beach, Infinity Beach and the Beach Lagoons — and a 1.5-kilometre elevated infinity beach.',ar:'وجهة من إعمار مصر على البحر الأحمر بمساحة ٢٬٤٠٠ أكر. يعرض البروشور اثني عشر فندقاً ومساكن فندقية، وثلاث تجارب مارينا بستمائة مرسى، واثنين وثلاثين مجتمعاً سكنياً، و١٫١ مليون متر مربع من المسطحات المائية، إلى جانب أربعة شواطئ — الشاطئ الرئيسي وشاطئ الجزيرة وشاطئ الإنفينيتي والبحيرات الشاطئية — وشاطئ إنفينيتي مرتفع بطول ١٫٥ كيلومتر.'}},
 {slug:'ledge-valley', name:'Ledge Valley', name_ar:'ليدج فالي', dev:'orascom', area:'redsea', status:'primary', price:11410000, dp:10, years:7, delivery:'2030', types:{en:'Chalet · Penthouse',ar:'شاليه · بنتهاوس'}, tags:{en:['Red Sea','Makadi Bay','Lagoons','Waterfront'],ar:['البحر الأحمر','خليج مكادي','بحيرات','على الماء']}, blurb:{en:'A waterfront neighbourhood of 274 homes on 91,049 m² inside Makadi Heights, built around expansive lagoons and landscaped open space, with a mix of one to four bedroom residences.',ar:'حي على الماء من ٢٧٤ وحدة على ٩١٬٠٤٩ م² داخل مدن مكادي هايتس، مبني حول بحيرات واسعة ومساحات مفتوحة منسّقة، بوحدات من غرفة إلى أربع غرف.'}}
 ];
 var UNITS = [
@@ -1302,6 +1302,21 @@ var UNITS = [
 {id:'SS-10', project:'shams-soma', type:'Standalone Villa', label:{en:'Type VS1 Single Storey Villa',ar:'VS1 فيلا دور واحد'}, beds:5, baths:8, area:289, price:110000000, dp:10, years:8, handover:'2030'},
 {id:'SS-11', project:'shams-soma', type:'Standalone Villa', label:{en:'Type VS2 Single Storey Villa',ar:'VS2 فيلا دور واحد'}, beds:4, baths:6, area:244, price:95000000, dp:10, years:8, handover:'2030'},
 {id:'SS-12', project:'shams-soma', type:'Standalone Villa', label:{en:'Type VS3 Single Storey Villa',ar:'VS3 فيلا دور واحد'}, beds:3, baths:5, area:194, price:82000000, dp:10, years:8, handover:'2030'},
+{id:'MR-01', project:'marassi-red-sea', type:'Townhouse', label:{en:'TH-1B — Infinity I',ar:'TH-1B — إنفينيتي I'}, beds:3, baths:4, area:164, price:37123888, dp:5, years:6, handover:'2030'},
+{id:'MR-02', project:'marassi-red-sea', type:'Apartment', label:{en:'Unit 10 — Marina Shore Residences',ar:'Unit 10 — مارينا شور ريزيدنسز'}, beds:3, baths:4, area:179, price:38356888, dp:5, years:6, handover:'2030'},
+{id:'MR-03', project:'marassi-red-sea', type:'Apartment', label:{en:'Unit 03 — Marina Shore Residences',ar:'Unit 03 — مارينا شور ريزيدنسز'}, beds:3, baths:4, area:176, price:29342888, dp:5, years:6, handover:'2030'},
+{id:'MR-04', project:'marassi-red-sea', type:'Apartment', label:{en:'Unit 06 — Marina Shore Residences',ar:'Unit 06 — مارينا شور ريزيدنسز'}, beds:3, baths:4, area:171, price:28805888, dp:5, years:6, handover:'2030'},
+{id:'MR-05', project:'marassi-red-sea', type:'Apartment', label:{en:'Unit 07 — Marina Shore Residences',ar:'Unit 07 — مارينا شور ريزيدنسز'}, beds:3, baths:4, area:169, price:32549888, dp:5, years:6, handover:'2030'},
+{id:'MR-06', project:'marassi-red-sea', type:'Villa', label:{en:'R-12 — Island I',ar:'R-12 — آيلاند I'}, beds:7, baths:7, area:647, price:149896888, dp:5, years:6, handover:'2030'},
+{id:'MR-07', project:'marassi-red-sea', type:'Villa', label:{en:'R-4B — Island I',ar:'R-4B — آيلاند I'}, beds:6, baths:6, area:466, price:115548888, dp:5, years:6, handover:'2030'},
+{id:'MR-08', project:'marassi-red-sea', type:'Villa', label:{en:'R-3 — Island I',ar:'R-3 — آيلاند I'}, beds:6, baths:6, area:585, price:133091888, dp:5, years:6, handover:'2030'},
+{id:'MR-09', project:'marassi-red-sea', type:'Villa', label:{en:'R-4A — Island I',ar:'R-4A — آيلاند I'}, beds:6, baths:6, area:455, price:108123888, dp:5, years:6, handover:'2030'},
+{id:'MR-10', project:'marassi-red-sea', type:'Villa', label:{en:'R-1 — Island II',ar:'R-1 — آيلاند II'}, beds:7, baths:7, area:559, price:236597888, dp:5, years:6, handover:'2030'},
+{id:'MR-11', project:'marassi-red-sea', type:'Villa', label:{en:'R-3 — Island II',ar:'R-3 — آيلاند II'}, beds:6, baths:6, area:585, price:133036888, dp:5, years:6, handover:'2030'},
+{id:'MR-12', project:'marassi-red-sea', type:'Villa', label:{en:'R-6B — Horizon III',ar:'R-6B — هورايزون III'}, beds:5, baths:5, area:330, price:101135888, dp:5, years:6, handover:'2030'},
+{id:'MR-13', project:'marassi-red-sea', type:'Villa', label:{en:'R-7 — Horizon III',ar:'R-7 — هورايزون III'}, beds:5, baths:4, area:311, price:77651888, dp:5, years:6, handover:'2030'},
+{id:'MR-14', project:'marassi-red-sea', type:'Villa', label:{en:'R-4B — Infinity I',ar:'R-4B — إنفينيتي I'}, beds:6, baths:6, area:466, price:85426888, dp:5, years:6, handover:'2030'},
+{id:'MR-15', project:'marassi-red-sea', type:'Villa', label:{en:'R-6A — Infinity I',ar:'R-6A — إنفينيتي I'}, beds:5, baths:5, area:345, price:84230888, dp:5, years:6, handover:'2030'},
 ];
 var UNIT_EXTRA={'V-A305':{floor:'high'},'V-TH22':{lvl:2},'SE-T12':{lvl:2},'SE-A44':{floor:'middle'},'ET-D07':{floor:'low',lvl:2},'ET-A12':{floor:'low'},'AL-V03':{lvl:2},'AL-TW6':{lvl:2},'MV-D14':{floor:'low',lvl:2},'FS-A18':{floor:'high'},'IB-V05':{lvl:2},'IB-S02':{floor:'low'},'HP-P03':{floor:'top',roof:true},'CG-A05':{floor:'middle'},'VL-IV3':{floor:'ground',lvl:3},'AL-TV2':{lvl:2},'CS-TH1':{lvl:2},'CS-TW1':{lvl:2}};
 UNITS.forEach(function(u){ var e=UNIT_EXTRA[u.id]; if(e){ for(var k in e){ u[k]=e[k]; } } });
@@ -1513,6 +1528,21 @@ function groupsByDev(k){ return PROJECT_GROUPS.filter(function(g){ return g.dev=
 function groupMembers(g){ return (g?g.members:[]).map(projBySlug).filter(Boolean); }
 function groupFrom(g){ var m=groupMembers(g).map(function(p){return p.price;}).filter(function(x){return x!=null;}); return m.length?Math.min.apply(null,m):null; }
 var UNIT_IMAGES = {
+'MR-01':'/project-media/emaarmisr/marassi-red-sea/units/th1-marasi0infinity-0.webp',
+'MR-02':'/project-media/emaarmisr/marassi-red-sea/units/ap1-marina-shore-2.webp',
+'MR-03':'/project-media/emaarmisr/marassi-red-sea/units/ap1-marina-shore-2.webp',
+'MR-04':'/project-media/emaarmisr/marassi-red-sea/units/ap1-marina-shore-4.webp',
+'MR-05':'/project-media/emaarmisr/marassi-red-sea/units/ap1-marina-shore-4.webp',
+'MR-06':'/project-media/emaarmisr/marassi-red-sea/units/v1-island-0.webp',
+'MR-07':'/project-media/emaarmisr/marassi-red-sea/units/v2-island-0.webp',
+'MR-08':'/project-media/emaarmisr/marassi-red-sea/units/v3-island-0.webp',
+'MR-09':'/project-media/emaarmisr/marassi-red-sea/units/v4-island-0.webp',
+'MR-10':'/project-media/emaarmisr/marassi-red-sea/units/v5-island-0.webp',
+'MR-11':'/project-media/emaarmisr/marassi-red-sea/units/v6-island-0.webp',
+'MR-12':'/project-media/emaarmisr/marassi-red-sea/units/v1-horizon-0.webp',
+'MR-13':'/project-media/emaarmisr/marassi-red-sea/units/v2-horizon-0.webp',
+'MR-14':'/project-media/emaarmisr/marassi-red-sea/units/v2-infinity-0.webp',
+'MR-15':'/project-media/emaarmisr/marassi-red-sea/units/v3-infinity-0.webp',
 'SS-01':'/project-media/marakez/shams-soma/units/v1-shams-soma-0.webp',
 'SS-02':'/project-media/marakez/shams-soma/units/v2-shams-soma-0.webp',
 'SS-03':'/project-media/marakez/shams-soma/units/pent-shams-soma-0.webp',
@@ -1918,6 +1948,21 @@ var UNIT_IMAGES = {
 'SL-SV15':'/project-media/hassan-allam/sl-sv15-r1.webp',
 };
 var UNIT_GALLERY = {
+'MR-01':['/project-media/emaarmisr/marassi-red-sea/units/th1-marasi0infinity-0.webp', '/project-media/emaarmisr/marassi-red-sea/units/th1-marasi0infinity-1.webp', '/project-media/emaarmisr/marassi-red-sea/units/th1-marasi0infinity-2.webp', '/project-media/emaarmisr/marassi-red-sea/units/th1-marasi0infinity-3.webp', '/project-media/emaarmisr/marassi-red-sea/units/th1-marasi0infinity-4.webp'],
+'MR-02':['/project-media/emaarmisr/marassi-red-sea/units/ap1-marina-shore-2.webp', '/project-media/emaarmisr/marassi-red-sea/units/ap1-marina-shore-3.webp', '/project-media/emaarmisr/marassi-red-sea/units/ap1-marina-shore-4.webp'],
+'MR-03':['/project-media/emaarmisr/marassi-red-sea/units/ap1-marina-shore-2.webp', '/project-media/emaarmisr/marassi-red-sea/units/ap1-marina-shore-3.webp', '/project-media/emaarmisr/marassi-red-sea/units/ap1-marina-shore-4.webp'],
+'MR-04':['/project-media/emaarmisr/marassi-red-sea/units/ap1-marina-shore-4.webp', '/project-media/emaarmisr/marassi-red-sea/units/ap1-marina-shore-2.webp', '/project-media/emaarmisr/marassi-red-sea/units/ap1-marina-shore-3.webp'],
+'MR-05':['/project-media/emaarmisr/marassi-red-sea/units/ap1-marina-shore-4.webp', '/project-media/emaarmisr/marassi-red-sea/units/ap1-marina-shore-2.webp', '/project-media/emaarmisr/marassi-red-sea/units/ap1-marina-shore-3.webp'],
+'MR-06':['/project-media/emaarmisr/marassi-red-sea/units/v1-island-0.webp', '/project-media/emaarmisr/marassi-red-sea/units/v1-island-1.webp'],
+'MR-07':['/project-media/emaarmisr/marassi-red-sea/units/v2-island-0.webp', '/project-media/emaarmisr/marassi-red-sea/units/v2-island-1.webp'],
+'MR-08':['/project-media/emaarmisr/marassi-red-sea/units/v3-island-0.webp', '/project-media/emaarmisr/marassi-red-sea/units/v3-island-1.webp'],
+'MR-09':['/project-media/emaarmisr/marassi-red-sea/units/v4-island-0.webp', '/project-media/emaarmisr/marassi-red-sea/units/v4-island-1.webp'],
+'MR-10':['/project-media/emaarmisr/marassi-red-sea/units/v5-island-0.webp', '/project-media/emaarmisr/marassi-red-sea/units/v5-island-1.webp'],
+'MR-11':['/project-media/emaarmisr/marassi-red-sea/units/v6-island-0.webp', '/project-media/emaarmisr/marassi-red-sea/units/v6-island-1.webp'],
+'MR-12':['/project-media/emaarmisr/marassi-red-sea/units/v1-horizon-0.webp'],
+'MR-13':['/project-media/emaarmisr/marassi-red-sea/units/v2-horizon-0.webp', '/project-media/emaarmisr/marassi-red-sea/units/v2-horizon-1.webp'],
+'MR-14':['/project-media/emaarmisr/marassi-red-sea/units/v2-infinity-0.webp', '/project-media/emaarmisr/marassi-red-sea/units/v2-infinity-1.webp'],
+'MR-15':['/project-media/emaarmisr/marassi-red-sea/units/v3-infinity-0.webp', '/project-media/emaarmisr/marassi-red-sea/units/v3-infinity-1.webp'],
 'SS-01':['/project-media/marakez/shams-soma/units/v1-shams-soma-0.webp', '/project-media/marakez/shams-soma/units/v1-shams-soma-1.webp', '/project-media/marakez/shams-soma/units/v1-shams-soma-2.webp', '/project-media/marakez/shams-soma/units/v1-shams-soma-3.webp'],
 'SS-02':['/project-media/marakez/shams-soma/units/v2-shams-soma-0.webp', '/project-media/marakez/shams-soma/units/v2-shams-soma-1.webp', '/project-media/marakez/shams-soma/units/v2-shams-soma-2.webp'],
 'SS-03':['/project-media/marakez/shams-soma/units/pent-shams-soma-0.webp', '/project-media/marakez/shams-soma/units/pent-shams-soma-1.webp', '/project-media/marakez/shams-soma/units/pent-shams-soma-2.webp'],
@@ -2312,6 +2357,21 @@ elgouna:'elgouna.webp', somabay:'somabay.webp'
 function areaImageSrc(key){ return (key && AREA_IMAGES[key]) ? (LOC_BASE+AREA_IMAGES[key]) : ''; }
 var PLANS_BASE = '/project-media/plans/';
 var UNIT_MASTERPLANS = {
+'MR-01':['/project-media/emaarmisr/marassi-red-sea/units/mp-marasi-infinity.webp'],
+'MR-02':['/project-media/emaarmisr/marassi-red-sea/units/mp-marina-shore.webp'],
+'MR-03':['/project-media/emaarmisr/marassi-red-sea/units/mp-marina-shore.webp'],
+'MR-04':['/project-media/emaarmisr/marassi-red-sea/units/mp-marina-shore.webp'],
+'MR-05':['/project-media/emaarmisr/marassi-red-sea/units/mp-marina-shore.webp'],
+'MR-06':['/project-media/emaarmisr/marassi-red-sea/units/mp-island.webp'],
+'MR-07':['/project-media/emaarmisr/marassi-red-sea/units/mp-island.webp'],
+'MR-08':['/project-media/emaarmisr/marassi-red-sea/units/mp-island.webp'],
+'MR-09':['/project-media/emaarmisr/marassi-red-sea/units/mp-island.webp'],
+'MR-10':['/project-media/emaarmisr/marassi-red-sea/units/mp-island.webp'],
+'MR-11':['/project-media/emaarmisr/marassi-red-sea/units/mp-island.webp'],
+'MR-12':['/project-media/emaarmisr/marassi-red-sea/units/mp-horizon.webp'],
+'MR-13':['/project-media/emaarmisr/marassi-red-sea/units/mp-horizon.webp'],
+'MR-14':['/project-media/emaarmisr/marassi-red-sea/units/mp-marasi-infinity.webp'],
+'MR-15':['/project-media/emaarmisr/marassi-red-sea/units/mp-marasi-infinity.webp'],
 'SS-01':['/project-media/marakez/shams-soma/units/master-plan-shams-soma.webp', '/project-media/marakez/shams-soma/units/master-plan-shams-soma-2.webp'],
 'SS-02':['/project-media/marakez/shams-soma/units/master-plan-shams-soma.webp', '/project-media/marakez/shams-soma/units/master-plan-shams-soma-2.webp'],
 'SS-03':['/project-media/marakez/shams-soma/units/master-plan-shams-soma.webp', '/project-media/marakez/shams-soma/units/master-plan-shams-soma-2.webp'],
@@ -2702,6 +2762,21 @@ var UNIT_MASTERPLANS = {
 'SL-SV15':["/project-media/hassan-allam/sl-sv15-mp1.webp"],
 };
 var UNIT_FLOORPLANS = {
+'MR-01':['/project-media/emaarmisr/marassi-red-sea/units/fp-marasi-infinity.webp'],
+'MR-02':['/project-media/emaarmisr/marassi-red-sea/units/fp-ap1-marina-shore.webp'],
+'MR-03':['/project-media/emaarmisr/marassi-red-sea/units/fp-ap2-marina-shore.webp'],
+'MR-04':['/project-media/emaarmisr/marassi-red-sea/units/fp-ap3-marina-shore.webp'],
+'MR-05':['/project-media/emaarmisr/marassi-red-sea/units/fp-ap4-marina-shore.webp'],
+'MR-06':['/project-media/emaarmisr/marassi-red-sea/units/fp-v1-island.webp'],
+'MR-07':['/project-media/emaarmisr/marassi-red-sea/units/fp-v2-island.webp'],
+'MR-08':['/project-media/emaarmisr/marassi-red-sea/units/fp-v3-island.webp'],
+'MR-09':['/project-media/emaarmisr/marassi-red-sea/units/fp-v4-island.webp'],
+'MR-10':['/project-media/emaarmisr/marassi-red-sea/units/fp-v5-island.webp'],
+'MR-11':['/project-media/emaarmisr/marassi-red-sea/units/fp-v6-island.webp'],
+'MR-12':['/project-media/emaarmisr/marassi-red-sea/units/fp-v1-horizon.webp'],
+'MR-13':['/project-media/emaarmisr/marassi-red-sea/units/fp-v2-horizon.webp'],
+'MR-14':['/project-media/emaarmisr/marassi-red-sea/units/fp-v2-marasi-infinity.webp'],
+'MR-15':['/project-media/emaarmisr/marassi-red-sea/units/fp-v3-marasi-infinity.webp'],
 'SS-01':['/project-media/marakez/shams-soma/units/fp-v1-shams-soma.webp'],
 'SS-02':['/project-media/marakez/shams-soma/units/fp-v2-shams-soma.webp'],
 'SS-03':['/project-media/marakez/shams-soma/units/fp-pent-shams-soma.webp'],
@@ -3075,6 +3150,21 @@ var UNIT_FLOORPLANS = {
 'SL-SV15':["/project-media/hassan-allam/sl-sv15-fp1.webp"],
 };
 var UNIT_LOCATIONS = {
+'MR-01':['/project-media/emaarmisr/marassi-red-sea/units/location-marasi.webp'],
+'MR-02':['/project-media/emaarmisr/marassi-red-sea/units/location-marasi.webp'],
+'MR-03':['/project-media/emaarmisr/marassi-red-sea/units/location-marasi.webp'],
+'MR-04':['/project-media/emaarmisr/marassi-red-sea/units/location-marasi.webp'],
+'MR-05':['/project-media/emaarmisr/marassi-red-sea/units/location-marasi.webp'],
+'MR-06':['/project-media/emaarmisr/marassi-red-sea/units/location-marasi.webp'],
+'MR-07':['/project-media/emaarmisr/marassi-red-sea/units/location-marasi.webp'],
+'MR-08':['/project-media/emaarmisr/marassi-red-sea/units/location-marasi.webp'],
+'MR-09':['/project-media/emaarmisr/marassi-red-sea/units/location-marasi.webp'],
+'MR-10':['/project-media/emaarmisr/marassi-red-sea/units/location-marasi.webp'],
+'MR-11':['/project-media/emaarmisr/marassi-red-sea/units/location-marasi.webp'],
+'MR-12':['/project-media/emaarmisr/marassi-red-sea/units/location-marasi.webp'],
+'MR-13':['/project-media/emaarmisr/marassi-red-sea/units/location-marasi.webp'],
+'MR-14':['/project-media/emaarmisr/marassi-red-sea/units/location-marasi.webp'],
+'MR-15':['/project-media/emaarmisr/marassi-red-sea/units/location-marasi.webp'],
 'SS-01':['/project-media/marakez/shams-soma/units/location-shams-soma-1.webp'],
 'SS-02':['/project-media/marakez/shams-soma/units/location-shams-soma-1.webp'],
 'SS-03':['/project-media/marakez/shams-soma/units/location-shams-soma-1.webp'],

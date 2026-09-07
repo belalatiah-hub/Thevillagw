@@ -65,7 +65,22 @@ from (values
   ('SS-09','shams-soma','Loft','LF-1B Loft','LF-1B لوفت',2,3,123,null,23500000,10,8,'2030',null,'available'),
   ('SS-10','shams-soma','Standalone Villa','Type VS1 Single Storey Villa','VS1 فيلا دور واحد',5,8,289,null,110000000,10,8,'2030',null,'available'),
   ('SS-11','shams-soma','Standalone Villa','Type VS2 Single Storey Villa','VS2 فيلا دور واحد',4,6,244,null,95000000,10,8,'2030',null,'available'),
-  ('SS-12','shams-soma','Standalone Villa','Type VS3 Single Storey Villa','VS3 فيلا دور واحد',3,5,194,null,82000000,10,8,'2030',null,'available')
+  ('SS-12','shams-soma','Standalone Villa','Type VS3 Single Storey Villa','VS3 فيلا دور واحد',3,5,194,null,82000000,10,8,'2030',null,'available'),
+  ('MR-01','marassi-red-sea','Townhouse','TH-1B — Infinity I','TH-1B — إنفينيتي I',3,4,164,null,37123888,5,6,'2030',null,'available'),
+  ('MR-02','marassi-red-sea','Apartment','Unit 10 — Marina Shore Residences','Unit 10 — مارينا شور ريزيدنسز',3,4,179,null,38356888,5,6,'2030',null,'available'),
+  ('MR-03','marassi-red-sea','Apartment','Unit 03 — Marina Shore Residences','Unit 03 — مارينا شور ريزيدنسز',3,4,176,null,29342888,5,6,'2030',null,'available'),
+  ('MR-04','marassi-red-sea','Apartment','Unit 06 — Marina Shore Residences','Unit 06 — مارينا شور ريزيدنسز',3,4,171,null,28805888,5,6,'2030',null,'available'),
+  ('MR-05','marassi-red-sea','Apartment','Unit 07 — Marina Shore Residences','Unit 07 — مارينا شور ريزيدنسز',3,4,169,null,32549888,5,6,'2030',null,'available'),
+  ('MR-06','marassi-red-sea','Villa','R-12 — Island I','R-12 — آيلاند I',7,7,647,null,149896888,5,6,'2030',null,'available'),
+  ('MR-07','marassi-red-sea','Villa','R-4B — Island I','R-4B — آيلاند I',6,6,466,null,115548888,5,6,'2030',null,'available'),
+  ('MR-08','marassi-red-sea','Villa','R-3 — Island I','R-3 — آيلاند I',6,6,585,null,133091888,5,6,'2030',null,'available'),
+  ('MR-09','marassi-red-sea','Villa','R-4A — Island I','R-4A — آيلاند I',6,6,455,null,108123888,5,6,'2030',null,'available'),
+  ('MR-10','marassi-red-sea','Villa','R-1 — Island II','R-1 — آيلاند II',7,7,559,null,236597888,5,6,'2030',null,'available'),
+  ('MR-11','marassi-red-sea','Villa','R-3 — Island II','R-3 — آيلاند II',6,6,585,null,133036888,5,6,'2030',null,'available'),
+  ('MR-12','marassi-red-sea','Villa','R-6B — Horizon III','R-6B — هورايزون III',5,5,330,null,101135888,5,6,'2030',null,'available'),
+  ('MR-13','marassi-red-sea','Villa','R-7 — Horizon III','R-7 — هورايزون III',5,4,311,null,77651888,5,6,'2030',null,'available'),
+  ('MR-14','marassi-red-sea','Villa','R-4B — Infinity I','R-4B — إنفينيتي I',6,6,466,null,85426888,5,6,'2030',null,'available'),
+  ('MR-15','marassi-red-sea','Villa','R-6A — Infinity I','R-6A — إنفينيتي I',5,5,345,null,84230888,5,6,'2030',null,'available')
 ) as v(unit_code, project_slug, unit_type_en, label_en, label_ar, bedrooms, bathrooms,
        bua, bua_to, price, dp, years, delivery_label, floor, availability)
 join cms.projects p on p.slug = v.project_slug

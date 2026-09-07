@@ -14,6 +14,7 @@ from (values
   ('/project-media/' || 'beitalbahr/units/v1-01-roo.webp','cover',0,array['bab-roots']),
   ('/project-media/' || 'caesar/villa.webp','cover',0,array['caesar-north-coast']),
   ('/project-media/' || 'eastown/apartment.webp','cover',0,array['eastown']),
+  ('/project-media/' || 'emaarmisr/marassi-red-sea/hero.webp','cover',0,array['marassi-red-sea']),
   ('/project-media/' || 'hassan-allam/ap-of1-r1.webp','cover',0,array['ampm-swanlake']),
   ('/project-media/' || 'hassan-allam/gl-ap1-r1.webp','cover',0,array['the-great-lawn']),
   ('/project-media/' || 'hassan-allam/pc-ap1-r1.webp','cover',0,array['park-central']),

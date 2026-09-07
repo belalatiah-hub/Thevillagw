@@ -197,14 +197,19 @@
     {slug:'shams-soma', name:'Shams Soma', name_ar:'شمس سوما', dev:'marakez', area:'redsea', status:'primary', price:19500000, dp:10, years:8, delivery:'2030', types:{en:'Villa · Standalone villa · Townhouse · Chalet · Penthouse · Loft',ar:'فيلا · فيلا مستقلة · تاون هاوس · شاليه · بنتهاوس · لوفت'}, tags:{en:['Red Sea','Somabay','700m coastline'],ar:['البحر الأحمر','سوما باي','واجهة بحرية ٧٠٠م']}, blurb:{en:'630 homes and one hotel on 80 feddan inside Somabay, with 700 metres of coastline and two valleys running from the town down to the beach. The homes step down the natural slope of the land so the sea stays in view.',ar:'٦٣٠ وحدة وفندق واحد على ٨٠ فداناً داخل سوما باي، بواجهة بحرية طولها ٧٠٠ متر وواديين ينحدران من المدينة إلى الشاطئ. وتتدرّج الوحدات مع ميل الأرض الطبيعي ليبقى البحر في المشهد.'}},
     /* Emaar Misr — Marassi Red Sea. The brochure supplied is 30 pages of an
        eighteen-section document and stops after section 04, so it carries no
-       price, no payment plan, no unit type, no area and no handover date.
-       Those fields are therefore absent rather than estimated, the way Jirian
-       and LVLS are. Every figure below is printed in the brochure: 2,400
+       price and no unit schedule; those come from the client price sheet
+       instead, which lists sixteen rows across five phases — Infinity I,
+       Marina Shore Residences, Island I, Island II and Horizon III — all on
+       5% down over 6 years with availability 2030. The card price is the
+       cheapest of them, not a figure chosen for the card. Row 16 of the sheet
+       repeats row 15 exactly and carries no images, plans or bathroom count,
+       so it is held back pending the developer's confirmation and fifteen are
+       loaded. Every figure in the blurb is printed in the brochure: 2,400
        acres (its own unit — the figures page states the same land twice, as
        "10 Million SQM", so neither is converted into the other here), 12
        hotels, 600 berths, 32 communities, 1.1 million sqm of waterbodies,
        four named beaches and the 1.5 km elevated infinity beach. */
-    {slug:'marassi-red-sea', name:'Marassi Red Sea', name_ar:'مراسي البحر الأحمر', dev:'emaarmisr', area:'redsea', status:'launch', tags:{en:['Red Sea','600 berths','12 hotels'],ar:['البحر الأحمر','٦٠٠ مرسى','١٢ فندقاً']}, blurb:{en:'An Emaar Misr destination on the Red Sea, spanning 2,400 acres. The brochure sets out twelve luxury hotels and serviced residences, three marina experiences with 600 berths, thirty-two residential communities and 1.1 million square metres of waterbodies, alongside four beaches — the Main Beach, Island Beach, Infinity Beach and the Beach Lagoons — and a 1.5-kilometre elevated infinity beach.',ar:'وجهة من إعمار مصر على البحر الأحمر بمساحة ٢٬٤٠٠ أكر. يعرض البروشور اثني عشر فندقاً ومساكن فندقية، وثلاث تجارب مارينا بستمائة مرسى، واثنين وثلاثين مجتمعاً سكنياً، و١٫١ مليون متر مربع من المسطحات المائية، إلى جانب أربعة شواطئ — الشاطئ الرئيسي وشاطئ الجزيرة وشاطئ الإنفينيتي والبحيرات الشاطئية — وشاطئ إنفينيتي مرتفع بطول ١٫٥ كيلومتر.'}},
+    {slug:'marassi-red-sea', name:'Marassi Red Sea', name_ar:'مراسي البحر الأحمر', dev:'emaarmisr', area:'redsea', status:'launch', price:28805888, dp:5, years:6, delivery:'2030', types:{en:'Apartment · Townhouse · Villa',ar:'شقة · تاون هاوس · فيلا'}, tags:{en:['Red Sea','600 berths','12 hotels'],ar:['البحر الأحمر','٦٠٠ مرسى','١٢ فندقاً']}, blurb:{en:'An Emaar Misr destination on the Red Sea, spanning 2,400 acres. The brochure sets out twelve luxury hotels and serviced residences, three marina experiences with 600 berths, thirty-two residential communities and 1.1 million square metres of waterbodies, alongside four beaches — the Main Beach, Island Beach, Infinity Beach and the Beach Lagoons — and a 1.5-kilometre elevated infinity beach.',ar:'وجهة من إعمار مصر على البحر الأحمر بمساحة ٢٬٤٠٠ أكر. يعرض البروشور اثني عشر فندقاً ومساكن فندقية، وثلاث تجارب مارينا بستمائة مرسى، واثنين وثلاثين مجتمعاً سكنياً، و١٫١ مليون متر مربع من المسطحات المائية، إلى جانب أربعة شواطئ — الشاطئ الرئيسي وشاطئ الجزيرة وشاطئ الإنفينيتي والبحيرات الشاطئية — وشاطئ إنفينيتي مرتفع بطول ١٫٥ كيلومتر.'}},
     /* Orascom Development — Ledge Valley, the second Makadi Heights
        neighbourhood. Only sections 01-07 of the brochure's twelve were
        supplied, so The Valley Collection, the finishing specifications and
@@ -724,6 +729,31 @@
     {id:'SS-10', project:'shams-soma', type:'Standalone Villa', label:{en:'Type VS1 Single Storey Villa',ar:'VS1 فيلا دور واحد'}, beds:5, baths:8, area:289, price:110000000, dp:10, years:8, handover:'2030'},
     {id:'SS-11', project:'shams-soma', type:'Standalone Villa', label:{en:'Type VS2 Single Storey Villa',ar:'VS2 فيلا دور واحد'}, beds:4, baths:6, area:244, price:95000000, dp:10, years:8, handover:'2030'},
     {id:'SS-12', project:'shams-soma', type:'Standalone Villa', label:{en:'Type VS3 Single Storey Villa',ar:'VS3 فيلا دور واحد'}, beds:3, baths:5, area:194, price:82000000, dp:10, years:8, handover:'2030'},
+    /* Emaar Misr — Marassi Red Sea, from the client price sheet. Fifteen of
+       its sixteen rows: the sixteenth repeats the fifteenth exactly (villa,
+       5 bed, 345 m², 84,230,888) and carries no bathroom count, no images and
+       no plans, so it is held back rather than published as a second listing
+       of the same product. Codes are the developer's own, read off the floor
+       plan supplied with each unit; the plans agree with the sheet on area and
+       bedrooms throughout. Rows keep the sheet's order. Two of the sheet's
+       image ids are in neither archive — ap1-marina shore-0, named by all four
+       Marina Shore apartments, and v1-horizon-1 — so those units carry one
+       render fewer than the sheet lists. */
+    {id:'MR-01', project:'marassi-red-sea', type:'Townhouse', label:{en:'TH-1B — Infinity I',ar:'TH-1B — إنفينيتي I'}, beds:3, baths:4, area:164, price:37123888, dp:5, years:6, handover:'2030'},
+    {id:'MR-02', project:'marassi-red-sea', type:'Apartment', label:{en:'Unit 10 — Marina Shore Residences',ar:'Unit 10 — مارينا شور ريزيدنسز'}, beds:3, baths:4, area:179, price:38356888, dp:5, years:6, handover:'2030'},
+    {id:'MR-03', project:'marassi-red-sea', type:'Apartment', label:{en:'Unit 03 — Marina Shore Residences',ar:'Unit 03 — مارينا شور ريزيدنسز'}, beds:3, baths:4, area:176, price:29342888, dp:5, years:6, handover:'2030'},
+    {id:'MR-04', project:'marassi-red-sea', type:'Apartment', label:{en:'Unit 06 — Marina Shore Residences',ar:'Unit 06 — مارينا شور ريزيدنسز'}, beds:3, baths:4, area:171, price:28805888, dp:5, years:6, handover:'2030'},
+    {id:'MR-05', project:'marassi-red-sea', type:'Apartment', label:{en:'Unit 07 — Marina Shore Residences',ar:'Unit 07 — مارينا شور ريزيدنسز'}, beds:3, baths:4, area:169, price:32549888, dp:5, years:6, handover:'2030'},
+    {id:'MR-06', project:'marassi-red-sea', type:'Villa', label:{en:'R-12 — Island I',ar:'R-12 — آيلاند I'}, beds:7, baths:7, area:647, price:149896888, dp:5, years:6, handover:'2030'},
+    {id:'MR-07', project:'marassi-red-sea', type:'Villa', label:{en:'R-4B — Island I',ar:'R-4B — آيلاند I'}, beds:6, baths:6, area:466, price:115548888, dp:5, years:6, handover:'2030'},
+    {id:'MR-08', project:'marassi-red-sea', type:'Villa', label:{en:'R-3 — Island I',ar:'R-3 — آيلاند I'}, beds:6, baths:6, area:585, price:133091888, dp:5, years:6, handover:'2030'},
+    {id:'MR-09', project:'marassi-red-sea', type:'Villa', label:{en:'R-4A — Island I',ar:'R-4A — آيلاند I'}, beds:6, baths:6, area:455, price:108123888, dp:5, years:6, handover:'2030'},
+    {id:'MR-10', project:'marassi-red-sea', type:'Villa', label:{en:'R-1 — Island II',ar:'R-1 — آيلاند II'}, beds:7, baths:7, area:559, price:236597888, dp:5, years:6, handover:'2030'},
+    {id:'MR-11', project:'marassi-red-sea', type:'Villa', label:{en:'R-3 — Island II',ar:'R-3 — آيلاند II'}, beds:6, baths:6, area:585, price:133036888, dp:5, years:6, handover:'2030'},
+    {id:'MR-12', project:'marassi-red-sea', type:'Villa', label:{en:'R-6B — Horizon III',ar:'R-6B — هورايزون III'}, beds:5, baths:5, area:330, price:101135888, dp:5, years:6, handover:'2030'},
+    {id:'MR-13', project:'marassi-red-sea', type:'Villa', label:{en:'R-7 — Horizon III',ar:'R-7 — هورايزون III'}, beds:5, baths:4, area:311, price:77651888, dp:5, years:6, handover:'2030'},
+    {id:'MR-14', project:'marassi-red-sea', type:'Villa', label:{en:'R-4B — Infinity I',ar:'R-4B — إنفينيتي I'}, beds:6, baths:6, area:466, price:85426888, dp:5, years:6, handover:'2030'},
+    {id:'MR-15', project:'marassi-red-sea', type:'Villa', label:{en:'R-6A — Infinity I',ar:'R-6A — إنفينيتي I'}, beds:5, baths:5, area:345, price:84230888, dp:5, years:6, handover:'2030'},
   ];
   // Floor / internal-level enrichment (illustrative). Units without a floor
   // remain "floor to confirm" and never pass a strict floor filter.

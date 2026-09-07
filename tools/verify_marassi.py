@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
 """Prove the Marassi card reproduces the brochure and does not redraw it.
 
+This covers the card's *brochure* pictures only — the cover and the thirty
+pages. The unit renders, floor plans and master plans beside them come from
+the client archives rather than the PDF, and are checked by
+tools/verify_marassi_units.py, which asserts them against the price sheet.
+
 The brief for that card was that the brochure is the only source: no picture
 replaced with a stock shot, no page recoloured, nothing lifted from another
 project. That is a claim about bytes, so it is checked against bytes rather
@@ -138,6 +143,8 @@ def main():
           ('', 'page', 'cut of the page', 'size', 'drift', 'tint'))
     suspect = 0
     for token, uri in pictures():
+        if token.startswith('U_'):
+            continue                       # a unit picture; not from the PDF
         if token not in CROPS:
             print('%-7s  no provenance recorded' % token)
             suspect += 1
@@ -155,7 +162,7 @@ def main():
             'x %.2f-%.2f  y %.2f-%.2f' % (box[0], box[2], box[1], box[3]),
             '%dx%d' % got.size, drift, tint, '   SUSPECT' if bad else ''))
 
-    print('\n%d pictures, %d suspect' % (len(CROPS), suspect))
+    print('\n%d brochure pictures, %d suspect' % (len(CROPS), suspect))
     return 1 if suspect else 0
 
 

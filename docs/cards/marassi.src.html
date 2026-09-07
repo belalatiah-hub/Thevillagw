@@ -259,6 +259,67 @@
     margin-top:16px;
   }
 
+  /* --------------------------------------- price table */
+  /* Eight columns will not fit a phone, and the card clips its own overflow,
+     so the table scrolls inside this box rather than losing its price column
+     off the right edge. */
+  .variants{overflow-x:auto; margin-top:clamp(20px,3vw,28px); -webkit-overflow-scrolling:touch}
+  .variants table{width:100%; border-collapse:collapse; min-width:640px}
+  .variants th, .variants td{
+    padding:10px 14px 10px 0; border-bottom:1px solid var(--rule-soft);
+    text-align:end; font-size:13.5px; font-weight:400; color:var(--teal-2);
+  }
+  .variants th:first-child, .variants td:first-child,
+  .variants th:nth-child(2), .variants td:nth-child(2){text-align:start}
+  .variants td:nth-child(3){font-weight:600; color:var(--teal)}
+  .variants td:last-child{font-weight:500; color:var(--teal); white-space:nowrap}
+  .variants thead th{
+    font-size:9.5px; font-weight:600; letter-spacing:.17em; text-transform:uppercase;
+    color:var(--teal-3); border-bottom:1px solid var(--rule); white-space:nowrap;
+  }
+  .variants tbody tr:last-child td{border-bottom:0}
+
+  /* ------------------------------------------- unit list */
+  /* One block per unit, in the sheet's order. Two columns on a wide screen so
+     sixteen of them do not run to an unreadable length, one on a phone. */
+  .units{display:grid; gap:clamp(26px,3.4vw,38px); margin-top:clamp(22px,3vw,30px)}
+  @media(min-width:900px){ .units{grid-template-columns:1fr 1fr} }
+  .unit{
+    background:#fff; border:1px solid var(--rule-soft);
+    padding:clamp(18px,2.6vw,26px); display:flex; flex-direction:column;
+  }
+  .unit-head{
+    display:flex; align-items:baseline; justify-content:space-between; gap:14px;
+    padding-bottom:12px; margin-bottom:12px; border-bottom:1px solid var(--rule);
+  }
+  .unit-head .kicker{margin:0 0 4px}
+  .unit h3{margin:0; font-size:clamp(1.2rem,2.3vw,1.5rem)}
+  .unit h3 em{font-style:normal; font-size:.62em; color:var(--teal-3); font-family:var(--sans)}
+  .unit-price{
+    font-family:var(--serif); font-weight:400; font-size:clamp(1.05rem,2.1vw,1.3rem);
+    color:var(--teal); white-space:nowrap; text-align:end;
+  }
+  .unit-price span{font-family:var(--sans); font-size:9.5px; font-weight:600;
+    letter-spacing:.18em; color:var(--teal-3); display:block; margin-top:2px}
+  .unit .rows th{width:52%}
+  .unit .fine{font-size:11.5px; margin-top:14px}
+  /* The renders keep the order the sheet gives them, so the grid fills in
+     document order and is never re-flowed by size. */
+  .shots{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:16px}
+  .shots img{width:100%; aspect-ratio:16/9; object-fit:cover}
+  .shots img:first-child:nth-last-child(odd){grid-column:1 / -1; aspect-ratio:16/8}
+  .plan-shot{margin-top:16px; padding-top:16px; border-top:1px solid var(--rule-soft)}
+  .plan-shot img{width:100%}
+  .plan-shot figcaption{
+    font-size:10px; letter-spacing:.15em; text-transform:uppercase; color:var(--teal-3);
+    margin-top:8px;
+  }
+  .maps figure figcaption{
+    font-size:11px; letter-spacing:.13em; text-transform:uppercase; color:var(--teal-3);
+    margin-top:9px;
+  }
+  .missing li span{white-space:nowrap}
+
   /* ------------------------------------------------- footer */
   footer{border-top:1px solid var(--rule); padding-block:clamp(26px,4vw,40px); background:var(--paper-2)}
   footer p{max-width:none}
@@ -301,28 +362,30 @@
     </div>
     <div class="two wide-first">
       <div>
-        <p class="lead">Every word, number and picture on this card comes from one file: the
-          Marassi Red Sea brochure by Emaar Misr, as supplied &mdash; <strong>30 pages</strong>.</p>
+        <p class="lead">This card has two sources, and every part of it says which one it came
+          from. The narrative and the destination photography are the <strong>Marassi Red Sea
+          brochure</strong> by Emaar Misr, as supplied &mdash; 30 pages. The units, prices, areas
+          and payment terms are the <strong>developer&rsquo;s price list</strong>, as supplied in
+          the client sheet, with its own unit renders and floor plans.</p>
         <p>The brochure&rsquo;s own contents page lists <strong>18 sections</strong>. The 30 pages
           supplied carry sections <strong>01 to 04</strong> and stop there. Sections 05 to 18 &mdash;
-          which include <em>The Homes</em> &mdash; are not in the file.</p>
-        <p>Nothing here has been calculated, rounded, completed from memory, or taken from any other
-          source. Where the brochure is silent, this card says so in those words.</p>
-        <p class="fine">The eight items opposite appear nowhere in the 30 pages supplied &mdash; not in
-          the body copy, not in a footnote, not in fine print at the foot of any page. They are
-          expected in section 17, <em>The Homes</em>, which the file does not reach.</p>
+          which include <em>The Homes</em> &mdash; are not in the file, which is why the sixteen
+          units below come from the price list rather than from the brochure.</p>
+        <p class="fine">Nothing here has been calculated, rounded, completed from memory, or
+          taken from any source other than these two. Where both are silent &mdash; maintenance and
+          club fees, finishing specification &mdash; this card says so rather than filling the gap.</p>
       </div>
       <div class="gap">
-        <h3>Not mentioned in the brochure</h3>
+        <h3>Which source answers what</h3>
         <ul class="missing">
-          <li>Prices <span>Not mentioned</span></li>
-          <li>Payment plans <span>Not mentioned</span></li>
-          <li>Down payment <span>Not mentioned</span></li>
-          <li>Unit types <span>Not mentioned</span></li>
-          <li>Unit areas <span>Not mentioned</span></li>
-          <li>Number of bedrooms <span>Not mentioned</span></li>
-          <li>Delivery / handover date <span>Not mentioned</span></li>
-          <li>Maintenance or club fees <span>Not mentioned</span></li>
+          <li>Prices <span>price list</span></li>
+          <li>Payment plan &amp; down payment <span>price list</span></li>
+          <li>Unit types, areas, bedrooms <span>price list</span></li>
+          <li>Unit codes, floors, floor plans <span>developer&rsquo;s drawings</span></li>
+          <li>Availability year <span>price list</span></li>
+          <li>Beaches, marinas, figures <span>brochure</span></li>
+          <li>Distances and flying times <span>brochure</span></li>
+          <li>Maintenance or club fees <span>in neither</span></li>
         </ul>
       </div>
     </div>
@@ -693,46 +756,487 @@
     </div>
   </section>
 
-  <!-- ------------------------------- prices and units -->
+  <!-- ---------------------------------- units & prices -->
   <section class="pad">
     <div class="head">
-      <p class="kicker">Pricing &amp; payment plans</p>
-      <h2>Not mentioned<br>in the brochure</h2>
+      <p class="kicker">Units &amp; prices</p>
+      <h2>Sixteen units,<br>from the price list</h2>
+      <p class="lead">The brochure publishes no price. This section comes from a second source
+        entirely &mdash; the developer&rsquo;s price list as supplied in the client sheet &mdash; and
+        every figure below is copied from it without being calculated, rounded or adjusted.</p>
+      <p>All sixteen share the same terms: <strong>5&#37; down payment, 6 years, availability 2030</strong>.
+        Rows run in the sheet&rsquo;s own order and are never sorted.</p>
     </div>
-    <div class="two wide-first">
-      <div>
-        <p class="lead">The 30 pages supplied contain no price, no payment plan, no down payment, no
-          instalment term and no delivery date &mdash; for any unit type, phase or location.</p>
-        <p>All 30 pages were checked page by page, including the running heads and the foot of every
-          page. There is no price list, no starting-from figure, no footnote and no fine print
-          carrying a number of this kind.</p>
-        <p>Nothing has been supplied in their place. A figure invented, estimated or carried over
-          from another Emaar project would be wrong in a way that only shows up after a client has
-          been quoted.</p>
-      </div>
-      <div>
-        <p class="kicker">Units &amp; areas</p>
-        <table class="rows">
-          <tr><th>Unit types</th><td>Not mentioned</td></tr>
-          <tr><th>Built-up areas</th><td>Not mentioned</td></tr>
-          <tr><th>Land / garden areas</th><td>Not mentioned</td></tr>
-          <tr><th>Bedrooms &amp; bathrooms</th><td>Not mentioned</td></tr>
-          <tr><th>Floor plans</th><td>Not mentioned</td></tr>
-          <tr><th>Finishing specification</th><td>Not mentioned</td></tr>
-          <tr><th>Phases released</th><td>Not mentioned</td></tr>
-          <tr><th>Delivery date</th><td>Not mentioned</td></tr>
-        </table>
-        <p class="fine">The only counts the brochure gives are destination-wide:
-          <b>32</b> exclusive residential communities and <b>16</b> private marina residences. Neither
-          is a unit count, an area, or a price.</p>
-      </div>
+    <div class="variants">
+      <table>
+        <thead>
+          <tr><th>#</th><th>Phase</th><th>Code</th><th>Type</th><th>Bed</th><th>Bath</th><th>Area</th><th>Price (EGP)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>Infinity I</td><td>TH-1B</td><td>Townhouse</td><td>3</td><td>4</td><td>164 m&#178;</td><td>37,123,888</td></tr>
+          <tr><td>2</td><td>Marina Shore Residences</td><td>Unit 10</td><td>Apartment</td><td>3</td><td>4</td><td>179 m&#178;</td><td>38,356,888</td></tr>
+          <tr><td>3</td><td>Marina Shore Residences</td><td>Unit 03</td><td>Apartment</td><td>3</td><td>4</td><td>176 m&#178;</td><td>29,342,888</td></tr>
+          <tr><td>4</td><td>Marina Shore Residences</td><td>Unit 06</td><td>Apartment</td><td>3</td><td>4</td><td>171 m&#178;</td><td>28,805,888</td></tr>
+          <tr><td>5</td><td>Marina Shore Residences</td><td>Unit 07</td><td>Apartment</td><td>3</td><td>4</td><td>169 m&#178;</td><td>32,549,888</td></tr>
+          <tr><td>6</td><td>Island I</td><td>R-12</td><td>Villa</td><td>7</td><td>7</td><td>647 m&#178;</td><td>149,896,888</td></tr>
+          <tr><td>7</td><td>Island I</td><td>R-4B</td><td>Villa</td><td>6</td><td>6</td><td>466 m&#178;</td><td>115,548,888</td></tr>
+          <tr><td>8</td><td>Island I</td><td>R-3</td><td>Villa</td><td>6</td><td>6</td><td>585 m&#178;</td><td>133,091,888</td></tr>
+          <tr><td>9</td><td>Island I</td><td>R-4A</td><td>Villa</td><td>6</td><td>6</td><td>455 m&#178;</td><td>108,123,888</td></tr>
+          <tr><td>10</td><td>Island II</td><td>R-1</td><td>Villa</td><td>7</td><td>7</td><td>559 m&#178;</td><td>236,597,888</td></tr>
+          <tr><td>11</td><td>Island II</td><td>R-3</td><td>Villa</td><td>6</td><td>6</td><td>585 m&#178;</td><td>133,036,888</td></tr>
+          <tr><td>12</td><td>Horizon III</td><td>R-6B</td><td>Villa</td><td>5</td><td>5</td><td>330 m&#178;</td><td>101,135,888</td></tr>
+          <tr><td>13</td><td>Horizon III</td><td>R-7</td><td>Villa</td><td>5</td><td>4</td><td>311 m&#178;</td><td>77,651,888</td></tr>
+          <tr><td>14</td><td>Infinity I</td><td>R-4B</td><td>Villa</td><td>6</td><td>6</td><td>466 m&#178;</td><td>85,426,888</td></tr>
+          <tr><td>15</td><td>Infinity I</td><td>R-6A</td><td>Villa</td><td>5</td><td>5</td><td>345 m&#178;</td><td>84,230,888</td></tr>
+          <tr><td>16</td><td>Infinity I</td><td>&mdash;</td><td>Villa</td><td>5</td><td>&mdash;</td><td>345 m&#178;</td><td>84,230,888</td></tr>
+        </tbody>
+      </table>
     </div>
+    <p class="fine">Codes are the developer&rsquo;s own, read off the floor plan supplied with each
+      unit &mdash; TH-1B, R-12, R-4B and so on, and the apartment numbers and floors from the
+      Marina Shore drawings. Areas and bedroom counts on those plans agree with the sheet on every
+      unit. <b>Price per m&#178; is not shown</b>: the sheet does not carry it, and working it out
+      would be a calculation rather than a figure from the source.</p>
     <div class="gap">
-      <h3>To complete this card</h3>
-      <p>Ask Emaar Misr for the remaining pages of this same brochure &mdash; sections
-        <b>05 to 18</b>, and section <b>17, The Homes</b> above all &mdash; or for the current Marassi
-        Red Sea price list. Both would slot into this card without changing anything already in it.</p>
+      <h3>Four things to check with the developer</h3>
+      <ul class="missing">
+        <li>Row 16 repeats row 15 &mdash; villa, 5 bed, 345 m&#178;, 84,230,888 &mdash; but leaves its
+          bathroom count, images and plans blank <span>duplicate?</span></li>
+        <li>Rows 8 and 11 are both R-3, 585 m&#178;, 6 bed, in Island I and Island II, priced
+          55,000 apart <span>confirm</span></li>
+        <li>Rows 7 and 14 are both R-4B, 466 m&#178;, 6 bed, in Island I and Infinity I, priced
+          30,122,000 apart <span>confirm</span></li>
+        <li>Unit 1&rsquo;s plan reads 2 bathrooms, 1 powder room and 1 maid&rsquo;s bathroom; the
+          sheet says 4 <span>sheet used</span></li>
+      </ul>
+      <p class="fine" style="margin-top:14px">Two images the sheet names are in neither archive:
+        <b>ap1-marina shore-0</b>, listed by all four Marina Shore apartments, and
+        <b>v1-horizon-1</b>. Every other image the sheet names is here, and no image in the
+        archives goes unused.</p>
     </div>
+  </section>
+
+  <section class="pad">
+    <div class="head">
+      <p class="kicker">The units</p>
+      <h2>Each one, with its own<br>renders and floor plan</h2>
+      <p>In the sheet&rsquo;s order, with each unit&rsquo;s images in the order the sheet lists them.
+        The four Marina Shore apartments each name the same three renders &mdash; that is what the
+        sheet says, and they are shown under each of the four.</p>
+    </div>
+    <div class="units">
+<article class="unit">
+      <div class="unit-head">
+        <div>
+          <p class="kicker">Infinity I &middot; Unit 1 of 16</p>
+          <h3>TH-1B <em>&middot; Middle unit</em></h3>
+        </div>
+        <div class="unit-price">37,123,888 <span>EGP</span></div>
+      </div>
+      <table class="rows">
+        <tr><th>Type</th><td>Townhouse</td></tr>
+        <tr><th>Area</th><td>164 m&#178;</td></tr>
+        <tr><th>Bedrooms</th><td>3</td></tr>
+        <tr><th>Bathrooms</th><td>4</td></tr>
+        <tr><th>Down payment</th><td>5&#37;</td></tr>
+        <tr><th>Instalments</th><td>6 years</td></tr>
+        <tr><th>Availability</th><td>2030</td></tr>
+      </table>
+      <div class="shots">
+        <img src="__U_TH1_MARASI0INFINITY_0__" alt="TH-1B Townhouse &mdash; render 1 of 5 as the sheet lists them" loading="lazy">
+        <img src="__U_TH1_MARASI0INFINITY_1__" alt="TH-1B Townhouse &mdash; render 2 of 5 as the sheet lists them" loading="lazy">
+        <img src="__U_TH1_MARASI0INFINITY_2__" alt="TH-1B Townhouse &mdash; render 3 of 5 as the sheet lists them" loading="lazy">
+        <img src="__U_TH1_MARASI0INFINITY_3__" alt="TH-1B Townhouse &mdash; render 4 of 5 as the sheet lists them" loading="lazy">
+        <img src="__U_TH1_MARASI0INFINITY_4__" alt="TH-1B Townhouse &mdash; render 5 of 5 as the sheet lists them" loading="lazy">
+      </div>
+      <figure class="plan-shot"><img src="__U_FP_MARASI_INFINITY__" alt="TH-1B floor plan" loading="lazy">
+        <figcaption>Floor plan &mdash; TH-1B</figcaption></figure>
+    </article>
+    <article class="unit">
+      <div class="unit-head">
+        <div>
+          <p class="kicker">Marina Shore Residences &middot; Unit 2 of 16</p>
+          <h3>Unit 10 <em>&middot; Ground floor</em></h3>
+        </div>
+        <div class="unit-price">38,356,888 <span>EGP</span></div>
+      </div>
+      <table class="rows">
+        <tr><th>Type</th><td>Apartment</td></tr>
+        <tr><th>Area</th><td>179 m&#178;</td></tr>
+        <tr><th>Bedrooms</th><td>3</td></tr>
+        <tr><th>Bathrooms</th><td>4</td></tr>
+        <tr><th>Down payment</th><td>5&#37;</td></tr>
+        <tr><th>Instalments</th><td>6 years</td></tr>
+        <tr><th>Availability</th><td>2030</td></tr>
+      </table>
+      <p class="fine">The sheet lists 4 images for this unit; 3 are in the archives. Missing: <b>ap1-marina shore-0</b>.</p>
+      <div class="shots">
+        <img src="__U_AP1_MARINA_SHORE_2__" alt="Unit 10 Apartment &mdash; render 1 of 3 as the sheet lists them" loading="lazy">
+        <img src="__U_AP1_MARINA_SHORE_3__" alt="Unit 10 Apartment &mdash; render 2 of 3 as the sheet lists them" loading="lazy">
+        <img src="__U_AP1_MARINA_SHORE_4__" alt="Unit 10 Apartment &mdash; render 3 of 3 as the sheet lists them" loading="lazy">
+      </div>
+      <figure class="plan-shot"><img src="__U_FP_AP1_MARINA_SHORE__" alt="Unit 10 floor plan" loading="lazy">
+        <figcaption>Floor plan &mdash; Unit 10</figcaption></figure>
+    </article>
+    <article class="unit">
+      <div class="unit-head">
+        <div>
+          <p class="kicker">Marina Shore Residences &middot; Unit 3 of 16</p>
+          <h3>Unit 03 <em>&middot; Typical floor</em></h3>
+        </div>
+        <div class="unit-price">29,342,888 <span>EGP</span></div>
+      </div>
+      <table class="rows">
+        <tr><th>Type</th><td>Apartment</td></tr>
+        <tr><th>Area</th><td>176 m&#178;</td></tr>
+        <tr><th>Bedrooms</th><td>3</td></tr>
+        <tr><th>Bathrooms</th><td>4</td></tr>
+        <tr><th>Down payment</th><td>5&#37;</td></tr>
+        <tr><th>Instalments</th><td>6 years</td></tr>
+        <tr><th>Availability</th><td>2030</td></tr>
+      </table>
+      <p class="fine">The sheet lists 4 images for this unit; 3 are in the archives. Missing: <b>ap1-marina shore-0</b>.</p>
+      <div class="shots">
+        <img src="__U_AP1_MARINA_SHORE_2__" alt="Unit 03 Apartment &mdash; render 1 of 3 as the sheet lists them" loading="lazy">
+        <img src="__U_AP1_MARINA_SHORE_3__" alt="Unit 03 Apartment &mdash; render 2 of 3 as the sheet lists them" loading="lazy">
+        <img src="__U_AP1_MARINA_SHORE_4__" alt="Unit 03 Apartment &mdash; render 3 of 3 as the sheet lists them" loading="lazy">
+      </div>
+      <figure class="plan-shot"><img src="__U_FP_AP2_MARINA_SHORE__" alt="Unit 03 floor plan" loading="lazy">
+        <figcaption>Floor plan &mdash; Unit 03</figcaption></figure>
+    </article>
+    <article class="unit">
+      <div class="unit-head">
+        <div>
+          <p class="kicker">Marina Shore Residences &middot; Unit 4 of 16</p>
+          <h3>Unit 06 <em>&middot; Typical floor</em></h3>
+        </div>
+        <div class="unit-price">28,805,888 <span>EGP</span></div>
+      </div>
+      <table class="rows">
+        <tr><th>Type</th><td>Apartment</td></tr>
+        <tr><th>Area</th><td>171 m&#178;</td></tr>
+        <tr><th>Bedrooms</th><td>3</td></tr>
+        <tr><th>Bathrooms</th><td>4</td></tr>
+        <tr><th>Down payment</th><td>5&#37;</td></tr>
+        <tr><th>Instalments</th><td>6 years</td></tr>
+        <tr><th>Availability</th><td>2030</td></tr>
+      </table>
+      <p class="fine">The sheet lists 4 images for this unit; 3 are in the archives. Missing: <b>ap1-marina shore-0</b>.</p>
+      <div class="shots">
+        <img src="__U_AP1_MARINA_SHORE_4__" alt="Unit 06 Apartment &mdash; render 1 of 3 as the sheet lists them" loading="lazy">
+        <img src="__U_AP1_MARINA_SHORE_2__" alt="Unit 06 Apartment &mdash; render 2 of 3 as the sheet lists them" loading="lazy">
+        <img src="__U_AP1_MARINA_SHORE_3__" alt="Unit 06 Apartment &mdash; render 3 of 3 as the sheet lists them" loading="lazy">
+      </div>
+      <figure class="plan-shot"><img src="__U_FP_AP3_MARINA_SHORE__" alt="Unit 06 floor plan" loading="lazy">
+        <figcaption>Floor plan &mdash; Unit 06</figcaption></figure>
+    </article>
+    <article class="unit">
+      <div class="unit-head">
+        <div>
+          <p class="kicker">Marina Shore Residences &middot; Unit 5 of 16</p>
+          <h3>Unit 07 <em>&middot; Typical floor</em></h3>
+        </div>
+        <div class="unit-price">32,549,888 <span>EGP</span></div>
+      </div>
+      <table class="rows">
+        <tr><th>Type</th><td>Apartment</td></tr>
+        <tr><th>Area</th><td>169 m&#178;</td></tr>
+        <tr><th>Bedrooms</th><td>3</td></tr>
+        <tr><th>Bathrooms</th><td>4</td></tr>
+        <tr><th>Down payment</th><td>5&#37;</td></tr>
+        <tr><th>Instalments</th><td>6 years</td></tr>
+        <tr><th>Availability</th><td>2030</td></tr>
+      </table>
+      <p class="fine">The sheet lists 4 images for this unit; 3 are in the archives. Missing: <b>ap1-marina shore-0</b>.</p>
+      <div class="shots">
+        <img src="__U_AP1_MARINA_SHORE_4__" alt="Unit 07 Apartment &mdash; render 1 of 3 as the sheet lists them" loading="lazy">
+        <img src="__U_AP1_MARINA_SHORE_2__" alt="Unit 07 Apartment &mdash; render 2 of 3 as the sheet lists them" loading="lazy">
+        <img src="__U_AP1_MARINA_SHORE_3__" alt="Unit 07 Apartment &mdash; render 3 of 3 as the sheet lists them" loading="lazy">
+      </div>
+      <figure class="plan-shot"><img src="__U_FP_AP4_MARINA_SHORE__" alt="Unit 07 floor plan" loading="lazy">
+        <figcaption>Floor plan &mdash; Unit 07</figcaption></figure>
+    </article>
+    <article class="unit">
+      <div class="unit-head">
+        <div>
+          <p class="kicker">Island I &middot; Unit 6 of 16</p>
+          <h3>R-12</h3>
+        </div>
+        <div class="unit-price">149,896,888 <span>EGP</span></div>
+      </div>
+      <table class="rows">
+        <tr><th>Type</th><td>Villa</td></tr>
+        <tr><th>Area</th><td>647 m&#178;</td></tr>
+        <tr><th>Bedrooms</th><td>7</td></tr>
+        <tr><th>Bathrooms</th><td>7</td></tr>
+        <tr><th>Down payment</th><td>5&#37;</td></tr>
+        <tr><th>Instalments</th><td>6 years</td></tr>
+        <tr><th>Availability</th><td>2030</td></tr>
+      </table>
+      <div class="shots">
+        <img src="__U_V1_ISLAND_0__" alt="R-12 Villa &mdash; render 1 of 2 as the sheet lists them" loading="lazy">
+        <img src="__U_V1_ISLAND_1__" alt="R-12 Villa &mdash; render 2 of 2 as the sheet lists them" loading="lazy">
+      </div>
+      <figure class="plan-shot"><img src="__U_FP_V1_ISLAND__" alt="R-12 floor plan" loading="lazy">
+        <figcaption>Floor plan &mdash; R-12</figcaption></figure>
+    </article>
+    <article class="unit">
+      <div class="unit-head">
+        <div>
+          <p class="kicker">Island I &middot; Unit 7 of 16</p>
+          <h3>R-4B</h3>
+        </div>
+        <div class="unit-price">115,548,888 <span>EGP</span></div>
+      </div>
+      <table class="rows">
+        <tr><th>Type</th><td>Villa</td></tr>
+        <tr><th>Area</th><td>466 m&#178;</td></tr>
+        <tr><th>Bedrooms</th><td>6</td></tr>
+        <tr><th>Bathrooms</th><td>6</td></tr>
+        <tr><th>Down payment</th><td>5&#37;</td></tr>
+        <tr><th>Instalments</th><td>6 years</td></tr>
+        <tr><th>Availability</th><td>2030</td></tr>
+      </table>
+      <div class="shots">
+        <img src="__U_V2_ISLAND_0__" alt="R-4B Villa &mdash; render 1 of 2 as the sheet lists them" loading="lazy">
+        <img src="__U_V2_ISLAND_1__" alt="R-4B Villa &mdash; render 2 of 2 as the sheet lists them" loading="lazy">
+      </div>
+      <figure class="plan-shot"><img src="__U_FP_V2_ISLAND__" alt="R-4B floor plan" loading="lazy">
+        <figcaption>Floor plan &mdash; R-4B</figcaption></figure>
+    </article>
+    <article class="unit">
+      <div class="unit-head">
+        <div>
+          <p class="kicker">Island I &middot; Unit 8 of 16</p>
+          <h3>R-3</h3>
+        </div>
+        <div class="unit-price">133,091,888 <span>EGP</span></div>
+      </div>
+      <table class="rows">
+        <tr><th>Type</th><td>Villa</td></tr>
+        <tr><th>Area</th><td>585 m&#178;</td></tr>
+        <tr><th>Bedrooms</th><td>6</td></tr>
+        <tr><th>Bathrooms</th><td>6</td></tr>
+        <tr><th>Down payment</th><td>5&#37;</td></tr>
+        <tr><th>Instalments</th><td>6 years</td></tr>
+        <tr><th>Availability</th><td>2030</td></tr>
+      </table>
+      <div class="shots">
+        <img src="__U_V3_ISLAND_0__" alt="R-3 Villa &mdash; render 1 of 2 as the sheet lists them" loading="lazy">
+        <img src="__U_V3_ISLAND_1__" alt="R-3 Villa &mdash; render 2 of 2 as the sheet lists them" loading="lazy">
+      </div>
+      <figure class="plan-shot"><img src="__U_FP_V3_ISLAND__" alt="R-3 floor plan" loading="lazy">
+        <figcaption>Floor plan &mdash; R-3</figcaption></figure>
+    </article>
+    <article class="unit">
+      <div class="unit-head">
+        <div>
+          <p class="kicker">Island I &middot; Unit 9 of 16</p>
+          <h3>R-4A</h3>
+        </div>
+        <div class="unit-price">108,123,888 <span>EGP</span></div>
+      </div>
+      <table class="rows">
+        <tr><th>Type</th><td>Villa</td></tr>
+        <tr><th>Area</th><td>455 m&#178;</td></tr>
+        <tr><th>Bedrooms</th><td>6</td></tr>
+        <tr><th>Bathrooms</th><td>6</td></tr>
+        <tr><th>Down payment</th><td>5&#37;</td></tr>
+        <tr><th>Instalments</th><td>6 years</td></tr>
+        <tr><th>Availability</th><td>2030</td></tr>
+      </table>
+      <div class="shots">
+        <img src="__U_V4_ISLAND_0__" alt="R-4A Villa &mdash; render 1 of 2 as the sheet lists them" loading="lazy">
+        <img src="__U_V4_ISLAND_1__" alt="R-4A Villa &mdash; render 2 of 2 as the sheet lists them" loading="lazy">
+      </div>
+      <figure class="plan-shot"><img src="__U_FP_V4_ISLAND__" alt="R-4A floor plan" loading="lazy">
+        <figcaption>Floor plan &mdash; R-4A</figcaption></figure>
+    </article>
+    <article class="unit">
+      <div class="unit-head">
+        <div>
+          <p class="kicker">Island II &middot; Unit 10 of 16</p>
+          <h3>R-1</h3>
+        </div>
+        <div class="unit-price">236,597,888 <span>EGP</span></div>
+      </div>
+      <table class="rows">
+        <tr><th>Type</th><td>Villa</td></tr>
+        <tr><th>Area</th><td>559 m&#178;</td></tr>
+        <tr><th>Bedrooms</th><td>7</td></tr>
+        <tr><th>Bathrooms</th><td>7</td></tr>
+        <tr><th>Down payment</th><td>5&#37;</td></tr>
+        <tr><th>Instalments</th><td>6 years</td></tr>
+        <tr><th>Availability</th><td>2030</td></tr>
+      </table>
+      <div class="shots">
+        <img src="__U_V5_ISLAND_0__" alt="R-1 Villa &mdash; render 1 of 2 as the sheet lists them" loading="lazy">
+        <img src="__U_V5_ISLAND_1__" alt="R-1 Villa &mdash; render 2 of 2 as the sheet lists them" loading="lazy">
+      </div>
+      <figure class="plan-shot"><img src="__U_FP_V5_ISLAND__" alt="R-1 floor plan" loading="lazy">
+        <figcaption>Floor plan &mdash; R-1</figcaption></figure>
+    </article>
+    <article class="unit">
+      <div class="unit-head">
+        <div>
+          <p class="kicker">Island II &middot; Unit 11 of 16</p>
+          <h3>R-3</h3>
+        </div>
+        <div class="unit-price">133,036,888 <span>EGP</span></div>
+      </div>
+      <table class="rows">
+        <tr><th>Type</th><td>Villa</td></tr>
+        <tr><th>Area</th><td>585 m&#178;</td></tr>
+        <tr><th>Bedrooms</th><td>6</td></tr>
+        <tr><th>Bathrooms</th><td>6</td></tr>
+        <tr><th>Down payment</th><td>5&#37;</td></tr>
+        <tr><th>Instalments</th><td>6 years</td></tr>
+        <tr><th>Availability</th><td>2030</td></tr>
+      </table>
+      <div class="shots">
+        <img src="__U_V6_ISLAND_0__" alt="R-3 Villa &mdash; render 1 of 2 as the sheet lists them" loading="lazy">
+        <img src="__U_V6_ISLAND_1__" alt="R-3 Villa &mdash; render 2 of 2 as the sheet lists them" loading="lazy">
+      </div>
+      <figure class="plan-shot"><img src="__U_FP_V6_ISLAND__" alt="R-3 floor plan" loading="lazy">
+        <figcaption>Floor plan &mdash; R-3</figcaption></figure>
+    </article>
+    <article class="unit">
+      <div class="unit-head">
+        <div>
+          <p class="kicker">Horizon III &middot; Unit 12 of 16</p>
+          <h3>R-6B</h3>
+        </div>
+        <div class="unit-price">101,135,888 <span>EGP</span></div>
+      </div>
+      <table class="rows">
+        <tr><th>Type</th><td>Villa</td></tr>
+        <tr><th>Area</th><td>330 m&#178;</td></tr>
+        <tr><th>Bedrooms</th><td>5</td></tr>
+        <tr><th>Bathrooms</th><td>5</td></tr>
+        <tr><th>Down payment</th><td>5&#37;</td></tr>
+        <tr><th>Instalments</th><td>6 years</td></tr>
+        <tr><th>Availability</th><td>2030</td></tr>
+      </table>
+      <p class="fine">The sheet lists 2 images for this unit; 1 is in the archives. Missing: <b>v1-horizon-1</b>.</p>
+      <div class="shots">
+        <img src="__U_V1_HORIZON_0__" alt="R-6B Villa &mdash; render 1 of 1 as the sheet lists them" loading="lazy">
+      </div>
+      <figure class="plan-shot"><img src="__U_FP_V1_HORIZON__" alt="R-6B floor plan" loading="lazy">
+        <figcaption>Floor plan &mdash; R-6B</figcaption></figure>
+    </article>
+    <article class="unit">
+      <div class="unit-head">
+        <div>
+          <p class="kicker">Horizon III &middot; Unit 13 of 16</p>
+          <h3>R-7</h3>
+        </div>
+        <div class="unit-price">77,651,888 <span>EGP</span></div>
+      </div>
+      <table class="rows">
+        <tr><th>Type</th><td>Villa</td></tr>
+        <tr><th>Area</th><td>311 m&#178;</td></tr>
+        <tr><th>Bedrooms</th><td>5</td></tr>
+        <tr><th>Bathrooms</th><td>4</td></tr>
+        <tr><th>Down payment</th><td>5&#37;</td></tr>
+        <tr><th>Instalments</th><td>6 years</td></tr>
+        <tr><th>Availability</th><td>2030</td></tr>
+      </table>
+      <div class="shots">
+        <img src="__U_V2_HORIZON_0__" alt="R-7 Villa &mdash; render 1 of 2 as the sheet lists them" loading="lazy">
+        <img src="__U_V2_HORIZON_1__" alt="R-7 Villa &mdash; render 2 of 2 as the sheet lists them" loading="lazy">
+      </div>
+      <figure class="plan-shot"><img src="__U_FP_V2_HORIZON__" alt="R-7 floor plan" loading="lazy">
+        <figcaption>Floor plan &mdash; R-7</figcaption></figure>
+    </article>
+    <article class="unit">
+      <div class="unit-head">
+        <div>
+          <p class="kicker">Infinity I &middot; Unit 14 of 16</p>
+          <h3>R-4B</h3>
+        </div>
+        <div class="unit-price">85,426,888 <span>EGP</span></div>
+      </div>
+      <table class="rows">
+        <tr><th>Type</th><td>Villa</td></tr>
+        <tr><th>Area</th><td>466 m&#178;</td></tr>
+        <tr><th>Bedrooms</th><td>6</td></tr>
+        <tr><th>Bathrooms</th><td>6</td></tr>
+        <tr><th>Down payment</th><td>5&#37;</td></tr>
+        <tr><th>Instalments</th><td>6 years</td></tr>
+        <tr><th>Availability</th><td>2030</td></tr>
+      </table>
+      <div class="shots">
+        <img src="__U_V2_INFINITY_0__" alt="R-4B Villa &mdash; render 1 of 2 as the sheet lists them" loading="lazy">
+        <img src="__U_V2_INFINITY_1__" alt="R-4B Villa &mdash; render 2 of 2 as the sheet lists them" loading="lazy">
+      </div>
+      <figure class="plan-shot"><img src="__U_FP_V2_MARASI_INFINITY__" alt="R-4B floor plan" loading="lazy">
+        <figcaption>Floor plan &mdash; R-4B</figcaption></figure>
+    </article>
+    <article class="unit">
+      <div class="unit-head">
+        <div>
+          <p class="kicker">Infinity I &middot; Unit 15 of 16</p>
+          <h3>R-6A</h3>
+        </div>
+        <div class="unit-price">84,230,888 <span>EGP</span></div>
+      </div>
+      <table class="rows">
+        <tr><th>Type</th><td>Villa</td></tr>
+        <tr><th>Area</th><td>345 m&#178;</td></tr>
+        <tr><th>Bedrooms</th><td>5</td></tr>
+        <tr><th>Bathrooms</th><td>5</td></tr>
+        <tr><th>Down payment</th><td>5&#37;</td></tr>
+        <tr><th>Instalments</th><td>6 years</td></tr>
+        <tr><th>Availability</th><td>2030</td></tr>
+      </table>
+      <div class="shots">
+        <img src="__U_V3_INFINITY_0__" alt="R-6A Villa &mdash; render 1 of 2 as the sheet lists them" loading="lazy">
+        <img src="__U_V3_INFINITY_1__" alt="R-6A Villa &mdash; render 2 of 2 as the sheet lists them" loading="lazy">
+      </div>
+      <figure class="plan-shot"><img src="__U_FP_V3_MARASI_INFINITY__" alt="R-6A floor plan" loading="lazy">
+        <figcaption>Floor plan &mdash; R-6A</figcaption></figure>
+    </article>
+    <article class="unit">
+      <div class="unit-head">
+        <div>
+          <p class="kicker">Infinity I &middot; Unit 16 of 16</p>
+          <h3>&mdash;</h3>
+        </div>
+        <div class="unit-price">84,230,888 <span>EGP</span></div>
+      </div>
+      <table class="rows">
+        <tr><th>Type</th><td>Villa</td></tr>
+        <tr><th>Area</th><td>345 m&#178;</td></tr>
+        <tr><th>Bedrooms</th><td>5</td></tr>
+        <tr><th>Bathrooms</th><td>Not given in the sheet</td></tr>
+        <tr><th>Down payment</th><td>5&#37;</td></tr>
+        <tr><th>Instalments</th><td>6 years</td></tr>
+        <tr><th>Availability</th><td>2030</td></tr>
+      </table>
+      <p class="fine">The sheet lists no image, no floor plan and no master plan for this row, and leaves its bathroom count blank.</p>
+    </article>
+    </div>
+  </section>
+
+  <section class="pad">
+    <div class="head">
+      <p class="kicker">Master plans</p>
+      <h2>Where each phase sits</h2>
+      <p>One drawing per phase, as attached to those units in the sheet, and the location map every
+        one of the sixteen carries.</p>
+    </div>
+    <div class="maps">
+      <figure><img src="__U_MP_INFINITY__" alt="Infinity I master plan" loading="lazy">
+        <figcaption>Infinity I &mdash; villas &amp; townhomes</figcaption></figure>
+      <figure><img src="__U_MP_MARINA__" alt="Marina Shore Residences master plan" loading="lazy">
+        <figcaption>Marina Shore Residences</figcaption></figure>
+      <figure><img src="__U_MP_ISLAND__" alt="Island master plan" loading="lazy">
+        <figcaption>Island I &amp; Island II</figcaption></figure>
+      <figure><img src="__U_MP_HORIZON__" alt="Horizon III master plan" loading="lazy">
+        <figcaption>Horizon III</figcaption></figure>
+    </div>
+    <figure class="plate"><img src="__U_LOCATION__" alt="Marassi Red Sea on the coast" loading="lazy">
+      <figcaption>Location &mdash; carried by all sixteen units</figcaption></figure>
   </section>
 
   <footer class="pad">
@@ -742,18 +1246,20 @@
       dimensions and specifications are subject to change without prior notice.
     </p>
     <p class="disclaim" style="margin-top:12px">
-      <strong>Accuracy.</strong> The brochure is the only source. Every number, name and sentence on
-      this card is reproduced as printed, including the brochure&rsquo;s own spellings. Nothing has
-      been calculated, converted or rounded. Where the brochure is silent, this card says
-      &ldquo;Not mentioned in the brochure&rdquo; rather than filling the gap. Pictures appear in the
-      order they appear in the brochure, each kept with the section it belongs to.
+      <strong>Accuracy.</strong> Every number, name and sentence is reproduced as its source gives
+      it, including the brochure&rsquo;s own spellings. Nothing has been calculated, converted or
+      rounded &mdash; which is why no price per m&#178; appears, the price list not carrying one.
+      Brochure pictures run in the brochure&rsquo;s order, each with the section it belongs to; unit
+      images run in the sheet&rsquo;s order, each with the unit it belongs to, and none is shared
+      between units except where the sheet itself lists it under more than one.
     </p>
     <p class="disclaim" style="margin-top:12px">
-      <strong>Before quoting a client.</strong> This card carries no price, payment plan, unit area or
-      delivery date, because the source does not. Confirm all commercial terms and availability with
-      Emaar Misr or an advisor before they are put to a client.
+      <strong>Before quoting a client.</strong> Prices, payment terms and the availability year come
+      from the developer&rsquo;s price list, not from the brochure, and are illustrative. Confirm
+      current pricing and availability with Emaar Misr or an advisor before they are put to a client,
+      and settle the four queries raised in the units section first.
     </p>
-    <p class="source">Source &mdash; Marassi Red Sea brochure, 30 pages supplied &middot; Emaar Misr</p>
+    <p class="source">Sources &mdash; Marassi Red Sea brochure, 30 pages supplied, and the developer&rsquo;s price list &middot; Emaar Misr</p>
   </footer>
 
 </article>
