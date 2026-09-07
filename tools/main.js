@@ -2072,21 +2072,21 @@ elgouna:'elgouna.webp', somabay:'somabay.webp'
 function areaImageSrc(key){ return (key && AREA_IMAGES[key]) ? (LOC_BASE+AREA_IMAGES[key]) : ''; }
 var PLANS_BASE = '/project-media/plans/';
 var UNIT_MASTERPLANS = {
-'MR-01':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp', '/project-media/emaarmisr/marassi-red-sea/units/mp-marasi-infinity.webp'],
-'MR-02':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp', '/project-media/emaarmisr/marassi-red-sea/units/mp-marina-shore.webp'],
-'MR-03':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp', '/project-media/emaarmisr/marassi-red-sea/units/mp-marina-shore.webp'],
-'MR-04':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp', '/project-media/emaarmisr/marassi-red-sea/units/mp-marina-shore.webp'],
-'MR-05':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp', '/project-media/emaarmisr/marassi-red-sea/units/mp-marina-shore.webp'],
+'MR-01':['/project-media/emaarmisr/marassi-red-sea/units/mp-marasi-infinity.webp'],
+'MR-02':['/project-media/emaarmisr/marassi-red-sea/units/mp-marina-shore.webp'],
+'MR-03':['/project-media/emaarmisr/marassi-red-sea/units/mp-marina-shore.webp'],
+'MR-04':['/project-media/emaarmisr/marassi-red-sea/units/mp-marina-shore.webp'],
+'MR-05':['/project-media/emaarmisr/marassi-red-sea/units/mp-marina-shore.webp'],
 'MR-06':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp'],
 'MR-07':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp'],
 'MR-08':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp'],
 'MR-09':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp'],
 'MR-10':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp'],
 'MR-11':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp'],
-'MR-12':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp', '/project-media/emaarmisr/marassi-red-sea/units/mp-horizon.webp'],
-'MR-13':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp', '/project-media/emaarmisr/marassi-red-sea/units/mp-horizon.webp'],
-'MR-14':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp', '/project-media/emaarmisr/marassi-red-sea/units/mp-marasi-infinity.webp'],
-'MR-15':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp', '/project-media/emaarmisr/marassi-red-sea/units/mp-marasi-infinity.webp'],
+'MR-12':['/project-media/emaarmisr/marassi-red-sea/units/mp-horizon.webp'],
+'MR-13':['/project-media/emaarmisr/marassi-red-sea/units/mp-horizon.webp'],
+'MR-14':['/project-media/emaarmisr/marassi-red-sea/units/mp-marasi-infinity.webp'],
+'MR-15':['/project-media/emaarmisr/marassi-red-sea/units/mp-marasi-infinity.webp'],
 'SS-01':['/project-media/marakez/shams-soma/units/master-plan-shams-soma.webp', '/project-media/marakez/shams-soma/units/master-plan-shams-soma-2.webp'],
 'SS-02':['/project-media/marakez/shams-soma/units/master-plan-shams-soma.webp', '/project-media/marakez/shams-soma/units/master-plan-shams-soma-2.webp'],
 'SS-03':['/project-media/marakez/shams-soma/units/master-plan-shams-soma.webp', '/project-media/marakez/shams-soma/units/master-plan-shams-soma-2.webp'],
@@ -3214,7 +3214,14 @@ if(!slot.loc && UNIT_LOCATIONS[u.id])   slot.loc = UNIT_LOCATIONS[u.id];
 }
 return out;
 })();
-function projectPlans(slug){ return PROJECT_PLAN_FALLBACK[slug] || {}; }
+var PROJECT_PLANS = {
+'marassi-red-sea': {mp:['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp']}
+};
+function projectPlans(slug){
+var own = PROJECT_PLANS[slug], back = PROJECT_PLAN_FALLBACK[slug] || {};
+if(!own) return back;
+return {mp: own.mp || back.mp || null, loc: own.loc || back.loc || null};
+}
 function unitMasterplans(u){ var a=u&&(UNIT_MASTERPLANS[u.id]||projectPlans(u.project).mp); return a?a.map(planUrl):[]; }
 function unitFloorplans(u){ var a=u&&UNIT_FLOORPLANS[u.id]; return a?a.map(planUrl):[]; }
 function unitLocationImg(u){ var a=u&&(UNIT_LOCATIONS[u.id]||projectPlans(u.project).loc); if(a&&a.length) return a[0]; var p=u&&projBySlug(u.project); return p?areaImageSrc(p.area):''; }

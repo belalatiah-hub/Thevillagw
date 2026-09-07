@@ -101,6 +101,13 @@ def main():
 
     for slug, path in (d.get('PROJECT_COVERS') or {}).items():
         add('project', slug, 'cover', path)
+    # Kept in step with build_media() in migrate_to_db.py: a project master plan
+    # set on the project rather than derived from its first unit.
+    for slug, plans in (d.get('PROJECT_PLANS') or {}).items():
+        for i, path in enumerate((plans or {}).get('mp') or []):
+            add('project', slug, 'masterplan', plan_url(path), i)
+        for i, path in enumerate((plans or {}).get('loc') or []):
+            add('project', slug, 'location', path, i)
     for slug, name in (d.get('PROJECT_LOGOS') or {}).items():
         add('project', slug, 'logo', '/logos/projects/' + logo_file(name))
     for key, name in (d.get('DEV_LOGOS') or {}).items():

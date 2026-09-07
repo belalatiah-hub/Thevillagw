@@ -1044,27 +1044,27 @@
      guesswork. Two floor plans the sheet names (fp-th-3-cr, v4-cr-0) are
      corrupt inside the source archive and are therefore simply absent. */
   var UNIT_MASTERPLANS = {
-    /* Emaar Misr — Marassi Red Sea. The destination master plan first on every
-       unit, then the drawing for that unit's phase where the phase has one of
-       its own. The sheet files the destination plan under the Island units as
-       `mp-island`; it is the whole-destination drawing, not an island one, and
-       PROJECT_PLAN_FALLBACK reads the first unit's list, so putting it first
-       here is what makes the project page open on it. */
-    'MR-01':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp', '/project-media/emaarmisr/marassi-red-sea/units/mp-marasi-infinity.webp'],
-    'MR-02':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp', '/project-media/emaarmisr/marassi-red-sea/units/mp-marina-shore.webp'],
-    'MR-03':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp', '/project-media/emaarmisr/marassi-red-sea/units/mp-marina-shore.webp'],
-    'MR-04':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp', '/project-media/emaarmisr/marassi-red-sea/units/mp-marina-shore.webp'],
-    'MR-05':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp', '/project-media/emaarmisr/marassi-red-sea/units/mp-marina-shore.webp'],
+    /* Emaar Misr — Marassi Red Sea: the drawing the sheet names for each unit,
+       and only that one. The sheet files the whole-destination plan under the
+       Island units as `mp-island`, which is why those six carry masterplan.webp
+       while the rest carry their phase. The project page shows the destination
+       plan instead, through PROJECT_PLANS below, so that page can change without
+       moving what any unit page shows. */
+    'MR-01':['/project-media/emaarmisr/marassi-red-sea/units/mp-marasi-infinity.webp'],
+    'MR-02':['/project-media/emaarmisr/marassi-red-sea/units/mp-marina-shore.webp'],
+    'MR-03':['/project-media/emaarmisr/marassi-red-sea/units/mp-marina-shore.webp'],
+    'MR-04':['/project-media/emaarmisr/marassi-red-sea/units/mp-marina-shore.webp'],
+    'MR-05':['/project-media/emaarmisr/marassi-red-sea/units/mp-marina-shore.webp'],
     'MR-06':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp'],
     'MR-07':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp'],
     'MR-08':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp'],
     'MR-09':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp'],
     'MR-10':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp'],
     'MR-11':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp'],
-    'MR-12':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp', '/project-media/emaarmisr/marassi-red-sea/units/mp-horizon.webp'],
-    'MR-13':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp', '/project-media/emaarmisr/marassi-red-sea/units/mp-horizon.webp'],
-    'MR-14':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp', '/project-media/emaarmisr/marassi-red-sea/units/mp-marasi-infinity.webp'],
-    'MR-15':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp', '/project-media/emaarmisr/marassi-red-sea/units/mp-marasi-infinity.webp'],
+    'MR-12':['/project-media/emaarmisr/marassi-red-sea/units/mp-horizon.webp'],
+    'MR-13':['/project-media/emaarmisr/marassi-red-sea/units/mp-horizon.webp'],
+    'MR-14':['/project-media/emaarmisr/marassi-red-sea/units/mp-marasi-infinity.webp'],
+    'MR-15':['/project-media/emaarmisr/marassi-red-sea/units/mp-marasi-infinity.webp'],
     /* Shams Soma — two master plans on all twelve: the annotated aerial the
        archive supplies, and the owner's product-distribution plan, which
        colours every plot by what stands on it. PROJECT_PLAN_FALLBACK reads
@@ -2248,7 +2248,22 @@
     }
     return out;
   })();
-  function projectPlans(slug){ return PROJECT_PLAN_FALLBACK[slug] || {}; }
+  /* A project whose own master plan is not any one unit's.
+     The fallback above answers with the first unit's drawing, which is right
+     when a project's units all share one plan and wrong when they do not:
+     Marassi's units each carry their own phase — Infinity I, Marina Shore,
+     Horizon III — so the project page was opening on whichever phase happened
+     to sort first rather than on the destination. Set here, the project page
+     changes and no unit page moves, because unitMasterplans() reads a unit's
+     own list before it ever asks for the project's. */
+  var PROJECT_PLANS = {
+    'marassi-red-sea': {mp:['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp']}
+  };
+  function projectPlans(slug){
+    var own = PROJECT_PLANS[slug], back = PROJECT_PLAN_FALLBACK[slug] || {};
+    if(!own) return back;
+    return {mp: own.mp || back.mp || null, loc: own.loc || back.loc || null};
+  }
   function unitMasterplans(u){ var a=u&&(UNIT_MASTERPLANS[u.id]||projectPlans(u.project).mp); return a?a.map(planUrl):[]; }
   function unitFloorplans(u){ var a=u&&UNIT_FLOORPLANS[u.id]; return a?a.map(planUrl):[]; }
   function unitLocationImg(u){ var a=u&&(UNIT_LOCATIONS[u.id]||projectPlans(u.project).loc); if(a&&a.length) return a[0]; var p=u&&projBySlug(u.project); return p?areaImageSrc(p.area):''; }
