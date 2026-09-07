@@ -52,6 +52,10 @@
   // "Sacred Summers" renders deck) under /project-media/ramla — no external hotlinking.
   var PROJECT_COVERS = {
     'ledge-valley':'/project-media/orascom/ledge-valley/hero.webp',
+    // Marassi Red Sea: the marina from the air, looking out to open sea. The
+    // brochure's own opening spreads carry its headline set into the picture,
+    // so the cover is taken from a page that does not.
+    'marassi-red-sea':'/project-media/emaarmisr/marassi-red-sea/hero.webp',
     // Shams Soma: the aerial the deck opens its masterplan section with.
     'shams-soma':'/project-media/marakez/shams-soma/hero.webp',
     // Siyal has no unit cards for a cover to clash with, so the hero render
@@ -2514,6 +2518,19 @@
     'alam-al-roum': ['city','coast','story','masterplan','boulevard','beach','lagoon',
                      'spine','arch','marina','golf']
       .map(function(f){ return '/project-media/qataridiar/alam-al-roum/'+f+'.webp'; }),
+    /* Marassi Red Sea. Every page of the brochure is one flattened image with
+       its running head set into the picture, so each of these is that page with
+       the head cropped away and nothing else changed. The order follows the
+       brochure: the marinas it closes on first, since they carry the widest
+       views, then the four beaches in the order it names them, then the water
+       and the walk, and the coastal map last. The pages whose headline is set
+       into the artwork are left to the brochure card, where the headline is
+       the point. */
+    'marassi-red-sea': ['marina','waterfront','boutique-marina','boutique-marina-air',
+                        'main-beach','island-beach','infinity-beach','beach-lagoons',
+                        'beaches','marina-sunset','canal-pool','windsurf','promenade',
+                        'jetty','palms','boardwalk','location']
+      .map(function(f){ return '/project-media/emaarmisr/marassi-red-sea/'+f+'.webp'; }),
     /* M squared. The company profile is the only source for these six, and it
        publishes no unit schedule for them, so the hero carousel is the only
        place their photography can appear. Order runs exterior first — the frame
