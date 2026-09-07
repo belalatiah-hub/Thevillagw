@@ -5,6 +5,18 @@
 insert into cms.media_links (asset_id, unit_id, role, sort_order)
 select a.id, o.id, v.role::cms.media_role, v.sort_order
 from (values
+  ('/project-media/' || 'lmd/ts-cl3-fp1.webp','floorplan',0,array['TS-CL3']),
+  ('/project-media/' || 'lmd/ts-of5-fp1.webp','floorplan',0,array['TS-OF5']),
+  ('/project-media/' || 'lmd/zy-cb5-fp1.webp','floorplan',0,array['ZY-CB5']),
+  ('/project-media/' || 'lmd/zy-hv2-fp1.webp','floorplan',0,array['ZY-HV2']),
+  ('/project-media/' || 'lmd/zy-sv1-fp1.webp','floorplan',0,array['ZY-SV1']),
+  ('/project-media/' || 'lmd/zy-tw3-fp1.webp','floorplan',0,array['ZY-TW3']),
+  ('/project-media/' || 'marakez/shams-soma/units/fp-ch1-shams-soma.webp','floorplan',0,array['SS-04']),
+  ('/project-media/' || 'marakez/shams-soma/units/fp-ch2-shams-soma.webp','floorplan',0,array['SS-05']),
+  ('/project-media/' || 'marakez/shams-soma/units/fp-ch3-shams-soma.webp','floorplan',0,array['SS-06']),
+  ('/project-media/' || 'marakez/shams-soma/units/fp-loft-shams-soma.webp','floorplan',0,array['SS-09']),
+  ('/project-media/' || 'marakez/shams-soma/units/fp-pent-shams-soma.webp','floorplan',0,array['SS-03']),
+  ('/project-media/' || 'marakez/shams-soma/units/fp-sst1-shams-soma.webp','floorplan',0,array['SS-10']),
   ('/project-media/' || 'marakez/shams-soma/units/fp-sst2-shams-soma.webp','floorplan',0,array['SS-11']),
   ('/project-media/' || 'marakez/shams-soma/units/fp-sst3-shams-soma.webp','floorplan',0,array['SS-12']),
   ('/project-media/' || 'marakez/shams-soma/units/fp-th1-shams-soma.webp','floorplan',0,array['SS-07']),
@@ -239,20 +251,7 @@ from (values
   ('/project-media/' || 'ora/fp-v3-cr-01.webp','floorplan',1,array['OR-CR-09']),
   ('/project-media/' || 'ora/fp-v3-ss-0.webp','floorplan',0,array['OR-ST-07']),
   ('/project-media/' || 'ora/fp-v3-ss-01.webp','floorplan',1,array['OR-ST-07']),
-  ('/project-media/' || 'ora/fp-v3.webp','floorplan',0,array['OR-SW-04']),
-  ('/project-media/' || 'ora/fp-v4-0.webp','floorplan',0,array['OR-SW-05']),
-  ('/project-media/' || 'ora/fp-v4-01.webp','floorplan',1,array['OR-SW-05']),
-  ('/project-media/' || 'ora/fp-v6-0.webp','floorplan',0,array['OR-SW-06']),
-  ('/project-media/' || 'ora/fp-v6-01.webp','floorplan',1,array['OR-SW-06']),
-  ('/project-media/' || 'ora/fp-v7-0.webp','floorplan',0,array['OR-SW-02']),
-  ('/project-media/' || 'ora/fp-v7-01.webp','floorplan',1,array['OR-SW-02']),
-  ('/project-media/' || 'ora/fp-zw-0.webp','floorplan',0,array['OR-SW-01']),
-  ('/project-media/' || 'ora/fp-zw-01.webp','floorplan',1,array['OR-SW-01']),
-  ('/project-media/' || 'orascom/ledge-valley/units/fp-ch1-mko.webp','floorplan',0,array['LV-01']),
-  ('/project-media/' || 'orascom/ledge-valley/units/fp-ch10-mko.webp','floorplan',0,array['LV-10']),
-  ('/project-media/' || 'orascom/ledge-valley/units/fp-ch2-mko.webp','floorplan',0,array['LV-02']),
-  ('/project-media/' || 'orascom/ledge-valley/units/fp-ch3-mko.webp','floorplan',0,array['LV-03']),
-  ('/project-media/' || 'orascom/ledge-valley/units/fp-ch4-mko.webp','floorplan',0,array['LV-04'])
+  ('/project-media/' || 'ora/fp-v3.webp','floorplan',0,array['OR-SW-04'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path
