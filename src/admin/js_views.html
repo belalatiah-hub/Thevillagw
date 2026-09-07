@@ -96,7 +96,7 @@
             h('span', { text: t(c[0]) })));
         });
         return api.select('audit_log',
-          { select: 'id,action,entity,entity_label,actor_email,created_at', order: 'created_at.desc' }, [0, 9]);
+          { select: 'id,action,entity_type,entity_label,actor_email,created_at', order: 'created_at.desc' }, [0, 9]);
       }).then(function (r) {
         var rows = (r && r.data) || [];
         var box = document.getElementById('recent');
@@ -109,7 +109,7 @@
         rows.forEach(function (a) {
           tb.appendChild(h('tr', null,
             h('td', null, h('span', { class: 'chip chip--teal', text: a.action })),
-            h('td', { text: (a.entity || '') + (a.entity_label ? ' · ' + a.entity_label : '') }),
+            h('td', { text: (a.entity_type || '') + (a.entity_label ? ' · ' + a.entity_label : '') }),
             h('td', { text: a.actor_email || '—' }),
             h('td', { class: 'num', text: C.dateFmt(a.created_at) })));
         });
@@ -354,18 +354,18 @@
       return crud.renderList(host, {
         table: 'audit_log', pk: 'id', title: 'audit', sort: 'created_at',
         creatable: false, deletable: false,
-        searchOn: ['entity', 'entity_label', 'actor_email'],
+        searchOn: ['entity_type', 'entity_label', 'actor_email'],
         columns: [
           { label: 'audit', sortOn: 'created_at', cls: 'num', render: function (r) { return C.dateFmt(r.created_at); } },
           { label: 'role', render: function (r) { return h('span', { class: 'chip chip--teal', text: r.action }); } },
-          { label: 'content', render: function (r) { return (r.entity || '') + (r.entity_label ? ' · ' + r.entity_label : ''); } },
+          { label: 'content', render: function (r) { return (r.entity_type || '') + (r.entity_label ? ' · ' + r.entity_label : ''); } },
           { label: 'email', render: function (r) { return r.actor_email || '—'; } }
         ],
-        rowTitle: function (r) { return r.action + ' · ' + (r.entity || ''); },
+        rowTitle: function (r) { return r.action + ' · ' + (r.entity_type || ''); },
         groups: [{ fields: [
           { name: 'created_at', label: 'audit', readonly: true },
           { name: 'action', label: 'role', readonly: true },
-          { name: 'entity', label: 'content', readonly: true },
+          { name: 'entity_type', label: 'content', readonly: true },
           { name: 'entity_label', label: 'name_en', readonly: true },
           { name: 'actor_email', label: 'email', readonly: true }
         ] }]

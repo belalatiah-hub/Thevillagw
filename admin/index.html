@@ -11,7 +11,7 @@
     the sha256 of each inline block, so a script this build did not produce
     does not run even if it reaches the document.
   -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'sha256-PK3LGwx5GHHO666ewBy1d0Jtxog107b6s3ML84vNnBc=' 'sha256-09uogaNuYRC4ehBAWkF7amfBQfsIyMLoUPbh4J2wO9c=' 'sha256-NVOZ2dvGHDPQsMjtwFocsBrtCX2EvdDBYcv43lAq7bE=' 'sha256-6SbD3M70TNzm7jXWhD9zq2kfpU1BH9v1Qf6PErl2KAg=' 'sha256-YceixxFrYmxtX63Ngz13sepQul/xcdjOFzjvAiE/4/w=' 'sha256-cBM8ggGKCjAmHetFzz2pYJgGerIaeW1nAPBD22yrN5U=' 'sha256-GoVXjYJA0ITjxI8Dh3mpjem97QyQCnF6XefLPC3sgOg=' 'sha256-osDzXrcl+rq8IT7A2qXIe5XxSraN0Te9Sssjo3gIV08=' 'sha256-39ZxWwq5wq5+e/VgGnABthg4nwMOGS+EqtCBj+7p50A=' 'sha256-/zZHDQ1tauDysx8O1GJrpb4EMQ7UszUi0oTMTa2C8m4='; connect-src 'self' https://xvcrgoeavdwykqflhuiw.supabase.co; base-uri 'self'; form-action 'none'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'sha256-PK3LGwx5GHHO666ewBy1d0Jtxog107b6s3ML84vNnBc=' 'sha256-09uogaNuYRC4ehBAWkF7amfBQfsIyMLoUPbh4J2wO9c=' 'sha256-NVOZ2dvGHDPQsMjtwFocsBrtCX2EvdDBYcv43lAq7bE=' 'sha256-6SbD3M70TNzm7jXWhD9zq2kfpU1BH9v1Qf6PErl2KAg=' 'sha256-YceixxFrYmxtX63Ngz13sepQul/xcdjOFzjvAiE/4/w=' 'sha256-IstpcoRzryker5Yu/RThH9F+JeamSRJKnjuSjS2g+qo=' 'sha256-GoVXjYJA0ITjxI8Dh3mpjem97QyQCnF6XefLPC3sgOg=' 'sha256-osDzXrcl+rq8IT7A2qXIe5XxSraN0Te9Sssjo3gIV08=' 'sha256-39ZxWwq5wq5+e/VgGnABthg4nwMOGS+EqtCBj+7p50A=' 'sha256-/zZHDQ1tauDysx8O1GJrpb4EMQ7UszUi0oTMTa2C8m4='; connect-src 'self' https://xvcrgoeavdwykqflhuiw.supabase.co; base-uri 'self'; form-action 'none'" />
   <meta name="theme-color" content="#073D52" />
   <meta name="color-scheme" content="light" />
   <meta name="format-detection" content="telephone=no" />
@@ -1051,7 +1051,7 @@ h('b', { text: c[1] == null ? '—' : C.num(c[1]) }),
 h('span', { text: t(c[0]) })));
 });
 return api.select('audit_log',
-{ select: 'id,action,entity,entity_label,actor_email,created_at', order: 'created_at.desc' }, [0, 9]);
+{ select: 'id,action,entity_type,entity_label,actor_email,created_at', order: 'created_at.desc' }, [0, 9]);
 }).then(function (r) {
 var rows = (r && r.data) || [];
 var box = document.getElementById('recent');
@@ -1064,7 +1064,7 @@ var tb = h('tbody');
 rows.forEach(function (a) {
 tb.appendChild(h('tr', null,
 h('td', null, h('span', { class: 'chip chip--teal', text: a.action })),
-h('td', { text: (a.entity || '') + (a.entity_label ? ' · ' + a.entity_label : '') }),
+h('td', { text: (a.entity_type || '') + (a.entity_label ? ' · ' + a.entity_label : '') }),
 h('td', { text: a.actor_email || '—' }),
 h('td', { class: 'num', text: C.dateFmt(a.created_at) })));
 });
@@ -1297,18 +1297,18 @@ render: function (host) {
 return crud.renderList(host, {
 table: 'audit_log', pk: 'id', title: 'audit', sort: 'created_at',
 creatable: false, deletable: false,
-searchOn: ['entity', 'entity_label', 'actor_email'],
+searchOn: ['entity_type', 'entity_label', 'actor_email'],
 columns: [
 { label: 'audit', sortOn: 'created_at', cls: 'num', render: function (r) { return C.dateFmt(r.created_at); } },
 { label: 'role', render: function (r) { return h('span', { class: 'chip chip--teal', text: r.action }); } },
-{ label: 'content', render: function (r) { return (r.entity || '') + (r.entity_label ? ' · ' + r.entity_label : ''); } },
+{ label: 'content', render: function (r) { return (r.entity_type || '') + (r.entity_label ? ' · ' + r.entity_label : ''); } },
 { label: 'email', render: function (r) { return r.actor_email || '—'; } }
 ],
-rowTitle: function (r) { return r.action + ' · ' + (r.entity || ''); },
+rowTitle: function (r) { return r.action + ' · ' + (r.entity_type || ''); },
 groups: [{ fields: [
 { name: 'created_at', label: 'audit', readonly: true },
 { name: 'action', label: 'role', readonly: true },
-{ name: 'entity', label: 'content', readonly: true },
+{ name: 'entity_type', label: 'content', readonly: true },
 { name: 'entity_label', label: 'name_en', readonly: true },
 { name: 'actor_email', label: 'email', readonly: true }
 ] }]
