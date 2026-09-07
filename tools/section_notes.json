@@ -83,11 +83,12 @@
    "       units and one hotel (its Masterplan | Overview), the two valleys and",
    "       the elevated arrangement of the homes.",
    "       The 56 pages supplied stop at the end of the Masterplan section, before",
-   "       Architecture. They publish no price, no down payment, no instalment",
-   "       term, no delivery date, no finishing and no unit types — so none of",
-   "       those keys is written, and the card shows On request rather than a",
-   "       number nobody quoted. Drive times are in the deck but are left out",
-   "       here, as everywhere else on the site. */"
+   "       Architecture, and publish no price, plan, delivery date or unit type.",
+   "       Those come instead from the client's price sheet: twelve types, a 10%",
+   "       down payment over 8 years, handover 2030. The project opens at",
+   "       19,500,000 — the cheapest unit the sheet lists, not a figure chosen for",
+   "       the card. Finishing is still absent because no source states it. Drive",
+   "       times are in the deck but are left out here, as everywhere else. */"
   ],
   "ledge-valley": [
    "    /* Orascom Development — Ledge Valley, the second Makadi Heights",
@@ -159,6 +160,22 @@
    "       7 years and the 2030 handover are the sheet's own. `label` carries the",
    "       sheet's product name; `type` is the site's canonical type so the",
    "       filters still work. */"
+  ],
+  "SS-01": [
+   "    /* Marakez — Shams Soma, the twelve types on the client sheet, in the",
+   "       sheet's own row order. Every figure is the sheet's: area, bedrooms,",
+   "       bathrooms, price, the 10% down payment (stored 0.1 under a percent",
+   "       format), the 8 years, and the 2030 in its availability column, which is",
+   "       the only place the sheet carries a handover year.",
+   "       `label` is the code and product name printed on the developer's own",
+   "       floor plan, because the sheet has no name column — only an image id.",
+   "       Those codes name the position in a building, so the sheet's th1 is the",
+   "       developer's TH 2 and its th2 is TH1 B; the two sit in different",
+   "       buildings and nothing is crossed.",
+   "       SS-08 is 171 m2 because the sheet says 171. Its floor plan states BUA",
+   "       182 with an internal 171, and on the other eleven the sheet's figure is",
+   "       the BUA; the owner chose the sheet. The conflict is recorded here so it",
+   "       is not rediscovered as a bug. */"
   ]
  }
 }

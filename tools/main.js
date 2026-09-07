@@ -563,7 +563,7 @@ var PROJECTS = [
 {slug:'hacienda-heneish', name:'Hacienda Heneish', name_ar:'هاسيندا حنيش', dev:'palmhills', area:'raselhekma', status:'primary', price:16000000, dp:5, years:8, delivery:'2029', finishing:{en:'Fully finished',ar:'تشطيب كامل'}, types:{en:'Apartment · Chalet · Townhouse · Villa',ar:'شقة · شاليه · تاون هاوس · فيلا'}, tags:{en:['Ras El Hekma','Marriott hotel'],ar:['رأس الحكمة','فندق ماريوت']}, blurb:{en:'A 420-feddan Palm Hills resort on the North Coast with a Marriott hotel, strip mall and 1.1km of beachfront — G+3 apartments, chalets, townhouses and standalone villas. Developer-direct primary units.',ar:'منتجع بالم هيلز على ٤٢٠ فداناً بالساحل الشمالي بفندق ماريوت وممشى تجاري وواجهة بحرية ١٫١ كم — شقق أرضي+٣ وشاليهات وتاون هاوس وفيلات مستقلة. وحدات أولية من المطوّر مباشرة.'}},
 {slug:'hacienda-west', name:'Hacienda West', name_ar:'هاسيندا ويست', dev:'palmhills', area:'raselhekma', status:'primary', price:23800000, dp:10, years:7, delivery:'2027', finishing:{en:'Fully finished / core & shell',ar:'تشطيب كامل / خرسانة'}, types:{en:'Chalet · Cabin · Villa',ar:'شاليه · كابين · فيلا'}, tags:{en:['Ras El Hekma','Beachfront'],ar:['رأس الحكمة','واجهة بحرية']}, blurb:{en:'A 132-feddan Palm Hills beach community at Ras El Hekma (Km 208) with a hotel, clubhouse, lagoons and a 400m beach — chalets, cabins and villas. Developer-direct primary units.',ar:'مجتمع بالم هيلز الشاطئي على ١٣٢ فداناً برأس الحكمة (كيلو ٢٠٨) بفندق وكلوب هاوس وبحيرات وشاطئ ٤٠٠ متر — شاليهات وكبائن وفيلات. وحدات أولية من المطوّر مباشرة.'}},
 {slug:'siyal', name:'Siyal', name_ar:'سيال', dev:'orascom', area:'redsea', status:'primary', price:23735000, dp:10, years:7, delivery:'2030', finishing:{en:'Fully finished',ar:'تشطيب كامل'}, types:{en:'Villa · Twin house · Townhouse',ar:'فيلا · توين هاوس · تاون هاوس'}, tags:{en:['Red Sea','Makadi Bay','Lagoons'],ar:['البحر الأحمر','خليج مكادي','بحيرات']}, blurb:{en:'A neighbourhood of 78 homes inside Makadi Heights, built on 82,500 m² with only about 12% of the site covered — the rest given to open landscape, lagoons and communal ground.',ar:'حي من ٧٨ وحدة داخل مدن مكادي هايتس على ٨٢٬٥٠٠ م²، لا تشغل المباني سوى نحو ١٢٪ من الأرض — والباقي مساحات مفتوحة وبحيرات وأماكن مشتركة.'}},
-{slug:'shams-soma', name:'Shams Soma', name_ar:'شمس سوما', dev:'marakez', area:'redsea', status:'primary', tags:{en:['Red Sea','Somabay','700m coastline'],ar:['البحر الأحمر','سوما باي','واجهة بحرية ٧٠٠م']}, blurb:{en:'630 homes and one hotel on 80 feddan inside Somabay, with 700 metres of coastline and two valleys running from the town down to the beach. The homes step down the natural slope of the land so the sea stays in view.',ar:'٦٣٠ وحدة وفندق واحد على ٨٠ فداناً داخل سوما باي، بواجهة بحرية طولها ٧٠٠ متر وواديين ينحدران من المدينة إلى الشاطئ. وتتدرّج الوحدات مع ميل الأرض الطبيعي ليبقى البحر في المشهد.'}},
+{slug:'shams-soma', name:'Shams Soma', name_ar:'شمس سوما', dev:'marakez', area:'redsea', status:'primary', price:19500000, dp:10, years:8, delivery:'2030', types:{en:'Villa · Standalone villa · Townhouse · Chalet · Penthouse · Loft',ar:'فيلا · فيلا مستقلة · تاون هاوس · شاليه · بنتهاوس · لوفت'}, tags:{en:['Red Sea','Somabay','700m coastline'],ar:['البحر الأحمر','سوما باي','واجهة بحرية ٧٠٠م']}, blurb:{en:'630 homes and one hotel on 80 feddan inside Somabay, with 700 metres of coastline and two valleys running from the town down to the beach. The homes step down the natural slope of the land so the sea stays in view.',ar:'٦٣٠ وحدة وفندق واحد على ٨٠ فداناً داخل سوما باي، بواجهة بحرية طولها ٧٠٠ متر وواديين ينحدران من المدينة إلى الشاطئ. وتتدرّج الوحدات مع ميل الأرض الطبيعي ليبقى البحر في المشهد.'}},
 {slug:'ledge-valley', name:'Ledge Valley', name_ar:'ليدج فالي', dev:'orascom', area:'redsea', status:'primary', price:11410000, dp:10, years:7, delivery:'2030', types:{en:'Chalet · Penthouse',ar:'شاليه · بنتهاوس'}, tags:{en:['Red Sea','Makadi Bay','Lagoons','Waterfront'],ar:['البحر الأحمر','خليج مكادي','بحيرات','على الماء']}, blurb:{en:'A waterfront neighbourhood of 274 homes on 91,049 m² inside Makadi Heights, built around expansive lagoons and landscaped open space, with a mix of one to four bedroom residences.',ar:'حي على الماء من ٢٧٤ وحدة على ٩١٬٠٤٩ م² داخل مدن مكادي هايتس، مبني حول بحيرات واسعة ومساحات مفتوحة منسّقة، بوحدات من غرفة إلى أربع غرف.'}}
 ];
 var UNITS = [
@@ -1003,7 +1003,19 @@ var UNITS = [
 {id:'SY-04', project:'siyal', type:'Villa', label:{en:'Deluxe Villa',ar:'ديلوكس فيلا'}, beds:4, baths:4, area:175, price:32615000, dp:10, years:7, handover:'2030'},
 {id:'SY-05', project:'siyal', type:'Villa', label:{en:'Boutique Villa',ar:'بوتيك فيلا'}, beds:3, baths:4, area:160, price:31145000, dp:10, years:7, handover:'2030'},
 {id:'SY-06', project:'siyal', type:'Twin House', label:{en:'Twin Villa',ar:'توين فيلا'}, beds:3, baths:4, area:144, price:23735000, dp:10, years:7, handover:'2030'},
-{id:'SY-07', project:'siyal', type:'Townhouse', label:{en:'Town Villa',ar:'تاون فيلا'}, beds:3, baths:3, area:138, price:24000000, dp:10, years:7, handover:'2030'}
+{id:'SY-07', project:'siyal', type:'Townhouse', label:{en:'Town Villa',ar:'تاون فيلا'}, beds:3, baths:3, area:138, price:24000000, dp:10, years:7, handover:'2030'},
+{id:'SS-01', project:'shams-soma', type:'Villa', label:{en:'VM1 Villa',ar:'VM1 فيلا'}, beds:3, baths:4, area:212, price:46000000, dp:10, years:8, handover:'2030'},
+{id:'SS-02', project:'shams-soma', type:'Villa', label:{en:'VM2 Villa',ar:'VM2 فيلا'}, beds:4, baths:5, area:247, price:55000000, dp:10, years:8, handover:'2030'},
+{id:'SS-03', project:'shams-soma', type:'Penthouse', label:{en:'PH1 A Penthouse',ar:'PH1 A بنتهاوس'}, beds:2, baths:2, area:133, price:22000000, dp:10, years:8, handover:'2030'},
+{id:'SS-04', project:'shams-soma', type:'Chalet', label:{en:'CH-1A Chalet',ar:'CH-1A شاليه'}, beds:3, baths:3, area:165, price:27500000, dp:10, years:8, handover:'2030'},
+{id:'SS-05', project:'shams-soma', type:'Chalet', label:{en:'CH-1B Chalet',ar:'CH-1B شاليه'}, beds:2, baths:2, area:145, price:19500000, dp:10, years:8, handover:'2030'},
+{id:'SS-06', project:'shams-soma', type:'Chalet', label:{en:'CH-2A Chalet',ar:'CH-2A شاليه'}, beds:2, baths:2, area:102, price:23000000, dp:10, years:8, handover:'2030'},
+{id:'SS-07', project:'shams-soma', type:'Townhouse', label:{en:'TH 2 Townhome',ar:'TH 2 تاون هوم'}, beds:4, baths:5, area:233, price:38000000, dp:10, years:8, handover:'2030'},
+{id:'SS-08', project:'shams-soma', type:'Townhouse', label:{en:'TH1 B Townhome',ar:'TH1 B تاون هوم'}, beds:3, baths:4, area:171, price:34000000, dp:10, years:8, handover:'2030'},
+{id:'SS-09', project:'shams-soma', type:'Loft', label:{en:'LF-1B Loft',ar:'LF-1B لوفت'}, beds:2, baths:3, area:123, price:23500000, dp:10, years:8, handover:'2030'},
+{id:'SS-10', project:'shams-soma', type:'Standalone Villa', label:{en:'Type VS1 Single Storey Villa',ar:'VS1 فيلا دور واحد'}, beds:5, baths:8, area:289, price:110000000, dp:10, years:8, handover:'2030'},
+{id:'SS-11', project:'shams-soma', type:'Standalone Villa', label:{en:'Type VS2 Single Storey Villa',ar:'VS2 فيلا دور واحد'}, beds:4, baths:6, area:244, price:95000000, dp:10, years:8, handover:'2030'},
+{id:'SS-12', project:'shams-soma', type:'Standalone Villa', label:{en:'Type VS3 Single Storey Villa',ar:'VS3 فيلا دور واحد'}, beds:3, baths:5, area:194, price:82000000, dp:10, years:8, handover:'2030'},
 ];
 var UNIT_EXTRA={'V-A305':{floor:'high'},'V-TH22':{lvl:2},'SE-T12':{lvl:2},'SE-A44':{floor:'middle'},'ET-D07':{floor:'low',lvl:2},'ET-A12':{floor:'low'},'AL-V03':{lvl:2},'AL-TW6':{lvl:2},'MV-D14':{floor:'low',lvl:2},'FS-A18':{floor:'high'},'IB-V05':{lvl:2},'IB-S02':{floor:'low'},'HP-P03':{floor:'top',roof:true},'CG-A05':{floor:'middle'},'VL-IV3':{floor:'ground',lvl:3},'AL-TV2':{lvl:2},'CS-TH1':{lvl:2},'CS-TW1':{lvl:2}};
 UNITS.forEach(function(u){ var e=UNIT_EXTRA[u.id]; if(e){ for(var k in e){ u[k]=e[k]; } } });
@@ -1214,6 +1226,18 @@ function groupsByDev(k){ return PROJECT_GROUPS.filter(function(g){ return g.dev=
 function groupMembers(g){ return (g?g.members:[]).map(projBySlug).filter(Boolean); }
 function groupFrom(g){ var m=groupMembers(g).map(function(p){return p.price;}).filter(function(x){return x!=null;}); return m.length?Math.min.apply(null,m):null; }
 var UNIT_IMAGES = {
+'SS-01':'/project-media/marakez/shams-soma/units/v1-shams-soma-0.webp',
+'SS-02':'/project-media/marakez/shams-soma/units/v2-shams-soma-0.webp',
+'SS-03':'/project-media/marakez/shams-soma/units/pent-shams-soma-0.webp',
+'SS-04':'/project-media/marakez/shams-soma/units/ch1-shams-soma-0.webp',
+'SS-05':'/project-media/marakez/shams-soma/units/ch2-shams-soma-0.webp',
+'SS-06':'/project-media/marakez/shams-soma/units/ch3-shams-soma-0.webp',
+'SS-07':'/project-media/marakez/shams-soma/units/th1-shams-soma-0.webp',
+'SS-08':'/project-media/marakez/shams-soma/units/th2-shams-soma-0.webp',
+'SS-09':'/project-media/marakez/shams-soma/units/loft-shams-soma-0.webp',
+'SS-10':'/project-media/marakez/shams-soma/units/sst1-shams-soma-0.webp',
+'SS-11':'/project-media/marakez/shams-soma/units/sst2-shams-soma-0.webp',
+'SS-12':'/project-media/marakez/shams-soma/units/sst3-shams-soma-0.webp',
 'LV-01':'/project-media/orascom/ledge-valley/units/ch1-mko-0.webp',
 'LV-02':'/project-media/orascom/ledge-valley/units/ch1-mko-4.webp',
 'LV-03':'/project-media/orascom/ledge-valley/units/ch1-mko-3.webp',
@@ -1607,6 +1631,18 @@ var UNIT_IMAGES = {
 'SL-SV15':'/project-media/hassan-allam/sl-sv15-r1.webp',
 };
 var UNIT_GALLERY = {
+'SS-01':['/project-media/marakez/shams-soma/units/v1-shams-soma-0.webp', '/project-media/marakez/shams-soma/units/v1-shams-soma-1.webp', '/project-media/marakez/shams-soma/units/v1-shams-soma-2.webp', '/project-media/marakez/shams-soma/units/v1-shams-soma-3.webp'],
+'SS-02':['/project-media/marakez/shams-soma/units/v2-shams-soma-0.webp', '/project-media/marakez/shams-soma/units/v2-shams-soma-1.webp', '/project-media/marakez/shams-soma/units/v2-shams-soma-2.webp'],
+'SS-03':['/project-media/marakez/shams-soma/units/pent-shams-soma-0.webp', '/project-media/marakez/shams-soma/units/pent-shams-soma-1.webp', '/project-media/marakez/shams-soma/units/pent-shams-soma-2.webp'],
+'SS-04':['/project-media/marakez/shams-soma/units/ch1-shams-soma-0.webp', '/project-media/marakez/shams-soma/units/ch1-shams-soma-1.webp', '/project-media/marakez/shams-soma/units/ch1-shams-soma-2.webp', '/project-media/marakez/shams-soma/units/ch1-shams-soma-3.webp'],
+'SS-05':['/project-media/marakez/shams-soma/units/ch2-shams-soma-0.webp', '/project-media/marakez/shams-soma/units/ch2-shams-soma-1.webp', '/project-media/marakez/shams-soma/units/ch2-shams-soma-2.webp'],
+'SS-06':['/project-media/marakez/shams-soma/units/ch3-shams-soma-0.webp', '/project-media/marakez/shams-soma/units/ch3-shams-soma-1.webp', '/project-media/marakez/shams-soma/units/ch3-shams-soma-2.webp'],
+'SS-07':['/project-media/marakez/shams-soma/units/th1-shams-soma-0.webp', '/project-media/marakez/shams-soma/units/th1-shams-soma-1.webp', '/project-media/marakez/shams-soma/units/th1-shams-soma-2.webp', '/project-media/marakez/shams-soma/units/th1-shams-soma-3.webp'],
+'SS-08':['/project-media/marakez/shams-soma/units/th2-shams-soma-0.webp', '/project-media/marakez/shams-soma/units/th2-shams-soma-1.webp', '/project-media/marakez/shams-soma/units/th2-shams-soma-2.webp', '/project-media/marakez/shams-soma/units/th2-shams-soma-3.webp'],
+'SS-09':['/project-media/marakez/shams-soma/units/loft-shams-soma-0.webp', '/project-media/marakez/shams-soma/units/loft-shams-soma-1.webp', '/project-media/marakez/shams-soma/units/loft-shams-soma-2.webp'],
+'SS-10':['/project-media/marakez/shams-soma/units/sst1-shams-soma-0.webp', '/project-media/marakez/shams-soma/units/sst1-shams-soma-1.webp', '/project-media/marakez/shams-soma/units/sst1-shams-soma-2.webp', '/project-media/marakez/shams-soma/units/sst1-shams-soma-3.webp'],
+'SS-11':['/project-media/marakez/shams-soma/units/sst2-shams-soma-0.webp', '/project-media/marakez/shams-soma/units/sst2-shams-soma-1.webp', '/project-media/marakez/shams-soma/units/sst2-shams-soma-2.webp', '/project-media/marakez/shams-soma/units/sst2-shams-soma-3.webp'],
+'SS-12':['/project-media/marakez/shams-soma/units/sst3-shams-soma-0.webp', '/project-media/marakez/shams-soma/units/sst3-shams-soma-1.webp', '/project-media/marakez/shams-soma/units/sst3-shams-soma-2.webp', '/project-media/marakez/shams-soma/units/sst3-shams-soma-3.webp'],
 'LV-01':['/project-media/orascom/ledge-valley/units/ch1-mko-0.webp', '/project-media/orascom/ledge-valley/units/ch1-mko-1.webp', '/project-media/orascom/ledge-valley/units/ch1-mko-2.webp', '/project-media/orascom/ledge-valley/units/ch1-mko-3.webp', '/project-media/orascom/ledge-valley/units/ch1-mko-4.webp'],
 'LV-02':['/project-media/orascom/ledge-valley/units/ch1-mko-4.webp', '/project-media/orascom/ledge-valley/units/ch1-mko-3.webp', '/project-media/orascom/ledge-valley/units/ch1-mko-2.webp', '/project-media/orascom/ledge-valley/units/ch1-mko-1.webp', '/project-media/orascom/ledge-valley/units/ch1-mko-0.webp'],
 'LV-03':['/project-media/orascom/ledge-valley/units/ch1-mko-3.webp', '/project-media/orascom/ledge-valley/units/ch1-mko-2.webp', '/project-media/orascom/ledge-valley/units/ch1-mko-1.webp', '/project-media/orascom/ledge-valley/units/ch1-mko-0.webp', '/project-media/orascom/ledge-valley/units/ch1-mko-4.webp'],
@@ -1989,6 +2025,18 @@ elgouna:'elgouna.webp', somabay:'somabay.webp'
 function areaImageSrc(key){ return (key && AREA_IMAGES[key]) ? (LOC_BASE+AREA_IMAGES[key]) : ''; }
 var PLANS_BASE = '/project-media/plans/';
 var UNIT_MASTERPLANS = {
+'SS-01':['/project-media/marakez/shams-soma/units/master-plan-shams-soma.webp'],
+'SS-02':['/project-media/marakez/shams-soma/units/master-plan-shams-soma.webp'],
+'SS-03':['/project-media/marakez/shams-soma/units/master-plan-shams-soma.webp'],
+'SS-04':['/project-media/marakez/shams-soma/units/master-plan-shams-soma.webp'],
+'SS-05':['/project-media/marakez/shams-soma/units/master-plan-shams-soma.webp'],
+'SS-06':['/project-media/marakez/shams-soma/units/master-plan-shams-soma.webp'],
+'SS-07':['/project-media/marakez/shams-soma/units/master-plan-shams-soma.webp'],
+'SS-08':['/project-media/marakez/shams-soma/units/master-plan-shams-soma.webp'],
+'SS-09':['/project-media/marakez/shams-soma/units/master-plan-shams-soma.webp'],
+'SS-10':['/project-media/marakez/shams-soma/units/master-plan-shams-soma.webp'],
+'SS-11':['/project-media/marakez/shams-soma/units/master-plan-shams-soma.webp'],
+'SS-12':['/project-media/marakez/shams-soma/units/master-plan-shams-soma.webp'],
 'LV-01':['/project-media/orascom/ledge-valley/units/mp-mko.webp'],
 'LV-02':['/project-media/orascom/ledge-valley/units/mp-mko.webp'],
 'LV-03':['/project-media/orascom/ledge-valley/units/mp-mko.webp'],
@@ -2367,6 +2415,18 @@ var UNIT_MASTERPLANS = {
 'SL-SV15':["/project-media/hassan-allam/sl-sv15-mp1.webp"],
 };
 var UNIT_FLOORPLANS = {
+'SS-01':['/project-media/marakez/shams-soma/units/fp-v1-shams-soma.webp'],
+'SS-02':['/project-media/marakez/shams-soma/units/fp-v2-shams-soma.webp'],
+'SS-03':['/project-media/marakez/shams-soma/units/fp-pent-shams-soma.webp'],
+'SS-04':['/project-media/marakez/shams-soma/units/fp-ch1-shams-soma.webp'],
+'SS-05':['/project-media/marakez/shams-soma/units/fp-ch2-shams-soma.webp'],
+'SS-06':['/project-media/marakez/shams-soma/units/fp-ch3-shams-soma.webp'],
+'SS-07':['/project-media/marakez/shams-soma/units/fp-th1-shams-soma.webp'],
+'SS-08':['/project-media/marakez/shams-soma/units/fp-th2-shams-soma.webp'],
+'SS-09':['/project-media/marakez/shams-soma/units/fp-loft-shams-soma.webp'],
+'SS-10':['/project-media/marakez/shams-soma/units/fp-sst1-shams-soma.webp'],
+'SS-11':['/project-media/marakez/shams-soma/units/fp-sst2-shams-soma.webp'],
+'SS-12':['/project-media/marakez/shams-soma/units/fp-sst3-shams-soma.webp'],
 'LV-01':['/project-media/orascom/ledge-valley/units/fp-ch1-mko.webp'],
 'LV-02':['/project-media/orascom/ledge-valley/units/fp-ch2-mko.webp'],
 'LV-03':['/project-media/orascom/ledge-valley/units/fp-ch3-mko.webp'],
@@ -2728,6 +2788,18 @@ var UNIT_FLOORPLANS = {
 'SL-SV15':["/project-media/hassan-allam/sl-sv15-fp1.webp"],
 };
 var UNIT_LOCATIONS = {
+'SS-01':['/project-media/marakez/shams-soma/units/location-shams-soma-1.webp'],
+'SS-02':['/project-media/marakez/shams-soma/units/location-shams-soma-1.webp'],
+'SS-03':['/project-media/marakez/shams-soma/units/location-shams-soma-1.webp'],
+'SS-04':['/project-media/marakez/shams-soma/units/location-shams-soma-1.webp'],
+'SS-05':['/project-media/marakez/shams-soma/units/location-shams-soma-1.webp'],
+'SS-06':['/project-media/marakez/shams-soma/units/location-shams-soma-1.webp'],
+'SS-07':['/project-media/marakez/shams-soma/units/location-shams-soma-1.webp'],
+'SS-08':['/project-media/marakez/shams-soma/units/location-shams-soma-1.webp'],
+'SS-09':['/project-media/marakez/shams-soma/units/location-shams-soma-1.webp'],
+'SS-10':['/project-media/marakez/shams-soma/units/location-shams-soma-1.webp'],
+'SS-11':['/project-media/marakez/shams-soma/units/location-shams-soma-1.webp'],
+'SS-12':['/project-media/marakez/shams-soma/units/location-shams-soma-1.webp'],
 'LV-01':['/project-media/orascom/ledge-valley/units/location-mko.webp'],
 'LV-02':['/project-media/orascom/ledge-valley/units/location-mko.webp'],
 'LV-03':['/project-media/orascom/ledge-valley/units/location-mko.webp'],

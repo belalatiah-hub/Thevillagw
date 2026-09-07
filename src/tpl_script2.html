@@ -188,12 +188,13 @@
        the elevated arrangement of the homes.
 
        The 56 pages supplied stop at the end of the Masterplan section, before
-       Architecture. They publish no price, no down payment, no instalment
-       term, no delivery date, no finishing and no unit types — so none of
-       those keys is written, and the card shows On request rather than a
-       number nobody quoted. Drive times are in the deck but are left out
-       here, as everywhere else on the site. */
-    {slug:'shams-soma', name:'Shams Soma', name_ar:'شمس سوما', dev:'marakez', area:'redsea', status:'primary', tags:{en:['Red Sea','Somabay','700m coastline'],ar:['البحر الأحمر','سوما باي','واجهة بحرية ٧٠٠م']}, blurb:{en:'630 homes and one hotel on 80 feddan inside Somabay, with 700 metres of coastline and two valleys running from the town down to the beach. The homes step down the natural slope of the land so the sea stays in view.',ar:'٦٣٠ وحدة وفندق واحد على ٨٠ فداناً داخل سوما باي، بواجهة بحرية طولها ٧٠٠ متر وواديين ينحدران من المدينة إلى الشاطئ. وتتدرّج الوحدات مع ميل الأرض الطبيعي ليبقى البحر في المشهد.'}},
+       Architecture, and publish no price, plan, delivery date or unit type.
+       Those come instead from the client's price sheet: twelve types, a 10%
+       down payment over 8 years, handover 2030. The project opens at
+       19,500,000 — the cheapest unit the sheet lists, not a figure chosen for
+       the card. Finishing is still absent because no source states it. Drive
+       times are in the deck but are left out here, as everywhere else. */
+    {slug:'shams-soma', name:'Shams Soma', name_ar:'شمس سوما', dev:'marakez', area:'redsea', status:'primary', price:19500000, dp:10, years:8, delivery:'2030', types:{en:'Villa · Standalone villa · Townhouse · Chalet · Penthouse · Loft',ar:'فيلا · فيلا مستقلة · تاون هاوس · شاليه · بنتهاوس · لوفت'}, tags:{en:['Red Sea','Somabay','700m coastline'],ar:['البحر الأحمر','سوما باي','واجهة بحرية ٧٠٠م']}, blurb:{en:'630 homes and one hotel on 80 feddan inside Somabay, with 700 metres of coastline and two valleys running from the town down to the beach. The homes step down the natural slope of the land so the sea stays in view.',ar:'٦٣٠ وحدة وفندق واحد على ٨٠ فداناً داخل سوما باي، بواجهة بحرية طولها ٧٠٠ متر وواديين ينحدران من المدينة إلى الشاطئ. وتتدرّج الوحدات مع ميل الأرض الطبيعي ليبقى البحر في المشهد.'}},
     /* Orascom Development — Ledge Valley, the second Makadi Heights
        neighbourhood. Only sections 01-07 of the brochure's twelve were
        supplied, so The Valley Collection, the finishing specifications and
@@ -684,7 +685,35 @@
     {id:'SY-04', project:'siyal', type:'Villa', label:{en:'Deluxe Villa',ar:'ديلوكس فيلا'}, beds:4, baths:4, area:175, price:32615000, dp:10, years:7, handover:'2030'},
     {id:'SY-05', project:'siyal', type:'Villa', label:{en:'Boutique Villa',ar:'بوتيك فيلا'}, beds:3, baths:4, area:160, price:31145000, dp:10, years:7, handover:'2030'},
     {id:'SY-06', project:'siyal', type:'Twin House', label:{en:'Twin Villa',ar:'توين فيلا'}, beds:3, baths:4, area:144, price:23735000, dp:10, years:7, handover:'2030'},
-    {id:'SY-07', project:'siyal', type:'Townhouse', label:{en:'Town Villa',ar:'تاون فيلا'}, beds:3, baths:3, area:138, price:24000000, dp:10, years:7, handover:'2030'}
+    {id:'SY-07', project:'siyal', type:'Townhouse', label:{en:'Town Villa',ar:'تاون فيلا'}, beds:3, baths:3, area:138, price:24000000, dp:10, years:7, handover:'2030'},
+    /* Marakez — Shams Soma, the twelve types on the client sheet, in the
+       sheet's own row order. Every figure is the sheet's: area, bedrooms,
+       bathrooms, price, the 10% down payment (stored 0.1 under a percent
+       format), the 8 years, and the 2030 in its availability column, which is
+       the only place the sheet carries a handover year.
+
+       `label` is the code and product name printed on the developer's own
+       floor plan, because the sheet has no name column — only an image id.
+       Those codes name the position in a building, so the sheet's th1 is the
+       developer's TH 2 and its th2 is TH1 B; the two sit in different
+       buildings and nothing is crossed.
+
+       SS-08 is 171 m2 because the sheet says 171. Its floor plan states BUA
+       182 with an internal 171, and on the other eleven the sheet's figure is
+       the BUA; the owner chose the sheet. The conflict is recorded here so it
+       is not rediscovered as a bug. */
+    {id:'SS-01', project:'shams-soma', type:'Villa', label:{en:'VM1 Villa',ar:'VM1 فيلا'}, beds:3, baths:4, area:212, price:46000000, dp:10, years:8, handover:'2030'},
+    {id:'SS-02', project:'shams-soma', type:'Villa', label:{en:'VM2 Villa',ar:'VM2 فيلا'}, beds:4, baths:5, area:247, price:55000000, dp:10, years:8, handover:'2030'},
+    {id:'SS-03', project:'shams-soma', type:'Penthouse', label:{en:'PH1 A Penthouse',ar:'PH1 A بنتهاوس'}, beds:2, baths:2, area:133, price:22000000, dp:10, years:8, handover:'2030'},
+    {id:'SS-04', project:'shams-soma', type:'Chalet', label:{en:'CH-1A Chalet',ar:'CH-1A شاليه'}, beds:3, baths:3, area:165, price:27500000, dp:10, years:8, handover:'2030'},
+    {id:'SS-05', project:'shams-soma', type:'Chalet', label:{en:'CH-1B Chalet',ar:'CH-1B شاليه'}, beds:2, baths:2, area:145, price:19500000, dp:10, years:8, handover:'2030'},
+    {id:'SS-06', project:'shams-soma', type:'Chalet', label:{en:'CH-2A Chalet',ar:'CH-2A شاليه'}, beds:2, baths:2, area:102, price:23000000, dp:10, years:8, handover:'2030'},
+    {id:'SS-07', project:'shams-soma', type:'Townhouse', label:{en:'TH 2 Townhome',ar:'TH 2 تاون هوم'}, beds:4, baths:5, area:233, price:38000000, dp:10, years:8, handover:'2030'},
+    {id:'SS-08', project:'shams-soma', type:'Townhouse', label:{en:'TH1 B Townhome',ar:'TH1 B تاون هوم'}, beds:3, baths:4, area:171, price:34000000, dp:10, years:8, handover:'2030'},
+    {id:'SS-09', project:'shams-soma', type:'Loft', label:{en:'LF-1B Loft',ar:'LF-1B لوفت'}, beds:2, baths:3, area:123, price:23500000, dp:10, years:8, handover:'2030'},
+    {id:'SS-10', project:'shams-soma', type:'Standalone Villa', label:{en:'Type VS1 Single Storey Villa',ar:'VS1 فيلا دور واحد'}, beds:5, baths:8, area:289, price:110000000, dp:10, years:8, handover:'2030'},
+    {id:'SS-11', project:'shams-soma', type:'Standalone Villa', label:{en:'Type VS2 Single Storey Villa',ar:'VS2 فيلا دور واحد'}, beds:4, baths:6, area:244, price:95000000, dp:10, years:8, handover:'2030'},
+    {id:'SS-12', project:'shams-soma', type:'Standalone Villa', label:{en:'Type VS3 Single Storey Villa',ar:'VS3 فيلا دور واحد'}, beds:3, baths:5, area:194, price:82000000, dp:10, years:8, handover:'2030'},
   ];
   // Floor / internal-level enrichment (illustrative). Units without a floor
   // remain "floor to confirm" and never pass a strict floor filter.

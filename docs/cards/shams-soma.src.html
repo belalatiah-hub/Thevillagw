@@ -156,14 +156,21 @@
   .coast li::before{content:''; position:absolute; inset-inline-start:0; top:.66em; width:8px; height:1px; background:var(--aqua)}
   .coast li b{color:var(--navy); font-weight:600}
 
-  /* ------------------------------------------- what is absent */
-  .pending{background:var(--sand); padding:clamp(30px,4.6vw,54px) var(--pad)}
-  .pending h2{margin-bottom:12px}
-  .pending .rows td{color:var(--ink-3); font-weight:400; font-style:italic}
-  .pending .fine{
+  /* --------------------------------------------- units table */
+  .variants{overflow-x:auto; margin-top:clamp(20px,3vw,28px)}
+  .variants table{width:100%; border-collapse:collapse; min-width:560px}
+  .variants th, .variants td{
+    padding:10px 14px 10px 0; border-bottom:1px solid var(--rule-soft);
+    text-align:end; font-size:13.5px; font-weight:400; color:var(--ink-2);
+  }
+  .variants th:first-child, .variants td:first-child{text-align:start; font-weight:500; color:var(--ink)}
+  .variants thead th{
+    font-size:9.5px; font-weight:600; letter-spacing:.17em; text-transform:uppercase;
+    color:var(--ink-3); border-bottom:1px solid var(--rule);
+  }
+  .fine{
     font-size:12.5px; line-height:1.6; color:var(--ink-2);
-    border-inline-start:2px solid var(--coral); padding-inline-start:14px;
-    margin:18px 0 0; max-width:62ch;
+    border-inline-start:2px solid var(--coral); padding-inline-start:14px; max-width:62ch;
   }
 
   /* --------------------------------------------- the destination */
@@ -316,30 +323,37 @@
     </div>
   </section>
 
-  <section class="pending">
-    <div class="two">
-      <div>
-        <p class="kicker">Units &amp; prices</p>
-        <h2>Not published yet</h2>
-        <p>The sales presentation supplied runs to 56 pages and ends with the master plan, before
-          the Architecture section. It names no unit type, no built-up area, no bedroom count, no
-          price, no down payment, no instalment term and no delivery date.</p>
-        <p>So none is stated here. The moment Marakez releases the price list — or the rest of the
-          deck — this section becomes a table like the ones on the Siyal and Ledge Valley cards.</p>
-      </div>
-      <div>
-        <p class="kicker">What the deck does not say</p>
-        <table class="rows">
-          <tr><th>Unit types</th><td>Not published</td></tr>
-          <tr><th>Built-up areas</th><td>Not published</td></tr>
-          <tr><th>Bedroom counts</th><td>Not published</td></tr>
-          <tr><th>Prices</th><td>Not published</td></tr>
-          <tr><th>Payment plan</th><td>Not published</td></tr>
-          <tr><th>Delivery</th><td>Not published</td></tr>
-        </table>
-        <p class="fine">Nothing on this card is estimated, inferred or filled in from a comparable
-          project. Every figure above is the deck's own.</p>
-      </div>
+  <section class="pad">
+    <div class="head">
+      <p class="kicker">Units &amp; prices</p>
+      <h2>Twelve types, priced</h2>
+      <p>From the developer's price sheet, in its own order. Every value is the sheet's own.
+        All twelve share the same terms: <strong>10&#37; down payment, 8 years, 2030 handover</strong>.</p>
+    </div>
+    <div class="variants">
+      <table>
+        <thead>
+          <tr><th>Type</th><th>Bed</th><th>Bath</th><th>Area</th><th>Price (EGP)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>VM1 Villa</td><td>3</td><td>4</td><td>212 m²</td><td>46,000,000</td></tr>
+          <tr><td>VM2 Villa</td><td>4</td><td>5</td><td>247 m²</td><td>55,000,000</td></tr>
+          <tr><td>PH1 A Penthouse</td><td>2</td><td>2</td><td>133 m²</td><td>22,000,000</td></tr>
+          <tr><td>CH-1A Chalet</td><td>3</td><td>3</td><td>165 m²</td><td>27,500,000</td></tr>
+          <tr><td>CH-1B Chalet</td><td>2</td><td>2</td><td>145 m²</td><td>19,500,000</td></tr>
+          <tr><td>CH-2A Chalet</td><td>2</td><td>2</td><td>102 m²</td><td>23,000,000</td></tr>
+          <tr><td>TH 2 Townhome</td><td>4</td><td>5</td><td>233 m²</td><td>38,000,000</td></tr>
+          <tr><td>TH1 B Townhome</td><td>3</td><td>4</td><td>171 m²</td><td>34,000,000</td></tr>
+          <tr><td>LF-1B Loft</td><td>2</td><td>3</td><td>123 m²</td><td>23,500,000</td></tr>
+          <tr><td>Type VS1 Single Storey</td><td>5</td><td>8</td><td>289 m²</td><td>110,000,000</td></tr>
+          <tr><td>Type VS2 Single Storey</td><td>4</td><td>6</td><td>244 m²</td><td>95,000,000</td></tr>
+          <tr><td>Type VS3 Single Storey</td><td>3</td><td>5</td><td>194 m²</td><td>82,000,000</td></tr>
+        </tbody>
+      </table>
+      <p class="fine" style="margin-top:12px">Areas are the sheet's. For TH1 B the sheet gives
+        171 m&#178;, which its own floor plan states as the internal BUA against a total BUA of
+        182 m&#178;; on the other eleven the sheet's figure is the total BUA. The sheet's figure
+        is the one used.</p>
     </div>
   </section>
 
@@ -385,16 +399,16 @@
     <p class="disclaim">
       <strong>Illustrative.</strong> All renders and visuals are the developer's own, for
       illustrative purposes only. Drawings are not to scale; areas, dimensions and specifications
-      are subject to change without prior notice. <strong>No price, payment plan or delivery date
-      is published for this project</strong> — confirm current figures and availability with an
-      advisor.
+      are subject to change without prior notice. Prices, payment terms and the handover year come from the
+      developer's price sheet, not from the sales presentation, and are illustrative — confirm
+      current figures and availability with an advisor.
     </p>
     <p class="disclaim" style="margin-top:12px">
       <strong>Source material.</strong> The deck this card is drawn from is marked for internal use
       and each page carries a confidential footer. Clear it with Marakez before this card is shared
       outside the company.
     </p>
-    <p class="source">Source — Shams Soma sales presentation, first 56 pages supplied · Marakez</p>
+    <p class="source">Sources — Shams Soma sales presentation, first 56 pages supplied, and the developer's price sheet · Marakez</p>
   </footer>
 
 </article>

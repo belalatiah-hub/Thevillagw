@@ -53,7 +53,19 @@ from (values
   ('SY-04','siyal','Villa','Deluxe Villa','ديلوكس فيلا',4,4,175,null,32615000,10,7,'2030',null,'available'),
   ('SY-05','siyal','Villa','Boutique Villa','بوتيك فيلا',3,4,160,null,31145000,10,7,'2030',null,'available'),
   ('SY-06','siyal','Twin House','Twin Villa','توين فيلا',3,4,144,null,23735000,10,7,'2030',null,'available'),
-  ('SY-07','siyal','Townhouse','Town Villa','تاون فيلا',3,3,138,null,24000000,10,7,'2030',null,'available')
+  ('SY-07','siyal','Townhouse','Town Villa','تاون فيلا',3,3,138,null,24000000,10,7,'2030',null,'available'),
+  ('SS-01','shams-soma','Villa','VM1 Villa','VM1 فيلا',3,4,212,null,46000000,10,8,'2030',null,'available'),
+  ('SS-02','shams-soma','Villa','VM2 Villa','VM2 فيلا',4,5,247,null,55000000,10,8,'2030',null,'available'),
+  ('SS-03','shams-soma','Penthouse','PH1 A Penthouse','PH1 A بنتهاوس',2,2,133,null,22000000,10,8,'2030',null,'available'),
+  ('SS-04','shams-soma','Chalet','CH-1A Chalet','CH-1A شاليه',3,3,165,null,27500000,10,8,'2030',null,'available'),
+  ('SS-05','shams-soma','Chalet','CH-1B Chalet','CH-1B شاليه',2,2,145,null,19500000,10,8,'2030',null,'available'),
+  ('SS-06','shams-soma','Chalet','CH-2A Chalet','CH-2A شاليه',2,2,102,null,23000000,10,8,'2030',null,'available'),
+  ('SS-07','shams-soma','Townhouse','TH 2 Townhome','TH 2 تاون هوم',4,5,233,null,38000000,10,8,'2030',null,'available'),
+  ('SS-08','shams-soma','Townhouse','TH1 B Townhome','TH1 B تاون هوم',3,4,171,null,34000000,10,8,'2030',null,'available'),
+  ('SS-09','shams-soma','Loft','LF-1B Loft','LF-1B لوفت',2,3,123,null,23500000,10,8,'2030',null,'available'),
+  ('SS-10','shams-soma','Standalone Villa','Type VS1 Single Storey Villa','VS1 فيلا دور واحد',5,8,289,null,110000000,10,8,'2030',null,'available'),
+  ('SS-11','shams-soma','Standalone Villa','Type VS2 Single Storey Villa','VS2 فيلا دور واحد',4,6,244,null,95000000,10,8,'2030',null,'available'),
+  ('SS-12','shams-soma','Standalone Villa','Type VS3 Single Storey Villa','VS3 فيلا دور واحد',3,5,194,null,82000000,10,8,'2030',null,'available')
 ) as v(unit_code, project_slug, unit_type_en, label_en, label_ar, bedrooms, bathrooms,
        bua, bua_to, price, dp, years, delivery_label, floor, availability)
 join cms.projects p on p.slug = v.project_slug
