@@ -1,0 +1,13 @@
+{
+  "LOCKUP":    {"file": "docs/cards/assets/marakez-lockup-white.png", "width": 520, "quality": 0},
+  "WORDMARK":  {"file": "docs/cards/assets/shams-soma-wordmark.png", "width": 900, "quality": 0},
+  "HERO":      {"file": "project-media/marakez/shams-soma/hero.webp", "width": 1600, "quality": 84},
+  "PLAN":      {"file": "project-media/marakez/shams-soma/masterplan.webp", "width": 1320, "quality": 86},
+  "VALLEY":    {"file": "project-media/marakez/shams-soma/valley-sunset.webp", "width": 1000, "quality": 82},
+  "ELEVATED":  {"file": "project-media/marakez/shams-soma/elevated-living.webp", "width": 1000, "quality": 82},
+  "COAST":     {"file": "project-media/marakez/shams-soma/coastline.webp", "width": 1000, "quality": 82},
+  "DECKS":     {"file": "project-media/marakez/shams-soma/elevated-decks.webp", "width": 1100, "quality": 82},
+  "BEACH":     {"file": "project-media/marakez/shams-soma/sandy-beach.webp", "width": 1000, "quality": 82},
+  "JETTY":     {"file": "project-media/marakez/shams-soma/jetty.webp", "width": 1000, "quality": 82},
+  "POOL":      {"file": "project-media/marakez/shams-soma/infinity-pool.webp", "width": 1000, "quality": 82}
+}
