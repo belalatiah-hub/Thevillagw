@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <!-- frame-ancestors/HSTS belong in HTTP response headers (see deploy runbook), not meta. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'sha256-0eB8s3A3aZQguW+SDJC/YssfCUQj66wY3V7A9qjdeKc=' 'sha256-yI6VCT38V7vjk7cAW7UM7qbGpBU7Ua/f8UOqpzWwxAc=' 'sha256-YvHevJmHHrhBzm9a+K1fYxwv5t1APr4XI8t4Am8p7D4=' 'sha256-RBNvo1WzZ4oRRq0W9+hknpT7T8If536DEMBg9hyq/4o=' 'sha256-hk6wKyxHUHBKAMmuXZU1xMdAmBGiWYlecttUUJRmbtM=' https://static.cloudflareinsights.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://cloudflareinsights.com; base-uri 'self'; form-action 'self'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'sha256-0eB8s3A3aZQguW+SDJC/YssfCUQj66wY3V7A9qjdeKc=' 'sha256-yI6VCT38V7vjk7cAW7UM7qbGpBU7Ua/f8UOqpzWwxAc=' 'sha256-YvHevJmHHrhBzm9a+K1fYxwv5t1APr4XI8t4Am8p7D4=' 'sha256-RBNvo1WzZ4oRRq0W9+hknpT7T8If536DEMBg9hyq/4o=' 'sha256-uHK+asIKWhFwN7jhYk7VEy9vOovj/gfedxvSwbPp6s8=' https://static.cloudflareinsights.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://cloudflareinsights.com; base-uri 'self'; form-action 'self'" />
   <meta name="theme-color" content="#073D52" />
   <meta name="color-scheme" content="light" />
   <meta name="format-detection" content="telephone=no" />
@@ -2357,21 +2357,21 @@ elgouna:'elgouna.webp', somabay:'somabay.webp'
 function areaImageSrc(key){ return (key && AREA_IMAGES[key]) ? (LOC_BASE+AREA_IMAGES[key]) : ''; }
 var PLANS_BASE = '/project-media/plans/';
 var UNIT_MASTERPLANS = {
-'MR-01':['/project-media/emaarmisr/marassi-red-sea/units/mp-marasi-infinity.webp'],
-'MR-02':['/project-media/emaarmisr/marassi-red-sea/units/mp-marina-shore.webp'],
-'MR-03':['/project-media/emaarmisr/marassi-red-sea/units/mp-marina-shore.webp'],
-'MR-04':['/project-media/emaarmisr/marassi-red-sea/units/mp-marina-shore.webp'],
-'MR-05':['/project-media/emaarmisr/marassi-red-sea/units/mp-marina-shore.webp'],
-'MR-06':['/project-media/emaarmisr/marassi-red-sea/units/mp-island.webp'],
-'MR-07':['/project-media/emaarmisr/marassi-red-sea/units/mp-island.webp'],
-'MR-08':['/project-media/emaarmisr/marassi-red-sea/units/mp-island.webp'],
-'MR-09':['/project-media/emaarmisr/marassi-red-sea/units/mp-island.webp'],
-'MR-10':['/project-media/emaarmisr/marassi-red-sea/units/mp-island.webp'],
-'MR-11':['/project-media/emaarmisr/marassi-red-sea/units/mp-island.webp'],
-'MR-12':['/project-media/emaarmisr/marassi-red-sea/units/mp-horizon.webp'],
-'MR-13':['/project-media/emaarmisr/marassi-red-sea/units/mp-horizon.webp'],
-'MR-14':['/project-media/emaarmisr/marassi-red-sea/units/mp-marasi-infinity.webp'],
-'MR-15':['/project-media/emaarmisr/marassi-red-sea/units/mp-marasi-infinity.webp'],
+'MR-01':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp', '/project-media/emaarmisr/marassi-red-sea/units/mp-marasi-infinity.webp'],
+'MR-02':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp', '/project-media/emaarmisr/marassi-red-sea/units/mp-marina-shore.webp'],
+'MR-03':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp', '/project-media/emaarmisr/marassi-red-sea/units/mp-marina-shore.webp'],
+'MR-04':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp', '/project-media/emaarmisr/marassi-red-sea/units/mp-marina-shore.webp'],
+'MR-05':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp', '/project-media/emaarmisr/marassi-red-sea/units/mp-marina-shore.webp'],
+'MR-06':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp'],
+'MR-07':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp'],
+'MR-08':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp'],
+'MR-09':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp'],
+'MR-10':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp'],
+'MR-11':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp'],
+'MR-12':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp', '/project-media/emaarmisr/marassi-red-sea/units/mp-horizon.webp'],
+'MR-13':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp', '/project-media/emaarmisr/marassi-red-sea/units/mp-horizon.webp'],
+'MR-14':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp', '/project-media/emaarmisr/marassi-red-sea/units/mp-marasi-infinity.webp'],
+'MR-15':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp', '/project-media/emaarmisr/marassi-red-sea/units/mp-marasi-infinity.webp'],
 'SS-01':['/project-media/marakez/shams-soma/units/master-plan-shams-soma.webp', '/project-media/marakez/shams-soma/units/master-plan-shams-soma-2.webp'],
 'SS-02':['/project-media/marakez/shams-soma/units/master-plan-shams-soma.webp', '/project-media/marakez/shams-soma/units/master-plan-shams-soma-2.webp'],
 'SS-03':['/project-media/marakez/shams-soma/units/master-plan-shams-soma.webp', '/project-media/marakez/shams-soma/units/master-plan-shams-soma-2.webp'],

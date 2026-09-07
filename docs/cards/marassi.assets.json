@@ -51,7 +51,7 @@
   "U_LOCATION":              {"file": "docs/cards/assets/marassi/units/location-marasi.webp", "width":  900, "quality": 82},
   "U_MP_HORIZON":            {"file": "docs/cards/assets/marassi/units/mp-horizon.webp", "width":  900, "quality": 82},
   "U_MP_INFINITY":           {"file": "docs/cards/assets/marassi/units/mp-marasi-infinity.webp", "width":  900, "quality": 82},
-  "U_MP_ISLAND":             {"file": "docs/cards/assets/marassi/units/mp-island.webp", "width": 1170, "quality": 84},
+  "U_MP_ISLAND":             {"file": "docs/cards/assets/marassi/units/masterplan.webp", "width": 1170, "quality": 84},
   "U_MP_MARINA":             {"file": "docs/cards/assets/marassi/units/mp-marina-shore.webp", "width":  900, "quality": 82},
   "U_TH1_MARASI0INFINITY_0": {"file": "docs/cards/assets/marassi/units/th1-marasi0infinity-0.webp", "width":  738, "quality": 75},
   "U_TH1_MARASI0INFINITY_1": {"file": "docs/cards/assets/marassi/units/th1-marasi0infinity-1.webp", "width":  738, "quality": 75},

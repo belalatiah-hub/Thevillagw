@@ -1044,21 +1044,27 @@
      guesswork. Two floor plans the sheet names (fp-th-3-cr, v4-cr-0) are
      corrupt inside the source archive and are therefore simply absent. */
   var UNIT_MASTERPLANS = {
-    'MR-01':['/project-media/emaarmisr/marassi-red-sea/units/mp-marasi-infinity.webp'],
-    'MR-02':['/project-media/emaarmisr/marassi-red-sea/units/mp-marina-shore.webp'],
-    'MR-03':['/project-media/emaarmisr/marassi-red-sea/units/mp-marina-shore.webp'],
-    'MR-04':['/project-media/emaarmisr/marassi-red-sea/units/mp-marina-shore.webp'],
-    'MR-05':['/project-media/emaarmisr/marassi-red-sea/units/mp-marina-shore.webp'],
-    'MR-06':['/project-media/emaarmisr/marassi-red-sea/units/mp-island.webp'],
-    'MR-07':['/project-media/emaarmisr/marassi-red-sea/units/mp-island.webp'],
-    'MR-08':['/project-media/emaarmisr/marassi-red-sea/units/mp-island.webp'],
-    'MR-09':['/project-media/emaarmisr/marassi-red-sea/units/mp-island.webp'],
-    'MR-10':['/project-media/emaarmisr/marassi-red-sea/units/mp-island.webp'],
-    'MR-11':['/project-media/emaarmisr/marassi-red-sea/units/mp-island.webp'],
-    'MR-12':['/project-media/emaarmisr/marassi-red-sea/units/mp-horizon.webp'],
-    'MR-13':['/project-media/emaarmisr/marassi-red-sea/units/mp-horizon.webp'],
-    'MR-14':['/project-media/emaarmisr/marassi-red-sea/units/mp-marasi-infinity.webp'],
-    'MR-15':['/project-media/emaarmisr/marassi-red-sea/units/mp-marasi-infinity.webp'],
+    /* Emaar Misr — Marassi Red Sea. The destination master plan first on every
+       unit, then the drawing for that unit's phase where the phase has one of
+       its own. The sheet files the destination plan under the Island units as
+       `mp-island`; it is the whole-destination drawing, not an island one, and
+       PROJECT_PLAN_FALLBACK reads the first unit's list, so putting it first
+       here is what makes the project page open on it. */
+    'MR-01':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp', '/project-media/emaarmisr/marassi-red-sea/units/mp-marasi-infinity.webp'],
+    'MR-02':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp', '/project-media/emaarmisr/marassi-red-sea/units/mp-marina-shore.webp'],
+    'MR-03':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp', '/project-media/emaarmisr/marassi-red-sea/units/mp-marina-shore.webp'],
+    'MR-04':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp', '/project-media/emaarmisr/marassi-red-sea/units/mp-marina-shore.webp'],
+    'MR-05':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp', '/project-media/emaarmisr/marassi-red-sea/units/mp-marina-shore.webp'],
+    'MR-06':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp'],
+    'MR-07':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp'],
+    'MR-08':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp'],
+    'MR-09':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp'],
+    'MR-10':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp'],
+    'MR-11':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp'],
+    'MR-12':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp', '/project-media/emaarmisr/marassi-red-sea/units/mp-horizon.webp'],
+    'MR-13':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp', '/project-media/emaarmisr/marassi-red-sea/units/mp-horizon.webp'],
+    'MR-14':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp', '/project-media/emaarmisr/marassi-red-sea/units/mp-marasi-infinity.webp'],
+    'MR-15':['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp', '/project-media/emaarmisr/marassi-red-sea/units/mp-marasi-infinity.webp'],
     /* Shams Soma — two master plans on all twelve: the annotated aerial the
        archive supplies, and the owner's product-distribution plan, which
        colours every plot by what stands on it. PROJECT_PLAN_FALLBACK reads
