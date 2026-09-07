@@ -1,5 +1,7 @@
 -- Every image path the site references, stored once.
 insert into cms.media_assets (path) values
+  ('/project-media/ora/ch2-ss-02.webp'),
+  ('/project-media/ora/ch2-ss-03.webp'),
   ('/project-media/ora/du1-em-0.webp'),
   ('/project-media/ora/du1-em-01.webp'),
   ('/project-media/ora/du1-em-02.webp'),
@@ -471,7 +473,5 @@ insert into cms.media_assets (path) values
   ('/project-media/tatweer/ap2-bl-01.webp'),
   ('/project-media/tatweer/ap2-bl-02.webp'),
   ('/project-media/tatweer/ap3-blo-0.webp'),
-  ('/project-media/tatweer/ap3-blo-01.webp'),
-  ('/project-media/tatweer/ap3-blo-02.webp'),
-  ('/project-media/tatweer/ap4-bl-0.webp')
+  ('/project-media/tatweer/ap3-blo-01.webp')
 on conflict (path) do nothing;

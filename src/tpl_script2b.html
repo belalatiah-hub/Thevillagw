@@ -1010,19 +1010,22 @@
      guesswork. Two floor plans the sheet names (fp-th-3-cr, v4-cr-0) are
      corrupt inside the source archive and are therefore simply absent. */
   var UNIT_MASTERPLANS = {
-    /* Shams Soma — one master plan, on all twelve. */
-    'SS-01':['/project-media/marakez/shams-soma/units/master-plan-shams-soma.webp'],
-    'SS-02':['/project-media/marakez/shams-soma/units/master-plan-shams-soma.webp'],
-    'SS-03':['/project-media/marakez/shams-soma/units/master-plan-shams-soma.webp'],
-    'SS-04':['/project-media/marakez/shams-soma/units/master-plan-shams-soma.webp'],
-    'SS-05':['/project-media/marakez/shams-soma/units/master-plan-shams-soma.webp'],
-    'SS-06':['/project-media/marakez/shams-soma/units/master-plan-shams-soma.webp'],
-    'SS-07':['/project-media/marakez/shams-soma/units/master-plan-shams-soma.webp'],
-    'SS-08':['/project-media/marakez/shams-soma/units/master-plan-shams-soma.webp'],
-    'SS-09':['/project-media/marakez/shams-soma/units/master-plan-shams-soma.webp'],
-    'SS-10':['/project-media/marakez/shams-soma/units/master-plan-shams-soma.webp'],
-    'SS-11':['/project-media/marakez/shams-soma/units/master-plan-shams-soma.webp'],
-    'SS-12':['/project-media/marakez/shams-soma/units/master-plan-shams-soma.webp'],
+    /* Shams Soma — two master plans on all twelve: the annotated aerial the
+       archive supplies, and the owner's product-distribution plan, which
+       colours every plot by what stands on it. PROJECT_PLAN_FALLBACK reads
+       the first unit's list, so the project page gets both from here too. */
+    'SS-01':['/project-media/marakez/shams-soma/units/master-plan-shams-soma.webp', '/project-media/marakez/shams-soma/units/master-plan-shams-soma-2.webp'],
+    'SS-02':['/project-media/marakez/shams-soma/units/master-plan-shams-soma.webp', '/project-media/marakez/shams-soma/units/master-plan-shams-soma-2.webp'],
+    'SS-03':['/project-media/marakez/shams-soma/units/master-plan-shams-soma.webp', '/project-media/marakez/shams-soma/units/master-plan-shams-soma-2.webp'],
+    'SS-04':['/project-media/marakez/shams-soma/units/master-plan-shams-soma.webp', '/project-media/marakez/shams-soma/units/master-plan-shams-soma-2.webp'],
+    'SS-05':['/project-media/marakez/shams-soma/units/master-plan-shams-soma.webp', '/project-media/marakez/shams-soma/units/master-plan-shams-soma-2.webp'],
+    'SS-06':['/project-media/marakez/shams-soma/units/master-plan-shams-soma.webp', '/project-media/marakez/shams-soma/units/master-plan-shams-soma-2.webp'],
+    'SS-07':['/project-media/marakez/shams-soma/units/master-plan-shams-soma.webp', '/project-media/marakez/shams-soma/units/master-plan-shams-soma-2.webp'],
+    'SS-08':['/project-media/marakez/shams-soma/units/master-plan-shams-soma.webp', '/project-media/marakez/shams-soma/units/master-plan-shams-soma-2.webp'],
+    'SS-09':['/project-media/marakez/shams-soma/units/master-plan-shams-soma.webp', '/project-media/marakez/shams-soma/units/master-plan-shams-soma-2.webp'],
+    'SS-10':['/project-media/marakez/shams-soma/units/master-plan-shams-soma.webp', '/project-media/marakez/shams-soma/units/master-plan-shams-soma-2.webp'],
+    'SS-11':['/project-media/marakez/shams-soma/units/master-plan-shams-soma.webp', '/project-media/marakez/shams-soma/units/master-plan-shams-soma-2.webp'],
+    'SS-12':['/project-media/marakez/shams-soma/units/master-plan-shams-soma.webp', '/project-media/marakez/shams-soma/units/master-plan-shams-soma-2.webp'],
     /* Orascom — mp-siyal and mp-mko, per the sheet. */
     'LV-01':['/project-media/orascom/ledge-valley/units/mp-mko.webp'],
     'LV-02':['/project-media/orascom/ledge-valley/units/mp-mko.webp'],

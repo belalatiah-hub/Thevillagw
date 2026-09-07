@@ -3,6 +3,7 @@
   "WORDMARK":  {"file": "docs/cards/assets/shams-soma-wordmark.png", "width": 900, "quality": 0},
   "HERO":      {"file": "project-media/marakez/shams-soma/hero.webp", "width": 1600, "quality": 84},
   "PLAN":      {"file": "project-media/marakez/shams-soma/masterplan.webp", "width": 1320, "quality": 86},
+  "PLAN2":     {"file": "project-media/marakez/shams-soma/masterplan-products.webp", "width": 1400, "quality": 86},
   "VALLEY":    {"file": "project-media/marakez/shams-soma/valley-sunset.webp", "width": 1000, "quality": 82},
   "ELEVATED":  {"file": "project-media/marakez/shams-soma/elevated-living.webp", "width": 1000, "quality": 82},
   "COAST":     {"file": "project-media/marakez/shams-soma/coastline.webp", "width": 1000, "quality": 82},

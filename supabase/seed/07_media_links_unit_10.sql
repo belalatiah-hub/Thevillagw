@@ -39,6 +39,7 @@ from (values
   ('/project-media/' || 'lmd/zy-sv1-mp1.webp','masterplan',0,array['ZY-SV1']),
   ('/project-media/' || 'lmd/zy-tw3-mp1.webp','masterplan',0,array['ZY-TW3']),
   ('/project-media/' || 'marakez/ramla-aerial.webp','masterplan',0,array['RM-VL01','RM-TW01','RM-DX01','RM-PH01','RM-CH01','RM-DX02','RM-TW02','RM-DX03','RM-CH02','RM-CH03','RM-DX04','RM-TW03','RM-TH01','RM-CH04','RM-VL02','RM-TH02','RM-VL03','RM-VL04','RM-CH05','RM-CH06','RM-CH07']),
+  ('/project-media/' || 'marakez/shams-soma/units/master-plan-shams-soma-2.webp','masterplan',1,array['SS-01','SS-02','SS-03','SS-04','SS-05','SS-06','SS-07','SS-08','SS-09','SS-10','SS-11','SS-12']),
   ('/project-media/' || 'marakez/shams-soma/units/master-plan-shams-soma.webp','masterplan',0,array['SS-01','SS-02','SS-03','SS-04','SS-05','SS-06','SS-07','SS-08','SS-09','SS-10','SS-11','SS-12']),
   ('/project-media/' || 'marakez/units/mp-ap-0.webp','masterplan',0,array['D5-A01','D5-A06']),
   ('/project-media/' || 'marakez/units/mp-ap2.webp','masterplan',0,array['D5-A02','D5-A03','D5-A05']),

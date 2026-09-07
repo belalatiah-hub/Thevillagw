@@ -104,6 +104,7 @@ insert into cms.media_assets (path) values
   ('/project-media/marakez/shams-soma/units/loft-shams-soma-0.webp'),
   ('/project-media/marakez/shams-soma/units/loft-shams-soma-1.webp'),
   ('/project-media/marakez/shams-soma/units/loft-shams-soma-2.webp'),
+  ('/project-media/marakez/shams-soma/units/master-plan-shams-soma-2.webp'),
   ('/project-media/marakez/shams-soma/units/master-plan-shams-soma.webp'),
   ('/project-media/marakez/shams-soma/units/pent-shams-soma-0.webp'),
   ('/project-media/marakez/shams-soma/units/pent-shams-soma-1.webp'),
@@ -425,7 +426,5 @@ insert into cms.media_assets (path) values
   ('/project-media/modon/fp-ap1-lh.webp'),
   ('/project-media/modon/fp-ap1-lhu-0.webp'),
   ('/project-media/modon/fp-ap1-lhu-01.webp'),
-  ('/project-media/modon/fp-ap2-bl.webp'),
-  ('/project-media/modon/fp-ap2-bp.webp'),
-  ('/project-media/modon/fp-ap2-lh.webp')
+  ('/project-media/modon/fp-ap2-bl.webp')
 on conflict (path) do nothing;
