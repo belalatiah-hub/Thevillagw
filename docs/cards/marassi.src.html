@@ -1,0 +1,759 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Marassi Red Sea</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* Sampled from the brochure itself: the crimson of the cover, the deeper
+       red its headings are set in, the petrol teal of its body copy, and the
+       two aquas of the location maps. */
+    --red:#A11E24;
+    --crimson:#A5011C;
+    --teal:#003D4B;
+    --teal-2:#3A626D;
+    --teal-3:#8AA3AB;
+    --aqua:#30BBC0;
+    --aqua-2:#A8DBDF;
+    --paper:#F6F3F0;
+    --paper-2:#EFEAE6;
+    --sand:#FBF9F8;
+    --rule:rgba(0,61,75,.16);
+    --rule-soft:rgba(0,61,75,.09);
+    --serif:'Cormorant Garamond','Times New Roman',serif;
+    --sans:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+    --pad:clamp(20px,5vw,74px);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--paper); color:var(--teal);
+    font-family:var(--sans); font-size:15px; line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{display:block; max-width:100%}
+  .card{
+    max-width:1180px; margin:clamp(0px,3vw,44px) auto; background:var(--sand);
+    box-shadow:0 1px 2px rgba(0,61,75,.05), 0 14px 40px rgba(0,61,75,.10);
+    overflow:hidden;
+  }
+  .pad{padding-inline:var(--pad)}
+
+  /* ---------------------------------------------------- type */
+  .kicker{
+    font-size:10px; font-weight:600; letter-spacing:.26em; text-transform:uppercase;
+    color:var(--crimson); margin:0 0 14px; opacity:.85;
+  }
+  h2{
+    font-family:var(--serif); font-weight:300;
+    font-size:clamp(1.6rem,3.6vw,2.4rem); line-height:1.1; letter-spacing:.005em;
+    margin:0 0 8px; color:var(--crimson);
+  }
+  h3{
+    font-family:var(--serif); font-weight:400;
+    font-size:clamp(1.14rem,2.1vw,1.42rem); line-height:1.18; margin:0 0 8px;
+    color:var(--crimson);
+  }
+  p{margin:0 0 14px; color:var(--teal-2); max-width:64ch}
+  .lead{font-size:16.5px; color:var(--teal)}
+  .say{
+    font-family:var(--serif); font-style:italic; font-weight:300;
+    font-size:clamp(1.12rem,2.1vw,1.4rem); line-height:1.4; color:var(--teal);
+    max-width:32ch; margin:0 0 18px;
+  }
+
+  /* -------------------------------------------------- header */
+  .cover img{width:100%}
+  header{text-align:center; padding-block:clamp(30px,5vw,52px) clamp(24px,3.5vw,34px)}
+  .tagline{
+    font-size:10px; font-weight:600; letter-spacing:.34em; text-transform:uppercase;
+    color:var(--crimson); opacity:.8; margin:0 auto; max-width:none;
+  }
+  .promise{
+    font-family:var(--serif); font-weight:300;
+    font-size:clamp(1.2rem,2.6vw,1.75rem); color:var(--crimson); line-height:1.3;
+    margin:clamp(16px,2.4vw,22px) auto 0; max-width:24ch;
+  }
+  .rail{
+    display:grid; grid-template-columns:repeat(2,1fr); gap:14px 0;
+    margin-top:clamp(26px,4vw,40px); padding:16px 0;
+    border-top:1px solid var(--rule); border-bottom:1px solid var(--rule);
+  }
+  @media(min-width:660px){ .rail{grid-template-columns:repeat(4,1fr); gap:0} }
+  .rail div{padding:0 clamp(10px,2vw,20px); text-align:center; border-inline-end:1px solid var(--rule-soft)}
+  .rail div:nth-child(2n){border-inline-end:0}
+  @media(min-width:660px){
+    .rail div:nth-child(2n){border-inline-end:1px solid var(--rule-soft)}
+    .rail div:last-child{border-inline-end:0}
+  }
+  .rail dt{font-size:9.5px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--teal-3); margin:0 0 3px}
+  .rail dd{margin:0; font-size:13.5px; font-weight:500; color:var(--teal)}
+
+  /* ------------------------------------------------ figures */
+  figure{margin:0}
+  .figures{display:grid; grid-template-columns:repeat(2,1fr); background:var(--paper-2)}
+  @media(min-width:760px){ .figures{grid-template-columns:repeat(3,1fr)} }
+  .figures > div{
+    padding:clamp(20px,3vw,30px) clamp(14px,2vw,22px);
+    border-inline-end:1px solid var(--rule-soft);
+    border-bottom:1px solid var(--rule-soft);
+  }
+  .figures > div:nth-child(2n){border-inline-end:0}
+  @media(min-width:760px){
+    .figures > div:nth-child(2n){border-inline-end:1px solid var(--rule-soft)}
+    .figures > div:nth-child(3n){border-inline-end:0}
+    .figures > div:nth-last-child(-n+3){border-bottom:0}
+  }
+  .figures .n{
+    font-family:var(--serif); font-weight:300; line-height:1;
+    font-size:clamp(1.65rem,4vw,2.3rem); color:var(--teal); letter-spacing:.01em;
+  }
+  .figures .n span{font-size:.4em; letter-spacing:.05em; margin-inline-start:5px; color:var(--crimson)}
+  .figures .l{
+    font-size:9.5px; font-weight:600; letter-spacing:.19em; text-transform:uppercase;
+    color:var(--teal-3); margin-top:9px;
+  }
+
+  /* ------------------------------------------------ layout */
+  section{padding-block:clamp(36px,5.6vw,66px); border-top:1px solid var(--rule-soft)}
+  section.flush{border-top:0}
+  .head{margin-bottom:clamp(22px,3vw,32px)}
+  .two{display:grid; gap:clamp(24px,4vw,54px)}
+  @media(min-width:840px){ .two{grid-template-columns:1fr 1fr; align-items:start} }
+  .two.wide-first{gap:clamp(24px,4vw,44px)}
+  @media(min-width:840px){ .two.wide-first{grid-template-columns:1.15fr .85fr} }
+  /* Where a short block of copy sits beside a tall picture, top-aligning it
+     leaves a column of empty paper as long as the picture. Centre those. */
+  @media(min-width:840px){ .two.mid{align-items:center} }
+
+  /* Section numbers, the way the brochure's contents page numbers them. */
+  .num{
+    display:flex; align-items:baseline; gap:14px;
+    margin-bottom:clamp(18px,2.4vw,26px); padding-bottom:14px;
+    border-bottom:1px solid var(--rule);
+  }
+  .num b{
+    font-family:var(--serif); font-weight:300; font-size:clamp(1.9rem,4.4vw,2.8rem);
+    line-height:1; color:var(--aqua);
+  }
+  .num span{
+    font-size:10px; font-weight:600; letter-spacing:.26em; text-transform:uppercase;
+    color:var(--crimson);
+  }
+
+  .rows{width:100%; border-collapse:collapse}
+  .rows th,.rows td{padding:11px 0; border-bottom:1px solid var(--rule-soft); font-weight:400; vertical-align:baseline}
+  .rows th{text-align:start; font-size:10px; font-weight:600; letter-spacing:.17em; text-transform:uppercase; color:var(--teal-3); width:58%}
+  .rows td{text-align:end; font-size:14px; font-weight:500; color:var(--teal)}
+  .rows tr:last-child th,.rows tr:last-child td{border-bottom:0}
+
+  /* ------------------------------------------------ pictures */
+  .plate{margin-top:clamp(20px,3vw,28px)}
+  .plate img{width:100%}
+  .plate figcaption{
+    font-size:11px; letter-spacing:.13em; text-transform:uppercase; color:var(--teal-3);
+    margin-top:9px;
+  }
+  .pair{display:grid; gap:clamp(14px,2vw,20px); margin-top:clamp(20px,3vw,28px)}
+  @media(min-width:700px){ .pair{grid-template-columns:1fr 1fr} }
+  .pair img{width:100%}
+  .pair figcaption{
+    font-size:11px; letter-spacing:.13em; text-transform:uppercase; color:var(--teal-3);
+    margin-top:9px;
+  }
+  .strip{display:grid; gap:clamp(14px,2vw,20px); margin-top:clamp(20px,3vw,28px)}
+  @media(min-width:700px){ .strip{grid-template-columns:repeat(3,1fr)} }
+  .strip img{width:100%; aspect-ratio:4/3; object-fit:cover}
+
+  /* Each named place gets its own picture and its own brochure sentence. */
+  .places{display:grid; gap:clamp(26px,4vw,40px); margin-top:clamp(22px,3vw,30px)}
+  @media(min-width:700px){ .places{grid-template-columns:1fr 1fr} }
+  .places img{width:100%; aspect-ratio:16/11; object-fit:cover}
+  .places h3{margin-top:15px}
+  .places p{font-size:14px; margin-bottom:0}
+
+  /* --------------------------------------------------- maps */
+  .maps{display:grid; gap:clamp(20px,3vw,28px); margin-top:clamp(22px,3vw,30px)}
+  @media(min-width:760px){ .maps{grid-template-columns:1fr 1fr} }
+  .maps img{width:100%}
+  .lists{display:grid; gap:clamp(22px,3.4vw,40px); margin-top:clamp(24px,3.4vw,34px)}
+  @media(min-width:700px){ .lists{grid-template-columns:1fr 1fr} }
+  .list{list-style:none; margin:0; padding:0}
+  .list li{
+    display:flex; justify-content:space-between; gap:16px;
+    padding:9px 0; border-bottom:1px solid var(--rule-soft); font-size:13.5px;
+  }
+  .list li:last-child{border-bottom:0}
+  .list b{font-weight:500; color:var(--teal)}
+  .list span{color:var(--teal-2); white-space:nowrap}
+
+  /* ------------------------------------------------ contents */
+  .toc{list-style:none; margin:0; padding:0; display:grid; gap:0}
+  @media(min-width:700px){ .toc{grid-template-columns:1fr 1fr; column-gap:clamp(24px,4vw,54px)} }
+  .toc li{
+    display:flex; align-items:baseline; gap:12px; padding:8px 0;
+    border-bottom:1px solid var(--rule-soft); font-size:13.5px; color:var(--teal-2);
+  }
+  .toc i{font-style:normal; font-size:11px; letter-spacing:.1em; color:var(--teal-3); min-width:20px}
+  .toc em{
+    font-style:normal; margin-inline-start:auto; font-size:9.5px; font-weight:600;
+    letter-spacing:.14em; text-transform:uppercase; white-space:nowrap;
+  }
+  .toc .in em{color:var(--aqua)}
+  .toc .out{color:var(--teal-3)}
+  .toc .out em{color:var(--crimson); opacity:.75}
+
+  /* -------------------------------------------------- quote */
+  .quote{
+    background:var(--paper-2); padding:clamp(26px,4vw,44px) var(--pad);
+    border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft);
+  }
+  .quote blockquote{
+    margin:0; font-family:var(--serif); font-weight:300;
+    font-size:clamp(1.24rem,2.7vw,1.8rem); line-height:1.34; color:var(--crimson);
+    max-width:34ch;
+  }
+  .quote cite{
+    display:block; margin-top:18px; font-style:normal;
+    font-size:10px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:var(--teal);
+  }
+
+  /* --------------------------------------- what is not here */
+  .gap{
+    background:#fff; border:1px solid var(--rule); border-inline-start:3px solid var(--crimson);
+    padding:clamp(20px,3vw,30px) clamp(18px,3vw,32px); margin-top:clamp(20px,3vw,28px);
+  }
+  .gap h3{margin-top:0; color:var(--crimson)}
+  .gap p:last-child{margin-bottom:0}
+  .missing{list-style:none; margin:0 0 4px; padding:0}
+  .missing li{
+    display:flex; justify-content:space-between; align-items:baseline; gap:16px;
+    padding:10px 0; border-bottom:1px solid var(--rule-soft); font-size:14px; color:var(--teal);
+  }
+  .missing li:last-child{border-bottom:0}
+  .missing span{
+    font-size:11.5px; font-style:italic; color:var(--crimson); text-align:end;
+    font-family:var(--serif); font-size:15px;
+  }
+
+  /* --------------------------------------------- amenities */
+  .amen{background:var(--teal); color:#DCE7EA; padding:clamp(30px,4.6vw,54px) var(--pad)}
+  .amen h2, .amen h3{color:#fff}
+  .amen .kicker{color:var(--aqua-2); opacity:.9}
+  .amen p{color:#B7CBD1}
+  .amen .note{
+    font-size:11.5px; line-height:1.6; border-inline-start:2px solid var(--aqua);
+    padding-inline-start:14px; margin:0 0 26px; max-width:64ch; color:#A9C0C7;
+  }
+  .amen ul{list-style:none; margin:0; padding:0}
+  .amen li{position:relative; padding-inline-start:19px; margin-bottom:11px; font-size:14px; color:#C3D5DA}
+  .amen li::before{content:''; position:absolute; inset-inline-start:0; top:.66em; width:8px; height:1px; background:var(--aqua)}
+  .amen li b{color:#fff; font-weight:600}
+  .amen h3{margin:0 0 14px; font-size:1.1rem}
+  .amen .col + .col{margin-top:clamp(26px,3.4vw,34px)}
+  @media(min-width:840px){ .amen .col + .col{margin-top:0} }
+
+  .fine{
+    font-size:12.5px; line-height:1.6; color:var(--teal-2);
+    border-inline-start:2px solid var(--aqua); padding-inline-start:14px; max-width:64ch;
+    margin-top:16px;
+  }
+
+  /* ------------------------------------------------- footer */
+  footer{border-top:1px solid var(--rule); padding-block:clamp(26px,4vw,40px); background:var(--paper-2)}
+  footer p{max-width:none}
+  .disclaim{font-size:11.5px; line-height:1.65; color:var(--teal-2)}
+  .disclaim strong{color:var(--crimson); font-weight:600}
+  .source{
+    margin-top:18px; padding-top:16px; border-top:1px solid var(--rule-soft);
+    font-size:10px; letter-spacing:.17em; text-transform:uppercase; color:var(--teal-3);
+  }
+
+  @media print{
+    body{background:#fff}
+    .card{box-shadow:none; margin:0; max-width:none}
+    section{break-inside:avoid}
+  }
+</style>
+
+<article class="card">
+
+  <figure class="cover"><img src="__COVER__" alt="Marassi Red Sea, Ultra Luxury Resort — Emaar Misr. The brochure cover." width="1400" height="881"></figure>
+
+  <header class="pad">
+    <p class="tagline">Ultra Luxury Resort &middot; Emaar Misr</p>
+    <p class="promise">A new world by<br>Egypt&rsquo;s East Coast</p>
+    <dl class="rail">
+      <div><dt>Developer</dt><dd>Emaar Misr</dd></div>
+      <div><dt>Destination</dt><dd>Marassi Red Sea</dd></div>
+      <div><dt>Sea</dt><dd>Red Sea, Egypt</dd></div>
+      <div><dt>Land area</dt><dd>2,400 acres</dd></div>
+    </dl>
+  </header>
+
+  <!-- The single most important thing a salesperson needs to know before
+       opening this card: the file it is drawn from stops a third of the way
+       through the brochure, and everything commercial sits after that. -->
+  <section class="pad flush">
+    <div class="head">
+      <p class="kicker">Read this first</p>
+      <h2>What this card is<br>drawn from</h2>
+    </div>
+    <div class="two wide-first">
+      <div>
+        <p class="lead">Every word, number and picture on this card comes from one file: the
+          Marassi Red Sea brochure by Emaar Misr, as supplied &mdash; <strong>30 pages</strong>.</p>
+        <p>The brochure&rsquo;s own contents page lists <strong>18 sections</strong>. The 30 pages
+          supplied carry sections <strong>01 to 04</strong> and stop there. Sections 05 to 18 &mdash;
+          which include <em>The Homes</em> &mdash; are not in the file.</p>
+        <p>Nothing here has been calculated, rounded, completed from memory, or taken from any other
+          source. Where the brochure is silent, this card says so in those words.</p>
+        <p class="fine">The eight items opposite appear nowhere in the 30 pages supplied &mdash; not in
+          the body copy, not in a footnote, not in fine print at the foot of any page. They are
+          expected in section 17, <em>The Homes</em>, which the file does not reach.</p>
+      </div>
+      <div class="gap">
+        <h3>Not mentioned in the brochure</h3>
+        <ul class="missing">
+          <li>Prices <span>Not mentioned</span></li>
+          <li>Payment plans <span>Not mentioned</span></li>
+          <li>Down payment <span>Not mentioned</span></li>
+          <li>Unit types <span>Not mentioned</span></li>
+          <li>Unit areas <span>Not mentioned</span></li>
+          <li>Number of bedrooms <span>Not mentioned</span></li>
+          <li>Delivery / handover date <span>Not mentioned</span></li>
+          <li>Maintenance or club fees <span>Not mentioned</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- The brochure's own contents page, marked with what the supplied file
+       actually reaches. Useful for asking the developer for the right pages. -->
+  <section class="pad">
+    <div class="head">
+      <p class="kicker">The brochure&rsquo;s contents page</p>
+      <h2>Eighteen sections,<br>four of them supplied</h2>
+    </div>
+    <ul class="toc">
+      <li class="in"><i>01</i> About Marassi North Coast <em>In file</em></li>
+      <li class="out"><i>10</i> Shopping &amp; Dining <em>Missing</em></li>
+      <li class="in"><i>02</i> About Marassi Red Sea <em>In file</em></li>
+      <li class="out"><i>11</i> Sports &amp; Activities <em>Missing</em></li>
+      <li class="in"><i>03</i> The Beaches <em>In file</em></li>
+      <li class="out"><i>12</i> Marassi Wonders <em>Missing</em></li>
+      <li class="in"><i>04</i> Signature Marinas &amp; Yacht Club <em>In file</em></li>
+      <li class="out"><i>13</i> Wellness <em>Missing</em></li>
+      <li class="out"><i>05</i> The Hotels <em>Missing</em></li>
+      <li class="out"><i>14</i> Healthcare <em>Missing</em></li>
+      <li class="out"><i>06</i> Island Living <em>Missing</em></li>
+      <li class="out"><i>15</i> Education <em>Missing</em></li>
+      <li class="out"><i>07</i> Beachfront Living <em>Missing</em></li>
+      <li class="out"><i>16</i> Sustainablity <em>Missing</em></li>
+      <li class="out"><i>08</i> Elevated Infinity Beach <em>Missing</em></li>
+      <li class="out"><i>17</i> The Homes <em>Missing</em></li>
+      <li class="out"><i>09</i> Entertainment &amp; Nightlife <em>Missing</em></li>
+      <li class="out"><i>18</i> About Emaar Misr <em>Missing</em></li>
+    </ul>
+    <p class="fine">Section titles are the brochure&rsquo;s own, in its own order and its own
+      spelling &mdash; including <em>Sustainablity</em> at 16, which is how the contents page prints it.</p>
+  </section>
+
+  <!-- ================================================ 01 -->
+  <section class="pad">
+    <div class="num"><b>01</b><span>About Marassi North Coast</span></div>
+    <figure class="plate">
+      <img src="__P03__" alt="The beach at Marassi North Coast, with the brochure's words THIS IS MARASSI" loading="lazy">
+      <figcaption>&ldquo;This is Marassi&rdquo; &middot; Marassi North Coast</figcaption>
+    </figure>
+    <div class="head" style="margin-top:clamp(30px,4.4vw,48px)">
+      <h2>World-Class Destination,<br>Marassi North Coast</h2>
+      <p>The brochure opens on Emaar Misr&rsquo;s Mediterranean destination before it turns to the
+        Red Sea, showing the same ground twice: as it was, and as it is. The two photographs are
+        captioned <b>MARASSI 2006</b> and <b>MARASSI TODAY</b>. No further text accompanies them.</p>
+    </div>
+    <div class="pair">
+      <figure>
+        <img src="__P04A__" alt="Marassi North Coast in 2006 — open desert ground" loading="lazy">
+        <figcaption>Marassi 2006</figcaption>
+      </figure>
+      <figure>
+        <img src="__P04B__" alt="Marassi North Coast today — lagoons, golf and homes" loading="lazy">
+        <figcaption>Marassi today</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <div class="quote">
+    <div class="two mid">
+      <div>
+        <blockquote>&ldquo;The Marina project and the unique amenities of Marassi, its beaches and
+          golf courses&hellip; will also include a collection of world-class award-winning
+          hotels&hellip; marking an important step towards attracting luxury tourism to the area all
+          year round.&rdquo;</blockquote>
+        <cite>Mohamed Al Abbar &middot; Founder of Emaar</cite>
+      </div>
+      <div><img src="__P05__" alt="The marina at Marassi at night, seen from above" loading="lazy"></div>
+    </div>
+  </div>
+
+  <section class="pad">
+    <figure class="plate" style="margin-top:0">
+      <img src="__P06__" alt="A jetty lounge over the water, with the brochure's words MARASSI GOING RED" loading="lazy">
+      <figcaption>&ldquo;Marassi going red&rdquo;</figcaption>
+    </figure>
+    <div class="two mid" style="margin-top:clamp(28px,4vw,44px)">
+      <div>
+        <h2>Beyond A Destintation</h2>
+        <p class="lead">Marassi Red Sea is an all year long destination where island living, marinas,
+          floating cabanas, and world class hospitality meet swimmable lagoons and outdoor adventure,
+          offering a world to call your own.</p>
+        <p class="fine">The heading is reproduced exactly as the brochure prints it, including the
+          spelling <em>Destintation</em>.</p>
+      </div>
+      <div><img src="__P07__" alt="A couple cycling along a boardwalk past floating cabanas" loading="lazy"></div>
+    </div>
+  </section>
+
+  <!-- ================================================ 02 -->
+  <section class="pad">
+    <div class="num"><b>02</b><span>About Marassi Red Sea</span></div>
+    <figure class="plate" style="margin-top:0">
+      <img src="__P08__" alt="A Red Sea coral reef, with the Marassi Red Sea wordmark" loading="lazy">
+      <figcaption>Marassi Red Sea</figcaption>
+    </figure>
+    <figure class="plate">
+      <img src="__P09__" alt="A windsurfer on flat turquoise water, and an evening promenade under a lit canopy" loading="lazy">
+    </figure>
+    <figure class="plate">
+      <img src="__P10__" alt="A poolside sunbed, with the brochure's words the RED SEA. REIMAGINED" loading="lazy">
+      <figcaption>&ldquo;The Red Sea. Reimagined&rdquo;</figcaption>
+    </figure>
+
+    <div class="two mid" style="margin-top:clamp(28px,4vw,44px)">
+      <div><img src="__P11__" alt="A turtle swimming below the surface" loading="lazy"></div>
+      <div>
+        <h2>Marassi Red Sea:<br>A New World by<br>Egypt&rsquo;s East Coast</h2>
+        <p class="lead">Spanning 2,400 acres on the Red Sea, Marassi Red Sea is a world-class
+          destination blending island living, luxury hospitality, marinas, and unmatched coastal
+          experiences.</p>
+        <table class="rows" style="margin-top:22px">
+          <tr><th>Land area, in the text</th><td>2,400 acres</td></tr>
+          <tr><th>Land area, in the figures</th><td>10 Million SQM</td></tr>
+          <tr><th>Sea</th><td>Red Sea</td></tr>
+        </table>
+        <p class="fine">The brochure states the land area twice, in two different units, on two
+          different pages. Both are reproduced above exactly as printed; neither has been converted
+          into the other. Confirm which figure the developer intends before quoting it.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------------------------------------- location -->
+  <section class="pad">
+    <div class="head">
+      <p class="kicker">Location &amp; connections</p>
+      <h2>Where it sits</h2>
+      <p>Both maps below are the brochure&rsquo;s own, and every distance and flying time on this
+        page is printed on them. Nothing has been added, converted or inferred.</p>
+    </div>
+    <div class="maps">
+      <img src="__P12A__" alt="Flying times to Marassi Red Sea from Europe, the Gulf and North Africa" loading="lazy">
+      <img src="__P12B__" alt="Distances within Egypt from Marassi Red Sea" loading="lazy">
+    </div>
+    <div class="lists">
+      <div>
+        <p class="kicker">Marassi Red Sea. Globally connected</p>
+        <ul class="list">
+          <li><b>Saudi Arabia</b><span>2.5 hours</span></li>
+          <li><b>UAE</b><span>3.5 hours</span></li>
+          <li><b>Germany</b><span>5 hours</span></li>
+          <li><b>Switzerland</b><span>5 hours</span></li>
+          <li><b>Italy</b><span>5 hours</span></li>
+          <li><b>Morocco</b><span>5 hours</span></li>
+          <li><b>England</b><span>7 hours</span></li>
+        </ul>
+      </div>
+      <div>
+        <p class="kicker">Distances within Egypt from Marassi Red Sea to:</p>
+        <ul class="list">
+          <li><b>Hurghada</b><span>25 km</span></li>
+          <li><b>Safaga</b><span>27.5 km</span></li>
+          <li><b>Luxor</b><span>300 km</span></li>
+          <li><b>Cairo</b><span>450 km</span></li>
+          <li><b>Aswan</b><span>500 km</span></li>
+          <li><b>Marassi North Coast</b><span>787 km</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <figure class="plate">
+      <img src="__P13__" alt="The Red Sea coast around Marassi Red Sea, with distance rings" loading="lazy">
+      <figcaption>The coast around Marassi Red Sea</figcaption>
+    </figure>
+    <div class="lists">
+      <div>
+        <p class="kicker">The rings on this map</p>
+        <ul class="list">
+          <li><b>Ring 1</b><span>20 KMS (20 MINS)</span></li>
+          <li><b>Ring 2</b><span>24 KMS (25 MINS)</span></li>
+          <li><b>Ring 3</b><span>33 KMS (35 MINS)</span></li>
+          <li><b>Ring 4</b><span>54 KMS (50 MINS)</span></li>
+          <li><b>Ring 5</b><span>80 KMS (75MINS)</span></li>
+        </ul>
+      </div>
+      <div>
+        <p class="kicker">Places marked on this map</p>
+        <ul class="list">
+          <li><b>Soma Bay</b><span>&mdash;</span></li>
+          <li><b>Makadi Bay</b><span>&mdash;</span></li>
+          <li><b>Sahl Hasheesh</b><span>&mdash;</span></li>
+          <li><b>Hurghada Int. Airport</b><span>&mdash;</span></li>
+          <li><b>Hurghada</b><span>&mdash;</span></li>
+          <li><b>El Gouna</b><span>&mdash;</span></li>
+        </ul>
+      </div>
+    </div>
+    <p class="fine">The map draws five distance rings around Marassi Red Sea and separately marks six
+      places along the coast, plus the Hurghada&ndash;Safaga road. It does <strong>not</strong> print
+      which ring belongs to which place, so no ring is paired with a destination here. The distances
+      to Hurghada and Safaga in the list above are the ones the brochure states in writing, on the
+      previous page.</p>
+  </section>
+
+  <!-- ---------------------------------------- figures -->
+  <div class="figures">
+    <div><div class="n">10<span>Million SQM</span></div><div class="l">Total land area</div></div>
+    <div><div class="n">12</div><div class="l">Luxury hotels &amp; serviced residences</div></div>
+    <div><div class="n">3</div><div class="l">Unique marina experiences</div></div>
+    <div><div class="n">16</div><div class="l">Private marina residences</div></div>
+    <div><div class="n">32</div><div class="l">Exclusive residential communities</div></div>
+    <div><div class="n">500+</div><div class="l">Retail waterfront outlets</div></div>
+    <div><div class="n">1.5<span>km</span></div><div class="l">Elevated infinity beach</div></div>
+    <div><div class="n">1.1<span>Million SQM</span></div><div class="l">Waterbodies</div></div>
+    <div><div class="n">600</div><div class="l">Berths</div></div>
+  </div>
+
+  <section class="pad">
+    <div class="two mid">
+      <div>
+        <p class="kicker">Designed to lead</p>
+        <h2>The nine figures<br>the brochure gives</h2>
+        <p>These are the only quantities stated anywhere in the 30 pages supplied. They describe the
+          destination as a whole &mdash; its land, its hospitality, its marinas and its retail. None
+          of them describes a home for sale.</p>
+        <p class="fine">On the first figure the brochure prints the word &ldquo;Million&rdquo; twice
+          &mdash; as the label under the numeral and again at the start of the line beneath it. It is
+          read here as <b>10 Million SQM &mdash; Total Land Area</b>.</p>
+      </div>
+      <div><img src="__P14__" alt="A woman walking out along a jetty over clear shallow water" loading="lazy"></div>
+    </div>
+    <figure class="plate">
+      <img src="__P15__" alt="Marassi Red Sea at dusk, seen from the air across the marina and the homes" loading="lazy">
+      <figcaption>&ldquo;A world of worlds&rdquo;</figcaption>
+    </figure>
+    <div class="two mid" style="margin-top:clamp(28px,4vw,44px)">
+      <div><img src="__P16__" alt="A palm-lined walkway leading down to the beach" loading="lazy"></div>
+      <div>
+        <h2>Discover the wonder<br>of Marassi Red Sea</h2>
+        <p class="lead">At Marassi Red Sea, your home sits at the heart of it all, surrounded by
+          crystal waters, mountain views, marinas, cabanas, and luxury hospitality. A lifestyle where
+          tranquility and energy seamlessly intertwine.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================ 03 -->
+  <section class="pad">
+    <div class="num"><b>03</b><span>The Beaches</span></div>
+    <figure class="plate" style="margin-top:0">
+      <img src="__P17__" alt="Two spa beds under a cabana, looking out over an infinity pool to the sea" loading="lazy">
+      <figcaption>The Beaches</figcaption>
+    </figure>
+    <p class="lead" style="margin-top:clamp(22px,3vw,30px); max-width:66ch">Marassi Red Sea&rsquo;s
+      beaches offer crystal-clear waters, soft white sands, and stunning views, the perfect blend of
+      serenity and luxury by the shore.</p>
+    <div class="places">
+      <div>
+        <img src="__P18__" alt="The Main Beach — palms and a pool opening onto the sea" loading="lazy">
+        <h3>The Main Beach</h3>
+        <p>The vibrant heart of the coastline, perfect for relaxing under clear skies and enjoying
+          the breeze.</p>
+      </div>
+      <div>
+        <img src="__P19__" alt="Island Beach — homes along the shore with mountains behind" loading="lazy">
+        <h3>Island Beach</h3>
+        <p>A secluded escape surrounded by water, offering unmatched tranquility and scenic beauty.</p>
+      </div>
+      <div>
+        <img src="__P20__" alt="Infinity Beach — a sand-edged pool beside terraced homes" loading="lazy">
+        <h3>Infinity Beach</h3>
+        <p>A sleek, modern beach with endless sea views, designed for a refined coastal experience.</p>
+      </div>
+      <div>
+        <img src="__P21__" alt="Beach Lagoons at sunset, with floating cabanas on the water" loading="lazy">
+        <h3>Beach Lagoons</h3>
+        <p>Calm, swimmable waters set between the shores, ideal for relaxed, family-friendly fun.</p>
+      </div>
+    </div>
+    <p class="fine">Four beaches are named in this section. The contents page lists an
+      <em>Elevated Infinity Beach</em> as its own section at 08, which the supplied file does not
+      reach; the figures page gives that beach as <b>1.5 km</b>.</p>
+  </section>
+
+  <!-- ================================================ 04 -->
+  <section class="pad">
+    <div class="num"><b>04</b><span>Signature Marinas &amp; Yacht Club</span></div>
+    <figure class="plate" style="margin-top:0">
+      <img src="__P22__" alt="A classic speedboat running into the marina past waterfront buildings" loading="lazy">
+      <figcaption>Signature Marinas &amp; Yacht Club</figcaption>
+    </figure>
+    <p class="lead" style="margin-top:clamp(22px,3vw,30px); max-width:66ch">World-class marinas where
+      luxury yachts dock alongside global brands, fine dining, and curated lifestyle boutiques.</p>
+
+    <div class="two mid" style="margin-top:clamp(28px,4vw,44px)">
+      <div>
+        <h2>Led by great minds,<br>crafted for the world</h2>
+        <p>The brochure carries this line over an architect&rsquo;s sketch of the marina front. No
+          designer, architect or consultant is named on the page.</p>
+      </div>
+      <div><img src="__P23__" alt="An architect's line sketch of the marina waterfront" loading="lazy"></div>
+    </div>
+
+    <div class="two mid" style="margin-top:clamp(28px,4vw,44px)">
+      <div>
+        <h3>The Marina</h3>
+        <p class="say">Expansive. Iconic. Mediterranean at heart.</p>
+        <p>A vibrant waterfront destination where yachts, fashion, and dining meet under golden
+          sunsets.</p>
+      </div>
+      <div><img src="__P24__" alt="The Marina seen from the air, with the beach beyond" loading="lazy"></div>
+    </div>
+    <div class="pair">
+      <img src="__P25__" alt="The marina from above, looking out to the open sea" loading="lazy">
+      <img src="__P26__" alt="The marina waterfront reflected in still water" loading="lazy">
+    </div>
+
+    <div class="two mid" style="margin-top:clamp(28px,4vw,44px)">
+      <div>
+        <h3>Boutique Marina I</h3>
+        <p class="lead">Boutique Marina I offers a warm Italian inspired charm, blending relaxed
+          elegance with boutique luxury from morning to night.</p>
+        <p class="fine">The figures page counts <b>3</b> unique marina experiences. The supplied
+          file names two marinas &mdash; <b>The Marina</b> and <b>Boutique Marina I</b>. It does not
+          name a third, and it does not say that these two are among the three.</p>
+      </div>
+      <div><img src="__P27__" alt="Boutique Marina I — red parasols along a stone-terraced waterfront" loading="lazy"></div>
+    </div>
+    <figure class="plate">
+      <img src="__P28__" alt="Boutique Marina I from the air, moored yachts along both banks" loading="lazy">
+    </figure>
+    <div class="pair">
+      <img src="__P29__" alt="The marina at sunset, seen from a residence terrace" loading="lazy">
+      <img src="__P30__" alt="A pool overlooking the canal and the bridge beyond" loading="lazy">
+    </div>
+    <p class="fine">The last three pictures in the supplied file carry no caption or heading of their
+      own. They are placed here in the order they appear, at the close of section 04.</p>
+  </section>
+
+  <!-- ---------------------------------------- amenities -->
+  <section class="amen">
+    <p class="kicker">Facilities &amp; amenities</p>
+    <h2>What the brochure names</h2>
+    <p class="note">Everything below is named in the 30 pages supplied. Sections 05 to 16 &mdash;
+      hotels, entertainment, shopping and dining, sports, wellness, healthcare and education &mdash;
+      are listed on the contents page but are not in the file, so this list is not the destination&rsquo;s
+      full amenity list.</p>
+    <div class="two">
+      <div class="col">
+        <h3>Beaches &amp; water</h3>
+        <ul>
+          <li><b>The Main Beach</b> &mdash; the vibrant heart of the coastline.</li>
+          <li><b>Island Beach</b> &mdash; a secluded escape surrounded by water.</li>
+          <li><b>Infinity Beach</b> &mdash; sleek and modern, with endless sea views.</li>
+          <li><b>Beach Lagoons</b> &mdash; calm, swimmable water between the shores.</li>
+          <li><b>Elevated Infinity Beach</b> &mdash; 1.5 km, from the figures page.</li>
+          <li><b>Waterbodies</b> &mdash; 1.1 million sqm.</li>
+          <li><b>Floating cabanas</b> and <b>swimmable lagoons</b>.</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h3>Marinas, hospitality &amp; retail</h3>
+        <ul>
+          <li><b>Signature Marinas &amp; Yacht Club</b> &mdash; luxury yachts dock alongside global
+            brands, fine dining, and curated lifestyle boutiques.</li>
+          <li><b>The Marina</b> &mdash; the main waterfront destination.</li>
+          <li><b>Boutique Marina I</b> &mdash; Italian-inspired, boutique in scale.</li>
+          <li><b>3 unique marina experiences</b>, with <b>600 berths</b>.</li>
+          <li><b>12 luxury hotels &amp; serviced residences</b>.</li>
+          <li><b>500+ retail waterfront outlets</b>.</li>
+          <li><b>32 exclusive residential communities</b> and <b>16 private marina residences</b>.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ------------------------------- prices and units -->
+  <section class="pad">
+    <div class="head">
+      <p class="kicker">Pricing &amp; payment plans</p>
+      <h2>Not mentioned<br>in the brochure</h2>
+    </div>
+    <div class="two wide-first">
+      <div>
+        <p class="lead">The 30 pages supplied contain no price, no payment plan, no down payment, no
+          instalment term and no delivery date &mdash; for any unit type, phase or location.</p>
+        <p>All 30 pages were checked page by page, including the running heads and the foot of every
+          page. There is no price list, no starting-from figure, no footnote and no fine print
+          carrying a number of this kind.</p>
+        <p>Nothing has been supplied in their place. A figure invented, estimated or carried over
+          from another Emaar project would be wrong in a way that only shows up after a client has
+          been quoted.</p>
+      </div>
+      <div>
+        <p class="kicker">Units &amp; areas</p>
+        <table class="rows">
+          <tr><th>Unit types</th><td>Not mentioned</td></tr>
+          <tr><th>Built-up areas</th><td>Not mentioned</td></tr>
+          <tr><th>Land / garden areas</th><td>Not mentioned</td></tr>
+          <tr><th>Bedrooms &amp; bathrooms</th><td>Not mentioned</td></tr>
+          <tr><th>Floor plans</th><td>Not mentioned</td></tr>
+          <tr><th>Finishing specification</th><td>Not mentioned</td></tr>
+          <tr><th>Phases released</th><td>Not mentioned</td></tr>
+          <tr><th>Delivery date</th><td>Not mentioned</td></tr>
+        </table>
+        <p class="fine">The only counts the brochure gives are destination-wide:
+          <b>32</b> exclusive residential communities and <b>16</b> private marina residences. Neither
+          is a unit count, an area, or a price.</p>
+      </div>
+    </div>
+    <div class="gap">
+      <h3>To complete this card</h3>
+      <p>Ask Emaar Misr for the remaining pages of this same brochure &mdash; sections
+        <b>05 to 18</b>, and section <b>17, The Homes</b> above all &mdash; or for the current Marassi
+        Red Sea price list. Both would slot into this card without changing anything already in it.</p>
+    </div>
+  </section>
+
+  <footer class="pad">
+    <p class="disclaim">
+      <strong>Illustrative.</strong> All renders and visuals on this card are Emaar Misr&rsquo;s own,
+      reproduced from the brochure for illustrative purposes only. Drawings are not to scale; areas,
+      dimensions and specifications are subject to change without prior notice.
+    </p>
+    <p class="disclaim" style="margin-top:12px">
+      <strong>Accuracy.</strong> The brochure is the only source. Every number, name and sentence on
+      this card is reproduced as printed, including the brochure&rsquo;s own spellings. Nothing has
+      been calculated, converted or rounded. Where the brochure is silent, this card says
+      &ldquo;Not mentioned in the brochure&rdquo; rather than filling the gap. Pictures appear in the
+      order they appear in the brochure, each kept with the section it belongs to.
+    </p>
+    <p class="disclaim" style="margin-top:12px">
+      <strong>Before quoting a client.</strong> This card carries no price, payment plan, unit area or
+      delivery date, because the source does not. Confirm all commercial terms and availability with
+      Emaar Misr or an advisor before they are put to a client.
+    </p>
+    <p class="source">Source &mdash; Marassi Red Sea brochure, 30 pages supplied &middot; Emaar Misr</p>
+  </footer>
+
+</article>
