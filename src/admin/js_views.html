@@ -12,8 +12,10 @@
   /* Lookups the drawers need. Fetched once per screen open, not per row. */
   var LOOKUP = { developers: [], locations: [], projects: [] };
 
+  var lookupsLoaded = null;
   function loadLookups() {
-    return Promise.all([
+    if (lookupsLoaded) return lookupsLoaded;
+    lookupsLoaded = Promise.all([
       api.select('developers', { select: 'id,slug,name_en,name_ar', order: 'name_en.asc' }),
       api.select('locations', { select: 'id,slug,name_en,name_ar,level', order: 'level.asc,name_en.asc' }),
       api.select('projects', { select: 'id,slug,name_en,name_ar', order: 'name_en.asc' })
@@ -21,8 +23,12 @@
       LOOKUP.developers = r[0].data || [];
       LOOKUP.locations = r[1].data || [];
       LOOKUP.projects = r[2].data || [];
-    });
+    }).catch(function (e) { lookupsLoaded = null; throw e; });
+    return lookupsLoaded;
   }
+  /* Anything that creates or renames a developer, location or project has to
+     drop the cache, or its own dropdown will not list what it just made. */
+  function forgetLookups() { lookupsLoaded = null; }
 
   function opts(list, valueKey) {
     return list.map(function (x) {
@@ -329,10 +335,11 @@
       return crud.renderList(host, {
         table: 'media_assets', pk: 'id', title: 'media', sort: 'path',
         searchOn: ['path', 'alt_en', 'alt_ar'],
-        creatable: false, deletable: false,
+        creatable: false, deletable: false, pageSize: 20,
         columns: [
           { label: 'media', render: function (r) {
-              return h('img', { class: 'thumb', src: r.path, alt: '', loading: 'lazy' }); } },
+              return h('img', { class: 'thumb', src: r.path, alt: '',
+                loading: 'lazy', decoding: 'async', width: 44, height: 32 }); } },
           { label: 'slug', sortOn: 'path', render: function (r) { return h('code', { text: r.path }); } },
           { label: 'desc_en', render: function (r) { return r.alt_en || '—'; } },
           { label: 'desc_ar', render: function (r) { return r.alt_ar || '—'; } }
@@ -463,7 +470,7 @@
     }
   });
 
-  window.CMS.views = { LOOKUP: LOOKUP, loadLookups: loadLookups, opts: opts, nameOf: nameOf,
+  window.CMS.views = { LOOKUP: LOOKUP, loadLookups: loadLookups, forgetLookups: forgetLookups, opts: opts, nameOf: nameOf,
                        statusChip: statusChip, slugCheck: slugCheck, STATUS_OPTS: STATUS_OPTS };
 })();
   </script>

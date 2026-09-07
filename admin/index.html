@@ -11,7 +11,7 @@
     the sha256 of each inline block, so a script this build did not produce
     does not run even if it reaches the document.
   -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'sha256-PK3LGwx5GHHO666ewBy1d0Jtxog107b6s3ML84vNnBc=' 'sha256-09uogaNuYRC4ehBAWkF7amfBQfsIyMLoUPbh4J2wO9c=' 'sha256-NVOZ2dvGHDPQsMjtwFocsBrtCX2EvdDBYcv43lAq7bE=' 'sha256-6SbD3M70TNzm7jXWhD9zq2kfpU1BH9v1Qf6PErl2KAg=' 'sha256-YceixxFrYmxtX63Ngz13sepQul/xcdjOFzjvAiE/4/w=' 'sha256-IstpcoRzryker5Yu/RThH9F+JeamSRJKnjuSjS2g+qo=' 'sha256-GoVXjYJA0ITjxI8Dh3mpjem97QyQCnF6XefLPC3sgOg=' 'sha256-osDzXrcl+rq8IT7A2qXIe5XxSraN0Te9Sssjo3gIV08=' 'sha256-39ZxWwq5wq5+e/VgGnABthg4nwMOGS+EqtCBj+7p50A=' 'sha256-/zZHDQ1tauDysx8O1GJrpb4EMQ7UszUi0oTMTa2C8m4='; connect-src 'self' https://xvcrgoeavdwykqflhuiw.supabase.co; base-uri 'self'; form-action 'none'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'sha256-PK3LGwx5GHHO666ewBy1d0Jtxog107b6s3ML84vNnBc=' 'sha256-09uogaNuYRC4ehBAWkF7amfBQfsIyMLoUPbh4J2wO9c=' 'sha256-NVOZ2dvGHDPQsMjtwFocsBrtCX2EvdDBYcv43lAq7bE=' 'sha256-6SbD3M70TNzm7jXWhD9zq2kfpU1BH9v1Qf6PErl2KAg=' 'sha256-7060IuDk7YTFVcEeL0C38PBH3Ckn+uDISdcEsm8xnCg=' 'sha256-drukpPvRieSK17x0TT8RcRudBqLH9jzKLZk52DZPaW8=' 'sha256-GoVXjYJA0ITjxI8Dh3mpjem97QyQCnF6XefLPC3sgOg=' 'sha256-osDzXrcl+rq8IT7A2qXIe5XxSraN0Te9Sssjo3gIV08=' 'sha256-39ZxWwq5wq5+e/VgGnABthg4nwMOGS+EqtCBj+7p50A=' 'sha256-/zZHDQ1tauDysx8O1GJrpb4EMQ7UszUi0oTMTa2C8m4='; connect-src 'self' https://xvcrgoeavdwykqflhuiw.supabase.co; base-uri 'self'; form-action 'none'" />
   <meta name="theme-color" content="#073D52" />
   <meta name="color-scheme" content="light" />
   <meta name="format-detection" content="telephone=no" />
@@ -818,6 +818,8 @@ var work = isNew
 ? api.insert(cfg.table, patch)
 : api.update(cfg.table, matchPk(cfg, row), patch);
 work.then(function () {
+if (['developers', 'locations', 'projects'].indexOf(cfg.table) >= 0 &&
+C.views && C.views.forgetLookups) C.views.forgetLookups();
 C.toast(t('saved'), 'ok');
 close();
 onDone();
@@ -873,14 +875,15 @@ if (cfg.baseFilter) for (var b in cfg.baseFilter) p[b] = cfg.baseFilter[b];
 return p;
 }
 var tbody = h('tbody');
+var per = cfg.pageSize || PAGE;
 var pagerInfo = h('span');
 var prevBtn = h('button', { class: 'btn btn--ghost btn--sm', type: 'button' }, ic('chevronL'), t('prev'));
 var nextBtn = h('button', { class: 'btn btn--ghost btn--sm', type: 'button' }, t('next'), ic('chevronR'));
 function load() {
 fill(tbody, h('tr', null, h('td', { colspan: cfg.columns.length + 1 },
 h('div', { class: 'skel', style: 'width:60%' }))));
-var from = state.page * PAGE;
-api.select(cfg.table, query(), [from, from + PAGE - 1]).then(function (r) {
+var from = state.page * per;
+api.select(cfg.table, query(), [from, from + per - 1]).then(function (r) {
 var rows = r.data || [];
 state.total = r.range ? Number(String(r.range).split('/')[1]) : rows.length;
 draw(rows);
@@ -910,10 +913,10 @@ onclick: function () { openDrawer(cfg, row, load); }
 tbody.appendChild(tr);
 });
 var shown = state.total == null ? rows.length : state.total;
-pagerInfo.textContent = (state.page * PAGE + (rows.length ? 1 : 0)) + '–' +
-(state.page * PAGE + rows.length) + ' ' + t('of') + ' ' + shown + ' ' + t('rows');
+pagerInfo.textContent = (state.page * per + (rows.length ? 1 : 0)) + '–' +
+(state.page * per + rows.length) + ' ' + t('of') + ' ' + shown + ' ' + t('rows');
 prevBtn.disabled = state.page === 0;
-nextBtn.disabled = (state.page + 1) * PAGE >= shown;
+nextBtn.disabled = (state.page + 1) * per >= shown;
 }
 prevBtn.addEventListener('click', function () { if (state.page > 0) { state.page--; load(); } });
 nextBtn.addEventListener('click', function () { state.page++; load(); });
@@ -979,8 +982,10 @@ window.CMS.crud = { renderList: renderList, openDrawer: openDrawer, debounce: de
 var C = window.CMS, h = C.h, ic = C.ic, t = C.t, fill = C.fill, api = C.api;
 var shell = C.shell, crud = C.crud;
 var LOOKUP = { developers: [], locations: [], projects: [] };
+var lookupsLoaded = null;
 function loadLookups() {
-return Promise.all([
+if (lookupsLoaded) return lookupsLoaded;
+lookupsLoaded = Promise.all([
 api.select('developers', { select: 'id,slug,name_en,name_ar', order: 'name_en.asc' }),
 api.select('locations', { select: 'id,slug,name_en,name_ar,level', order: 'level.asc,name_en.asc' }),
 api.select('projects', { select: 'id,slug,name_en,name_ar', order: 'name_en.asc' })
@@ -988,8 +993,10 @@ api.select('projects', { select: 'id,slug,name_en,name_ar', order: 'name_en.asc'
 LOOKUP.developers = r[0].data || [];
 LOOKUP.locations = r[1].data || [];
 LOOKUP.projects = r[2].data || [];
-});
+}).catch(function (e) { lookupsLoaded = null; throw e; });
+return lookupsLoaded;
 }
+function forgetLookups() { lookupsLoaded = null; }
 function opts(list, valueKey) {
 return list.map(function (x) {
 return { value: x[valueKey || 'id'], text: (C.isAr() && x.name_ar) ? x.name_ar : x.name_en };
@@ -1274,10 +1281,11 @@ render: function (host) {
 return crud.renderList(host, {
 table: 'media_assets', pk: 'id', title: 'media', sort: 'path',
 searchOn: ['path', 'alt_en', 'alt_ar'],
-creatable: false, deletable: false,
+creatable: false, deletable: false, pageSize: 20,
 columns: [
 { label: 'media', render: function (r) {
-return h('img', { class: 'thumb', src: r.path, alt: '', loading: 'lazy' }); } },
+return h('img', { class: 'thumb', src: r.path, alt: '',
+loading: 'lazy', decoding: 'async', width: 44, height: 32 }); } },
 { label: 'slug', sortOn: 'path', render: function (r) { return h('code', { text: r.path }); } },
 { label: 'desc_en', render: function (r) { return r.alt_en || '—'; } },
 { label: 'desc_ar', render: function (r) { return r.alt_ar || '—'; } }
@@ -1400,7 +1408,7 @@ list));
 }
 }
 });
-window.CMS.views = { LOOKUP: LOOKUP, loadLookups: loadLookups, opts: opts, nameOf: nameOf,
+window.CMS.views = { LOOKUP: LOOKUP, loadLookups: loadLookups, forgetLookups: forgetLookups, opts: opts, nameOf: nameOf,
 statusChip: statusChip, slugCheck: slugCheck, STATUS_OPTS: STATUS_OPTS };
 })();</script>
 

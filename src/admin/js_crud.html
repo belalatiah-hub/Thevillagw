@@ -13,6 +13,9 @@
   var shell = C.shell;
 
   var PAGE = 50;
+  /* A screen that paints a picture per row cannot afford fifty of them:
+     the media list is thumbnails of full-size files, so it asks for fewer. */
+
 
   /* ------------------------------------------------------------ fields */
   function label(f) { return typeof f.label === 'function' ? f.label() : t(f.label); }
@@ -140,6 +143,12 @@
         ? api.insert(cfg.table, patch)
         : api.update(cfg.table, matchPk(cfg, row), patch);
       work.then(function () {
+        /* The dropdowns on other screens are built from a cached list of
+           developers, locations and projects. Saving one of those has to drop
+           the cache, or the next screen offers a list without what was just
+           created. */
+        if (['developers', 'locations', 'projects'].indexOf(cfg.table) >= 0 &&
+            C.views && C.views.forgetLookups) C.views.forgetLookups();
         C.toast(t('saved'), 'ok');
         close();
         onDone();
@@ -203,6 +212,7 @@
     }
 
     var tbody = h('tbody');
+    var per = cfg.pageSize || PAGE;   // load() fetches it, draw() labels it
     var pagerInfo = h('span');
     var prevBtn = h('button', { class: 'btn btn--ghost btn--sm', type: 'button' }, ic('chevronL'), t('prev'));
     var nextBtn = h('button', { class: 'btn btn--ghost btn--sm', type: 'button' }, t('next'), ic('chevronR'));
@@ -210,8 +220,8 @@
     function load() {
       fill(tbody, h('tr', null, h('td', { colspan: cfg.columns.length + 1 },
         h('div', { class: 'skel', style: 'width:60%' }))));
-      var from = state.page * PAGE;
-      api.select(cfg.table, query(), [from, from + PAGE - 1]).then(function (r) {
+      var from = state.page * per;
+      api.select(cfg.table, query(), [from, from + per - 1]).then(function (r) {
         var rows = r.data || [];
         state.total = r.range ? Number(String(r.range).split('/')[1]) : rows.length;
         draw(rows);
@@ -242,10 +252,10 @@
         tbody.appendChild(tr);
       });
       var shown = state.total == null ? rows.length : state.total;
-      pagerInfo.textContent = (state.page * PAGE + (rows.length ? 1 : 0)) + '–' +
-        (state.page * PAGE + rows.length) + ' ' + t('of') + ' ' + shown + ' ' + t('rows');
+      pagerInfo.textContent = (state.page * per + (rows.length ? 1 : 0)) + '–' +
+        (state.page * per + rows.length) + ' ' + t('of') + ' ' + shown + ' ' + t('rows');
       prevBtn.disabled = state.page === 0;
-      nextBtn.disabled = (state.page + 1) * PAGE >= shown;
+      nextBtn.disabled = (state.page + 1) * per >= shown;
     }
 
     prevBtn.addEventListener('click', function () { if (state.page > 0) { state.page--; load(); } });
