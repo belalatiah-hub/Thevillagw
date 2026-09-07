@@ -5,6 +5,22 @@
 insert into cms.media_links (asset_id, unit_id, role, sort_order)
 select a.id, o.id, v.role::cms.media_role, v.sort_order
 from (values
+  ('/project-media/' || 'modon/th-wd-06.webp','gallery',5,array['MD-WD-01']),
+  ('/project-media/' || 'modon/th2-wd-0.webp','gallery',0,array['MD-WD-02']),
+  ('/project-media/' || 'modon/th2-wd-01.webp','gallery',1,array['MD-WD-02']),
+  ('/project-media/' || 'modon/th2-wd-02.webp','gallery',2,array['MD-WD-02']),
+  ('/project-media/' || 'modon/th2-wd-03.webp','gallery',3,array['MD-WD-02']),
+  ('/project-media/' || 'modon/th2-wd-04.webp','gallery',4,array['MD-WD-02']),
+  ('/project-media/' || 'modon/th2-wd-05.webp','gallery',5,array['MD-WD-02']),
+  ('/project-media/' || 'modon/v-wd-0.webp','gallery',0,array['MD-WD-03']),
+  ('/project-media/' || 'modon/v-wd-01.webp','gallery',1,array['MD-WD-03']),
+  ('/project-media/' || 'modon/v-wd-02.webp','gallery',2,array['MD-WD-03']),
+  ('/project-media/' || 'modon/v-wd-03.webp','gallery',3,array['MD-WD-03']),
+  ('/project-media/' || 'modon/v-wd-04.webp','gallery',4,array['MD-WD-03']),
+  ('/project-media/' || 'modon/v1-mon-0.webp','gallery',0,array['MD-MON-01','MD-MON-03']),
+  ('/project-media/' || 'modon/v1-mon-0.webp','gallery',5,array['MD-MON-02']),
+  ('/project-media/' || 'modon/v1-mon-01.webp','gallery',1,array['MD-MON-01','MD-MON-02']),
+  ('/project-media/' || 'modon/v1-mon-02.webp','gallery',2,array['MD-MON-01','MD-MON-02']),
   ('/project-media/' || 'modon/v1-mon-03.webp','gallery',1,array['MD-MON-03']),
   ('/project-media/' || 'modon/v1-mon-03.webp','gallery',3,array['MD-MON-01','MD-MON-02']),
   ('/project-media/' || 'modon/v1-mon-04.webp','gallery',2,array['MD-MON-03']),
@@ -229,23 +245,7 @@ from (values
   ('/project-media/' || 'ora/ap2-se-04.webp','gallery',4,array['OR-SE-02']),
   ('/project-media/' || 'ora/ap2-sw-0.webp','gallery',0,array['OR-SW-10']),
   ('/project-media/' || 'ora/ap2-sw-01.webp','gallery',1,array['OR-SW-10']),
-  ('/project-media/' || 'ora/ap2-sw-02.webp','gallery',2,array['OR-SW-10']),
-  ('/project-media/' || 'ora/ap2-z-0.webp','gallery',0,array['OR-ZE-02']),
-  ('/project-media/' || 'ora/ap2-z-01.webp','gallery',1,array['OR-ZE-02']),
-  ('/project-media/' || 'ora/ap2-z-02.webp','gallery',2,array['OR-ZE-02']),
-  ('/project-media/' || 'ora/ap2-ze-0.webp','gallery',0,array['OR-ZE-07']),
-  ('/project-media/' || 'ora/ap2-ze-01.webp','gallery',1,array['OR-ZE-07']),
-  ('/project-media/' || 'ora/ap2-ze-02.webp','gallery',2,array['OR-ZE-07']),
-  ('/project-media/' || 'ora/ap3-cr-0.webp','gallery',0,array['OR-CR-04']),
-  ('/project-media/' || 'ora/ap3-cr-0.webp','gallery',1,array['OR-CR-06']),
-  ('/project-media/' || 'ora/ap3-cr-0.webp','gallery',3,array['OR-CR-05']),
-  ('/project-media/' || 'ora/ap3-cr-01.webp','gallery',0,array['OR-CR-05']),
-  ('/project-media/' || 'ora/ap3-cr-01.webp','gallery',1,array['OR-CR-04']),
-  ('/project-media/' || 'ora/ap3-cr-01.webp','gallery',2,array['OR-CR-06']),
-  ('/project-media/' || 'ora/ap3-cr-02.webp','gallery',1,array['OR-CR-05']),
-  ('/project-media/' || 'ora/ap3-cr-02.webp','gallery',2,array['OR-CR-04']),
-  ('/project-media/' || 'ora/ap3-cr-02.webp','gallery',3,array['OR-CR-06']),
-  ('/project-media/' || 'ora/ap3-cr-03.webp','gallery',0,array['OR-CR-06'])
+  ('/project-media/' || 'ora/ap2-sw-02.webp','gallery',2,array['OR-SW-10'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path

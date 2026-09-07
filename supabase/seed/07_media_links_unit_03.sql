@@ -5,6 +5,10 @@
 insert into cms.media_links (asset_id, unit_id, role, sort_order)
 select a.id, o.id, v.role::cms.media_role, v.sort_order
 from (values
+  ('/project-media/' || 'marakez/shams-soma/units/fp-sst2-shams-soma.webp','floorplan',0,array['SS-11']),
+  ('/project-media/' || 'marakez/shams-soma/units/fp-sst3-shams-soma.webp','floorplan',0,array['SS-12']),
+  ('/project-media/' || 'marakez/shams-soma/units/fp-th1-shams-soma.webp','floorplan',0,array['SS-07']),
+  ('/project-media/' || 'marakez/shams-soma/units/fp-th2-shams-soma.webp','floorplan',0,array['SS-08']),
   ('/project-media/' || 'marakez/shams-soma/units/fp-v1-shams-soma.webp','floorplan',0,array['SS-01']),
   ('/project-media/' || 'marakez/shams-soma/units/fp-v2-shams-soma.webp','floorplan',0,array['SS-02']),
   ('/project-media/' || 'marakez/units/ap1-cr-0.webp','floorplan',0,array['CW-A01']),
@@ -248,11 +252,7 @@ from (values
   ('/project-media/' || 'orascom/ledge-valley/units/fp-ch10-mko.webp','floorplan',0,array['LV-10']),
   ('/project-media/' || 'orascom/ledge-valley/units/fp-ch2-mko.webp','floorplan',0,array['LV-02']),
   ('/project-media/' || 'orascom/ledge-valley/units/fp-ch3-mko.webp','floorplan',0,array['LV-03']),
-  ('/project-media/' || 'orascom/ledge-valley/units/fp-ch4-mko.webp','floorplan',0,array['LV-04']),
-  ('/project-media/' || 'orascom/ledge-valley/units/fp-ch5-mko.webp','floorplan',0,array['LV-05']),
-  ('/project-media/' || 'orascom/ledge-valley/units/fp-ch6-mko.webp','floorplan',0,array['LV-06']),
-  ('/project-media/' || 'orascom/ledge-valley/units/fp-ch7-mko.webp','floorplan',0,array['LV-07']),
-  ('/project-media/' || 'orascom/ledge-valley/units/fp-ch8-mko.webp','floorplan',0,array['LV-08'])
+  ('/project-media/' || 'orascom/ledge-valley/units/fp-ch4-mko.webp','floorplan',0,array['LV-04'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path

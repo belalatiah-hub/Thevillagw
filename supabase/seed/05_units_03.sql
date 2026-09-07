@@ -80,7 +80,24 @@ from (values
   ('MR-12','marassi-red-sea','Villa','R-6B — Horizon III','R-6B — هورايزون III',5,5,330,null,101135888,5,6,'2030',null,'available'),
   ('MR-13','marassi-red-sea','Villa','R-7 — Horizon III','R-7 — هورايزون III',5,4,311,null,77651888,5,6,'2030',null,'available'),
   ('MR-14','marassi-red-sea','Villa','R-4B — Infinity I','R-4B — إنفينيتي I',6,6,466,null,85426888,5,6,'2030',null,'available'),
-  ('MR-15','marassi-red-sea','Villa','R-6A — Infinity I','R-6A — إنفينيتي I',5,5,345,null,84230888,5,6,'2030',null,'available')
+  ('MR-15','marassi-red-sea','Villa','R-6A — Infinity I','R-6A — إنفينيتي I',5,5,345,null,84230888,5,6,'2030',null,'available'),
+  ('MK-01','makadina','Villa','Villa A','فيلا A',4,6,221,null,23000000,10,8,'2030',null,'available'),
+  ('MK-02','makadina','Villa','Villa B','فيلا B',4,5,233,null,23500000,10,8,'2030',null,'available'),
+  ('MK-03','makadina','Villa','Villa C','فيلا C',3,4,149,null,18000000,10,8,'2030',null,'available'),
+  ('MK-04','makadina','Villa','Villa D','فيلا D',3,4,160,null,19500000,10,8,'2030',null,'available'),
+  ('MK-05','makadina','Twin house','Twin House','توين هاوس',3,3,144,null,17600000,10,8,'2030',null,'available'),
+  ('MK-06','makadina','Townhouse','Middle Town Home','تاون هوم ميدل',2,3,115,null,14500000,10,8,'2030',null,'available'),
+  ('MK-07','makadina','Townhouse','Corner Town Home','تاون هوم كورنر',3,3,144,null,16500000,10,8,'2030',null,'available'),
+  ('MK-08','makadina','Apartment','Apartment — 3 bed','شقة — ٣ غرف',3,3,137,null,11300000,10,8,'2030',null,'available'),
+  ('MK-09','makadina','Apartment','Apartment — 2 bed','شقة — غرفتين',2,3,102,null,9300000,10,8,'2030',null,'available'),
+  ('MK-10','makadina','Apartment','Apartment — 1 bed','شقة — غرفة',1,2,74,null,7400000,10,8,'2030',null,'available'),
+  ('MG-01','marina-gate','Villa','One Story Villa','فيلا دور واحد',4,5,198,null,45500000,10,8,'2030',null,'available'),
+  ('MG-02','marina-gate','Twin house','Twin Villa','توين فيلا',3,6,188,null,33500000,10,8,'2030',null,'available'),
+  ('MG-03','marina-gate','Townhouse','Townhouse — corner','تاون هاوس — كورنر',4,4,171,null,28500000,10,8,'2030',null,'available'),
+  ('MG-04','marina-gate','Townhouse','Townhouse — middle','تاون هاوس — ميدل',4,4,148,null,26500000,10,8,'2030',null,'available'),
+  ('MG-05','marina-gate','Duplex','Hexa Home — duplex corner','هيكسا هوم — دوبلكس كورنر',4,4,142,null,23000000,10,8,'2030',null,'available'),
+  ('MG-06','marina-gate','Duplex','Hexa Home — duplex middle','هيكسا هوم — دوبلكس ميدل',3,4,137,null,19000000,10,8,'2030',null,'available'),
+  ('MG-07','marina-gate','Penthouse','Hexa Home — penthouse','هيكسا هوم — بنتهاوس',3,3,149,null,21000000,10,8,'2030',null,'available')
 ) as v(unit_code, project_slug, unit_type_en, label_en, label_ar, bedrooms, bathrooms,
        bua, bua_to, price, dp, years, delivery_label, floor, availability)
 join cms.projects p on p.slug = v.project_slug

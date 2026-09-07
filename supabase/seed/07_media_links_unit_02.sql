@@ -135,6 +135,12 @@ from (values
   ('/project-media/' || 'tatweer/tw-sc-0.webp','cover',0,array['TM-SC-02']),
   ('/project-media/' || 'the-estates/apartment.webp','cover',0,array['ES-AP1']),
   ('/project-media/' || 'the-estates/villa.webp','cover',0,array['ES-VL1']),
+  ('/project-media/' || 'travco/marina-gate/p25.webp','cover',0,array['MG-01']),
+  ('/project-media/' || 'travco/marina-gate/p31.webp','cover',0,array['MG-02']),
+  ('/project-media/' || 'travco/marina-gate/p37.webp','cover',0,array['MG-03']),
+  ('/project-media/' || 'travco/marina-gate/p38.webp','cover',0,array['MG-04']),
+  ('/project-media/' || 'travco/marina-gate/p45.webp','cover',0,array['MG-05']),
+  ('/project-media/' || 'travco/marina-gate/p46.webp','cover',0,array['MG-06','MG-07']),
   ('/project-media/' || 'villette/apartment.webp','cover',0,array['V-A305']),
   ('/project-media/' || 'villette/i-villa.webp','cover',0,array['VL-IV3']),
   ('/project-media/' || 'villette/town-house.webp','cover',0,array['V-TH22']),
@@ -252,11 +258,7 @@ from (values
   ('/project-media/' || 'marakez/shams-soma/units/fp-ch3-shams-soma.webp','floorplan',0,array['SS-06']),
   ('/project-media/' || 'marakez/shams-soma/units/fp-loft-shams-soma.webp','floorplan',0,array['SS-09']),
   ('/project-media/' || 'marakez/shams-soma/units/fp-pent-shams-soma.webp','floorplan',0,array['SS-03']),
-  ('/project-media/' || 'marakez/shams-soma/units/fp-sst1-shams-soma.webp','floorplan',0,array['SS-10']),
-  ('/project-media/' || 'marakez/shams-soma/units/fp-sst2-shams-soma.webp','floorplan',0,array['SS-11']),
-  ('/project-media/' || 'marakez/shams-soma/units/fp-sst3-shams-soma.webp','floorplan',0,array['SS-12']),
-  ('/project-media/' || 'marakez/shams-soma/units/fp-th1-shams-soma.webp','floorplan',0,array['SS-07']),
-  ('/project-media/' || 'marakez/shams-soma/units/fp-th2-shams-soma.webp','floorplan',0,array['SS-08'])
+  ('/project-media/' || 'marakez/shams-soma/units/fp-sst1-shams-soma.webp','floorplan',0,array['SS-10'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path

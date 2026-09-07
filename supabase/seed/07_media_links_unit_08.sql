@@ -5,6 +5,22 @@
 insert into cms.media_links (asset_id, unit_id, role, sort_order)
 select a.id, o.id, v.role::cms.media_role, v.sort_order
 from (values
+  ('/project-media/' || 'ora/ap2-z-0.webp','gallery',0,array['OR-ZE-02']),
+  ('/project-media/' || 'ora/ap2-z-01.webp','gallery',1,array['OR-ZE-02']),
+  ('/project-media/' || 'ora/ap2-z-02.webp','gallery',2,array['OR-ZE-02']),
+  ('/project-media/' || 'ora/ap2-ze-0.webp','gallery',0,array['OR-ZE-07']),
+  ('/project-media/' || 'ora/ap2-ze-01.webp','gallery',1,array['OR-ZE-07']),
+  ('/project-media/' || 'ora/ap2-ze-02.webp','gallery',2,array['OR-ZE-07']),
+  ('/project-media/' || 'ora/ap3-cr-0.webp','gallery',0,array['OR-CR-04']),
+  ('/project-media/' || 'ora/ap3-cr-0.webp','gallery',1,array['OR-CR-06']),
+  ('/project-media/' || 'ora/ap3-cr-0.webp','gallery',3,array['OR-CR-05']),
+  ('/project-media/' || 'ora/ap3-cr-01.webp','gallery',0,array['OR-CR-05']),
+  ('/project-media/' || 'ora/ap3-cr-01.webp','gallery',1,array['OR-CR-04']),
+  ('/project-media/' || 'ora/ap3-cr-01.webp','gallery',2,array['OR-CR-06']),
+  ('/project-media/' || 'ora/ap3-cr-02.webp','gallery',1,array['OR-CR-05']),
+  ('/project-media/' || 'ora/ap3-cr-02.webp','gallery',2,array['OR-CR-04']),
+  ('/project-media/' || 'ora/ap3-cr-02.webp','gallery',3,array['OR-CR-06']),
+  ('/project-media/' || 'ora/ap3-cr-03.webp','gallery',0,array['OR-CR-06']),
   ('/project-media/' || 'ora/ap3-cr-03.webp','gallery',2,array['OR-CR-05']),
   ('/project-media/' || 'ora/ap3-cr-03.webp','gallery',3,array['OR-CR-04']),
   ('/project-media/' || 'ora/ap3-se-0.webp','gallery',0,array['OR-SE-03']),
@@ -250,22 +266,7 @@ from (values
   ('/project-media/' || 'ramla/units/ch6-0.webp','gallery',0,array['RM-CH06']),
   ('/project-media/' || 'ramla/units/ch6-01.webp','gallery',1,array['RM-CH06']),
   ('/project-media/' || 'ramla/units/ch7-0.webp','gallery',0,array['RM-CH07']),
-  ('/project-media/' || 'ramla/units/ch7-01.webp','gallery',1,array['RM-CH07']),
-  ('/project-media/' || 'ramla/units/ch7-02.webp','gallery',2,array['RM-CH07']),
-  ('/project-media/' || 'ramla/units/ch7-03.webp','gallery',3,array['RM-CH07']),
-  ('/project-media/' || 'ramla/units/du-0.webp','gallery',0,array['RM-PH01']),
-  ('/project-media/' || 'ramla/units/du-01.webp','gallery',1,array['RM-PH01']),
-  ('/project-media/' || 'ramla/units/du-02.webp','gallery',0,array['RM-DX01']),
-  ('/project-media/' || 'ramla/units/du-03.webp','gallery',1,array['RM-DX01']),
-  ('/project-media/' || 'ramla/units/du-04.webp','gallery',2,array['RM-DX01']),
-  ('/project-media/' || 'ramla/units/du1-0.webp','gallery',0,array['RM-DX02']),
-  ('/project-media/' || 'ramla/units/du1-01.webp','gallery',1,array['RM-DX02']),
-  ('/project-media/' || 'ramla/units/du1-02.webp','gallery',2,array['RM-DX02']),
-  ('/project-media/' || 'ramla/units/du1-03.webp','gallery',3,array['RM-DX02']),
-  ('/project-media/' || 'ramla/units/du1-04.webp','gallery',4,array['RM-DX02']),
-  ('/project-media/' || 'ramla/units/du2-0.webp','gallery',0,array['RM-DX03']),
-  ('/project-media/' || 'ramla/units/du2-01.webp','gallery',1,array['RM-DX03']),
-  ('/project-media/' || 'ramla/units/du2-02.webp','gallery',2,array['RM-DX03'])
+  ('/project-media/' || 'ramla/units/ch7-01.webp','gallery',1,array['RM-CH07'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path

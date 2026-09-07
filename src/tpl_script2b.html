@@ -51,6 +51,8 @@
   // Marakez Ramla renders are now self-hosted (extracted from the official Ramla
   // "Sacred Summers" renders deck) under /project-media/ramla — no external hotlinking.
   var PROJECT_COVERS = {
+    'makadina':'/project-media/travco/makadina/p27.webp',
+    'marina-gate':'/project-media/travco/marina-gate/p46.webp',
     'ledge-valley':'/project-media/orascom/ledge-valley/hero.webp',
     // Marassi Red Sea: the marina from the air, looking out to open sea. The
     // brochure's own opening spreads carry its headline set into the picture,
@@ -158,6 +160,13 @@
   function groupMembers(g){ return (g?g.members:[]).map(projBySlug).filter(Boolean); }
   function groupFrom(g){ var m=groupMembers(g).map(function(p){return p.price;}).filter(function(x){return x!=null;}); return m.length?Math.min.apply(null,m):null; }
   var UNIT_IMAGES = {
+    'MG-01':'/project-media/travco/marina-gate/p25.webp',
+    'MG-02':'/project-media/travco/marina-gate/p31.webp',
+    'MG-03':'/project-media/travco/marina-gate/p37.webp',
+    'MG-04':'/project-media/travco/marina-gate/p38.webp',
+    'MG-05':'/project-media/travco/marina-gate/p45.webp',
+    'MG-06':'/project-media/travco/marina-gate/p46.webp',
+    'MG-07':'/project-media/travco/marina-gate/p46.webp',
     'MR-01':'/project-media/emaarmisr/marassi-red-sea/units/th1-marasi0infinity-0.webp',
     'MR-02':'/project-media/emaarmisr/marassi-red-sea/units/ap1-marina-shore-2.webp',
     'MR-03':'/project-media/emaarmisr/marassi-red-sea/units/ap1-marina-shore-2.webp',
@@ -600,6 +609,13 @@
   /* Per-unit render galleries (all photos for a unit) — opened as a numbered
      carousel from the unit hero and the "Photos" chip. LMD-populated. */
   var UNIT_GALLERY = {
+    'MG-01':['/project-media/travco/marina-gate/p25.webp', '/project-media/travco/marina-gate/p26.webp', '/project-media/travco/marina-gate/p28.webp', '/project-media/travco/marina-gate/p29.webp'],
+    'MG-02':['/project-media/travco/marina-gate/p31.webp', '/project-media/travco/marina-gate/p32.webp', '/project-media/travco/marina-gate/p35.webp'],
+    'MG-03':['/project-media/travco/marina-gate/p37.webp', '/project-media/travco/marina-gate/p38.webp', '/project-media/travco/marina-gate/p41.webp'],
+    'MG-04':['/project-media/travco/marina-gate/p37.webp', '/project-media/travco/marina-gate/p38.webp', '/project-media/travco/marina-gate/p41.webp'],
+    'MG-05':['/project-media/travco/marina-gate/p45.webp', '/project-media/travco/marina-gate/p46.webp', '/project-media/travco/marina-gate/p50.webp'],
+    'MG-06':['/project-media/travco/marina-gate/p45.webp', '/project-media/travco/marina-gate/p46.webp', '/project-media/travco/marina-gate/p50.webp'],
+    'MG-07':['/project-media/travco/marina-gate/p45.webp', '/project-media/travco/marina-gate/p46.webp', '/project-media/travco/marina-gate/p50.webp'],
     'MR-01':['/project-media/emaarmisr/marassi-red-sea/units/th1-marasi0infinity-0.webp', '/project-media/emaarmisr/marassi-red-sea/units/th1-marasi0infinity-1.webp', '/project-media/emaarmisr/marassi-red-sea/units/th1-marasi0infinity-2.webp', '/project-media/emaarmisr/marassi-red-sea/units/th1-marasi0infinity-3.webp', '/project-media/emaarmisr/marassi-red-sea/units/th1-marasi0infinity-4.webp'],
     'MR-02':['/project-media/emaarmisr/marassi-red-sea/units/ap1-marina-shore-2.webp', '/project-media/emaarmisr/marassi-red-sea/units/ap1-marina-shore-3.webp', '/project-media/emaarmisr/marassi-red-sea/units/ap1-marina-shore-4.webp'],
     'MR-03':['/project-media/emaarmisr/marassi-red-sea/units/ap1-marina-shore-2.webp', '/project-media/emaarmisr/marassi-red-sea/units/ap1-marina-shore-3.webp', '/project-media/emaarmisr/marassi-red-sea/units/ap1-marina-shore-4.webp'],
@@ -1044,6 +1060,23 @@
      guesswork. Two floor plans the sheet names (fp-th-3-cr, v4-cr-0) are
      corrupt inside the source archive and are therefore simply absent. */
   var UNIT_MASTERPLANS = {
+    'MK-01':['/project-media/travco/makadina/p25.webp', '/project-media/travco/makadina/p14.webp'],
+    'MK-02':['/project-media/travco/makadina/p25.webp', '/project-media/travco/makadina/p14.webp'],
+    'MK-03':['/project-media/travco/makadina/p25.webp', '/project-media/travco/makadina/p14.webp'],
+    'MK-04':['/project-media/travco/makadina/p25.webp', '/project-media/travco/makadina/p14.webp'],
+    'MK-05':['/project-media/travco/makadina/p25.webp', '/project-media/travco/makadina/p14.webp'],
+    'MK-06':['/project-media/travco/makadina/p25.webp', '/project-media/travco/makadina/p14.webp'],
+    'MK-07':['/project-media/travco/makadina/p25.webp', '/project-media/travco/makadina/p14.webp'],
+    'MK-08':['/project-media/travco/makadina/p25.webp', '/project-media/travco/makadina/p14.webp'],
+    'MK-09':['/project-media/travco/makadina/p25.webp', '/project-media/travco/makadina/p14.webp'],
+    'MK-10':['/project-media/travco/makadina/p25.webp', '/project-media/travco/makadina/p14.webp'],
+    'MG-01':['/project-media/travco/marina-gate/p22.webp', '/project-media/travco/marina-gate/p10.webp'],
+    'MG-02':['/project-media/travco/marina-gate/p22.webp', '/project-media/travco/marina-gate/p10.webp'],
+    'MG-03':['/project-media/travco/marina-gate/p22.webp', '/project-media/travco/marina-gate/p10.webp'],
+    'MG-04':['/project-media/travco/marina-gate/p22.webp', '/project-media/travco/marina-gate/p10.webp'],
+    'MG-05':['/project-media/travco/marina-gate/p22.webp', '/project-media/travco/marina-gate/p10.webp'],
+    'MG-06':['/project-media/travco/marina-gate/p22.webp', '/project-media/travco/marina-gate/p10.webp'],
+    'MG-07':['/project-media/travco/marina-gate/p22.webp', '/project-media/travco/marina-gate/p10.webp'],
     /* Emaar Misr — Marassi Red Sea: the drawing the sheet names for each unit,
        and only that one. The sheet files the whole-destination plan under the
        Island units as `mp-island`, which is why those six carry masterplan.webp
@@ -1467,6 +1500,13 @@
     'SL-SV15':["/project-media/hassan-allam/sl-sv15-mp1.webp"],
   };
   var UNIT_FLOORPLANS = {
+    'MG-01':['/project-media/travco/marina-gate/p27.webp'],
+    'MG-02':['/project-media/travco/marina-gate/p33.webp', '/project-media/travco/marina-gate/p34.webp'],
+    'MG-03':['/project-media/travco/marina-gate/p39.webp', '/project-media/travco/marina-gate/p40.webp'],
+    'MG-04':['/project-media/travco/marina-gate/p42.webp', '/project-media/travco/marina-gate/p43.webp'],
+    'MG-05':['/project-media/travco/marina-gate/p47.webp'],
+    'MG-06':['/project-media/travco/marina-gate/p48.webp'],
+    'MG-07':['/project-media/travco/marina-gate/p49.webp'],
     'MR-01':['/project-media/emaarmisr/marassi-red-sea/units/fp-marasi-infinity.webp'],
     'MR-02':['/project-media/emaarmisr/marassi-red-sea/units/fp-ap1-marina-shore.webp'],
     'MR-03':['/project-media/emaarmisr/marassi-red-sea/units/fp-ap2-marina-shore.webp'],
@@ -1879,6 +1919,23 @@
   /* Per-unit location renders (LMD). When present, the Location viewer shows the
      unit-specific aerial; otherwise it falls back to the area aerial. */
   var UNIT_LOCATIONS = {
+    'MK-01':['/project-media/travco/makadina/p13.webp'],
+    'MK-02':['/project-media/travco/makadina/p13.webp'],
+    'MK-03':['/project-media/travco/makadina/p13.webp'],
+    'MK-04':['/project-media/travco/makadina/p13.webp'],
+    'MK-05':['/project-media/travco/makadina/p13.webp'],
+    'MK-06':['/project-media/travco/makadina/p13.webp'],
+    'MK-07':['/project-media/travco/makadina/p13.webp'],
+    'MK-08':['/project-media/travco/makadina/p13.webp'],
+    'MK-09':['/project-media/travco/makadina/p13.webp'],
+    'MK-10':['/project-media/travco/makadina/p13.webp'],
+    'MG-01':['/project-media/travco/marina-gate/p09.webp'],
+    'MG-02':['/project-media/travco/marina-gate/p09.webp'],
+    'MG-03':['/project-media/travco/marina-gate/p09.webp'],
+    'MG-04':['/project-media/travco/marina-gate/p09.webp'],
+    'MG-05':['/project-media/travco/marina-gate/p09.webp'],
+    'MG-06':['/project-media/travco/marina-gate/p09.webp'],
+    'MG-07':['/project-media/travco/marina-gate/p09.webp'],
     'MR-01':['/project-media/emaarmisr/marassi-red-sea/units/location-marasi.webp'],
     'MR-02':['/project-media/emaarmisr/marassi-red-sea/units/location-marasi.webp'],
     'MR-03':['/project-media/emaarmisr/marassi-red-sea/units/location-marasi.webp'],
@@ -2590,6 +2647,10 @@
      renders of its own but no unit schedule has nowhere else to show them. */
   var MSQ = '/project-media/msquared/';
   var PROJECT_GALLERY = {
+    'makadina': ['p16', 'p17', 'p18', 'p19', 'p20', 'p21', 'p24', 'p27']
+      .map(function(n){ return '/project-media/travco/makadina/'+n+'.webp'; }),
+    'marina-gate': ['p13', 'p14', 'p15', 'p16', 'p17', 'p19', 'p25', 'p26', 'p31', 'p32', 'p37', 'p38', 'p45', 'p46']
+      .map(function(n){ return '/project-media/travco/marina-gate/'+n+'.webp'; }),
     /* Shams Soma, in the deck's own page order: the masterplan seen from the
        air, the two valleys, the pools, then the coastline from the sandy beach
        out to the boardwalk. Renders only — the deck's pages carry a header and

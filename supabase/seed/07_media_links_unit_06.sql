@@ -5,6 +5,20 @@
 insert into cms.media_links (asset_id, unit_id, role, sort_order)
 select a.id, o.id, v.role::cms.media_role, v.sort_order
 from (values
+  ('/project-media/' || 'marakez/shams-soma/units/v1-shams-soma-2.webp','gallery',2,array['SS-01']),
+  ('/project-media/' || 'marakez/shams-soma/units/v1-shams-soma-3.webp','gallery',3,array['SS-01']),
+  ('/project-media/' || 'marakez/shams-soma/units/v2-shams-soma-0.webp','gallery',0,array['SS-02']),
+  ('/project-media/' || 'marakez/shams-soma/units/v2-shams-soma-1.webp','gallery',1,array['SS-02']),
+  ('/project-media/' || 'marakez/shams-soma/units/v2-shams-soma-2.webp','gallery',2,array['SS-02']),
+  ('/project-media/' || 'marakez/units/ap1-cr-00.webp','gallery',0,array['CW-A01']),
+  ('/project-media/' || 'marakez/units/ap1-cr-00.webp','gallery',1,array['CW-A03']),
+  ('/project-media/' || 'marakez/units/ap1-cr-00.webp','gallery',2,array['CW-A06']),
+  ('/project-media/' || 'marakez/units/ap1-cr-001.webp','gallery',1,array['CW-A01']),
+  ('/project-media/' || 'marakez/units/ap1-cr-001.webp','gallery',2,array['CW-A03']),
+  ('/project-media/' || 'marakez/units/ap1-cr-001.webp','gallery',3,array['CW-A06']),
+  ('/project-media/' || 'marakez/units/ap1-cr-002.webp','gallery',0,array['CW-A06','CW-A07']),
+  ('/project-media/' || 'marakez/units/ap1-cr-002.webp','gallery',2,array['CW-A01']),
+  ('/project-media/' || 'marakez/units/ap1-cr-002.webp','gallery',3,array['CW-A03']),
   ('/project-media/' || 'marakez/units/ap1-cr-003.webp','gallery',3,array['CW-A01']),
   ('/project-media/' || 'marakez/units/ap1-cr-003.webp','gallery',4,array['CW-A03']),
   ('/project-media/' || 'marakez/units/ap1-d-0.webp','gallery',0,array['D5-A01','D5-A05']),
@@ -243,23 +257,7 @@ from (values
   ('/project-media/' || 'modon/th-wd-02.webp','gallery',1,array['MD-WD-01']),
   ('/project-media/' || 'modon/th-wd-03.webp','gallery',2,array['MD-WD-01']),
   ('/project-media/' || 'modon/th-wd-04.webp','gallery',3,array['MD-WD-01']),
-  ('/project-media/' || 'modon/th-wd-05.webp','gallery',4,array['MD-WD-01']),
-  ('/project-media/' || 'modon/th-wd-06.webp','gallery',5,array['MD-WD-01']),
-  ('/project-media/' || 'modon/th2-wd-0.webp','gallery',0,array['MD-WD-02']),
-  ('/project-media/' || 'modon/th2-wd-01.webp','gallery',1,array['MD-WD-02']),
-  ('/project-media/' || 'modon/th2-wd-02.webp','gallery',2,array['MD-WD-02']),
-  ('/project-media/' || 'modon/th2-wd-03.webp','gallery',3,array['MD-WD-02']),
-  ('/project-media/' || 'modon/th2-wd-04.webp','gallery',4,array['MD-WD-02']),
-  ('/project-media/' || 'modon/th2-wd-05.webp','gallery',5,array['MD-WD-02']),
-  ('/project-media/' || 'modon/v-wd-0.webp','gallery',0,array['MD-WD-03']),
-  ('/project-media/' || 'modon/v-wd-01.webp','gallery',1,array['MD-WD-03']),
-  ('/project-media/' || 'modon/v-wd-02.webp','gallery',2,array['MD-WD-03']),
-  ('/project-media/' || 'modon/v-wd-03.webp','gallery',3,array['MD-WD-03']),
-  ('/project-media/' || 'modon/v-wd-04.webp','gallery',4,array['MD-WD-03']),
-  ('/project-media/' || 'modon/v1-mon-0.webp','gallery',0,array['MD-MON-01','MD-MON-03']),
-  ('/project-media/' || 'modon/v1-mon-0.webp','gallery',5,array['MD-MON-02']),
-  ('/project-media/' || 'modon/v1-mon-01.webp','gallery',1,array['MD-MON-01','MD-MON-02']),
-  ('/project-media/' || 'modon/v1-mon-02.webp','gallery',2,array['MD-MON-01','MD-MON-02'])
+  ('/project-media/' || 'modon/th-wd-05.webp','gallery',4,array['MD-WD-01'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path

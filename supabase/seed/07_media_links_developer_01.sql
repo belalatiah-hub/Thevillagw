@@ -82,7 +82,8 @@ from (values
   ('/logos/sodic.webp','logo',0,array['sodic']),
   ('/logos/sumou.webp','logo',0,array['sumou']),
   ('/logos/tatweer-misr.webp','logo',0,array['tatweer']),
-  ('/logos/tmg.webp','logo',0,array['tmg'])
+  ('/logos/tmg.webp','logo',0,array['tmg']),
+  ('/logos/travco.webp','logo',0,array['travco'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path

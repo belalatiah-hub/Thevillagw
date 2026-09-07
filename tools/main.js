@@ -566,6 +566,8 @@ var PROJECTS = [
 {slug:'siyal', name:'Siyal', name_ar:'سيال', dev:'orascom', area:'redsea', status:'primary', price:23735000, dp:10, years:7, delivery:'2030', finishing:{en:'Fully finished',ar:'تشطيب كامل'}, types:{en:'Villa · Twin house · Townhouse',ar:'فيلا · توين هاوس · تاون هاوس'}, tags:{en:['Red Sea','Makadi Bay','Lagoons'],ar:['البحر الأحمر','خليج مكادي','بحيرات']}, blurb:{en:'A neighbourhood of 78 homes inside Makadi Heights, built on 82,500 m² with only about 12% of the site covered — the rest given to open landscape, lagoons and communal ground.',ar:'حي من ٧٨ وحدة داخل مدن مكادي هايتس على ٨٢٬٥٠٠ م²، لا تشغل المباني سوى نحو ١٢٪ من الأرض — والباقي مساحات مفتوحة وبحيرات وأماكن مشتركة.'}},
 {slug:'shams-soma', name:'Shams Soma', name_ar:'شمس سوما', dev:'marakez', area:'redsea', status:'primary', price:19500000, dp:10, years:8, delivery:'2030', types:{en:'Villa · Standalone villa · Townhouse · Chalet · Penthouse · Loft',ar:'فيلا · فيلا مستقلة · تاون هاوس · شاليه · بنتهاوس · لوفت'}, tags:{en:['Red Sea','Somabay','700m coastline'],ar:['البحر الأحمر','سوما باي','واجهة بحرية ٧٠٠م']}, blurb:{en:'630 homes and one hotel on 80 feddan inside Somabay, with 700 metres of coastline and two valleys running from the town down to the beach. The homes step down the natural slope of the land so the sea stays in view.',ar:'٦٣٠ وحدة وفندق واحد على ٨٠ فداناً داخل سوما باي، بواجهة بحرية طولها ٧٠٠ متر وواديين ينحدران من المدينة إلى الشاطئ. وتتدرّج الوحدات مع ميل الأرض الطبيعي ليبقى البحر في المشهد.'}},
 {slug:'marassi-red-sea', name:'Marassi Red Sea', name_ar:'مراسي البحر الأحمر', dev:'emaarmisr', area:'redsea', status:'launch', price:28805888, dp:5, years:6, delivery:'2030', types:{en:'Apartment · Townhouse · Villa',ar:'شقة · تاون هاوس · فيلا'}, tags:{en:['Red Sea','600 berths','12 hotels'],ar:['البحر الأحمر','٦٠٠ مرسى','١٢ فندقاً']}, blurb:{en:'An Emaar Misr destination on the Red Sea, spanning 2,400 acres. The brochure sets out twelve luxury hotels and serviced residences, three marina experiences with 600 berths, thirty-two residential communities and 1.1 million square metres of waterbodies, alongside four beaches — the Main Beach, Island Beach, Infinity Beach and the Beach Lagoons — and a 1.5-kilometre elevated infinity beach.',ar:'وجهة من إعمار مصر على البحر الأحمر بمساحة ٢٬٤٠٠ أكر. يعرض البروشور اثني عشر فندقاً ومساكن فندقية، وثلاث تجارب مارينا بستمائة مرسى، واثنين وثلاثين مجتمعاً سكنياً، و١٫١ مليون متر مربع من المسطحات المائية، إلى جانب أربعة شواطئ — الشاطئ الرئيسي وشاطئ الجزيرة وشاطئ الإنفينيتي والبحيرات الشاطئية — وشاطئ إنفينيتي مرتفع بطول ١٫٥ كيلومتر.'}},
+{slug:'makadina', name:'Makadina', name_ar:'مكادينا', dev:'travco', area:'redsea', status:'launch', price:7400000, dp:10, years:8, delivery:'2030', types:{en:'Apartment · Townhouse · Twin house · Villa',ar:'شقة · تاون هاوس · توين هاوس · فيلا'}, tags:{en:['Red Sea','Madinat Makadi','18-hole golf'],ar:['البحر الأحمر','مدينة مكادي','جولف ١٨ حفرة']}, blurb:{en:'A mixed-use resort destination inside Madinat Makadi on the Red Sea coast at Hurghada, with waterfront serviced homes, a clubhouse, a sports complex, a wellness hub and a shopping mall. Homeowners have access to Madinat Makadi\u2019s 18-hole championship golf course and Makadi Water World, and to a serviced beach at Jaz Palmariva.',ar:'وجهة منتجعية متعددة الاستخدامات داخل مدينة مكادي على ساحل البحر الأحمر بالغردقة، بمنازل مخدومة على الماء وكلوب هاوس ومجمّع رياضي ومركز للعافية ومول تجاري. ولأصحاب الوحدات حق الوصول إلى ملعب الجولف البطولي ذي الثمانية عشر حفرة وحديقة مكادي المائية في مدينة مكادي، وإلى شاطئ مخدوم في فندق جاز بالماريفا.'}},
+{slug:'marina-gate', name:'Marina Gate', name_ar:'مارينا جيت', dev:'travco', area:'redsea', status:'launch', price:19000000, dp:10, years:8, delivery:'2030', types:{en:'Duplex · Penthouse · Townhouse · Twin house · Villa',ar:'دوبلكس · بنتهاوس · تاون هاوس · توين هاوس · فيلا'}, tags:{en:['Red Sea','Almaza Bay Ras Soma','Marina'],ar:['البحر الأحمر','ألماظة باي رأس سوما','مارينا']}, blurb:{en:'The gateway phase of Almaza Bay Ras Soma on the bay of Ras Abu Soma, positioned at the marina and bridging the coast with the town. Seven products, from a one storey villa to a penthouse, each with the kit\u2019s own floor plan; the destination around them carries a private marina, a village of dining and retail, a water sports centre and serviced homes.',ar:'المرحلة الافتتاحية من ألماظة باي رأس سوما على خليج رأس أبو سوما، تقع عند المارينا وتصل الساحل بالمدينة. سبعة منتجات من فيلا الدور الواحد إلى البنتهاوس، لكلٍّ منها مخطط أرضي في الكتيّب؛ وتضمّ الوجهة حولها مارينا خاصة وقرية للمطاعم والتجزئة ومركزاً للرياضات المائية ومنازل مخدومة.'}},
 {slug:'ledge-valley', name:'Ledge Valley', name_ar:'ليدج فالي', dev:'orascom', area:'redsea', status:'primary', price:11410000, dp:10, years:7, delivery:'2030', types:{en:'Chalet · Penthouse',ar:'شاليه · بنتهاوس'}, tags:{en:['Red Sea','Makadi Bay','Lagoons','Waterfront'],ar:['البحر الأحمر','خليج مكادي','بحيرات','على الماء']}, blurb:{en:'A waterfront neighbourhood of 274 homes on 91,049 m² inside Makadi Heights, built around expansive lagoons and landscaped open space, with a mix of one to four bedroom residences.',ar:'حي على الماء من ٢٧٤ وحدة على ٩١٬٠٤٩ م² داخل مدن مكادي هايتس، مبني حول بحيرات واسعة ومساحات مفتوحة منسّقة، بوحدات من غرفة إلى أربع غرف.'}}
 ];
 var UNITS = [
@@ -1033,6 +1035,23 @@ var UNITS = [
 {id:'MR-13', project:'marassi-red-sea', type:'Villa', label:{en:'R-7 — Horizon III',ar:'R-7 — هورايزون III'}, beds:5, baths:4, area:311, price:77651888, dp:5, years:6, handover:'2030'},
 {id:'MR-14', project:'marassi-red-sea', type:'Villa', label:{en:'R-4B — Infinity I',ar:'R-4B — إنفينيتي I'}, beds:6, baths:6, area:466, price:85426888, dp:5, years:6, handover:'2030'},
 {id:'MR-15', project:'marassi-red-sea', type:'Villa', label:{en:'R-6A — Infinity I',ar:'R-6A — إنفينيتي I'}, beds:5, baths:5, area:345, price:84230888, dp:5, years:6, handover:'2030'},
+{id:'MK-01', project:'makadina', type:'Villa', label:{en:'Villa A',ar:'فيلا A'}, beds:4, baths:6, area:221, price:23000000, dp:10, years:8, handover:'2030'},
+{id:'MK-02', project:'makadina', type:'Villa', label:{en:'Villa B',ar:'فيلا B'}, beds:4, baths:5, area:233, price:23500000, dp:10, years:8, handover:'2030'},
+{id:'MK-03', project:'makadina', type:'Villa', label:{en:'Villa C',ar:'فيلا C'}, beds:3, baths:4, area:149, price:18000000, dp:10, years:8, handover:'2030'},
+{id:'MK-04', project:'makadina', type:'Villa', label:{en:'Villa D',ar:'فيلا D'}, beds:3, baths:4, area:160, price:19500000, dp:10, years:8, handover:'2030'},
+{id:'MK-05', project:'makadina', type:'Twin house', label:{en:'Twin House',ar:'توين هاوس'}, beds:3, baths:3, area:144, price:17600000, dp:10, years:8, handover:'2030'},
+{id:'MK-06', project:'makadina', type:'Townhouse', label:{en:'Middle Town Home',ar:'تاون هوم ميدل'}, beds:2, baths:3, area:115, price:14500000, dp:10, years:8, handover:'2030'},
+{id:'MK-07', project:'makadina', type:'Townhouse', label:{en:'Corner Town Home',ar:'تاون هوم كورنر'}, beds:3, baths:3, area:144, price:16500000, dp:10, years:8, handover:'2030'},
+{id:'MK-08', project:'makadina', type:'Apartment', label:{en:'Apartment — 3 bed',ar:'شقة — ٣ غرف'}, beds:3, baths:3, area:137, price:11300000, dp:10, years:8, handover:'2030'},
+{id:'MK-09', project:'makadina', type:'Apartment', label:{en:'Apartment — 2 bed',ar:'شقة — غرفتين'}, beds:2, baths:3, area:102, price:9300000, dp:10, years:8, handover:'2030'},
+{id:'MK-10', project:'makadina', type:'Apartment', label:{en:'Apartment — 1 bed',ar:'شقة — غرفة'}, beds:1, baths:2, area:74, price:7400000, dp:10, years:8, handover:'2030'},
+{id:'MG-01', project:'marina-gate', type:'Villa', label:{en:'One Story Villa',ar:'فيلا دور واحد'}, beds:4, baths:5, area:198, price:45500000, dp:10, years:8, handover:'2030'},
+{id:'MG-02', project:'marina-gate', type:'Twin house', label:{en:'Twin Villa',ar:'توين فيلا'}, beds:3, baths:6, area:188, price:33500000, dp:10, years:8, handover:'2030'},
+{id:'MG-03', project:'marina-gate', type:'Townhouse', label:{en:'Townhouse — corner',ar:'تاون هاوس — كورنر'}, beds:4, baths:4, area:171, price:28500000, dp:10, years:8, handover:'2030'},
+{id:'MG-04', project:'marina-gate', type:'Townhouse', label:{en:'Townhouse — middle',ar:'تاون هاوس — ميدل'}, beds:4, baths:4, area:148, price:26500000, dp:10, years:8, handover:'2030'},
+{id:'MG-05', project:'marina-gate', type:'Duplex', label:{en:'Hexa Home — duplex corner',ar:'هيكسا هوم — دوبلكس كورنر'}, beds:4, baths:4, area:142, price:23000000, dp:10, years:8, handover:'2030'},
+{id:'MG-06', project:'marina-gate', type:'Duplex', label:{en:'Hexa Home — duplex middle',ar:'هيكسا هوم — دوبلكس ميدل'}, beds:3, baths:4, area:137, price:19000000, dp:10, years:8, handover:'2030'},
+{id:'MG-07', project:'marina-gate', type:'Penthouse', label:{en:'Hexa Home — penthouse',ar:'هيكسا هوم — بنتهاوس'}, beds:3, baths:3, area:149, price:21000000, dp:10, years:8, handover:'2030'},
 ];
 var UNIT_EXTRA={'V-A305':{floor:'high'},'V-TH22':{lvl:2},'SE-T12':{lvl:2},'SE-A44':{floor:'middle'},'ET-D07':{floor:'low',lvl:2},'ET-A12':{floor:'low'},'AL-V03':{lvl:2},'AL-TW6':{lvl:2},'MV-D14':{floor:'low',lvl:2},'FS-A18':{floor:'high'},'IB-V05':{lvl:2},'IB-S02':{floor:'low'},'HP-P03':{floor:'top',roof:true},'CG-A05':{floor:'middle'},'VL-IV3':{floor:'ground',lvl:3},'AL-TV2':{lvl:2},'CS-TH1':{lvl:2},'CS-TW1':{lvl:2}};
 UNITS.forEach(function(u){ var e=UNIT_EXTRA[u.id]; if(e){ for(var k in e){ u[k]=e[k]; } } });
@@ -1159,6 +1178,8 @@ sEl('circle',{cx:x,cy:y-19,r:'12',fill:'#1e7a5a'}),
 sEl('circle',{cx:x-7,cy:y-13,r:'8',fill:'#20855f'}),
 sEl('circle',{cx:x+7,cy:y-13,r:'8',fill:'#20855f'})); }
 var PROJECT_COVERS = {
+'makadina':'/project-media/travco/makadina/p27.webp',
+'marina-gate':'/project-media/travco/marina-gate/p46.webp',
 'ledge-valley':'/project-media/orascom/ledge-valley/hero.webp',
 'marassi-red-sea':'/project-media/emaarmisr/marassi-red-sea/hero.webp',
 'shams-soma':'/project-media/marakez/shams-soma/hero.webp',
@@ -1244,6 +1265,13 @@ function groupsByDev(k){ return PROJECT_GROUPS.filter(function(g){ return g.dev=
 function groupMembers(g){ return (g?g.members:[]).map(projBySlug).filter(Boolean); }
 function groupFrom(g){ var m=groupMembers(g).map(function(p){return p.price;}).filter(function(x){return x!=null;}); return m.length?Math.min.apply(null,m):null; }
 var UNIT_IMAGES = {
+'MG-01':'/project-media/travco/marina-gate/p25.webp',
+'MG-02':'/project-media/travco/marina-gate/p31.webp',
+'MG-03':'/project-media/travco/marina-gate/p37.webp',
+'MG-04':'/project-media/travco/marina-gate/p38.webp',
+'MG-05':'/project-media/travco/marina-gate/p45.webp',
+'MG-06':'/project-media/travco/marina-gate/p46.webp',
+'MG-07':'/project-media/travco/marina-gate/p46.webp',
 'MR-01':'/project-media/emaarmisr/marassi-red-sea/units/th1-marasi0infinity-0.webp',
 'MR-02':'/project-media/emaarmisr/marassi-red-sea/units/ap1-marina-shore-2.webp',
 'MR-03':'/project-media/emaarmisr/marassi-red-sea/units/ap1-marina-shore-2.webp',
@@ -1664,6 +1692,13 @@ var UNIT_IMAGES = {
 'SL-SV15':'/project-media/hassan-allam/sl-sv15-r1.webp',
 };
 var UNIT_GALLERY = {
+'MG-01':['/project-media/travco/marina-gate/p25.webp', '/project-media/travco/marina-gate/p26.webp', '/project-media/travco/marina-gate/p28.webp', '/project-media/travco/marina-gate/p29.webp'],
+'MG-02':['/project-media/travco/marina-gate/p31.webp', '/project-media/travco/marina-gate/p32.webp', '/project-media/travco/marina-gate/p35.webp'],
+'MG-03':['/project-media/travco/marina-gate/p37.webp', '/project-media/travco/marina-gate/p38.webp', '/project-media/travco/marina-gate/p41.webp'],
+'MG-04':['/project-media/travco/marina-gate/p37.webp', '/project-media/travco/marina-gate/p38.webp', '/project-media/travco/marina-gate/p41.webp'],
+'MG-05':['/project-media/travco/marina-gate/p45.webp', '/project-media/travco/marina-gate/p46.webp', '/project-media/travco/marina-gate/p50.webp'],
+'MG-06':['/project-media/travco/marina-gate/p45.webp', '/project-media/travco/marina-gate/p46.webp', '/project-media/travco/marina-gate/p50.webp'],
+'MG-07':['/project-media/travco/marina-gate/p45.webp', '/project-media/travco/marina-gate/p46.webp', '/project-media/travco/marina-gate/p50.webp'],
 'MR-01':['/project-media/emaarmisr/marassi-red-sea/units/th1-marasi0infinity-0.webp', '/project-media/emaarmisr/marassi-red-sea/units/th1-marasi0infinity-1.webp', '/project-media/emaarmisr/marassi-red-sea/units/th1-marasi0infinity-2.webp', '/project-media/emaarmisr/marassi-red-sea/units/th1-marasi0infinity-3.webp', '/project-media/emaarmisr/marassi-red-sea/units/th1-marasi0infinity-4.webp'],
 'MR-02':['/project-media/emaarmisr/marassi-red-sea/units/ap1-marina-shore-2.webp', '/project-media/emaarmisr/marassi-red-sea/units/ap1-marina-shore-3.webp', '/project-media/emaarmisr/marassi-red-sea/units/ap1-marina-shore-4.webp'],
 'MR-03':['/project-media/emaarmisr/marassi-red-sea/units/ap1-marina-shore-2.webp', '/project-media/emaarmisr/marassi-red-sea/units/ap1-marina-shore-3.webp', '/project-media/emaarmisr/marassi-red-sea/units/ap1-marina-shore-4.webp'],
@@ -2073,6 +2108,23 @@ elgouna:'elgouna.webp', somabay:'somabay.webp'
 function areaImageSrc(key){ return (key && AREA_IMAGES[key]) ? (LOC_BASE+AREA_IMAGES[key]) : ''; }
 var PLANS_BASE = '/project-media/plans/';
 var UNIT_MASTERPLANS = {
+'MK-01':['/project-media/travco/makadina/p25.webp', '/project-media/travco/makadina/p14.webp'],
+'MK-02':['/project-media/travco/makadina/p25.webp', '/project-media/travco/makadina/p14.webp'],
+'MK-03':['/project-media/travco/makadina/p25.webp', '/project-media/travco/makadina/p14.webp'],
+'MK-04':['/project-media/travco/makadina/p25.webp', '/project-media/travco/makadina/p14.webp'],
+'MK-05':['/project-media/travco/makadina/p25.webp', '/project-media/travco/makadina/p14.webp'],
+'MK-06':['/project-media/travco/makadina/p25.webp', '/project-media/travco/makadina/p14.webp'],
+'MK-07':['/project-media/travco/makadina/p25.webp', '/project-media/travco/makadina/p14.webp'],
+'MK-08':['/project-media/travco/makadina/p25.webp', '/project-media/travco/makadina/p14.webp'],
+'MK-09':['/project-media/travco/makadina/p25.webp', '/project-media/travco/makadina/p14.webp'],
+'MK-10':['/project-media/travco/makadina/p25.webp', '/project-media/travco/makadina/p14.webp'],
+'MG-01':['/project-media/travco/marina-gate/p22.webp', '/project-media/travco/marina-gate/p10.webp'],
+'MG-02':['/project-media/travco/marina-gate/p22.webp', '/project-media/travco/marina-gate/p10.webp'],
+'MG-03':['/project-media/travco/marina-gate/p22.webp', '/project-media/travco/marina-gate/p10.webp'],
+'MG-04':['/project-media/travco/marina-gate/p22.webp', '/project-media/travco/marina-gate/p10.webp'],
+'MG-05':['/project-media/travco/marina-gate/p22.webp', '/project-media/travco/marina-gate/p10.webp'],
+'MG-06':['/project-media/travco/marina-gate/p22.webp', '/project-media/travco/marina-gate/p10.webp'],
+'MG-07':['/project-media/travco/marina-gate/p22.webp', '/project-media/travco/marina-gate/p10.webp'],
 'MR-01':['/project-media/emaarmisr/marassi-red-sea/units/mp-marasi-infinity.webp'],
 'MR-02':['/project-media/emaarmisr/marassi-red-sea/units/mp-marina-shore.webp'],
 'MR-03':['/project-media/emaarmisr/marassi-red-sea/units/mp-marina-shore.webp'],
@@ -2478,6 +2530,13 @@ var UNIT_MASTERPLANS = {
 'SL-SV15':["/project-media/hassan-allam/sl-sv15-mp1.webp"],
 };
 var UNIT_FLOORPLANS = {
+'MG-01':['/project-media/travco/marina-gate/p27.webp'],
+'MG-02':['/project-media/travco/marina-gate/p33.webp', '/project-media/travco/marina-gate/p34.webp'],
+'MG-03':['/project-media/travco/marina-gate/p39.webp', '/project-media/travco/marina-gate/p40.webp'],
+'MG-04':['/project-media/travco/marina-gate/p42.webp', '/project-media/travco/marina-gate/p43.webp'],
+'MG-05':['/project-media/travco/marina-gate/p47.webp'],
+'MG-06':['/project-media/travco/marina-gate/p48.webp'],
+'MG-07':['/project-media/travco/marina-gate/p49.webp'],
 'MR-01':['/project-media/emaarmisr/marassi-red-sea/units/fp-marasi-infinity.webp'],
 'MR-02':['/project-media/emaarmisr/marassi-red-sea/units/fp-ap1-marina-shore.webp'],
 'MR-03':['/project-media/emaarmisr/marassi-red-sea/units/fp-ap2-marina-shore.webp'],
@@ -2866,6 +2925,23 @@ var UNIT_FLOORPLANS = {
 'SL-SV15':["/project-media/hassan-allam/sl-sv15-fp1.webp"],
 };
 var UNIT_LOCATIONS = {
+'MK-01':['/project-media/travco/makadina/p13.webp'],
+'MK-02':['/project-media/travco/makadina/p13.webp'],
+'MK-03':['/project-media/travco/makadina/p13.webp'],
+'MK-04':['/project-media/travco/makadina/p13.webp'],
+'MK-05':['/project-media/travco/makadina/p13.webp'],
+'MK-06':['/project-media/travco/makadina/p13.webp'],
+'MK-07':['/project-media/travco/makadina/p13.webp'],
+'MK-08':['/project-media/travco/makadina/p13.webp'],
+'MK-09':['/project-media/travco/makadina/p13.webp'],
+'MK-10':['/project-media/travco/makadina/p13.webp'],
+'MG-01':['/project-media/travco/marina-gate/p09.webp'],
+'MG-02':['/project-media/travco/marina-gate/p09.webp'],
+'MG-03':['/project-media/travco/marina-gate/p09.webp'],
+'MG-04':['/project-media/travco/marina-gate/p09.webp'],
+'MG-05':['/project-media/travco/marina-gate/p09.webp'],
+'MG-06':['/project-media/travco/marina-gate/p09.webp'],
+'MG-07':['/project-media/travco/marina-gate/p09.webp'],
 'MR-01':['/project-media/emaarmisr/marassi-red-sea/units/location-marasi.webp'],
 'MR-02':['/project-media/emaarmisr/marassi-red-sea/units/location-marasi.webp'],
 'MR-03':['/project-media/emaarmisr/marassi-red-sea/units/location-marasi.webp'],
@@ -3497,6 +3573,10 @@ return media;
 }
 var MSQ = '/project-media/msquared/';
 var PROJECT_GALLERY = {
+'makadina': ['p16', 'p17', 'p18', 'p19', 'p20', 'p21', 'p24', 'p27']
+.map(function(n){ return '/project-media/travco/makadina/'+n+'.webp'; }),
+'marina-gate': ['p13', 'p14', 'p15', 'p16', 'p17', 'p19', 'p25', 'p26', 'p31', 'p32', 'p37', 'p38', 'p45', 'p46']
+.map(function(n){ return '/project-media/travco/marina-gate/'+n+'.webp'; }),
 'shams-soma': ['hero','aerial-sea','overview','valley-sunset','valley-ride','valley-walk',
 'valley-fountain','infinity-pool','communal-pool','social-nodes','sandy-beach',
 'jetty','beach-bar','elevated-decks','boardwalk','coastline','elevated-living']

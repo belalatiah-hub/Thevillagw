@@ -5,6 +5,10 @@
 insert into cms.media_links (asset_id, unit_id, role, sort_order)
 select a.id, o.id, v.role::cms.media_role, v.sort_order
 from (values
+  ('/project-media/' || 'orascom/ledge-valley/units/fp-ch5-mko.webp','floorplan',0,array['LV-05']),
+  ('/project-media/' || 'orascom/ledge-valley/units/fp-ch6-mko.webp','floorplan',0,array['LV-06']),
+  ('/project-media/' || 'orascom/ledge-valley/units/fp-ch7-mko.webp','floorplan',0,array['LV-07']),
+  ('/project-media/' || 'orascom/ledge-valley/units/fp-ch8-mko.webp','floorplan',0,array['LV-08']),
   ('/project-media/' || 'orascom/ledge-valley/units/fp-ch9-mko.webp','floorplan',0,array['LV-09']),
   ('/project-media/' || 'orascom/siyal/units/fp-d1-0.webp','floorplan',0,array['SY-04']),
   ('/project-media/' || 'orascom/siyal/units/fp-d1-1.webp','floorplan',1,array['SY-04']),
@@ -138,6 +142,16 @@ from (values
   ('/project-media/' || 'tatweer/fp-v-sc-0.webp','floorplan',0,array['TM-SC-03']),
   ('/project-media/' || 'tatweer/villa-210-scenes-first-floor.webp','floorplan',1,array['TM-SC-03']),
   ('/project-media/' || 'tatweer/villa-second-floor-scenes.webp','floorplan',2,array['TM-SC-03']),
+  ('/project-media/' || 'travco/marina-gate/p27.webp','floorplan',0,array['MG-01']),
+  ('/project-media/' || 'travco/marina-gate/p33.webp','floorplan',0,array['MG-02']),
+  ('/project-media/' || 'travco/marina-gate/p34.webp','floorplan',1,array['MG-02']),
+  ('/project-media/' || 'travco/marina-gate/p39.webp','floorplan',0,array['MG-03']),
+  ('/project-media/' || 'travco/marina-gate/p40.webp','floorplan',1,array['MG-03']),
+  ('/project-media/' || 'travco/marina-gate/p42.webp','floorplan',0,array['MG-04']),
+  ('/project-media/' || 'travco/marina-gate/p43.webp','floorplan',1,array['MG-04']),
+  ('/project-media/' || 'travco/marina-gate/p47.webp','floorplan',0,array['MG-05']),
+  ('/project-media/' || 'travco/marina-gate/p48.webp','floorplan',0,array['MG-06']),
+  ('/project-media/' || 'travco/marina-gate/p49.webp','floorplan',0,array['MG-07']),
   ('/project-media/' || 'baghush/units/ch1-0.webp','gallery',0,array['MB-CH01']),
   ('/project-media/' || 'baghush/units/ch1-01.webp','gallery',1,array['MB-CH01']),
   ('/project-media/' || 'baghush/units/ch2-0.webp','gallery',0,array['MB-CH02']),
@@ -237,21 +251,7 @@ from (values
   ('/project-media/' || 'beitalbahr/units/ch9-03-sh.webp','gallery',3,array['BAB-SH09']),
   ('/project-media/' || 'beitalbahr/units/to2-0-rays.webp','gallery',0,array['BAB-RY03']),
   ('/project-media/' || 'beitalbahr/units/to2-01-rays.webp','gallery',1,array['BAB-RY03']),
-  ('/project-media/' || 'beitalbahr/units/tow1-0-rays.webp','gallery',0,array['BAB-RY02']),
-  ('/project-media/' || 'beitalbahr/units/tow1-01-rays.webp','gallery',1,array['BAB-RY02']),
-  ('/project-media/' || 'beitalbahr/units/tw1-0-roo-d2.webp','gallery',0,array['BAB-RO05']),
-  ('/project-media/' || 'beitalbahr/units/tw1-01-roo-d3.webp','gallery',1,array['BAB-RO05']),
-  ('/project-media/' || 'beitalbahr/units/tw1-02-roo-d2.webp','gallery',2,array['BAB-RO05']),
-  ('/project-media/' || 'beitalbahr/units/tw1-03-roo-d2.webp','gallery',3,array['BAB-RO05']),
-  ('/project-media/' || 'beitalbahr/units/v1-0-hills.webp','gallery',0,array['BAB-HS01']),
-  ('/project-media/' || 'beitalbahr/units/v1-0-rays.webp','gallery',0,array['BAB-RY01']),
-  ('/project-media/' || 'beitalbahr/units/v1-0-roo.webp','gallery',0,array['BAB-RO01']),
-  ('/project-media/' || 'beitalbahr/units/v1-01-hills.webp','gallery',1,array['BAB-HS01']),
-  ('/project-media/' || 'beitalbahr/units/v1-01-rays.webp','gallery',1,array['BAB-RY01']),
-  ('/project-media/' || 'beitalbahr/units/v1-01-roo.webp','gallery',1,array['BAB-RO01']),
-  ('/project-media/' || 'beitalbahr/units/v1-02-hills.webp','gallery',2,array['BAB-HS01']),
-  ('/project-media/' || 'beitalbahr/units/v1-02-rays.webp','gallery',2,array['BAB-RY01']),
-  ('/project-media/' || 'beitalbahr/units/v1-02-roo.webp','gallery',2,array['BAB-RO01'])
+  ('/project-media/' || 'beitalbahr/units/tow1-0-rays.webp','gallery',0,array['BAB-RY02'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path

@@ -5,6 +5,27 @@
 insert into cms.media_links (asset_id, unit_id, role, sort_order)
 select a.id, o.id, v.role::cms.media_role, v.sort_order
 from (values
+  ('/project-media/' || 'hassan-allam/pc-ap2-loc1.webp','location',0,array['PC-AP2']),
+  ('/project-media/' || 'hassan-allam/pc-ap3-loc1.webp','location',0,array['PC-AP3']),
+  ('/project-media/' || 'hassan-allam/pc-ap4-loc1.webp','location',0,array['PC-AP4']),
+  ('/project-media/' || 'hassan-allam/pc-ap5-loc1.webp','location',0,array['PC-AP5']),
+  ('/project-media/' || 'hassan-allam/pc-ap6-loc1.webp','location',0,array['PC-AP6']),
+  ('/project-media/' || 'hassan-allam/pc-ap7-loc1.webp','location',0,array['PC-AP7']),
+  ('/project-media/' || 'hassan-allam/vl-sv3-loc1.webp','location',0,array['VL-SV3']),
+  ('/project-media/' || 'hassan-allam/vl-sv3-loc2.webp','location',1,array['VL-SV3']),
+  ('/project-media/' || 'hassan-allam/vl-th1-loc1.webp','location',0,array['VL-TH1']),
+  ('/project-media/' || 'hassan-allam/vl-tw2-loc1.webp','location',0,array['VL-TW2']),
+  ('/project-media/' || 'lmd/sth-of1-loc1.webp','location',0,array['STH-OF1']),
+  ('/project-media/' || 'lmd/ts-ad1-loc1.webp','location',0,array['TS-AD1']),
+  ('/project-media/' || 'lmd/ts-ad2-loc1.webp','location',0,array['TS-AD2']),
+  ('/project-media/' || 'lmd/ts-ad4-loc1.webp','location',0,array['TS-AD4']),
+  ('/project-media/' || 'lmd/ts-cl3-loc1.webp','location',0,array['TS-CL3']),
+  ('/project-media/' || 'lmd/ts-of5-loc1.webp','location',0,array['TS-OF5']),
+  ('/project-media/' || 'marakez/shams-soma/units/location-shams-soma-1.webp','location',0,array['SS-01','SS-02','SS-03','SS-04','SS-05','SS-06','SS-07','SS-08','SS-09','SS-10','SS-11','SS-12']),
+  ('/project-media/' || 'marakez/units/lo-d.webp','location',0,array['D5-A11','D5-A12','D5-A13','D5-A14','D5-A15','D5-A16','D5-A17','D5-A18','D5-A19','D5-A20','D5-DX01','D5-OF01','D5-OF02','D5-OF03','D5-OF04','D5-OF05']),
+  ('/project-media/' || 'marakez/units/lo-d5.webp','location',0,array['D5-A01','D5-A02','D5-A03','D5-A04','D5-A05','D5-A06','D5-A07','D5-A08','D5-A09','D5-A10']),
+  ('/project-media/' || 'marakez/units/loc-cr.webp','location',0,array['CW-TW01','CW-V01','CW-V03','CW-V04','CW-V05','CW-A01','CW-A02','CW-A03','CW-A04','CW-A05','CW-A06','CW-DX01','CW-DX02','CW-A07','CW-TW03','CW-TW04','CW-A08','CW-A09','CW-TH01','CW-V06','CW-V07','CW-A10','CW-A11','CW-A12']),
+  ('/project-media/' || 'modon/loc-beachplaza.webp','location',0,array['MD-BP-01','MD-BP-02','MD-BP-03','MD-BPL-01','MD-BPL-02','MD-BPL-03']),
   ('/project-media/' || 'modon/loc-mo.webp','location',0,array['MD-MON-01','MD-MON-02','MD-MON-03']),
   ('/project-media/' || 'modon/location-modon.webp','location',0,array['MD-BL-01','MD-BL-02','MD-BL-03']),
   ('/project-media/' || 'modon/location-wd.webp','location',0,array['MD-WD-01','MD-WD-02','MD-WD-03','MD-WD-04','MD-WD-05']),
@@ -29,14 +50,16 @@ from (values
   ('/project-media/' || 'tatweer/lo-river.webp','location',0,array['TM-RV-01','TM-RV-02','TM-RV-03','TM-RV-04','TM-RV-05']),
   ('/project-media/' || 'tatweer/lo-sc.webp','location',0,array['TM-SC-01','TM-SC-02','TM-SC-03']),
   ('/project-media/' || 'tatweer/location-salt.webp','location',0,array['TM-SL-01','TM-SL-02','TM-SL-03','TM-SL-04','TM-SL-05','TM-SL-06']),
+  ('/project-media/' || 'travco/makadina/p13.webp','location',0,array['MK-01','MK-02','MK-03','MK-04','MK-05','MK-06','MK-07','MK-08','MK-09','MK-10']),
+  ('/project-media/' || 'travco/marina-gate/p09.webp','location',0,array['MG-01','MG-02','MG-03','MG-04','MG-05','MG-06','MG-07']),
   ('/project-media/' || 'baghush/units/mp-m.webp','masterplan',0,array['MB-V01','MB-V02','MB-V03','MB-V04','MB-CH01','MB-CH02','MB-CH03','MB-TW01','MB-CH04','MB-CH05','MB-CH06','MB-CH07']),
   ('/project-media/' || 'beitalbahr/units/mp-h.webp','masterplan',0,array['BAB-HL01']),
   ('/project-media/' || 'beitalbahr/units/mp-hills.webp','masterplan',0,array['BAB-HS01','BAB-HS02']),
   ('/project-media/' || 'beitalbahr/units/mp-rays.webp','masterplan',0,array['BAB-RY01','BAB-RY02','BAB-RY03']),
   ('/project-media/' || 'beitalbahr/units/mp-roots.webp','masterplan',0,array['BAB-RO01','BAB-RO02','BAB-RO03','BAB-RO04','BAB-RO05']),
   ('/project-media/' || 'beitalbahr/units/mp-shores.webp','masterplan',0,array['BAB-SH01','BAB-SH02','BAB-SH03','BAB-SH04','BAB-SH05','BAB-SH06','BAB-SH07','BAB-SH08','BAB-SH09','BAB-SH10','BAB-SH11','BAB-SH12','BAB-SH13','BAB-SH14','BAB-SH15','BAB-SH16']),
+  ('/project-media/' || 'emaarmisr/marassi-red-sea/units/masterplan.webp','masterplan',0,array['MR-06','MR-07','MR-08','MR-09','MR-10','MR-11']),
   ('/project-media/' || 'emaarmisr/marassi-red-sea/units/mp-horizon.webp','masterplan',0,array['MR-12','MR-13']),
-  ('/project-media/' || 'emaarmisr/marassi-red-sea/units/mp-island.webp','masterplan',0,array['MR-06','MR-07','MR-08','MR-09','MR-10','MR-11']),
   ('/project-media/' || 'emaarmisr/marassi-red-sea/units/mp-marasi-infinity.webp','masterplan',0,array['MR-01','MR-14','MR-15']),
   ('/project-media/' || 'emaarmisr/marassi-red-sea/units/mp-marina-shore.webp','masterplan',0,array['MR-02','MR-03','MR-04','MR-05']),
   ('/project-media/' || 'hassan-allam/ap-of1-mp1.webp','masterplan',0,array['AP-OF1']),
@@ -157,7 +180,11 @@ from (values
   ('/project-media/' || 'tatweer/mp-tm-sv-il.webp','masterplan',0,array['TM-IM-01']),
   ('/project-media/' || 'tatweer/mp-tm-sv2-il.webp','masterplan',0,array['TM-IM-13']),
   ('/project-media/' || 'tatweer/mp-tm-th1-il.webp','masterplan',0,array['TM-IM-12']),
-  ('/project-media/' || 'tatweer/open-salt-scape-masterplan.webp','masterplan',0,array['TM-SL-01','TM-SL-02','TM-SL-03'])
+  ('/project-media/' || 'tatweer/open-salt-scape-masterplan.webp','masterplan',0,array['TM-SL-01','TM-SL-02','TM-SL-03']),
+  ('/project-media/' || 'travco/makadina/p14.webp','masterplan',1,array['MK-01','MK-02','MK-03','MK-04','MK-05','MK-06','MK-07','MK-08','MK-09','MK-10']),
+  ('/project-media/' || 'travco/makadina/p25.webp','masterplan',0,array['MK-01','MK-02','MK-03','MK-04','MK-05','MK-06','MK-07','MK-08','MK-09','MK-10']),
+  ('/project-media/' || 'travco/marina-gate/p10.webp','masterplan',1,array['MG-01','MG-02','MG-03','MG-04','MG-05','MG-06','MG-07']),
+  ('/project-media/' || 'travco/marina-gate/p22.webp','masterplan',0,array['MG-01','MG-02','MG-03','MG-04','MG-05','MG-06','MG-07'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path

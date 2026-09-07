@@ -74,6 +74,8 @@ from (values
   ('/project-media/' || 'tatweer/th-sc-0.webp','cover',0,array['scenes']),
   ('/project-media/' || 'tatweer/tm-sv-il-0.webp','cover',0,array['il-monte-galala']),
   ('/project-media/' || 'the-estates/villa.webp','cover',0,array['the-estates-zayed']),
+  ('/project-media/' || 'travco/makadina/p27.webp','cover',0,array['makadina']),
+  ('/project-media/' || 'travco/marina-gate/p46.webp','cover',0,array['marina-gate']),
   ('/project-media/' || 'villette/i-villa.webp','cover',0,array['villette']),
   ('/logos/projects/allegria.webp','logo',0,array['allegria']),
   ('/logos/projects/caesar.webp','logo',0,array['caesar-north-coast']),
@@ -82,7 +84,8 @@ from (values
   ('/logos/projects/ogami.webp','logo',0,array['ogami-north-coast']),
   ('/logos/projects/sodic-east.webp','logo',0,array['sodic-east']),
   ('/logos/projects/the-estates.webp','logo',0,array['the-estates-zayed']),
-  ('/logos/projects/villette.webp','logo',0,array['villette'])
+  ('/logos/projects/villette.webp','logo',0,array['villette']),
+  ('/project-media/' || 'emaarmisr/marassi-red-sea/units/masterplan.webp','masterplan',0,array['marassi-red-sea'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path
