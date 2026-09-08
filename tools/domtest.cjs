@@ -2302,6 +2302,23 @@ try {
     return ok && repeated.length === 0 &&
            pn.indexOf('Ledge Valley') > -1 && pn.indexOf('Siyal') > -1;
   })(), 'ok');
+  /* Twelve brochure cards at four columns is three rows stacked, and the third
+     sits a long way down a page that already carries a hero, key facts and a
+     plan band. The pager keeps two rows on screen and moves the rest sideways.
+     Under jsdom there is no layout, so this asserts the wiring rather than the
+     measured page size: the controls exist where they are needed, every card
+     is still in the DOM, and a set that fits two rows gets no controls. */
+  ck('pager: feature cards page two rows at a time, and only where needed', (function(){
+    var n = api.V.project('makadi-heights').node;
+    var pagers = qsa(n,'.row-pager');
+    if(pagers.length !== 1) return false;
+    var cards = qsa(pagers[0],'.dev-feat');
+    var navs  = qsa(pagers[0],'button').filter(function(b){
+      var c=(b.getAttribute&&b.getAttribute('class'))||''; return /gal-nav/.test(c); });
+    // Modon has three cards — one row at its widest — so it gets no pager
+    var modon = qsa(api.V.developer('modon').node,'.row-pager');
+    return cards.length === 12 && navs.length >= 2 && modon.length === 0;
+  })(), 'ok');
   ck('site: no per-unit map points at a unit that no longer exists', (function(){
     var live = {}; api.UNITS.forEach(function(u){ live[u.id] = 1; });
     var maps = {UNIT_EXTRA:api.UNIT_EXTRA, UNIT_IMAGES:api.UNIT_IMAGES,

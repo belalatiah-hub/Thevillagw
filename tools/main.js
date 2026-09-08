@@ -5907,8 +5907,51 @@ h('h3',{class:'dev-feat__title'}, ic(c.icon,'dev-feat__ico'), h('span',null,labe
 media, featCopy(c));
 });
 var cols = cards.length >= 4 ? 'grid--4' : cards.length === 2 ? 'grid--2' : 'grid--3';
+var grid = h('div',{class:'grid '+cols}, cards);
+var wide = cards.length >= 4 ? 4 : cards.length === 2 ? 2 : 3;
 return h('section',{class:'section--tight'},
-h('div',{class:'wrap'}, h('div',{class:'grid '+cols}, cards)));
+h('div',{class:'wrap'}, rowPager(grid, cards, 2, wide)));
+}
+function rowPager(grid, cards, rows, wide){
+var n = cards.length;
+if(n <= rows * wide) return grid;
+var box = h('div',{class:'row-pager'}, grid);
+var count = h('span',{class:'gal-badge__n'});
+var badge = h('span',{class:'gal-badge','aria-hidden':'true'}, ic('gallery','gal-badge__ic'), count);
+var prev = h('button',{class:'gal-nav gal-nav--prev', type:'button',
+'aria-label':(lang==='ar'?'السابق':'Previous')}, ic('chevleft'));
+var next = h('button',{class:'gal-nav gal-nav--next', type:'button',
+'aria-label':(lang==='ar'?'التالي':'Next')}, ic('chevright'));
+var page = 0, size = n, pages = 1;
+function perRow(){
+var top = cards[0].offsetTop, k = 0;
+for(var i = 0; i < n; i++){ if(cards[i].hidden) continue; if(cards[i].offsetTop === top) k++; }
+return k || 1;
+}
+function paint(){
+for(var i = 0; i < n; i++){
+var on = i >= page * size && i < (page + 1) * size;
+cards[i].hidden = !on;
+}
+count.textContent = (page + 1) + ' / ' + pages;
+prev.hidden = next.hidden = badge.hidden = (pages < 2);
+}
+function measure(){
+for(var i = 0; i < n; i++) cards[i].hidden = false;
+var pr = perRow();
+size = Math.max(1, pr * rows);
+pages = Math.ceil(n / size);
+if(page >= pages) page = pages - 1;
+paint();
+}
+prev.addEventListener('click', function(){ page = (page - 1 + pages) % pages; paint(); });
+next.addEventListener('click', function(){ page = (page + 1) % pages; paint(); });
+box.appendChild(badge); box.appendChild(prev); box.appendChild(next);
+if(typeof requestAnimationFrame === 'function') requestAnimationFrame(measure); else measure();
+if(typeof window !== 'undefined' && window.addEventListener){
+var t; window.addEventListener('resize', function(){ clearTimeout(t); t = setTimeout(measure, 150); });
+}
+return box;
 }
 function devLogoLockup(dev){
 var src=devLogoSrc(dev);
