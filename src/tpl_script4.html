@@ -399,8 +399,19 @@
       t(PROJECT_GALLERY[p.slug] ? 'art_note_dev' : 'art_note')));
     utsec.appendChild(utw); node.appendChild(utsec);
 
-    // related
-    var rel = projInArea(p.area).filter(function(x){return x.slug!==p.slug;}).slice(0,3);
+    /* Phases. A town released in named phases carries them here: each is a
+       full project with its own page, units and prices, and this is the only
+       place its card appears — the developer page shows the parent alone. */
+    var phases = projectPhases(p.slug);
+    if(phases.length){
+      node.appendChild(listSection('', t('phases_h'), t('phases_p'),
+        phases.map(projectCard), null, 'band'));
+    }
+
+    // related — never a phase of this project, which is listed above already
+    var rel = projInArea(p.area).filter(function(x){
+      return x.slug!==p.slug && phaseOf(x.slug)!==p.slug;
+    }).slice(0,3);
     if(rel.length) node.appendChild(listSection('', t('related'), '', rel.map(projectCard), null, 'band'));
     node.appendChild(ctaBand());
     return {node:node, title:nm+' — '+L(dev.name)+' · The Village Investment', desc:projectDesc(p, dev, area),
@@ -923,7 +934,8 @@
     var d = devByKey(key), ps = projByDev(key), node=h('div',null);
     // grouped members collapse into a single group card; count stays real (ps.length)
     var grps = groupsByDev(key);
-    var devCards = ps.filter(function(p){ return !GROUPED_PROJECT[p.slug]; }).map(projectCard).concat(grps.map(groupCard));
+    var devCards = ps.filter(function(p){ return !GROUPED_PROJECT[p.slug] && !phaseOf(p.slug); })
+                     .map(projectCard).concat(grps.map(groupCard));
     node.appendChild(sectionWrap(
       crumbNode([{label:t('nav_home'),path:buildPath('home')},{label:t('nav_developers'),path:buildPath('developers')},{label:L(d.name)}]),
       devGalleryStrip(d),        // destination photos sit above the logo; null when none

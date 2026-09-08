@@ -258,6 +258,7 @@ lead_copy:"Copy my details", copied:"Copied to clipboard",
 contact_blocked:"Verified phone, WhatsApp and email are pending confirmation and are intentionally not shown. This is a launch blocker recorded for the owner.",
 p404_h:"Page not found", p404_p:"The page you’re looking for doesn’t exist or may have moved. Explore primary-sale projects instead.",
 p404_home:"Back to home", back:"Back",
+phases_h:"Phases", phases_p:"This project is released in phases. Each has its own units, prices and payment plan.",
 related:"Related projects", by_dev:"Projects by this developer", in_area:"Projects in this area",
 overview:"Overview", facts:"Key facts", enquire:"Enquire about this project", enquire_p:"Ask an advisor for the current price list, payment plan and availability.",
 guide_note:"General educational guidance for buyers. Not financial, legal or tax advice. Confirm current terms with an advisor and the developer.",
@@ -382,6 +383,7 @@ lead_copy:"انسخ بياناتي", copied:"تم النسخ",
 contact_blocked:"لم تُعرَض أرقام الهاتف وواتساب والبريد لأنها قيد التأكيد عمداً، وهذا عائق إطلاق مسجَّل لصاحب الموقع.",
 p404_h:"الصفحة غير موجودة", p404_p:"الصفحة المطلوبة غير موجودة أو ربما نُقلت. استكشف مشروعات البيع الأولي بدلاً من ذلك.",
 p404_home:"العودة للرئيسية", back:"رجوع",
+phases_h:"المراحل", phases_p:"يُطرح هذا المشروع على مراحل، لكل مرحلة وحداتها وأسعارها وخطة سدادها.",
 related:"مشروعات ذات صلة", by_dev:"مشروعات هذا المطوّر", in_area:"مشروعات في هذه المنطقة",
 overview:"نظرة عامة", facts:"حقائق أساسية", enquire:"استفسر عن هذا المشروع", enquire_p:"اطلب من المستشار قائمة الأسعار الحالية وخطة السداد والإتاحة.",
 guide_note:"إرشاد تثقيفي عام للمشترين. ليس استشارة مالية أو قانونية أو ضريبية. تأكّد من الشروط الحالية مع المستشار والمطوّر.",
@@ -1320,6 +1322,15 @@ members:['stei8ht-eastmed','stei8ht-there','stei8ht-eastside'],
 blurb:{en:'LMD’s Stei8ht collection — business, medical and retail addresses in New Cairo, developer-direct primary units.',
 ar:'مجموعة ستيت من LMD — مكاتب وعيادات ومحلات في القاهرة الجديدة، وحدات أولية من المطوّر مباشرة.'}}
 ];
+var PROJECT_PHASES = {'makadi-heights': ['ledge-valley', 'siyal']};
+var PHASE_OF = {};
+Object.keys(PROJECT_PHASES).forEach(function(parent){
+PROJECT_PHASES[parent].forEach(function(s){ PHASE_OF[s] = parent; });
+});
+function projectPhases(slug){
+return (PROJECT_PHASES[slug] || []).map(projBySlug).filter(Boolean);
+}
+function phaseOf(slug){ return PHASE_OF[slug] || null; }
 var GROUP_BY_SLUG = {}, GROUPED_PROJECT = {};
 PROJECT_GROUPS.forEach(function(g){ GROUP_BY_SLUG[g.slug]=g; g.members.forEach(function(s){ GROUPED_PROJECT[s]=g.slug; }); });
 function groupBySlug(s){ return GROUP_BY_SLUG[s]||null; }
@@ -7877,7 +7888,14 @@ utw.appendChild(h('p',{class:'muted',style:'margin:4px 0 0'}, ic('info'), h('spa
 utw.appendChild(h('p',{class:'muted',style:'font-size:.78rem;margin-top:16px'},
 t(PROJECT_GALLERY[p.slug] ? 'art_note_dev' : 'art_note')));
 utsec.appendChild(utw); node.appendChild(utsec);
-var rel = projInArea(p.area).filter(function(x){return x.slug!==p.slug;}).slice(0,3);
+var phases = projectPhases(p.slug);
+if(phases.length){
+node.appendChild(listSection('', t('phases_h'), t('phases_p'),
+phases.map(projectCard), null, 'band'));
+}
+var rel = projInArea(p.area).filter(function(x){
+return x.slug!==p.slug && phaseOf(x.slug)!==p.slug;
+}).slice(0,3);
 if(rel.length) node.appendChild(listSection('', t('related'), '', rel.map(projectCard), null, 'band'));
 node.appendChild(ctaBand());
 return {node:node, title:nm+' — '+L(dev.name)+' · The Village Investment', desc:projectDesc(p, dev, area),
@@ -8331,7 +8349,8 @@ crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_developers')}
 V.developer = function(key){
 var d = devByKey(key), ps = projByDev(key), node=h('div',null);
 var grps = groupsByDev(key);
-var devCards = ps.filter(function(p){ return !GROUPED_PROJECT[p.slug]; }).map(projectCard).concat(grps.map(groupCard));
+var devCards = ps.filter(function(p){ return !GROUPED_PROJECT[p.slug] && !phaseOf(p.slug); })
+.map(projectCard).concat(grps.map(groupCard));
 node.appendChild(sectionWrap(
 crumbNode([{label:t('nav_home'),path:buildPath('home')},{label:t('nav_developers'),path:buildPath('developers')},{label:L(d.name)}]),
 devGalleryStrip(d),
