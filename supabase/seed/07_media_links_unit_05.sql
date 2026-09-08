@@ -5,6 +5,17 @@
 insert into cms.media_links (asset_id, unit_id, role, sort_order)
 select a.id, o.id, v.role::cms.media_role, v.sort_order
 from (values
+  ('/project-media/' || 'baghush/units/ch2-0.webp','gallery',1,array['MB-CH03']),
+  ('/project-media/' || 'baghush/units/ch2-01.webp','gallery',0,array['MB-CH03']),
+  ('/project-media/' || 'baghush/units/ch2-01.webp','gallery',1,array['MB-CH02']),
+  ('/project-media/' || 'baghush/units/ch4-0.webp','gallery',0,array['MB-CH04']),
+  ('/project-media/' || 'baghush/units/ch5-0.webp','gallery',0,array['MB-CH05']),
+  ('/project-media/' || 'baghush/units/ch5-01.webp','gallery',1,array['MB-CH05']),
+  ('/project-media/' || 'baghush/units/ch7-0.webp','gallery',0,array['MB-CH06']),
+  ('/project-media/' || 'baghush/units/ch7-0.webp','gallery',1,array['MB-CH07']),
+  ('/project-media/' || 'baghush/units/ch7-01.webp','gallery',1,array['MB-CH06']),
+  ('/project-media/' || 'baghush/units/fp-ch5.webp','gallery',1,array['MB-CH04']),
+  ('/project-media/' || 'baghush/units/t-0.webp','gallery',0,array['MB-TW01']),
   ('/project-media/' || 'baghush/units/t-01.webp','gallery',1,array['MB-TW01']),
   ('/project-media/' || 'baghush/units/v1-0.webp','gallery',0,array['MB-V01']),
   ('/project-media/' || 'baghush/units/v1-0.webp','gallery',1,array['MB-V02']),
@@ -230,17 +241,7 @@ from (values
   ('/project-media/' || 'hassan-allam/sl-sv15-r2.webp','gallery',1,array['SL-SV15']),
   ('/project-media/' || 'hassan-allam/sl-sv9-r1.webp','gallery',0,array['SL-SV9']),
   ('/project-media/' || 'hassan-allam/sl-sv9-r2.webp','gallery',1,array['SL-SV9']),
-  ('/project-media/' || 'hassan-allam/sl-sv9-r3.webp','gallery',2,array['SL-SV9']),
-  ('/project-media/' || 'hassan-allam/sl-tw10-r1.webp','gallery',0,array['SL-TW10']),
-  ('/project-media/' || 'hassan-allam/sl-tw10-r2.webp','gallery',1,array['SL-TW10']),
-  ('/project-media/' || 'hassan-allam/sl-tw10-r3.webp','gallery',2,array['SL-TW10']),
-  ('/project-media/' || 'hassan-allam/sl-tw11-r1.webp','gallery',0,array['SL-TW11']),
-  ('/project-media/' || 'hassan-allam/sl-tw11-r2.webp','gallery',1,array['SL-TW11']),
-  ('/project-media/' || 'hassan-allam/sl-tw11-r3.webp','gallery',2,array['SL-TW11']),
-  ('/project-media/' || 'hassan-allam/sl-tw8-r1.webp','gallery',0,array['SL-TW8']),
-  ('/project-media/' || 'hassan-allam/sl-tw8-r2.webp','gallery',1,array['SL-TW8']),
-  ('/project-media/' || 'hassan-allam/sl-tw8-r3.webp','gallery',2,array['SL-TW8']),
-  ('/project-media/' || 'hassan-allam/sl-tw8-r4.webp','gallery',3,array['SL-TW8'])
+  ('/project-media/' || 'hassan-allam/sl-sv9-r3.webp','gallery',2,array['SL-SV9'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path

@@ -5,6 +5,14 @@
 insert into cms.media_links (asset_id, unit_id, role, sort_order)
 select a.id, o.id, v.role::cms.media_role, v.sort_order
 from (values
+  ('/project-media/' || 'ora/fp-st-zw.webp','floorplan',0,array['OR-ZW-01']),
+  ('/project-media/' || 'ora/fp-stu-z.webp','floorplan',0,array['OR-ZE-05']),
+  ('/project-media/' || 'ora/fp-th-sw-0.webp','floorplan',0,array['OR-SW-07']),
+  ('/project-media/' || 'ora/fp-th-sw-01.webp','floorplan',1,array['OR-SW-07']),
+  ('/project-media/' || 'ora/fp-th1-ss.webp','floorplan',0,array['OR-ST-03']),
+  ('/project-media/' || 'ora/fp-th2-ss.webp','floorplan',0,array['OR-ST-04']),
+  ('/project-media/' || 'ora/fp-to1-em-0.webp','floorplan',0,array['OR-EM-04']),
+  ('/project-media/' || 'ora/fp-to1-em-01.webp','floorplan',1,array['OR-EM-04']),
   ('/project-media/' || 'ora/fp-to2-em-0.webp','floorplan',0,array['OR-EM-05']),
   ('/project-media/' || 'ora/fp-to2-em-01.webp','floorplan',1,array['OR-EM-05']),
   ('/project-media/' || 'ora/fp-tw-cr-0.webp','floorplan',0,array['OR-CR-06']),
@@ -111,6 +119,9 @@ from (values
   ('/project-media/' || 'sodic/sodic-east/units/fp-to4-0.webp','floorplan',0,array['SE-04']),
   ('/project-media/' || 'sodic/sodic-east/units/fp-v1-se.webp','floorplan',0,array['SE-05']),
   ('/project-media/' || 'sodic/sodic-east/units/fp-v2-se.webp','floorplan',0,array['SE-06']),
+  ('/project-media/' || 'sodic/sodic-east/units/fp-v3-se.webp','floorplan',0,array['SE-07']),
+  ('/project-media/' || 'sodic/sodic-east/units/fp-v4-se-0.webp','floorplan',0,array['SE-08']),
+  ('/project-media/' || 'sodic/sodic-east/units/fp-v4-se-01.webp','floorplan',1,array['SE-08']),
   ('/project-media/' || 'sodic/the-estates-zayed/units/fp-villa1-the-estates.webp','floorplan',0,array['ES-01']),
   ('/project-media/' || 'sodic/the-estates-zayed/units/fp-villa1-the-estates1.webp','floorplan',1,array['ES-01']),
   ('/project-media/' || 'sodic/the-estates-zayed/units/fp-villa2-the-estates-0.webp','floorplan',0,array['ES-02']),
@@ -235,18 +246,7 @@ from (values
   ('/project-media/' || 'travco/marina-gate/units/fp-v1-marina-gate.webp','floorplan',0,array['MG-01']),
   ('/project-media/' || 'baghush/units/ch1-0.webp','gallery',0,array['MB-CH01']),
   ('/project-media/' || 'baghush/units/ch1-01.webp','gallery',1,array['MB-CH01']),
-  ('/project-media/' || 'baghush/units/ch2-0.webp','gallery',0,array['MB-CH02']),
-  ('/project-media/' || 'baghush/units/ch2-0.webp','gallery',1,array['MB-CH03']),
-  ('/project-media/' || 'baghush/units/ch2-01.webp','gallery',0,array['MB-CH03']),
-  ('/project-media/' || 'baghush/units/ch2-01.webp','gallery',1,array['MB-CH02']),
-  ('/project-media/' || 'baghush/units/ch4-0.webp','gallery',0,array['MB-CH04']),
-  ('/project-media/' || 'baghush/units/ch5-0.webp','gallery',0,array['MB-CH05']),
-  ('/project-media/' || 'baghush/units/ch5-01.webp','gallery',1,array['MB-CH05']),
-  ('/project-media/' || 'baghush/units/ch7-0.webp','gallery',0,array['MB-CH06']),
-  ('/project-media/' || 'baghush/units/ch7-0.webp','gallery',1,array['MB-CH07']),
-  ('/project-media/' || 'baghush/units/ch7-01.webp','gallery',1,array['MB-CH06']),
-  ('/project-media/' || 'baghush/units/fp-ch5.webp','gallery',1,array['MB-CH04']),
-  ('/project-media/' || 'baghush/units/t-0.webp','gallery',0,array['MB-TW01'])
+  ('/project-media/' || 'baghush/units/ch2-0.webp','gallery',0,array['MB-CH02'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path

@@ -5,6 +5,16 @@
 insert into cms.media_links (asset_id, unit_id, role, sort_order)
 select a.id, o.id, v.role::cms.media_role, v.sort_order
 from (values
+  ('/project-media/' || 'marakez/units/of5-d-02.webp','gallery',2,array['D5-OF05']),
+  ('/project-media/' || 'marakez/units/of5-d-03.webp','gallery',3,array['D5-OF05']),
+  ('/project-media/' || 'marakez/units/tw-cr-0.webp','gallery',0,array['CW-TW01','CW-TW04']),
+  ('/project-media/' || 'marakez/units/tw-cr-0.webp','gallery',2,array['CW-TW03']),
+  ('/project-media/' || 'marakez/units/tw-cr-01.webp','gallery',1,array['CW-TW01','CW-TW03']),
+  ('/project-media/' || 'marakez/units/tw-cr-01.webp','gallery',2,array['CW-TW04']),
+  ('/project-media/' || 'marakez/units/tw-cr-02.webp','gallery',0,array['CW-TW03']),
+  ('/project-media/' || 'marakez/units/tw-cr-02.webp','gallery',1,array['CW-TW04']),
+  ('/project-media/' || 'marakez/units/v3-cr-0.webp','gallery',0,array['CW-V03']),
+  ('/project-media/' || 'marakez/units/v3-cr-01.webp','gallery',1,array['CW-V03']),
   ('/project-media/' || 'marakez/units/v3-cr-02.webp','gallery',0,array['CW-V06']),
   ('/project-media/' || 'marakez/units/v3-cr-02.webp','gallery',1,array['CW-V07']),
   ('/project-media/' || 'marakez/units/v3-cr-02.webp','gallery',2,array['CW-V03']),
@@ -238,16 +248,7 @@ from (values
   ('/project-media/' || 'msquared/units/pent1-mist-02.webp','gallery',2,array['MS-MI-01']),
   ('/project-media/' || 'msquared/units/pent1-mist-03.webp','gallery',3,array['MS-MI-01']),
   ('/project-media/' || 'msquared/units/pent1-mist-04.webp','gallery',4,array['MS-MI-01']),
-  ('/project-media/' || 'msquared/units/pent2-mist-0.webp','gallery',0,array['MS-MI-02','MS-MI-03','MS-MI-04']),
-  ('/project-media/' || 'msquared/units/pent2-mist-01.webp','gallery',1,array['MS-MI-02','MS-MI-03','MS-MI-04']),
-  ('/project-media/' || 'msquared/units/pent2-mist-02.webp','gallery',2,array['MS-MI-02','MS-MI-03','MS-MI-04']),
-  ('/project-media/' || 'msquared/units/thouse1-west-0.webp','gallery',0,array['MS-3W-12']),
-  ('/project-media/' || 'msquared/units/thouse1-west-01.webp','gallery',1,array['MS-3W-12']),
-  ('/project-media/' || 'msquared/units/to1-trio-0.webp','gallery',0,array['MS-TR-06']),
-  ('/project-media/' || 'msquared/units/to1-trio-01.webp','gallery',1,array['MS-TR-06']),
-  ('/project-media/' || 'msquared/units/to1-trio-02.webp','gallery',2,array['MS-TR-06']),
-  ('/project-media/' || 'msquared/units/town1-0.webp','gallery',0,array['MS-MI-05','MS-MI-06']),
-  ('/project-media/' || 'msquared/units/town1-01.webp','gallery',1,array['MS-MI-05','MS-MI-06'])
+  ('/project-media/' || 'msquared/units/pent2-mist-0.webp','gallery',0,array['MS-MI-02','MS-MI-03','MS-MI-04'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path

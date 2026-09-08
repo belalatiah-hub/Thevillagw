@@ -90,7 +90,14 @@ from (values
   ('/project-media/' || 'sodic/sodic-east/units/ap5-se-0.webp','cover',0,array['SE-13']),
   ('/project-media/' || 'sodic/sodic-east/units/ap6-se-0.webp','cover',0,array['SE-14']),
   ('/project-media/' || 'sodic/sodic-east/units/ap7-se-0.webp','cover',0,array['SE-15']),
-  ('/project-media/' || 'sodic/sodic-east/units/to3-se-01.webp','cover',0,array['SE-03','SE-04']),
+  ('/project-media/' || 'sodic/sodic-east/units/to1-se-0.webp','cover',0,array['SE-01']),
+  ('/project-media/' || 'sodic/sodic-east/units/to2-se-0.webp','cover',0,array['SE-02']),
+  ('/project-media/' || 'sodic/sodic-east/units/to3-se-0.webp','cover',0,array['SE-03']),
+  ('/project-media/' || 'sodic/sodic-east/units/to3-se-01.webp','cover',0,array['SE-04']),
+  ('/project-media/' || 'sodic/sodic-east/units/v1-se-0.webp','cover',0,array['SE-05']),
+  ('/project-media/' || 'sodic/sodic-east/units/v2-se-0.webp','cover',0,array['SE-06']),
+  ('/project-media/' || 'sodic/sodic-east/units/v3-se-0.webp','cover',0,array['SE-07']),
+  ('/project-media/' || 'sodic/sodic-east/units/v4-se-0.webp','cover',0,array['SE-08']),
   ('/project-media/' || 'sodic/the-estates-zayed/units/villa1-the-estates-0.webp','cover',0,array['ES-01']),
   ('/project-media/' || 'sodic/the-estates-zayed/units/villa2-the-estates-0.webp','cover',0,array['ES-02']),
   ('/project-media/' || 'sodic/the-estates-zayed/units/villa3-the-estates-0.webp','cover',0,array['ES-03']),
@@ -245,14 +252,7 @@ from (values
   ('/project-media/' || 'hassan-allam/px-ap1-fp1.webp','floorplan',0,array['PX-AP1']),
   ('/project-media/' || 'hassan-allam/px-ap2-fp1.webp','floorplan',0,array['PX-AP2']),
   ('/project-media/' || 'hassan-allam/px-ap3-fp1.webp','floorplan',0,array['PX-AP3']),
-  ('/project-media/' || 'hassan-allam/px-ap4-fp1.webp','floorplan',0,array['PX-AP4']),
-  ('/project-media/' || 'hassan-allam/px-ap5-fp1.webp','floorplan',0,array['PX-AP5']),
-  ('/project-media/' || 'hassan-allam/sl-ap1-fp1.webp','floorplan',0,array['SL-AP1']),
-  ('/project-media/' || 'hassan-allam/sl-ap2-fp1.webp','floorplan',0,array['SL-AP2']),
-  ('/project-media/' || 'hassan-allam/sl-ap3-fp1.webp','floorplan',0,array['SL-AP3']),
-  ('/project-media/' || 'hassan-allam/sl-ap4-fp1.webp','floorplan',0,array['SL-AP4']),
-  ('/project-media/' || 'hassan-allam/sl-ap5-fp1.webp','floorplan',0,array['SL-AP5']),
-  ('/project-media/' || 'hassan-allam/sl-ap6-fp1.webp','floorplan',0,array['SL-AP6'])
+  ('/project-media/' || 'hassan-allam/px-ap4-fp1.webp','floorplan',0,array['PX-AP4'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path

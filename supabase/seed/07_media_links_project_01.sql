@@ -64,7 +64,7 @@ from (values
   ('/project-media/' || 'qataridiar/alam-al-roum/city.webp','cover',0,array['alam-al-roum']),
   ('/project-media/' || 'ramla/units/ap-a-03.webp','cover',0,array['aeon']),
   ('/project-media/' || 'sodic/june-north-coast/units/v1-june-0.webp','cover',0,array['june-north-coast']),
-  ('/project-media/' || 'sodic/sodic-east/units/to3-se-01.webp','cover',0,array['sodic-east']),
+  ('/project-media/' || 'sodic/sodic-east/units/to1-se-0.webp','cover',0,array['sodic-east']),
   ('/project-media/' || 'sodic/the-estates-zayed/units/villa1-the-estates-0.webp','cover',0,array['the-estates-zayed']),
   ('/project-media/' || 'sodic/villette/units/ap1-villette-0.webp','cover',0,array['villette']),
   ('/project-media/' || 'sumou/st-03.webp','cover',0,array['sumou-boulevard']),
