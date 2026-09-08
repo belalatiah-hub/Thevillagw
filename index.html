@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <!-- frame-ancestors/HSTS belong in HTTP response headers (see deploy runbook), not meta. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'sha256-0eB8s3A3aZQguW+SDJC/YssfCUQj66wY3V7A9qjdeKc=' 'sha256-yI6VCT38V7vjk7cAW7UM7qbGpBU7Ua/f8UOqpzWwxAc=' 'sha256-YvHevJmHHrhBzm9a+K1fYxwv5t1APr4XI8t4Am8p7D4=' 'sha256-RBNvo1WzZ4oRRq0W9+hknpT7T8If536DEMBg9hyq/4o=' 'sha256-K1gtIbjdTMqJmwe/4S4EcrFJx4GZA6CkS+gA9AN0Gwg=' https://static.cloudflareinsights.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://cloudflareinsights.com; base-uri 'self'; form-action 'self'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'sha256-0eB8s3A3aZQguW+SDJC/YssfCUQj66wY3V7A9qjdeKc=' 'sha256-yI6VCT38V7vjk7cAW7UM7qbGpBU7Ua/f8UOqpzWwxAc=' 'sha256-YvHevJmHHrhBzm9a+K1fYxwv5t1APr4XI8t4Am8p7D4=' 'sha256-RBNvo1WzZ4oRRq0W9+hknpT7T8If536DEMBg9hyq/4o=' 'sha256-LtTig9VjWy0rfoF+az3ekB/aztTxoIB4R0k3x76N6lk=' https://static.cloudflareinsights.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://cloudflareinsights.com; base-uri 'self'; form-action 'self'" />
   <meta name="theme-color" content="#073D52" />
   <meta name="color-scheme" content="light" />
   <meta name="format-detection" content="telephone=no" />
@@ -4040,7 +4040,8 @@ if(!slot.loc && UNIT_LOCATIONS[u.id])   slot.loc = UNIT_LOCATIONS[u.id];
 return out;
 })();
 var PROJECT_PLANS = {
-'marassi-red-sea': {mp:['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp']}
+'marassi-red-sea': {mp:['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp']},
+'makadi-heights': {loc:['/project-media/orascom/makadi-heights/plans/location.webp']}
 };
 function projectPlans(slug){
 var own = PROJECT_PLANS[slug], back = PROJECT_PLAN_FALLBACK[slug] || {};
@@ -5509,80 +5510,6 @@ var SIY = '/project-media/orascom/siyal/';
 var LDV = '/project-media/orascom/ledge-valley/';
 var SHS = '/project-media/marakez/shams-soma/';
 var PROJECT_BROCHURE = {
-'makadi-heights': {
-title: {en:'Digital Brochure', ar:'البروشور الرقمي'},
-pages: [
-MKH+'pages/p01.webp',
-MKH+'pages/p02.webp',
-MKH+'pages/p03.webp',
-MKH+'pages/p04.webp',
-MKH+'pages/p05.webp',
-MKH+'pages/p06.webp',
-MKH+'pages/p07.webp',
-MKH+'pages/p08.webp',
-MKH+'pages/p09.webp',
-MKH+'pages/p10.webp',
-MKH+'pages/p11.webp',
-MKH+'pages/p12.webp',
-MKH+'pages/p13.webp',
-MKH+'pages/p14.webp',
-MKH+'pages/p15.webp',
-MKH+'pages/p16.webp',
-MKH+'pages/p17.webp',
-MKH+'pages/p18.webp',
-MKH+'pages/p19.webp',
-MKH+'pages/p20.webp',
-MKH+'pages/p21.webp',
-MKH+'pages/p22.webp',
-MKH+'pages/p23.webp',
-MKH+'pages/p24.webp',
-MKH+'pages/p25.webp',
-MKH+'pages/p26.webp',
-MKH+'pages/p27.webp',
-MKH+'pages/p28.webp',
-MKH+'pages/p29.webp',
-MKH+'pages/p30.webp',
-MKH+'pages/p31.webp',
-MKH+'pages/p32.webp',
-MKH+'pages/p33.webp',
-MKH+'pages/p34.webp',
-MKH+'pages/p35.webp',
-MKH+'pages/p36.webp',
-MKH+'pages/p37.webp',
-MKH+'pages/p38.webp',
-MKH+'pages/p39.webp',
-MKH+'pages/p40.webp',
-MKH+'pages/p41.webp',
-MKH+'pages/p42.webp',
-MKH+'pages/p43.webp',
-MKH+'pages/p44.webp',
-MKH+'pages/p45.webp',
-MKH+'pages/p46.webp',
-MKH+'pages/p47.webp',
-MKH+'pages/p48.webp',
-MKH+'pages/p49.webp',
-MKH+'pages/p50.webp',
-MKH+'pages/p51.webp',
-MKH+'pages/p52.webp',
-MKH+'pages/p53.webp',
-MKH+'pages/p54.webp',
-MKH+'pages/p55.webp',
-MKH+'pages/p56.webp',
-MKH+'pages/p57.webp',
-MKH+'pages/p58.webp',
-MKH+'pages/p59.webp',
-MKH+'pages/p60.webp',
-MKH+'pages/p61.webp',
-MKH+'pages/p62.webp',
-MKH+'pages/p63.webp',
-MKH+'pages/p64.webp',
-MKH+'pages/p65.webp',
-MKH+'pages/p66.webp',
-MKH+'pages/p67.webp',
-MKH+'pages/p68.webp',
-MKH+'pages/p69.webp'
-]
-},
 'alam-al-roum': {
 title: {en:'Digital Brochure', ar:'البروشور الرقمي'},
 file:  AAR+'alam-al-roum-brochure.pdf',
@@ -8253,9 +8180,10 @@ var facts = h('table',{class:'fact-table'});
 if(p.dp) facts.appendChild(h('tr',null,h('th',{scope:'row'},t('dp')),h('td',null,num(p.dp)+'%')));
 if(p.years) facts.appendChild(h('tr',null,h('th',{scope:'row'},t('years')),h('td',null,num(p.years)+' '+(lang==='ar'?'سنوات':'years'))));
 var aside = h('aside',{class:'aside-card'},
+p.price == null ? null :
 h('div',{class:'muted', style:'font-size:.8rem;font-weight:700'}, t('price')),
-h('div',{class:'price-lg'}, money(p.price)),
-provBadge(),
+p.price == null ? null : h('div',{class:'price-lg'}, money(p.price)),
+p.price == null ? null : provBadge(),
 h('div',{class:'card__foot', style:'margin-top:16px;flex-wrap:wrap'},
 h('a',{class:'btn btn--primary', href:U(buildPath('contact'))+'?p='+p.slug}, t('cta_talk'))),
 h('div',{style:'display:flex;gap:8px;flex-wrap:wrap;margin-top:10px'},

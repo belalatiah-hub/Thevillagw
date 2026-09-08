@@ -2728,7 +2728,10 @@
      changes and no unit page moves, because unitMasterplans() reads a unit's
      own list before it ever asks for the project's. */
   var PROJECT_PLANS = {
-    'marassi-red-sea': {mp:['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp']}
+    'marassi-red-sea': {mp:['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp']},
+    // Makadi Heights has no units of its own to carry a location map, so the
+    // brochure's own location page provides it and the band shows both.
+    'makadi-heights': {loc:['/project-media/orascom/makadi-heights/plans/location.webp']}
   };
   function projectPlans(slug){
     var own = PROJECT_PLANS[slug], back = PROJECT_PLAN_FALLBACK[slug] || {};
@@ -4420,84 +4423,6 @@
   var LDV = '/project-media/orascom/ledge-valley/';
   var SHS = '/project-media/marakez/shams-soma/';
   var PROJECT_BROCHURE = {
-    /* Makadi Heights, from Orascom Development's own general brochure — the
-       whole document, in its own page order. Its pages carry text set over the
-       artwork, so unlike a flattened brochure these are rendered pages rather
-       than pictures lifted out of them. */
-    'makadi-heights': {
-      title: {en:'Digital Brochure', ar:'البروشور الرقمي'},
-      pages: [
-      MKH+'pages/p01.webp',
-      MKH+'pages/p02.webp',
-      MKH+'pages/p03.webp',
-      MKH+'pages/p04.webp',
-      MKH+'pages/p05.webp',
-      MKH+'pages/p06.webp',
-      MKH+'pages/p07.webp',
-      MKH+'pages/p08.webp',
-      MKH+'pages/p09.webp',
-      MKH+'pages/p10.webp',
-      MKH+'pages/p11.webp',
-      MKH+'pages/p12.webp',
-      MKH+'pages/p13.webp',
-      MKH+'pages/p14.webp',
-      MKH+'pages/p15.webp',
-      MKH+'pages/p16.webp',
-      MKH+'pages/p17.webp',
-      MKH+'pages/p18.webp',
-      MKH+'pages/p19.webp',
-      MKH+'pages/p20.webp',
-      MKH+'pages/p21.webp',
-      MKH+'pages/p22.webp',
-      MKH+'pages/p23.webp',
-      MKH+'pages/p24.webp',
-      MKH+'pages/p25.webp',
-      MKH+'pages/p26.webp',
-      MKH+'pages/p27.webp',
-      MKH+'pages/p28.webp',
-      MKH+'pages/p29.webp',
-      MKH+'pages/p30.webp',
-      MKH+'pages/p31.webp',
-      MKH+'pages/p32.webp',
-      MKH+'pages/p33.webp',
-      MKH+'pages/p34.webp',
-      MKH+'pages/p35.webp',
-      MKH+'pages/p36.webp',
-      MKH+'pages/p37.webp',
-      MKH+'pages/p38.webp',
-      MKH+'pages/p39.webp',
-      MKH+'pages/p40.webp',
-      MKH+'pages/p41.webp',
-      MKH+'pages/p42.webp',
-      MKH+'pages/p43.webp',
-      MKH+'pages/p44.webp',
-      MKH+'pages/p45.webp',
-      MKH+'pages/p46.webp',
-      MKH+'pages/p47.webp',
-      MKH+'pages/p48.webp',
-      MKH+'pages/p49.webp',
-      MKH+'pages/p50.webp',
-      MKH+'pages/p51.webp',
-      MKH+'pages/p52.webp',
-      MKH+'pages/p53.webp',
-      MKH+'pages/p54.webp',
-      MKH+'pages/p55.webp',
-      MKH+'pages/p56.webp',
-      MKH+'pages/p57.webp',
-      MKH+'pages/p58.webp',
-      MKH+'pages/p59.webp',
-      MKH+'pages/p60.webp',
-      MKH+'pages/p61.webp',
-      MKH+'pages/p62.webp',
-      MKH+'pages/p63.webp',
-      MKH+'pages/p64.webp',
-      MKH+'pages/p65.webp',
-      MKH+'pages/p66.webp',
-      MKH+'pages/p67.webp',
-      MKH+'pages/p68.webp',
-      MKH+'pages/p69.webp'
-      ]
-    },
     'alam-al-roum': {
       title: {en:'Digital Brochure', ar:'البروشور الرقمي'},
       file:  AAR+'alam-al-roum-brochure.pdf',

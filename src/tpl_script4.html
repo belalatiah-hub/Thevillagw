@@ -298,10 +298,15 @@
     if(p.dp) facts.appendChild(h('tr',null,h('th',{scope:'row'},t('dp')),h('td',null,num(p.dp)+'%')));
     if(p.years) facts.appendChild(h('tr',null,h('th',{scope:'row'},t('years')),h('td',null,num(p.years)+' '+(lang==='ar'?'سنوات':'years'))));
 
+    /* A project whose price list has not been published shows no price line at
+       all. It used to print "On request" in the same large type a number goes
+       in, which reads at a glance as though that were the price; the note
+       below the card already says to ask an advisor. */
     var aside = h('aside',{class:'aside-card'},
-      h('div',{class:'muted', style:'font-size:.8rem;font-weight:700'}, t('price')),
-      h('div',{class:'price-lg'}, money(p.price)),
-      provBadge(),
+      p.price == null ? null :
+        h('div',{class:'muted', style:'font-size:.8rem;font-weight:700'}, t('price')),
+      p.price == null ? null : h('div',{class:'price-lg'}, money(p.price)),
+      p.price == null ? null : provBadge(),
       h('div',{class:'card__foot', style:'margin-top:16px;flex-wrap:wrap'},
         h('a',{class:'btn btn--primary', href:U(buildPath('contact'))+'?p='+p.slug}, t('cta_talk'))),
       h('div',{style:'display:flex;gap:8px;flex-wrap:wrap;margin-top:10px'},
