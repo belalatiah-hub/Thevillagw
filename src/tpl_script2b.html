@@ -5300,9 +5300,12 @@
       if(+yrs.value>MAX_Y){ yrs.value=MAX_Y; }
       var Y=Math.min(MAX_Y, Math.max(1, Math.round(+yrs.value)||1));
       var dpAmt=Math.round(P*D/100), monthly=Y>0?Math.round((P-dpAmt)/(Y*12)):0; clear(out);
+      // Until a price is in the box there is nothing to estimate from, and
+      // "EGP 0" would read as an answer. A dash says the field is waiting.
+      var has=P>0;
       out.appendChild(h('div',{class:'spec-row'},
-        h('span',{class:'spec'}, h('span',{class:'spec-lbl'}, t('calc_dp_amt')+': '), h('b',null, money(dpAmt))),
-        h('span',{class:'spec'}, h('span',{class:'spec-lbl'}, t('calc_monthly')+': '), h('b',null, money(monthly))))); }
+        h('span',{class:'spec'}, h('span',{class:'spec-lbl'}, t('calc_dp_amt')+': '), h('b',null, has?money(dpAmt):'—')),
+        h('span',{class:'spec'}, h('span',{class:'spec-lbl'}, t('calc_monthly')+': '), h('b',null, has?money(monthly):'—')))); }
     price.addEventListener('input', calc);
     yrs.addEventListener('input', calc);
     dp.addEventListener('change', calc);
@@ -5384,7 +5387,7 @@
     sheet.appendChild(h('div',{class:'ps-media'}, projectMedia(p)));
     var tbl=h('table',{class:'ps-table'});
     var ins=installmentCount(p);
-    [[t('price'), money(p.price)+' — '+t('conf_illustrative')],[t('units'),L(p.types)],
+    [(p.price!=null ? [t('price'), money(p.price)+' — '+t('conf_illustrative')] : null),[t('units'),L(p.types)],
      [t('delivery'),p.delivery==='Ready'?t('ready'):(p.delivery||t('to_confirm'))],[t('finishing'),L(p.finishing)],
      (p.dp ? [t('dp'), num(p.dp)+'%'] : null),
      (p.years ? [t('years'), num(p.years)+' '+(lang==='ar'?'سنوات':'years')] : null),

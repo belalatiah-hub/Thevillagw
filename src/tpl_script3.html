@@ -42,6 +42,17 @@
     var ps=projInArea(k).map(function(p){return p.price;}).filter(function(x){return x!=null;});
     return ps.length?Math.min.apply(null,ps):null;
   }
+  // Ordering by price with an unpriced project in the list: a-b would read its
+  // null as zero and float it to the head of "lowest first", which reads as a
+  // price claim. It has no place in the ranking, so it goes last either way.
+  function cmpPrice(dir){
+    return function(a,b){
+      if(a.price==null && b.price==null) return 0;
+      if(a.price==null) return 1;
+      if(b.price==null) return -1;
+      return dir>0 ? a.price-b.price : b.price-a.price;
+    };
+  }
 
   /* Building an Intl.NumberFormat is expensive — far more so than formatting
      with one — and these two are the most-called functions in the app: every
@@ -216,10 +227,13 @@
       h('div',{class:'card__facts'},
         h('span',null, ic('pin'), ' ', L(area.name)),
         h('span',null, L(p.finishing))),
-      h('div',{class:'card__price'},
+      // A project with no published price list says nothing where a number
+      // goes — no "from", no placeholder, and no provenance badge, since
+      // there is no figure for the badge to qualify.
+      p.price == null ? null : h('div',{class:'card__price'},
         h('small',null, t('from')),
         money(p.price)),
-      provBadge(),
+      p.price == null ? null : provBadge(),
       h('div',{class:'card__foot'},
         h('a',{class:'btn btn--primary btn--sm', href:U(buildPath('project',{slug:p.slug}))}, t('cta_details')),
         CONFIG.whatsapp ? h('a',{class:'btn btn--wa btn--sm btn--icon', href:waLink(projWaMsg(p)), target:'_blank', rel:'noopener','aria-label':t('whatsapp')+' — '+(lang==='ar'?p.name_ar:p.name)}, ic('wa')) : null)

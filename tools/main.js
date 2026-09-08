@@ -6000,9 +6000,10 @@ function calc(){ var P=+price.value||0, D=+dp.value||0;
 if(+yrs.value>MAX_Y){ yrs.value=MAX_Y; }
 var Y=Math.min(MAX_Y, Math.max(1, Math.round(+yrs.value)||1));
 var dpAmt=Math.round(P*D/100), monthly=Y>0?Math.round((P-dpAmt)/(Y*12)):0; clear(out);
+var has=P>0;
 out.appendChild(h('div',{class:'spec-row'},
-h('span',{class:'spec'}, h('span',{class:'spec-lbl'}, t('calc_dp_amt')+': '), h('b',null, money(dpAmt))),
-h('span',{class:'spec'}, h('span',{class:'spec-lbl'}, t('calc_monthly')+': '), h('b',null, money(monthly))))); }
+h('span',{class:'spec'}, h('span',{class:'spec-lbl'}, t('calc_dp_amt')+': '), h('b',null, has?money(dpAmt):'—')),
+h('span',{class:'spec'}, h('span',{class:'spec-lbl'}, t('calc_monthly')+': '), h('b',null, has?money(monthly):'—')))); }
 price.addEventListener('input', calc);
 yrs.addEventListener('input', calc);
 dp.addEventListener('change', calc);
@@ -6071,7 +6072,7 @@ sheet.appendChild(h('div',{style:'color:#333;margin-bottom:8px'}, L(dev.name)+' 
 sheet.appendChild(h('div',{class:'ps-media'}, projectMedia(p)));
 var tbl=h('table',{class:'ps-table'});
 var ins=installmentCount(p);
-[[t('price'), money(p.price)+' — '+t('conf_illustrative')],[t('units'),L(p.types)],
+[(p.price!=null ? [t('price'), money(p.price)+' — '+t('conf_illustrative')] : null),[t('units'),L(p.types)],
 [t('delivery'),p.delivery==='Ready'?t('ready'):(p.delivery||t('to_confirm'))],[t('finishing'),L(p.finishing)],
 (p.dp ? [t('dp'), num(p.dp)+'%'] : null),
 (p.years ? [t('years'), num(p.years)+' '+(lang==='ar'?'سنوات':'years')] : null),
@@ -6464,6 +6465,14 @@ function areaFrom(k){
 var ps=projInArea(k).map(function(p){return p.price;}).filter(function(x){return x!=null;});
 return ps.length?Math.min.apply(null,ps):null;
 }
+function cmpPrice(dir){
+return function(a,b){
+if(a.price==null && b.price==null) return 0;
+if(a.price==null) return 1;
+if(b.price==null) return -1;
+return dir>0 ? a.price-b.price : b.price-a.price;
+};
+}
 var FMT={};
 function fmt(loc, opts, key){
 return FMT[key] || (FMT[key] = new Intl.NumberFormat(loc, opts));
@@ -6613,10 +6622,10 @@ h('h3',null, h('a',{href:U(buildPath('project',{slug:p.slug}))}, lang==='ar'?p.n
 h('div',{class:'card__facts'},
 h('span',null, ic('pin'), ' ', L(area.name)),
 h('span',null, L(p.finishing))),
-h('div',{class:'card__price'},
+p.price == null ? null : h('div',{class:'card__price'},
 h('small',null, t('from')),
 money(p.price)),
-provBadge(),
+p.price == null ? null : provBadge(),
 h('div',{class:'card__foot'},
 h('a',{class:'btn btn--primary btn--sm', href:U(buildPath('project',{slug:p.slug}))}, t('cta_details')),
 CONFIG.whatsapp ? h('a',{class:'btn btn--wa btn--sm btn--icon', href:waLink(projWaMsg(p)), target:'_blank', rel:'noopener','aria-label':t('whatsapp')+' — '+(lang==='ar'?p.name_ar:p.name)}, ic('wa')) : null)
@@ -7417,7 +7426,7 @@ var tk=Object.keys(TYPE_META).filter(function(k){ return ql.indexOf(k.toLowerCas
 if(tk){ var toff=typeOffer(tk); if(toff) return toff; }
 if(/(launch|new launch|newly|إطلاق|اطلاق|جديد)/.test(ql)) return chatList(t('chat_found'), newLaunchProjects().map(function(p){ return {label:(lang==='ar'?p.name_ar:p.name), href:buildPath('project',{slug:p.slug})}; }));
 var m=(ql.replace(/[,\s]/g,'').match(/(\d{5,})/)||[])[1];
-if(m){ var b=parseInt(m,10); var under=PROJECTS.filter(function(p){return p.price<=b;}); if(under.length) return chatList(lang==='ar'?'مشروعات ضمن ميزانيتك:':'Projects within your budget:', under.map(function(p){ return {label:(lang==='ar'?p.name_ar:p.name)+' · '+t('from')+' '+money(p.price)+' · '+t('conf_illustrative'), href:buildPath('project',{slug:p.slug})}; })); }
+if(m){ var b=parseInt(m,10); var under=PROJECTS.filter(function(p){return p.price!=null && p.price<=b;}); if(under.length) return chatList(lang==='ar'?'مشروعات ضمن ميزانيتك:':'Projects within your budget:', under.map(function(p){ return {label:(lang==='ar'?p.name_ar:p.name)+' · '+t('from')+' '+money(p.price)+' · '+t('conf_illustrative'), href:buildPath('project',{slug:p.slug})}; })); }
 if(/(who|about|company|من نحن|من انتم|عنكم|شركة)/.test(ql)) return chatMsg(ABOUT[lang][0]+' ', chatLink(t('nav_about'), buildPath('about')));
 if(/(area|location|where|مناطق|منطقة|مكان|فين|وين)/.test(ql)) return chatList(t('chat_found'), AREAS.map(function(a){ return {label:L(a.name), href:buildPath('area',{slug:a.key})}; }));
 if(/(unit|units|apartment|villa|وحدات|وحدة|شقق|شقة)/.test(ql)) return chatList(t('chat_found'), UNITS.slice(0,6).map(function(u){ var p=projBySlug(u.project); return {label:typeLabel(u.type)+' — '+(lang==='ar'?p.name_ar:p.name)+' · '+money(u.price)+' · '+t('conf_illustrative'), href:buildPath('project',{slug:p.slug})}; }));
@@ -7719,12 +7728,12 @@ if(preset==='launch' && !isNewLaunch(p)) return false;
 if(f.area && p.area!==f.area) return false;
 if(f.dev && p.dev!==f.dev) return false;
 if(f.status && p.status!==f.status) return false;
-if(f.max && p.price>Number(f.max)) return false;
+if(f.max && (p.price==null || p.price>Number(f.max))) return false;
 if(f.saved && !saved.has(p.slug)) return false;
 return true;
 });
-if(f.sort==='price_a') list = list.slice().sort(function(a,b){return a.price-b.price;});
-if(f.sort==='price_d') list = list.slice().sort(function(a,b){return b.price-a.price;});
+if(f.sort==='price_a') list = list.slice().sort(cmpPrice(1));
+if(f.sort==='price_d') list = list.slice().sort(cmpPrice(-1));
 var node = h('div',null);
 var head = h('section',{class:'section--tight'});
 head.appendChild(h('div',{class:'wrap'},
@@ -7750,12 +7759,12 @@ if(preset==='launch'){ if(!isNewLaunch(p)) return false; }
 else if(cq.st && p.status!==cq.st) return false;
 if(cq.a && p.area!==cq.a) return false;
 if(cq.d && p.dev!==cq.d) return false;
-if(f.max && p.price>Number(f.max)) return false;
+if(f.max && (p.price==null || p.price>Number(f.max))) return false;
 if(f.saved && !saved.has(p.slug)) return false;
 return true;
 });
-if(cq.s==='price_a') lst=lst.slice().sort(function(a,b){return a.price-b.price;});
-if(cq.s==='price_d') lst=lst.slice().sort(function(a,b){return b.price-a.price;});
+if(cq.s==='price_a') lst=lst.slice().sort(cmpPrice(1));
+if(cq.s==='price_d') lst=lst.slice().sort(cmpPrice(-1));
 return lst;
 }
 function resetAll(){

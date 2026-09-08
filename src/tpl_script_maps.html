@@ -120,7 +120,7 @@
       h('div',{class:'mp-devrow'}, devBadge(dev,40),
         h('div',null, h('div',{class:'mp-dev'}, L(dev.name)), h('div',{class:'mp-loc'}, ic('pin'), L(area.name)))),
       h('h2',{class:'mp-title'}, lang==='ar'?p.name_ar:p.name),
-      h('div',{class:'mp-price'}, t('price_from')+' ', h('b',null, money(p.price)), h('span',{class:'mp-illus'}, ' · '+t('conf_illustrative'))),
+      p.price==null ? null : h('div',{class:'mp-price'}, t('price_from')+' ', h('b',null, money(p.price)), h('span',{class:'mp-illus'}, ' · '+t('conf_illustrative'))),
       scoreRow(p),
       h('div',{class:'mp-facts'},
         fact(t('units'), L(p.types)), fact(t('delivery'), p.delivery==='Ready'?t('ready'):(p.delivery||t('to_confirm'))),
