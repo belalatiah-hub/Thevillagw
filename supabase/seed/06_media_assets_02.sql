@@ -1,5 +1,8 @@
 -- Every image path the site references, stored once.
 insert into cms.media_assets (path) values
+  ('/project-media/hassan-allam/sl-ap5-r3.webp'),
+  ('/project-media/hassan-allam/sl-ap5-r4.webp'),
+  ('/project-media/hassan-allam/sl-ap6-fp1.webp'),
   ('/project-media/hassan-allam/sl-ap6-mp1.webp'),
   ('/project-media/hassan-allam/sl-ap6-r1.webp'),
   ('/project-media/hassan-allam/sl-ap6-r2.webp'),
@@ -156,10 +159,14 @@ insert into cms.media_assets (path) values
   ('/project-media/lmd/zy-tw3-r2.webp'),
   ('/project-media/lmd/zy-tw3-r3.webp'),
   ('/project-media/marakez/aeon-tower.webp'),
+  ('/project-media/marakez/crescent-masterplan.webp'),
   ('/project-media/marakez/crescent-park.webp'),
   ('/project-media/marakez/d5-campus.webp'),
+  ('/project-media/marakez/d5-masterplan.webp'),
+  ('/project-media/marakez/d5-residences.webp'),
   ('/project-media/marakez/mall-of-arabia.webp'),
   ('/project-media/marakez/ramla-aerial.webp'),
+  ('/project-media/marakez/ramla-villa.webp'),
   ('/project-media/marakez/shams-soma/aerial-sea.webp'),
   ('/project-media/marakez/shams-soma/beach-bar.webp'),
   ('/project-media/marakez/shams-soma/boardwalk.webp'),
@@ -405,12 +412,5 @@ insert into cms.media_assets (path) values
   ('/project-media/marakez/units/mp-cr.webp'),
   ('/project-media/marakez/units/mp-d.webp'),
   ('/project-media/marakez/units/mp-of-d.webp'),
-  ('/project-media/marakez/units/mp-of2.webp'),
-  ('/project-media/marakez/units/of1-d-0.webp'),
-  ('/project-media/marakez/units/of1-d-01.webp'),
-  ('/project-media/marakez/units/of1-d-02.webp'),
-  ('/project-media/marakez/units/of1-d-03.webp'),
-  ('/project-media/marakez/units/of1-d-04.webp'),
-  ('/project-media/marakez/units/of2-d-0.webp'),
-  ('/project-media/marakez/units/of2-d-01.webp')
+  ('/project-media/marakez/units/mp-of2.webp')
 on conflict (path) do nothing;

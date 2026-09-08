@@ -38,6 +38,9 @@ insert into cms.media_assets (path) values
   ('/project-media/baghush/botanical-path.webp'),
   ('/project-media/baghush/lagoon-drone.webp'),
   ('/project-media/baghush/lagoon-firepit.webp'),
+  ('/project-media/baghush/location.webp'),
+  ('/project-media/baghush/masterplan-coded.webp'),
+  ('/project-media/baghush/masterplan.webp'),
   ('/project-media/baghush/terrace.webp'),
   ('/project-media/baghush/units/ch1-0.webp'),
   ('/project-media/baghush/units/ch1-01.webp'),
@@ -80,6 +83,7 @@ insert into cms.media_assets (path) values
   ('/project-media/beitalbahr/lagoon.webp'),
   ('/project-media/beitalbahr/landscape.webp'),
   ('/project-media/beitalbahr/living.webp'),
+  ('/project-media/beitalbahr/masterplan.webp'),
   ('/project-media/beitalbahr/terrace.webp'),
   ('/project-media/beitalbahr/units/FP-H1.webp'),
   ('/project-media/beitalbahr/units/FP-H2.webp'),
@@ -397,8 +401,5 @@ insert into cms.media_assets (path) values
   ('/project-media/hassan-allam/sl-ap5-fp1.webp'),
   ('/project-media/hassan-allam/sl-ap5-mp1.webp'),
   ('/project-media/hassan-allam/sl-ap5-r1.webp'),
-  ('/project-media/hassan-allam/sl-ap5-r2.webp'),
-  ('/project-media/hassan-allam/sl-ap5-r3.webp'),
-  ('/project-media/hassan-allam/sl-ap5-r4.webp'),
-  ('/project-media/hassan-allam/sl-ap6-fp1.webp')
+  ('/project-media/hassan-allam/sl-ap5-r2.webp')
 on conflict (path) do nothing;

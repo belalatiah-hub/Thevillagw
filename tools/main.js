@@ -568,7 +568,8 @@ var PROJECTS = [
 {slug:'marassi-red-sea', name:'Marassi Red Sea', name_ar:'مراسي البحر الأحمر', dev:'emaarmisr', area:'redsea', status:'launch', price:28805888, dp:5, years:6, delivery:'2030', types:{en:'Apartment · Townhouse · Villa',ar:'شقة · تاون هاوس · فيلا'}, tags:{en:['Red Sea','600 berths','12 hotels'],ar:['البحر الأحمر','٦٠٠ مرسى','١٢ فندقاً']}, blurb:{en:'An Emaar Misr destination on the Red Sea, spanning 2,400 acres. The brochure sets out twelve luxury hotels and serviced residences, three marina experiences with 600 berths, thirty-two residential communities and 1.1 million square metres of waterbodies, alongside four beaches — the Main Beach, Island Beach, Infinity Beach and the Beach Lagoons — and a 1.5-kilometre elevated infinity beach.',ar:'وجهة من إعمار مصر على البحر الأحمر بمساحة ٢٬٤٠٠ أكر. يعرض البروشور اثني عشر فندقاً ومساكن فندقية، وثلاث تجارب مارينا بستمائة مرسى، واثنين وثلاثين مجتمعاً سكنياً، و١٫١ مليون متر مربع من المسطحات المائية، إلى جانب أربعة شواطئ — الشاطئ الرئيسي وشاطئ الجزيرة وشاطئ الإنفينيتي والبحيرات الشاطئية — وشاطئ إنفينيتي مرتفع بطول ١٫٥ كيلومتر.'}},
 {slug:'makadina', name:'Makadina', name_ar:'مكادينا', dev:'travco', area:'redsea', status:'launch', price:7400000, dp:10, years:8, delivery:'2030', types:{en:'Apartment · Townhouse · Twin house · Villa',ar:'شقة · تاون هاوس · توين هاوس · فيلا'}, tags:{en:['Red Sea','Madinat Makadi','18-hole golf'],ar:['البحر الأحمر','مدينة مكادي','جولف ١٨ حفرة']}, blurb:{en:'A mixed-use resort destination inside Madinat Makadi on the Red Sea coast at Hurghada, with waterfront serviced homes, a clubhouse, a sports complex, a wellness hub and a shopping mall. Homeowners have access to Madinat Makadi\u2019s 18-hole championship golf course and Makadi Water World, and to a serviced beach at Jaz Palmariva.',ar:'وجهة منتجعية متعددة الاستخدامات داخل مدينة مكادي على ساحل البحر الأحمر بالغردقة، بمنازل مخدومة على الماء وكلوب هاوس ومجمّع رياضي ومركز للعافية ومول تجاري. ولأصحاب الوحدات حق الوصول إلى ملعب الجولف البطولي ذي الثمانية عشر حفرة وحديقة مكادي المائية في مدينة مكادي، وإلى شاطئ مخدوم في فندق جاز بالماريفا.'}},
 {slug:'marina-gate', name:'Marina Gate', name_ar:'مارينا جيت', dev:'travco', area:'redsea', status:'launch', price:19000000, dp:10, years:8, delivery:'2030', types:{en:'Duplex · Penthouse · Townhouse · Twin house · Villa',ar:'دوبلكس · بنتهاوس · تاون هاوس · توين هاوس · فيلا'}, tags:{en:['Red Sea','Almaza Bay Ras Soma','Marina'],ar:['البحر الأحمر','ألماظة باي رأس سوما','مارينا']}, blurb:{en:'The gateway phase of Almaza Bay Ras Soma on the bay of Ras Abu Soma, positioned at the marina and bridging the coast with the town. Seven products, from a one storey villa to a penthouse, each with the kit\u2019s own floor plan; the destination around them carries a private marina, a village of dining and retail, a water sports centre and serviced homes.',ar:'المرحلة الافتتاحية من ألماظة باي رأس سوما على خليج رأس أبو سوما، تقع عند المارينا وتصل الساحل بالمدينة. سبعة منتجات من فيلا الدور الواحد إلى البنتهاوس، لكلٍّ منها مخطط أرضي في الكتيّب؛ وتضمّ الوجهة حولها مارينا خاصة وقرية للمطاعم والتجزئة ومركزاً للرياضات المائية ومنازل مخدومة.'}},
-{slug:'ledge-valley', name:'Ledge Valley', name_ar:'ليدج فالي', dev:'orascom', area:'redsea', status:'primary', price:11410000, dp:10, years:7, delivery:'2030', types:{en:'Chalet · Penthouse',ar:'شاليه · بنتهاوس'}, tags:{en:['Red Sea','Makadi Bay','Lagoons','Waterfront'],ar:['البحر الأحمر','خليج مكادي','بحيرات','على الماء']}, blurb:{en:'A waterfront neighbourhood of 274 homes on 91,049 m² inside Makadi Heights, built around expansive lagoons and landscaped open space, with a mix of one to four bedroom residences.',ar:'حي على الماء من ٢٧٤ وحدة على ٩١٬٠٤٩ م² داخل مدن مكادي هايتس، مبني حول بحيرات واسعة ومساحات مفتوحة منسّقة، بوحدات من غرفة إلى أربع غرف.'}}
+{slug:'ledge-valley', name:'Ledge Valley', name_ar:'ليدج فالي', dev:'orascom', area:'redsea', status:'primary', price:11410000, dp:10, years:7, delivery:'2030', types:{en:'Chalet · Penthouse',ar:'شاليه · بنتهاوس'}, tags:{en:['Red Sea','Makadi Bay','Lagoons','Waterfront'],ar:['البحر الأحمر','خليج مكادي','بحيرات','على الماء']}, blurb:{en:'A waterfront neighbourhood of 274 homes on 91,049 m² inside Makadi Heights, built around expansive lagoons and landscaped open space, with a mix of one to four bedroom residences.',ar:'حي على الماء من ٢٧٤ وحدة على ٩١٬٠٤٩ م² داخل مدن مكادي هايتس، مبني حول بحيرات واسعة ومساحات مفتوحة منسّقة، بوحدات من غرفة إلى أربع غرف.'}},
+{slug:'makadi-heights', name:'Makadi Heights', name_ar:'مكادي هايتس', dev:'orascom', area:'redsea', status:'primary', dp:10, years:7, delivery:'Ready – 2 years', types:{en:'Apartment · Townhouse · Twin house · Villa',ar:'شقة · تاون هاوس · توين هاوس · فيلا'}, tags:{en:['Makadi Bay','78 m above sea level'],ar:['خليج مكادي','٧٨ متراً فوق سطح البحر']}, blurb:{en:'Orascom Development’s town above Makadi Bay, in the heart of South Hurghada — 3.7 million m² of land, elevated 78 metres above sea level, released phase by phase from ready-to-move homes onward.',ar:'مدينة أوراسكوم للتطوير فوق خليج مكادي في قلب جنوب الغردقة — ٣٫٧ مليون م² من الأرض، على ارتفاع ٧٨ متراً فوق سطح البحر، تُطرح مرحلةً تلو الأخرى بدءاً من وحدات جاهزة للسكن.'}},
 ];
 var UNITS = [
 {id:'SB-ST-01', project:'sumou-boulevard', type:'Studio', beds:1, baths:1, area:31, areaTo:33, price:2480000},
@@ -1241,6 +1242,7 @@ var PROJECT_COVERS = {
 'makadina':'/project-media/travco/makadina/p27.webp',
 'marina-gate':'/project-media/travco/marina-gate/p46.webp',
 'ledge-valley':'/project-media/orascom/ledge-valley/hero.webp',
+'makadi-heights':'/project-media/orascom/makadi-heights/renders/lagoon.webp',
 'marassi-red-sea':'/project-media/emaarmisr/marassi-red-sea/hero.webp',
 'shams-soma':'/project-media/marakez/shams-soma/hero.webp',
 'siyal':'/project-media/orascom/siyal/lagoon-beach.webp',
@@ -4023,6 +4025,18 @@ return media;
 }
 var MSQ = '/project-media/msquared/';
 var PROJECT_GALLERY = {
+'makadi-heights': [
+'/project-media/orascom/makadi-heights/renders/pool-terraces.webp',
+'/project-media/orascom/makadi-heights/renders/courtyard-homes.webp',
+'/project-media/orascom/makadi-heights/renders/poolside-homes.webp',
+'/project-media/orascom/makadi-heights/renders/neighbourhood.webp',
+'/project-media/orascom/makadi-heights/renders/townhomes.webp',
+'/project-media/orascom/makadi-heights/renders/garden-home.webp',
+'/project-media/orascom/makadi-heights/renders/street-villa.webp',
+'/project-media/orascom/makadi-heights/renders/terrace-villa.webp',
+'/project-media/orascom/makadi-heights/renders/shaded-terrace.webp',
+'/project-media/orascom/makadi-heights/renders/promenade.webp'
+],
 'makadina': ['p16', 'p17', 'p18', 'p19', 'p20', 'p21', 'p24', 'p27']
 .map(function(n){ return '/project-media/travco/makadina/'+n+'.webp'; }),
 'marina-gate': ['p13', 'p14', 'p15', 'p16', 'p17', 'p19', 'p25', 'p26', 'p31', 'p32', 'p37', 'p38', 'p45', 'p46']
@@ -4281,6 +4295,18 @@ return devMonogram(dev,px);
 var MV = '/project-media/mountainview/';
 var SD = '/project-media/sodic/';
 var DEV_GALLERY = {
+'orascom':['/project-media/orascom/portfolio/el-gouna.webp',
+'/project-media/orascom/portfolio/o-west.webp',
+'/project-media/orascom/portfolio/taba-heights.webp',
+'/project-media/orascom/portfolio/makadi-heights.webp',
+'/project-media/orascom/portfolio/byoum.webp',
+'/project-media/orascom/portfolio/andermatt.webp',
+'/project-media/orascom/portfolio/hawana-salalah.webp',
+'/project-media/orascom/portfolio/jebel-sifah.webp',
+'/project-media/orascom/portfolio/lustica-bay.webp',
+'/project-media/orascom/portfolio/uae.webp',
+'/project-media/orascom/portfolio/west-carclaze.webp',
+'/project-media/orascom/portfolio/chbika.webp'],
 'marakez':['/project-media/marakez/crescent-park.webp','/project-media/marakez/mall-of-arabia.webp','/project-media/marakez/aeon-tower.webp','/project-media/marakez/d5-campus.webp','/project-media/marakez/the-park.webp'],
 'sumou':['/project-media/sumou/st-03.webp','/project-media/sumou/st-01.webp','/project-media/sumou/ap5-0.webp','/project-media/sumou/st-02.webp','/project-media/sumou/ap2-03.webp','/project-media/sumou/of4.webp'],
 'modon':['/project-media/modon/m1.webp','/project-media/modon/m2.webp','/project-media/modon/m3.webp',
@@ -4374,6 +4400,104 @@ var SU = '/project-media/sumou/';
 var BAB = '/project-media/beitalbahr/';
 var MB  = '/project-media/baghush/';
 var DEV_FEATURES = {
+'orascom': {
+cards: [
+{en:'About Orascom Development', ar:'عن أوراسكوم للتطوير', icon:'shield',
+imgs:['/project-media/orascom/portfolio/'+'el-gouna-lagoon.webp', '/project-media/orascom/portfolio/'+'waterfront.webp', '/project-media/orascom/portfolio/'+'marina-night.webp'],
+copy:{
+lead:{en:'A leading fully integrated developer of towns, with more than 30 years of experience.',
+ar:'مطوّر متكامل رائد للمدن، بخبرة تتجاوز الثلاثين عاماً.'},
+groups:[
+{label:{en:'As the presentation states them', ar:'كما يذكرها العرض'}, rows:[
+{k:{en:'Land bank',ar:'رصيد الأراضي'},            v:{en:'101.0 mn m² across 7 countries',ar:'١٠١ مليون م² في ٧ دول'}},
+{k:{en:'Remaining land bank',ar:'المتبقّي منه'},   v:{en:'68.5 mn m² (67.8%)',ar:'٦٨٫٥ مليون م² (٦٧٫٨٪)'}},
+{k:{en:'Destinations',ar:'الوجهات'},              v:{en:'14 in 7 countries across 3 continents',ar:'١٤ في ٧ دول عبر ٣ قارات'}},
+{k:{en:'Operating',ar:'العاملة منها'},            v:{en:'9 destinations, 33 hotels, 7,205 rooms',ar:'٩ وجهات و٣٣ فندقاً و٧٬٢٠٥ غرف'}}]}],
+more:{en:'The figures above are the ones printed in Orascom Development\u2019s own corporate presentation, dated 2019 on its cover. Confirm current figures with an advisor.',
+ar:'الأرقام أعلاه هي المطبوعة في العرض المؤسسي لأوراسكوم للتطوير، والمؤرَّخ ٢٠١٩ على غلافه. يُرجى تأكيد الأرقام الحالية مع المستشار.'}
+}},
+{en:'El Gouna', ar:'الجونة', icon:'star', imgs:['/project-media/orascom/portfolio/'+'el-gouna.webp'],
+copy:{
+lead:{en:'The flagship project of the group, on the Red Sea.',
+ar:'المشروع الرئيسي للمجموعة، على البحر الأحمر.'},
+groups:[
+{label:{en:'As the presentation states them', ar:'كما يذكرها العرض'}, rows:[
+{k:{en:'Land area',ar:'مساحة الأرض'},   v:{en:'36.9 mn m², across 10 km of shoreline',ar:'٣٦٫٩ مليون م² على امتداد ١٠ كم من الشاطئ'}},
+{k:{en:'Homes',ar:'الوحدات'},           v:{en:'More than 4,000, villas to apartments',ar:'أكثر من ٤٬٠٠٠، من الفيلات إلى الشقق'}},
+{k:{en:'Hotels',ar:'الفنادق'},          v:{en:'18, with 2,702 guest rooms',ar:'١٨ فندقاً بـ ٢٬٧٠٢ غرفة'}},
+{k:{en:'Marinas',ar:'المارينا'},        v:{en:'3, with 384 berths',ar:'٣ مارينا بـ ٣٨٤ مرسى'}},
+{k:{en:'Golf',ar:'الجولف'},             v:{en:'Two 18-hole championship courses',ar:'ملعبان بطولة من ١٨ حفرة'}}]}],
+list:[
+{en:'A world-class hospital, an airport, and an event area',ar:'مستشفى عالمي المستوى ومطار ومنطقة فعاليات'},
+{en:'A football stadium, with El Gouna\u2019s team in the Egyptian first league',ar:'استاد لكرة القدم، وفريق الجونة في الدوري المصري الممتاز'},
+{en:'A satellite campus of TU Berlin offering three Master\u2019s programmes, four schools, and a library linked to the Bibliotheca Alexandrina',ar:'فرع لجامعة TU برلين يقدّم ثلاثة برامج ماجستير، وأربع مدارس، ومكتبة مرتبطة بمكتبة الإسكندرية'},
+{en:'Nine diving centres and five kitesurfing centres',ar:'تسعة مراكز غوص وخمسة مراكز تزلّج شراعي'}]
+}},
+{en:'O West, West Cairo', ar:'أو ويست، غرب القاهرة', icon:'home', imgs:['/project-media/orascom/portfolio/'+'o-west.webp'],
+copy:{
+lead:{en:'The newest addition to the group\u2019s towns portfolio.',
+ar:'أحدث إضافة إلى محفظة مدن المجموعة.'},
+groups:[
+{label:{en:'As the presentation states them', ar:'كما يذكرها العرض'}, rows:[
+{k:{en:'Land area',ar:'مساحة الأرض'},        v:{en:'4.2 mn m² (1,000 feddan)',ar:'٤٫٢ مليون م² (١٬٠٠٠ فدان)'}},
+{k:{en:'Residential BUA',ar:'المسطح السكني'}, v:{en:'3,197,880 m²',ar:'٣٬١٩٧٬٨٨٠ م²'}},
+{k:{en:'Residential units',ar:'عدد الوحدات'},  v:{en:'19,000',ar:'١٩٬٠٠٠'}}]}]
+}},
+{en:'Taba Heights', ar:'طابا هايتس', icon:'pin', imgs:['/project-media/orascom/portfolio/'+'taba-heights.webp'],
+copy:{
+lead:{en:'A resort town on the Gulf of Aqaba.', ar:'مدينة منتجعات على خليج العقبة.'},
+groups:[
+{label:{en:'As the presentation states them', ar:'كما يذكرها العرض'}, rows:[
+{k:{en:'Land area',ar:'مساحة الأرض'},    v:{en:'4.3 mn m², of which 2.6 mn m² complete',ar:'٤٫٣ مليون م²، منها ٢٫٦ مليون م² مكتملة'}},
+{k:{en:'Hotels',ar:'الفنادق'},           v:{en:'6, with 2,365 guest rooms (five 5★, one 4★)',ar:'٦ فنادق بـ ٢٬٣٦٥ غرفة (خمسة ٥ نجوم وواحد ٤ نجوم)'}},
+{k:{en:'Marina',ar:'المارينا'},          v:{en:'International, for 50 yachts',ar:'مارينا دولية تتّسع لـ ٥٠ يختاً'}},
+{k:{en:'Outlets',ar:'المنافذ'},          v:{en:'111 cafés, bars, restaurants and shops',ar:'١١١ مقهى وبار ومطعم ومتجر'}}]}],
+list:[
+{en:'An 18-hole championship golf course',ar:'ملعب جولف بطولة من ١٨ حفرة'},
+{en:'25 hotel swimming pools, a man-made salt cave and a water activities centre',ar:'٢٥ حمّام سباحة فندقياً وكهف ملحي صناعي ومركز للأنشطة المائية'}]
+}},
+{en:'Makadi Heights', ar:'مكادي هايتس', icon:'spark', imgs:['/project-media/orascom/portfolio/'+'makadi-heights.webp'],
+copy:{
+lead:{en:'The group\u2019s Red Sea town above Makadi Bay, and the one it sells homes in here.',
+ar:'مدينة المجموعة على البحر الأحمر فوق خليج مكادي، وهي التي تُطرح وحداتها هنا.'},
+groups:[
+{label:{en:'As the presentation states them', ar:'كما يذكرها العرض'}, rows:[
+{k:{en:'Land area',ar:'مساحة الأرض'},  v:{en:'3.39 mn m², of which 0.5 mn m² complete',ar:'٣٫٣٩ مليون م²، منها ٠٫٥ مليون م² مكتملة'}},
+{k:{en:'Sold to date',ar:'المُباع حتى تاريخه'}, v:{en:'More than 2,400 real estate units',ar:'أكثر من ٢٬٤٠٠ وحدة عقارية'}}]}],
+list:[
+{en:'A club house and kids area, a shopping mall and a supermarket',ar:'نادٍ ومنطقة أطفال ومركز تسوّق وسوبر ماركت'},
+{en:'A clinic and a pharmacy',ar:'عيادة وصيدلية'},
+{en:'Pools, a gym and a spa',ar:'حمّامات سباحة وصالة رياضية وسبا'},
+{en:'A Go Bus station',ar:'محطة جو باص'}]
+}},
+{en:'Byoum, Fayoum', ar:'بيوم، الفيوم', icon:'layers', imgs:['/project-media/orascom/portfolio/'+'byoum.webp'],
+copy:{
+lead:{en:'A lakeside destination in Fayoum.', ar:'وجهة على بحيرة الفيوم.'},
+groups:[
+{label:{en:'As the presentation states them', ar:'كما يذكرها العرض'}, rows:[
+{k:{en:'Land area',ar:'مساحة الأرض'}, v:{en:'1.08 mn m², of which 0.3 mn m² complete',ar:'١٫٠٨ مليون م²، منها ٠٫٣ مليون م² مكتملة'}},
+{k:{en:'Hotel',ar:'الفندق'},          v:{en:'1, with 53 guest rooms',ar:'فندق واحد بـ ٥٣ غرفة'}}]}],
+more:{en:'Overlooking the lake, with a swimming pool, a pool bar, a restaurant and shopping facilities.',
+ar:'يطلّ على البحيرة، وبه حمّام سباحة وبار وحوض ومطعم ومرافق تسوّق.'}
+}},
+{en:'Beyond Egypt', ar:'خارج مصر', icon:'globe',
+imgs:['/project-media/orascom/portfolio/'+'andermatt.webp', '/project-media/orascom/portfolio/'+'hawana-salalah.webp', '/project-media/orascom/portfolio/'+'jebel-sifah.webp',
+'/project-media/orascom/portfolio/'+'lustica-bay.webp', '/project-media/orascom/portfolio/'+'uae.webp', '/project-media/orascom/portfolio/'+'west-carclaze.webp', '/project-media/orascom/portfolio/'+'chbika.webp'],
+copy:{
+lead:{en:'The rest of the portfolio the presentation sets out, across six more countries.',
+ar:'بقية المحفظة كما يعرضها العرض، في ست دول أخرى.'},
+groups:[
+{label:{en:'As the presentation states them', ar:'كما يذكرها العرض'}, rows:[
+{k:{en:'Andermatt, Swiss Alps',ar:'أندرمات، جبال الألب السويسرية'}, v:{en:'Designs by 30 selected Swiss and international architects',ar:'تصاميم من ٣٠ معمارياً سويسرياً ودولياً مختاراً'}},
+{k:{en:'Hawana Salalah, Oman',ar:'هوانا صلالة، عُمان'},            v:{en:'13.6 mn m², of which 1.7 mn m² complete',ar:'١٣٫٦ مليون م²، منها ١٫٧ مليون م² مكتملة'}},
+{k:{en:'Jebel Sifah, Oman',ar:'جبل سيفة، عُمان'},                  v:{en:'6.2 mn m², of which 1 mn m² complete',ar:'٦٫٢ مليون م²، منها مليون م² مكتملة'}},
+{k:{en:'Luštica Bay, Montenegro',ar:'لوشتيتسا باي، الجبل الأسود'},  v:{en:'6.9 mn m², of which 0.9 mn m² complete',ar:'٦٫٩ مليون م²، منها ٠٫٩ مليون م² مكتملة'}},
+{k:{en:'U.A.E.',ar:'الإمارات'},                                    v:{en:'0.3 mn m², complete; one 5★ hotel with 477 rooms',ar:'٠٫٣ مليون م² مكتملة؛ فندق ٥ نجوم بـ ٤٧٧ غرفة'}},
+{k:{en:'West Carclaze Eco Bos, UK',ar:'ويست كارْكلايز، المملكة المتحدة'}, v:{en:'6.5 mn m²; 1,500–1,800 energy-efficient homes; 7MW solar',ar:'٦٫٥ مليون م²؛ ١٬٥٠٠–١٬٨٠٠ منزل موفّر للطاقة؛ ٧ ميجاوات طاقة شمسية'}},
+{k:{en:'Chbika, Morocco',ar:'شبيكة، المغرب'},                       v:{en:'15.0 mn m², launching soon; 4★ and 5★ hotels',ar:'١٥ مليون م²، تُطلَق قريباً؛ فنادق ٤ و٥ نجوم'}}]}]
+}}
+]
+},
 'marakez': {
 masterplan: {en:'Masterplan — District Five', ar:'الماستر بلان — ديستريكت فايف', icon:'layers', src:'/project-media/marakez/d5-masterplan.webp'},
 cards: [
@@ -5082,10 +5206,85 @@ groups:[
 };
 function devFeatures(key){ return DEV_FEATURES[key] || null; }
 var AAR = '/project-media/qataridiar/alam-al-roum/';
+var MKH = '/project-media/orascom/makadi-heights/';
 var SIY = '/project-media/orascom/siyal/';
 var LDV = '/project-media/orascom/ledge-valley/';
 var SHS = '/project-media/marakez/shams-soma/';
 var PROJECT_BROCHURE = {
+'makadi-heights': {
+title: {en:'Digital Brochure', ar:'البروشور الرقمي'},
+pages: [
+MKH+'pages/p01.webp',
+MKH+'pages/p02.webp',
+MKH+'pages/p03.webp',
+MKH+'pages/p04.webp',
+MKH+'pages/p05.webp',
+MKH+'pages/p06.webp',
+MKH+'pages/p07.webp',
+MKH+'pages/p08.webp',
+MKH+'pages/p09.webp',
+MKH+'pages/p10.webp',
+MKH+'pages/p11.webp',
+MKH+'pages/p12.webp',
+MKH+'pages/p13.webp',
+MKH+'pages/p14.webp',
+MKH+'pages/p15.webp',
+MKH+'pages/p16.webp',
+MKH+'pages/p17.webp',
+MKH+'pages/p18.webp',
+MKH+'pages/p19.webp',
+MKH+'pages/p20.webp',
+MKH+'pages/p21.webp',
+MKH+'pages/p22.webp',
+MKH+'pages/p23.webp',
+MKH+'pages/p24.webp',
+MKH+'pages/p25.webp',
+MKH+'pages/p26.webp',
+MKH+'pages/p27.webp',
+MKH+'pages/p28.webp',
+MKH+'pages/p29.webp',
+MKH+'pages/p30.webp',
+MKH+'pages/p31.webp',
+MKH+'pages/p32.webp',
+MKH+'pages/p33.webp',
+MKH+'pages/p34.webp',
+MKH+'pages/p35.webp',
+MKH+'pages/p36.webp',
+MKH+'pages/p37.webp',
+MKH+'pages/p38.webp',
+MKH+'pages/p39.webp',
+MKH+'pages/p40.webp',
+MKH+'pages/p41.webp',
+MKH+'pages/p42.webp',
+MKH+'pages/p43.webp',
+MKH+'pages/p44.webp',
+MKH+'pages/p45.webp',
+MKH+'pages/p46.webp',
+MKH+'pages/p47.webp',
+MKH+'pages/p48.webp',
+MKH+'pages/p49.webp',
+MKH+'pages/p50.webp',
+MKH+'pages/p51.webp',
+MKH+'pages/p52.webp',
+MKH+'pages/p53.webp',
+MKH+'pages/p54.webp',
+MKH+'pages/p55.webp',
+MKH+'pages/p56.webp',
+MKH+'pages/p57.webp',
+MKH+'pages/p58.webp',
+MKH+'pages/p59.webp',
+MKH+'pages/p60.webp',
+MKH+'pages/p61.webp',
+MKH+'pages/p62.webp',
+MKH+'pages/p63.webp',
+MKH+'pages/p64.webp',
+MKH+'pages/p65.webp',
+MKH+'pages/p66.webp',
+MKH+'pages/p67.webp',
+MKH+'pages/p68.webp',
+MKH+'pages/p69.webp'
+]
+},
 'alam-al-roum': {
 title: {en:'Digital Brochure', ar:'البروشور الرقمي'},
 file:  AAR+'alam-al-roum-brochure.pdf',

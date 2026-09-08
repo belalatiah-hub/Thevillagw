@@ -107,6 +107,22 @@ def main():
     for slug, paths in (d.get('PROJECT_GALLERY') or {}).items():
         for i, path in enumerate(paths or []):
             add('project', slug, 'gallery', path, i)
+    # A developer's brochure cards and the master plan beside them. These are
+    # the pictures its page is built from; nothing else references them, so
+    # without this the developer pages exist only in the bundle.
+    for key, f in (d.get('DEV_FEATURES') or {}).items():
+        mp = (f or {}).get('masterplan')
+        if mp and mp.get('src'):
+            add('developer', key, 'masterplan', mp['src'])
+        seq = 0
+        for card in (f or {}).get('cards') or []:
+            for path in card.get('imgs') or []:
+                add('developer', key, 'feature', path, seq)
+                seq += 1
+    # A project's own Digital Brochure, page by page in its own order.
+    for slug, b in (d.get('PROJECT_BROCHURE') or {}).items():
+        for i, path in enumerate((b or {}).get('pages') or []):
+            add('project', slug, 'brochure', path, i)
     # Kept in step with build_media() in migrate_to_db.py: a project master plan
     # set on the project rather than derived from its first unit.
     for slug, plans in (d.get('PROJECT_PLANS') or {}).items():
