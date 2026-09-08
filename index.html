@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <!-- frame-ancestors/HSTS belong in HTTP response headers (see deploy runbook), not meta. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'sha256-0eB8s3A3aZQguW+SDJC/YssfCUQj66wY3V7A9qjdeKc=' 'sha256-yI6VCT38V7vjk7cAW7UM7qbGpBU7Ua/f8UOqpzWwxAc=' 'sha256-YvHevJmHHrhBzm9a+K1fYxwv5t1APr4XI8t4Am8p7D4=' 'sha256-RBNvo1WzZ4oRRq0W9+hknpT7T8If536DEMBg9hyq/4o=' 'sha256-yH/kRcj/OUPpO+x78k3Dr0EBOs4ebmm0ZoSW+7iBcE0=' https://static.cloudflareinsights.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://cloudflareinsights.com; base-uri 'self'; form-action 'self'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'sha256-0eB8s3A3aZQguW+SDJC/YssfCUQj66wY3V7A9qjdeKc=' 'sha256-yI6VCT38V7vjk7cAW7UM7qbGpBU7Ua/f8UOqpzWwxAc=' 'sha256-YvHevJmHHrhBzm9a+K1fYxwv5t1APr4XI8t4Am8p7D4=' 'sha256-RBNvo1WzZ4oRRq0W9+hknpT7T8If536DEMBg9hyq/4o=' 'sha256-K1gtIbjdTMqJmwe/4S4EcrFJx4GZA6CkS+gA9AN0Gwg=' https://static.cloudflareinsights.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://cloudflareinsights.com; base-uri 'self'; form-action 'self'" />
   <meta name="theme-color" content="#073D52" />
   <meta name="color-scheme" content="light" />
   <meta name="format-detection" content="telephone=no" />
@@ -5901,6 +5901,157 @@ ar:'كل منزل مصمّم حول ما يدوم: الضوء الطبيعي، �
 }}
 ]
 }
+};
+var MHR = '/project-media/orascom/makadi-heights/renders/';
+var MHP = '/project-media/orascom/makadi-heights/plans/';
+PROJECT_FEATURES['makadi-heights'] = {
+masterplan: {en:'Master plan', ar:'الماستر بلان', icon:'layers', src:MHP+'masterplan.webp'},
+cards: [
+{en:'About Makadi Heights', ar:'عن مكادي هايتس', icon:'shield',
+imgs:[MHR+'lagoon.webp', MHR+'neighbourhood.webp', MHR+'pool-terraces.webp'],
+copy:{
+lead:{en:'Makadi Heights emerges as a captivating town thoughtfully developed by Orascom Development. Gracefully elevated 78 metres above sea level, it offers sweeping, picturesque views that leave a lasting impression on all who call it home.',
+ar:'تبرز مكادي هايتس كمدينة آسرة طوّرتها أوراسكوم للتطوير بعناية. وعلى ارتفاع ٧٨ متراً فوق سطح البحر، تمنح إطلالات واسعة خلّابة تترك أثراً لا يُنسى في كل من يتّخذها بيتاً.'},
+groups:[
+{label:{en:'As the brochure gives them', ar:'كما يذكرها البروشور'}, rows:[
+{k:{en:'Land',ar:'الأرض'},           v:{en:'3.7 million m²',ar:'٣٫٧ مليون متر مربع'}},
+{k:{en:'Elevation',ar:'الارتفاع'},   v:{en:'78 m above sea level',ar:'٧٨ متراً فوق سطح البحر'}},
+{k:{en:'Where',ar:'الموقع'},         v:{en:'The highest point of Makadi Bay, South Hurghada',ar:'أعلى نقطة في خليج مكادي، جنوب الغردقة'}},
+{k:{en:'Neighbourhoods',ar:'الأحياء'}, v:{en:'Aden · Town Walk · Dua · Ria · Topio · Cape · Ledge · Ledge Flare',ar:'عدن · تاون ووك · دُعاء · ريا · توپيو · كيب · ليدج · ليدج فلير'}}]}],
+more:{en:'A true masterpiece of strategic planning, Makadi Heights effortlessly blends beauty with functionality, offering everything one could need within easy reach. A haven of inclusivity, crafted with simplicity and exceptional convenience in mind.',
+ar:'تحفة في التخطيط، تجمع مكادي هايتس بين الجمال والوظيفة بلا تكلّف، وتضع كل ما قد يحتاجه المرء في متناول يده. ملاذ جامع، صُمّم ببساطة وراحة استثنائية.'}
+}},
+{en:'Location', ar:'الموقع', icon:'pin', imgs:[MHR+'promenade.webp'],
+copy:{
+lead:{en:'Situated at the highest point of Makadi Bay, in the heart of South Hurghada, with seamless connectivity to the region’s most important hubs.',
+ar:'تقع في أعلى نقطة بخليج مكادي، في قلب جنوب الغردقة، باتصال سلس بأهم مراكز المنطقة.'},
+groups:[
+{label:{en:'As the brochure states them', ar:'كما يذكرها البروشور'}, rows:[
+{k:{en:'Hurghada Airport',ar:'مطار الغردقة'},   v:{en:'15 minutes',ar:'١٥ دقيقة'}},
+{k:{en:'Hurghada downtown',ar:'وسط الغردقة'},   v:{en:'20 minutes',ar:'٢٠ دقيقة'}},
+{k:{en:'El Gouna',ar:'الجونة'},                 v:{en:'40 minutes',ar:'٤٠ دقيقة'}}]}],
+more:{en:'The convenience of city access paired with the tranquility of elevated living — the times above are the brochure’s own.',
+ar:'راحة الوصول إلى المدينة مع هدوء المعيشة المرتفعة — والأزمنة أعلاه هي التي يذكرها البروشور.'}
+}},
+{en:'The design partners', ar:'شركاء التصميم', icon:'spark', imgs:[MHP+'facilities.webp'],
+copy:{
+lead:{en:'The town’s public realm was drawn by three practices the brochure names.',
+ar:'صُمّم الحيّز العام للمدينة على يد ثلاث شركات يذكرها البروشور بالاسم.'},
+groups:[
+{label:{en:'Our partners', ar:'شركاؤنا'}, rows:[
+{k:{en:'EDSA',ar:'EDSA'},                             v:{en:'Urbanisation and mixed-use, from the downtown location to the finer details',ar:'التخطيط العمراني والاستخدام المختلط، من موقع الداون تاون إلى أدق التفاصيل'}},
+{k:{en:'F&R Partnership',ar:'F&R Partnership'},        v:{en:'Reimagined the space, pushing design while keeping its connection to the environment',ar:'أعادت تصوّر المكان، تدفع بالتصميم مع الحفاظ على صلته بالبيئة'}},
+{k:{en:'Sites International',ar:'Sites International'}, v:{en:'An all-season resort community for domestic and international visitors',ar:'مجتمع منتجعي لكل المواسم، للزائر المحلي والدولي'}}]}]
+}},
+{en:'Community, walkability & sustainability', ar:'المجتمع والمشي والاستدامة', icon:'star',
+imgs:[MHP+'communities.webp', MHR+'shaded-terrace.webp'],
+copy:{
+lead:{en:'Shared terraces, lush parks and intimate courtyards, offering residents a destination to connect, relax and gather.',
+ar:'تراسات مشتركة وحدائق وارفة وأفنية حميمة، تمنح السكان مكاناً للتواصل والاسترخاء واللقاء.'},
+list:[
+{en:'Community parks for gatherings and recreation, and multi-functional lawns that adapt to events',ar:'حدائق للتجمّع والترفيه، ومسطحات خضراء متعدّدة الاستخدام تتكيّف مع الفعاليات'},
+{en:'Courtyards for spontaneous connection, and public seating placed throughout',ar:'أفنية للقاءات العفوية، ومقاعد عامة موزّعة في أنحاء المدينة'},
+{en:'Communal areas accessible and welcoming to individuals with diverse needs',ar:'مساحات مشتركة ميسّرة وترحّب بذوي الاحتياجات المختلفة'},
+{en:'Energy-efficient systems, dedicated recycling facilities and green materials',ar:'أنظمة موفّرة للطاقة ومرافق مخصّصة لإعادة التدوير ومواد صديقة للبيئة'}]
+}},
+{en:'Downtown — The Haus & retail', ar:'الداون تاون — ذا هاوس والريتيل', icon:'layers',
+imgs:[MHP+'downtown.webp'],
+copy:{
+lead:{en:'A dynamic cultural centre and a retail quarter at the heart of the town.',
+ar:'مركز ثقافي نابض وحيّ تجاري في قلب المدينة.'},
+groups:[
+{label:{en:'What the brochure lists', ar:'ما يذكره البروشور'}, rows:[
+{k:{en:'The Haus',ar:'ذا هاوس'}, v:{en:'A multipurpose venue, learning workshops, and the biggest performances and events in the Red Sea',ar:'قاعة متعدّدة الاستخدامات وورش تعلّم وأكبر العروض والفعاليات في البحر الأحمر'}},
+{k:{en:'Retail',ar:'الريتيل'},   v:{en:'Shaded courts with cafés, dining, banks and more',ar:'ساحات مظلّلة بمقاهٍ ومطاعم وبنوك وغيرها'}}]}]
+}},
+{en:'Cape — ready to move', ar:'كيب — جاهزة للسكن', icon:'home',
+imgs:[MHP+'cape-villas-plan.webp', MHP+'cape-apartments-plan.webp', MHR+'garden-home.webp'],
+copy:{
+lead:{en:'Homes planned with well-proportioned spaces, sunlit interiors and panoramic views over serene pool ranges, each with direct access to the pools from its own private garden.',
+ar:'منازل بمساحات متناسبة وداخل غارق في الضوء وإطلالات بانورامية على ممرات مائية هادئة، ولكل منها وصول مباشر إلى حمّامات السباحة من حديقته الخاصة.'},
+groups:[
+{label:{en:'Villas, as the brochure prints them', ar:'الفيلات كما يطبعها البروشور'}, rows:[
+{k:{en:'Standalone',ar:'مستقلة'},   v:{en:'BUA 163 m² · terrace 17 m²',ar:'مسطح ١٦٣ م² · تراس ١٧ م²'}},
+{k:{en:'Twin villa A',ar:'توين A'}, v:{en:'BUA 143 m² · terrace 16.4 m² · roof 48.8 m²',ar:'مسطح ١٤٣ م² · تراس ١٦٫٤ م² · سطح ٤٨٫٨ م²'}},
+{k:{en:'Twin villa B',ar:'توين B'}, v:{en:'BUA 145 m² · terrace 16.7 m² · roof 50 m²',ar:'مسطح ١٤٥ م² · تراس ١٦٫٧ م² · سطح ٥٠ م²'}},
+{k:{en:'Grand villa',ar:'جراند فيلا'}, v:{en:'BUA 268 m² · terrace 15 m² · roof 98 m²',ar:'مسطح ٢٦٨ م² · تراس ١٥ م² · سطح ٩٨ م²'}}]},
+{label:{en:'Apartments', ar:'الشقق'}, rows:[
+{k:{en:'Type F',ar:'نوع F'}, v:{en:'BUA 91 m² · 2 bedrooms · terrace 16 m²',ar:'مسطح ٩١ م² · غرفتان · تراس ١٦ م²'}},
+{k:{en:'Type G',ar:'نوع G'}, v:{en:'BUA 96 m² · 2 bedrooms · terrace 24 m²',ar:'مسطح ٩٦ م² · غرفتان · تراس ٢٤ م²'}}]}]
+}},
+{en:'Topio', ar:'توپيو', icon:'star', imgs:[MHP+'topio-plan.webp', MHR+'poolside-homes.webp'],
+copy:{
+lead:{en:'Every residence enjoys a rare double-sided view, with direct access to both the Red Sea and the Makadi Heights pool. Apartments, duplexes and floating chalets in a Boho-inspired architectural style.',
+ar:'كل وحدة بإطلالة مزدوجة نادرة، بوصول مباشر إلى البحر الأحمر وإلى حمّام سباحة مكادي هايتس. شقق ودوبلكس وشاليهات عائمة بطراز معماري بوهيمي.'},
+groups:[
+{label:{en:'As the brochure prints them', ar:'كما يطبعها البروشور'}, rows:[
+{k:{en:'Type B',ar:'نوع B'}, v:{en:'BUA 90 m² · 2 bedrooms · terrace 18 m²',ar:'مسطح ٩٠ م² · غرفتان · تراس ١٨ م²'}}]}],
+more:{en:'Higher floors offer sweeping panoramic views of the Red Sea and of Makadi Bay. The brochure prints one apartment type for Topio; the rest of its mix is shown on its plan.',
+ar:'وتمنح الأدوار العليا إطلالات بانورامية على البحر الأحمر وخليج مكادي. ويطبع البروشور نوع شقة واحداً لتوپيو، وباقي التشكيلة على مخططها.'}
+}},
+{en:'Ria', ar:'ريا', icon:'home', imgs:[MHP+'ria-plan.webp', MHR+'street-villa.webp'],
+copy:{
+lead:{en:'Villas with well-proportioned spaces and thoughtfully crafted layouts, each with panoramic views of swimmable interconnected lakes, the central spine and the surrounding landscape.',
+ar:'فيلات بمساحات متناسبة وتوزيعات مدروسة، لكلٍّ منها إطلالات بانورامية على بحيرات متصلة صالحة للسباحة وعلى المحور المركزي والمناظر المحيطة.'},
+groups:[
+{label:{en:'As the brochure prints them', ar:'كما يطبعها البروشور'}, rows:[
+{k:{en:'Family villa',ar:'فيلا عائلية'}, v:{en:'BUA 258 m² · terrace 20 m² · roof 64 m²',ar:'مسطح ٢٥٨ م² · تراس ٢٠ م² · سطح ٦٤ م²'}},
+{k:{en:'Twin villa',ar:'توين فيلا'},     v:{en:'BUA 145 m² · terrace 21 m² · roof 35 m²',ar:'مسطح ١٤٥ م² · تراس ٢١ م² · سطح ٣٥ م²'}}]}],
+more:{en:'Ideally located near the downtown area, with direct access to the main spine.',
+ar:'موقعها قريب من الداون تاون، بوصول مباشر إلى المحور الرئيسي.'}
+}},
+{en:'Crest', ar:'كريست', icon:'spark', imgs:[MHP+'crest-plan.webp', MHR+'townhomes.webp'],
+copy:{
+lead:{en:'Thoughtfully planned residential clusters, scenic landscapes and essential amenities within walking distance — a balanced lifestyle where residents unwind, connect and thrive.',
+ar:'تجمّعات سكنية مخطّطة بعناية ومناظر طبيعية ومرافق أساسية على مسافة مشي — نمط حياة متوازن يسترخي فيه السكان ويتواصلون ويزدهرون.'},
+groups:[
+{label:{en:'Town house, as the brochure prints it', ar:'التاون هاوس كما يطبعه البروشور'}, rows:[
+{k:{en:'Unit B',ar:'وحدة B'}, v:{en:'BUA 134 m² · 3 bedrooms',ar:'مسطح ١٣٤ م² · ٣ غرف'}},
+{k:{en:'Unit D',ar:'وحدة D'}, v:{en:'BUA 147 m² · 3 bedrooms',ar:'مسطح ١٤٧ م² · ٣ غرف'}}]}]
+}},
+{en:'Ledge — one year delivery', ar:'ليدج — تسليم سنة', icon:'home',
+imgs:[MHP+'ledge-plan.webp', MHR+'courtyard-homes.webp'],
+copy:{
+lead:{en:'Villas and apartments designed with comfort and convenience in mind. This is the phase sold here as Ledge Valley, which has its own page below.',
+ar:'فيلات وشقق صُمّمت للراحة والسهولة. وهي المرحلة المطروحة هنا باسم ليدج فالي، ولها صفحتها أدناه.'},
+groups:[
+{label:{en:'Apartments, as the brochure prints them', ar:'الشقق كما يطبعها البروشور'}, rows:[
+{k:{en:'Type H',ar:'نوع H'}, v:{en:'BUA 77 m² · 1 bedroom, and 119 m² · 3 bedrooms',ar:'مسطح ٧٧ م² · غرفة، و١١٩ م² · ٣ غرف'}},
+{k:{en:'Type I',ar:'نوع I'}, v:{en:'BUA 99 m² and 101 m² · 2 bedrooms',ar:'مسطح ٩٩ م² و١٠١ م² · غرفتان'}},
+{k:{en:'Type G',ar:'نوع G'}, v:{en:'BUA 121 m² · 3 bedrooms · terrace 39 m² · roof 84 m²',ar:'مسطح ١٢١ م² · ٣ غرف · تراس ٣٩ م² · سطح ٨٤ م²'}},
+{k:{en:'Type D',ar:'نوع D'}, v:{en:'BUA 120 m² and 133 m² · 3 bedrooms',ar:'مسطح ١٢٠ م² و١٣٣ م² · ٣ غرف'}},
+{k:{en:'Type K',ar:'نوع K'}, v:{en:'BUA 127 m² and 132 m² · 3 bedrooms',ar:'مسطح ١٢٧ م² و١٣٢ م² · ٣ غرف'}}]},
+{label:{en:'Townhouse', ar:'التاون هاوس'}, rows:[
+{k:{en:'LD/45C',ar:'LD/45C'}, v:{en:'BUA 176 m² · terrace 25 m² · roof 79 m²',ar:'مسطح ١٧٦ م² · تراس ٢٥ م² · سطح ٧٩ م²'}}]}]
+}},
+{en:'Town Walk — two years delivery', ar:'تاون ووك — تسليم سنتين', icon:'layers',
+imgs:[MHP+'townwalk-plan.webp', MHR+'terrace-villa.webp'],
+copy:{
+lead:{en:'Nestled beside M Town, with lush greenery, serene water elements and a wide range of amenities — a balance of connection and privacy.',
+ar:'تجاور إم تاون، بمساحات خضراء وعناصر مائية هادئة ومرافق متنوّعة — توازن بين التواصل والخصوصية.'},
+groups:[
+{label:{en:'Type A, as the brochure prints it', ar:'نوع A كما يطبعه البروشور'}, rows:[
+{k:{en:'Ground',ar:'الأرضي'},   v:{en:'136 m² 3-bed duplex · 91 m² and 107 m² 2-bed',ar:'دوبلكس ١٣٦ م² ٣ غرف · ٩١ م² و١٠٧ م² غرفتان'}},
+{k:{en:'First',ar:'الأول'},     v:{en:'79 m² and 85 m² · 2 bedrooms',ar:'٧٩ م² و٨٥ م² · غرفتان'}},
+{k:{en:'Second',ar:'الثاني'},   v:{en:'95 m² 2-bed penthouse',ar:'بنتهاوس ٩٥ م² غرفتان'}}]},
+{label:{en:'Types B and D', ar:'نوعا B وD'}, rows:[
+{k:{en:'Type B',ar:'نوع B'}, v:{en:'68–120 m² · 1 to 3 bedrooms, including a 120 m² penthouse',ar:'٦٨–١٢٠ م² · من غرفة إلى ٣ غرف، منها بنتهاوس ١٢٠ م²'}},
+{k:{en:'Type D',ar:'نوع D'}, v:{en:'61–101 m² · 1 to 2 bedrooms',ar:'٦١–١٠١ م² · من غرفة إلى غرفتين'}}]}]
+}},
+{en:'Ledge Flare', ar:'ليدج فلير', icon:'star', imgs:[MHP+'ledge-flare-plan.webp'],
+copy:{
+lead:{en:'Main house spaces open to uninterrupted views, with side courtyards and shaded outdoor living that extend the home beyond its walls — a livable land boundary rather than merely a livable house.',
+ar:'مساحات البيت الرئيسية تنفتح على إطلالات متّصلة، مع أفنية جانبية ومعيشة خارجية مظلّلة تمدّ البيت خارج جدرانه — حدّ أرض صالح للعيش لا مجرّد بيت صالح للسكن.'},
+groups:[
+{label:{en:'One-floor villas, as the brochure prints them', ar:'فيلات الدور الواحد كما يطبعها البروشور'}, rows:[
+{k:{en:'Lucid villa',ar:'فيلا لوسيد'},     v:{en:'BUA 189 m² · 4 bedrooms · terrace 30 m² · roof 153 m²',ar:'مسطح ١٨٩ م² · ٤ غرف · تراس ٣٠ م² · سطح ١٥٣ م²'}},
+{k:{en:'Solace villa',ar:'فيلا سولاس'},    v:{en:'BUA 169 m² · 3 bedrooms · terrace 14 m² · roof 30 m²',ar:'مسطح ١٦٩ م² · ٣ غرف · تراس ١٤ م² · سطح ٣٠ م²'}},
+{k:{en:'Serenity villa',ar:'فيلا سيرينيتي'}, v:{en:'BUA 186 m² · 4 bedrooms · terrace 18 m² · roof 57 m²',ar:'مسطح ١٨٦ م² · ٤ غرف · تراس ١٨ م² · سطح ٥٧ م²'}},
+{k:{en:'Verdant villa',ar:'فيلا فردانت'},   v:{en:'BUA 193 m² · 4 bedrooms · terrace 24 m² · roof 55 m²',ar:'مسطح ١٩٣ م² · ٤ غرف · تراس ٢٤ م² · سطح ٥٥ م²'}}]}],
+more:{en:'Natural light is filtered to enter each room indirectly, and the built layouts play light against shade.',
+ar:'ويُرشَّح الضوء الطبيعي ليدخل كل غرفة بغير مباشرة، وتلعب التوزيعات على التباين بين الضوء والظل.'}
+}}
+]
 };
 PROJECT_FEATURES['masyaf-ras-alhekma'] = {
 masterplan: {en:'Masterplan', ar:'الماستر بلان', icon:'layers', src:MSQ+'masyaf-masterplan.webp'},

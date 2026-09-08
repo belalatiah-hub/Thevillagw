@@ -177,9 +177,12 @@ insert into cms.media_assets (path) values
   ('/project-media/marakez/shams-soma/hero.webp'),
   ('/project-media/marakez/shams-soma/infinity-pool.webp'),
   ('/project-media/marakez/shams-soma/jetty.webp'),
+  ('/project-media/marakez/shams-soma/masterplan.webp'),
   ('/project-media/marakez/shams-soma/overview.webp'),
   ('/project-media/marakez/shams-soma/sandy-beach.webp'),
   ('/project-media/marakez/shams-soma/social-nodes.webp'),
+  ('/project-media/marakez/shams-soma/somabay-jetty.webp'),
+  ('/project-media/marakez/shams-soma/somabay.webp'),
   ('/project-media/marakez/shams-soma/units/ch1-shams-soma-0.webp'),
   ('/project-media/marakez/shams-soma/units/ch1-shams-soma-1.webp'),
   ('/project-media/marakez/shams-soma/units/ch1-shams-soma-2.webp'),
@@ -408,9 +411,5 @@ insert into cms.media_assets (path) values
   ('/project-media/marakez/units/mp-ap2.webp'),
   ('/project-media/marakez/units/mp-ap4.webp'),
   ('/project-media/marakez/units/mp-ap7.webp'),
-  ('/project-media/marakez/units/mp-ap9.webp'),
-  ('/project-media/marakez/units/mp-cr.webp'),
-  ('/project-media/marakez/units/mp-d.webp'),
-  ('/project-media/marakez/units/mp-of-d.webp'),
-  ('/project-media/marakez/units/mp-of2.webp')
+  ('/project-media/marakez/units/mp-ap9.webp')
 on conflict (path) do nothing;

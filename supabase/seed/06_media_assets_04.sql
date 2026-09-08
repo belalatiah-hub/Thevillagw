@@ -1,5 +1,13 @@
 -- Every image path the site references, stored once.
 insert into cms.media_assets (path) values
+  ('/project-media/msquared/units/mp-trio.webp'),
+  ('/project-media/msquared/units/off1-41-0.webp'),
+  ('/project-media/msquared/units/off1-41-01.webp'),
+  ('/project-media/msquared/units/off1-41-02.webp'),
+  ('/project-media/msquared/units/off2-41-0.webp'),
+  ('/project-media/msquared/units/off2-41-01.webp'),
+  ('/project-media/msquared/units/off2-41-02.webp'),
+  ('/project-media/msquared/units/off2-41-03.webp'),
   ('/project-media/msquared/units/off3-41-0.webp'),
   ('/project-media/msquared/units/off3-41-01.webp'),
   ('/project-media/msquared/units/off3-41-02.webp'),
@@ -47,6 +55,7 @@ insert into cms.media_assets (path) values
   ('/project-media/msquared/w31-garden.webp'),
   ('/project-media/msquared/w31-hero.webp'),
   ('/project-media/msquared/w31-lakeside.webp'),
+  ('/project-media/msquared/w31-masterplan.webp'),
   ('/project-media/msquared/w31-overview.webp'),
   ('/project-media/msquared/w31-villa.webp'),
   ('/project-media/ogami/apartment.webp'),
@@ -389,6 +398,7 @@ insert into cms.media_assets (path) values
   ('/project-media/orascom/ledge-valley/hero.webp'),
   ('/project-media/orascom/ledge-valley/island.webp'),
   ('/project-media/orascom/ledge-valley/lagoon.webp'),
+  ('/project-media/orascom/ledge-valley/masterplan.webp'),
   ('/project-media/orascom/ledge-valley/neighbourhood.webp'),
   ('/project-media/orascom/ledge-valley/outdoor.webp'),
   ('/project-media/orascom/ledge-valley/park.webp'),
@@ -446,14 +456,5 @@ insert into cms.media_assets (path) values
   ('/project-media/orascom/makadi-heights/pages/p13.webp'),
   ('/project-media/orascom/makadi-heights/pages/p14.webp'),
   ('/project-media/orascom/makadi-heights/pages/p15.webp'),
-  ('/project-media/orascom/makadi-heights/pages/p16.webp'),
-  ('/project-media/orascom/makadi-heights/pages/p17.webp'),
-  ('/project-media/orascom/makadi-heights/pages/p18.webp'),
-  ('/project-media/orascom/makadi-heights/pages/p19.webp'),
-  ('/project-media/orascom/makadi-heights/pages/p20.webp'),
-  ('/project-media/orascom/makadi-heights/pages/p21.webp'),
-  ('/project-media/orascom/makadi-heights/pages/p22.webp'),
-  ('/project-media/orascom/makadi-heights/pages/p23.webp'),
-  ('/project-media/orascom/makadi-heights/pages/p24.webp'),
-  ('/project-media/orascom/makadi-heights/pages/p25.webp')
+  ('/project-media/orascom/makadi-heights/pages/p16.webp')
 on conflict (path) do nothing;
