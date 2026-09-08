@@ -373,7 +373,7 @@ try {
   ck('listings: the sheet’s AEON Towers row joins the existing Aeon project', (function(){
     var u=api.UNITS.filter(x=>x.id==='AE-AP01')[0];
     return u && u.project==='aeon' && u.area===246 && u.price===36000000 && u.years===4; })());
-  ck('listings: Caesar + June (SODIC North Coast) added', api.projBySlug('caesar-north-coast').price===39200000 && api.projBySlug('june-north-coast').price===89300000 && api.projBySlug('caesar-north-coast').dev==='sodic' && api.projBySlug('june-north-coast').dev==='sodic');
+  ck('listings: Caesar + June (SODIC North Coast) added', api.projBySlug('caesar-north-coast').price===39200000 && api.projBySlug('june-north-coast').price===28973000 && api.projBySlug('caesar-north-coast').dev==='sodic' && api.projBySlug('june-north-coast').dev==='sodic');
   var pv=api.V.project('ogami-north-coast');
   ck('listings: project detail renders (h1) + real price shown', pv && countTag(pv.node,'h1')>=1 && txt(pv.node).indexOf('22,329,000')>=0);
   api.setFilter(Object.assign(api.defaultFilter(),{projects:['ogami-north-coast']}));
@@ -551,7 +551,7 @@ try {
 
   // ---- UI refinements ----
   api.setFilter(api.defaultFilter());
-  ck('count: SODIC shows 27 units dynamically (facet from data)', api.devFacets().sodic===27, 'sodic='+api.devFacets().sodic);
+  ck('count: SODIC shows 51 units dynamically (facet from data)', api.devFacets().sodic===51, 'sodic='+api.devFacets().sodic);
   api.setFilter(api.defaultFilter());
   ck('overview: project page renders a collapsed <details> accordion', (function(){
     var n=api.V.project('villette').node; var det=qsa(n,'.accordion')[0];
@@ -564,11 +564,13 @@ try {
   })(), 'ok');
   ck('covers: SODIC project shows a real WebP cover image', (function(){
     var n=api.V.project('villette').node; var c=qsa(n,'.proj-cover')[0];
-    return !!c && /^\/project-media\/villette\/.+\.webp$/.test(c.getAttribute('src')||'') && (c.getAttribute('loading')==='lazy');
+    // Villette's cover was a stock placeholder until the client's own renders
+    // arrived; it now shows the first frame the sheet names for its first unit.
+    return !!c && /^\/project-media\/sodic\/villette\/units\/.+\.webp$/.test(c.getAttribute('src')||'') && (c.getAttribute('loading')==='lazy');
   })(), 'ok');
   ck('covers: SODIC unit shows its own type render', (function(){
-    var n=api.V.unit('V-A305').node; var c=qsa(n,'.proj-cover')[0];
-    return !!c && /\/project-media\/villette\/apartment\.webp$/.test(c.getAttribute('src')||'');
+    var n=api.V.unit('VL-01').node; var c=qsa(n,'.proj-cover')[0];
+    return !!c && /\/project-media\/sodic\/villette\/units\/ap1-villette-0\.webp$/.test(c.getAttribute('src')||'');
   })(), 'ok');
   ck('covers: project with no cover falls back to branded art (no broken cover)', (function(){
     // A project with no cover renders branded art (an <svg>), never a broken <img>.
@@ -626,7 +628,7 @@ try {
     return countClass(api.V.projects(null).node,'cmp-btn')===0;
   })(), 'cmp-btns='+countClass(api.V.projects(null).node,'cmp-btn'));
   ck('compare: comparison view compares units (Project row present)', (function(){
-    api.setCompare(['JN-CR1','OG-WC1']);
+    api.setCompare(['JN-01','OG-WC1']);
     var n=api.V.compare().node, tx=txt(n);
     return countTag(n,'th')>=3 && /Project/.test(tx) && /Bedrooms/.test(tx);
   })(), 'ok');
@@ -649,30 +651,37 @@ try {
 
   // ---- master/floor plans + amenities + unit feature row ----
   ck('plans: master & floor resolvers map to /project-media/plans', (function(){
-    var u=api.unitById('JN-CR1'), mp=api.unitMasterplans(u), fp=api.unitFloorplans(u);
+    var u=api.unitById('CS-TW1'), mp=api.unitMasterplans(u), fp=api.unitFloorplans(u);
     // Ogami moved to its own directory when the sheet arrived; a bare filename
     // still resolves under /plans, a rooted path is left alone.
     var ofp=api.unitFloorplans(api.unitById('OG-03'));
-    return mp.length===1 && /\/project-media\/plans\/mp-JN-CR1\.webp$/.test(mp[0])
-      && fp.length===1 && /\/project-media\/plans\/fp-JN-CR1-1\.webp$/.test(fp[0])
+    return mp.length===1 && /\/project-media\/plans\/mp-CS-TW1\.webp$/.test(mp[0])
+      && fp.length===1 && /\/project-media\/plans\/fp-CS-TW1-1\.webp$/.test(fp[0])
       && ofp.length===2 && ofp.every(function(s){ return s.indexOf('/project-media/ogami/units/')===0; });
   })(), 'ok');
-  ck('plans: unit with plans shows all 4 feature chips', (function(){
-    var chips=qsa(api.V.unit('JN-CR1').node,'.ufeat');
+  /* A unit carrying every category shows all five chips. This was written when
+     the richest unit on the site had plans but no photography, so it counted
+     four; June's units arrived from the client sheet with renders as well, and
+     the Photos chip leads the row. */
+  ck('plans: unit with everything shows all 5 feature chips', (function(){
+    var chips=qsa(api.V.unit('JN-01').node,'.ufeat');
     var txt=chips.map(function(c){return c.textContent||'';}).join('|');
-    return chips.length===4 && /Location/.test(txt) && /Floor Plan/.test(txt) && /Master Plan/.test(txt) && /Amenities/.test(txt);
+    return chips.length===5 && /Photos/.test(txt) && /Location/.test(txt) &&
+           /Floor Plan/.test(txt) && /Master Plan/.test(txt) && /Amenities/.test(txt);
   })(), 'ok');
-  ck('plans: feature-row order = Location, Floor, Master, Amenities', (function(){
-    var c=qsa(api.V.unit('JN-CR1').node,'.ufeat');
-    return /Location/.test(c[0].textContent) && /Floor Plan/.test(c[1].textContent) && /Master Plan/.test(c[2].textContent) && /Amenities/.test(c[3].textContent);
+  ck('plans: feature-row order = Photos, Location, Floor, Master, Amenities', (function(){
+    var c=qsa(api.V.unit('JN-01').node,'.ufeat');
+    return /Photos/.test(c[0].textContent) && /Location/.test(c[1].textContent) &&
+           /Floor Plan/.test(c[2].textContent) && /Master Plan/.test(c[3].textContent) &&
+           /Amenities/.test(c[4].textContent);
   })(), 'ok');
   ck('plans: unit without plans shows only Location + Amenities', (function(){
-    var chips=qsa(api.V.unit('V-A305').node,'.ufeat');
+    var chips=qsa(api.V.unit('ET-D07').node,'.ufeat');
     var txt=chips.map(function(c){return c.textContent||'';}).join('|');
     return chips.length===2 && /Location/.test(txt) && /Amenities/.test(txt) && !/Floor Plan/.test(txt);
   })(), 'ok');
   ck('amenities: unit page renders #amenities with multiple amenities', (function(){
-    var sec=findAttr(api.V.unit('JN-CR1').node,'id','amenities');
+    var sec=findAttr(api.V.unit('JN-01').node,'id','amenities');
     return !!sec && qsa(sec,'.amen').length>=6;
   })(), 'ok');
 
@@ -1799,7 +1808,12 @@ try {
     var broken = refs.filter(function(r){
       return !fsx.existsSync(pathx.join(MED, r.replace('/project-media/sodic/','')));
     });
-    var disk = fsx.readdirSync(MED).map(function(n){ return '/project-media/sodic/'+n; });
+    // Pages only. The client's unit renders live one level down, in
+    // <project>/units/, and are checked against the sheet by the SODIC unit
+    // block below — a directory is not an extracted brochure page.
+    var disk = fsx.readdirSync(MED)
+      .filter(function(n){ return fsx.statSync(pathx.join(MED, n)).isFile(); })
+      .map(function(n){ return '/project-media/sodic/'+n; });
     var orphan = disk.filter(function(d){ return !used[d]; });
     ck('sodic: every profile image path exists on disk',
        refs.length >= 22 && broken.length === 0,
@@ -1836,13 +1850,20 @@ try {
       });
     });
   })(), 'ok');
-  /* The profile's own price list does not exist — it publishes none — so the
-     developer page must still take its prices from the site's SODIC units, not
-     from anything the brochure work introduced. */
-  ck('sodic: the brochure work left the existing price list untouched', (function(){
+  /* The profile's own price list does not exist — the brochure publishes none —
+     so every SODIC project's from-price has to come from its own cheapest unit.
+     Villette, SODIC East and June were reloaded from the client sheet, which is
+     exactly the case where a stale hand-typed from-price would go unnoticed:
+     the units change and the card keeps quoting the old number. */
+  ck('sodic: every from-price is its project\'s own cheapest unit', (function(){
     var ps = api.PROJECTS.filter(function(p){ return p.dev === 'sodic'; });
     var us = api.UNITS.filter(function(u){ return ps.some(function(p){ return p.slug === u.project; }); });
-    return ps.length === 8 && us.length === 27 &&
+    var stale = ps.filter(function(p){
+      var own = us.filter(function(u){ return u.project === p.slug; });
+      if(!own.length) return !(p.price > 0);
+      return p.price !== Math.min.apply(null, own.map(function(u){ return u.price; }));
+    });
+    return ps.length === 8 && us.length === 51 && stale.length === 0 &&
            ps.every(function(p){ return p.price > 0 && p.types && p.types.en; });
   })(), 'ok');
 
