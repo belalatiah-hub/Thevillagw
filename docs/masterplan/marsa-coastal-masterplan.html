@@ -1,0 +1,1418 @@
+<title>Marsa Coastal Masterplan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<style>
+:root{
+  --paper:#E9EDEC; --sheet:#FBFCFB; --sheet-2:#F2F5F4;
+  --ink:#06222D; --ink-2:#33505A; --muted:#6A828A;
+  --rule:#C3CFCF; --rule-2:#DDE4E3;
+  --teal:#0B5470; --sea:#1D8AA8; --sea-lo:#BFE0E7; --sea-hi:#0E6E8C;
+  --sand:#DCCAA6; --sand-lo:#EADFC6;
+  --verde:#7C9A6A; --verde-lo:#B7CBA6; --verde-hi:#4E6B41;
+  --brass:#A07A3F; --stone:#F5F2EA; --stone-line:#9AA6A4;
+  --tarmac:#D2D8D6; --tarmac-line:#B6BFBD;
+  --pool:#5EC3D6;
+  --sheet-shadow:0 1px 2px rgba(6,34,45,.06),0 12px 34px -18px rgba(6,34,45,.28);
+  --maxw:1200px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#061820; --sheet:#0B2530; --sheet-2:#0F2E3A;
+  --ink:#E3EDEE; --ink-2:#B0C6CB; --muted:#7E979E;
+  --rule:#1D4756; --rule-2:#153743;
+  --teal:#5FBDD1; --sea:#1B6E88; --sea-lo:#123F4F; --sea-hi:#2A93B2;
+  --sand:#6E6142; --sand-lo:#4C4531;
+  --verde:#3F5C3B; --verde-lo:#2C4430; --verde-hi:#87A878;
+  --brass:#C79E5C; --stone:#183640; --stone-line:#3E6270;
+  --tarmac:#12303C; --tarmac-line:#1E4655;
+  --pool:#2E8FA6;
+  --sheet-shadow:0 1px 2px rgba(0,0,0,.4),0 14px 36px -20px rgba(0,0,0,.7);
+}}
+:root[data-theme="dark"]{
+  --paper:#061820; --sheet:#0B2530; --sheet-2:#0F2E3A;
+  --ink:#E3EDEE; --ink-2:#B0C6CB; --muted:#7E979E;
+  --rule:#1D4756; --rule-2:#153743;
+  --teal:#5FBDD1; --sea:#1B6E88; --sea-lo:#123F4F; --sea-hi:#2A93B2;
+  --sand:#6E6142; --sand-lo:#4C4531;
+  --verde:#3F5C3B; --verde-lo:#2C4430; --verde-hi:#87A878;
+  --brass:#C79E5C; --stone:#183640; --stone-line:#3E6270;
+  --tarmac:#12303C; --tarmac-line:#1E4655;
+  --pool:#2E8FA6;
+  --sheet-shadow:0 1px 2px rgba(0,0,0,.4),0 14px 36px -20px rgba(0,0,0,.7);
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);
+  font-family:"Source Serif 4",Georgia,"Times New Roman",serif;font-size:16.5px;line-height:1.62;
+  -webkit-font-smoothing:antialiased;padding:0 0 80px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+h1,h2,h3,h4,.mono,.eyebrow,th,.tag,.btn{font-family:Archivo,"Helvetica Neue",Arial,sans-serif}
+.mono,.num,td.n,th.n,.dimtxt{font-family:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;font-variant-numeric:tabular-nums}
+h1{font-size:clamp(38px,7vw,74px);line-height:.96;font-weight:600;letter-spacing:-.028em;margin:0;text-wrap:balance}
+h2{font-size:clamp(24px,3.1vw,34px);line-height:1.1;font-weight:600;letter-spacing:-.02em;margin:0;text-wrap:balance}
+h3{font-size:19px;line-height:1.25;font-weight:600;letter-spacing:-.008em;margin:0;text-wrap:balance}
+h4{font-size:13px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--teal);margin:0}
+p{margin:0}
+a{color:var(--teal)}
+strong{font-weight:600;color:var(--ink)}
+.eyebrow{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+
+/* ---------- title block ---------- */
+.cover{padding:56px 0 34px;border-bottom:2px solid var(--ink)}
+.cover-top{display:flex;flex-wrap:wrap;gap:16px 30px;align-items:baseline;justify-content:space-between;
+  border-bottom:1px solid var(--rule);padding-bottom:14px;margin-bottom:34px}
+.lede{font-size:19.5px;line-height:1.55;color:var(--ink-2);max-width:62ch;margin-top:22px}
+.tblock{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:0;margin-top:38px;
+  border-top:1px solid var(--ink);border-left:1px solid var(--rule)}
+.tblock div{border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:11px 13px 13px}
+.tblock dt{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 5px}
+.tblock dd{margin:0;font-family:Archivo,sans-serif;font-weight:600;font-size:22px;letter-spacing:-.02em;line-height:1}
+.tblock dd small{font-size:11.5px;font-weight:500;color:var(--muted);letter-spacing:0}
+
+/* ---------- sheets ---------- */
+.sheet{background:var(--sheet);border:1px solid var(--rule);box-shadow:var(--sheet-shadow);
+  margin-top:30px;padding:30px 28px 34px;position:relative;border-radius:2px}
+.sheet-head{display:flex;gap:18px;align-items:flex-start;border-bottom:1.5px solid var(--ink);
+  padding-bottom:14px;margin-bottom:24px}
+.sheet-no{font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:600;letter-spacing:.06em;
+  color:var(--sheet);background:var(--ink);padding:5px 9px 4px;border-radius:2px;white-space:nowrap;flex:none}
+:root[data-theme="dark"] .sheet-no,:root:not([data-theme="light"]) .sheet-no{color:#061820}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]) .sheet-no{color:var(--sheet)}}
+.sheet-head p{color:var(--muted);font-size:14.5px;margin-top:5px;max-width:64ch}
+.prose p+p{margin-top:15px}
+.prose{max-width:70ch}
+.cols{display:grid;grid-template-columns:1fr;gap:26px}
+@media(min-width:860px){.cols.two{grid-template-columns:1fr 1fr}.cols.side{grid-template-columns:1.35fr 1fr}}
+
+/* ---------- findings list ---------- */
+.finds{display:grid;gap:0;border-top:1px solid var(--rule)}
+.find{display:grid;grid-template-columns:34px 1fr;gap:0 16px;padding:15px 0 16px;border-bottom:1px solid var(--rule-2)}
+@media(min-width:760px){.find{grid-template-columns:34px 1.05fr 1.15fr;gap:0 26px}}
+.find .k{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--muted);padding-top:3px}
+.find .w{font-weight:600;font-family:Archivo,sans-serif;font-size:15px;line-height:1.4}
+.find .w span{display:block;font-family:"Source Serif 4",serif;font-weight:400;font-size:14.5px;
+  color:var(--ink-2);margin-top:4px;line-height:1.5}
+.find .o{font-size:14.5px;color:var(--ink-2);line-height:1.5}
+.find .o b{font-family:Archivo,sans-serif;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--verde-hi);display:block;margin-bottom:3px;font-weight:600}
+
+/* ---------- drawing frame ---------- */
+.plate{display:grid;grid-template-columns:1fr;gap:20px;margin-top:6px}
+@media(min-width:1000px){.plate{grid-template-columns:minmax(0,1fr) 302px;gap:26px;align-items:start}}
+.frame{border:1px solid var(--ink);background:var(--sheet-2);padding:9px;position:relative;overflow-x:auto}
+.frame svg{display:block;width:100%;height:auto;min-width:340px}
+.keypanel{position:sticky;top:14px;align-self:start;max-height:calc(100vh - 28px);overflow-y:auto;
+  border:1px solid var(--rule);background:var(--sheet-2);padding:14px 15px 16px}
+.keypanel h4{margin-bottom:10px}
+.keygrp{border-top:1px solid var(--rule-2);padding-top:9px;margin-top:11px}
+.keygrp:first-of-type{border-top:0;margin-top:0;padding-top:0}
+.keygrp>span{font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px}
+button.key{display:flex;width:100%;gap:9px;align-items:flex-start;background:none;border:0;cursor:pointer;
+  padding:3.5px 5px;margin:0 -5px;text-align:left;color:var(--ink);border-radius:2px;font:inherit}
+button.key:hover{background:var(--rule-2)}
+button.key:focus-visible{outline:2px solid var(--sea);outline-offset:1px}
+button.key[aria-pressed="true"]{background:var(--ink);color:var(--sheet)}
+:root[data-theme="dark"] button.key[aria-pressed="true"],
+:root:not([data-theme="light"]) button.key[aria-pressed="true"]{color:#061820}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]) button.key[aria-pressed="true"]{color:var(--sheet)}}
+button.key i{flex:none;width:13px;height:13px;border:1px solid rgba(6,34,45,.35);margin-top:3px;border-radius:1px}
+button.key em{font-style:normal;font-family:Archivo,sans-serif;font-size:12.5px;line-height:1.35;font-weight:500}
+button.key em b{display:block;font-family:"IBM Plex Mono",monospace;font-size:10.5px;font-weight:400;
+  opacity:.72;letter-spacing:.01em}
+.tools{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 12px}
+.btn{font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;padding:6px 11px;
+  border:1px solid var(--rule);background:var(--sheet);color:var(--ink-2);cursor:pointer;border-radius:2px}
+.btn:hover{border-color:var(--teal);color:var(--teal)}
+.btn:focus-visible{outline:2px solid var(--sea);outline-offset:1px}
+.btn[aria-pressed="true"]{background:var(--teal);border-color:var(--teal);color:var(--sheet)}
+:root[data-theme="dark"] .btn[aria-pressed="true"],
+:root:not([data-theme="light"]) .btn[aria-pressed="true"]{color:#061820}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]) .btn[aria-pressed="true"]{color:var(--sheet)}}
+#plan.dimmed .parcel:not(.hit){opacity:.16}
+#plan .parcel{transition:opacity .18s ease}
+#plan.hidedims #dims{display:none}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+.hit-ring{fill:none;stroke:var(--brass);stroke-width:2.4;pointer-events:none}
+
+/* ---------- tables ---------- */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--rule);background:var(--sheet-2)}
+table{border-collapse:collapse;width:100%;min-width:460px;font-size:14px}
+caption{text-align:left;font-family:Archivo,sans-serif;font-size:12px;font-weight:600;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--teal);padding:0 0 8px}
+th{font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);font-weight:600;
+  text-align:left;padding:9px 12px;border-bottom:1px solid var(--ink);white-space:nowrap}
+td{padding:8px 12px;border-bottom:1px solid var(--rule-2);vertical-align:top}
+td.n,th.n{text-align:right}
+tbody tr:last-child td{border-bottom:0}
+tfoot td{border-top:1.5px solid var(--ink);border-bottom:0;font-weight:600;font-family:Archivo,sans-serif}
+tfoot td.n{font-family:"IBM Plex Mono",monospace}
+td small{color:var(--muted);font-size:12.5px}
+.swatch{display:inline-block;width:10px;height:10px;border:1px solid rgba(6,34,45,.3);margin-right:7px;
+  vertical-align:baseline;border-radius:1px}
+
+/* ---------- misc blocks ---------- */
+.note{border-left:2px solid var(--brass);padding:2px 0 2px 15px;color:var(--ink-2);font-size:15px;margin-top:18px}
+.note b{font-family:Archivo,sans-serif;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--brass);display:block;margin-bottom:3px;font-weight:600}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:0;
+  border-top:1px solid var(--rule);border-left:1px solid var(--rule-2)}
+.grid3>div{border-right:1px solid var(--rule-2);border-bottom:1px solid var(--rule-2);padding:14px 15px 16px}
+.grid3 h3{font-size:14.5px;margin-bottom:6px}
+.grid3 p{font-size:14px;color:var(--ink-2);line-height:1.5}
+.grid3 .mono{font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:7px}
+.rec{border-top:1px solid var(--rule);padding:16px 0 17px}
+.rec:last-child{padding-bottom:0}
+.rec h3{color:var(--teal);margin-bottom:9px}
+.rec ul{margin:0;padding-left:0;list-style:none;display:grid;gap:9px}
+.rec li{padding-left:22px;position:relative;font-size:15px;color:var(--ink-2);line-height:1.52}
+.rec li::before{content:"";position:absolute;left:2px;top:.62em;width:9px;height:1.5px;background:var(--brass)}
+.rec li b{color:var(--ink);font-weight:600}
+.phase{display:grid;gap:0;border-top:1px solid var(--rule)}
+.phrow{display:grid;grid-template-columns:1fr;gap:4px 20px;padding:15px 0;border-bottom:1px solid var(--rule-2)}
+@media(min-width:780px){.phrow{grid-template-columns:118px 1fr 128px;align-items:baseline}}
+.phrow .p{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--teal);font-weight:500}
+.phrow .d{font-size:14.5px;color:var(--ink-2)}
+.phrow .d b{color:var(--ink);font-family:Archivo,sans-serif;font-size:14.5px;display:block;margin-bottom:2px}
+.phrow .t{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--muted);letter-spacing:.05em}
+footer{margin-top:34px;padding-top:18px;border-top:1px solid var(--rule);color:var(--muted);font-size:13px;
+  display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
+</style>
+<div class="wrap">
+
+<header class="cover">
+  <div class="cover-top">
+    <span class="eyebrow">Masterplan Report &middot; Issue A &middot; For Client Review</span>
+    <span class="eyebrow">Scale 1:2500 @ A1 &middot; Drawing Set MP-00 &rarr; MP-11</span>
+  </div>
+  <h1>Marsa<br>Coastal Masterplan</h1>
+  <p class="lede">A 42-hectare integrated coastal destination on 420&nbsp;m of beach: a sea-fed 70-berth marina, two 70-key
+  hotels, fourteen royal villas, 700 residences and a 210&nbsp;m retail frontage &mdash; replanned so that the marina, not
+  the road network, becomes the organising idea of the site.</p>
+
+  <dl class="tblock">
+    <div><dt>Beach frontage</dt><dd>420<small> m</small></dd></div>
+    <div><dt>Site depth</dt><dd>1,000<small> m</small></dd></div>
+    <div><dt>Gross site area</dt><dd>42.0<small> ha</small></dd></div>
+    <div><dt>Residential units</dt><dd>700</dd></div>
+    <div><dt>Hotel keys</dt><dd>140<small> / 2 hotels</small></dd></div>
+    <div><dt>Marina berths</dt><dd>70<small> &le; 50 ft</small></dd></div>
+    <div><dt>Gross plot ratio</dt><dd>0.45</dd></div>
+    <div><dt>Landscape &amp; water</dt><dd>36.9<small> %</small></dd></div>
+  </dl>
+</header>
+
+<!-- ============ MP-01 ANALYSIS ============ -->
+<section class="sheet">
+  <div class="sheet-head">
+    <span class="sheet-no">MP-01</span>
+    <div><h2>Reading the reference plan</h2>
+    <p>What the supplied sketch establishes, and what it leaves on the table. The land proportions and the
+    programme are carried forward unchanged; the organising logic is not.</p></div>
+  </div>
+  <div class="cols side">
+    <div class="prose">
+      <p>The reference plan is a <strong>mirrored, axial composition</strong>: a single hotel centred on the beach,
+      two straight ranks of villas flanking it, an inland rectangular basin, and a pair of symmetrical residential
+      fans filling the southern two thirds. It reads clearly at a glance, and that legibility is worth keeping.</p>
+      <p>Three things in it are structurally sound and are retained. First, the <strong>north&ndash;south central
+      axis</strong> from the highway to the sea &mdash; on a site 420&nbsp;m wide and 1,000&nbsp;m deep, a single
+      spine is the only way to make the depth comprehensible. Second, <strong>hospitality and villas hold the
+      beach</strong>, with density pushed inland; that is the correct value gradient. Third, the
+      <strong>marina sits mid-site</strong>, where it can serve both the beach district and the residential
+      districts rather than belonging to only one of them.</p>
+      <p>Everything else is a diagram of intent rather than a plan. The basin is a rectangle whose entrance is drawn
+      on its <em>inland</em> side and never reaches open water. The residential fans are a road pattern first and a
+      neighbourhood second &mdash; loops drawn for geometry, with plots hung off them. Buildings run up to the
+      boundary on three sides. The strip mall, the second hotel and the gates are named in the legend but not
+      resolved on the ground.</p>
+    </div>
+    <div>
+      <div class="grid3" style="grid-template-columns:1fr">
+        <div><span class="mono">Carried forward</span><h3>Programme &amp; proportion</h3>
+          <p>420&nbsp;m &times; 1,000&nbsp;m, ~700 units, 70 yachts to 50&nbsp;ft, 14 villas, 210&nbsp;m of retail
+          frontage, 3 gates. Nothing is traded away.</p></div>
+        <div><span class="mono">Carried forward</span><h3>Value gradient</h3>
+          <p>Hospitality and signature villas on the sand; density stepping inland; the marina as the middle
+          ground that both halves share.</p></div>
+        <div><span class="mono">Replaced</span><h3>Mirror symmetry</h3>
+          <p>A coastline is not symmetrical and neither is a working harbour. Symmetry here costs frontage and
+          produces two of everything the operator only needs one of.</p></div>
+        <div><span class="mono">Replaced</span><h3>Road-led geometry</h3>
+          <p>The residential fans spend roughly a third of their land on asphalt. Re-cutting the blocks around
+          water and landscape recovers most of it.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MP-02 WEAKNESSES ============ -->
+<section class="sheet">
+  <div class="sheet-head">
+    <span class="sheet-no">MP-02</span>
+    <div><h2>Weaknesses and the opportunity in each</h2>
+    <p>Twelve issues, ordered by how much value each one costs. Every response is carried into the plan on MP-04.</p></div>
+  </div>
+  <div class="finds">
+    <div class="find"><span class="k">01</span>
+      <span class="w">The marina never reaches the sea<span>The basin is landlocked and its notional entrance points
+      inland. As drawn it is an ornamental lake, not a harbour.</span></span>
+      <span class="o"><b>Response</b>A 45&nbsp;m dredged approach channel on the western edge, running 340&nbsp;m from
+      twin training jetties into the basin. The whole beach stays continuous east of it.</span></div>
+    <div class="find"><span class="k">02</span>
+      <span class="w">A rectangular basin wastes its own perimeter<span>Straight quays give the shortest possible
+      water edge for the water area, and no address hierarchy along it.</span></span>
+      <span class="o"><b>Response</b>An irregular basin with headlands, a plaza bay and an island: 4.10&nbsp;ha of water
+      generating ~1,180&nbsp;m of quay, and four distinct water addresses instead of one.</span></div>
+    <div class="find"><span class="k">03</span>
+      <span class="w">Only 420&nbsp;m of the site can ever see the sea<span>Roughly 4% of the land has natural
+      waterfront. The rest competes on nothing.</span></span>
+      <span class="o"><b>Response</b>Manufacture water. Channel, basin and a central lagoon lift activated water edge
+      to ~3,140&nbsp;m &mdash; <strong>7.5&times; the natural coastline</strong> &mdash; and put 41% of units on water.</span></div>
+    <div class="find"><span class="k">04</span>
+      <span class="w">Buildings sit on the boundary wall<span>Villas and residential blocks abut the perimeter on the
+      east, west and south. No buffer, no fire access, no edge.</span></span>
+      <span class="o"><b>Response</b>A mandatory 27&nbsp;m perimeter section on every wall: 12&nbsp;m planting,
+      7&nbsp;m fire and service lane, 8&nbsp;m setback planting. See the detail on MP-04.</span></div>
+    <div class="find"><span class="k">05</span>
+      <span class="w">Fourteen villas in two straight rows<span>Rank-and-file plots give the rear row a view of the
+      front row's roofs, and give the front row no privacy from the road behind.</span></span>
+      <span class="o"><b>Response</b>A crescent, not a row: three plots on the sand around a signature villa, four on a
+      raised terrace behind, and 10&nbsp;m green view corridors cut through to the water.</span></div>
+    <div class="find"><span class="k">06</span>
+      <span class="w">One hotel is drawn; two are required<span>The brief needs two 70-key hotels that do not compete
+      for the same guest, the same view or the same arrival.</span></span>
+      <span class="o"><b>Response</b>Two opposite products 600&nbsp;m apart: a low horizontal beach resort on the sand,
+      and a compact five-storey marina hotel on the harbour's south-east headland.</span></div>
+    <div class="find"><span class="k">07</span>
+      <span class="w">A single gate for every kind of traffic<span>Residents, guests, retail visitors and refuse trucks
+      would share one throat, and the retail frontage is unresolved.</span></span>
+      <span class="o"><b>Response</b>Three gates 178&nbsp;m apart along the frontage, each with one job, plus a screened
+      service lane inside Gate 2. The strip mall is split to frame Gate 1.</span></div>
+    <div class="find"><span class="k">08</span>
+      <span class="w">Roads consume the residential districts<span>The looping fans are a circulation diagram with plots
+      attached. Frontage is spent on turning geometry.</span></span>
+      <span class="o"><b>Response</b>The boulevard splits into two 11&nbsp;m one-way carriageways around the lagoon.
+      Roads and parking fall to 15% of site while walkable frontage rises.</span></div>
+    <div class="find"><span class="k">09</span>
+      <span class="w">No separation of service from guest<span>Hotel deliveries, marina fuel and refuse would arrive
+      through the same porte-coch&egrave;re as the guest.</span></span>
+      <span class="o"><b>Response</b>A continuous 7&nbsp;m perimeter lane doubling as fire access reaches every
+      back-of-house yard from behind. No service vehicle enters the boulevard.</span></div>
+    <div class="find"><span class="k">10</span>
+      <span class="w">Landscape is infill, not structure<span>Planting fills the gaps left over after roads and plots
+      are set out, so it can be value-engineered away.</span></span>
+      <span class="o"><b>Response</b>Landscape is set out first as five corridors &mdash; dune, sea axis, channel park,
+      lagoon spine, perimeter belt &mdash; that the plots are then cut around.</span></div>
+    <div class="find"><span class="k">11</span>
+      <span class="w">Nothing marks arrival from the sea<span>Approaching by water there is no landmark, and no way to
+      find the entrance.</span></span>
+      <span class="o"><b>Response</b>A 22&nbsp;m harbourmaster tower at the channel head, on axis, visible from 6&nbsp;NM;
+      the marina hotel behind it as the second, taller marker.</span></div>
+    <div class="find"><span class="k">12</span>
+      <span class="w">No phase can stand alone<span>With one gate and no serviced first parcel, nothing can open until
+      almost everything is finished.</span></span>
+      <span class="o"><b>Response</b>Four phases, each independently trading: retail and marine works first, hospitality
+      second, marina hotel third, residential last. See MP-10.</span></div>
+  </div>
+</section>
+
+<!-- ============ MP-03 ZONING ============ -->
+<section class="sheet">
+  <div class="sheet-head">
+    <span class="sheet-no">MP-03</span>
+    <div><h2>Zoning strategy</h2>
+    <p>The site is read as seven bands across its 1,000&nbsp;m depth, with height inverted against the shoreline and
+    three independent access systems threaded through them.</p></div>
+  </div>
+  <div class="cols two">
+    <div class="prose">
+      <h4>Bands, north to south</h4>
+      <p style="margin-top:12px">Depth is the site's difficulty and its asset. Banding it makes the walk legible and
+      lets each phase be handed over complete.</p>
+      <p><strong>0&ndash;32&nbsp;m &middot; Beach and dune.</strong> Sand, boardwalk and light pavilions only. No
+      permanent structure within 30&nbsp;m of mean high water.</p>
+      <p><strong>32&ndash;218&nbsp;m &middot; Beachfront hospitality.</strong> Hotel 1, the Sea Axis Park and the Royal
+      Crescent. Nothing above 13&nbsp;m.</p>
+      <p><strong>236&ndash;330&nbsp;m &middot; Marina villas.</strong> Seven plots with private berths, addressing the
+      harbour's north quay.</p>
+      <p><strong>345&ndash;565&nbsp;m &middot; The harbour.</strong> Basin, piers, island and quays &mdash; the centre
+      of gravity of the whole destination.</p>
+      <p><strong>556&ndash;700&nbsp;m &middot; Marina Village.</strong> Retail, restaurants, yacht club, quay terraces
+      and the marina hotel. The only genuinely urban part of the plan.</p>
+      <p><strong>650&ndash;896&nbsp;m &middot; Residential districts.</strong> Four garden courts, two townhouse
+      precincts and the central lagoon.</p>
+      <p><strong>900&ndash;1,000&nbsp;m &middot; Arrival and retail.</strong> The 210&nbsp;m strip mall in two wings,
+      the three gates, and everything the public may reach without passing a barrier.</p>
+    </div>
+    <div>
+      <h4>Height, inverted against the sea</h4>
+      <div class="tbl-wrap" style="margin-top:12px">
+        <table>
+          <thead><tr><th>Zone</th><th>Storeys</th><th class="n">Max ht</th></tr></thead>
+          <tbody>
+            <tr><td>Beach pavilions &amp; club</td><td>G</td><td class="n">5 m</td></tr>
+            <tr><td>Royal Crescent villas</td><td>G+1</td><td class="n">9 m</td></tr>
+            <tr><td>Marina villas</td><td>G+1</td><td class="n">9 m</td></tr>
+            <tr><td>Hotel 1 &mdash; Beach Resort</td><td>G+2</td><td class="n">13 m</td></tr>
+            <tr><td>Strip Mall</td><td>G+1</td><td class="n">10 m</td></tr>
+            <tr><td>Lagoon &amp; courtyard townhouses</td><td>G+2</td><td class="n">11 m</td></tr>
+            <tr><td>Marina Village</td><td>G+3</td><td class="n">16 m</td></tr>
+            <tr><td>Garden courts &amp; quay terraces</td><td>G+4</td><td class="n">19 m</td></tr>
+            <tr><td>Hotel 2 &mdash; Marina Hotel</td><td>G+5</td><td class="n">26 m</td></tr>
+            <tr><td>Harbourmaster tower</td><td>&mdash;</td><td class="n">22 m</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note"><b>Why inverted</b>Height rises with distance from the water, so no building ever stands
+      between another and the sea. It also keeps the beach intimate: from the sand, the tallest thing visible is a
+      13&nbsp;m hotel 100&nbsp;m away, not a wall of apartments.</div>
+      <h4 style="margin-top:24px">Three access systems</h4>
+      <div class="grid3" style="grid-template-columns:1fr;margin-top:12px">
+        <div><span class="mono">Gate 1 &middot; centre</span><h3>Public &amp; retail</h3><p>Strip mall, boulevard,
+        Marina Plaza, beach. Reaches the destination without entering a residential precinct.</p></div>
+        <div><span class="mono">Gate 2 &middot; west</span><h3>Residents &amp; service</h3><p>West collector to the
+        garden courts, plus a separately gated and screened service lane to the perimeter loop.</p></div>
+        <div><span class="mono">Gate 3 &middot; east</span><h3>VIP, hotels &amp; marina</h3><p>East collector direct to
+        Hotel 2, Hotel 1, the Royal Crescent and the villa quay. No retail traffic on it.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+#plan{shape-rendering:geometricPrecision}
+#plan text{font-family:"IBM Plex Mono",monospace;fill:var(--ink)}
+.sea-body{fill:var(--sea-hi)}
+.w{fill:var(--sea)}
+.wl{fill:var(--sea-lo)}
+.sand{fill:var(--sand)}
+.base-grn{fill:var(--verde-lo)}
+.grn{fill:var(--verde-lo)}
+.grn2{fill:var(--verde)}
+.pav{fill:var(--sand-lo);stroke:var(--stone-line);stroke-width:.4}
+.tar{fill:var(--tarmac)}
+.tarS{fill:none;stroke:var(--tarmac);stroke-linecap:round;stroke-linejoin:round}
+.bld{fill:var(--stone);stroke:var(--stone-line);stroke-width:.9}
+.bld-h{fill:var(--stone);stroke:var(--teal);stroke-width:1.3}
+.bld-sig{fill:var(--stone);stroke:var(--brass);stroke-width:1.6}
+.pool{fill:var(--pool)}
+.plot{fill:none;stroke:var(--stone-line);stroke-width:.55;stroke-dasharray:3 2}
+.bnd{fill:none;stroke:var(--ink);stroke-width:1.5}
+.wall{fill:none;stroke:var(--ink);stroke-width:2.2}
+.palm{fill:var(--verde-hi)}
+.boat{fill:var(--sheet);stroke:var(--ink-2);stroke-width:.35;opacity:.92}
+.pier{fill:var(--sand-lo);stroke:var(--stone-line);stroke-width:.3}
+.lbl{font-size:9.5px;font-weight:500;letter-spacing:.02em}
+.lbl-sm{font-size:7.4px;fill:var(--ink-2);letter-spacing:.03em}
+.lbl-w{font-size:9.5px;font-weight:500;fill:#F2F8F9;letter-spacing:.02em}
+.lead{stroke:var(--ink-2);stroke-width:.5;fill:none}
+.dimline{stroke:var(--brass);stroke-width:.7;fill:none}
+.dimtxt{font-size:8.4px;fill:var(--brass);font-weight:500;letter-spacing:.05em}
+.rock{fill:var(--tarmac-line)}
+</style>
+
+<!-- ============ MP-04 THE MASTERPLAN ============ -->
+<section class="sheet" id="mp04">
+  <div class="sheet-head">
+    <span class="sheet-no">MP-04</span>
+    <div><h2>Masterplan &amp; key</h2>
+    <p>North is up; the sea is at the top. Select any item in the key to isolate it on the plan. Parcel
+    subdivision is indicative at this scale &mdash; the schedules on MP-05 govern.</p></div>
+  </div>
+
+  <div class="tools">
+    <button class="btn" id="tDim" aria-pressed="true">Dimensions</button>
+    <button class="btn" id="tLbl" aria-pressed="true">Labels</button>
+    <button class="btn" id="tClr">Clear selection</button>
+  </div>
+
+  <div class="plate">
+    <div class="frame">
+      <svg id="plan" viewBox="-52 -178 524 1320" role="img"
+           aria-label="Masterplan of Marsa coastal resort: beach and sea at the top, a marina channel entering from the sea on the west side into an irregular marina basin at mid-site, hotels and villas on the beachfront, residential districts and a central lagoon inland, and a strip mall with three gates on the southern highway frontage.">
+        <defs>
+          <linearGradient id="seaG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="var(--sea-hi)"/><stop offset="1" stop-color="var(--sea)"/>
+          </linearGradient>
+          <filter id="soft" x="-6%" y="-6%" width="112%" height="112%">
+            <feDropShadow dx="0" dy="1.1" stdDeviation="1.1" flood-color="#06222D" flood-opacity="0.20"/>
+          </filter>
+        </defs>
+
+        <!-- ===== SEA ===== -->
+        <rect x="-52" y="-178" width="524" height="184" fill="url(#seaG)"/>
+        <g stroke="#EAF6F8" stroke-opacity=".30" stroke-width="1.1" fill="none">
+          <path d="M-52,-158 C10,-166 60,-150 120,-158 C180,-166 250,-150 320,-158 C380,-164 430,-152 472,-158"/>
+          <path d="M-52,-126 C20,-134 70,-118 140,-126 C210,-134 270,-118 340,-126 C400,-132 440,-120 472,-126"/>
+          <path d="M-52,-92 C30,-100 80,-84 150,-92 C220,-100 280,-84 350,-92 C410,-98 445,-86 472,-92"/>
+          <path d="M-52,-56 C40,-64 90,-48 160,-56 C230,-64 290,-48 360,-56 C415,-62 448,-50 472,-56"/>
+          <path d="M-52,-26 C40,-34 90,-18 160,-26 C230,-34 290,-18 360,-26 C415,-32 448,-20 472,-26"/>
+        </g>
+
+        <!-- ===== BASE GREEN (site) ===== -->
+        <rect class="base-grn" x="0" y="30" width="420" height="970"/>
+
+        <!-- ===== BEACH ===== -->
+        <g class="parcel" data-key="beach">
+          <path class="sand" d="M0,3 Q14,-1 26,2 Q30,3 34,1 L34,32 L0,32 Z"/>
+          <path class="sand" d="M79,1 Q130,-3 180,2 Q240,6 300,0 Q356,-4 420,3 L420,32 L79,32 Z"/>
+          <path d="M0,3 Q14,-1 26,2 Q30,3 34,1" fill="none" stroke="#F4FBFC" stroke-opacity=".7" stroke-width="1.4"/>
+          <path d="M79,1 Q130,-3 180,2 Q240,6 300,0 Q356,-4 420,3" fill="none" stroke="#F4FBFC" stroke-opacity=".7" stroke-width="1.4"/>
+          <path class="pav" d="M79,30 L420,30 L420,33.5 L79,33.5 Z"/>
+        </g>
+
+        <!-- ===== TRAINING JETTIES ===== -->
+        <g class="parcel" data-key="chan">
+          <path class="rock" d="M30,6 L24,-52 L15,-118 L30,-122 L41,-54 L46,4 Z"/>
+          <path class="rock" d="M83,4 L90,-46 L100,-90 L114,-86 L105,-42 L99,2 Z"/>
+          <!-- ===== APPROACH CHANNEL ===== -->
+          <path class="w" d="M34,-132 L34,150 L30,176 L30,254 L34,280 L34,348 L79,348 L79,280 L84,254 L84,176 L79,150 L79,-132 Z"/>
+        </g>
+
+        <!-- ===== MARINA BASIN ===== -->
+        <g class="parcel" data-key="basin">
+          <path class="w" d="M30,346 L84,346 C132,352 164,342 204,349 C244,356 272,358 300,370
+            C307,398 307,434 303,464 C299,494 293,514 301,540 C303,554 300,560 296,564
+            C272,574 250,571 236,569 L198,569 C172,567 142,565 114,569
+            C104,571 94,569 88,558 C102,538 106,514 104,486 C102,452 100,420 96,398
+            C88,376 62,366 36,356 C32,353 30,350 30,346 Z"/>
+          <ellipse class="grn2" cx="255" cy="503" rx="30" ry="19"/>
+          <rect class="bld" x="243" y="496" width="24" height="14" rx="1"/>
+          <path class="pav" d="M253.5,522 L251,566 L254.5,566 L257,522 Z"/>
+        </g>
+
+        <!-- ===== QUAYS &amp; PIERS ===== -->
+        <g class="parcel" data-key="quay">
+          <rect class="pav" x="96" y="332" width="279" height="14"/>
+          <rect class="pav" x="88" y="396" width="16" height="164"/>
+          <rect class="pav" x="301" y="370" width="13" height="196"/>
+          <path class="pav" d="M88,558 C104,570 140,566 172,568 L300,566 L300,580 L170,582 C138,580 100,584 84,568 Z"/>
+          <rect class="pier" x="94" y="427" width="62" height="4"/>
+          <rect class="pier" x="126" y="470" width="4" height="96"/>
+          <rect class="pier" x="180" y="482" width="4" height="84"/>
+          <g id="fingers"></g>
+        </g>
+        <g id="boats"></g>
+
+        <!-- ===== MARINA PLAZA ===== -->
+        <g class="parcel" data-key="plaza">
+          <path class="pav" d="M186,570 C190,548 242,548 248,570 L248,626 L186,626 Z"/>
+          <path d="M191,568 C196,554 238,554 243,568" fill="none" stroke="var(--stone-line)" stroke-width=".5"/>
+          <path d="M196,566 C201,558 233,558 238,566" fill="none" stroke="var(--stone-line)" stroke-width=".5"/>
+          <circle class="w" cx="217" cy="600" r="8.5"/>
+          <circle cx="217" cy="600" r="3" fill="var(--sea-lo)"/>
+        </g>
+
+        <!-- ===== HARBOURMASTER ===== -->
+        <g class="parcel" data-key="hm">
+          <circle class="bld-sig" cx="90" cy="338" r="6"/>
+        </g>
+
+        <!-- ===== HOTEL 1 ===== -->
+        <g class="parcel" data-key="h1">
+          <rect x="100" y="32" width="115" height="186" fill="var(--sand-lo)" opacity=".55"/>
+          <g filter="url(#soft)">
+            <rect class="bld-h" x="122" y="36" width="72" height="20" rx="1.5"/>
+            <rect class="bld-h" x="118" y="80" width="26" height="78" rx="1.5"/>
+            <rect class="bld-h" x="180" y="80" width="26" height="78" rx="1.5"/>
+            <rect class="bld-h" x="110" y="164" width="98" height="28" rx="1.5"/>
+            <rect class="bld" x="100" y="112" width="14" height="46" rx="1"/>
+            <rect class="bld" x="148" y="192" width="28" height="9" rx="1"/>
+          </g>
+          <rect class="pool" x="134" y="58" width="48" height="13" rx="2"/>
+          <rect class="pool" x="151" y="92" width="22" height="46" rx="4"/>
+        </g>
+
+        <!-- ===== SEA AXIS PARK ===== -->
+        <g class="parcel" data-key="axis">
+          <rect class="grn2" x="215" y="32" width="35" height="186"/>
+          <rect class="w" x="229" y="52" width="7" height="152"/>
+          <rect class="bld" x="217" y="35" width="31" height="13" rx="1"/>
+        </g>
+
+        <!-- ===== ROYAL CRESCENT ===== -->
+        <g class="parcel" data-key="rc">
+          <rect x="250" y="32" width="143" height="186" fill="var(--sand-lo)" opacity=".5"/>
+          <rect class="grn" x="290" y="34" width="10" height="90"/>
+          <rect class="grn" x="352" y="34" width="10" height="90"/>
+          <path class="grn2" d="M250,122 L393,122 L393,140 L250,140 Z"/>
+          <rect class="w" x="256" y="128" width="131" height="5"/>
+          <rect class="plot" x="250" y="34" width="40" height="78"/>
+          <rect class="plot" x="300" y="34" width="52" height="86"/>
+          <rect class="plot" x="362" y="34" width="31" height="82"/>
+          <g filter="url(#soft)">
+            <rect class="bld" x="256" y="44" width="28" height="38" rx="1"/>
+            <rect class="bld-sig" x="307" y="44" width="38" height="48" rx="1"/>
+            <rect class="bld" x="366" y="44" width="24" height="40" rx="1"/>
+          </g>
+          <rect class="pool" x="256" y="88" width="28" height="10" rx="2"/>
+          <rect class="pool" x="307" y="98" width="38" height="12" rx="2"/>
+          <rect class="pool" x="366" y="90" width="24" height="10" rx="2"/>
+          <g id="rcTier2"></g>
+        </g>
+
+        <!-- ===== COASTAL COLLECTOR ===== -->
+        <rect class="tar" x="15" y="221" width="390" height="14"/>
+        <line x1="18" y1="228" x2="402" y2="228" stroke="var(--sand-lo)" stroke-width=".6" stroke-dasharray="6 5"/>
+
+        <!-- ===== MARINA VILLAS ===== -->
+        <g class="parcel" data-key="mv">
+          <rect x="100" y="238" width="275" height="94" fill="var(--sand-lo)" opacity=".5"/>
+          <rect class="grn2" x="211" y="238" width="16" height="94"/>
+          <rect class="w" x="216" y="248" width="6" height="76"/>
+          <g id="mvRow"></g>
+        </g>
+
+        <!-- ===== WEST QUAY TERRACES ===== -->
+        <g class="parcel" data-key="wqt" filter="url(#soft)">
+          <rect class="bld" x="30" y="402" width="50" height="30" rx="1"/>
+          <rect class="bld" x="30" y="442" width="50" height="30" rx="1"/>
+          <rect class="bld" x="30" y="482" width="50" height="30" rx="1"/>
+          <rect class="bld" x="30" y="522" width="50" height="28" rx="1"/>
+        </g>
+        <g class="parcel" data-key="wqt">
+          <rect class="pool" x="42" y="436" width="26" height="5" rx="2"/>
+          <rect class="pool" x="42" y="516" width="26" height="5" rx="2"/>
+        </g>
+
+        <!-- ===== EAST QUAY TERRACES ===== -->
+        <g class="parcel" data-key="eqt" filter="url(#soft)">
+          <rect class="bld" x="318" y="374" width="42" height="30" rx="1"/>
+          <rect class="bld" x="318" y="412" width="42" height="30" rx="1"/>
+          <rect class="bld" x="318" y="450" width="42" height="30" rx="1"/>
+          <rect class="bld" x="318" y="488" width="42" height="28" rx="1"/>
+        </g>
+
+        <!-- ===== YACHT CLUB &amp; MARINA VILLAGE ===== -->
+        <g class="parcel" data-key="yc" filter="url(#soft)">
+          <rect class="bld-h" x="40" y="558" width="56" height="46" rx="1.5"/>
+        </g>
+        <g class="parcel" data-key="village" filter="url(#soft)">
+          <rect class="bld-h" x="104" y="584" width="54" height="42" rx="1.5"/>
+          <rect class="bld-h" x="162" y="584" width="22" height="42" rx="1.5"/>
+          <rect class="bld-h" x="250" y="582" width="44" height="44" rx="1.5"/>
+        </g>
+
+        <!-- ===== HOTEL 2 ===== -->
+        <g class="parcel" data-key="h2">
+          <rect x="296" y="552" width="66" height="150" fill="var(--sand-lo)" opacity=".55"/>
+          <rect class="pav" x="298" y="556" width="58" height="24"/>
+          <rect class="pool" x="306" y="560" width="42" height="14" rx="2"/>
+          <g filter="url(#soft)">
+            <rect class="bld-h" x="302" y="584" width="54" height="26" rx="1.5"/>
+            <rect class="bld-h" x="302" y="616" width="54" height="20" rx="1.5"/>
+            <rect class="bld-h" x="302" y="646" width="54" height="22" rx="1.5"/>
+            <rect class="bld" x="356" y="638" width="12" height="16" rx="1"/>
+          </g>
+          <path class="pav" d="M248,572 L298,566 L298,570 L248,576 Z"/>
+        </g>
+
+        <!-- ===== ROAD NETWORK ===== -->
+        <g class="parcel" data-key="roads">
+          <path class="tarS" stroke-width="7" d="M15.5,32 L15.5,916 L404.5,916 L404.5,350"/>
+          <path class="tarS" stroke-width="15" d="M32,1000 L32,972 C32,958 44,950 44,934 L44,640 C44,624 40,616 34,610"/>
+          <path class="tarS" stroke-width="15" d="M388,1000 L388,974 C388,958 382,950 382,934 L382,700 C382,676 370,664 370,640 L370,364 C370,346 382,338 394,330 L394,236"/>
+          <rect class="tar" x="197" y="930" width="36" height="70"/>
+          <rect class="grn2" x="209" y="930" width="12" height="70"/>
+          <circle cx="215" cy="896" r="30" fill="none" stroke="var(--tarmac)" stroke-width="11"/>
+          <circle class="grn2" cx="215" cy="896" r="19"/>
+          <circle class="w" cx="215" cy="896" r="7"/>
+          <path class="tarS" stroke-width="11" d="M190,890 C168,886 142,878 141,854 L141,690 C141,666 158,652 186,650"/>
+          <path class="tarS" stroke-width="11" d="M240,890 C262,886 289,878 290,854 L290,690 C290,666 273,652 245,650"/>
+          <circle cx="215" cy="650" r="30" fill="none" stroke="var(--tarmac)" stroke-width="11"/>
+          <circle class="grn2" cx="215" cy="650" r="19"/>
+          <circle class="w" cx="215" cy="650" r="7"/>
+          <rect class="tar" x="206" y="618" width="18" height="10"/>
+          <path class="tarS" stroke-width="8" d="M141,762 L290,762 M141,844 L290,844"/>
+        </g>
+
+        <!-- ===== CENTRAL LAGOON ===== -->
+        <g class="parcel" data-key="lagoon">
+          <path class="w" d="M216,678 C244,684 254,708 248,732 C243,754 252,780 245,802
+            C238,828 216,842 197,835 C179,828 176,808 183,788 C190,768 181,746 188,724
+            C194,702 200,674 216,678 Z"/>
+          <ellipse class="grn2" cx="216" cy="758" rx="21" ry="15"/>
+          <rect class="bld" x="205" y="752" width="22" height="13" rx="1"/>
+          <path class="pav" d="M195,757 L183,757 L183,760 L195,760 Z M237,757 L250,757 L250,760 L237,760 Z"/>
+          <rect class="pool" x="200" y="694" width="24" height="9" rx="3"/>
+        </g>
+
+        <!-- ===== LAGOON TOWNHOUSES ===== -->
+        <g class="parcel" data-key="lth"><g id="lthRows"></g></g>
+
+        <!-- ===== GARDEN COURTS ===== -->
+        <g class="parcel" data-key="gc">
+          <g filter="url(#soft)">
+            <path class="bld" fill-rule="evenodd" d="M56,654 H132 V746 H56 Z M74,672 H114 V728 H74 Z"/>
+            <path class="bld" fill-rule="evenodd" d="M56,780 H132 V860 H56 Z M74,798 H114 V842 H74 Z"/>
+            <path class="bld" fill-rule="evenodd" d="M298,654 H366 V746 H298 Z M316,672 H348 V728 H316 Z"/>
+            <path class="bld" fill-rule="evenodd" d="M298,780 H366 V860 H298 Z M316,798 H348 V842 H316 Z"/>
+          </g>
+          <rect class="grn2" x="74" y="672" width="40" height="56"/><rect class="pool" x="84" y="690" width="20" height="20" rx="3"/>
+          <rect class="grn2" x="74" y="798" width="40" height="44"/><rect class="pool" x="84" y="810" width="20" height="20" rx="3"/>
+          <rect class="grn2" x="316" y="672" width="32" height="56"/><rect class="pool" x="322" y="690" width="20" height="20" rx="3"/>
+          <rect class="grn2" x="316" y="798" width="32" height="44"/><rect class="pool" x="322" y="810" width="20" height="20" rx="3"/>
+        </g>
+
+        <!-- ===== DISTRICT PARKS ===== -->
+        <g class="parcel" data-key="parks">
+          <rect class="grn2" x="56" y="752" width="76" height="26" rx="3"/>
+          <rect class="pool" x="80" y="759" width="30" height="12" rx="4"/>
+          <rect class="grn2" x="298" y="752" width="68" height="26" rx="3"/>
+          <rect class="pool" x="318" y="759" width="30" height="12" rx="4"/>
+        </g>
+
+        <!-- ===== COURTYARD TOWNHOUSES + COMMUNITY ===== -->
+        <g class="parcel" data-key="cth"><g id="cthRows"></g></g>
+        <g class="parcel" data-key="comm" filter="url(#soft)">
+          <rect class="bld-h" x="56" y="872" width="38" height="30" rx="1.5"/>
+          <circle class="bld-sig" cx="60" cy="869" r="3.4"/>
+          <rect class="bld-h" x="300" y="872" width="42" height="30" rx="1.5"/>
+        </g>
+
+        <!-- ===== STRIP MALL, PARKING &amp; GATES ===== -->
+        <g class="parcel" data-key="mall">
+          <rect class="tar" x="56" y="900" width="135" height="26"/><rect class="tar" x="239" y="900" width="125" height="26"/>
+          <g id="parkBays"></g>
+          <g filter="url(#soft)">
+            <rect class="bld-h" x="60" y="936" width="31" height="48" rx="1.5"/>
+            <rect class="bld-h" x="95" y="936" width="33" height="48" rx="1.5"/>
+            <rect class="bld-h" x="132" y="936" width="33" height="48" rx="1.5"/>
+            <rect class="bld-h" x="255" y="936" width="33" height="48" rx="1.5"/>
+            <rect class="bld-h" x="292" y="936" width="33" height="48" rx="1.5"/>
+            <rect class="bld-h" x="329" y="936" width="31" height="48" rx="1.5"/>
+          </g>
+          <rect class="pav" x="56" y="984" width="308" height="14"/>
+        </g>
+        <g class="parcel" data-key="gates">
+          <rect class="pav" x="176" y="978" width="70" height="20"/>
+          <circle class="w" cx="211" cy="988" r="5.5"/>
+          <rect class="bld-sig" x="168" y="982" width="7" height="12" rx="1"/>
+          <rect class="bld-sig" x="247" y="982" width="7" height="12" rx="1"/>
+          <rect class="bld" x="20" y="986" width="7" height="10" rx="1"/>
+          <rect class="bld" x="38" y="986" width="7" height="10" rx="1"/>
+          <rect class="bld" x="376" y="986" width="7" height="10" rx="1"/>
+          <rect class="bld" x="394" y="986" width="7" height="10" rx="1"/>
+        </g>
+
+        <!-- ===== UTILITIES COMPOUND ===== -->
+        <g class="parcel" data-key="util" filter="url(#soft)">
+          <rect class="bld" x="24" y="596" width="34" height="30" rx="1"/>
+          <rect class="bld" x="24" y="630" width="34" height="18" rx="1"/>
+        </g>
+
+        <!-- ===== PALMS + PERIMETER TREES ===== -->
+        <g id="palms"></g>
+
+        <!-- ===== BOUNDARY WALL ===== -->
+        <path class="wall" d="M0,32 L0,1000 L420,1000 L420,32"/>
+        <rect class="bnd" x="0" y="0" width="420" height="1000" fill="none" stroke-dasharray="9 3 2 3" stroke-width="1"/>
+
+        <!-- ===== LABELS ===== -->
+        <g id="labels">
+          <text class="lbl-w" x="210" y="-100" text-anchor="middle" style="font-size:11px;letter-spacing:.28em">MEDITERRANEAN SEA</text>
+          <text class="lbl" x="250" y="22" text-anchor="middle">PUBLIC BEACH &amp; DUNE BOARDWALK</text>
+          <text class="lbl-sm" x="56" y="-70" text-anchor="middle" transform="rotate(-90 56 -70)">MARINA ENTRANCE</text>
+          <text class="lbl" x="157" y="208" text-anchor="middle">HOTEL 1</text>
+          <text class="lbl-sm" x="157" y="217" text-anchor="middle">BEACH RESORT &middot; 70 KEYS</text>
+          <text class="lbl-sm" x="232" y="212" text-anchor="middle" transform="rotate(-90 232 212)">SEA AXIS PARK</text>
+          <text class="lbl" x="326" y="42" text-anchor="middle" style="fill:var(--brass)">VILLA ROYALE</text>
+          <text class="lbl-sm" x="269" y="106" text-anchor="middle">RV-02</text>
+          <text class="lbl-sm" x="378" y="108" text-anchor="middle">RV-03</text>
+          <text class="lbl-sm" x="321" y="134" text-anchor="middle">CRESCENT COURT</text>
+          <text class="lbl" x="321" y="212" text-anchor="middle">ROYAL CRESCENT &middot; TIER 2</text>
+          <text class="lbl-sm" x="60" y="290" text-anchor="middle" transform="rotate(-90 60 290)">MARINA WALK</text>
+          <text class="lbl" x="240" y="288" text-anchor="middle">MARINA VILLAS &middot; 7 PRIVATE BERTHS</text>
+          <text class="lbl-sm" x="219" y="330" text-anchor="middle" transform="rotate(-90 219 330)">SEA MEWS</text>
+          <text class="lbl-w" x="243" y="394" text-anchor="middle" style="font-size:13px;letter-spacing:.3em">MARINA</text>
+          <text class="lbl-w" x="243" y="407" text-anchor="middle" style="font-size:8px;letter-spacing:.14em">70 BERTHS &middot; YACHTS TO 50 FT</text>
+          <text class="lbl-sm" x="255" y="506" text-anchor="middle" style="fill:var(--ink)">ISLAND</text>
+          <text class="lbl-sm" x="55" y="500" text-anchor="middle" transform="rotate(-90 55 500)">WEST QUAY TERRACES</text>
+          <text class="lbl-sm" x="339" y="446" text-anchor="middle" transform="rotate(-90 339 446)">EAST QUAY TERRACES</text>
+          <text class="lbl-sm" x="68" y="584" text-anchor="middle">YACHT CLUB</text>
+          <text class="lbl-sm" x="131" y="609" text-anchor="middle">MARINA VILLAGE</text>
+          <text class="lbl" x="217" y="617" text-anchor="middle">MARINA PLAZA</text>
+          <text class="lbl" x="322" y="684" text-anchor="middle">HOTEL 2</text>
+          <text class="lbl-sm" x="322" y="693" text-anchor="middle">MARINA HOTEL &middot; 70 KEYS</text>
+          <text class="lbl-sm" x="41" y="614" text-anchor="middle">UTILITIES</text>
+          <text class="lbl-sm" x="215" y="653" text-anchor="middle" style="fill:#F2F8F9">MARINA CIRCLE</text>
+          <text class="lbl" x="221" y="720" text-anchor="middle" style="fill:#F2F8F9">LAGOON</text>
+          <text class="lbl-sm" x="94" y="702" text-anchor="middle">GARDEN COURT W1</text>
+          <text class="lbl-sm" x="94" y="824" text-anchor="middle">GARDEN COURT W2</text>
+          <text class="lbl-sm" x="332" y="702" text-anchor="middle">GARDEN COURT E1</text>
+          <text class="lbl-sm" x="332" y="824" text-anchor="middle">GARDEN COURT E2</text>
+          <text class="lbl-sm" x="165" y="800" text-anchor="middle" transform="rotate(-90 165 800)">LAGOON TOWNHOUSES</text>
+          <text class="lbl-sm" x="267" y="800" text-anchor="middle" transform="rotate(-90 267 800)">LAGOON TOWNHOUSES</text>
+          <text class="lbl-sm" x="75" y="890" text-anchor="middle">MOSQUE</text>
+          <text class="lbl-sm" x="321" y="890" text-anchor="middle">CLUB &amp; SPORTS</text>
+          <text class="lbl-sm" x="215" y="878" text-anchor="middle">ARRIVAL CIRCLE</text>
+          <text class="lbl-sm" x="139" y="857" text-anchor="middle">COURTYARD TOWNHOUSES</text>
+          <text class="lbl" x="112" y="964" text-anchor="middle">STRIP MALL &middot; WEST WING</text>
+          <text class="lbl" x="308" y="964" text-anchor="middle">STRIP MALL &middot; EAST WING</text>
+          <text class="lbl" x="211" y="1010" text-anchor="middle" style="fill:var(--brass)">GATE 1 &middot; MAIN</text>
+          <text class="lbl-sm" x="32" y="1010" text-anchor="middle">GATE 2 &middot; RESIDENTS</text>
+          <text class="lbl-sm" x="388" y="1010" text-anchor="middle">GATE 3 &middot; VIP / HOTELS</text>
+          <text class="lbl-sm" x="210" y="1026" text-anchor="middle" style="letter-spacing:.22em">COASTAL HIGHWAY</text>
+          <g class="lead">
+            <path d="M90,338 L76,312"/><path d="M255,503 L255,512"/><path d="M75,884 L75,876"/>
+          </g>
+          <text class="lbl-sm" x="74" y="308" text-anchor="end">HARBOURMASTER</text>
+        </g>
+
+        <!-- ===== DIMENSIONS ===== -->
+        <g id="dims">
+          <path class="dimline" d="M0,-150 L0,-140 M0,-145 L420,-145 M420,-150 L420,-140"/>
+          <rect x="176" y="-155" width="70" height="12" fill="var(--sheet-2)"/>
+          <text class="dimtxt" x="211" y="-146" text-anchor="middle">420 m BEACH FRONTAGE</text>
+          <path class="dimline" d="M34,-118 L34,-108 M34,-113 L79,-113 M79,-118 L79,-108"/>
+          <text class="dimtxt" x="132" y="-110">45 m CHANNEL (40&ndash;50 m REQ.)</text>
+          <path class="dimline" d="M440,0 L450,0 M445,0 L445,1000 M440,1000 L450,1000"/>
+          <text class="dimtxt" x="445" y="500" text-anchor="middle" transform="rotate(90 445 500)">1,000 m SITE DEPTH</text>
+          <path class="dimline" d="M60,1036 L60,1046 M60,1041 L165,1041 M165,1036 L165,1046
+                                    M255,1036 L255,1046 M255,1041 L360,1041 M360,1036 L360,1046"/>
+          <text class="dimtxt" x="112" y="1052" text-anchor="middle">105 m</text>
+          <text class="dimtxt" x="308" y="1052" text-anchor="middle">105 m</text>
+          <text class="dimtxt" x="211" y="1041" text-anchor="middle">210 m RETAIL FRONTAGE</text>
+          <path class="dimline" d="M32,1060 L32,1068 M32,1064 L215,1064 M215,1060 L215,1068 M215,1064 L388,1064 M388,1060 L388,1068"/>
+          <text class="dimtxt" x="123" y="1074" text-anchor="middle">178 m</text>
+          <text class="dimtxt" x="301" y="1074" text-anchor="middle">178 m</text>
+          <path class="dimline" d="M-30,300 L-30,700"/>
+          <path class="dimline" d="M-34,300 L-26,300 M-34,700 L-26,700"/>
+          <text class="dimtxt" x="-30" y="500" text-anchor="middle" transform="rotate(-90 -30 500)">MARINA DISTRICT 400 m</text>
+        </g>
+
+        <!-- ===== NORTH POINT &amp; SCALE ===== -->
+        <g id="rose">
+          <circle cx="452" cy="-118" r="17" fill="none" stroke="var(--ink-2)" stroke-width=".8"/>
+          <path d="M452,-136 L458,-116 L452,-121 L446,-116 Z" fill="var(--ink)"/>
+          <text class="lbl" x="452" y="-95" text-anchor="middle" style="font-size:9px">N</text>
+        </g>
+        <g id="scalebar" transform="translate(-46,1090)">
+          <rect x="0" y="0" width="50" height="5" fill="var(--ink)"/>
+          <rect x="50" y="0" width="50" height="5" fill="none" stroke="var(--ink)" stroke-width=".8"/>
+          <rect x="100" y="0" width="100" height="5" fill="var(--ink)"/>
+          <text class="dimtxt" x="0" y="16" style="fill:var(--ink-2)">0</text>
+          <text class="dimtxt" x="100" y="16" text-anchor="middle" style="fill:var(--ink-2)">100</text>
+          <text class="dimtxt" x="200" y="16" text-anchor="middle" style="fill:var(--ink-2)">200 m</text>
+          <text class="dimtxt" x="250" y="5" style="fill:var(--ink-2)">SCALE 1:2500 @ A1</text>
+        </g>
+      </svg>
+    </div>
+
+    <aside class="keypanel">
+      <h4>Key &amp; schedule</h4>
+      <div class="keygrp"><span>Water &amp; coast</span>
+        <button class="key" data-t="beach"><i style="background:var(--sand)"></i><em>Beach &amp; dune boardwalk<b>420 m &middot; 1.34 ha</b></em></button>
+        <button class="key" data-t="chan"><i style="background:var(--sea)"></i><em>Sea entrance &amp; approach channel<b>45 m wide &middot; 340 m &middot; &minus;4.0 m CD</b></em></button>
+        <button class="key" data-t="basin"><i style="background:var(--sea)"></i><em>Marina basin &amp; island<b>4.10 ha &middot; &minus;3.5 m CD</b></em></button>
+        <button class="key" data-t="quay"><i style="background:var(--sand-lo)"></i><em>Quays, piers &amp; 70 berths<b>~1,180 m of quay</b></em></button>
+        <button class="key" data-t="lagoon"><i style="background:var(--sea)"></i><em>Central Lagoon &amp; Lagoon Club<b>1.35 ha &middot; ~860 m edge</b></em></button>
+      </div>
+      <div class="keygrp"><span>Hospitality</span>
+        <button class="key" data-t="h1"><i style="background:var(--stone);border-color:var(--teal)"></i><em>Hotel 1 &mdash; Beach Resort<b>70 keys &middot; G+2 &middot; 1.96 ha</b></em></button>
+        <button class="key" data-t="h2"><i style="background:var(--stone);border-color:var(--teal)"></i><em>Hotel 2 &mdash; Marina Hotel<b>70 keys &middot; G+5 &middot; 0.99 ha</b></em></button>
+        <button class="key" data-t="yc"><i style="background:var(--stone);border-color:var(--teal)"></i><em>Yacht Club<b>1,600 m&sup2; GLA</b></em></button>
+        <button class="key" data-t="hm"><i style="background:var(--stone);border-color:var(--brass)"></i><em>Harbourmaster tower<b>22 m &middot; sea landmark</b></em></button>
+      </div>
+      <div class="keygrp"><span>Villas</span>
+        <button class="key" data-t="rc"><i style="background:var(--stone);border-color:var(--brass)"></i><em>Royal Crescent &mdash; 7 villas<b>Incl. Villa Royale, 4,472 m&sup2;</b></em></button>
+        <button class="key" data-t="mv"><i style="background:var(--stone)"></i><em>Marina Villas &mdash; 7 villas<b>3,478 m&sup2; each &middot; private berth</b></em></button>
+      </div>
+      <div class="keygrp"><span>Residential &mdash; 700 units</span>
+        <button class="key" data-t="village"><i style="background:var(--stone);border-color:var(--teal)"></i><em>Marina Village &amp; residences<b>84 units over 4,500 m&sup2; GLA</b></em></button>
+        <button class="key" data-t="wqt"><i style="background:var(--stone)"></i><em>West Quay Terraces<b>70 units &middot; G+4</b></em></button>
+        <button class="key" data-t="eqt"><i style="background:var(--stone)"></i><em>East Quay Terraces<b>66 units &middot; G+4</b></em></button>
+        <button class="key" data-t="lth"><i style="background:var(--stone)"></i><em>Lagoon Townhouses<b>50 units &middot; G+2</b></em></button>
+        <button class="key" data-t="cth"><i style="background:var(--stone)"></i><em>Courtyard Townhouses<b>46 units &middot; G+2</b></em></button>
+        <button class="key" data-t="gc"><i style="background:var(--stone)"></i><em>Garden Courts W1&ndash;E2<b>370 units &middot; G+4</b></em></button>
+      </div>
+      <div class="keygrp"><span>Public &amp; movement</span>
+        <button class="key" data-t="mall"><i style="background:var(--stone);border-color:var(--teal)"></i><em>Strip Mall &amp; parking<b>210 m &middot; 11,200 m&sup2; GLA</b></em></button>
+        <button class="key" data-t="gates"><i style="background:var(--stone);border-color:var(--brass)"></i><em>Gates 1&ndash;3<b>178 m apart</b></em></button>
+        <button class="key" data-t="plaza"><i style="background:var(--sand-lo)"></i><em>Marina Plaza<b>Boulevard terminus</b></em></button>
+        <button class="key" data-t="axis"><i style="background:var(--verde)"></i><em>Sea Axis Park<b>35 m &times; 186 m</b></em></button>
+        <button class="key" data-t="parks"><i style="background:var(--verde)"></i><em>District parks &amp; pools<b>1.98 ha</b></em></button>
+        <button class="key" data-t="roads"><i style="background:var(--tarmac)"></i><em>Boulevard, collectors &amp; fire lane<b>15% of site</b></em></button>
+        <button class="key" data-t="comm"><i style="background:var(--stone);border-color:var(--teal)"></i><em>Mosque, nursery, club &amp; sports<b>5,200 m&sup2; GFA</b></em></button>
+        <button class="key" data-t="util"><i style="background:var(--stone)"></i><em>Utilities &amp; operations<b>0.55 ha</b></em></button>
+      </div>
+    </aside>
+  </div>
+
+  <div class="note" style="margin-top:22px"><b>Perimeter section &mdash; applied to every boundary wall</b>
+  Wall &rarr; <b style="display:inline;color:var(--ink-2);letter-spacing:0;text-transform:none;font-size:15px;font-family:inherit">12 m planting belt &rarr; 7 m fire and service lane &rarr; 8 m setback planting &rarr; buildings</b>.
+  Twenty-seven metres, unbroken, on the east, west and south walls; 30 m of dune setback on the north. The strip mall is
+  the single deliberate exception &mdash; it is a public frontage building addressing the highway behind a 14 m landscaped
+  forecourt, not a building shoved against a wall.</div>
+</section>
+
+<!-- ============ MP-05 SCHEDULES ============ -->
+<section class="sheet">
+  <div class="sheet-head">
+    <span class="sheet-no">MP-05</span>
+    <div><h2>Development schedules</h2>
+    <p>Land budget, unit mix, berth schedule and parking provision. Every table closes on its stated total.</p></div>
+  </div>
+  <div class="cols two">
+    <div>
+      <div class="tbl-wrap">
+        <table>
+          <caption>Land budget &mdash; gross site 42.00 ha</caption>
+          <thead><tr><th>Parcel</th><th class="n">Area (ha)</th><th class="n">% site</th></tr></thead>
+          <tbody>
+            <tr><td>Beach, dune &amp; boardwalk</td><td class="n">1.34</td><td class="n">3.2</td></tr>
+            <tr><td>Marina approach channel (water)</td><td class="n">1.53</td><td class="n">3.6</td></tr>
+            <tr><td>Channel promenade &amp; west coastal park</td><td class="n">1.85</td><td class="n">4.4</td></tr>
+            <tr><td>Hotel 1 &mdash; Beach Resort</td><td class="n">1.96</td><td class="n">4.7</td></tr>
+            <tr><td>Sea Axis Park</td><td class="n">0.64</td><td class="n">1.5</td></tr>
+            <tr><td>Royal Crescent (7 villas)</td><td class="n">2.65</td><td class="n">6.3</td></tr>
+            <tr><td>Marina Villas (7)</td><td class="n">2.76</td><td class="n">6.6</td></tr>
+            <tr><td>Coastal Collector corridor</td><td class="n">0.71</td><td class="n">1.7</td></tr>
+            <tr><td>Marina basin (water)</td><td class="n">4.10</td><td class="n">9.8</td></tr>
+            <tr><td>Quays, piers, promenades &amp; Marina Plaza</td><td class="n">1.85</td><td class="n">4.4</td></tr>
+            <tr><td>Marina Village &amp; Yacht Club</td><td class="n">1.15</td><td class="n">2.7</td></tr>
+            <tr><td>Hotel 2 &mdash; Marina Hotel</td><td class="n">0.99</td><td class="n">2.4</td></tr>
+            <tr><td>Quay Terraces (west + east)</td><td class="n">1.62</td><td class="n">3.9</td></tr>
+            <tr><td>Central Lagoon &amp; Lagoon Club</td><td class="n">1.35</td><td class="n">3.2</td></tr>
+            <tr><td>Lagoon &amp; courtyard townhouse parcels</td><td class="n">1.86</td><td class="n">4.4</td></tr>
+            <tr><td>Garden Court parcels (4)</td><td class="n">3.30</td><td class="n">7.9</td></tr>
+            <tr><td>District parks, pools &amp; pocket gardens</td><td class="n">1.98</td><td class="n">4.7</td></tr>
+            <tr><td>Residential streets, mews &amp; parking courts</td><td class="n">2.28</td><td class="n">5.4</td></tr>
+            <tr><td>Main Boulevard, carriageways &amp; circles</td><td class="n">1.94</td><td class="n">4.6</td></tr>
+            <tr><td>Strip Mall, forecourt, service &amp; parking</td><td class="n">2.45</td><td class="n">5.8</td></tr>
+            <tr><td>Gates 1&ndash;3 &amp; gatehouse forecourts</td><td class="n">0.42</td><td class="n">1.0</td></tr>
+            <tr><td>Perimeter landscape buffers &amp; fire lane</td><td class="n">2.72</td><td class="n">6.5</td></tr>
+            <tr><td>Utilities &amp; operations compound</td><td class="n">0.55</td><td class="n">1.3</td></tr>
+          </tbody>
+          <tfoot><tr><td>Gross site area</td><td class="n">42.00</td><td class="n">100.0</td></tr></tfoot>
+        </table>
+      </div>
+      <div class="tbl-wrap" style="margin-top:22px">
+        <table>
+          <caption>Marina berth schedule &mdash; 70 berths</caption>
+          <thead><tr><th>By location</th><th class="n">No.</th><th>By size</th><th class="n">No.</th></tr></thead>
+          <tbody>
+            <tr><td>North Quay &mdash; private villa berths</td><td class="n">7</td><td>up to 10 m (33 ft)</td><td class="n">22</td></tr>
+            <tr><td>Pier A (west, finger berths)</td><td class="n">16</td><td>10&ndash;13 m (33&ndash;43 ft)</td><td class="n">30</td></tr>
+            <tr><td>Pier B (centre, finger berths)</td><td class="n">18</td><td>13&ndash;15.2 m (43&ndash;50 ft)</td><td class="n">18</td></tr>
+            <tr><td>Pier C (finger berths)</td><td class="n">14</td><td></td><td class="n"></td></tr>
+            <tr><td>Marina Plaza showcase quay</td><td class="n">9</td><td></td><td class="n"></td></tr>
+            <tr><td>East Quay alongside</td><td class="n">6</td><td></td><td class="n"></td></tr>
+          </tbody>
+          <tfoot><tr><td>Total</td><td class="n">70</td><td></td><td class="n">70</td></tr></tfoot>
+        </table>
+      </div>
+    </div>
+    <div>
+      <div class="tbl-wrap">
+        <table>
+          <caption>Unit mix &mdash; 700 residences</caption>
+          <thead><tr><th>Product</th><th>Type</th><th class="n">Units</th><th class="n">Typ. size</th></tr></thead>
+          <tbody>
+            <tr><td>Royal Crescent Villas <small>&mdash; incl. Villa Royale</small></td><td>Villa G+1</td><td class="n">7</td><td class="n">900&ndash;1,450 m&sup2;</td></tr>
+            <tr><td>Marina Villas <small>&mdash; private berth</small></td><td>Villa G+1</td><td class="n">7</td><td class="n">780&ndash;950 m&sup2;</td></tr>
+            <tr><td>Marina Village Residences</td><td>Apt G+3</td><td class="n">84</td><td class="n">96&ndash;210 m&sup2;</td></tr>
+            <tr><td>West Quay Terraces</td><td>Apt G+4</td><td class="n">70</td><td class="n">110&ndash;230 m&sup2;</td></tr>
+            <tr><td>East Quay Terraces</td><td>Apt G+4</td><td class="n">66</td><td class="n">110&ndash;230 m&sup2;</td></tr>
+            <tr><td>Lagoon Townhouses</td><td>TH G+2</td><td class="n">50</td><td class="n">280&ndash;330 m&sup2;</td></tr>
+            <tr><td>Courtyard Townhouses</td><td>TH G+2</td><td class="n">46</td><td class="n">260&ndash;310 m&sup2;</td></tr>
+            <tr><td>Garden Court Apartments <small>&mdash; 4 courts</small></td><td>Apt G+4</td><td class="n">370</td><td class="n">84&ndash;175 m&sup2;</td></tr>
+          </tbody>
+          <tfoot><tr><td>Total</td><td>590 apt / 96 TH / 14 villa</td><td class="n">700</td><td class="n"></td></tr></tfoot>
+        </table>
+      </div>
+      <div class="tbl-wrap" style="margin-top:22px">
+        <table>
+          <caption>Parking provision</caption>
+          <thead><tr><th>Demand</th><th>Ratio</th><th class="n">Bays</th></tr></thead>
+          <tbody>
+            <tr><td>Apartments (590)</td><td>1.5 / unit</td><td class="n">885</td></tr>
+            <tr><td>Townhouses (96)</td><td>2.0 / unit</td><td class="n">192</td></tr>
+            <tr><td>Villas (14)</td><td>4.0 / unit</td><td class="n">56</td></tr>
+            <tr><td>Residential visitor</td><td>0.2 / unit</td><td class="n">140</td></tr>
+            <tr><td>Hotel 1</td><td>0.8 / key + F&amp;B</td><td class="n">78</td></tr>
+            <tr><td>Hotel 2</td><td>0.8 / key + banquet</td><td class="n">112</td></tr>
+            <tr><td>Marina berths</td><td>0.6 / berth</td><td class="n">42</td></tr>
+            <tr><td>Marina Village retail &amp; F&amp;B</td><td>1 / 40 m&sup2;</td><td class="n">160</td></tr>
+            <tr><td>Strip Mall</td><td>1 / 30 m&sup2; GLA</td><td class="n">400</td></tr>
+            <tr><td>Beach &amp; community facilities</td><td>&mdash;</td><td class="n">110</td></tr>
+          </tbody>
+          <tfoot><tr><td>Total &mdash; 62% below grade</td><td></td><td class="n">2,175</td></tr></tfoot>
+        </table>
+      </div>
+      <div class="grid3" style="grid-template-columns:1fr 1fr;margin-top:22px">
+        <div><span class="mono">Built area</span><h3>188,400 m&sup2;</h3><p>Above-grade GFA across all uses.</p></div>
+        <div><span class="mono">Gross plot ratio</span><h3>0.45</h3><p>Low-rise resort density; site coverage 15.6%.</p></div>
+        <div><span class="mono">Gross density</span><h3>16.7 u/ha</h3><p>Across the whole 42 ha, villas included.</p></div>
+        <div><span class="mono">Landscape &amp; water</span><h3>36.9%</h3><p>15.51 ha, of which 6.68 ha is water.</p></div>
+        <div><span class="mono">Activated water edge</span><h3>3,140 m</h3><p>7.5&times; the 420 m natural coastline.</p></div>
+        <div><span class="mono">Units on water</span><h3>41%</h3><p>284 of 700 with direct water frontage.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="note"><b>On the seven front villas</b>The plan is honest about a constraint the brief cannot dissolve:
+  420 m of coastline, shared with a 115 m hotel and a 35 m public sea axis, cannot give seven royal plots primary beach
+  frontage. Three have it, around Villa Royale. The other four sit on a raised terrace 1.5 m above the crescent, look
+  north along two 10 m view corridors cut through to the water, and are compensated with deeded beach cabanas and larger
+  gardens. Pretending otherwise would produce a drawing that cannot be built.</div>
+</section>
+
+<!-- ============ MP-06 MOVEMENT ============ -->
+<section class="sheet">
+  <div class="sheet-head">
+    <span class="sheet-no">MP-06</span>
+    <div><h2>Movement, service and emergency access</h2>
+    <p>Seven user groups, three gates, one rule: no group should ever need to travel through another's territory.</p></div>
+  </div>
+  <div class="tbl-wrap">
+    <table>
+      <caption>Circulation matrix</caption>
+      <thead><tr><th>User</th><th>Gate</th><th>Route</th><th>Terminates at</th></tr></thead>
+      <tbody>
+        <tr><td>Retail visitor</td><td>None &mdash; outside the barrier</td><td>Highway &rarr; mall forecourt &rarr; rear parking court</td><td>Strip Mall</td></tr>
+        <tr><td>Marina &amp; beach visitor</td><td>Gate 1</td><td>Main Boulevard &rarr; Arrival Circle &rarr; twin carriageways &rarr; Marina Circle</td><td>Marina Plaza drop-off</td></tr>
+        <tr><td>Resident</td><td>Gate 2</td><td>West Collector &rarr; district loop &rarr; undercroft parking</td><td>Own court or mews</td></tr>
+        <tr><td>Hotel &amp; VIP guest</td><td>Gate 3</td><td>East Collector &rarr; hotel porte-coch&egrave;re</td><td>Hotel 1 / Hotel 2</td></tr>
+        <tr><td>Villa owner</td><td>Gate 3</td><td>East Collector &rarr; Coastal Collector &rarr; private lane</td><td>Crescent lane / villa quay</td></tr>
+        <tr><td>Service &amp; delivery</td><td>Gate 2 screened lane</td><td>Perimeter lane behind every parcel</td><td>Rear BOH yards only</td></tr>
+        <tr><td>Emergency</td><td>All three</td><td>7 m perimeter ring + all collectors</td><td>Any point within 45 m</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="cols two" style="margin-top:24px">
+    <div class="prose">
+      <h4>Road hierarchy</h4>
+      <p style="margin-top:12px"><strong>Main Boulevard, 36 m.</strong> Gate 1 to the Arrival Circle: two lanes each way
+      either side of a 12 m planted median carrying a water rill and a double row of date palms. It is deliberately short
+      &mdash; 70 m &mdash; because a boulevard that runs the whole 1,000 m would be a runway.</p>
+      <p><strong>Twin carriageways, 11 m each.</strong> North of the Arrival Circle the boulevard splits and runs
+      one-way up either side of the Central Lagoon, rejoining at the Marina Circle. Two 11 m streets move the same
+      traffic as one 30 m road, at half the crossing distance, and put water rather than asphalt on the main axis.</p>
+      <p><strong>Collectors, 15 m.</strong> West (residents) and east (VIP, hotels, marina), each running the full depth
+      of the site so that no through-traffic ever needs the boulevard.</p>
+      <p><strong>Perimeter lane, 7 m.</strong> A continuous loop inside the buffer serving every back-of-house yard and
+      doubling as the fire tender route. Hydrants at 90 m; no dead end exceeds 45 m; 12 m turning heads throughout.</p>
+    </div>
+    <div class="prose">
+      <h4>Pedestrian priority</h4>
+      <p style="margin-top:12px">Five places where the pedestrian outranks the car, each with vehicles held at its
+      edge: the <strong>dune boardwalk</strong> (420 m), the <strong>Sea Axis Park</strong>, the
+      <strong>Marina Loop</strong> &mdash; a 1,050 m promenade around the south, east and west quays &mdash; the
+      <strong>Marina Plaza</strong>, and the <strong>lagoon walk</strong>.</p>
+      <p>The north quay is the deliberate exception: it is <strong>private and gated at both ends</strong>, serving only
+      the seven marina villas and their berths. A public promenade running past seven villa gardens would destroy the
+      product; keeping it private also gives the marina a defined public face on three sides rather than four ambiguous
+      ones.</p>
+      <div class="note"><b>Longest walk</b>Marina Plaza to the water's edge on the beach: 430 m, entirely shaded &mdash;
+      the Sea Mews, the villa quay crossing, and the Sea Axis Park. Marina Plaza to the Strip Mall: 340 m.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MP-07 MARINE ============ -->
+<section class="sheet">
+  <div class="sheet-head">
+    <span class="sheet-no">MP-07</span>
+    <div><h2>Marina &mdash; marine engineering</h2>
+    <p>The single most technically demanding element, and the one that carries the project's identity.</p></div>
+  </div>
+  <div class="cols two">
+    <div>
+      <div class="tbl-wrap">
+        <table>
+          <caption>Design parameters</caption>
+          <thead><tr><th>Item</th><th class="n">Value</th></tr></thead>
+          <tbody>
+            <tr><td>Design vessel</td><td class="n">15.2 m LOA &times; 4.6 m beam</td></tr>
+            <tr><td>Design draft / air draft</td><td class="n">1.6 m / 4.5 m</td></tr>
+            <tr><td>Entrance width at mouth</td><td class="n">45 m</td></tr>
+            <tr><td>Channel length &amp; dredge depth</td><td class="n">340 m &middot; &minus;4.0 m CD</td></tr>
+            <tr><td>Channel orientation off shore-normal</td><td class="n">15&deg;</td></tr>
+            <tr><td>Basin dredge depth</td><td class="n">&minus;3.5 m CD</td></tr>
+            <tr><td>Main fairway / secondary fairway</td><td class="n">30 m / 22 m</td></tr>
+            <tr><td>Turning circle diameter</td><td class="n">45 m (3.0 &times; LOA)</td></tr>
+            <tr><td>Training jetties (west / east)</td><td class="n">120 m / 90 m rubble mound</td></tr>
+            <tr><td>Basin water area / quay length</td><td class="n">4.10 ha / ~1,180 m</td></tr>
+            <tr><td>Water area per berth incl. fairways</td><td class="n">586 m&sup2;</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="prose">
+      <p><strong>Why the channel is on the west edge.</strong> A central entrance would cut the 420 m beach in two and
+      leave neither half long enough for a resort. Pushed to the western boundary, the channel takes land that was
+      perimeter buffer anyway, leaves <strong>295 m of unbroken beach</strong> east of it, and turns its own east bank
+      into a 340 m promenade &mdash; the Marina Walk &mdash; linking sand to harbour.</p>
+      <p><strong>Offset jetties.</strong> The two training jetties are unequal (120 m west, 90 m east) and the entrance
+      line is rotated 15&deg; off shore-normal, so the dominant north-westerly swell cannot run straight down the
+      channel. Wave penetration into the basin is held below 0.3 m in the design condition.</p>
+      <p><strong>Littoral drift is a cost line, not a detail.</strong> Any pair of jetties on a drift coast will trap
+      sand updrift and starve the beach downdrift. The plan budgets an annual bypass of
+      <strong>15,000&ndash;25,000 m&sup3;</strong> and a standing nourishment allowance for the downdrift beach. A
+      monitoring programme should begin at least one full season before dredging so the baseline is real.</p>
+      <p><strong>Water quality.</strong> A single narrow entrance is the classic way to build a stagnant harbour. The
+      basin is therefore given a secondary 6 m culvert at its eastern end with tidal-exchange pumps, targeting complete
+      exchange in under five days. Every stormwater outfall discharges through oil and silt interceptors; none
+      discharges to the beach.</p>
+      <p><strong>Air draft.</strong> The island footbridge and the plaza-to-hotel bridge both cross non-navigable
+      ornamental inlets dredged to &minus;1.2 m. No bridge crosses a fairway, so no lifting span is needed and no
+      operator is required to open one.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MP-08 LANDSCAPE ============ -->
+<section class="sheet">
+  <div class="sheet-head">
+    <span class="sheet-no">MP-08</span>
+    <div><h2>Landscape and water strategy</h2>
+    <p>Landscape is set out before the plots, as five continuous corridors. Plots are then cut around it, so it
+    cannot be value-engineered away later.</p></div>
+  </div>
+  <div class="grid3">
+    <div><span class="mono">Corridor 01 &middot; 420 m</span><h3>Dune &amp; boardwalk</h3>
+      <p>Stabilised dune planting &mdash; <em>Tamarix</em>, sea daffodil, marram &mdash; behind a raised timber
+      boardwalk. No hard structure inside 30 m of mean high water. Shade from cabana clusters, not buildings.</p></div>
+    <div><span class="mono">Corridor 02 &middot; 186 m</span><h3>Sea Axis Park</h3>
+      <p>A 35 m green finger between the hotel and the villas, with a 7 m reflecting rill running its length and
+      terminating in a public beach pavilion. The only free sightline from the marina to the sea.</p></div>
+    <div><span class="mono">Corridor 03 &middot; 340 m</span><h3>Channel park &amp; Marina Walk</h3>
+      <p>Both banks of the approach channel: a wild coastal park to the west, a shaded promenade of washingtonia and
+      date palm to the east, connecting sand to harbour on foot in six minutes.</p></div>
+    <div><span class="mono">Corridor 04 &middot; ~860 m edge</span><h3>Lagoon spine</h3>
+      <p>The central lagoon, its island club and its two townhouse banks. Freshwater, filtered, with a swimming
+      lagoon at the north head and a shaded jogging loop at the water's edge.</p></div>
+    <div><span class="mono">Corridor 05 &middot; 2.72 ha</span><h3>Perimeter belt</h3>
+      <p>A 12 m planted belt inside every wall, thickened to 31 m on the east where the collector runs. Layered
+      ficus, olive and oleander &mdash; a green horizon from inside, a solid screen from outside.</p></div>
+    <div><span class="mono">Palette</span><h3>Water discipline</h3>
+      <p>Native and adapted coastal species; turf restricted to the crescent court, the lagoon banks and the four
+      garden courts. Irrigation demand ~900 m&sup3;/day, met from treated effluent, not potable supply.</p></div>
+  </div>
+  <div class="prose" style="margin-top:24px;max-width:74ch">
+    <p><strong>The four-water sequence.</strong> Arriving through Gate 1, a visitor crosses water four times in
+    900 m: the fountain in the Arrival Circle, the Central Lagoon, the harbour basin at the Marina Plaza, and the
+    sea itself at the end of the Sea Axis. Each is a different kind of water &mdash; ornamental, recreational,
+    working, wild &mdash; and each is visible from the one before it. That sequence, not the boulevard's width,
+    is what makes 1,000 m of depth feel like an arrival rather than a drive.</p>
+  </div>
+</section>
+
+<!-- ============ MP-09 INFRASTRUCTURE ============ -->
+<section class="sheet">
+  <div class="sheet-head">
+    <span class="sheet-no">MP-09</span>
+    <div><h2>Infrastructure &amp; utilities</h2>
+    <p>Sized from the schedules on MP-05. All plant is consolidated in a single 0.55 ha compound behind the west
+    quay, reached from the perimeter lane and invisible from every public route.</p></div>
+  </div>
+  <div class="cols two">
+    <div class="tbl-wrap">
+      <table>
+        <caption>Demand &amp; provision</caption>
+        <thead><tr><th>System</th><th class="n">Peak demand</th><th>Provision</th></tr></thead>
+        <tbody>
+          <tr><td>Electrical</td><td class="n">~7.5 MVA</td><td>One 33/11 kV primary substation + 8 distribution substations, ring-fed</td></tr>
+          <tr><td>District cooling</td><td class="n">~3,400 TR</td><td>4,000 TR plant with thermal storage; marina district, hotels, retail and apartments. Villas on VRF</td></tr>
+          <tr><td>Potable water</td><td class="n">~1,000 m&sup3;/day</td><td>2,000 m&sup3; storage (2 days) + booster stations</td></tr>
+          <tr><td>Wastewater</td><td class="n">~800 m&sup3;/day</td><td>On-site STP, 900 m&sup3;/day, tertiary treatment</td></tr>
+          <tr><td>Irrigation</td><td class="n">~900 m&sup3;/day</td><td>~680 m&sup3;/day treated effluent; ~220 m&sup3;/day shortfall to be made up &mdash; see note</td></tr>
+          <tr><td>Stormwater</td><td class="n">1-in-25 year</td><td>Bioswales on the boulevard, permeable parking courts, interceptors before any marina outfall</td></tr>
+          <tr><td>Firefighting</td><td class="n">&mdash;</td><td>Ring main, hydrants at 90 m, two pump rooms, marina foam points and a fire-boat berth</td></tr>
+          <tr><td>Waste</td><td class="n">~5.5 t/day</td><td>Central MRF in the compound; screened rear collection from the perimeter lane only</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="prose">
+      <p><strong>The irrigation gap is real and should be designed for now.</strong> At full occupancy the landscape
+      wants roughly 900 m&sup3;/day and the treatment plant will return about 680. The 220 m&sup3;/day difference is
+      closed in one of three ways, in order of preference: reduce turf area in the garden courts by a further 15%;
+      add a small polishing RO train to lift effluent recovery; or contract tankered TSE for the summer peak. Assuming
+      it will simply work is how coastal schemes end up irrigating with potable water at four times the cost.</p>
+      <p><strong>Phasing the plant.</strong> The district cooling plant is built in two 2,000 TR trains so that Phase 1
+      &mdash; retail, marine works and the first residential terraces &mdash; does not carry the capital cost of
+      capacity it will not use for six years.</p>
+      <div class="note"><b>Sustainability targets</b>Sea-water-source district cooling condensers using the marina
+      basin; PV on the strip mall and parking canopies (~1.1 MWp); 100% LED with astronomical dimming on all public
+      lighting; a dark-sky lighting regime on the dune to protect turtle nesting; and construction dredge spoil
+      re-used for site levelling rather than exported.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MP-10 PHASING ============ -->
+<section class="sheet">
+  <div class="sheet-head">
+    <span class="sheet-no">MP-10</span>
+    <div><h2>Phasing</h2>
+    <p>Four phases over roughly seven years. Each one is independently serviced, independently gated and
+    independently tradeable &mdash; if the market stops, the project stops complete rather than half-built.</p></div>
+  </div>
+  <div class="phase">
+    <div class="phrow"><span class="p">PHASE 1</span>
+      <span class="d"><b>Frontage, marine works &amp; first release</b>Gate 1 and Gate 2, the full 210 m Strip Mall,
+      the Main Boulevard and Arrival Circle, all trunk infrastructure, the training jetties, channel and basin
+      dredging, the south quay and Marina Village West, and the 70 West Quay Terrace apartments. Retail income and a
+      working harbour from the end of year two.</span>
+      <span class="t">Months 0&ndash;26</span></div>
+    <div class="phrow"><span class="p">PHASE 2</span>
+      <span class="d"><b>The beachfront</b>Hotel 1, the Royal Crescent's seven villas, the seven Marina Villas with
+      their private quay, the beach club, the dune boardwalk and the Sea Axis Park. This is the phase that sets the
+      price of everything sold afterwards, so it must not be compressed.</span>
+      <span class="t">Months 20&ndash;42</span></div>
+    <div class="phrow"><span class="p">PHASE 3</span>
+      <span class="d"><b>The harbour town</b>Gate 3 and the East Collector, Hotel 2, the East Quay Terraces, the Yacht
+      Club, the remaining Marina Village, the island restaurant and the full Marina Loop promenade.</span>
+      <span class="t">Months 38&ndash;60</span></div>
+    <div class="phrow"><span class="p">PHASE 4</span>
+      <span class="d"><b>The districts</b>The Central Lagoon and Lagoon Club, all four Garden Courts, both townhouse
+      precincts, the mosque, nursery, sports and community facilities. Delivered last, at the highest values, into a
+      destination that already works.</span>
+      <span class="t">Months 52&ndash;84</span></div>
+  </div>
+  <div class="note"><b>Sequencing risk</b>The marine works are on the critical path for everything with a water view
+  &mdash; roughly 60% of the revenue. Dredging, jetty construction and the environmental baseline survey should be
+  procured as a separate early package, ahead of the main contractor, and not bundled with the buildings.</div>
+</section>
+
+<!-- ============ MP-11 EXPLANATION ============ -->
+<section class="sheet">
+  <div class="sheet-head">
+    <span class="sheet-no">MP-11</span>
+    <div><h2>The plan, explained</h2>
+    <p>One idea, and the six decisions that follow from it.</p></div>
+  </div>
+  <div class="cols two">
+    <div class="prose">
+      <p><strong>The idea.</strong> This site has one genuinely scarce asset &mdash; 420 m of coastline &mdash; and
+      1,000 m of land behind it that the coastline cannot reach. Every masterplan for a site this shape is really an
+      answer to one question: what do you give the back 800 m? The reference plan's answer was landscape and road
+      geometry. This plan's answer is <strong>more water</strong>. A sea-fed harbour and a freshwater lagoon convert
+      420 m of natural shoreline into roughly <strong>3,140 m of activated water edge</strong>, and put 41% of the
+      units on it. That single move is what carries the scheme's value, its identity and its walkability.</p>
+      <p><strong>One: the marina is the plan, not an amenity.</strong> It sits at the centre of the depth, so every
+      district is within 400 m of it. It is dredged from the sea, so it is a harbour rather than a lake. Its edges are
+      irregular, so 4.10 ha of water yields ~1,180 m of quay and four separate addresses &mdash; private villa quay,
+      hotel quay, village quay, yacht club headland. And it is the terminus of the boulevard, so arrival by road ends
+      at water.</p>
+      <p><strong>Two: the channel goes to the edge so the beach stays whole.</strong> Cutting the entrance through the
+      middle of a 420 m beach would leave two 180 m fragments, neither of which can carry a resort. On the west
+      boundary it costs only buffer land, leaves 295 m of continuous sand, and its east bank becomes a 340 m
+      promenade.</p>
+      <p><strong>Three: two hotels that cannot be confused.</strong> Hotel 1 is horizontal, three storeys, on the
+      sand, entered from a quiet coastal road &mdash; a beach resort. Hotel 2 is compact, six storeys, on the
+      harbour's south-east headland, entered from the VIP gate, with a rooftop that looks down the length of the
+      basin &mdash; a lifestyle marina hotel with the banqueting and meeting space the resort deliberately does not
+      have. They are 600 m apart, they share no arrival, and they sell to different guests in different seasons.</p>
+    </div>
+    <div class="prose">
+      <p><strong>Four: villa privacy is bought with geometry, not walls.</strong> The Royal Crescent turns its back
+      on the road and opens onto a shared court, with two 10 m view corridors cut through to the water and a 1.5 m
+      terrace lifting the second tier. The seven Marina Villas get something the beach cannot offer: a private,
+      gated north quay with a berth at the foot of each garden. Both groups are reached from the east collector
+      without passing a single apartment.</p>
+      <p><strong>Five: the road network is deliberately thin.</strong> Splitting the boulevard into two 11 m one-way
+      carriageways around the lagoon does three things at once &mdash; it halves the crossing distance for pedestrians,
+      it puts water instead of asphalt on the main axis, and it recovers roughly 1.2 ha that a single 30 m boulevard
+      would have consumed. Roads and parking together are 15% of the site.</p>
+      <p><strong>Six: the perimeter is a product, not a leftover.</strong> Twenty-seven metres of wall-to-building
+      section on every boundary, with the fire and service lane buried inside it. That lane is why no delivery vehicle
+      ever enters the boulevard, why every back-of-house yard is reached from behind, and why no dwelling is more than
+      45 m from a fire tender. The rule earns its land three times over.</p>
+      <div class="note"><b>What the plan gives up</b>It gives up symmetry, which the reference drawing had and which
+      photographs well. It gives up four beachfront villa plots, because the arithmetic of 420 m does not permit them.
+      And it gives up a straight, uninterrupted 1,000 m vista from gate to sea &mdash; the axis is held, but the eye
+      crosses a lagoon, a roundabout and a harbour on the way, which is the more interesting journey and the more
+      valuable one.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MP-12 RECOMMENDATIONS ============ -->
+<section class="sheet">
+  <div class="sheet-head">
+    <span class="sheet-no">MP-12</span>
+    <div><h2>Recommendations</h2>
+    <p>Where further value can be taken out of this plan, by discipline. Ordered within each group by return on
+    effort.</p></div>
+  </div>
+  <div class="cols two">
+    <div>
+      <div class="rec"><h3>Commercial value</h3><ul>
+        <li><b>Split the mall's tenancy logic by wing.</b> West wing convenience-led around a 2,200 m&sup2; premium
+        grocery serving residents daily; east wing lifestyle- and F&amp;B-led facing the VIP gate. One 210 m run of
+        identical units would compete with the Marina Village and lose.</li>
+        <li><b>Charge the Marina Village a percentage rent, not a fixed one.</b> Its F&amp;B trade is driven by berth
+        occupancy and hotel keys, both of which the developer controls. Percentage rent aligns the marina operator's
+        incentives with the landlord's.</li>
+        <li><b>Hold four plaza-front units back from the first leasing round</b> for a destination restaurant. One
+        anchor operator on the plaza is worth more than four average tenants, and cannot be recruited later once the
+        frontage is let.</li>
+        <li><b>Put the pharmacy, clinic and services on the mall's rear elevation</b> facing the internal parking
+        court, so the highway frontage stays entirely food, retail and terrace.</li>
+      </ul></div>
+      <div class="rec"><h3>Residential value</h3><ul>
+        <li><b>Sell the seven Marina Villas with the berth in the title</b>, not as a licence. A deeded 15 m berth is
+        the single highest-margin feature in the entire scheme and is not replicable anywhere else on this coast.</li>
+        <li><b>Stagger the Garden Court release by court, not by floor</b>, so each court completes with its garden and
+        pool finished. Buyers pay for a finished courtyard; they discount an occupied building site.</li>
+        <li><b>Give every Lagoon Townhouse a roof terrace.</b> At G+2 with a 9 m ridge, the third level clears the row
+        opposite and converts a garden-view product into a water-view one for almost no cost.</li>
+        <li><b>Cap Garden Court unit sizes and add a fifth product instead.</b> Duplex garden maisonettes at ground
+        level widen the buyer pool and lift ground-floor values, which are otherwise the weakest in every court.</li>
+      </ul></div>
+    </div>
+    <div>
+      <div class="rec"><h3>Hotel experience</h3><ul>
+        <li><b>Give Hotel 1 the beach club as a separate P&amp;L</b> with its own entrance from the boardwalk, so it
+        trades to residents and day guests out of season instead of sitting dark.</li>
+        <li><b>Put Hotel 2's ballroom at podium level with its own porte-coch&egrave;re</b> off the east collector. A
+        400-guest wedding must never arrive through the hotel lobby.</li>
+        <li><b>Contract the two hotels to different operators or different brands within one group.</b> Two 70-key
+        properties under one flag, 600 m apart, will cannibalise rate rather than build it.</li>
+        <li><b>Reserve a service tunnel alignment now</b> between the utilities compound and Hotel 2's basement. It is
+        cheap as a reservation and impossible to add once the quay is built.</li>
+      </ul></div>
+      <div class="rec"><h3>Marina experience</h3><ul>
+        <li><b>Appoint the marina operator before the dredge design is fixed.</b> Berth mix, pontoon spec, fuel and
+        pump-out positions and the fairway widths all change with the operator's own standards; retrofitting them is
+        an order of magnitude more expensive.</li>
+        <li><b>Build the harbourmaster tower in Phase 1.</b> It is the cheapest landmark in the scheme, it is what
+        sells the marina from the water, and it makes the harbour look operational while the buildings are still
+        rising.</li>
+        <li><b>Programme the plaza for twelve months, not four.</b> A winter sailing school, a Saturday market and a
+        regatta series keep the quay alive off-season, which is what persuades the F&amp;B tenants to sign.</li>
+        <li><b>Reserve six berths for transient visitors.</b> Fully sold-out marinas are dead marinas; transient
+        traffic is what makes the village trade.</li>
+      </ul></div>
+      <div class="rec"><h3>Traffic &amp; landscape</h3><ul>
+        <li><b>Model Gate 1 against the mall's Friday evening peak</b>, not an average day. Three lanes in with two
+        holding bays before the barrier, or the queue reaches the highway.</li>
+        <li><b>Run a shaded electric shuttle on the collector loop</b> from day one. It is what allows the boulevard to
+        stay narrow and the parking to stay peripheral.</li>
+        <li><b>Plant the perimeter belt and the boulevard in Phase 1, ahead of the buildings.</b> Semi-mature palms
+        need five years; planting them with the last phase means the project is never photographed mature.</li>
+        <li><b>Commission the beach-monitoring baseline before dredging.</b> Without it, every future erosion claim
+        becomes the developer's to disprove.</li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>Marsa Coastal Masterplan &middot; Issue A &middot; Drawings MP-01 to MP-12</span>
+  <span class="mono">42.00 ha &middot; 700 units &middot; 140 keys &middot; 70 berths</span>
+</footer>
+</div>
+
+<style>#plan.hidelabels #labels{display:none}</style>
+<script>
+(function(){
+  var NS="http://www.w3.org/2000/svg";
+  function el(n,a){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);return e;}
+  function add(id,node){var p=document.getElementById(id);if(p)p.appendChild(node);}
+
+  /* ---- Royal Crescent, tier 2 ---- */
+  [250,286,322,358].forEach(function(x){
+    add("rcTier2",el("rect",{class:"plot",x:x,y:142,width:35,height:76}));
+    add("rcTier2",el("rect",{class:"bld",x:x+4,y:150,width:27,height:40,rx:1}));
+    add("rcTier2",el("rect",{class:"pool",x:x+4,y:196,width:27,height:11,rx:2}));
+  });
+
+  /* ---- Marina villas ---- */
+  [100,137,174,227,264,301,338].forEach(function(x){
+    add("mvRow",el("rect",{class:"plot",x:x,y:238,width:37,height:94}));
+    add("mvRow",el("rect",{class:"bld",x:x+5,y:244,width:27,height:32,rx:1}));
+    add("mvRow",el("rect",{class:"pool",x:x+5,y:300,width:27,height:12,rx:2}));
+  });
+
+  /* ---- Pier finger berths ---- */
+  var i;
+  for(i=0;i<9;i++){var fx=100+i*6;
+    add("fingers",el("rect",{class:"pier",x:fx,y:415,width:2.2,height:12}));
+    add("fingers",el("rect",{class:"pier",x:fx,y:431,width:2.2,height:12}));}
+  for(i=0;i<10;i++){var fy=504+i*6;
+    add("fingers",el("rect",{class:"pier",x:114,y:fy,width:12,height:2.2}));
+    add("fingers",el("rect",{class:"pier",x:130,y:fy,width:12,height:2.2}));}
+  for(i=0;i<8;i++){var gy=514+i*6;
+    add("fingers",el("rect",{class:"pier",x:168,y:gy,width:12,height:2.2}));
+    add("fingers",el("rect",{class:"pier",x:184,y:gy,width:12,height:2.2}));}
+
+  /* ---- Moored yachts: 16+18+14+7+9+6 = 70 ---- */
+  function boat(cx,cy,len,beam,rot){
+    var h=len/2,b=beam/2;
+    var d="M0,"+(-h)+" C"+b*0.9+","+(-h*0.45)+" "+b+","+(-h*0.1)+" "+b+","+(h*0.35)+
+          " L"+b+","+h+" L"+(-b)+","+h+" L"+(-b)+","+(h*0.35)+
+          " C"+(-b)+","+(-h*0.1)+" "+(-b*0.9)+","+(-h*0.45)+" 0,"+(-h)+" Z";
+    add("boats",el("path",{class:"boat",d:d,transform:"translate("+cx+","+cy+") rotate("+rot+")"}));
+  }
+  for(i=0;i<8;i++){boat(103+i*6,407,12.5,3.2,180);boat(103+i*6,451,12.5,3.2,0);}      /* Pier A  16 */
+  for(i=0;i<9;i++){boat(106,510+i*6,12.5,3.2,90);boat(150,510+i*6,12.5,3.2,-90);}     /* Pier B  18 */
+  for(i=0;i<7;i++){boat(160,520+i*6,12,3.1,90);boat(204,520+i*6,12,3.1,-90);}         /* Pier C  14 */
+  [100,137,174,227,264,301,338].forEach(function(x){boat(x+18,355,15,3.8,90);});  /* villas   7 */
+  [96,110,124,154,168,256,270,284,296].forEach(function(x,n){                     /* showcase 9 */
+    boat(x,n<5?559:553,15,3.8,90);});
+  for(i=0;i<6;i++){boat(294,388+i*20,13,3.4,0);}                                  /* east     6 */
+
+  /* ---- Lagoon townhouses (50) ---- */
+  for(i=0;i<22;i++){var ty=690+i*7.5;
+    add("lthRows",el("rect",{class:"bld",x:154,y:ty,width:22,height:6.4,rx:.6}));
+    add("lthRows",el("rect",{class:"bld",x:256,y:ty,width:22,height:6.4,rx:.6}));}
+  for(i=0;i<6;i++){add("lthRows",el("rect",{class:"bld",x:186+i*10,y:668,width:9,height:12,rx:.6}));}
+
+  /* ---- Courtyard townhouses (46) ---- */
+  for(i=0;i<12;i++){var wx=96+i*7.2;
+    add("cthRows",el("rect",{class:"bld",x:wx,y:862,width:6.2,height:17,rx:.6}));
+    add("cthRows",el("rect",{class:"bld",x:wx,y:882,width:6.2,height:17,rx:.6}));}
+  for(i=0;i<11;i++){var ex=247+i*4.7;
+    add("cthRows",el("rect",{class:"bld",x:ex,y:862,width:3.9,height:17,rx:.5}));
+    add("cthRows",el("rect",{class:"bld",x:ex,y:882,width:3.9,height:17,rx:.5}));}
+
+  /* ---- Mall parking bays ---- */
+  function bays(x0,n){for(var k=0;k<n;k++){var px=x0+k*5.2;
+    add("parkBays",el("line",{x1:px,y1:901,x2:px,y2:910,stroke:"var(--tarmac-line)","stroke-width":.5}));
+    add("parkBays",el("line",{x1:px,y1:916,x2:px,y2:925,stroke:"var(--tarmac-line)","stroke-width":.5}));}}
+  bays(60,25); bays(243,23);
+  [74,116,158,254,296,338].forEach(function(ix){
+    add("parkBays",el("rect",{class:"grn2",x:ix,y:901,width:5,height:24,rx:1}));});
+
+  /* ---- Palms ---- */
+  function palms(x0,y0,dx,dy,n){for(var j=0;j<n;j++){
+    add("palms",el("circle",{class:"palm",cx:x0+dx*j,cy:y0+dy*j,r:2.2,opacity:.55}));}}
+  palms(203,936,0,9,7); palms(227,936,0,9,7);
+  palms(134,694,0,12,13); palms(148,694,0,12,13); palms(283,694,0,12,13); palms(297,694,0,12,13);
+  palms(30,217,14,0,27); palms(30,239,14,0,27);
+  palms(62,991,12,0,26);
+  palms(98,577,12,0,17);
+  palms(102,339,14,0,20);
+  palms(218,42,0,14,12); palms(247,42,0,14,12);
+  palms(6,44,0,16,59); palms(414,44,0,16,59);
+  palms(92,26,16,0,21);
+  palms(60,608,0,10,4);
+
+  /* ---- Legend interaction ---- */
+  var plan=document.getElementById("plan"),
+      keys=Array.prototype.slice.call(document.querySelectorAll("button.key"));
+  function sync(){
+    var on=keys.filter(function(b){return b.getAttribute("aria-pressed")==="true";})
+               .map(function(b){return b.dataset.t;});
+    Array.prototype.forEach.call(plan.querySelectorAll(".parcel"),function(g){
+      g.classList.toggle("hit",on.indexOf(g.dataset.key)>-1);});
+    plan.classList.toggle("dimmed",on.length>0);
+  }
+  keys.forEach(function(b){
+    b.setAttribute("aria-pressed","false");
+    b.addEventListener("click",function(){
+      b.setAttribute("aria-pressed",b.getAttribute("aria-pressed")==="true"?"false":"true");sync();});
+  });
+  document.getElementById("tClr").addEventListener("click",function(){
+    keys.forEach(function(b){b.setAttribute("aria-pressed","false");});sync();});
+  var td=document.getElementById("tDim"),tl=document.getElementById("tLbl");
+  td.addEventListener("click",function(){
+    var on=td.getAttribute("aria-pressed")!=="true";
+    td.setAttribute("aria-pressed",on?"true":"false");plan.classList.toggle("hidedims",!on);});
+  tl.addEventListener("click",function(){
+    var on=tl.getAttribute("aria-pressed")!=="true";
+    tl.setAttribute("aria-pressed",on?"true":"false");plan.classList.toggle("hidelabels",!on);});
+})();
+</script>
