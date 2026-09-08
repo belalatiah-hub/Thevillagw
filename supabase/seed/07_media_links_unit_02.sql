@@ -5,9 +5,6 @@
 insert into cms.media_links (asset_id, unit_id, role, sort_order)
 select a.id, o.id, v.role::cms.media_role, v.sort_order
 from (values
-  ('/project-media/' || 'ora/pen-sw-0.webp','cover',0,array['OR-SW-15']),
-  ('/project-media/' || 'ora/pen2.webp','cover',0,array['OR-SW-16']),
-  ('/project-media/' || 'ora/st-em-0.webp','cover',0,array['OR-EM-06']),
   ('/project-media/' || 'ora/st-zw-0.webp','cover',0,array['OR-ZW-01']),
   ('/project-media/' || 'ora/stu-z-0.webp','cover',0,array['OR-ZE-05']),
   ('/project-media/' || 'ora/th-sw-0.webp','cover',0,array['OR-SW-07']),
@@ -68,6 +65,15 @@ from (values
   ('/project-media/' || 'ramla/units/v3-0.webp','cover',0,array['RM-VL03']),
   ('/project-media/' || 'ramla/units/v4-0.webp','cover',0,array['RM-VL04']),
   ('/project-media/' || 'ramla/units/v5-0.webp','cover',0,array['RM-CH05']),
+  ('/project-media/' || 'sodic/caesar-north-coast/units/to1-ca2-0.webp','cover',0,array['CS-07']),
+  ('/project-media/' || 'sodic/caesar-north-coast/units/tw1-ca-0.webp','cover',0,array['CS-03']),
+  ('/project-media/' || 'sodic/caesar-north-coast/units/tw2-ca-0.webp','cover',0,array['CS-05']),
+  ('/project-media/' || 'sodic/caesar-north-coast/units/tw2-ca2-0.webp','cover',0,array['CS-08']),
+  ('/project-media/' || 'sodic/caesar-north-coast/units/tw3-ca2-0.webp','cover',0,array['CS-09']),
+  ('/project-media/' || 'sodic/caesar-north-coast/units/villa1-ca-0.webp','cover',0,array['CS-01']),
+  ('/project-media/' || 'sodic/caesar-north-coast/units/villa2-ca-0.webp','cover',0,array['CS-02']),
+  ('/project-media/' || 'sodic/caesar-north-coast/units/villa3-ca-0.webp','cover',0,array['CS-04']),
+  ('/project-media/' || 'sodic/caesar-north-coast/units/villa4-ca-0.webp','cover',0,array['CS-06']),
   ('/project-media/' || 'sodic/june-north-coast/units/ch1-june-0.webp','cover',0,array['JN-05']),
   ('/project-media/' || 'sodic/june-north-coast/units/ch2-june-0.webp','cover',0,array['JN-06']),
   ('/project-media/' || 'sodic/june-north-coast/units/ch3-june-0.webp','cover',0,array['JN-07']),
@@ -241,13 +247,7 @@ from (values
   ('/project-media/' || 'beitalbahr/units/to1-0-rays.webp','floorplan',0,array['BAB-RY02']),
   ('/project-media/' || 'beitalbahr/units/to1-01-rays.webp','floorplan',1,array['BAB-RY02']),
   ('/project-media/' || 'beitalbahr/units/tw1-0-roo.webp','floorplan',0,array['BAB-RO05']),
-  ('/project-media/' || 'beitalbahr/units/tw1-01-roo.webp','floorplan',1,array['BAB-RO05']),
-  ('/project-media/' || 'emaarmisr/marassi-red-sea/units/fp-ap1-marina-shore.webp','floorplan',0,array['MR-02']),
-  ('/project-media/' || 'emaarmisr/marassi-red-sea/units/fp-ap2-marina-shore.webp','floorplan',0,array['MR-03']),
-  ('/project-media/' || 'emaarmisr/marassi-red-sea/units/fp-ap3-marina-shore.webp','floorplan',0,array['MR-04']),
-  ('/project-media/' || 'emaarmisr/marassi-red-sea/units/fp-ap4-marina-shore.webp','floorplan',0,array['MR-05']),
-  ('/project-media/' || 'emaarmisr/marassi-red-sea/units/fp-marasi-infinity.webp','floorplan',0,array['MR-01']),
-  ('/project-media/' || 'emaarmisr/marassi-red-sea/units/fp-v1-horizon.webp','floorplan',0,array['MR-12'])
+  ('/project-media/' || 'beitalbahr/units/tw1-01-roo.webp','floorplan',1,array['BAB-RO05'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path

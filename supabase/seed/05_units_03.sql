@@ -7,6 +7,12 @@ select v.unit_code, p.id, v.unit_type_en, v.label_en, v.label_ar,
   v.price::bigint, v.dp::numeric, v.years::numeric,
   v.delivery_label, v.floor, v.availability::cms.unit_availability, 'published', now()
 from (values
+  ('WM-08','westown-medical-center','Clinic','clinic','عيادة',null,null,122,null,25814000,10,5,'2026',null,'available'),
+  ('WM-09','westown-medical-center','Clinic','clinic','عيادة',null,null,56,null,12275000,10,5,'2026',null,'available'),
+  ('WM-10','westown-medical-center','Clinic','clinic','عيادة',null,null,158,null,29885000,10,5,'2026',null,'available'),
+  ('WM-11','westown-medical-center','Clinic','clinic','عيادة',null,null,162,null,30314000,10,5,'2026',null,'available'),
+  ('TR-01','the-estates-residence','Apartment','Apartment','شقة',3,3,168,null,32941000,5,10,'2028',null,'available'),
+  ('TR-02','the-estates-residence','Apartment','Apartment','شقة',3,3,177,null,35107000,5,10,'2028',null,'available'),
   ('TR-03','the-estates-residence','Apartment','Apartment','شقة',3,3,211,null,37599000,5,10,'2029',null,'available'),
   ('TR-04','the-estates-residence','Apartment','Apartment','شقة',3,3,117,null,23994000,5,10,'2029',null,'available'),
   ('TR-05','the-estates-residence','Apartment','Apartment','شقة',3,3,127,null,24874000,5,10,'2029',null,'available'),

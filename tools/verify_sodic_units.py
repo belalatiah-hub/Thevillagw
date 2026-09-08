@@ -39,7 +39,11 @@ SPEC = [('Villette', 'villette', 'VL'),
         ('SODIC EAST', 'sodic-east', 'SE'),
         ('THE ESTATES', 'the-estates-zayed', 'ES'),
         ('Westown Medical Center', 'westown-medical-center', 'WM'),
-        ('The Estates Residence', 'the-estates-residence', 'TR')]
+        ('The Estates Residence', 'the-estates-residence', 'TR'),
+        # Caesar's two extensions are phases of one project: they share its
+        # slug and one id sequence, numbered straight through in sheet order.
+        ('caesar Extension 1', 'caesar-north-coast', 'CS'),
+        ('caesar Extension 2', 'caesar-north-coast', 'CS')]
 
 
 def slug(s):
@@ -125,6 +129,7 @@ def main():
         return re.findall(r"'(/[^']+)'", m.group(0)) if m else None
 
     print('%-7s %-13s %-7s %-6s %s' % ('unit', 'price', 'm2', 'images', 'first image'))
+    seq = {}
     for name, slug_, code in SPEC:
         rows = groups.get(name) or []
         check(bool(rows), '%s: the sheet has no rows under this name' % name)
@@ -143,8 +148,9 @@ def main():
             absent.append((name, n))
             return None
 
-        for i, u in enumerate(rows, 1):
-            uid = '%s-%02d' % (code, i)
+        for u in rows:
+            seq[code] = seq.get(code, 0) + 1
+            uid = '%s-%02d' % (code, seq[code])
             rec = live.get(uid)
             check(bool(rec), '%s: no record on the site (sheet row %d)' % (uid, u['row']))
             if not rec:

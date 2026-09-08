@@ -302,6 +302,12 @@ def build_media(d):
 
     for slug, path in (d.get('PROJECT_COVERS') or {}).items():
         add('project', slug, 'cover', path)
+    # A project's own photography — the hero strip on its page. Kept in step
+    # with the same block in the other file: a map added to one and not the
+    # other digests as matching while the database holds nothing.
+    for slug, paths in (d.get('PROJECT_GALLERY') or {}).items():
+        for i, path in enumerate(paths or []):
+            add('project', slug, 'gallery', path, i)
     # A project master plan that is not any one unit's — set on the project
     # rather than derived from its first unit. See PROJECT_PLANS on the site.
     for slug, plans in (d.get('PROJECT_PLANS') or {}).items():

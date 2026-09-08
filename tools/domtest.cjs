@@ -86,7 +86,7 @@ sandbox.globalThis = sandbox; sandbox.self = sandbox;
 
 let src = fs.readFileSync(require('path').join(__dirname,'..','index.html'),'utf8');
 src = src.match(/<script>\s*"use strict"[\s\S]*?<\/script>/)[0].replace(/^<script>/,'').replace(/<\/script>$/,'');
-src += "\n;globalThis.__api={h:h,V:V,unitCard:unitCard,projectArt:projectArt,projectMedia:projectMedia,projectCoverSrc:projectCoverSrc,chatRespond:chatRespond,offerText:offerText,money:money,num:num,planLine:planLine,projectOffer:projectOffer,bestNameMatch:bestNameMatch,unitDisplayName:unitDisplayName,PROJECTS:PROJECTS,UNITS:UNITS,DEVELOPERS:DEVELOPERS,TYPES:TYPES,lang:lang,filterUnits:filterUnits,defaultFilter:defaultFilter,normalizeUnitType:normalizeUnitType,reconcileFilter:reconcileFilter,filterToQuery:filterToQuery,filterFromQuery:filterFromQuery,areaFacets:areaFacets,devFacets:devFacets,typeFacets:typeFacets,bedFacets:bedFacets,floorFacets:floorFacets,usesFloorBands:usesFloorBands,recommendUnits:recommendUnits,scoreUnit:scoreUnit,relaxationPlan:relaxationPlan,matchHard:matchHard,hasSelection:hasSelection,selectionSummary:selectionSummary,chatRecommend:chatRecommend,chatBriefText:chatBriefText,projBySlug:projBySlug,unitCanon:unitCanon,setFilter:function(f){FILTER=f;},getFilter:function(){return FILTER;},searchAll:searchAll,arNorm:arNorm,buildSearchIndex:buildSearchIndex,setSearch:function(s){CUR.search=s;},paymentCalc:paymentCalc,printFactsheet:printFactsheet,projFloorplan:projFloorplan,installmentCount:installmentCount,projectCoverSrc:projectCoverSrc,printUnitFactsheet:printUnitFactsheet,openFactsheet:openFactsheet,closeFactsheet:closeFactsheet,track:track,render:render,parse:parse,buildPath:buildPath,navigateTo:navigateTo,getRoute:function(){return currentRoute;},searchLabel:searchLabel,saveCurrentSearch:saveCurrentSearch,savedSearches:savedSearches,removeSearch:removeSearch,leadSubmit:leadSubmit,leadArm:leadArm,leadReset:function(){LEAD.shown=0;LEAD.armed=false;LEAD.open=false;},leadState:function(){return LEAD;},isExternalLink:isExternalLink,CONFIG:CONFIG,devLogoSrc:devLogoSrc,projectLogoSrc:projectLogoSrc,devBadge:devBadge,devByKey:devByKey,DEV_LOGOS:DEV_LOGOS,DEV_GALLERY:DEV_GALLERY,devGallery:devGallery,PROJECT_LOGOS:PROJECT_LOGOS,unitMasterplans:unitMasterplans,unitFloorplans:unitFloorplans,unitAmenities:unitAmenities,unitLocationImg:unitLocationImg,unitGallery:unitGallery,unitGalleryItems:unitGalleryItems,unitFeatureRow:unitFeatureRow,amenitiesSection:amenitiesSection,areaImageSrc:areaImageSrc,AMENITY_CAT:AMENITY_CAT,unitById:unitById,unitIsCommercial:unitIsCommercial,typeFamily:typeFamily,releaseBySlug:releaseBySlug,RELEASES:RELEASES,rotateByDev:rotateByDev,devRotationOffset:devRotationOffset,areaByKey:areaByKey,hasUnitImage:hasUnitImage,sortUnits:sortUnits,searchAll:searchAll,searchTypeOne:searchTypeOne,buildSearchIndex:buildSearchIndex,releaseMasterplan:releaseMasterplan,spreadByDev:spreadByDev,isNewLaunch:isNewLaunch,newLaunchProjects:newLaunchProjects,NEW_LAUNCH_SLUGS:NEW_LAUNCH_SLUGS,PROJECT_GROUPS:PROJECT_GROUPS,groupBySlug:groupBySlug,groupsByDev:groupsByDev,groupMembers:groupMembers,GROUPED_PROJECT:GROUPED_PROJECT,setCompare:function(a){compare.length=0;for(var i=0;i<a.length;i++)compare.push(a[i]);},getCompare:function(){return compare;},toggleCompare:toggleCompare,HERO_SLIDES:HERO_SLIDES,heroSrc:heroSrc,AREAS:AREAS,RESEARCH:RESEARCH,areaText:areaText,areaValue:areaValue,DEV_AMENITIES:DEV_AMENITIES,AMENITY_CAT:AMENITY_CAT,ICON:ICON,devAmenitiesSection:devAmenitiesSection,DEV_FEATURES:DEV_FEATURES,UNIT_GALLERY:UNIT_GALLERY,unitMasterplans:unitMasterplans,unitLocationImg:unitLocationImg,unitFloorplans:unitFloorplans,PROJECT_AMENITIES:PROJECT_AMENITIES,unitAmenities:unitAmenities,projectGalleryItems:projectGalleryItems,projFeatures:projFeatures,projectPlans:projectPlans,projectPlanSection:projectPlanSection,unitMedia:unitMedia,UNIT_IMAGES:UNIT_IMAGES,PROJECT_COVERS:PROJECT_COVERS,PROJECT_PLANS:PROJECT_PLANS,UNIT_EXTRA:UNIT_EXTRA,UNIT_MASTERPLANS:UNIT_MASTERPLANS,UNIT_FLOORPLANS:UNIT_FLOORPLANS,UNIT_LOCATIONS:UNIT_LOCATIONS};";
+src += "\n;globalThis.__api={h:h,V:V,unitCard:unitCard,projectArt:projectArt,projectMedia:projectMedia,projectCoverSrc:projectCoverSrc,chatRespond:chatRespond,offerText:offerText,money:money,num:num,planLine:planLine,projectOffer:projectOffer,bestNameMatch:bestNameMatch,unitDisplayName:unitDisplayName,PROJECTS:PROJECTS,UNITS:UNITS,DEVELOPERS:DEVELOPERS,TYPES:TYPES,lang:lang,filterUnits:filterUnits,defaultFilter:defaultFilter,normalizeUnitType:normalizeUnitType,reconcileFilter:reconcileFilter,filterToQuery:filterToQuery,filterFromQuery:filterFromQuery,areaFacets:areaFacets,devFacets:devFacets,typeFacets:typeFacets,bedFacets:bedFacets,floorFacets:floorFacets,usesFloorBands:usesFloorBands,recommendUnits:recommendUnits,scoreUnit:scoreUnit,relaxationPlan:relaxationPlan,matchHard:matchHard,hasSelection:hasSelection,selectionSummary:selectionSummary,chatRecommend:chatRecommend,chatBriefText:chatBriefText,projBySlug:projBySlug,unitCanon:unitCanon,setFilter:function(f){FILTER=f;},getFilter:function(){return FILTER;},searchAll:searchAll,arNorm:arNorm,buildSearchIndex:buildSearchIndex,setSearch:function(s){CUR.search=s;},paymentCalc:paymentCalc,printFactsheet:printFactsheet,projFloorplan:projFloorplan,installmentCount:installmentCount,projectCoverSrc:projectCoverSrc,printUnitFactsheet:printUnitFactsheet,openFactsheet:openFactsheet,closeFactsheet:closeFactsheet,track:track,render:render,parse:parse,buildPath:buildPath,navigateTo:navigateTo,getRoute:function(){return currentRoute;},searchLabel:searchLabel,saveCurrentSearch:saveCurrentSearch,savedSearches:savedSearches,removeSearch:removeSearch,leadSubmit:leadSubmit,leadArm:leadArm,leadReset:function(){LEAD.shown=0;LEAD.armed=false;LEAD.open=false;},leadState:function(){return LEAD;},isExternalLink:isExternalLink,CONFIG:CONFIG,devLogoSrc:devLogoSrc,projectLogoSrc:projectLogoSrc,devBadge:devBadge,devByKey:devByKey,DEV_LOGOS:DEV_LOGOS,DEV_GALLERY:DEV_GALLERY,devGallery:devGallery,PROJECT_LOGOS:PROJECT_LOGOS,unitMasterplans:unitMasterplans,unitFloorplans:unitFloorplans,unitAmenities:unitAmenities,unitLocationImg:unitLocationImg,unitGallery:unitGallery,unitGalleryItems:unitGalleryItems,unitFeatureRow:unitFeatureRow,amenitiesSection:amenitiesSection,areaImageSrc:areaImageSrc,AMENITY_CAT:AMENITY_CAT,unitById:unitById,unitIsCommercial:unitIsCommercial,typeFamily:typeFamily,releaseBySlug:releaseBySlug,RELEASES:RELEASES,rotateByDev:rotateByDev,devRotationOffset:devRotationOffset,areaByKey:areaByKey,hasUnitImage:hasUnitImage,sortUnits:sortUnits,searchAll:searchAll,searchTypeOne:searchTypeOne,buildSearchIndex:buildSearchIndex,releaseMasterplan:releaseMasterplan,spreadByDev:spreadByDev,isNewLaunch:isNewLaunch,newLaunchProjects:newLaunchProjects,NEW_LAUNCH_SLUGS:NEW_LAUNCH_SLUGS,PROJECT_GROUPS:PROJECT_GROUPS,groupBySlug:groupBySlug,groupsByDev:groupsByDev,groupMembers:groupMembers,GROUPED_PROJECT:GROUPED_PROJECT,setCompare:function(a){compare.length=0;for(var i=0;i<a.length;i++)compare.push(a[i]);},getCompare:function(){return compare;},toggleCompare:toggleCompare,HERO_SLIDES:HERO_SLIDES,heroSrc:heroSrc,AREAS:AREAS,RESEARCH:RESEARCH,areaText:areaText,areaValue:areaValue,DEV_AMENITIES:DEV_AMENITIES,AMENITY_CAT:AMENITY_CAT,ICON:ICON,devAmenitiesSection:devAmenitiesSection,DEV_FEATURES:DEV_FEATURES,UNIT_GALLERY:UNIT_GALLERY,unitMasterplans:unitMasterplans,unitLocationImg:unitLocationImg,unitFloorplans:unitFloorplans,PROJECT_AMENITIES:PROJECT_AMENITIES,unitAmenities:unitAmenities,projectGalleryItems:projectGalleryItems,projFeatures:projFeatures,projectPlans:projectPlans,projectPlanSection:projectPlanSection,unitMedia:unitMedia,UNIT_IMAGES:UNIT_IMAGES,PROJECT_COVERS:PROJECT_COVERS,PROJECT_GALLERY:PROJECT_GALLERY,PROJECT_PLANS:PROJECT_PLANS,UNIT_EXTRA:UNIT_EXTRA,UNIT_MASTERPLANS:UNIT_MASTERPLANS,UNIT_FLOORPLANS:UNIT_FLOORPLANS,UNIT_LOCATIONS:UNIT_LOCATIONS};";
 
 const R=[]; const ck=(n,c,x)=>R.push({n,ok:!!c,x:x||''});
 function countClass(node,cls){ let n=0; (function w(x){ for(const c of (x.childNodes||[])){ if(c.nodeType===1){ if((c.className||'').split(/\s+/).indexOf(cls)>-1) n++; w(c); } } })(node); return n; }
@@ -151,7 +151,7 @@ try {
      holds instead of a second copy that drifts. */
   if (process.argv.includes('--dump-data')) {
     const pick = ['AREAS','DEVELOPERS','PROJECTS','UNITS','RELEASES','PROJECT_GROUPS','RESEARCH',
-                  'UNIT_EXTRA','PROJECT_COVERS','PROJECT_PLANS','UNIT_IMAGES','UNIT_GALLERY','UNIT_MASTERPLANS',
+                  'UNIT_EXTRA','PROJECT_COVERS','PROJECT_GALLERY','PROJECT_PLANS','UNIT_IMAGES','UNIT_GALLERY','UNIT_MASTERPLANS',
                   'UNIT_FLOORPLANS','UNIT_LOCATIONS','DEV_LOGOS','DEV_GALLERY','PROJECT_LOGOS',
                   'PROJECT_AMENITIES','AMENITY_CAT','DEV_AMENITIES','DEV_FEATURES','HERO_SLIDES'];
     const out = {};
@@ -373,7 +373,7 @@ try {
   ck('listings: the sheet’s AEON Towers row joins the existing Aeon project', (function(){
     var u=api.UNITS.filter(x=>x.id==='AE-AP01')[0];
     return u && u.project==='aeon' && u.area===246 && u.price===36000000 && u.years===4; })());
-  ck('listings: Caesar + June (SODIC North Coast) added', api.projBySlug('caesar-north-coast').price===39200000 && api.projBySlug('june-north-coast').price===28973000 && api.projBySlug('caesar-north-coast').dev==='sodic' && api.projBySlug('june-north-coast').dev==='sodic');
+  ck('listings: Caesar + June (SODIC North Coast) added', api.projBySlug('caesar-north-coast').price===39217000 && api.projBySlug('june-north-coast').price===28973000 && api.projBySlug('caesar-north-coast').dev==='sodic' && api.projBySlug('june-north-coast').dev==='sodic');
   var pv=api.V.project('ogami-north-coast');
   ck('listings: project detail renders (h1) + real price shown', pv && countTag(pv.node,'h1')>=1 && txt(pv.node).indexOf('22,329,000')>=0);
   api.setFilter(Object.assign(api.defaultFilter(),{projects:['ogami-north-coast']}));
@@ -551,7 +551,7 @@ try {
 
   // ---- UI refinements ----
   api.setFilter(api.defaultFilter());
-  ck('count: SODIC shows 81 units dynamically (facet from data)', api.devFacets().sodic===81, 'sodic='+api.devFacets().sodic);
+  ck('count: SODIC shows 87 units dynamically (facet from data)', api.devFacets().sodic===87, 'sodic='+api.devFacets().sodic);
   api.setFilter(api.defaultFilter());
   ck('overview: project page renders a collapsed <details> accordion', (function(){
     var n=api.V.project('villette').node; var det=qsa(n,'.accordion')[0];
@@ -650,14 +650,23 @@ try {
   })(), 'ok');
 
   // ---- master/floor plans + amenities + unit feature row ----
-  ck('plans: master & floor resolvers map to /project-media/plans', (function(){
-    var u=api.unitById('CS-TW1'), mp=api.unitMasterplans(u), fp=api.unitFloorplans(u);
-    // Ogami moved to its own directory when the sheet arrived; a bare filename
-    // still resolves under /plans, a rooted path is left alone.
+  /* This asserted that a bare filename gains /project-media/plans/ and a rooted
+     path is left alone. Every project has since moved to its own directory, so
+     no unit names a bare filename any more and that shared directory is gone —
+     planUrl keeps the rule for whatever needs it next, but there is no longer
+     data to assert it through. What matters now is the rooted case: every plan
+     a unit shows resolves under its own project's media and is a real file. */
+  ck('plans: every master and floor plan resolves to a file that exists', (function(){
+    var fsx=require('fs'), pathx=require('path'), bad=[];
+    api.UNITS.forEach(function(u){
+      api.unitMasterplans(u).concat(api.unitFloorplans(u)).forEach(function(s){
+        if(s.indexOf('/project-media/') !== 0 ||
+           !fsx.existsSync(pathx.join(__dirname, '..', s.replace(/^\//,'')))) bad.push(u.id+':'+s);
+      });
+    });
     var ofp=api.unitFloorplans(api.unitById('OG-03'));
-    return mp.length===1 && /\/project-media\/plans\/mp-CS-TW1\.webp$/.test(mp[0])
-      && fp.length===1 && /\/project-media\/plans\/fp-CS-TW1-1\.webp$/.test(fp[0])
-      && ofp.length===2 && ofp.every(function(s){ return s.indexOf('/project-media/ogami/units/')===0; });
+    return bad.length===0 && ofp.length===2 &&
+           ofp.every(function(s){ return s.indexOf('/project-media/ogami/units/')===0; });
   })(), 'ok');
   /* A unit carrying every category shows all five chips. This was written when
      the richest unit on the site had plans but no photography, so it counted
@@ -1863,7 +1872,7 @@ try {
       if(!own.length) return !(p.price > 0);
       return p.price !== Math.min.apply(null, own.map(function(u){ return u.price; }));
     });
-    return ps.length === 8 && us.length === 81 && stale.length === 0 &&
+    return ps.length === 8 && us.length === 87 && stale.length === 0 &&
            ps.every(function(p){ return p.price > 0 && p.types && p.types.en; });
   })(), 'ok');
 
@@ -2213,6 +2222,23 @@ try {
     var bad = api.UNITS.filter(function(u){
       if(typeof u.area !== 'number' || !(u.area > 0)) return true;
       return u.areaTo != null && !(typeof u.areaTo === 'number' && u.areaTo >= u.area);
+    });
+    return bad.length === 0;
+  })(), 'ok');
+  /* A project's photography strip was invisible to every check here and never
+     reached the database at all — PROJECT_GALLERY was neither exported nor
+     migrated, so 147 frames across 13 projects existed only in the bundle. It
+     is carried now, and this asserts the two things that would go wrong: a
+     frame that is not a real file, and a gallery whose project is gone. */
+  ck('site: every project gallery frame is a real file on a live project', (function(){
+    var fsx=require('fs'), pathx=require('path'), bad=[];
+    var live={}; api.PROJECTS.forEach(function(p){ live[p.slug]=1; });
+    Object.keys(api.PROJECT_GALLERY).forEach(function(slug){
+      if(!live[slug]) { bad.push(slug+':no such project'); return; }
+      (api.PROJECT_GALLERY[slug]||[]).forEach(function(src){
+        if(typeof src !== 'string' || src.indexOf('/project-media/') !== 0 ||
+           !fsx.existsSync(pathx.join(__dirname,'..',src.replace(/^\//,'')))) bad.push(slug+':'+src);
+      });
     });
     return bad.length === 0;
   })(), 'ok');

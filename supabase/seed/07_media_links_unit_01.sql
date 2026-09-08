@@ -43,9 +43,6 @@ from (values
   ('/project-media/' || 'beitalbahr/units/v1-0-roo.webp','cover',0,array['BAB-RO01']),
   ('/project-media/' || 'beitalbahr/units/v2-0-hills.webp','cover',0,array['BAB-HS02']),
   ('/project-media/' || 'beitalbahr/units/v2-0-roo.webp','cover',0,array['BAB-RO02']),
-  ('/project-media/' || 'caesar/standalone.webp','cover',0,array['CS-SV1']),
-  ('/project-media/' || 'caesar/town-house.webp','cover',0,array['CS-TH1']),
-  ('/project-media/' || 'caesar/twin-house.webp','cover',0,array['CS-TW1']),
   ('/project-media/' || 'emaarmisr/marassi-red-sea/units/ap1-marina-shore-2.webp','cover',0,array['MR-02','MR-03']),
   ('/project-media/' || 'emaarmisr/marassi-red-sea/units/ap1-marina-shore-4.webp','cover',0,array['MR-04','MR-05']),
   ('/project-media/' || 'emaarmisr/marassi-red-sea/units/th1-marasi0infinity-0.webp','cover',0,array['MR-01']),
@@ -257,7 +254,10 @@ from (values
   ('/project-media/' || 'ora/du1-em-0.webp','cover',0,array['OR-EM-01']),
   ('/project-media/' || 'ora/du2-em-0.webp','cover',0,array['OR-EM-02']),
   ('/project-media/' || 'ora/four-0.webp','cover',0,array['OR-EM-03']),
-  ('/project-media/' || 'ora/lo-z-0.webp','cover',0,array['OR-ZE-04'])
+  ('/project-media/' || 'ora/lo-z-0.webp','cover',0,array['OR-ZE-04']),
+  ('/project-media/' || 'ora/pen-sw-0.webp','cover',0,array['OR-SW-15']),
+  ('/project-media/' || 'ora/pen2.webp','cover',0,array['OR-SW-16']),
+  ('/project-media/' || 'ora/st-em-0.webp','cover',0,array['OR-EM-06'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path

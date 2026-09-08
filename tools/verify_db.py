@@ -101,6 +101,12 @@ def main():
 
     for slug, path in (d.get('PROJECT_COVERS') or {}).items():
         add('project', slug, 'cover', path)
+    # A project's own photography — the hero strip on its page. Kept in step
+    # with the same block in the other file: a map added to one and not the
+    # other digests as matching while the database holds nothing.
+    for slug, paths in (d.get('PROJECT_GALLERY') or {}).items():
+        for i, path in enumerate(paths or []):
+            add('project', slug, 'gallery', path, i)
     # Kept in step with build_media() in migrate_to_db.py: a project master plan
     # set on the project rather than derived from its first unit.
     for slug, plans in (d.get('PROJECT_PLANS') or {}).items():

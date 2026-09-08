@@ -5,6 +5,12 @@
 insert into cms.media_links (asset_id, unit_id, role, sort_order)
 select a.id, o.id, v.role::cms.media_role, v.sort_order
 from (values
+  ('/project-media/' || 'emaarmisr/marassi-red-sea/units/fp-ap1-marina-shore.webp','floorplan',0,array['MR-02']),
+  ('/project-media/' || 'emaarmisr/marassi-red-sea/units/fp-ap2-marina-shore.webp','floorplan',0,array['MR-03']),
+  ('/project-media/' || 'emaarmisr/marassi-red-sea/units/fp-ap3-marina-shore.webp','floorplan',0,array['MR-04']),
+  ('/project-media/' || 'emaarmisr/marassi-red-sea/units/fp-ap4-marina-shore.webp','floorplan',0,array['MR-05']),
+  ('/project-media/' || 'emaarmisr/marassi-red-sea/units/fp-marasi-infinity.webp','floorplan',0,array['MR-01']),
+  ('/project-media/' || 'emaarmisr/marassi-red-sea/units/fp-v1-horizon.webp','floorplan',0,array['MR-12']),
   ('/project-media/' || 'emaarmisr/marassi-red-sea/units/fp-v1-island.webp','floorplan',0,array['MR-06']),
   ('/project-media/' || 'emaarmisr/marassi-red-sea/units/fp-v2-horizon.webp','floorplan',0,array['MR-13']),
   ('/project-media/' || 'emaarmisr/marassi-red-sea/units/fp-v2-island.webp','floorplan',0,array['MR-07']),
@@ -236,15 +242,7 @@ from (values
   ('/project-media/' || 'ora/fp-2b-se.webp','floorplan',0,array['OR-SE-01']),
   ('/project-media/' || 'ora/fp-3b-se.webp','floorplan',0,array['OR-SE-02']),
   ('/project-media/' || 'ora/fp-ap1-ss.webp','floorplan',0,array['OR-ST-01']),
-  ('/project-media/' || 'ora/fp-ap1-sw.webp','floorplan',0,array['OR-SW-09']),
-  ('/project-media/' || 'ora/fp-ap1-z-0.webp','floorplan',0,array['OR-ZE-01']),
-  ('/project-media/' || 'ora/fp-ap1-z-01.webp','floorplan',1,array['OR-ZE-01']),
-  ('/project-media/' || 'ora/fp-ap1-ze-0.webp','floorplan',0,array['OR-ZE-06']),
-  ('/project-media/' || 'ora/fp-ap1-ze-01.webp','floorplan',1,array['OR-ZE-06']),
-  ('/project-media/' || 'ora/fp-ap1-zw.webp','floorplan',0,array['OR-ZW-02']),
-  ('/project-media/' || 'ora/fp-ap2-sw.webp','floorplan',0,array['OR-SW-10']),
-  ('/project-media/' || 'ora/fp-ap2-z.webp','floorplan',0,array['OR-ZE-02']),
-  ('/project-media/' || 'ora/fp-ap2-ze.webp','floorplan',0,array['OR-ZE-07'])
+  ('/project-media/' || 'ora/fp-ap1-sw.webp','floorplan',0,array['OR-SW-09'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path

@@ -6567,48 +6567,6 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/units/bab-hl01/"/>
   </url>
   <url>
-    <loc>https://www.thevillageinvestment.com/en/units/cs-th1/</loc>
-    <lastmod>2026-09-08</lastmod>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/units/cs-th1/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/units/cs-th1/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/units/cs-th1/"/>
-  </url>
-  <url>
-    <loc>https://www.thevillageinvestment.com/ar/units/cs-th1/</loc>
-    <lastmod>2026-09-08</lastmod>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/units/cs-th1/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/units/cs-th1/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/units/cs-th1/"/>
-  </url>
-  <url>
-    <loc>https://www.thevillageinvestment.com/en/units/cs-tw1/</loc>
-    <lastmod>2026-09-08</lastmod>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/units/cs-tw1/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/units/cs-tw1/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/units/cs-tw1/"/>
-  </url>
-  <url>
-    <loc>https://www.thevillageinvestment.com/ar/units/cs-tw1/</loc>
-    <lastmod>2026-09-08</lastmod>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/units/cs-tw1/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/units/cs-tw1/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/units/cs-tw1/"/>
-  </url>
-  <url>
-    <loc>https://www.thevillageinvestment.com/en/units/cs-sv1/</loc>
-    <lastmod>2026-09-08</lastmod>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/units/cs-sv1/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/units/cs-sv1/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/units/cs-sv1/"/>
-  </url>
-  <url>
-    <loc>https://www.thevillageinvestment.com/ar/units/cs-sv1/</loc>
-    <lastmod>2026-09-08</lastmod>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/units/cs-sv1/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/units/cs-sv1/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/units/cs-sv1/"/>
-  </url>
-  <url>
     <loc>https://www.thevillageinvestment.com/en/units/bd-ap1/</loc>
     <lastmod>2026-09-08</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/units/bd-ap1/"/>
@@ -6691,6 +6649,132 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/units/es-03/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/units/es-03/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/units/es-03/"/>
+  </url>
+  <url>
+    <loc>https://www.thevillageinvestment.com/en/units/cs-01/</loc>
+    <lastmod>2026-09-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/units/cs-01/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/units/cs-01/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/units/cs-01/"/>
+  </url>
+  <url>
+    <loc>https://www.thevillageinvestment.com/ar/units/cs-01/</loc>
+    <lastmod>2026-09-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/units/cs-01/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/units/cs-01/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/units/cs-01/"/>
+  </url>
+  <url>
+    <loc>https://www.thevillageinvestment.com/en/units/cs-02/</loc>
+    <lastmod>2026-09-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/units/cs-02/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/units/cs-02/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/units/cs-02/"/>
+  </url>
+  <url>
+    <loc>https://www.thevillageinvestment.com/ar/units/cs-02/</loc>
+    <lastmod>2026-09-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/units/cs-02/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/units/cs-02/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/units/cs-02/"/>
+  </url>
+  <url>
+    <loc>https://www.thevillageinvestment.com/en/units/cs-03/</loc>
+    <lastmod>2026-09-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/units/cs-03/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/units/cs-03/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/units/cs-03/"/>
+  </url>
+  <url>
+    <loc>https://www.thevillageinvestment.com/ar/units/cs-03/</loc>
+    <lastmod>2026-09-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/units/cs-03/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/units/cs-03/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/units/cs-03/"/>
+  </url>
+  <url>
+    <loc>https://www.thevillageinvestment.com/en/units/cs-04/</loc>
+    <lastmod>2026-09-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/units/cs-04/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/units/cs-04/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/units/cs-04/"/>
+  </url>
+  <url>
+    <loc>https://www.thevillageinvestment.com/ar/units/cs-04/</loc>
+    <lastmod>2026-09-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/units/cs-04/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/units/cs-04/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/units/cs-04/"/>
+  </url>
+  <url>
+    <loc>https://www.thevillageinvestment.com/en/units/cs-05/</loc>
+    <lastmod>2026-09-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/units/cs-05/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/units/cs-05/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/units/cs-05/"/>
+  </url>
+  <url>
+    <loc>https://www.thevillageinvestment.com/ar/units/cs-05/</loc>
+    <lastmod>2026-09-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/units/cs-05/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/units/cs-05/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/units/cs-05/"/>
+  </url>
+  <url>
+    <loc>https://www.thevillageinvestment.com/en/units/cs-06/</loc>
+    <lastmod>2026-09-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/units/cs-06/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/units/cs-06/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/units/cs-06/"/>
+  </url>
+  <url>
+    <loc>https://www.thevillageinvestment.com/ar/units/cs-06/</loc>
+    <lastmod>2026-09-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/units/cs-06/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/units/cs-06/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/units/cs-06/"/>
+  </url>
+  <url>
+    <loc>https://www.thevillageinvestment.com/en/units/cs-07/</loc>
+    <lastmod>2026-09-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/units/cs-07/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/units/cs-07/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/units/cs-07/"/>
+  </url>
+  <url>
+    <loc>https://www.thevillageinvestment.com/ar/units/cs-07/</loc>
+    <lastmod>2026-09-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/units/cs-07/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/units/cs-07/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/units/cs-07/"/>
+  </url>
+  <url>
+    <loc>https://www.thevillageinvestment.com/en/units/cs-08/</loc>
+    <lastmod>2026-09-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/units/cs-08/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/units/cs-08/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/units/cs-08/"/>
+  </url>
+  <url>
+    <loc>https://www.thevillageinvestment.com/ar/units/cs-08/</loc>
+    <lastmod>2026-09-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/units/cs-08/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/units/cs-08/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/units/cs-08/"/>
+  </url>
+  <url>
+    <loc>https://www.thevillageinvestment.com/en/units/cs-09/</loc>
+    <lastmod>2026-09-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/units/cs-09/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/units/cs-09/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/units/cs-09/"/>
+  </url>
+  <url>
+    <loc>https://www.thevillageinvestment.com/ar/units/cs-09/</loc>
+    <lastmod>2026-09-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.thevillageinvestment.com/en/units/cs-09/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.thevillageinvestment.com/ar/units/cs-09/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thevillageinvestment.com/en/units/cs-09/"/>
   </url>
   <url>
     <loc>https://www.thevillageinvestment.com/en/units/wm-01/</loc>

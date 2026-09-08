@@ -5,6 +5,25 @@
 insert into cms.media_links (asset_id, unit_id, role, sort_order)
 select a.id, o.id, v.role::cms.media_role, v.sort_order
 from (values
+  ('/project-media/' || 'marakez/units/ap18-d-04.webp','gallery',4,array['D5-A18']),
+  ('/project-media/' || 'marakez/units/ap18-d-05.webp','gallery',5,array['D5-A18']),
+  ('/project-media/' || 'marakez/units/ap19-d-0.webp','gallery',0,array['D5-A19']),
+  ('/project-media/' || 'marakez/units/ap19-d-01.webp','gallery',1,array['D5-A19']),
+  ('/project-media/' || 'marakez/units/ap19-d-02.webp','gallery',2,array['D5-A19']),
+  ('/project-media/' || 'marakez/units/ap19-d-03.webp','gallery',3,array['D5-A19']),
+  ('/project-media/' || 'marakez/units/ap19-d-04.webp','gallery',4,array['D5-A19']),
+  ('/project-media/' || 'marakez/units/ap2-cr-0.webp','gallery',0,array['CW-A02','CW-A10','CW-A12']),
+  ('/project-media/' || 'marakez/units/ap2-cr-0.webp','gallery',1,array['CW-A05','CW-A11']),
+  ('/project-media/' || 'marakez/units/ap2-cr-0.webp','gallery',2,array['CW-A07']),
+  ('/project-media/' || 'marakez/units/ap2-cr-0.webp','gallery',5,array['CW-A08']),
+  ('/project-media/' || 'marakez/units/ap2-cr-01.webp','gallery',1,array['CW-A02','CW-A10','CW-A12']),
+  ('/project-media/' || 'marakez/units/ap2-cr-01.webp','gallery',2,array['CW-A05','CW-A11']),
+  ('/project-media/' || 'marakez/units/ap2-cr-01.webp','gallery',3,array['CW-A07']),
+  ('/project-media/' || 'marakez/units/ap2-cr-01.webp','gallery',4,array['CW-A08','CW-A09']),
+  ('/project-media/' || 'marakez/units/ap2-cr-02.webp','gallery',0,array['CW-A11']),
+  ('/project-media/' || 'marakez/units/ap2-cr-02.webp','gallery',2,array['CW-A02','CW-A04','CW-A10','CW-A12']),
+  ('/project-media/' || 'marakez/units/ap2-cr-02.webp','gallery',3,array['CW-A05']),
+  ('/project-media/' || 'marakez/units/ap2-cr-03.webp','gallery',0,array['CW-A05']),
   ('/project-media/' || 'marakez/units/ap2-cr-03.webp','gallery',1,array['CW-A07']),
   ('/project-media/' || 'marakez/units/ap2-cr-03.webp','gallery',3,array['CW-A02','CW-A04','CW-A10','CW-A12']),
   ('/project-media/' || 'marakez/units/ap2-d-0.webp','gallery',0,array['D5-A02']),
@@ -236,25 +255,7 @@ from (values
   ('/project-media/' || 'msquared/units/ap5-trio-0.webp','gallery',0,array['MS-TR-05']),
   ('/project-media/' || 'msquared/units/ap5-trio-01.webp','gallery',1,array['MS-TR-05']),
   ('/project-media/' || 'msquared/units/ap5-trio-02.webp','gallery',2,array['MS-TR-05']),
-  ('/project-media/' || 'msquared/units/ap5-trio-03.webp','gallery',3,array['MS-TR-05']),
-  ('/project-media/' || 'msquared/units/ap5-trio-04.webp','gallery',4,array['MS-TR-05']),
-  ('/project-media/' || 'msquared/units/ap6-trio-0.webp','gallery',0,array['MS-TR-07']),
-  ('/project-media/' || 'msquared/units/ap6-trio-01.webp','gallery',1,array['MS-TR-07']),
-  ('/project-media/' || 'msquared/units/ap6-trio-02.webp','gallery',2,array['MS-TR-07']),
-  ('/project-media/' || 'msquared/units/ap6-trio-03.webp','gallery',3,array['MS-TR-07']),
-  ('/project-media/' || 'msquared/units/chalet-1-masyaf-0.webp','gallery',0,array['MS-MA-01']),
-  ('/project-media/' || 'msquared/units/chalet-1-masyaf-01.webp','gallery',1,array['MS-MA-01']),
-  ('/project-media/' || 'msquared/units/chalet-1-masyaf-02.webp','gallery',2,array['MS-MA-01']),
-  ('/project-media/' || 'msquared/units/chalet-1-masyaf-03.webp','gallery',3,array['MS-MA-01']),
-  ('/project-media/' || 'msquared/units/chalet-1-masyaf-04.webp','gallery',4,array['MS-MA-01']),
-  ('/project-media/' || 'msquared/units/chalet-1-masyaf-05.webp','gallery',5,array['MS-MA-01']),
-  ('/project-media/' || 'msquared/units/chalet-2-masyaf-0.webp','gallery',0,array['MS-MA-02']),
-  ('/project-media/' || 'msquared/units/chalet-2-masyaf-01.webp','gallery',1,array['MS-MA-02']),
-  ('/project-media/' || 'msquared/units/chalet-2-masyaf-02.webp','gallery',2,array['MS-MA-02']),
-  ('/project-media/' || 'msquared/units/chalet-2-masyaf-03.webp','gallery',3,array['MS-MA-02']),
-  ('/project-media/' || 'msquared/units/chalet3-masyaf-0.webp','gallery',0,array['MS-MA-04']),
-  ('/project-media/' || 'msquared/units/chalet3-masyaf-01.webp','gallery',1,array['MS-MA-04']),
-  ('/project-media/' || 'msquared/units/chalet3-masyaf-02.webp','gallery',2,array['MS-MA-04'])
+  ('/project-media/' || 'msquared/units/ap5-trio-03.webp','gallery',3,array['MS-TR-05'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path
