@@ -551,7 +551,7 @@ try {
 
   // ---- UI refinements ----
   api.setFilter(api.defaultFilter());
-  ck('count: SODIC shows 46 units dynamically (facet from data)', api.devFacets().sodic===46, 'sodic='+api.devFacets().sodic);
+  ck('count: SODIC shows 81 units dynamically (facet from data)', api.devFacets().sodic===81, 'sodic='+api.devFacets().sodic);
   api.setFilter(api.defaultFilter());
   ck('overview: project page renders a collapsed <details> accordion', (function(){
     var n=api.V.project('villette').node; var det=qsa(n,'.accordion')[0];
@@ -1863,7 +1863,7 @@ try {
       if(!own.length) return !(p.price > 0);
       return p.price !== Math.min.apply(null, own.map(function(u){ return u.price; }));
     });
-    return ps.length === 6 && us.length === 46 && stale.length === 0 &&
+    return ps.length === 8 && us.length === 81 && stale.length === 0 &&
            ps.every(function(p){ return p.price > 0 && p.types && p.types.en; });
   })(), 'ok');
 

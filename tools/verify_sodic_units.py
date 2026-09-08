@@ -1,20 +1,20 @@
 #!/usr/bin/env python3
 """Check the reloaded SODIC units on the site against the client price sheet.
 
-Villette, June, SODIC East and The Estates were rewritten from the sheet, and
-the thing most easily got wrong is the images: a unit may name several, the
-order is the sheet's, and a continuation row carries nothing but another image
-id. This reads the workbook again, independently of whatever generated the
-site, and asserts for each unit in sheet order:
+Six SODIC projects are written from the sheet, and the thing most easily got
+wrong is the images: a unit may name several, the order is the sheet's, and a
+continuation row carries nothing but another image id. This reads the workbook
+again, independently of whatever generated the site, and asserts for each unit
+in sheet order:
 
   price, area, bedrooms, bathrooms, down payment, instalment years, handover
   the render list, in the sheet's order, first image first
   the floor plans, the master plan and the location map
   that every path it shows is a file that exists in the repo
 
-Nine SODIC East units are short of renders because the archive holding their
-image ids was never supplied. Those ids are reported at the end rather than
-failed: the sheet names them, no file exists, and the unit shows what it has.
+An id the sheet names that no archive supplies is reported at the end rather
+than failed: the unit shows what it has rather than a broken picture, and the
+report says exactly which file is still wanted.
 
     python3 tools/verify_sodic_units.py [path/to/the.xlsx]
 """
@@ -32,12 +32,14 @@ DEFAULT_XLSX = ('/root/.claude/uploads/c9c8c82a-00eb-5d87-a89f-ba9e63e19221/'
                 'dedaa386-________________.xlsx')
 
 # the sheet's project wording -> the site's slug and unit-id prefix, in the
-# order the site lists them. "The Estates Residence" is a separate group in the
-# sheet with no archive of its own and is deliberately not carried here.
+# order the site lists them. Note the sheet spells The Estates and The Estates
+# Residence as two separate groups, and they are two separate projects here.
 SPEC = [('Villette', 'villette', 'VL'),
         ('june', 'june-north-coast', 'JN'),
         ('SODIC EAST', 'sodic-east', 'SE'),
-        ('THE ESTATES', 'the-estates-zayed', 'ES')]
+        ('THE ESTATES', 'the-estates-zayed', 'ES'),
+        ('Westown Medical Center', 'westown-medical-center', 'WM'),
+        ('The Estates Residence', 'the-estates-residence', 'TR')]
 
 
 def slug(s):
@@ -129,7 +131,12 @@ def main():
         base = '/project-media/sodic/%s/units/' % slug_
 
         def path(n):
-            """The stored path for an image id, or None when no file exists."""
+            """The stored path for an image id, or None when no file exists.
+
+            The Estates Residence names its master plan "mp the eastates." —
+            a trailing dot the file does not carry — so the id is slugified,
+            which drops it, exactly as the loader does.
+            """
             p = base + slug(n) + '.webp'
             if os.path.exists(os.path.join(ROOT, p.lstrip('/'))):
                 return p
@@ -148,9 +155,16 @@ def main():
             # site, so compare the pair against the band's own two ends.
             sqm = str(u['sqm']).strip()
             lo, _, hi = sqm.partition('-') if '-' in sqm else (sqm, '', '')
-            want = [('beds', u['bed']), ('baths', u['bath']), ('price', u['price']),
-                    ('dp', round(u['dp'] * 100)), ('years', u['yrs']),
-                    ('area', float(lo))] + ([('areaTo', float(hi))] if hi else [])
+            want = [('price', u['price']), ('dp', round(u['dp'] * 100)),
+                    ('years', u['yrs']), ('area', float(lo))] \
+                + ([('areaTo', float(hi))] if hi else []) \
+                + [(f, v) for f, v in (('beds', u['bed']), ('baths', u['bath']))
+                   if v not in (None, '')]
+            # A clinic carries neither count: the sheet leaves both blank and an
+            # invented 0 would render on the page as one.
+            for f, v in (('beds', u['bed']), ('baths', u['bath'])):
+                check(v not in (None, '') or rec.get(f) is None,
+                      '%s: the sheet gives no %s, the site shows %s' % (uid, f, rec.get(f)))
             for field, val in want:
                 got = rec.get(field)
                 check(got is not None and float(got) == float(val),
