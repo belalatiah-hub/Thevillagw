@@ -101,8 +101,6 @@ from (values
   ('/project-media/' || 'hassan-allam/vl-sv4-r1.webp','cover',0,array['VL-SV4']),
   ('/project-media/' || 'hassan-allam/vl-th1-r1.webp','cover',0,array['VL-TH1']),
   ('/project-media/' || 'hassan-allam/vl-tw2-r1.webp','cover',0,array['VL-TW2']),
-  ('/project-media/' || 'june/standalone-254.webp','cover',0,array['JN-OP1']),
-  ('/project-media/' || 'june/standalone-june.webp','cover',0,array['JN-CR1']),
   ('/project-media/' || 'lmd/on-rt1-r1.webp','cover',0,array['ON-RT1']),
   ('/project-media/' || 'lmd/sem-cl1-r1.webp','cover',0,array['SEM-CL1']),
   ('/project-media/' || 'lmd/sem-cl2-r1.webp','cover',0,array['SEM-CL2']),
@@ -257,7 +255,9 @@ from (values
   ('/project-media/' || 'ora/ap3-zw-0.webp','cover',0,array['OR-ZW-03']),
   ('/project-media/' || 'ora/ap4-sw-0.webp','cover',0,array['OR-SW-12']),
   ('/project-media/' || 'ora/ap4-zw-0.webp','cover',0,array['OR-ZW-04']),
-  ('/project-media/' || 'ora/ap5-sw-0.webp','cover',0,array['OR-SW-13'])
+  ('/project-media/' || 'ora/ap5-sw-0.webp','cover',0,array['OR-SW-13']),
+  ('/project-media/' || 'ora/ap6-zw-0.webp','cover',0,array['OR-ZW-05']),
+  ('/project-media/' || 'ora/ap6-zw-01.webp','cover',0,array['OR-ZW-06'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path

@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <!-- frame-ancestors/HSTS belong in HTTP response headers (see deploy runbook), not meta. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'sha256-0eB8s3A3aZQguW+SDJC/YssfCUQj66wY3V7A9qjdeKc=' 'sha256-yI6VCT38V7vjk7cAW7UM7qbGpBU7Ua/f8UOqpzWwxAc=' 'sha256-YvHevJmHHrhBzm9a+K1fYxwv5t1APr4XI8t4Am8p7D4=' 'sha256-RBNvo1WzZ4oRRq0W9+hknpT7T8If536DEMBg9hyq/4o=' 'sha256-7OrZFLq7fg9mnPnljX9fut8kknHsx65QCame3rMjdrY=' https://static.cloudflareinsights.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://cloudflareinsights.com; base-uri 'self'; form-action 'self'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'sha256-0eB8s3A3aZQguW+SDJC/YssfCUQj66wY3V7A9qjdeKc=' 'sha256-yI6VCT38V7vjk7cAW7UM7qbGpBU7Ua/f8UOqpzWwxAc=' 'sha256-YvHevJmHHrhBzm9a+K1fYxwv5t1APr4XI8t4Am8p7D4=' 'sha256-RBNvo1WzZ4oRRq0W9+hknpT7T8If536DEMBg9hyq/4o=' 'sha256-A8EkZWLW8QKudGpHLHL4rwWPtzD5Kql5tPGrt3lpvTI=' https://static.cloudflareinsights.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://cloudflareinsights.com; base-uri 'self'; form-action 'self'" />
   <meta name="theme-color" content="#073D52" />
   <meta name="color-scheme" content="light" />
   <meta name="format-detection" content="telephone=no" />
@@ -1357,7 +1357,7 @@ var UNITS = [
 {id:'SE-09', project:'sodic-east', type:'Apartment', label:{en:'Apartment',ar:'شقة'}, beds:3, baths:3, area:183, price:24755000, dp:5, years:10, handover:'2027'},
 {id:'SE-10', project:'sodic-east', type:'Apartment', label:{en:'Apartment',ar:'شقة'}, beds:3, baths:3, area:183, price:32532000, dp:5, years:10, handover:'2028'},
 {id:'SE-11', project:'sodic-east', type:'Apartment', label:{en:'Apartment',ar:'شقة'}, beds:2, baths:3, area:141, price:15722000, dp:5, years:10, handover:'2027'},
-{id:'SE-12', project:'sodic-east', type:'Apartment', label:{en:'Apartment',ar:'شقة'}, beds:3, baths:3, area:153-157, price:17711000, dp:5, years:10, handover:'2027'},
+{id:'SE-12', project:'sodic-east', type:'Apartment', label:{en:'Apartment',ar:'شقة'}, beds:3, baths:3, area:153, areaTo:157, price:17711000, dp:5, years:10, handover:'2027'},
 {id:'SE-13', project:'sodic-east', type:'Apartment', label:{en:'Apartment',ar:'شقة'}, beds:2, baths:3, area:129, price:14360499, dp:5, years:10, handover:'2027'},
 {id:'SE-14', project:'sodic-east', type:'Apartment', label:{en:'Apartment',ar:'شقة'}, beds:2, baths:3, area:125, price:14191500, dp:5, years:10, handover:'2027'},
 {id:'SE-15', project:'sodic-east', type:'Apartment', label:{en:'Apartment',ar:'شقة'}, beds:3, baths:3, area:153, price:17711000, dp:5, years:10, handover:'2027'},

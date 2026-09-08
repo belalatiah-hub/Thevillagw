@@ -88,10 +88,6 @@ from (values
   ('TM-SC-01','scenes','Townhouse',null,null,3,4,165,null,14800000,null,null,null,null,'available'),
   ('TM-SC-02','scenes','Twin House',null,null,3,4,185,null,18800000,null,null,null,null,'available'),
   ('TM-SC-03','scenes','Standalone Villa',null,null,4,4,210,null,27000000,null,null,null,null,'available'),
-  ('V-A305','villette','Apartment',null,null,3,3,185,null,9200000,null,null,null,'high','available'),
-  ('V-TH22','villette','Townhouse',null,null,4,4,230,null,13500000,null,null,null,null,'limited'),
-  ('SE-T12','sodic-east','Townhouse',null,null,4,4,240,null,12500000,null,null,null,null,'available'),
-  ('SE-A44','sodic-east','Apartment',null,null,2,2,135,null,6800000,null,null,null,'middle','available'),
   ('ET-D07','eastown','Duplex',null,null,3,3,200,null,9800000,null,null,null,'low','to-confirm'),
   ('ET-A12','eastown','Apartment',null,null,2,2,150,null,7400000,null,null,null,'low','available'),
   ('AL-V03','allegria','Standalone Villa',null,null,5,5,420,null,38000000,null,null,null,null,'limited'),
@@ -205,7 +201,11 @@ from (values
   ('HP-P03','hyde-park-new-cairo','Penthouse',null,null,3,3,220,null,12900000,null,null,null,'top','available'),
   ('HP-V15','hyde-park-new-cairo','Villa',null,null,5,5,340,null,27500000,null,null,null,null,'reserved'),
   ('CG-A05','cairo-gate','Apartment',null,null,3,2,168,null,9600000,null,null,null,'middle','available'),
-  ('VL-IV3','villette','iVilla',null,null,4,4,280,null,16500000,null,null,null,'ground','available')
+  ('AL-TV2','allegria','Town Villa',null,null,4,4,290,null,22000000,null,null,null,null,'available'),
+  ('HP-V6B','hyde-park-new-cairo','Villa',null,null,6,6,420,null,32000000,null,null,null,null,'available'),
+  ('OG-01','ogami-north-coast','Villa',null,null,5,7,394,null,228019000,5,8,'2029',null,'available'),
+  ('OG-02','ogami-north-coast','Twin house',null,null,4,4,268,null,56387000,5,8,'2030',null,'available'),
+  ('OG-03','ogami-north-coast','Townhouse',null,null,3,3,226,null,41920000,5,8,'2030',null,'available')
 ) as v(unit_code, project_slug, unit_type_en, label_en, label_ar, bedrooms, bathrooms,
        bua, bua_to, price, dp, years, delivery_label, floor, availability)
 join cms.projects p on p.slug = v.project_slug

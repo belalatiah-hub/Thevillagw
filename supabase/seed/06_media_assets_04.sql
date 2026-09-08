@@ -1,8 +1,5 @@
 -- Every image path the site references, stored once.
 insert into cms.media_assets (path) values
-  ('/project-media/ora/ap1-cr-02.webp'),
-  ('/project-media/ora/ap1-cr-03.webp'),
-  ('/project-media/ora/ap1-cr-04.webp'),
   ('/project-media/ora/ap1-se-0.webp'),
   ('/project-media/ora/ap1-se-01.webp'),
   ('/project-media/ora/ap1-se-02.webp'),
@@ -368,12 +365,8 @@ insert into cms.media_assets (path) values
   ('/project-media/orascom/siyal/units/v4-si-4.webp'),
   ('/project-media/plans/fp-CS-TH1-1.webp'),
   ('/project-media/plans/fp-CS-TW1-1.webp'),
-  ('/project-media/plans/fp-JN-CR1-1.webp'),
-  ('/project-media/plans/fp-JN-OP1-1.webp'),
   ('/project-media/plans/mp-AL-V03.webp'),
   ('/project-media/plans/mp-CS-TW1.webp'),
-  ('/project-media/plans/mp-JN-CR1.webp'),
-  ('/project-media/plans/mp-JN-OP1.webp'),
   ('/project-media/qataridiar/alam-al-roum/city.webp'),
   ('/project-media/ramla/units/DU3-0.webp'),
   ('/project-media/ramla/units/DU3-01.webp'),
@@ -473,5 +466,12 @@ insert into cms.media_assets (path) values
   ('/project-media/ramla/units/v1-0.webp'),
   ('/project-media/ramla/units/v1-01.webp'),
   ('/project-media/ramla/units/v1-02.webp'),
-  ('/project-media/ramla/units/v2-0.webp')
+  ('/project-media/ramla/units/v2-0.webp'),
+  ('/project-media/ramla/units/v2-01.webp'),
+  ('/project-media/ramla/units/v2-03.webp'),
+  ('/project-media/ramla/units/v3-0.webp'),
+  ('/project-media/ramla/units/v3-01.webp'),
+  ('/project-media/ramla/units/v3-02.webp'),
+  ('/project-media/ramla/units/v4-0.webp'),
+  ('/project-media/ramla/units/v4-01.webp')
 on conflict (path) do nothing;

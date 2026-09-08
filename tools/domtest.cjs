@@ -2204,6 +2204,18 @@ try {
   /* Deleting a unit has to delete everything keyed to it. A leftover entry is
      invisible until the id is reused, at which point the new unit silently
      inherits the old one's floor, render or plan. */
+  /* The client sheet writes a size band as "153-157". Dropped into a record
+     verbatim it becomes `area:153-157` — valid JavaScript that evaluates to
+     -4, while the source still reads exactly like the sheet, so a text-level
+     check of the generator's output passes and the page prints "-4 m²". Areas
+     are positive numbers, and a band is `area` + `areaTo`. */
+  ck('site: every unit area is a positive number, a band being area + areaTo', (function(){
+    var bad = api.UNITS.filter(function(u){
+      if(typeof u.area !== 'number' || !(u.area > 0)) return true;
+      return u.areaTo != null && !(typeof u.areaTo === 'number' && u.areaTo >= u.area);
+    });
+    return bad.length === 0;
+  })(), 'ok');
   ck('site: no per-unit map points at a unit that no longer exists', (function(){
     var live = {}; api.UNITS.forEach(function(u){ live[u.id] = 1; });
     var maps = {UNIT_EXTRA:api.UNIT_EXTRA, UNIT_IMAGES:api.UNIT_IMAGES,

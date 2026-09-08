@@ -18,9 +18,12 @@ failed: the sheet names them, no file exists, and the unit shows what it has.
 
     python3 tools/verify_sodic_units.py [path/to/the.xlsx]
 """
+import json
 import os
 import re
+import subprocess
 import sys
+import tempfile
 
 import openpyxl
 
@@ -73,13 +76,36 @@ def sheet_units(path):
     return out
 
 
+def site_units():
+    """The unit records as the browser evaluates them, keyed by code.
+
+    Reading the source text is not enough. The sheet writes a size band as
+    "153-157", and a generator that dropped that into the record verbatim
+    produced `area:153-157` — valid JavaScript that evaluates to -4, while the
+    source still reads exactly like the sheet. Comparing against the running
+    bundle is the only way that class of mistake shows up.
+    """
+    # Through a file, not a pipe: the dump is several hundred KB and a captured
+    # pipe truncates it, which reads as a parse error rather than a short read.
+    with tempfile.NamedTemporaryFile('w+', suffix='.json', delete=False) as fh:
+        tmp = fh.name
+    try:
+        with open(tmp, 'w') as fh:
+            subprocess.run(['node', os.path.join(ROOT, 'tools/domtest.cjs'), '--dump-data'],
+                           stdout=fh, stderr=subprocess.DEVNULL, cwd=ROOT, check=True)
+        with open(tmp, encoding='utf-8') as fh:
+            return {u['id']: u for u in json.load(fh)['UNITS']}
+    finally:
+        os.unlink(tmp)
+
+
 def main():
     xlsx = sys.argv[1] if len(sys.argv) > 1 else DEFAULT_XLSX
     if not os.path.exists(xlsx):
         sys.exit('the sheet is not at %s — pass its path as an argument' % xlsx)
 
     groups = sheet_units(xlsx)
-    recs = open(os.path.join(ROOT, 'src/tpl_script2.html'), encoding='utf-8').read()
+    live = site_units()
     media = open(os.path.join(ROOT, 'src/tpl_script2b.html'), encoding='utf-8').read()
     bad, absent = 0, []
 
@@ -112,18 +138,27 @@ def main():
 
         for i, u in enumerate(rows, 1):
             uid = '%s-%02d' % (code, i)
-            line = [l for l in recs.split('\n') if "id:'%s'" % uid in l]
-            check(bool(line), '%s: no record on the site (sheet row %d)' % (uid, u['row']))
-            if not line:
+            rec = live.get(uid)
+            check(bool(rec), '%s: no record on the site (sheet row %d)' % (uid, u['row']))
+            if not rec:
                 continue
-            line = line[0]
-            check("project:'%s'" % slug_ in line, '%s: is not on %s' % (uid, slug_))
-            for field, val in (('beds', u['bed']), ('baths', u['bath']),
-                               ('area', u['sqm']), ('price', u['price']),
-                               ('dp', round(u['dp'] * 100)), ('years', u['yrs'])):
-                check('%s:%s,' % (field, val) in line or '%s:%s}' % (field, val) in line,
-                      '%s: %s should be %s (sheet row %d)' % (uid, field, val, u['row']))
-            check("handover:'%s'" % u['avail'] in line, '%s: handover %s' % (uid, u['avail']))
+            check(rec['project'] == slug_, '%s: is not on %s' % (uid, slug_))
+
+            # A size the sheet gives as a band ("153-157") is two fields on the
+            # site, so compare the pair against the band's own two ends.
+            sqm = str(u['sqm']).strip()
+            lo, _, hi = sqm.partition('-') if '-' in sqm else (sqm, '', '')
+            want = [('beds', u['bed']), ('baths', u['bath']), ('price', u['price']),
+                    ('dp', round(u['dp'] * 100)), ('years', u['yrs']),
+                    ('area', float(lo))] + ([('areaTo', float(hi))] if hi else [])
+            for field, val in want:
+                got = rec.get(field)
+                check(got is not None and float(got) == float(val),
+                      '%s: %s is %s, the sheet says %s (row %d)'
+                      % (uid, field, got, val, u['row']))
+            check(not hi or 'areaTo' in rec, '%s: the sheet gives a size band, the site one number' % uid)
+            check(str(rec.get('handover')) == str(u['avail']),
+                  '%s: handover %s, the sheet says %s' % (uid, rec.get('handover'), u['avail']))
 
             # Images the archives supply, in the sheet's order. An id with no
             # file is dropped rather than shown broken, so the site's list is
