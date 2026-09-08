@@ -5,10 +5,6 @@
 insert into cms.media_links (asset_id, unit_id, role, sort_order)
 select a.id, o.id, v.role::cms.media_role, v.sort_order
 from (values
-  ('/project-media/' || 'hassan-allam/px-ap5-fp1.webp','floorplan',0,array['PX-AP5']),
-  ('/project-media/' || 'hassan-allam/sl-ap1-fp1.webp','floorplan',0,array['SL-AP1']),
-  ('/project-media/' || 'hassan-allam/sl-ap2-fp1.webp','floorplan',0,array['SL-AP2']),
-  ('/project-media/' || 'hassan-allam/sl-ap3-fp1.webp','floorplan',0,array['SL-AP3']),
   ('/project-media/' || 'hassan-allam/sl-ap4-fp1.webp','floorplan',0,array['SL-AP4']),
   ('/project-media/' || 'hassan-allam/sl-ap5-fp1.webp','floorplan',0,array['SL-AP5']),
   ('/project-media/' || 'hassan-allam/sl-ap6-fp1.webp','floorplan',0,array['SL-AP6']),
@@ -249,7 +245,12 @@ from (values
   ('/project-media/' || 'ora/fp-pen-0.webp','floorplan',0,array['OR-SW-16']),
   ('/project-media/' || 'ora/fp-pen-01.webp','floorplan',1,array['OR-SW-16']),
   ('/project-media/' || 'ora/fp-pen1.webp','floorplan',0,array['OR-SW-15']),
-  ('/project-media/' || 'ora/fp-st-em.webp','floorplan',0,array['OR-EM-06'])
+  ('/project-media/' || 'ora/fp-st-em.webp','floorplan',0,array['OR-EM-06']),
+  ('/project-media/' || 'ora/fp-st-zw.webp','floorplan',0,array['OR-ZW-01']),
+  ('/project-media/' || 'ora/fp-stu-z.webp','floorplan',0,array['OR-ZE-05']),
+  ('/project-media/' || 'ora/fp-th-sw-0.webp','floorplan',0,array['OR-SW-07']),
+  ('/project-media/' || 'ora/fp-th-sw-01.webp','floorplan',1,array['OR-SW-07']),
+  ('/project-media/' || 'ora/fp-th1-ss.webp','floorplan',0,array['OR-ST-03'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path

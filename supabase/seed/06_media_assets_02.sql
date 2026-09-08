@@ -1,11 +1,5 @@
 -- Every image path the site references, stored once.
 insert into cms.media_assets (path) values
-  ('/project-media/hassan-allam/sl-sv12-r2.webp'),
-  ('/project-media/hassan-allam/sl-sv13-fp1.webp'),
-  ('/project-media/hassan-allam/sl-sv13-mp1.webp'),
-  ('/project-media/hassan-allam/sl-sv13-r1.webp'),
-  ('/project-media/hassan-allam/sl-sv13-r2.webp'),
-  ('/project-media/hassan-allam/sl-sv13-r3.webp'),
   ('/project-media/hassan-allam/sl-sv13-r4.webp'),
   ('/project-media/hassan-allam/sl-sv14-fp1.webp'),
   ('/project-media/hassan-allam/sl-sv14-mp1.webp'),
@@ -415,5 +409,12 @@ insert into cms.media_assets (path) values
   ('/project-media/marakez/units/v5-cr-0.webp'),
   ('/project-media/marakez/units/villa1-cr-0.webp'),
   ('/project-media/marakez/units/villa1-cr-01.webp'),
-  ('/project-media/modon/ap1-bp-03.webp')
+  ('/project-media/modon/ap1-bp-03.webp'),
+  ('/project-media/modon/ap1-bp-04.webp'),
+  ('/project-media/modon/ap1-bpl-0.webp'),
+  ('/project-media/modon/ap1-bpl-01.webp'),
+  ('/project-media/modon/ap1-bpl-04.webp'),
+  ('/project-media/modon/ap1-bpl-05.webp'),
+  ('/project-media/modon/ap1-lh-0.webp'),
+  ('/project-media/modon/ap1-lh-01.webp')
 on conflict (path) do nothing;

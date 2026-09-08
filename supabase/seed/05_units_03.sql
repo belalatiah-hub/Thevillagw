@@ -7,11 +7,6 @@ select v.unit_code, p.id, v.unit_type_en, v.label_en, v.label_ar,
   v.price::bigint, v.dp::numeric, v.years::numeric,
   v.delivery_label, v.floor, v.availability::cms.unit_availability, 'published', now()
 from (values
-  ('PHN-A3','palm-hills-new-cairo','Apartment',null,null,3,3,172,null,21000000,null,null,null,null,'available'),
-  ('97H-T1','97-hills','Townhouse',null,null,5,5,250,null,31200000,null,null,null,null,'available'),
-  ('97H-W1','97-hills','Twin house',null,null,5,5,250,null,36500000,null,null,null,null,'available'),
-  ('97H-V1','97-hills','Villa',null,null,4,5,250,null,37400000,null,null,null,null,'limited'),
-  ('PMT-O1','palmet-new-cairo','Office',null,null,null,1,68,null,13000000,null,null,null,null,'available'),
   ('PMT-O2','palmet-new-cairo','Administrative Office',null,null,null,2,150,null,25000000,null,null,null,null,'available'),
   ('PX-A1','px-new-cairo','Apartment',null,null,1,1,77,null,13500000,null,null,null,null,'available'),
   ('PX-T1','px-new-cairo','Townhouse',null,null,4,4,231,null,26100000,null,null,null,null,'available'),

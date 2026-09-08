@@ -5,7 +5,6 @@
 insert into cms.media_links (asset_id, project_id, role, sort_order)
 select a.id, o.id, v.role::cms.media_role, v.sort_order
 from (values
-  ('/project-media/' || 'allegria/standalone.webp','cover',0,array['allegria']),
   ('/project-media/' || 'baghush/lagoon-firepit.webp','cover',0,array['marsa-baghush']),
   ('/project-media/' || 'beitalbahr/units/V1-01-H-d1.webp','cover',0,array['bab-hills']),
   ('/project-media/' || 'beitalbahr/units/ch1-03-sh.webp','cover',0,array['bab-shores']),
@@ -13,7 +12,6 @@ from (values
   ('/project-media/' || 'beitalbahr/units/v1-01-rays.webp','cover',0,array['bab-rays']),
   ('/project-media/' || 'beitalbahr/units/v1-01-roo.webp','cover',0,array['bab-roots']),
   ('/project-media/' || 'caesar/villa.webp','cover',0,array['caesar-north-coast']),
-  ('/project-media/' || 'eastown/apartment.webp','cover',0,array['eastown']),
   ('/project-media/' || 'emaarmisr/marassi-red-sea/hero.webp','cover',0,array['marassi-red-sea']),
   ('/project-media/' || 'hassan-allam/ap-of1-r1.webp','cover',0,array['ampm-swanlake']),
   ('/project-media/' || 'hassan-allam/gl-ap1-r1.webp','cover',0,array['the-great-lawn']),
@@ -77,9 +75,7 @@ from (values
   ('/project-media/' || 'tatweer/tm-sv-il-0.webp','cover',0,array['il-monte-galala']),
   ('/project-media/' || 'travco/makadina/p27.webp','cover',0,array['makadina']),
   ('/project-media/' || 'travco/marina-gate/p46.webp','cover',0,array['marina-gate']),
-  ('/logos/projects/allegria.webp','logo',0,array['allegria']),
   ('/logos/projects/caesar.webp','logo',0,array['caesar-north-coast']),
-  ('/logos/projects/eastown.webp','logo',0,array['eastown']),
   ('/logos/projects/june.webp','logo',0,array['june-north-coast']),
   ('/logos/projects/ogami.webp','logo',0,array['ogami-north-coast']),
   ('/logos/projects/sodic-east.webp','logo',0,array['sodic-east']),

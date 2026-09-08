@@ -5,11 +5,6 @@
 insert into cms.media_links (asset_id, unit_id, role, sort_order)
 select a.id, o.id, v.role::cms.media_role, v.sort_order
 from (values
-  ('/project-media/' || 'hassan-allam/sl-tw10-r1.webp','gallery',0,array['SL-TW10']),
-  ('/project-media/' || 'hassan-allam/sl-tw10-r2.webp','gallery',1,array['SL-TW10']),
-  ('/project-media/' || 'hassan-allam/sl-tw10-r3.webp','gallery',2,array['SL-TW10']),
-  ('/project-media/' || 'hassan-allam/sl-tw11-r1.webp','gallery',0,array['SL-TW11']),
-  ('/project-media/' || 'hassan-allam/sl-tw11-r2.webp','gallery',1,array['SL-TW11']),
   ('/project-media/' || 'hassan-allam/sl-tw11-r3.webp','gallery',2,array['SL-TW11']),
   ('/project-media/' || 'hassan-allam/sl-tw8-r1.webp','gallery',0,array['SL-TW8']),
   ('/project-media/' || 'hassan-allam/sl-tw8-r2.webp','gallery',1,array['SL-TW8']),
@@ -249,7 +244,12 @@ from (values
   ('/project-media/' || 'marakez/units/of4-d-02.webp','gallery',2,array['D5-OF04']),
   ('/project-media/' || 'marakez/units/of4-d-03.webp','gallery',3,array['D5-OF04']),
   ('/project-media/' || 'marakez/units/of5-d-0.webp','gallery',0,array['D5-OF05']),
-  ('/project-media/' || 'marakez/units/of5-d-01.webp','gallery',1,array['D5-OF05'])
+  ('/project-media/' || 'marakez/units/of5-d-01.webp','gallery',1,array['D5-OF05']),
+  ('/project-media/' || 'marakez/units/of5-d-02.webp','gallery',2,array['D5-OF05']),
+  ('/project-media/' || 'marakez/units/of5-d-03.webp','gallery',3,array['D5-OF05']),
+  ('/project-media/' || 'marakez/units/tw-cr-0.webp','gallery',0,array['CW-TW01','CW-TW04']),
+  ('/project-media/' || 'marakez/units/tw-cr-0.webp','gallery',2,array['CW-TW03']),
+  ('/project-media/' || 'marakez/units/tw-cr-01.webp','gallery',1,array['CW-TW01','CW-TW03'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path

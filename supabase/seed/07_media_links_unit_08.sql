@@ -5,11 +5,6 @@
 insert into cms.media_links (asset_id, unit_id, role, sort_order)
 select a.id, o.id, v.role::cms.media_role, v.sort_order
 from (values
-  ('/project-media/' || 'msquared/units/pent2-mist-01.webp','gallery',1,array['MS-MI-02','MS-MI-03','MS-MI-04']),
-  ('/project-media/' || 'msquared/units/pent2-mist-02.webp','gallery',2,array['MS-MI-02','MS-MI-03','MS-MI-04']),
-  ('/project-media/' || 'msquared/units/thouse1-west-0.webp','gallery',0,array['MS-3W-12']),
-  ('/project-media/' || 'msquared/units/thouse1-west-01.webp','gallery',1,array['MS-3W-12']),
-  ('/project-media/' || 'msquared/units/to1-trio-0.webp','gallery',0,array['MS-TR-06']),
   ('/project-media/' || 'msquared/units/to1-trio-01.webp','gallery',1,array['MS-TR-06']),
   ('/project-media/' || 'msquared/units/to1-trio-02.webp','gallery',2,array['MS-TR-06']),
   ('/project-media/' || 'msquared/units/town1-0.webp','gallery',0,array['MS-MI-05','MS-MI-06']),
@@ -272,7 +267,12 @@ from (values
   ('/project-media/' || 'orascom/ledge-valley/units/ch1-mko-1.webp','gallery',1,array['LV-01']),
   ('/project-media/' || 'orascom/ledge-valley/units/ch1-mko-1.webp','gallery',2,array['LV-03']),
   ('/project-media/' || 'orascom/ledge-valley/units/ch1-mko-1.webp','gallery',3,array['LV-02']),
-  ('/project-media/' || 'orascom/ledge-valley/units/ch1-mko-2.webp','gallery',1,array['LV-03'])
+  ('/project-media/' || 'orascom/ledge-valley/units/ch1-mko-2.webp','gallery',1,array['LV-03']),
+  ('/project-media/' || 'orascom/ledge-valley/units/ch1-mko-2.webp','gallery',2,array['LV-01','LV-02']),
+  ('/project-media/' || 'orascom/ledge-valley/units/ch1-mko-3.webp','gallery',0,array['LV-03']),
+  ('/project-media/' || 'orascom/ledge-valley/units/ch1-mko-3.webp','gallery',1,array['LV-02']),
+  ('/project-media/' || 'orascom/ledge-valley/units/ch1-mko-3.webp','gallery',3,array['LV-01']),
+  ('/project-media/' || 'orascom/ledge-valley/units/ch1-mko-4.webp','gallery',0,array['LV-02'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path

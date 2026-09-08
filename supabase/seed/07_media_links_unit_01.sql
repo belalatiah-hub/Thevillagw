@@ -5,9 +5,6 @@
 insert into cms.media_links (asset_id, unit_id, role, sort_order)
 select a.id, o.id, v.role::cms.media_role, v.sort_order
 from (values
-  ('/project-media/' || 'allegria/standalone.webp','cover',0,array['AL-V03']),
-  ('/project-media/' || 'allegria/town-house.webp','cover',0,array['AL-TV2']),
-  ('/project-media/' || 'allegria/twin-house.webp','cover',0,array['AL-TW6']),
   ('/project-media/' || 'baghush/units/ch1-0.webp','cover',0,array['MB-CH01']),
   ('/project-media/' || 'baghush/units/ch2-0.webp','cover',0,array['MB-CH02']),
   ('/project-media/' || 'baghush/units/ch2-01.webp','cover',0,array['MB-CH03']),
@@ -49,8 +46,6 @@ from (values
   ('/project-media/' || 'caesar/standalone.webp','cover',0,array['CS-SV1']),
   ('/project-media/' || 'caesar/town-house.webp','cover',0,array['CS-TH1']),
   ('/project-media/' || 'caesar/twin-house.webp','cover',0,array['CS-TW1']),
-  ('/project-media/' || 'eastown/apartment.webp','cover',0,array['ET-A12']),
-  ('/project-media/' || 'eastown/duplex.webp','cover',0,array['ET-D07']),
   ('/project-media/' || 'emaarmisr/marassi-red-sea/units/ap1-marina-shore-2.webp','cover',0,array['MR-02','MR-03']),
   ('/project-media/' || 'emaarmisr/marassi-red-sea/units/ap1-marina-shore-4.webp','cover',0,array['MR-04','MR-05']),
   ('/project-media/' || 'emaarmisr/marassi-red-sea/units/th1-marasi0infinity-0.webp','cover',0,array['MR-01']),
@@ -257,7 +252,12 @@ from (values
   ('/project-media/' || 'ora/ap4-zw-0.webp','cover',0,array['OR-ZW-04']),
   ('/project-media/' || 'ora/ap5-sw-0.webp','cover',0,array['OR-SW-13']),
   ('/project-media/' || 'ora/ap6-zw-0.webp','cover',0,array['OR-ZW-05']),
-  ('/project-media/' || 'ora/ap6-zw-01.webp','cover',0,array['OR-ZW-06'])
+  ('/project-media/' || 'ora/ap6-zw-01.webp','cover',0,array['OR-ZW-06']),
+  ('/project-media/' || 'ora/ch2-ss-0.webp','cover',0,array['OR-ST-02']),
+  ('/project-media/' || 'ora/du1-em-0.webp','cover',0,array['OR-EM-01']),
+  ('/project-media/' || 'ora/du2-em-0.webp','cover',0,array['OR-EM-02']),
+  ('/project-media/' || 'ora/four-0.webp','cover',0,array['OR-EM-03']),
+  ('/project-media/' || 'ora/lo-z-0.webp','cover',0,array['OR-ZE-04'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path

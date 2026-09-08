@@ -506,7 +506,7 @@ try {
   })(), 'ok');
 
   // ---- developer / project logos (centralised registry) ----
-  ck('logos: every developer is registered, plus 8 SODIC projects', Object.keys(api.DEV_LOGOS).length===api.DEVELOPERS.length && Object.keys(api.PROJECT_LOGOS).length===8,
+  ck('logos: every developer is registered, plus 6 SODIC projects', Object.keys(api.DEV_LOGOS).length===api.DEVELOPERS.length && Object.keys(api.PROJECT_LOGOS).length===6,
      'dev='+Object.keys(api.DEV_LOGOS).length+' prj='+Object.keys(api.PROJECT_LOGOS).length);
   ck('logos: every registered logo resolves under /logos/ (no broken paths)', (function(){
     var ok=true;
@@ -516,7 +516,7 @@ try {
       [api.devLogoSrc(d), api.devLogoSrc(d,true)].forEach(function(s){
         if(s && (!/^\/logos\/[a-z0-9-]+\.webp$/.test(s) || !onDisk(s))) ok=false; });
     });
-    ['villette','sodic-east','eastown','allegria','ogami-north-coast','caesar-north-coast','june-north-coast','the-estates-zayed'].forEach(function(sl){
+    ['villette','sodic-east','ogami-north-coast','caesar-north-coast','june-north-coast','the-estates-zayed'].forEach(function(sl){
       var s=api.projectLogoSrc({slug:sl})||'x';
       if(!/^\/logos\/projects\/[a-z0-9-]+\.webp$/.test(s) || !onDisk(s)) ok=false; });
     return ok;
@@ -551,7 +551,7 @@ try {
 
   // ---- UI refinements ----
   api.setFilter(api.defaultFilter());
-  ck('count: SODIC shows 51 units dynamically (facet from data)', api.devFacets().sodic===51, 'sodic='+api.devFacets().sodic);
+  ck('count: SODIC shows 46 units dynamically (facet from data)', api.devFacets().sodic===46, 'sodic='+api.devFacets().sodic);
   api.setFilter(api.defaultFilter());
   ck('overview: project page renders a collapsed <details> accordion', (function(){
     var n=api.V.project('villette').node; var det=qsa(n,'.accordion')[0];
@@ -676,7 +676,7 @@ try {
            /Amenities/.test(c[4].textContent);
   })(), 'ok');
   ck('plans: unit without plans shows only Location + Amenities', (function(){
-    var chips=qsa(api.V.unit('ET-D07').node,'.ufeat');
+    var chips=qsa(api.V.unit('MV-D14').node,'.ufeat');
     var txt=chips.map(function(c){return c.textContent||'';}).join('|');
     return chips.length===2 && /Location/.test(txt) && /Amenities/.test(txt) && !/Floor Plan/.test(txt);
   })(), 'ok');
@@ -1863,7 +1863,7 @@ try {
       if(!own.length) return !(p.price > 0);
       return p.price !== Math.min.apply(null, own.map(function(u){ return u.price; }));
     });
-    return ps.length === 8 && us.length === 51 && stale.length === 0 &&
+    return ps.length === 6 && us.length === 46 && stale.length === 0 &&
            ps.every(function(p){ return p.price > 0 && p.types && p.types.en; });
   })(), 'ok');
 

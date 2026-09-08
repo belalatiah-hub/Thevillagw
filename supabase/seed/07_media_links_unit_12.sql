@@ -5,10 +5,6 @@
 insert into cms.media_links (asset_id, unit_id, role, sort_order)
 select a.id, o.id, v.role::cms.media_role, v.sort_order
 from (values
-  ('/project-media/' || 'tatweer/mp-ap-b.webp','masterplan',0,array['TM-BL-01','TM-BL-02','TM-BL-03','TM-BL-04','TM-BL-05','TM-BL-06','TM-BL-07','TM-BL-08']),
-  ('/project-media/' || 'tatweer/mp-ap-r.webp','masterplan',0,array['TM-RV-01','TM-RV-02','TM-RV-03','TM-RV-04','TM-RV-05']),
-  ('/project-media/' || 'tatweer/mp-ap2-il-tm.webp','masterplan',0,array['TM-IM-05']),
-  ('/project-media/' || 'tatweer/mp-dbay.webp','masterplan',0,array['TM-DB-01','TM-DB-02','TM-DB-03']),
   ('/project-media/' || 'tatweer/mp-f.webp','masterplan',0,array['TM-FK-01','TM-FK-02','TM-FK-03','TM-FK-04']),
   ('/project-media/' || 'tatweer/mp-lo2-tm-il.webp','masterplan',0,array['TM-IM-10']),
   ('/project-media/' || 'tatweer/mp-lo3-tm-il.webp','masterplan',0,array['TM-IM-11']),

@@ -7,11 +7,6 @@ select v.unit_code, p.id, v.unit_type_en, v.label_en, v.label_ar,
   v.price::bigint, v.dp::numeric, v.years::numeric,
   v.delivery_label, v.floor, v.availability::cms.unit_availability, 'published', now()
 from (values
-  ('OG-04','ogami-north-coast','Townhouse',null,null,3,4,232,null,43651000,5,8,'2030',null,'available'),
-  ('OG-05','ogami-north-coast','Chalet',null,null,3,3,182,null,29430000,5,8,'2029',null,'available'),
-  ('OG-06','ogami-north-coast','Chalet',null,null,2,2,150,null,23742000,5,8,'2030',null,'available'),
-  ('OG-07','ogami-north-coast','Chalet',null,null,2,2,154,null,25226000,5,8,'2030',null,'available'),
-  ('OG-08','ogami-north-coast','Apartment',null,null,3,4,158,null,22329000,5,8,'2030',null,'available'),
   ('OG-09','ogami-north-coast','Apartment',null,null,1,2,118,null,30000000,5,8,'2030',null,'available'),
   ('OG-10','ogami-north-coast','Apartment',null,null,2,3,163,null,55000000,5,8,'2030',null,'available'),
   ('RM-VL01','ramla-ras-el-hekma','Villa','Villa · Breeze R8','فيلا · بريز R8',3,3,155,null,49194000,10,7,'2030',null,'available'),
@@ -197,7 +192,12 @@ from (values
   ('VDC-T1','village-de-la-capitale','Townhouse',null,null,3,3,176,null,24100000,null,null,null,null,'available'),
   ('VDC-V1','village-de-la-capitale','Villa',null,null,4,4,185,null,28700000,null,null,null,null,'limited'),
   ('PHN-A1','palm-hills-new-cairo','Apartment',null,null,1,1,70,null,10400000,null,null,null,null,'available'),
-  ('PHN-A2','palm-hills-new-cairo','Apartment',null,null,2,2,114,null,14600000,null,null,null,null,'available')
+  ('PHN-A2','palm-hills-new-cairo','Apartment',null,null,2,2,114,null,14600000,null,null,null,null,'available'),
+  ('PHN-A3','palm-hills-new-cairo','Apartment',null,null,3,3,172,null,21000000,null,null,null,null,'available'),
+  ('97H-T1','97-hills','Townhouse',null,null,5,5,250,null,31200000,null,null,null,null,'available'),
+  ('97H-W1','97-hills','Twin house',null,null,5,5,250,null,36500000,null,null,null,null,'available'),
+  ('97H-V1','97-hills','Villa',null,null,4,5,250,null,37400000,null,null,null,null,'limited'),
+  ('PMT-O1','palmet-new-cairo','Office',null,null,null,1,68,null,13000000,null,null,null,null,'available')
 ) as v(unit_code, project_slug, unit_type_en, label_en, label_ar, bedrooms, bathrooms,
        bua, bua_to, price, dp, years, delivery_label, floor, availability)
 join cms.projects p on p.slug = v.project_slug

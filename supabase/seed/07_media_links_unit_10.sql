@@ -5,10 +5,6 @@
 insert into cms.media_links (asset_id, unit_id, role, sort_order)
 select a.id, o.id, v.role::cms.media_role, v.sort_order
 from (values
-  ('/project-media/' || 'sodic/the-estates-zayed/units/villa2-the-estates-03.webp','gallery',3,array['ES-02']),
-  ('/project-media/' || 'sodic/the-estates-zayed/units/villa2-the-estates-04.webp','gallery',4,array['ES-02']),
-  ('/project-media/' || 'sodic/the-estates-zayed/units/villa3-the-estates-0.webp','gallery',0,array['ES-03']),
-  ('/project-media/' || 'sodic/the-estates-zayed/units/villa3-the-estates-01.webp','gallery',1,array['ES-03']),
   ('/project-media/' || 'sodic/the-estates-zayed/units/villa3-the-estates-02.webp','gallery',2,array['ES-03']),
   ('/project-media/' || 'sodic/villette/units/ap1-villette-0.webp','gallery',0,array['VL-01']),
   ('/project-media/' || 'sodic/villette/units/ap1-villette-01.webp','gallery',1,array['VL-01']),
@@ -255,7 +251,11 @@ from (values
   ('/project-media/' || 'travco/marina-gate/units/ap1-marina-gatee-1.webp','gallery',0,array['MG-06']),
   ('/project-media/' || 'travco/marina-gate/units/ap1-marina-gatee-1.webp','gallery',1,array['MG-05','MG-07']),
   ('/project-media/' || 'travco/marina-gate/units/th-marina-gate-0.webp','gallery',0,array['MG-03']),
-  ('/project-media/' || 'travco/marina-gate/units/th-marina-gate-0.webp','gallery',1,array['MG-04'])
+  ('/project-media/' || 'travco/marina-gate/units/th-marina-gate-0.webp','gallery',1,array['MG-04']),
+  ('/project-media/' || 'travco/marina-gate/units/th-marina-gate-1.webp','gallery',0,array['MG-04']),
+  ('/project-media/' || 'travco/marina-gate/units/th-marina-gate-1.webp','gallery',1,array['MG-03']),
+  ('/project-media/' || 'travco/marina-gate/units/th-marina-gate-2.webp','gallery',2,array['MG-03','MG-04']),
+  ('/project-media/' || 'travco/marina-gate/units/tv-marina-gate-0.webp','gallery',0,array['MG-02'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path

@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <!-- frame-ancestors/HSTS belong in HTTP response headers (see deploy runbook), not meta. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'sha256-0eB8s3A3aZQguW+SDJC/YssfCUQj66wY3V7A9qjdeKc=' 'sha256-yI6VCT38V7vjk7cAW7UM7qbGpBU7Ua/f8UOqpzWwxAc=' 'sha256-YvHevJmHHrhBzm9a+K1fYxwv5t1APr4XI8t4Am8p7D4=' 'sha256-RBNvo1WzZ4oRRq0W9+hknpT7T8If536DEMBg9hyq/4o=' 'sha256-FtktXyThU2ZMwWEoTJiErlRB1SKkg//RqwO4KBZrNLY=' https://static.cloudflareinsights.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://cloudflareinsights.com; base-uri 'self'; form-action 'self'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'sha256-0eB8s3A3aZQguW+SDJC/YssfCUQj66wY3V7A9qjdeKc=' 'sha256-yI6VCT38V7vjk7cAW7UM7qbGpBU7Ua/f8UOqpzWwxAc=' 'sha256-YvHevJmHHrhBzm9a+K1fYxwv5t1APr4XI8t4Am8p7D4=' 'sha256-RBNvo1WzZ4oRRq0W9+hknpT7T8If536DEMBg9hyq/4o=' 'sha256-AwLlxD8DtD81Wh8Ei9K6UcMSRuwkeO+dsT6cOVvHeX8=' https://static.cloudflareinsights.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://cloudflareinsights.com; base-uri 'self'; form-action 'self'" />
   <meta name="theme-color" content="#073D52" />
   <meta name="color-scheme" content="light" />
   <meta name="format-detection" content="telephone=no" />
@@ -778,8 +778,6 @@ var PROJECTS = [
 {slug:'scenes', name:'Scenes', name_ar:'سينز', dev:'tatweer', area:'mostakbal', status:'primary', price:14800000, dp:5, years:10, delivery:'2028', finishing:{en:'To confirm',ar:'تُؤكَّد'}, types:{en:'Townhouse · Twin House · Standalone Villa',ar:'تاون هاوس · توين هاوس · فيلا مستقلة'}, tags:{en:['Mostakbal City','Homes'],ar:['مدينة المستقبل','فيلات']}, blurb:{en:'Tatweer Misr\'s Scenes in Mostakbal City — townhouses, twin houses and standalone villas, developer-direct primary units.',ar:'سينز من تطوير مصر في مدينة المستقبل — تاون هاوس وتوين هاوس وفيلات مستقلة، وحدات أولية من المطوّر مباشرة.'}},
 {slug:'villette', name:'Villette', name_ar:'فيليت', dev:'sodic', area:'newcairo', status:'primary', price:23126000, dp:10, years:10, delivery:'2026', finishing:{en:'Semi-finished',ar:'نصف تشطيب'}, types:{en:'Apartment · Duplex',ar:'شقة · دوبلكس'}, tags:{en:['New Cairo','Family'],ar:['القاهرة الجديدة','عائلي']}, blurb:{en:'Design-led New Cairo community with primary units released directly by SODIC.',ar:'مجتمع بتصميم مميّز بالقاهرة الجديدة مع وحدات أولية تُطرح من سوديك مباشرة.'}},
 {slug:'sodic-east', name:'SODIC East', name_ar:'سوديك إيست', dev:'sodic', area:'newcairo', status:'launch', price:14191500, dp:5, years:10, delivery:'2026–2030', finishing:{en:'Semi-finished',ar:'نصف تشطيب'}, types:{en:'Apartment · Townhouse · Villa',ar:'شقة · تاون هاوس · فيلا'}, tags:{en:['East Cairo','8-yr plan'],ar:['شرق القاهرة','تقسيط ٨ سنوات']}, blurb:{en:'A large master-planned launch in East New Cairo with staged developer inventory.',ar:'إطلاق كبير مخطط في شرق القاهرة الجديدة مع طرح مرحلي من المطوّر.'}},
-{slug:'eastown', name:'Eastown', name_ar:'إيستاون', dev:'sodic', area:'newcairo', status:'ready', price:7400000, dp:0, years:0, delivery:'Ready', finishing:{en:'Core & shell / finished',ar:'نصف / كامل التشطيب'}, types:{en:'Apartment · Duplex',ar:'شقة · دوبلكس'}, tags:{en:['Ready to move','Fifth Settlement edge'],ar:['استلام فوري','حدود التجمع']}, blurb:{en:'An established, largely delivered SODIC community in East Cairo with ready resale-free primary stock where available.',ar:'مجتمع سوديك مكتمل إلى حدٍّ كبير بشرق القاهرة مع وحدات جاهزة عند توفّرها.'}},
-{slug:'allegria', name:'Allegria', name_ar:'أليجريا', dev:'sodic', area:'zayed', status:'ready', price:22000000, dp:0, years:0, delivery:'Ready', finishing:{en:'Fully finished',ar:'تشطيب كامل'}, types:{en:'Villa · Twin house',ar:'فيلا · توين هاوس'}, tags:{en:['Sheikh Zayed','Golf'],ar:['الشيخ زايد','جولف']}, blurb:{en:'An established premium villa community in West Cairo with a golf setting.',ar:'مجتمع فيلات راقٍ مكتمل بغرب القاهرة بإطلالة على الجولف.'}},
 {slug:'mountain-view-icity', name:'Mountain View iCity', name_ar:'ماونتن ڤيو آي سيتي', dev:'mountainview', area:'newcairo', status:'launch', price:7200000, dp:10, years:9, delivery:'2028', finishing:{en:'Semi-finished',ar:'نصف تشطيب'}, types:{en:'Apartment · Duplex',ar:'شقة · دوبلكس'}, tags:{en:['Smart city','9-yr plan'],ar:['مدينة ذكية','تقسيط ٩ سنوات']}, blurb:{en:'Themed parks and a connected-home concept, primary release by Mountain View.',ar:'حدائق مميّزة ومفهوم المنزل المتصل، طرح أولي من ماونتن ڤيو.'}},
 {slug:'bloomfields', name:'Bloomfields', name_ar:'بلوم فيلدز', dev:'tatweer', area:'mostakbal', status:'launch', price:5800000, dp:5, years:10, delivery:'Ready', finishing:{en:'Semi-finished',ar:'نصف تشطيب'}, types:{en:'Apartment · Duplex',ar:'شقة · دوبلكس'}, tags:{en:['Mostakbal City','5% DP'],ar:['مدينة المستقبل','مقدم ٥٪']}, blurb:{en:'A value-focused launch in Mostakbal City with a low down payment from the developer.',ar:'إطلاق اقتصادي بمدينة المستقبل بمقدم منخفض من المطوّر.'}},
 {slug:'il-bosco-city', name:'Il Bosco City', name_ar:'إل بوسكو سيتي', dev:'misritalia', area:'capital', status:'launch', price:6100000, dp:10, years:9, delivery:'2029', finishing:{en:'Semi-finished',ar:'نصف تشطيب'}, types:{en:'Apartment · Townhouse · Villa',ar:'شقة · تاون هاوس · فيلا'}, tags:{en:['New Capital','Green'],ar:['العاصمة الإدارية','أخضر']}, blurb:{en:'A biophilic community in the New Administrative Capital, primary units from Misr Italia.',ar:'مجتمع أخضر بالعاصمة الإدارية الجديدة، وحدات أولية من مصر إيطاليا.'}},
@@ -937,10 +935,6 @@ var UNITS = [
 {id:'TM-SC-01', project:'scenes', type:'Townhouse', beds:3, baths:4, area:165, price:14800000},
 {id:'TM-SC-02', project:'scenes', type:'Twin House', beds:3, baths:4, area:185, price:18800000},
 {id:'TM-SC-03', project:'scenes', type:'Standalone Villa', beds:4, baths:4, area:210, price:27000000},
-{id:'ET-D07', project:'eastown', type:'Duplex', beds:3, baths:3, area:200, price:9800000, avail:'to-confirm'},
-{id:'ET-A12', project:'eastown', type:'Apartment', beds:2, baths:2, area:150, price:7400000},
-{id:'AL-V03', project:'allegria', type:'Standalone Villa', beds:5, baths:5, area:420, price:38000000, avail:'limited'},
-{id:'AL-TW6', project:'allegria', type:'Twin house', beds:4, baths:4, area:300, price:24000000},
 {id:'MV-D14', project:'mountain-view-icity', type:'Duplex', beds:4, baths:3, area:210, price:11800000},
 {id:'FS-A18', project:'fifth-square', type:'Apartment', beds:3, baths:2, area:160, price:7200000},
 {id:'IB-V05', project:'il-bosco-city', type:'Villa', beds:4, baths:4, area:265, price:14500000},
@@ -1050,7 +1044,6 @@ var UNITS = [
 {id:'HP-P03', project:'hyde-park-new-cairo', type:'Penthouse', beds:3, baths:3, area:220, price:12900000},
 {id:'HP-V15', project:'hyde-park-new-cairo', type:'Villa', beds:5, baths:5, area:340, price:27500000, avail:'reserved'},
 {id:'CG-A05', project:'cairo-gate', type:'Apartment', beds:3, baths:2, area:168, price:9600000},
-{id:'AL-TV2', project:'allegria', type:'Town Villa', beds:4, baths:4, area:290, price:22000000},
 {id:'HP-V6B', project:'hyde-park-new-cairo', type:'Villa', beds:6, baths:6, area:420, price:32000000},
 {id:'OG-01', project:'ogami-north-coast', type:'Villa', beds:5, baths:7, area:394, price:228019000, dp:5, years:8, handover:'2029'},
 {id:'OG-02', project:'ogami-north-coast', type:'Twin house', beds:4, baths:4, area:268, price:56387000, dp:5, years:8, handover:'2030'},
@@ -1362,7 +1355,7 @@ var UNITS = [
 {id:'SE-14', project:'sodic-east', type:'Apartment', label:{en:'Apartment',ar:'شقة'}, beds:2, baths:3, area:125, price:14191500, dp:5, years:10, handover:'2027'},
 {id:'SE-15', project:'sodic-east', type:'Apartment', label:{en:'Apartment',ar:'شقة'}, beds:3, baths:3, area:153, price:17711000, dp:5, years:10, handover:'2027'},
 ];
-var UNIT_EXTRA={'ET-D07':{floor:'low',lvl:2},'ET-A12':{floor:'low'},'AL-V03':{lvl:2},'AL-TW6':{lvl:2},'MV-D14':{floor:'low',lvl:2},'FS-A18':{floor:'high'},'IB-V05':{lvl:2},'IB-S02':{floor:'low'},'HP-P03':{floor:'top',roof:true},'CG-A05':{floor:'middle'},'AL-TV2':{lvl:2},'CS-TH1':{lvl:2},'CS-TW1':{lvl:2}};
+var UNIT_EXTRA={'MV-D14':{floor:'low',lvl:2},'FS-A18':{floor:'high'},'IB-V05':{lvl:2},'IB-S02':{floor:'low'},'HP-P03':{floor:'top',roof:true},'CG-A05':{floor:'middle'},'CS-TH1':{lvl:2},'CS-TW1':{lvl:2}};
 UNITS.forEach(function(u){ var e=UNIT_EXTRA[u.id]; if(e){ for(var k in e){ u[k]=e[k]; } } });
 var TYPE_META = {
 'Apartment':{ar:'شقة', icon:'ty_apartment'}, 'Villa':{ar:'فيلا', icon:'ty_villa'},
@@ -1532,8 +1525,6 @@ var PROJECT_COVERS = {
 'scenes':'/project-media/tatweer/th-sc-0.webp',
 'villette':'/project-media/sodic/villette/units/ap1-villette-0.webp',
 'sodic-east':'/project-media/sodic/sodic-east/units/to1-se-0.webp',
-'eastown':'/project-media/eastown/apartment.webp',
-'allegria':'/project-media/allegria/standalone.webp',
 'ogami-north-coast':'/project-media/ogami/apartment.webp',
 'caesar-north-coast':'/project-media/caesar/villa.webp',
 'june-north-coast':'/project-media/sodic/june-north-coast/units/v1-june-0.webp',
@@ -1963,11 +1954,6 @@ var UNIT_IMAGES = {
 'TM-SC-01':'/project-media/tatweer/th-sc-0.webp',
 'TM-SC-02':'/project-media/tatweer/tw-sc-0.webp',
 'TM-SC-03':'/project-media/tatweer/sv-sc-0.webp',
-'ET-D07':'/project-media/eastown/duplex.webp',
-'ET-A12':'/project-media/eastown/apartment.webp',
-'AL-V03':'/project-media/allegria/standalone.webp',
-'AL-TW6':'/project-media/allegria/twin-house.webp',
-'AL-TV2':'/project-media/allegria/town-house.webp',
 'OG-01':'/project-media/ogami/units/v1-ogami-0.webp',
 'OG-02':'/project-media/ogami/units/tw1-ogami-0.webp',
 'OG-03':'/project-media/ogami/units/th2-ogami-0.webp',
@@ -2892,7 +2878,6 @@ var UNIT_MASTERPLANS = {
 'OG-09':["/project-media/ogami/units/ogami-masterplan.webp"],
 'OG-10':["/project-media/ogami/units/ogami-masterplan.webp"],
 'CS-TW1':["mp-CS-TW1.webp"],
-'AL-V03':["mp-AL-V03.webp"],
 'SEM-CL1':["/project-media/lmd/sem-cl1-mp1.webp"],
 'SEM-CL2':["/project-media/lmd/sem-cl2-mp1.webp"],
 'TS-AD1':["/project-media/lmd/ts-ad1-mp1.webp"],
@@ -4257,8 +4242,8 @@ qataridiar:'qatari-diar.png', saudiegyptian:'saudi-egyptian.png',
 sumou:'sumou.png', beitalbahr:'beit-al-bahr.png', baghush:'marsa-baghush.png'
 };
 var PROJECT_LOGOS = {
-'villette':'villette.png', 'sodic-east':'sodic-east.png', 'eastown':'eastown.png',
-'allegria':'allegria.png', 'ogami-north-coast':'ogami.png',
+'villette':'villette.png', 'sodic-east':'sodic-east.png',
+'ogami-north-coast':'ogami.png',
 'caesar-north-coast':'caesar.png', 'june-north-coast':'june.png',
 'the-estates-zayed':'the-estates.png'
 };

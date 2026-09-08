@@ -5,10 +5,6 @@
 insert into cms.media_links (asset_id, unit_id, role, sort_order)
 select a.id, o.id, v.role::cms.media_role, v.sort_order
 from (values
-  ('/project-media/' || 'travco/marina-gate/units/th-marina-gate-1.webp','gallery',0,array['MG-04']),
-  ('/project-media/' || 'travco/marina-gate/units/th-marina-gate-1.webp','gallery',1,array['MG-03']),
-  ('/project-media/' || 'travco/marina-gate/units/th-marina-gate-2.webp','gallery',2,array['MG-03','MG-04']),
-  ('/project-media/' || 'travco/marina-gate/units/tv-marina-gate-0.webp','gallery',0,array['MG-02']),
   ('/project-media/' || 'travco/marina-gate/units/tv-marina-gate-1.webp','gallery',1,array['MG-02']),
   ('/project-media/' || 'travco/marina-gate/units/tv-marina-gate-2.webp','gallery',2,array['MG-02']),
   ('/project-media/' || 'travco/marina-gate/units/v1-marina-gate-0.webp','gallery',0,array['MG-01']),
@@ -168,14 +164,17 @@ from (values
   ('/project-media/' || 'ora/mp-zw.webp','masterplan',0,array['OR-ZW-01','OR-ZW-02','OR-ZW-03','OR-ZW-04','OR-ZW-05','OR-ZW-06','OR-ZW-07']),
   ('/project-media/' || 'orascom/ledge-valley/units/mp-mko.webp','masterplan',0,array['LV-01','LV-02','LV-03','LV-04','LV-05','LV-06','LV-07','LV-08','LV-09','LV-10']),
   ('/project-media/' || 'orascom/siyal/units/mp-siyal.webp','masterplan',0,array['SY-01','SY-02','SY-03','SY-04','SY-05','SY-06','SY-07']),
-  ('/project-media/' || 'plans/mp-AL-V03.webp','masterplan',0,array['AL-V03']),
   ('/project-media/' || 'plans/mp-CS-TW1.webp','masterplan',0,array['CS-TW1']),
   ('/project-media/' || 'ramla/units/mp-a.webp','masterplan',0,array['AE-AP01']),
   ('/project-media/' || 'sodic/june-north-coast/units/mp-june.webp','masterplan',0,array['JN-01','JN-02','JN-03','JN-04','JN-05','JN-06','JN-07','JN-08','JN-09','JN-10']),
   ('/project-media/' || 'sodic/sodic-east/units/mp-sodic-east.webp','masterplan',0,array['SE-01','SE-02','SE-03','SE-04','SE-05','SE-06','SE-07','SE-08','SE-09','SE-10','SE-11','SE-12','SE-13','SE-14','SE-15']),
   ('/project-media/' || 'sodic/the-estates-zayed/units/mp-the-estates.webp','masterplan',0,array['ES-01','ES-02','ES-03']),
   ('/project-media/' || 'sodic/villette/units/mp-villette.webp','masterplan',0,array['VL-01','VL-02','VL-03','VL-04','VL-05']),
-  ('/project-media/' || 'sumou/mp-s.webp','masterplan',0,array['SB-ST-01','SB-SP-01','SB-AP-01','SB-AP-02','SB-AP-03','SB-AP-04','SB-OF-01','SB-OF-02'])
+  ('/project-media/' || 'sumou/mp-s.webp','masterplan',0,array['SB-ST-01','SB-SP-01','SB-AP-01','SB-AP-02','SB-AP-03','SB-AP-04','SB-OF-01','SB-OF-02']),
+  ('/project-media/' || 'tatweer/mp-ap-b.webp','masterplan',0,array['TM-BL-01','TM-BL-02','TM-BL-03','TM-BL-04','TM-BL-05','TM-BL-06','TM-BL-07','TM-BL-08']),
+  ('/project-media/' || 'tatweer/mp-ap-r.webp','masterplan',0,array['TM-RV-01','TM-RV-02','TM-RV-03','TM-RV-04','TM-RV-05']),
+  ('/project-media/' || 'tatweer/mp-ap2-il-tm.webp','masterplan',0,array['TM-IM-05']),
+  ('/project-media/' || 'tatweer/mp-dbay.webp','masterplan',0,array['TM-DB-01','TM-DB-02','TM-DB-03'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path

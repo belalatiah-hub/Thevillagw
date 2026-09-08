@@ -1,12 +1,5 @@
 -- Every image path the site references, stored once.
 insert into cms.media_assets (path) values
-  ('/project-media/ramla/units/v5-0.webp'),
-  ('/project-media/ramla/units/v5-01.webp'),
-  ('/project-media/ramla/units/v5-02.webp'),
-  ('/project-media/ramla/units/v5-03.webp'),
-  ('/project-media/sodic/caesar.webp'),
-  ('/project-media/sodic/eastown.webp'),
-  ('/project-media/sodic/june-north-coast/units/ch1-june-0.webp'),
   ('/project-media/sodic/june-north-coast/units/ch1-june-01.webp'),
   ('/project-media/sodic/june-north-coast/units/ch1-june-02.webp'),
   ('/project-media/sodic/june-north-coast/units/ch1-june-03.webp'),
@@ -408,5 +401,11 @@ insert into cms.media_assets (path) values
   ('/project-media/tatweer/tm-ch3-il-01.webp'),
   ('/project-media/tatweer/tm-ch3-il-02.webp'),
   ('/project-media/tatweer/tm-ch3-il-03.webp'),
-  ('/project-media/tatweer/tm-ch4-il-0.webp')
+  ('/project-media/tatweer/tm-ch4-il-0.webp'),
+  ('/project-media/tatweer/tm-ch4-il-01.webp'),
+  ('/project-media/tatweer/tm-ch4-il-02.webp'),
+  ('/project-media/tatweer/tm-ch5-il-0.webp'),
+  ('/project-media/tatweer/tm-ch5-il-01.webp'),
+  ('/project-media/tatweer/tm-ch5-il-02.webp'),
+  ('/project-media/tatweer/tm-ch5-il-03.webp')
 on conflict (path) do nothing;

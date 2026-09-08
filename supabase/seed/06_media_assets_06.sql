@@ -1,11 +1,5 @@
 -- Every image path the site references, stored once.
 insert into cms.media_assets (path) values
-  ('/project-media/tatweer/tm-ch4-il-01.webp'),
-  ('/project-media/tatweer/tm-ch4-il-02.webp'),
-  ('/project-media/tatweer/tm-ch5-il-0.webp'),
-  ('/project-media/tatweer/tm-ch5-il-01.webp'),
-  ('/project-media/tatweer/tm-ch5-il-02.webp'),
-  ('/project-media/tatweer/tm-ch5-il-03.webp'),
   ('/project-media/tatweer/tm-ch5-il-04.webp'),
   ('/project-media/tatweer/tm-ch6-il-0.webp'),
   ('/project-media/tatweer/tm-ch6-il-01.webp'),

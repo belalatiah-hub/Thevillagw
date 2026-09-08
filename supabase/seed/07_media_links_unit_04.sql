@@ -5,11 +5,6 @@
 insert into cms.media_links (asset_id, unit_id, role, sort_order)
 select a.id, o.id, v.role::cms.media_role, v.sort_order
 from (values
-  ('/project-media/' || 'ora/fp-st-zw.webp','floorplan',0,array['OR-ZW-01']),
-  ('/project-media/' || 'ora/fp-stu-z.webp','floorplan',0,array['OR-ZE-05']),
-  ('/project-media/' || 'ora/fp-th-sw-0.webp','floorplan',0,array['OR-SW-07']),
-  ('/project-media/' || 'ora/fp-th-sw-01.webp','floorplan',1,array['OR-SW-07']),
-  ('/project-media/' || 'ora/fp-th1-ss.webp','floorplan',0,array['OR-ST-03']),
   ('/project-media/' || 'ora/fp-th2-ss.webp','floorplan',0,array['OR-ST-04']),
   ('/project-media/' || 'ora/fp-to1-em-0.webp','floorplan',0,array['OR-EM-04']),
   ('/project-media/' || 'ora/fp-to1-em-01.webp','floorplan',1,array['OR-EM-04']),
@@ -246,7 +241,12 @@ from (values
   ('/project-media/' || 'travco/marina-gate/units/fp-v1-marina-gate.webp','floorplan',0,array['MG-01']),
   ('/project-media/' || 'baghush/units/ch1-0.webp','gallery',0,array['MB-CH01']),
   ('/project-media/' || 'baghush/units/ch1-01.webp','gallery',1,array['MB-CH01']),
-  ('/project-media/' || 'baghush/units/ch2-0.webp','gallery',0,array['MB-CH02'])
+  ('/project-media/' || 'baghush/units/ch2-0.webp','gallery',0,array['MB-CH02']),
+  ('/project-media/' || 'baghush/units/ch2-0.webp','gallery',1,array['MB-CH03']),
+  ('/project-media/' || 'baghush/units/ch2-01.webp','gallery',0,array['MB-CH03']),
+  ('/project-media/' || 'baghush/units/ch2-01.webp','gallery',1,array['MB-CH02']),
+  ('/project-media/' || 'baghush/units/ch4-0.webp','gallery',0,array['MB-CH04']),
+  ('/project-media/' || 'baghush/units/ch5-0.webp','gallery',0,array['MB-CH05'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path
