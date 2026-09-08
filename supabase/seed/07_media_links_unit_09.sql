@@ -5,6 +5,7 @@
 insert into cms.media_links (asset_id, unit_id, role, sort_order)
 select a.id, o.id, v.role::cms.media_role, v.sort_order
 from (values
+  ('/project-media/' || 'ora/pen-sw-02.webp','gallery',2,array['OR-SW-15']),
   ('/project-media/' || 'ora/pen2-0.webp','gallery',1,array['OR-SW-16']),
   ('/project-media/' || 'ora/pen2-01.webp','gallery',2,array['OR-SW-16']),
   ('/project-media/' || 'ora/pen2.webp','gallery',0,array['OR-SW-16']),

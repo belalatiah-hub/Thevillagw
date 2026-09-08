@@ -5,6 +5,7 @@
 insert into cms.media_links (asset_id, unit_id, role, sort_order)
 select a.id, o.id, v.role::cms.media_role, v.sort_order
 from (values
+  ('/project-media/' || 'tatweer/80-b.webp','floorplan',0,array['TM-FK-03']),
   ('/project-media/' || 'tatweer/80.webp','floorplan',1,array['TM-FK-03']),
   ('/project-media/' || 'tatweer/fp-ap1-b.webp','floorplan',0,array['TM-BL-01']),
   ('/project-media/' || 'tatweer/fp-ap1-r.webp','floorplan',0,array['TM-RV-01']),
@@ -234,8 +235,7 @@ from (values
   ('/project-media/' || 'emaarmisr/marassi-red-sea/units/v3-island-0.webp','gallery',0,array['MR-08']),
   ('/project-media/' || 'emaarmisr/marassi-red-sea/units/v3-island-1.webp','gallery',1,array['MR-08']),
   ('/project-media/' || 'emaarmisr/marassi-red-sea/units/v4-island-0.webp','gallery',0,array['MR-09']),
-  ('/project-media/' || 'emaarmisr/marassi-red-sea/units/v4-island-1.webp','gallery',1,array['MR-09']),
-  ('/project-media/' || 'emaarmisr/marassi-red-sea/units/v5-island-0.webp','gallery',0,array['MR-10'])
+  ('/project-media/' || 'emaarmisr/marassi-red-sea/units/v4-island-1.webp','gallery',1,array['MR-09'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path

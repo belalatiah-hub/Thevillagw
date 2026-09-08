@@ -154,6 +154,7 @@ insert into cms.media_assets (path) values
   ('/project-media/sodic/caesar-north-coast/units/tw2-ca-01.webp'),
   ('/project-media/sodic/caesar-north-coast/units/tw2-ca2-0.webp'),
   ('/project-media/sodic/caesar-north-coast/units/tw3-ca2-0.webp'),
+  ('/project-media/sodic/caesar-north-coast/units/tw3-ca2-01.webp'),
   ('/project-media/sodic/caesar-north-coast/units/villa1-ca-0.webp'),
   ('/project-media/sodic/caesar-north-coast/units/villa1-ca-01.webp'),
   ('/project-media/sodic/caesar-north-coast/units/villa1-ca-02.webp'),
@@ -242,6 +243,7 @@ insert into cms.media_assets (path) values
   ('/project-media/sodic/sodic-east/units/ap7-se-01.webp'),
   ('/project-media/sodic/sodic-east/units/ap7-se-02.webp'),
   ('/project-media/sodic/sodic-east/units/ap7-se-03.webp'),
+  ('/project-media/sodic/sodic-east/units/fp-ap1-se.webp'),
   ('/project-media/sodic/sodic-east/units/fp-ap2-se.webp'),
   ('/project-media/sodic/sodic-east/units/fp-ap2-se1.webp'),
   ('/project-media/sodic/sodic-east/units/fp-ap3-se.webp'),
@@ -348,7 +350,5 @@ insert into cms.media_assets (path) values
   ('/project-media/sodic/the-estates-residence/units/fp-ap4-casar.webp'),
   ('/project-media/sodic/the-estates-residence/units/fp-ap5-caesar.webp'),
   ('/project-media/sodic/the-estates-residence/units/fp-ap6-caesar.webp'),
-  ('/project-media/sodic/the-estates-residence/units/fp-ap7-caesar.webp'),
-  ('/project-media/sodic/the-estates-residence/units/fp-ap8-caesar.webp'),
-  ('/project-media/sodic/the-estates-residence/units/fp-ap9-caesar.webp')
+  ('/project-media/sodic/the-estates-residence/units/fp-ap7-caesar.webp')
 on conflict (path) do nothing;

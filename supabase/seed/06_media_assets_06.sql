@@ -1,5 +1,7 @@
 -- Every image path the site references, stored once.
 insert into cms.media_assets (path) values
+  ('/project-media/sodic/the-estates-residence/units/fp-ap8-caesar.webp'),
+  ('/project-media/sodic/the-estates-residence/units/fp-ap9-caesar.webp'),
   ('/project-media/sodic/the-estates-residence/units/fp-to-caesar-0.webp'),
   ('/project-media/sodic/the-estates-residence/units/fp-to-caesar-1.webp'),
   ('/project-media/sodic/the-estates-residence/units/fp-tw-caesar-0.webp'),
@@ -406,8 +408,5 @@ insert into cms.media_assets (path) values
   ('/project-media/travco/makadina/units/location-makadina.webp'),
   ('/project-media/travco/makadina/units/mp-makadina.webp'),
   ('/project-media/travco/makadina/units/th2-makadina-0.webp'),
-  ('/project-media/travco/makadina/units/th2-makadina-1.webp'),
-  ('/project-media/travco/makadina/units/v1-makadina-0.webp'),
-  ('/project-media/travco/makadina/units/v1-makadina-1.webp'),
-  ('/project-media/travco/makadina/units/v1-makadina-2.webp')
+  ('/project-media/travco/makadina/units/th2-makadina-1.webp')
 on conflict (path) do nothing;

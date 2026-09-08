@@ -5,6 +5,7 @@
 insert into cms.media_links (asset_id, unit_id, role, sort_order)
 select a.id, o.id, v.role::cms.media_role, v.sort_order
 from (values
+  ('/project-media/' || 'sodic/caesar-north-coast/units/tw3-ca2-01.webp','gallery',1,array['CS-09']),
   ('/project-media/' || 'sodic/caesar-north-coast/units/villa1-ca-0.webp','gallery',0,array['CS-01']),
   ('/project-media/' || 'sodic/caesar-north-coast/units/villa1-ca-01.webp','gallery',1,array['CS-01']),
   ('/project-media/' || 'sodic/caesar-north-coast/units/villa1-ca-02.webp','gallery',2,array['CS-01']),

@@ -148,6 +148,7 @@ from (values
   ('/project-media/' || 'sodic/june-north-coast/units/fp-v2-june-01.webp','floorplan',1,array['JN-02']),
   ('/project-media/' || 'sodic/june-north-coast/units/fp-v3-june.webp','floorplan',0,array['JN-03']),
   ('/project-media/' || 'sodic/june-north-coast/units/fp-v4-june.webp','floorplan',0,array['JN-04']),
+  ('/project-media/' || 'sodic/sodic-east/units/fp-ap1-se.webp','floorplan',0,array['SE-09']),
   ('/project-media/' || 'sodic/sodic-east/units/fp-ap2-se.webp','floorplan',0,array['SE-10']),
   ('/project-media/' || 'sodic/sodic-east/units/fp-ap2-se1.webp','floorplan',1,array['SE-10']),
   ('/project-media/' || 'sodic/sodic-east/units/fp-ap3-se.webp','floorplan',0,array['SE-11']),
@@ -240,8 +241,7 @@ from (values
   ('/project-media/' || 'sumou/fp-st1.webp','floorplan',0,array['SB-SP-01']),
   ('/project-media/' || 'tatweer/110.webp','floorplan',0,array['TM-FK-04']),
   ('/project-media/' || 'tatweer/280-floor-plan.webp','floorplan',1,array['TM-DB-03']),
-  ('/project-media/' || 'tatweer/280-s.webp','floorplan',0,array['TM-DB-03']),
-  ('/project-media/' || 'tatweer/80-b.webp','floorplan',0,array['TM-FK-03'])
+  ('/project-media/' || 'tatweer/280-s.webp','floorplan',0,array['TM-DB-03'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path
