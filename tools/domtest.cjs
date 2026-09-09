@@ -2423,6 +2423,18 @@ try {
     var t = txt(api.V.developer('lmd').node);
     return !/201005086744|abdellatif/i.test(t);
   })(), true);
+  /* Two owner corrections that the client sheet still disagrees with, so a
+     reload from that sheet would quietly undo them. MR-01's bathroom count is
+     the floor plan's, not the sheet's; MR-08 takes the lower of the two prices
+     the sheet gives the same 585 m² R-3, which is the one that is right for
+     both of them. */
+  ck('marassi: the owner\'s two corrections survive a sheet reload', (function(){
+    var by = {}; api.UNITS.forEach(function(u){ by[u.id] = u; });
+    var a = by['MR-01'], b = by['MR-08'], c = by['MR-11'];
+    if(!a || !b || !c) return 'unit missing';
+    return (a.baths === 2 && b.price === 133036888 && c.price === 133036888) ||
+           ('MR-01 baths='+a.baths+' MR-08='+b.price+' MR-11='+c.price);
+  })(), true);
   ck('site: no per-unit map points at a unit that no longer exists', (function(){
     var live = {}; api.UNITS.forEach(function(u){ live[u.id] = 1; });
     var maps = {UNIT_EXTRA:api.UNIT_EXTRA, UNIT_IMAGES:api.UNIT_IMAGES,
