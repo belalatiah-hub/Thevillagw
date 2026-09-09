@@ -5595,6 +5595,149 @@ var TS = '/project-media/lmd/three-sixty/';
 var ZO = '/project-media/lmd/zoya/';
 var ON = '/project-media/lmd/one-ninety/';
 var PROJECT_FEATURES = {
+'stei8ht-eastmed': {
+cards: [
+{en:'Inside Stei8ht', ar:'داخل Stei8ht', icon:'shield',
+imgs:['/project-media/lmd/cover-stei8ht-eastmed.webp', '/project-media/lmd/cover-stei8ht.webp'],
+copy:{
+lead:{en:'Stei8ht is a signature statement \u2014 a residence meticulously crafted to help you achieve the ultimate state of wholeness, in the most paramount location in New Cairo.', ar:'Stei8ht بيان مميّز — سكن صُنع بعناية ليقودك إلى أقصى حالات الاكتمال، في أهم موقع بالقاهرة الجديدة.'},
+more:{en:'Skillfully brought to life by LMD in collaboration with the internationally-acclaimed Alchemy and YBA, a green wonderland of unseen exclusivity. Masterplanned as a gated state for people, not cars, Stei8ht is formed of vertical altitudes that maximise views of open spaces and serene streams. All districts share one vast exclusive park mixed with an array of experiences through its embedded clubhouses and community centers, while each neighborhood also has an inclusive park of its own, and the project is self-sustained with its own district of mixed-use development.', ar:'أخرجته LMD إلى النور بالتعاون مع Alchemy وYBA المعروفتين عالمياً، عالماً أخضر بحصرية غير مسبوقة. ومخطَّط كدولة مسوَّرة للناس لا للسيارات، ويتكوّن Stei8ht من مناسيب رأسية تعظّم الإطلالات على المساحات المفتوحة والجداول الهادئة. وتتشارك كل الأحياء حديقة واسعة حصرية واحدة تمتزج بتجارب متنوّعة عبر الكلوب هاوسات والمراكز المجتمعية، وفي الوقت نفسه لكل حي حديقته الخاصة، والمشروع مكتفٍ ذاتياً بحي متعدّد الاستخدامات خاص به.'},
+groups:[
+{label:{en:'As the brochure gives them', ar:'كما يذكرها البروشور'}, rows:[
+{k:{en:'Land', ar:'المساحة'}, v:{en:'Around 550 acres of lush landscapes', ar:'نحو ٥٥٠ فداناً من المساحات الخضراء'}},
+{k:{en:'Open space', ar:'المساحات المفتوحة'}, v:{en:'85%', ar:'٨٥٪'}},
+{k:{en:'Entrances', ar:'المداخل'}, v:{en:'Two', ar:'مدخلان'}},
+{k:{en:'Gates', ar:'البوابات'}, v:{en:'8 gates within its gated community', ar:'٨ بوابات داخل مجتمعه المسوَّر'}},
+{k:{en:'Architecture', ar:'العمارة'}, v:{en:'Alchemy', ar:'Alchemy'}},
+{k:{en:'Master plan', ar:'المخطط العام'}, v:{en:'YBA', ar:'YBA'}}]},
+{label:{en:'The eight states of living', ar:'حالات المعيشة الثماني'}, rows:[
+{k:{en:'1 \u2014 Scenic views', ar:'١ — المناظر الخلّابة'}, v:{en:'Manicured landscapes \u00b7 blooming flower parks \u00b7 water features', ar:'مساحات خضراء مشذّبة · حدائق زهور · نوافير ومسطّحات مائية'}},
+{k:{en:'2 \u2014 Sustainable living', ar:'٢ — المعيشة المستدامة'}, v:{en:'Outdoor greenhouse \u00b7 energy saving systems \u00b7 electric car charging stations \u00b7 solar-powered lights \u00b7 eco-friendly systems \u00b7 aquatic efficiency solutions', ar:'صوبة خارجية · أنظمة توفير طاقة · محطات شحن سيارات كهربائية · إنارة بالطاقة الشمسية · أنظمة صديقة للبيئة · حلول لكفاءة المياه'}},
+{k:{en:'3 \u2014 Art & culture', ar:'٣ — الفن والثقافة'}, v:{en:'Art gallery \u00b7 boutique gallery \u00b7 cultural hub \u00b7 outdoor reading', ar:'صالة فنون · جاليري بوتيك · مركز ثقافي · قراءة في الهواء الطلق'}},
+{k:{en:'4 \u2014 Vibrant activity', ar:'٤ — النشاط النابض'}, v:{en:'Outdoor gym \u00b7 multipurpose sports courts & gym \u00b7 bike & jogging trails \u00b7 skate park', ar:'جيم خارجي · ملاعب متعدّدة الأغراض وصالة رياضية · مسارات دراجات وجري · سكيت بارك'}},
+{k:{en:'5 \u2014 Playfulness', ar:'٥ — المرح'}, v:{en:'Kids play area \u00b7 kids outdoor DIY zones \u00b7 kids amphitheater \u00b7 birthday zones', ar:'منطقة ألعاب أطفال · مناطق أشغال يدوية في الهواء الطلق · مدرّج للأطفال · مناطق أعياد ميلاد'}},
+{k:{en:'6 \u2014 Glamour', ar:'٦ — البريق'}, v:{en:'Commercial arcade \u00b7 outdoor shopping plaza \u00b7 easy access parking \u00b7 fine dining \u00b7 retail shops', ar:'أركيد تجاري · ساحة تسوّق مفتوحة · انتظار سهل الوصول · مطاعم راقية · محلات تجزئة'}},
+{k:{en:'7 \u2014 Wellbeing', ar:'٧ — العافية'}, v:{en:'Yoga & meditation zones \u00b7 medical & wellness centers \u00b7 organic food garden \u00b7 barbecue areas \u00b7 recreation zones', ar:'مناطق يوغا وتأمّل · مراكز طبية ومراكز عافية · حديقة طعام عضوي · مناطق شواء · مناطق ترفيه'}},
+{k:{en:'8 \u2014 Executive focus', ar:'٨ — التركيز التنفيذي'}, v:{en:'Modular office spaces \u00b7 conference rooms with dedicated leased lines \u00b7 webinar centers \u00b7 outdoor working pods \u00b7 progressive offices', ar:'مساحات مكتبية مرنة · قاعات مؤتمرات بخطوط مخصّصة · مراكز ندوات إلكترونية · كبائن عمل خارجية · مكاتب متقدّمة'}}]}
+]
+}},
+{en:'A state of wellbeing', ar:'حالة العافية', icon:'am_clinic',
+imgs:['/project-media/lmd/sem-cl1-r1.webp', '/project-media/lmd/sem-cl1-r2.webp', '/project-media/lmd/sem-cl2-r1.webp', '/project-media/lmd/sem-cl2-r2.webp'],
+copy:{
+lead:{en:'Here you find your center, as the state of wellness encircles a significant space at Stei8ht \u2014 the medical and wellness centers the brochure names among its eight states.', ar:'هنا تجد مركزك، فحالة العافية تحيط بمساحة كبيرة في Stei8ht — المراكز الطبية ومراكز العافية التي يسمّيها البروشور ضمن حالاته الثماني.'},
+list:[
+{en:'Yoga & meditation zones', ar:'مناطق يوغا وتأمّل'},
+{en:'Medical & wellness centers', ar:'مراكز طبية ومراكز عافية'},
+{en:'Organic food garden', ar:'حديقة طعام عضوي'},
+{en:'Barbecue areas', ar:'مناطق شواء'},
+{en:'Recreation zones', ar:'مناطق ترفيه'}],
+more:{en:'Reconnect within to find your core. Keep your temple clean with additive-free food from the organic garden, or charcoal-grilled proteins in any of the barbecue areas.', ar:'أعد الاتصال بداخلك لتجد جوهرك. حافظ على صحتك بطعام خالٍ من الإضافات من الحديقة العضوية، أو بروتينات مشوية على الفحم في أي من مناطق الشواء.'}
+}}
+]
+},
+'stei8ht-there': {
+cards: [
+{en:'Inside Stei8ht', ar:'داخل Stei8ht', icon:'shield',
+imgs:['/project-media/lmd/cover-stei8ht-there.webp', '/project-media/lmd/cover-stei8ht.webp'],
+copy:{
+lead:{en:'Stei8ht is a signature statement \u2014 a residence meticulously crafted to help you achieve the ultimate state of wholeness, in the most paramount location in New Cairo.', ar:'Stei8ht بيان مميّز — سكن صُنع بعناية ليقودك إلى أقصى حالات الاكتمال، في أهم موقع بالقاهرة الجديدة.'},
+more:{en:'Skillfully brought to life by LMD in collaboration with the internationally-acclaimed Alchemy and YBA, a green wonderland of unseen exclusivity. Masterplanned as a gated state for people, not cars, Stei8ht is formed of vertical altitudes that maximise views of open spaces and serene streams. All districts share one vast exclusive park mixed with an array of experiences through its embedded clubhouses and community centers, while each neighborhood also has an inclusive park of its own, and the project is self-sustained with its own district of mixed-use development.', ar:'أخرجته LMD إلى النور بالتعاون مع Alchemy وYBA المعروفتين عالمياً، عالماً أخضر بحصرية غير مسبوقة. ومخطَّط كدولة مسوَّرة للناس لا للسيارات، ويتكوّن Stei8ht من مناسيب رأسية تعظّم الإطلالات على المساحات المفتوحة والجداول الهادئة. وتتشارك كل الأحياء حديقة واسعة حصرية واحدة تمتزج بتجارب متنوّعة عبر الكلوب هاوسات والمراكز المجتمعية، وفي الوقت نفسه لكل حي حديقته الخاصة، والمشروع مكتفٍ ذاتياً بحي متعدّد الاستخدامات خاص به.'},
+groups:[
+{label:{en:'As the brochure gives them', ar:'كما يذكرها البروشور'}, rows:[
+{k:{en:'Land', ar:'المساحة'}, v:{en:'Around 550 acres of lush landscapes', ar:'نحو ٥٥٠ فداناً من المساحات الخضراء'}},
+{k:{en:'Open space', ar:'المساحات المفتوحة'}, v:{en:'85%', ar:'٨٥٪'}},
+{k:{en:'Entrances', ar:'المداخل'}, v:{en:'Two', ar:'مدخلان'}},
+{k:{en:'Gates', ar:'البوابات'}, v:{en:'8 gates within its gated community', ar:'٨ بوابات داخل مجتمعه المسوَّر'}},
+{k:{en:'Architecture', ar:'العمارة'}, v:{en:'Alchemy', ar:'Alchemy'}},
+{k:{en:'Master plan', ar:'المخطط العام'}, v:{en:'YBA', ar:'YBA'}}]},
+{label:{en:'The eight states of living', ar:'حالات المعيشة الثماني'}, rows:[
+{k:{en:'1 \u2014 Scenic views', ar:'١ — المناظر الخلّابة'}, v:{en:'Manicured landscapes \u00b7 blooming flower parks \u00b7 water features', ar:'مساحات خضراء مشذّبة · حدائق زهور · نوافير ومسطّحات مائية'}},
+{k:{en:'2 \u2014 Sustainable living', ar:'٢ — المعيشة المستدامة'}, v:{en:'Outdoor greenhouse \u00b7 energy saving systems \u00b7 electric car charging stations \u00b7 solar-powered lights \u00b7 eco-friendly systems \u00b7 aquatic efficiency solutions', ar:'صوبة خارجية · أنظمة توفير طاقة · محطات شحن سيارات كهربائية · إنارة بالطاقة الشمسية · أنظمة صديقة للبيئة · حلول لكفاءة المياه'}},
+{k:{en:'3 \u2014 Art & culture', ar:'٣ — الفن والثقافة'}, v:{en:'Art gallery \u00b7 boutique gallery \u00b7 cultural hub \u00b7 outdoor reading', ar:'صالة فنون · جاليري بوتيك · مركز ثقافي · قراءة في الهواء الطلق'}},
+{k:{en:'4 \u2014 Vibrant activity', ar:'٤ — النشاط النابض'}, v:{en:'Outdoor gym \u00b7 multipurpose sports courts & gym \u00b7 bike & jogging trails \u00b7 skate park', ar:'جيم خارجي · ملاعب متعدّدة الأغراض وصالة رياضية · مسارات دراجات وجري · سكيت بارك'}},
+{k:{en:'5 \u2014 Playfulness', ar:'٥ — المرح'}, v:{en:'Kids play area \u00b7 kids outdoor DIY zones \u00b7 kids amphitheater \u00b7 birthday zones', ar:'منطقة ألعاب أطفال · مناطق أشغال يدوية في الهواء الطلق · مدرّج للأطفال · مناطق أعياد ميلاد'}},
+{k:{en:'6 \u2014 Glamour', ar:'٦ — البريق'}, v:{en:'Commercial arcade \u00b7 outdoor shopping plaza \u00b7 easy access parking \u00b7 fine dining \u00b7 retail shops', ar:'أركيد تجاري · ساحة تسوّق مفتوحة · انتظار سهل الوصول · مطاعم راقية · محلات تجزئة'}},
+{k:{en:'7 \u2014 Wellbeing', ar:'٧ — العافية'}, v:{en:'Yoga & meditation zones \u00b7 medical & wellness centers \u00b7 organic food garden \u00b7 barbecue areas \u00b7 recreation zones', ar:'مناطق يوغا وتأمّل · مراكز طبية ومراكز عافية · حديقة طعام عضوي · مناطق شواء · مناطق ترفيه'}},
+{k:{en:'8 \u2014 Executive focus', ar:'٨ — التركيز التنفيذي'}, v:{en:'Modular office spaces \u00b7 conference rooms with dedicated leased lines \u00b7 webinar centers \u00b7 outdoor working pods \u00b7 progressive offices', ar:'مساحات مكتبية مرنة · قاعات مؤتمرات بخطوط مخصّصة · مراكز ندوات إلكترونية · كبائن عمل خارجية · مكاتب متقدّمة'}}]}
+]
+}},
+{en:'A state of executive focus', ar:'حالة التركيز التنفيذي', icon:'ty_office',
+imgs:['/project-media/lmd/sth-of1-r1.webp', '/project-media/lmd/sth-of1-r2.webp', '/project-media/lmd/sth-of1-r3.webp'],
+copy:{
+lead:{en:'Here your state of accomplishment is ever-growing \u2014 an atmosphere set for thriving and supplied with the right tools to get work done.', ar:'هنا حالة الإنجاز في نموّ دائم — أجواء مهيّأة للازدهار ومزوّدة بالأدوات الصحيحة لإنجاز العمل.'},
+list:[
+{en:'Modular office spaces', ar:'مساحات مكتبية مرنة'},
+{en:'Conference rooms with dedicated leased lines', ar:'قاعات مؤتمرات بخطوط مخصّصة'},
+{en:'Webinar centers', ar:'مراكز ندوات إلكترونية'},
+{en:'Outdoor working pods', ar:'كبائن عمل في الهواء الطلق'},
+{en:'Progressive offices', ar:'مكاتب متقدّمة'}],
+more:{en:'Take your ideas and networking to another level with Stei8ht\u2019s modular offices and webinar centers, equipped with high-tech to match your highest ambitions.', ar:'ارتقِ بأفكارك وعلاقاتك إلى مستوى آخر مع المكاتب المرنة ومراكز الندوات في Stei8ht، المجهّزة بتقنيات عالية ترقى إلى أعلى طموحاتك.'}
+}},
+{en:'A state of glamour', ar:'حالة البريق', icon:'am_retail',
+imgs:['/project-media/lmd/cover-stei8ht-there.webp'],
+copy:{
+lead:{en:'Enter a Stei8ht where recreation is moments away \u2014 a place packed with entertainment of all miscellanies, dynamic in nature, pulsating with the joys of fashion lovers and the thrills of excitement chasers.', ar:'ادخل Stei8ht حيث الترفيه على بُعد لحظات — مكان مليء بترفيه من كل صنف، ديناميكي بطبعه، ينبض بمتعة عشّاق الموضة وإثارة الباحثين عن الحماس.'},
+list:[
+{en:'Commercial arcade', ar:'أركيد تجاري'},
+{en:'Outdoor shopping plaza', ar:'ساحة تسوّق مفتوحة'},
+{en:'Easy access parking', ar:'انتظار سهل الوصول'},
+{en:'Fine dining', ar:'مطاعم راقية'},
+{en:'Retail shops', ar:'محلات تجزئة'}]
+}}
+]
+},
+'stei8ht-eastside': {
+cards: [
+{en:'Inside Stei8ht', ar:'داخل Stei8ht', icon:'shield',
+imgs:['/project-media/lmd/cover-stei8ht-eastside.webp', '/project-media/lmd/cover-stei8ht.webp'],
+copy:{
+lead:{en:'Stei8ht is a signature statement \u2014 a residence meticulously crafted to help you achieve the ultimate state of wholeness, in the most paramount location in New Cairo.', ar:'Stei8ht بيان مميّز — سكن صُنع بعناية ليقودك إلى أقصى حالات الاكتمال، في أهم موقع بالقاهرة الجديدة.'},
+more:{en:'Skillfully brought to life by LMD in collaboration with the internationally-acclaimed Alchemy and YBA, a green wonderland of unseen exclusivity. Masterplanned as a gated state for people, not cars, Stei8ht is formed of vertical altitudes that maximise views of open spaces and serene streams. All districts share one vast exclusive park mixed with an array of experiences through its embedded clubhouses and community centers, while each neighborhood also has an inclusive park of its own, and the project is self-sustained with its own district of mixed-use development.', ar:'أخرجته LMD إلى النور بالتعاون مع Alchemy وYBA المعروفتين عالمياً، عالماً أخضر بحصرية غير مسبوقة. ومخطَّط كدولة مسوَّرة للناس لا للسيارات، ويتكوّن Stei8ht من مناسيب رأسية تعظّم الإطلالات على المساحات المفتوحة والجداول الهادئة. وتتشارك كل الأحياء حديقة واسعة حصرية واحدة تمتزج بتجارب متنوّعة عبر الكلوب هاوسات والمراكز المجتمعية، وفي الوقت نفسه لكل حي حديقته الخاصة، والمشروع مكتفٍ ذاتياً بحي متعدّد الاستخدامات خاص به.'},
+groups:[
+{label:{en:'As the brochure gives them', ar:'كما يذكرها البروشور'}, rows:[
+{k:{en:'Land', ar:'المساحة'}, v:{en:'Around 550 acres of lush landscapes', ar:'نحو ٥٥٠ فداناً من المساحات الخضراء'}},
+{k:{en:'Open space', ar:'المساحات المفتوحة'}, v:{en:'85%', ar:'٨٥٪'}},
+{k:{en:'Entrances', ar:'المداخل'}, v:{en:'Two', ar:'مدخلان'}},
+{k:{en:'Gates', ar:'البوابات'}, v:{en:'8 gates within its gated community', ar:'٨ بوابات داخل مجتمعه المسوَّر'}},
+{k:{en:'Architecture', ar:'العمارة'}, v:{en:'Alchemy', ar:'Alchemy'}},
+{k:{en:'Master plan', ar:'المخطط العام'}, v:{en:'YBA', ar:'YBA'}}]},
+{label:{en:'The eight states of living', ar:'حالات المعيشة الثماني'}, rows:[
+{k:{en:'1 \u2014 Scenic views', ar:'١ — المناظر الخلّابة'}, v:{en:'Manicured landscapes \u00b7 blooming flower parks \u00b7 water features', ar:'مساحات خضراء مشذّبة · حدائق زهور · نوافير ومسطّحات مائية'}},
+{k:{en:'2 \u2014 Sustainable living', ar:'٢ — المعيشة المستدامة'}, v:{en:'Outdoor greenhouse \u00b7 energy saving systems \u00b7 electric car charging stations \u00b7 solar-powered lights \u00b7 eco-friendly systems \u00b7 aquatic efficiency solutions', ar:'صوبة خارجية · أنظمة توفير طاقة · محطات شحن سيارات كهربائية · إنارة بالطاقة الشمسية · أنظمة صديقة للبيئة · حلول لكفاءة المياه'}},
+{k:{en:'3 \u2014 Art & culture', ar:'٣ — الفن والثقافة'}, v:{en:'Art gallery \u00b7 boutique gallery \u00b7 cultural hub \u00b7 outdoor reading', ar:'صالة فنون · جاليري بوتيك · مركز ثقافي · قراءة في الهواء الطلق'}},
+{k:{en:'4 \u2014 Vibrant activity', ar:'٤ — النشاط النابض'}, v:{en:'Outdoor gym \u00b7 multipurpose sports courts & gym \u00b7 bike & jogging trails \u00b7 skate park', ar:'جيم خارجي · ملاعب متعدّدة الأغراض وصالة رياضية · مسارات دراجات وجري · سكيت بارك'}},
+{k:{en:'5 \u2014 Playfulness', ar:'٥ — المرح'}, v:{en:'Kids play area \u00b7 kids outdoor DIY zones \u00b7 kids amphitheater \u00b7 birthday zones', ar:'منطقة ألعاب أطفال · مناطق أشغال يدوية في الهواء الطلق · مدرّج للأطفال · مناطق أعياد ميلاد'}},
+{k:{en:'6 \u2014 Glamour', ar:'٦ — البريق'}, v:{en:'Commercial arcade \u00b7 outdoor shopping plaza \u00b7 easy access parking \u00b7 fine dining \u00b7 retail shops', ar:'أركيد تجاري · ساحة تسوّق مفتوحة · انتظار سهل الوصول · مطاعم راقية · محلات تجزئة'}},
+{k:{en:'7 \u2014 Wellbeing', ar:'٧ — العافية'}, v:{en:'Yoga & meditation zones \u00b7 medical & wellness centers \u00b7 organic food garden \u00b7 barbecue areas \u00b7 recreation zones', ar:'مناطق يوغا وتأمّل · مراكز طبية ومراكز عافية · حديقة طعام عضوي · مناطق شواء · مناطق ترفيه'}},
+{k:{en:'8 \u2014 Executive focus', ar:'٨ — التركيز التنفيذي'}, v:{en:'Modular office spaces \u00b7 conference rooms with dedicated leased lines \u00b7 webinar centers \u00b7 outdoor working pods \u00b7 progressive offices', ar:'مساحات مكتبية مرنة · قاعات مؤتمرات بخطوط مخصّصة · مراكز ندوات إلكترونية · كبائن عمل خارجية · مكاتب متقدّمة'}}]}
+]
+}},
+{en:'A state of executive focus', ar:'حالة التركيز التنفيذي', icon:'ty_office',
+imgs:['/project-media/lmd/ses-ad1-r1.webp', '/project-media/lmd/ses-ad1-r2.webp'],
+copy:{
+lead:{en:'An atmosphere set for thriving and supplied with the right tools to get work done \u2014 the offices the brochure names among Stei8ht\u2019s eight states.', ar:'أجواء مهيّأة للازدهار ومزوّدة بالأدوات الصحيحة لإنجاز العمل — المكاتب التي يسمّيها البروشور ضمن حالات Stei8ht الثماني.'},
+list:[
+{en:'Modular office spaces', ar:'مساحات مكتبية مرنة'},
+{en:'Conference rooms with dedicated leased lines', ar:'قاعات مؤتمرات بخطوط مخصّصة'},
+{en:'Webinar centers', ar:'مراكز ندوات إلكترونية'},
+{en:'Outdoor working pods', ar:'كبائن عمل في الهواء الطلق'},
+{en:'Progressive offices', ar:'مكاتب متقدّمة'}],
+more:{en:'Take your ideas and networking to another level with Stei8ht\u2019s modular offices and webinar centers, equipped with high-tech to match your highest ambitions.', ar:'ارتقِ بأفكارك وعلاقاتك إلى مستوى آخر مع المكاتب المرنة ومراكز الندوات في Stei8ht، المجهّزة بتقنيات عالية ترقى إلى أعلى طموحاتك.'}
+}},
+{en:'A state of sustainable living', ar:'حالة المعيشة المستدامة', icon:'am_eco',
+imgs:['/project-media/lmd/cover-stei8ht.webp'],
+copy:{
+lead:{en:'A sustainable environment is a clean habitat. Stei8ht is a forward-thinking development, relying on solar-powered streets and energy-saving systems to minimise emissions while maximising reliability.', ar:'البيئة المستدامة موطن نظيف. Stei8ht مشروع استشرافي، يعتمد على شوارع تعمل بالطاقة الشمسية وأنظمة موفّرة للطاقة لتقليل الانبعاثات مع رفع الاعتمادية.'},
+list:[
+{en:'Outdoor greenhouse', ar:'صوبة خارجية'},
+{en:'Energy saving systems', ar:'أنظمة توفير الطاقة'},
+{en:'Electric cars charging stations', ar:'محطات شحن سيارات كهربائية'},
+{en:'Solar-powered lights', ar:'إنارة بالطاقة الشمسية'},
+{en:'Eco-friendly systems', ar:'أنظمة صديقة للبيئة'},
+{en:'Aquatic efficiency solutions', ar:'حلول لكفاءة استخدام المياه'}]
+}}
+]
+},
 'one-ninety': {
 masterplan: {en:'Master plan', ar:'الماستر بلان', icon:'layers', src:ON+'masterplan.webp'},
 cards: [

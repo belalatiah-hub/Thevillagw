@@ -2488,6 +2488,56 @@ try {
       return /\b\d+(\.\d+)?\s*(mins?|minutes|hours?|hrs?)\b/i.test(txt(api.V.project(s).node)); });
     return bad.length === 0 || bad.join(',');
   })(), true);
+  /* The Stei8ht brochure is the destination's, and the destination is a
+     villas-only community. The three projects the site sells inside it are a
+     clinic address, an office address and an administrative one, so not one of
+     the brochure's villa renders or villa floor plans may appear on them: every
+     picture on these three cards is one already loaded for these units. */
+  ck('stei8ht: the brochure\'s cards use only these units\' own pictures', (function(){
+    var fsx=require('fs'), pathx=require('path');
+    var want = {'stei8ht-eastmed':2, 'stei8ht-there':3, 'stei8ht-eastside':3};
+    var own = {};
+    ['UNIT_IMAGES','UNIT_GALLERY','UNIT_FLOORPLANS','UNIT_MASTERPLANS','UNIT_LOCATIONS']
+      .forEach(function(m){
+        Object.keys(api[m]).forEach(function(id){
+          var u = api.unitById(id); if(!u || !/^stei8ht-/.test(u.project)) return;
+          [].concat(api[m][id]).forEach(function(src){ own[src] = 1; });
+        });
+      });
+    api.PROJECTS.forEach(function(p){
+      if(/^stei8ht-/.test(p.slug)) own[api.PROJECT_COVERS[p.slug]] = 1;
+    });
+    own['/project-media/lmd/cover-stei8ht.webp'] = 1;      // the group's own cover
+    var bad = [];
+    Object.keys(want).forEach(function(slug){
+      var f = api.projFeatures(slug);
+      if(!f || f.cards.length !== want[slug]) { bad.push(slug+':cards'); return; }
+      if(f.masterplan) bad.push(slug+':has a second master plan');
+      f.cards.forEach(function(c){
+        if(!c.en || !c.ar || !c.copy || !c.copy.lead.en || !c.copy.lead.ar) bad.push(slug+':'+c.en);
+        (c.copy.list||[]).forEach(function(i){ if(!i.en || !i.ar) bad.push(slug+':list'); });
+        (c.copy.groups||[]).forEach(function(g){
+          if(!g.label.en || !g.label.ar) bad.push(slug+':label');
+          g.rows.forEach(function(r){ if(!r.k.en || !r.k.ar || !r.v.en || !r.v.ar) bad.push(slug+':row'); });
+        });
+        c.imgs.forEach(function(src){
+          if(!own[src]) bad.push(slug+': borrowed '+src);
+          if(!fsx.existsSync(pathx.join(__dirname,'..',String(src).replace(/^\//,''))))
+            bad.push(slug+': missing '+src);
+        });
+      });
+    });
+    return bad.length === 0 || bad.slice(0,4).join('; ');
+  })(), true);
+  ck('stei8ht: the destination\'s own figures are on all three', (function(){
+    var miss = [];
+    ['stei8ht-eastmed','stei8ht-there','stei8ht-eastside'].forEach(function(s){
+      var t = txt(api.V.project(s).node);
+      ['550 acres','85%','Alchemy','YBA'].forEach(function(w){
+        if(t.indexOf(w) === -1) miss.push(s+':'+w); });
+    });
+    return miss.length === 0 || miss.join(',');
+  })(), true);
   ck('site: no per-unit map points at a unit that no longer exists', (function(){
     var live = {}; api.UNITS.forEach(function(u){ live[u.id] = 1; });
     var maps = {UNIT_EXTRA:api.UNIT_EXTRA, UNIT_IMAGES:api.UNIT_IMAGES,
