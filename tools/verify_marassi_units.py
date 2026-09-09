@@ -34,6 +34,12 @@ DEFAULT_XLSX = ('/root/.claude/uploads/c9c8c82a-00eb-5d87-a89f-ba9e63e19221/'
 # Named by the sheet, present in neither archive.
 MISSING = {'ap1-marina shore-0', 'v1-horizon-1'}
 
+# The sheet's last row repeats the one above it exactly — same phase, type,
+# bedrooms, area, price and terms — with its image, floor plan, master plan and
+# bathroom count left blank. The owner confirmed it is a duplicate, so the card
+# leaves it out; this keeps the check honest about why the counts differ.
+EXCLUDED_ROWS = {2207}
+
 
 def sheet_units(path):
     """The EMAAR rows, each with the image ids listed under it, in sheet order."""
@@ -61,6 +67,8 @@ def main():
         sys.exit('the sheet is not at %s — pass its path as an argument' % xlsx)
 
     units = sheet_units(xlsx)
+    dropped = [u for u in units if u['row'] in EXCLUDED_ROWS]
+    units = [u for u in units if u['row'] not in EXCLUDED_ROWS]
     html = open(CARD, encoding='utf-8').read()
     blocks = re.findall(r'<article class="unit">(.*?)</article>', html, re.S)
     rows = re.findall(r'<tr><td>(\d+)</td>(.*?)</tr>', html, re.S)
@@ -74,8 +82,19 @@ def main():
             print('   FAIL  %s' % msg)
             bad += 1
 
-    print('%d units in the sheet, %d blocks and %d table rows in the card\n'
-          % (len(units), len(blocks), len(rows)))
+    print('%d units in the sheet%s, %d blocks and %d table rows in the card\n'
+          % (len(units),
+             (' (%d excluded as duplicates: rows %s)'
+              % (len(dropped), ', '.join(str(u['row']) for u in dropped))) if dropped else '',
+             len(blocks), len(rows)))
+    # The duplicate is identical to the row above it in every value, so the only
+    # trace it would leave is the unit kickers counting one too many. The card's
+    # prose does name the excluded row, which is the point of it, so this looks
+    # at the count the kickers state and nothing else.
+    if dropped:
+        stated = set(re.findall(r'Unit \d+ of (\d+)', html))
+        check(stated == {str(len(units))},
+              'the unit kickers count %s, not %d' % (sorted(stated), len(units)))
     check(len(blocks) == len(units), 'block count')
     check(len(rows) == len(units), 'table row count')
 
