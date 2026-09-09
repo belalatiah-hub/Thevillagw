@@ -4307,6 +4307,19 @@ return devMonogram(dev,px);
 var MV = '/project-media/mountainview/';
 var SD = '/project-media/sodic/';
 var DEV_GALLERY = {
+'lmd': ['/project-media/lmd/brochure/stei8ht.webp',
+'/project-media/lmd/brochure/there.webp',
+'/project-media/lmd/brochure/eastside.webp',
+'/project-media/lmd/brochure/eastmed.webp',
+'/project-media/lmd/brochure/more.webp',
+'/project-media/lmd/brochure/office-villas.webp',
+'/project-media/lmd/brochure/one-ninety.webp',
+'/project-media/lmd/brochure/w-residences.webp',
+'/project-media/lmd/brochure/business-quarter.webp',
+'/project-media/lmd/brochure/cdd.webp',
+'/project-media/lmd/brochure/three-sixty.webp',
+'/project-media/lmd/brochure/being.webp',
+'/project-media/lmd/brochure/zoya.webp'],
 'orascom':['/project-media/orascom/portfolio/el-gouna.webp',
 '/project-media/orascom/portfolio/o-west.webp',
 '/project-media/orascom/portfolio/taba-heights.webp',
@@ -5219,6 +5232,10 @@ groups:[
 ]
 },
 'lmd': {
+plans: {
+mp:  [{src:LMB+'one-ninety-plan.webp',     of:{en:'One Ninety', ar:'One Ninety'}}],
+loc: [{src:LMB+'one-ninety-location.webp', of:{en:'One Ninety', ar:'One Ninety'}}]
+},
 cards: [
 {en:'About LMD', ar:'عن LMD', icon:'shield',
 imgs:[LMB+'about.webp', LMB+'brand.webp'],
@@ -5340,7 +5357,7 @@ list:[
 {en:'KKMK Karagianni Karamali Architects', ar:'KKMK Karagianni Karamali Architects'}]
 }},
 {en:'STEI8HT', ar:'STEI8HT', icon:'ty_villa',
-imgs:[LMB+'stei8ht.webp', LMB+'stei8ht-life.webp', LMB+'stei8ht-masterplan.webp'],
+imgs:[LMB+'stei8ht.webp', LMB+'stei8ht-life.webp', LMB+'stei8ht-masterplan.webp', LMB+'stei8ht-location.webp'],
 copy:{
 lead:{en:'Eight States on the Path of Wholeness \u2014 a refined home coming, villas-only home living, on a New Cairo strategic location directly on Yousef Abbas.', ar:'ثماني حالات على طريق الاكتمال — عودة راقية إلى البيت، معيشة فيلات فقط، في موقع استراتيجي بالقاهرة الجديدة مباشرة على يوسف عباس.'},
 more:{en:'LMD takes pride in the distinction of STEI8HT\u2019s inspiration: its eight states to reach wholeness. Villa entrances lay the growth foundation of your emerald trees; sleek contemporary lines are perfected by a grand facade and sweeping glass windows that welcome daylight and breathe nature into the living space, with seamless integration between indoor and outdoor experiences.', ar:'تفخر LMD بتميّز الإلهام وراء STEI8HT: حالاته الثماني للوصول إلى الاكتمال. مداخل الفيلات تضع أساس نمو أشجارك الزمرّدية؛ وخطوط معاصرة أنيقة تكتمل بواجهة كبيرة ونوافذ زجاجية ممتدّة تستقبل ضوء النهار وتُدخل الطبيعة إلى مساحة المعيشة، مع تكامل سلس بين التجارب الداخلية والخارجية.'},
@@ -5371,7 +5388,7 @@ groups:[
 ]
 }},
 {en:'Eastside', ar:'Eastside', icon:'ty_office',
-imgs:[LMB+'eastside.webp', LMB+'eastside-plan.webp'],
+imgs:[LMB+'eastside.webp', LMB+'eastside-plan.webp', LMB+'eastside-location.webp'],
 copy:{
 lead:{en:'The Unstoppable Office Spaces \u2014 a commercial project with a different kind of energy, on the dynamic intersection between Mohamed Naguib Axis and Youssef Al Sebai.', ar:'المساحات المكتبية التي لا تتوقّف — مشروع تجاري بطاقة من نوع مختلف، عند التقاطع الحيوي بين محور محمد نجيب ويوسف السباعي.'},
 list:[
@@ -5410,7 +5427,7 @@ list:[
 more:{en:'A work villa you can call your own is not just a luxury experience but a statement engraved with your name. Blending privacy, prestige and community within a secure, scenic setting, Office Villas offer businesses a balance between focus and relaxation.', ar:'فيلا عمل تملكها ليست تجربة فاخرة فحسب، بل بيان محفور باسمك. وبالجمع بين الخصوصية والمكانة والمجتمع في محيط آمن وجميل، تمنح Office Villas الشركات توازناً بين التركيز والاسترخاء.'}
 }},
 {en:'One Ninety', ar:'One Ninety', icon:'star',
-imgs:[LMB+'one-ninety.webp', LMB+'one-ninety-plan.webp', LMB+'one-ninety-life.webp'],
+imgs:[LMB+'one-ninety.webp', LMB+'one-ninety-life.webp'],
 copy:{
 lead:{en:'The well-connected address \u2014 a comprehensive mixed-use vision located directly on 90 Street in New Cairo, expertly master-planned by leading SOM.', ar:'العنوان جيّد الاتصال — رؤية شاملة متعدّدة الاستخدامات مباشرة على شارع ٩٠ بالقاهرة الجديدة، بمخطط عام من SOM الرائدة.'},
 list:[
@@ -5432,7 +5449,7 @@ groups:[
 ]
 }},
 {en:'W Residences Cairo', ar:'W Residences Cairo', icon:'am_hotel',
-imgs:[LMB+'w-residences.webp', LMB+'w-residences-plan.webp', LMB+'w-living.webp'],
+imgs:[LMB+'w-residences.webp', LMB+'w-residences-plan.webp', LMB+'w-living.webp', LMB+'w-residences-location.webp'],
 copy:{
 lead:{en:'Legendary hotel services a touch of a button away \u2014 Africa\u2019s first W Residences, inside One Ninety, with W Cairo hotel alongside.', ar:'خدمات فندقية أسطورية على بُعد لمسة زر — أول W Residences في أفريقيا، داخل One Ninety، وإلى جانبه فندق W القاهرة.'},
 list:[
@@ -5459,7 +5476,7 @@ list:[
 more:{en:'The Business Quarter introduces a contemporary elegance to tranquil work settings. Whether establishing a flagship presence or elevating a current position, it provides the platform to showcase a brand in style.', ar:'يقدّم حي الأعمال أناقة معاصرة لبيئات عمل هادئة. وسواء أردت تأسيس حضور رئيسي أو الارتقاء بموقعك الحالي، فهو المنصّة لعرض علامتك بأناقة.'}
 }},
 {en:'Cairo Design District', ar:'كايرو ديزاين ديستريكت', icon:'gallery',
-imgs:[LMB+'cdd.webp', LMB+'cdd-art.webp', LMB+'cdd-culinary.webp', LMB+'cdd-offices.webp', LMB+'cdd-entertainment.webp', LMB+'cdd-hospitality.webp', LMB+'boulevard.webp', LMB+'cdd-plan.webp'],
+imgs:[LMB+'cdd.webp', LMB+'cdd-art.webp', LMB+'cdd-culinary.webp', LMB+'cdd-offices.webp', LMB+'cdd-entertainment.webp', LMB+'cdd-hospitality.webp', LMB+'boulevard.webp', LMB+'cdd-plan.webp', LMB+'cdd-location.webp'],
 copy:{
 lead:{en:'The design highlight of the city \u2014 the first forward-looking immersive cultural experience in Cairo, a global idea brought to life for the first time in Cairo by LMD, inspired by Dubai, London and Miami.', ar:'أبرز معالم التصميم في المدينة — أول تجربة ثقافية غامرة واستشرافية في القاهرة، فكرة عالمية تُنفّذها LMD لأول مرة في القاهرة، مستلهمة من دبي ولندن وميامي.'},
 groups:[
@@ -5479,7 +5496,7 @@ groups:[
 ]
 }},
 {en:'3\u2019Sixty', ar:'3\u2019Sixty', icon:'am_retail',
-imgs:[LMB+'three-sixty.webp', LMB+'three-sixty-aerial.webp', LMB+'three-sixty-life.webp'],
+imgs:[LMB+'three-sixty.webp', LMB+'three-sixty-aerial.webp', LMB+'three-sixty-life.webp', LMB+'three-sixty-location.webp'],
 copy:{
 lead:{en:'The Circle of Life \u2014 a commercial and leisure mix of offices, clinics and retail, reviving New Cairo\u2019s Golden Square, master-planned by Gensler in collaboration with global retail consultant JLL.', ar:'دائرة الحياة — مزيج تجاري وترفيهي من مكاتب وعيادات وتجزئة، يعيد الحياة إلى الجولدن سكوير بالقاهرة الجديدة، بمخطط عام من Gensler بالتعاون مع الاستشاري العالمي للتجزئة JLL.'},
 more:{en:'3\u2019Sixty combines the best in retail with top-grade office spaces and clinics elevated on varied site levels. At its heart is a retail zone with dining options and caf\u00e9s, art and music galleries, daycare centers, beauty salons, a gym, an entertainment center, a supermarket and a cinema complex. It sits on Bin Zayed\u2019s Axis in the Fifth Settlement\u2019s Golden Square, with direct access to both the New Capital and New Cairo.', ar:'يجمع 3’Sixty بين أفضل ما في التجزئة ومساحات مكتبية من الدرجة الأولى وعيادات على مناسيب متعدّدة. وفي قلبه منطقة تجزئة بخيارات مطاعم ومقاهٍ، وصالات فنون وموسيقى، ومراكز رعاية أطفال، وصالونات تجميل، وصالة رياضية، ومركز ترفيهي، وسوبر ماركت، ومجمّع سينمات. ويقع على محور بن زايد في الجولدن سكوير بالتجمّع الخامس، بوصول مباشر إلى العاصمة الإدارية والقاهرة الجديدة.'},
@@ -5495,13 +5512,13 @@ groups:[
 ]
 }},
 {en:'Being', ar:'Being', icon:'am_yoga',
-imgs:[LMB+'being.webp', LMB+'being-life.webp', LMB+'being-plan.webp'],
+imgs:[LMB+'being.webp', LMB+'being-life.webp', LMB+'being-plan.webp', LMB+'being-location.webp'],
 copy:{
 lead:{en:'A space for life in motion \u2014 wellness-integrated living, and Mindset, Egypt\u2019s first work wellness concept, in the heart of Sheikh Zayed City.', ar:'مساحة لحياة في حركة — معيشة متكاملة مع العافية، وMindset، أول مفهوم للعافية في العمل في مصر، في قلب مدينة الشيخ زايد.'},
 more:{en:'Centered on balance, vitality and inspired living, Being brings to life a community that nurtures mind, body and ambition, designed with a holistic pulse that redefines the urban experience. The LMD x LA7 mindset goes beyond conventional living: a wellness-integrated lifestyle, with seamless access to key roads and highways.', ar:'يقوم Being على التوازن والحيوية والمعيشة المُلهمة، فيخلق مجتمعاً يغذّي العقل والجسد والطموح، بتصميم ذي نبض شامل يعيد تعريف التجربة الحضرية. وتتجاوز عقلية LMD x LA7 المعيشة التقليدية: أسلوب حياة متكامل مع العافية، مع وصول سلس إلى الطرق والمحاور الرئيسية.'}
 }},
 {en:'Zoya Ghazala Bay', ar:'زويا خليج غزالة', icon:'am_beach',
-imgs:[LMB+'zoya.webp', LMB+'zoya-plan.webp', LMB+'zoya-pool.webp'],
+imgs:[LMB+'zoya.webp', LMB+'zoya-plan.webp', LMB+'zoya-pool.webp', LMB+'zoya-location.webp'],
 copy:{
 lead:{en:'Profound coastal simplicity \u2014 a floating bay-front paradise in the heart of Ghazala Bay on the North Coast, master-planned by the internationally-acclaimed Alchemy and Archi View.', ar:'بساطة ساحلية عميقة — فردوس عائم على الخليج في قلب خليج غزالة بالساحل الشمالي، بمخطط عام من Alchemy وArchi View المعروفتين عالمياً.'},
 more:{en:'Developed in absolute harmony with the North Coast\u2019s velvet sands and dazzling shades of blue, Zoya evokes a tranquil ambiance through lush cascading levels and free-form lakes. It gifts a signature collection of fully-finished waterfront homes with panoramic sea and lagoon views, surrounded by dining experiences, private access to a lively beach hub, an elegant clubhouse, water activities, spa treatments and hotel hospitality.', ar:'طُوِّرت زويا في انسجام تام مع رمال الساحل الشمالي المخملية ودرجات الأزرق الساحرة، فتبعث أجواءً هادئة عبر مناسيب متدرّجة وارفة وبحيرات حرّة الشكل. وتقدّم مجموعة مميّزة من المنازل المكتملة التشطيب على الواجهة المائية بإطلالات بانورامية على البحر واللاجون، تحيط بها تجارب مطاعم، ووصول خاص إلى مركز شاطئي نابض، وكلوب هاوس أنيق، وأنشطة مائية، وعلاجات سبا، وضيافة فندقية.'},
@@ -6106,7 +6123,11 @@ img.addEventListener('error', function(){ if(img.parentNode) img.parentNode.remo
 img.addEventListener('click', function(){ mediaViewer(items, alt, i); });
 return img;
 }
-function devMasterplanSection(dev){ return masterplanSection(devFeatures(dev.key), L(dev.name)); }
+function devMasterplanSection(dev){
+var f = devFeatures(dev.key);
+if(f && f.plans) return planBand(L(dev.name), f.plans.mp || null, f.plans.loc || null);
+return masterplanSection(f, L(dev.name));
+}
 function masterplanSection(f, nm){
 if(!f || !f.masterplan) return null;
 var m = f.masterplan, label = L({en:m.en, ar:m.ar});
@@ -6129,8 +6150,10 @@ var mp = (g.mp || []).slice();
 if(f && f.masterplan && mp.indexOf(f.masterplan.src) < 0) mp.unshift(f.masterplan.src);
 if(!mp.length) mp = null;
 var loc = g.loc || null;
+return planBand(L({en:p.name, ar:p.name_ar}), mp, loc);
+}
+function planBand(nm, mp, loc){
 if(!mp && !loc) return null;
-var nm = L({en:p.name, ar:p.name_ar});
 var MPL = lang==='ar' ? 'الماستر بلان' : 'Master plan';
 var LOCL = lang==='ar' ? 'الموقع' : 'Location';
 var label = (mp && loc) ? (lang==='ar' ? 'الماستر بلان والموقع' : 'Master plan & location')
@@ -6138,7 +6161,10 @@ var label = (mp && loc) ? (lang==='ar' ? 'الماستر بلان والموقع
 var row = h('div',{class:'dev-mp'});
 function btn(list, title, icon, text){
 var items = list.map(function(s,i){
-return {src:planUrl(s), cap:nm+' · '+title+(list.length>1?(' ('+(i+1)+'/'+list.length+')'):'')};
+var src = (typeof s === 'string') ? s : s.src;
+var of  = (typeof s === 'string') ? '' : (' — ' + L(s.of));
+return {src:planUrl(src),
+cap:nm+' · '+title+of+(list.length>1?(' ('+(i+1)+'/'+list.length+')'):'')};
 });
 var b = h('button',{class:'ufeat', type:'button'}, ic(icon,'ufeat__ic'), h('span',null,text));
 b.addEventListener('click', function(){ mediaViewer(items, nm+' · '+title, 0); });

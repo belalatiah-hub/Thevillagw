@@ -315,6 +315,13 @@ def build_media(d):
         mp = (f or {}).get('masterplan')
         if mp and mp.get('src'):
             add('developer', key, 'masterplan', mp['src'])
+        # A developer that draws a plan and a location map per project
+        # carries them here instead of one company master plan.
+        pl = (f or {}).get('plans') or {}
+        for i, e in enumerate(pl.get('mp') or []):
+            add('developer', key, 'masterplan', e if isinstance(e, str) else e.get('src'), i)
+        for i, e in enumerate(pl.get('loc') or []):
+            add('developer', key, 'location', e if isinstance(e, str) else e.get('src'), i)
         seq = 0
         for card in (f or {}).get('cards') or []:
             for path in card.get('imgs') or []:
