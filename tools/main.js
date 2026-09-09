@@ -3756,7 +3756,9 @@ return out;
 })();
 var PROJECT_PLANS = {
 'marassi-red-sea': {mp:['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp']},
-'makadi-heights': {loc:['/project-media/orascom/makadi-heights/plans/location.webp']}
+'makadi-heights': {loc:['/project-media/orascom/makadi-heights/plans/location.webp']},
+'zoya': {loc:['/project-media/lmd/zoya/location.webp']},
+'one-ninety': {loc:['/project-media/lmd/brochure/one-ninety-location.webp']}
 };
 function projectPlans(slug){
 var own = PROJECT_PLANS[slug], back = PROJECT_PLAN_FALLBACK[slug] || {};
@@ -5589,7 +5591,362 @@ AAR+'pages/p47.webp'
 ]
 }
 };
+var TS = '/project-media/lmd/three-sixty/';
+var ZO = '/project-media/lmd/zoya/';
+var ON = '/project-media/lmd/one-ninety/';
 var PROJECT_FEATURES = {
+'one-ninety': {
+masterplan: {en:'Master plan', ar:'الماستر بلان', icon:'layers', src:ON+'masterplan.webp'},
+cards: [
+{en:'Introducing One Ninety', ar:'عن One Ninety', icon:'shield',
+imgs:[ON+'aerial.webp', ON+'curated.webp'],
+copy:{
+lead:{en:'One Ninety is much more than a mixed-use destination, lying at the intersection of 90 Street and the Ring Road. It is a holistic outlook on integrated discovery, where every detail is fully developed around your needs.', ar:'One Ninety أكثر بكثير من وجهة متعدّدة الاستخدامات، عند تقاطع شارع ٩٠ مع الطريق الدائري. إنه نظرة شاملة لاكتشاف متكامل، حيث تُطوَّر كل تفصيلة حول احتياجاتك.'},
+more:{en:'Mindfully masterplanned on an iconic lush land of 344,315 m\u00b2, One Ninety is a fully integrated universe, welcoming you with a trendsetting lifestyle, a sensory feast at heart, as well as protected nature where native flora and cosmopolitan cultures thrive. Envisaged as the epicenter of thriving business excellence, every aspect is designed to foster seamless collaboration at work while fueling accelerated productivity in a cutting-edge Business Quarter.', ar:'بتخطيط عام مدروس على أرض وارفة أيقونية مساحتها ٣٤٤٬٣١٥ م²، One Ninety كون متكامل يستقبلك بأسلوب حياة يصنع الاتجاه، ووليمة للحواس في قلبه، وطبيعة محميّة تزدهر فيها النباتات المحلية والثقافات العالمية. صُمِّم ليكون مركز تميّز الأعمال، وكل جانب فيه يعزّز التعاون السلس في العمل ويغذّي إنتاجية متسارعة في حي أعمال متطوّر.'}
+}},
+{en:'Master plan', ar:'الماستر بلان', icon:'masterplan',
+imgs:[ON+'masterplan.webp', ON+'entrances.webp'],
+copy:{
+lead:{en:'Grand, generous and gloriously different, One Ninety adopts a voyage-centric vision that puts hassle-free mobility and sustainability at the forefront of its master plan \u2014 planned for people, not automobiles.', ar:'ضخم وسخيّ ومختلف بامتياز، يتبنّى One Ninety رؤية محورها الرحلة، تضع سهولة التنقّل والاستدامة في مقدمة مخططه العام — مخطَّط للناس لا للسيارات.'},
+more:{en:'The destination is planned with underground parking, greenway boulevards between neighborhoods and a circulation plan of two independent systems \u2014 one for residential and hotel guests, another for the general public. An innovative one-way loop road and belt-like perimeter roads carry vehicular traffic away from the community, leaving pedestrian-centric paths within.', ar:'الوجهة مخطَّطة بانتظار سيارات تحت الأرض، وبوليفارات خضراء بين الأحياء، وخطة حركة من نظامين مستقلّين — واحد للسكن ونزلاء الفنادق وآخر للجمهور. وطريق دائري باتجاه واحد وطرق محيطية كالحزام تُبعد حركة السيارات عن المجتمع، وتترك بالداخل ممرّات محورها المشاة.'},
+groups:[
+{label:{en:'As the brochure gives them', ar:'كما يذكرها البروشور'}, rows:[
+{k:{en:'Total land area', ar:'إجمالي مساحة الأرض'}, v:{en:'344,315 m\u00b2', ar:'٣٤٤٬٣١٥ م²'}},
+{k:{en:'Total built up area', ar:'إجمالي المسطّح المبني'}, v:{en:'460,766 m\u00b2', ar:'٤٦٠٬٧٦٦ م²'}},
+{k:{en:'Footprint', ar:'البصمة الإنشائية'}, v:{en:'94,019 m\u00b2', ar:'٩٤٬٠١٩ م²'}},
+{k:{en:'Open space and landscape', ar:'المساحات المفتوحة والخضراء'}, v:{en:'73%', ar:'٧٣٪'}},
+{k:{en:'Number of entrances', ar:'عدد المداخل'}, v:{en:'6', ar:'٦'}}]},
+{label:{en:'Land area by component', ar:'مساحة الأرض لكل مكوّن'}, rows:[
+{k:{en:'Business Quarter', ar:'حي الأعمال'}, v:{en:'66,242 m\u00b2', ar:'٦٦٬٢٤٢ م²'}},
+{k:{en:'W Residences Cairo', ar:'W Residences Cairo'}, v:{en:'42,545 m\u00b2', ar:'٤٢٬٥٤٥ م²'}},
+{k:{en:'W Cairo hotel', ar:'فندق W القاهرة'}, v:{en:'15,616 m\u00b2', ar:'١٥٬٦١٦ م²'}},
+{k:{en:'Urban Park', ar:'الحديقة الحضرية'}, v:{en:'34,553 m\u00b2', ar:'٣٤٬٥٥٣ م²'}},
+{k:{en:'Cairo Design District', ar:'كايرو ديزاين ديستريكت'}, v:{en:'86,472 m\u00b2', ar:'٨٦٬٤٧٢ م²'}},
+{k:{en:'The Boulevard', ar:'ذا بوليفارد'}, v:{en:'598.8 m', ar:'٥٩٨٫٨ متراً'}},
+{k:{en:'Aloft hotel', ar:'فندق Aloft'}, v:{en:'22,000 m\u00b2', ar:'٢٢٬٠٠٠ م²'}}]}
+]
+}},
+{en:'Uninterrupted convenience', ar:'راحة بلا انقطاع', icon:'pin',
+imgs:[ON+'entrances.webp'],
+copy:{
+lead:{en:'Crowning a prime location at the meeting point between the Ring Road and 90 Street, One Ninety boasts six different entrances, one of them a private entrance located directly on the Ring Road.', ar:'يتوّج موقعاً متميّزاً عند التقاء الطريق الدائري بشارع ٩٠، ويضمّ One Ninety ستة مداخل مختلفة، أحدها مدخل خاص مباشرة على الطريق الدائري.'},
+more:{en:'The development opens onto the first monorail station on 90 Street, \u201cOne Ninety\u201d, powered by an exclusive tube leading into the development, hassle-free.', ar:'ويفتح المشروع على أول محطة مونوريل في شارع ٩٠ باسم «One Ninety»، عبر نفق حصري يؤدّي إلى داخل المشروع مباشرة.'}
+}},
+{en:'Business Quarter', ar:'حي الأعمال', icon:'ty_office',
+imgs:[ON+'bq-tower.webp', ON+'bq-aerial.webp', ON+'bq-plots.webp', ON+'bq-lobby.webp'],
+copy:{
+lead:{en:'Rolling out on an impressive 66,242 m\u00b2 of land, One Ninety is home to Egypt\u2019s next-generation Business Quarter \u2014 three interconnected plots of state-of-the-art administrative complexes with a built-up area of around 200,000 m\u00b2, all overlooking the Urban Park.', ar:'على ٦٦٬٢٤٢ م² من الأرض، يحتضن One Ninety حي الأعمال من الجيل القادم في مصر — ثلاث قطع مترابطة من مجمّعات إدارية متطوّرة بمسطّح مبني نحو ٢٠٠٬٠٠٠ م²، تطلّ جميعها على الحديقة الحضرية.'},
+list:[
+{en:'Luxurious lounge & front desk service', ar:'صالة فاخرة وخدمة استقبال'},
+{en:'Smart interactive buildings', ar:'مبانٍ ذكية تفاعلية'},
+{en:'Building management system', ar:'نظام إدارة المباني'},
+{en:'High speed quality & capacity elevators', ar:'مصاعد عالية السرعة والجودة والسعة'},
+{en:'Green buildings', ar:'مبانٍ خضراء'},
+{en:'Electric car charging stations', ar:'محطات شحن سيارات كهربائية'},
+{en:'Fire protection (meets NFPA codes)', ar:'حماية من الحريق وفق أكواد NFPA'},
+{en:'Facility management', ar:'إدارة المرافق'},
+{en:'Visitors parking', ar:'انتظار للزوّار'},
+{en:'Backup generators', ar:'مولّدات احتياطية'},
+{en:'Fiber optics cables', ar:'كابلات ألياف ضوئية'},
+{en:'CCTV systems', ar:'أنظمة كاميرات مراقبة'},
+{en:'Handicap access', ar:'تسهيلات لذوي الإعاقة'},
+{en:'Rooftop restaurants', ar:'مطاعم على الأسطح'},
+{en:'Showrooms', ar:'صالات عرض'},
+{en:'Retail and F&B restaurants', ar:'محلات ومطاعم ومقاهٍ'}],
+more:{en:'All administrative buildings offer lively retail and dining options on ground floors, as well as expansive rooftops, allowing professionals to reflect and unwind all day long.', ar:'كل المباني الإدارية تقدّم محلات ومطاعم نابضة في الأدوار الأرضية، وأسطحاً ممتدّة تتيح للمهنيين التأمّل والاسترخاء طوال اليوم.'},
+groups:[
+{label:{en:'Plot area', ar:'مساحة القطع'}, rows:[
+{k:{en:'Quarter A', ar:'Quarter A'}, v:{en:'19,113 m\u00b2', ar:'١٩٬١١٣ م²'}},
+{k:{en:'Quarter B', ar:'Quarter B'}, v:{en:'18,181 m\u00b2', ar:'١٨٬١٨١ م²'}},
+{k:{en:'Quarter D', ar:'Quarter D'}, v:{en:'28,023 m\u00b2', ar:'٢٨٬٠٢٣ م²'}}]}
+]
+}},
+{en:'W Residences Cairo', ar:'W Residences Cairo', icon:'am_hotel',
+imgs:[ON+'w-residences.webp', ON+'w-terrace.webp', ON+'w-design.webp', ON+'w-suite.webp', ON+'w-view.webp', ON+'w-interior.webp', ON+'w-living.webp'],
+copy:{
+lead:{en:'Arriving at W Residences Cairo is to come home to unmistakable style and design-led luxury, with exclusive access to world-class hospitality located just steps away from W Cairo hotel.', ar:'الوصول إلى W Residences Cairo هو عودة إلى بيت بأسلوب لا يُخطئه أحد وفخامة يقودها التصميم، مع وصول حصري إلى ضيافة عالمية المستوى على بُعد خطوات من فندق W القاهرة.'},
+list:[
+{en:'A 24/7 Whatever/Whenever\u00ae service', ar:'خدمة Whatever/Whenever® على مدار الساعة'},
+{en:'A personal concierge and a dedicated residential team', ar:'كونسيرج شخصي وفريق سكني مخصّص'},
+{en:'Full housekeeping and in-residence dining', ar:'خدمة تدبير كاملة وتقديم طعام داخل الوحدة'},
+{en:'The refreshing WET\u00ae pool deck', ar:'سطح حمام السباحة WET®'},
+{en:'Signature treatments at AWAY\u00ae Spa', ar:'علاجات مميّزة في AWAY® Spa'},
+{en:'Energizing work-outs at FIT\u00ae fitness center', ar:'تمارين منشّطة في مركز FIT® للياقة'},
+{en:'Collaborative productivity at WIRED\u00ae business center', ar:'إنتاجية تعاونية في مركز WIRED® للأعمال'},
+{en:'The Living Room\u00ae and an owners\u2019 exclusive Club House', ar:'The Living Room® ونادٍ خاص بالمُلّاك'}],
+more:{en:'Expertly designed, W Residences Cairo reflects an elevated vision of contemporary living through a unique leveling technique. Bespoke pieces from leading brands adorn generous flowing spaces of staggered floors and sweeping contours, and state-of-the-art appliances complement remarkable interiors.', ar:'بتصميم متقن، يعكس W Residences Cairo رؤية راقية للمعيشة المعاصرة عبر أسلوب فريد في تدرّج المناسيب. وتزيّن قطع مصمّمة خصيصاً من علامات رائدة مساحات سخيّة متدفّقة بأدوار متدرّجة وانحناءات ممتدّة، وتكمل أجهزة متطوّرة تشطيبات داخلية لافتة.'},
+groups:[
+{label:{en:'As the brochure gives them', ar:'كما يذكرها البروشور'}, rows:[
+{k:{en:'Collection', ar:'المجموعة'}, v:{en:'A limited collection of around 300 units', ar:'مجموعة محدودة تضمّ نحو ٣٠٠ وحدة'}},
+{k:{en:'Homes', ar:'الوحدات'}, v:{en:'Signature penthouses with private elevators and infinity pools, double-height villas with a private garden and pool, and 4, 3, 2 and 1 bedroom residences', ar:'بنتهاوس مميّز بمصاعد خاصة وحمامات سباحة إنفينيتي، وفيلات بارتفاع مضاعف بحديقة وحمام سباحة خاص، ووحدات بأربع وثلاث وغرفتين وغرفة نوم'}},
+{k:{en:'Finishing', ar:'التشطيب'}, v:{en:'Fully finished, with floor-to-ceiling windows and vast terraces', ar:'مكتمل التشطيب، بنوافذ من الأرض للسقف وتراسات واسعة'}},
+{k:{en:'Park frontage', ar:'الإطلالة على الحديقة'}, v:{en:'A 34,553 m\u00b2 green park', ar:'حديقة خضراء بمساحة ٣٤٬٥٥٣ م²'}}]}
+]
+}},
+{en:'Urban Park', ar:'الحديقة الحضرية', icon:'am_centralpark',
+imgs:[ON+'park-aerial.webp', ON+'park.webp'],
+copy:{
+lead:{en:'Designed in absolute harmony with its natural surroundings, One Ninety\u2019s Urban Park is a breathing oasis of calm, rolling over 34,553 m\u00b2.', ar:'مصمّمة في انسجام تام مع محيطها الطبيعي، الحديقة الحضرية في One Ninety واحة هدوء تتنفّس على مساحة ٣٤٬٥٥٣ م².'},
+more:{en:'By adopting open space planning, the park connects nature to the Business Quarter and the Design District. A huge jogging track circulates its shape, and it features a variety of botanical gardens and outdoor recreation spaces. The development also introduces e-charging stations, energy-saving solar panels and water recycling techniques.', ar:'بتخطيط المساحات المفتوحة، تربط الحديقة الطبيعة بحي الأعمال وحي التصميم. ويلتفّ حولها مسار جري كبير، وتضمّ حدائق نباتية متنوّعة ومساحات ترفيه في الهواء الطلق. كما يقدّم المشروع محطات شحن كهربائي وألواحاً شمسية موفّرة للطاقة وتقنيات لإعادة تدوير المياه.'}
+}},
+{en:'World Class Hospitality', ar:'ضيافة عالمية المستوى', icon:'am_hotel',
+imgs:[ON+'w-cairo-hotel.webp', ON+'autograph.webp', ON+'aloft.webp'],
+copy:{
+lead:{en:'Marriott International brings the W brand\u2019s signature lifestyle to Africa for the first time, alongside an Autograph Collection hotel and a 4-star Aloft business hotel.', ar:'تجلب Marriott International أسلوب علامة W المميّز إلى أفريقيا لأول مرة، إلى جانب فندق من Autograph Collection وفندق أعمال Aloft فئة أربع نجوم.'},
+more:{en:'Guests of W Cairo enjoy an exclusive melange of W services for the first time in Egypt, including an infinity pool at the WET\u00ae pool deck, the AWAY\u00ae spa, the WIRED\u00ae business center and W\u2019s renowned FIT\u00ae fitness center.', ar:'ينعم نزلاء W القاهرة بمزيج حصري من خدمات W لأول مرة في مصر، منها حمام سباحة إنفينيتي على سطح WET®، وسبا AWAY®، ومركز WIRED® للأعمال، ومركز FIT® الشهير للياقة.'},
+groups:[
+{label:{en:'The three hotels', ar:'الفنادق الثلاثة'}, rows:[
+{k:{en:'W Cairo', ar:'W القاهرة'}, v:{en:'Elegantly appointed rooms and suites; its design pays tribute to ancient Egyptian history by borrowing authentic motifs of the lotus plant. Opens directly onto the Urban Park', ar:'غرف وأجنحة بتجهيز أنيق؛ وتصميمه يحيي التاريخ المصري القديم باستعارة زخارف اللوتس الأصيلة. ويطلّ مباشرة على الحديقة الحضرية'}},
+{k:{en:'Autograph Collection', ar:'Autograph Collection'}, v:{en:'In the Design District, with residential ownership available \u2014 for travelers pursuing an authentic experience in the creative neighborhood', ar:'في حي التصميم، مع إمكانية التملّك السكني — لمسافرين يبحثون عن تجربة أصيلة في الحي الإبداعي'}},
+{k:{en:'Aloft', ar:'Aloft'}, v:{en:'A 4-star business hotel in the beating heart of the Design District, ideal for families and professionals alike', ar:'فندق أعمال أربع نجوم في قلب حي التصميم، مثالي للعائلات والمهنيين'}}]}
+]
+}},
+{en:'Cairo Design District', ar:'كايرو ديزاين ديستريكت', icon:'gallery',
+imgs:[ON+'cdd.webp', ON+'cdd-street.webp'],
+copy:{
+lead:{en:'One Ninety introduces the first Design District in Egypt, envisioned as a creative neighborhood and the home for design, art and fashion industries.', ar:'يقدّم One Ninety أول حي تصميم في مصر، متصوَّراً كحي إبداعي وموطن لصناعات التصميم والفن والأزياء.'},
+more:{en:'The upper levels feature cutting-edge office spaces in ultra-modern buildings, hosting established designers and supporting emerging creatives with a platform for startups and upcoming artists. Upscale interior design stores, cafes and celebrity-chef restaurants, luxury fashion and jewelry boutiques and art galleries complement the Urban Park, The Boulevard and the courts beneath the offices. The district contains an Arts & Culture Hub enclosing museums, galleries, fashion academies, musical studios and performance spaces.', ar:'تضمّ الأدوار العليا مساحات مكتبية متطوّرة في مبانٍ فائقة الحداثة، تستضيف مصمّمين راسخين وتدعم المبدعين الناشئين بمنصّة للشركات الناشئة والفنانين الصاعدين. ومتاجر تصميم داخلي راقية ومقاهٍ ومطاعم لطهاة مشاهير وبوتيكات أزياء ومجوهرات فاخرة وصالات فنية تكمل الحديقة الحضرية وذا بوليفارد والساحات أسفل المكاتب. ويضمّ الحي مركزاً للفنون والثقافة يحتضن متاحف وصالات عرض وأكاديميات أزياء واستوديوهات موسيقية ومساحات عروض.'}
+}},
+{en:'The Boulevard', ar:'ذا بوليفارد', icon:'am_paseo',
+imgs:[ON+'boulevard-night.webp', ON+'boulevard.webp'],
+copy:{
+lead:{en:'A car-free street experience where every corner is a lively ticket to endless entertainment and discovery \u2014 One Ninety\u2019s version of Oxford Street in London and the Champs-\u00c9lys\u00e9es in Paris.', ar:'تجربة شارع خالٍ من السيارات، كل ركن فيه تذكرة نابضة لترفيه واكتشاف بلا نهاية — نسخة One Ninety من أكسفورد ستريت في لندن والشانزليزيه في باريس.'},
+more:{en:'Set to become a lively happening spot and a thriving social nexus, The Boulevard is in short aesthetic surroundings, grand encounters and infinite opportunities of sensory indulgence, everywhere you turn.', ar:'مرشّح ليصبح بقعة نابضة بالفعاليات ومركزاً اجتماعياً مزدهراً، فذا بوليفارد باختصار محيط جمالي ولقاءات كبيرة وفرص لا نهائية للانغماس الحسّي، أينما التفتّ.'}
+}}
+]
+},
+'zoya': {
+masterplan: {en:'Master plan', ar:'الماستر بلان', icon:'layers', src:ZO+'masterplan.webp'},
+cards: [
+{en:'Mediterranean Elegance Reimagined', ar:'أناقة متوسّطية بصياغة جديدة', icon:'shield',
+imgs:[ZO+'shoreline-aerial.webp', ZO+'beach.webp'],
+copy:{
+lead:{en:'Zoya Ghazala Bay is a boutique pearl amidst the coast of Ghazala Bay \u2014 an escape with inimitable Mediterranean opulence and unceasing solitude.', ar:'زويا خليج غزالة لؤلؤة بوتيك على ساحل خليج غزالة — ملاذ بفخامة متوسّطية لا تُضاهى وعزلة لا تنقطع.'},
+more:{en:'A new project that gives a revived meaning to coastal comfort. Zoya Ghazala Bay was developed in absolute harmony with the North Coast\u2019s velvet sands and its dazzling shades of blue.', ar:'مشروع جديد يعيد معنى الراحة الساحلية. طُوِّرت زويا خليج غزالة في انسجام تام مع رمال الساحل الشمالي المخملية ودرجات الأزرق الساحرة.'}
+}},
+{en:'A Location Like No Other', ar:'موقع لا مثيل له', icon:'pin',
+imgs:[ZO+'location.webp'],
+copy:{
+lead:{en:'An exclusive spot on the Alexandria\u2013Matrouh Road, on Ghazala Bay\u2019s crystal-clear shoreline \u2014 a five-minute walk from a turquoise beach shore.', ar:'موقع حصري على طريق الإسكندرية — مطروح، على شاطئ خليج غزالة الصافي — على بُعد خمس دقائق مشياً من شاطئ فيروزي.'},
+more:{en:'Zoya Ghazala Bay\u2019s location was a decision meticulously made to achieve prime. It lies between the Telal and Ghazala Bay Rixos projects, with year-round sunshine.', ar:'اختيار موقع زويا خليج غزالة كان قراراً مدروساً بعناية لبلوغ الأفضل. تقع بين مشروعي تلال وريكسوس خليج غزالة، بشمس على مدار العام.'}
+}},
+{en:'A Floating Masterpiece', ar:'تحفة عائمة', icon:'masterplan',
+imgs:[ZO+'masterplan.webp', ZO+'waterfront-pool.webp'],
+copy:{
+lead:{en:'Zoya Ghazala Bay lies on 134 acres of soul-liberating space, seamlessly designed by Archi-View using minimal unit density to maximise the ease of circulation between zones with breathing spaces.', ar:'تمتدّ زويا خليج غزالة على ١٣٤ فداناً من المساحات المحرِّرة للروح، بتصميم متكامل من Archi-View بكثافة وحدات منخفضة لتعظيم سهولة الحركة بين المناطق مع مساحات تتنفّس.'},
+more:{en:'The ambiance is complemented by vivid sceneries thanks to lush cascading levels evoking a unique air of privacy. Each home enjoys panoramic nature indoors from a manicured garden or expansive terrace.', ar:'تكتمل الأجواء بمناظر نابضة بفضل مناسيب متدرّجة وارفة تبعث إحساساً فريداً بالخصوصية. وكل منزل يستقبل الطبيعة بانورامياً من حديقة مشذّبة أو تراس ممتدّ.'},
+groups:[
+{label:{en:'As the brochure gives them', ar:'كما يذكرها البروشور'}, rows:[
+{k:{en:'Land', ar:'المساحة'}, v:{en:'134 acres', ar:'١٣٤ فداناً'}},
+{k:{en:'Master plan', ar:'المخطط العام'}, v:{en:'Archi-View', ar:'Archi-View'}},
+{k:{en:'Architecture', ar:'العمارة'}, v:{en:'LMD in collaboration with Alchemy', ar:'LMD بالتعاون مع Alchemy'}},
+{k:{en:'Layout', ar:'التخطيط'}, v:{en:'Exclusive islands built on different elevations', ar:'جزر حصرية على مناسيب متعدّدة'}}]}
+]
+}},
+{en:'Waterfront Homes', ar:'منازل على الواجهة المائية', icon:'home',
+imgs:[ZO+'seaview-villa.webp', ZO+'seashades-villa.webp', ZO+'shoreline-villa.webp', ZO+'horizon-villa.webp', ZO+'twin-casa.webp', ZO+'town-casa.webp', ZO+'palm-condo.webp', ZO+'coconut-condo.webp', ZO+'beach-casa.webp', ZO+'serviced-apartments.webp'],
+copy:{
+lead:{en:'The architectural concept of Zoya Ghazala Bay is aquatic \u2014 a signature collection of homes ranging from standalone villas and twin houses to town houses, chalets and cabanas, respiring with space and coastal comfort.', ar:'المفهوم المعماري لزويا خليج غزالة مائي — مجموعة مميّزة من المنازل تمتدّ من الفيلات المستقلة والتوين هاوس إلى التاون هاوس والشاليهات والكابانات، تتنفّس مساحةً وراحةً ساحلية.'},
+more:{en:'Re-imagining all shades of summer from a personal perspective not offered elsewhere. Soulfully designed by LMD in collaboration with Alchemy in a layout of exclusive islands built on different elevations, to revive waterfront serenity on the North Coast by breaking down Ghazala Bay\u2019s virgin elements.', ar:'إعادة تخيّل كل درجات الصيف من منظور شخصي لا يُقدَّم في مكان آخر. صُمِّمت بروح من LMD بالتعاون مع Alchemy في تخطيط من جزر حصرية على مناسيب متعدّدة، لإحياء سكينة الواجهة المائية على الساحل الشمالي انطلاقاً من عناصر خليج غزالة البكر.'},
+groups:[
+{label:{en:'The collection, as the brochure names it', ar:'المجموعة كما يسمّيها البروشور'}, rows:[
+{k:{en:'SeaView Villa', ar:'SeaView Villa'}, v:{en:'Discover new dimensions of space', ar:'اكتشف أبعاداً جديدة للمساحة'}},
+{k:{en:'SeaShades Villa', ar:'SeaShades Villa'}, v:{en:'Contemporary spaces breathing with life', ar:'مساحات معاصرة تنبض بالحياة'}},
+{k:{en:'Shoreline Villa', ar:'Shoreline Villa'}, v:{en:'Dive into a beach story unlike any other', ar:'اغطس في حكاية شاطئ لا تشبه غيرها'}},
+{k:{en:'Horizon Villa', ar:'Horizon Villa'}, v:{en:'Design that seamlessly weaves with nature\u2019s beauty', ar:'تصميم ينسج بسلاسة مع جمال الطبيعة'}},
+{k:{en:'Twin Casa', ar:'Twin Casa'}, v:{en:'Mirror-like beauty from every angle', ar:'جمال كالمرآة من كل زاوية'}},
+{k:{en:'Town Casa', ar:'Town Casa'}, v:{en:'Beach lifestyle meets boutique haven', ar:'أسلوب حياة الشاطئ يلتقي ملاذ البوتيك'}},
+{k:{en:'Palm Condo', ar:'Palm Condo'}, v:{en:'Immerse in a world of refined sensations', ar:'انغمس في عالم من الأحاسيس المصقولة'}},
+{k:{en:'Coconut Condo', ar:'Coconut Condo'}, v:{en:'Exceptionally turquoise-touched convenience', ar:'راحة بلمسة فيروزية استثنائية'}},
+{k:{en:'Beach Casa', ar:'Beach Casa'}, v:{en:'Seaside dreams within close circles', ar:'أحلام على البحر بين أقرب الدوائر'}},
+{k:{en:'Serviced Apartments', ar:'شقق بخدمات فندقية'}, v:{en:'Excellence is the pulsing heartbeat of our service', ar:'التميّز هو النبض في قلب خدمتنا'}}]}
+]
+}},
+{en:'Interiors', ar:'التشطيبات الداخلية', icon:'am_finished',
+imgs:[ZO+'interior-living.webp', ZO+'interior-dining.webp', ZO+'interior-lounge.webp', ZO+'interior-kitchen.webp'],
+copy:{
+lead:{en:'A harmonious blend of nature and design in every interior \u2014 nature\u2019s beauty is woven into every interior detail, and the outside comes alive in nature-inspired interiors.', ar:'مزيج متناغم بين الطبيعة والتصميم في كل تشطيب — جمال الطبيعة منسوج في كل تفصيلة داخلية، ويعود الخارج إلى الحياة في تصميمات مستوحاة من الطبيعة.'}
+}},
+{en:'Ways of Zoya', ar:'طُرق زويا', icon:'star',
+imgs:[ZO+'ways.webp', ZO+'beach.webp'],
+copy:{
+lead:{en:'Zoya Ghazala Bay balances all contrasts in one place to satisfy your summer craze. Indulge in world-class hospitality and reshape conventional summer moments through curated experiences.', ar:'توازن زويا خليج غزالة كل المتناقضات في مكان واحد لتُشبع شغفك بالصيف. انغمس في ضيافة عالمية المستوى وأعد تشكيل لحظات الصيف التقليدية عبر تجارب مُنتقاة.'},
+list:[
+{en:'Wellness', ar:'العافية'},
+{en:'Artisanal bistros & fresco cafes', ar:'بيسترو حرفية ومقاهٍ في الهواء الطلق'},
+{en:'Sports & kids\u2019 activities', ar:'رياضة وأنشطة أطفال'},
+{en:'A beach clubhouse', ar:'كلوب هاوس على الشاطئ'},
+{en:'A beach bar', ar:'بار شاطئي'},
+{en:'Boutique stores and retail luxuries', ar:'متاجر بوتيك ووجهات تجزئة فاخرة'},
+{en:'Exquisite fine dining by Rituals of Zoya Ghazala Bay', ar:'مطاعم راقية من Rituals of Zoya Ghazala Bay'},
+{en:'A lively nightlife that lingers on till the break of dawn', ar:'حياة ليلية نابضة تمتدّ حتى مطلع الفجر'}]
+}},
+{en:'Hospitality With A Shade of Boutique Chic', ar:'ضيافة بلمسة بوتيك', icon:'am_hotel',
+imgs:[ZO+'boutique-hotel.webp'],
+copy:{
+lead:{en:'Turn every vacation into a truly meaningful summer with Zoya Ghazala Bay\u2019s world-class boutique hotel, hand-picked for its exceptional beauty.', ar:'حوِّل كل إجازة إلى صيف ذي معنى حقيقي مع فندق البوتيك عالمي المستوى في زويا خليج غزالة، المُنتقى بعناية لجماله الاستثنائي.'},
+more:{en:'A unique location opens directly onto immaculate sea views from sensational bungalows on the beach, and every room is a haven of outstanding style and top-notch service. The setting surrounds you with a cutting-edge gym, a world-class spa, floating pools and a friendly staff that knows you by name \u2014 with curated experiences across the beach, nature, or inside the design-led interiors.', ar:'موقع فريد يطلّ مباشرة على إطلالات بحرية نقيّة من بنغالوهات ساحرة على الشاطئ، وكل غرفة ملاذ بأسلوب متميّز وخدمة من الطراز الأول. ويحيط بك المكان بصالة رياضية متطوّرة وسبا عالمي المستوى وحمامات سباحة عائمة وطاقم ودود يعرفك بالاسم — مع تجارب مُنتقاة على الشاطئ أو في الطبيعة أو داخل التصميمات الداخلية المدروسة.'}
+}},
+{en:'Rituals by the Sea', ar:'Rituals على البحر', icon:'am_beach',
+imgs:[ZO+'rituals.webp'],
+copy:{
+lead:{en:'Experience the magic of the Mediterranean and witness nature\u2019s most incredible displays, with the wind in your hair and the sun kissing your skin.', ar:'عِش سحر المتوسّط واشهد أروع ما تعرضه الطبيعة، والريح في شعرك والشمس تلامس بشرتك.'},
+more:{en:'Rituals Beach is a private sanctuary of flowing calm with its crystal clear waters, chic vibes and scenic ambiance, inviting you to embrace life solo or with a fun crowd. It blends zen vibes with thrilling water sports for the more adventurous.', ar:'شاطئ Rituals ملاذ خاص من الهدوء المتدفّق بمياهه الصافية وأجوائه الأنيقة ومناظره الخلّابة، يدعوك لتعيش الحياة وحدك أو مع صحبة مرحة. يمزج أجواء الزن برياضات مائية مثيرة لمن يبحث عن المغامرة.'}
+}},
+{en:'Zoya\u2019s Beach Clubhouse', ar:'كلوب هاوس زويا على الشاطئ', icon:'am_club',
+imgs:[ZO+'clubhouse.webp'],
+copy:{
+lead:{en:'Share unforgettable moments with those who matter the most, in a clubhouse peacefully nestled on the beach to re-define the ultimate in chilling under the blazing sun.', ar:'شارك لحظات لا تُنسى مع أقرب الناس إليك، في كلوب هاوس هادئ على الشاطئ يعيد تعريف الاسترخاء تحت شمس ساطعة.'},
+more:{en:'Take in panoramic views of endless blue and golden sands with a refreshing cocktail in hand, or indulge in a delectable snack as you enjoy good music, quality service and memorable social gatherings.', ar:'استمتع بإطلالات بانورامية على أزرق لا ينتهي ورمال ذهبية مع مشروب منعش، أو تذوّق وجبة خفيفة شهية مع موسيقى جميلة وخدمة راقية ولقاءات اجتماعية لا تُنسى.'}
+}},
+{en:'Inspiring the Athlete in You', ar:'أيقظ الرياضي بداخلك', icon:'am_sports',
+imgs:[ZO+'sports.webp'],
+copy:{
+lead:{en:'A ground-breaking hub for fitness and well-being, with world-class recreational courts that invite you to unleash your inner athlete whether you\u2019re an amateur or a pro.', ar:'مركز رائد للياقة والعافية، بملاعب ترفيهية عالمية المستوى تدعوك لتطلق الرياضي بداخلك، هاوياً كنت أو محترفاً.'},
+list:[
+{en:'Padel tennis courts', ar:'ملاعب بادل تنس'},
+{en:'Football courts', ar:'ملاعب كرة قدم'},
+{en:'Bike lanes', ar:'مسارات دراجات'},
+{en:'Jogging lanes', ar:'مسارات جري'}],
+more:{en:'Ideal for all ages, the courts are a daily invitation to compete and energise with friends and family, in line with the project\u2019s 360-degree approach for a healthier, more balanced lifestyle.', ar:'مناسبة لكل الأعمار، والملاعب دعوة يومية للمنافسة والنشاط مع الأصدقاء والعائلة، انسجاماً مع منهج المشروع الشامل لأسلوب حياة أكثر صحة وتوازناً.'}
+}},
+{en:'Small Heartbeats of Excitement', ar:'نبضات صغيرة من الحماس', icon:'am_kids',
+imgs:[ZO+'kids.webp'],
+copy:{
+lead:{en:'Zoya Ghazala Bay lives up to the expectation of kids\u2019 imagination, with calm water from the bay for a safe splash and open space capable of captivating their playful spirit.', ar:'ترتقي زويا خليج غزالة إلى مستوى خيال الأطفال، بمياه هادئة من الخليج لسباحة آمنة ومساحات مفتوحة تأسر روحهم المرحة.'},
+more:{en:'The shoreline is big enough to be a sketch for unleashing all sorts of creative bugs. From sand castles to countless beach activities, Zoya Ghazala Bay is designed to harbor a significant part of the summer childhood memories.', ar:'الشاطئ واسع بما يكفي ليكون لوحة تُطلق كل أنواع الإبداع. من قلاع الرمل إلى أنشطة شاطئية لا تُحصى، صُمِّمت زويا خليج غزالة لتحتضن جزءاً كبيراً من ذكريات طفولة الصيف.'}
+}},
+{en:'Retail Therapy by the Sea', ar:'تسوّق على البحر', icon:'am_retail',
+imgs:[ZO+'retail.webp'],
+copy:{
+lead:{en:'Open up to local color and homegrown brands as you rediscover the trending in summer fashion, thanks to Zoya Ghazala Bay\u2019s commercial strip.', ar:'انفتح على اللون المحلي والعلامات المصرية وأعد اكتشاف رائج أزياء الصيف، عبر الشريط التجاري في زويا خليج غزالة.'},
+more:{en:'Curated to foster enjoyable walkability as well as endless discovery on foot, the retail component is a never-ending journey into exclusive design concepts and stylish brands \u2014 from beachwear and summer home decor to stylish eye wear and original wrap arounds.', ar:'مُنتقى ليشجّع المشي الممتع والاكتشاف المتواصل سيراً، فالجانب التجاري رحلة لا تنتهي بين مفاهيم تصميم حصرية وعلامات أنيقة — من ملابس الشاطئ وديكور المنزل الصيفي إلى النظارات الأنيقة واللفّات الأصلية.'}
+}},
+{en:'Young All Summer Long', ar:'شباب طوال الصيف', icon:'am_lifestyle',
+imgs:[ZO+'nightlife.webp'],
+copy:{
+lead:{en:'If you\u2019re a party lover who chases world-class entertainment around the globe, you no longer need to travel far.', ar:'لو كنت من عشّاق السهر الذين يطاردون الترفيه عالمي المستوى حول العالم، لم تعد بحاجة للسفر بعيداً.'},
+more:{en:'Zoya Ghazala Bay comes to life, offering top-class DJs, live performances and memorable beach parties with lots of mingling and loads of dance \u2014 an exclusive ticket to uncover the North Coast\u2019s most lively happenings, right in the heart of nature, steps away from your home.', ar:'تنبض زويا خليج غزالة بالحياة، بأفضل الـDJs وعروض حيّة وحفلات شاطئية لا تُنسى مليئة بالاختلاط والرقص — تذكرة حصرية لاكتشاف أكثر فعاليات الساحل الشمالي حيوية، في قلب الطبيعة وعلى بُعد خطوات من منزلك.'}
+}}
+]
+},
+'three-sixty': {
+masterplan: {en:'Master plan', ar:'الماستر بلان', icon:'layers', src:TS+'masterplan-aerial.webp'},
+cards: [
+{en:'Introducing 3\u2019Sixty', ar:'عن 3’Sixty', icon:'shield',
+imgs:[TS+'entrance.webp', TS+'crossing.webp'],
+copy:{
+lead:{en:'3\u2019Sixty was born different \u2014 a spot destined to break all boundaries, with an array of unique selections of venues. Where everything comes to a full circle.', ar:'3’Sixty وُلد مختلفاً — مكان قُدِّر له أن يكسر كل الحدود، بمجموعة فريدة من الوجهات. حيث تكتمل الدائرة.'},
+more:{en:'The circle of life is complete with arranged fine dining restaurants, shops, services, progressive offices and premium health care clinics, for you to spend an entire day without feeling like anything you need is missing. Here is where you run into everyone you were fated to meet. Who says you can only enjoy the weekends?', ar:'تكتمل دائرة الحياة بمطاعم راقية ومحلات وخدمات ومكاتب متقدّمة وعيادات رعاية صحية متميّزة، لتقضي يوماً كاملاً دون أن تشعر أن شيئاً ينقصك. هنا تقابل كل من قُدِّر لك أن تقابله. ومن قال إن المتعة في عطلة الأسبوع فقط؟'}
+}},
+{en:'Project Location', ar:'الموقع', icon:'pin',
+imgs:[TS+'location.webp'],
+copy:{
+lead:{en:'Ultimate accessibility amidst the golden square \u2014 3\u2019Sixty sits on Bin Zayed Axis in the Fifth Settlement\u2019s Golden Square, with three entrances and direct access to both New Cairo and the New Administrative Capital.', ar:'وصول مثالي في قلب الجولدن سكوير — يقع 3’Sixty على محور بن زايد في الجولدن سكوير بالتجمّع الخامس، بثلاثة مداخل ووصول مباشر إلى القاهرة الجديدة والعاصمة الإدارية الجديدة.'}
+}},
+{en:'Master plan by Gensler', ar:'الماستر بلان — Gensler', icon:'masterplan',
+imgs:[TS+'masterplan-aerial.webp'],
+copy:{
+lead:{en:'Gensler is the master planner and architecture designer: 3\u2019Sixty was designed as a world of mixed retail, clinics and offices, using an array of site levels amidst inviting landscapes.', ar:'Gensler هي المخطِّط العام ومصمّم العمارة: صُمِّم 3’Sixty كعالم يمزج التجزئة والعيادات والمكاتب، عبر مناسيب متعدّدة للموقع وسط مساحات خضراء جاذبة.'},
+more:{en:'Gensler is a global firm in architecture, interiors, planning and strategic consulting, partnering with corporations and organizations for the past 50 years and working through 29 specialized practice areas. Its master plans include Soma Bay in Egypt, the Dubai International Financial Centre Authority (DIFC) in the UAE, and Leeds Station and the Science Museum Innovation Campus in the UK.', ar:'Gensler شركة عالمية في العمارة والتصميم الداخلي والتخطيط والاستشارات الاستراتيجية، تعمل مع الشركات والمؤسسات منذ خمسين عاماً عبر ٢٩ مجال ممارسة متخصّصاً. ومن مخططاتها العامة سوما باي في مصر، وهيئة مركز دبي المالي العالمي (DIFC) في الإمارات، ومحطة ليدز وحرم متحف العلوم للابتكار في المملكة المتحدة.'},
+groups:[
+{label:{en:'As the brochure gives them', ar:'كما يذكرها البروشور'}, rows:[
+{k:{en:'Total land area', ar:'إجمالي مساحة الأرض'}, v:{en:'55,203 m\u00b2', ar:'٥٥٬٢٠٣ م²'}},
+{k:{en:'Total BUA', ar:'إجمالي المسطّح المبني'}, v:{en:'153,642 m\u00b2', ar:'١٥٣٬٦٤٢ م²'}},
+{k:{en:'Outdoor area', ar:'المساحات الخارجية'}, v:{en:'70%', ar:'٧٠٪'}},
+{k:{en:'Footprint', ar:'البصمة الإنشائية'}, v:{en:'30%', ar:'٣٠٪'}},
+{k:{en:'Parking slots', ar:'أماكن الانتظار'}, v:{en:'1,700 approx.', ar:'نحو ١٬٧٠٠'}},
+{k:{en:'Height', ar:'الارتفاع'}, v:{en:'G+3', ar:'أرضي + ٣'}}]}
+]
+}},
+{en:'A commercial mix with a 360 experience', ar:'مزيج تجاري بتجربة ٣٦٠', icon:'build',
+imgs:[TS+'crossing.webp', TS+'entrance.webp'],
+copy:{
+lead:{en:'3\u2019Sixty is a commercial project \u2014 a one-stop destination planned to complete the circle of life. Your day starts with work then is handed over to a night of entertainment and leisure.', ar:'3’Sixty مشروع تجاري — وجهة واحدة مخطّطة لتكتمل بها دائرة الحياة. يبدأ يومك بالعمل ثم يُسلَّم إلى ليلة من الترفيه والاستجمام.'},
+more:{en:'The circle is whole with cafes, markets, bakeries, bistros and a mixture of restaurants that will satisfy your senses. The thrill comes to life at the cinemas, the most interactive entertainment experience for the whole family. 3\u2019Sixty is an evolutionary movement that took offices and clinics from the streets to a dedicated and prestigious complex, composed to fulfill the style of your lifestyle and your day-to-day desires.', ar:'تكتمل الدائرة بالمقاهي والأسواق والمخابز والبيسترو ومزيج من المطاعم يُرضي حواسك. وتنبض الإثارة في السينمات، أكثر تجارب الترفيه تفاعلاً للعائلة كلها. 3’Sixty حركة تطوّرية نقلت المكاتب والعيادات من الشوارع إلى مجمّع مخصّص ومرموق، مؤلَّف ليلبّي أسلوب حياتك ورغباتك اليومية.'}
+}},
+{en:'The Promenade', ar:'البروميناد', icon:'am_paseo',
+imgs:[TS+'promenade.webp'],
+copy:{
+lead:{en:'A vast walking promenade, outlined with spacious areas and picturesque landscapes \u2014 a track 271 m long and 40 m wide.', ar:'بروميناد واسع للمشي، تحفّه مساحات رحبة ومناظر خلّابة — مسار بطول ٢٧١ متراً وعرض ٤٠ متراً.'},
+more:{en:'\u201cAll truly great thoughts are conceived by walking\u201d \u2014 Friedrich Nietzsche. It is said that the simpler things in life are what we appreciate most, and a nice walk could be exactly what you need for a fresh boost.', ar:'«كل الأفكار العظيمة حقاً تولد أثناء المشي» — فريدريش نيتشه. يُقال إن أبسط الأشياء في الحياة هي أكثر ما نقدّره، وربما تكون مشية هادئة هي ما تحتاجه تماماً.'}
+}},
+{en:'Retail', ar:'التجزئة', icon:'am_retail',
+imgs:[TS+'retail-street.webp', TS+'retail-terrace.webp'],
+copy:{
+lead:{en:'Meticulous detail creates the ultimate retail. Each one of 3\u2019Sixty\u2019s retail shops comes with its distinctive ambiance \u2014 retail consultant and tenant mix by JLL.', ar:'التفصيل الدقيق يصنع أفضل تجربة تجزئة. كل محل في 3’Sixty له أجواؤه المميّزة — الاستشاري التجاري ومزيج المستأجرين من JLL.'},
+groups:[
+{label:{en:'Shops', ar:'المحلات'}, rows:[
+{k:{en:'Apparel fashion', ar:'أزياء وملابس'}, v:{en:'', ar:''}},
+{k:{en:'Accessories', ar:'إكسسوارات'}, v:{en:'', ar:''}},
+{k:{en:'Home furnishing', ar:'مفروشات منزلية'}, v:{en:'', ar:''}},
+{k:{en:'Kids stores', ar:'محلات أطفال'}, v:{en:'', ar:''}},
+{k:{en:'Car showroom', ar:'معرض سيارات'}, v:{en:'', ar:''}}]},
+{label:{en:'Services', ar:'الخدمات'}, rows:[
+{k:{en:'Mobile accessories', ar:'إكسسوارات محمول'}, v:{en:'', ar:''}},
+{k:{en:'Electronics', ar:'إلكترونيات'}, v:{en:'', ar:''}},
+{k:{en:'Banks', ar:'بنوك'}, v:{en:'', ar:''}},
+{k:{en:'Pharmacies', ar:'صيدليات'}, v:{en:'', ar:''}},
+{k:{en:'Telecom', ar:'اتصالات'}, v:{en:'', ar:''}},
+{k:{en:'Beauty salon', ar:'صالون تجميل'}, v:{en:'', ar:''}},
+{k:{en:'Daycare / drop-offs', ar:'حضانة ورعاية نهارية'}, v:{en:'', ar:''}}]},
+{label:{en:'F&B', ar:'المطاعم والمقاهي'}, rows:[
+{k:{en:'Cafes', ar:'مقاهٍ'}, v:{en:'', ar:''}},
+{k:{en:'Eateries & lounges', ar:'مطاعم وصالات'}, v:{en:'', ar:''}},
+{k:{en:'Family & casual dining', ar:'مطاعم عائلية وغير رسمية'}, v:{en:'', ar:''}},
+{k:{en:'Impulse food products', ar:'منتجات غذائية سريعة'}, v:{en:'', ar:''}}]},
+{label:{en:'Recreational anchors', ar:'مرتكزات ترفيهية'}, rows:[
+{k:{en:'Supermarket', ar:'سوبر ماركت'}, v:{en:'', ar:''}},
+{k:{en:'Cinema', ar:'سينما'}, v:{en:'', ar:''}},
+{k:{en:'Family entertainment center', ar:'مركز ترفيه عائلي'}, v:{en:'', ar:''}},
+{k:{en:'Gym', ar:'صالة رياضية'}, v:{en:'', ar:''}}]}
+]
+}},
+{en:'Offices', ar:'المكاتب', icon:'ty_office',
+imgs:[TS+'offices.webp', TS+'office-interior.webp'],
+copy:{
+lead:{en:'The offices are part of the circle of life, designed to bring life to your job \u2014 with a separate entrance accessible only to business owners and employees, apart from the retail entrances.', ar:'المكاتب جزء من دائرة الحياة، مصمّمة لتبعث الحياة في عملك — بمدخل منفصل لأصحاب الأعمال والموظفين فقط، بعيداً عن مداخل التجزئة.'},
+more:{en:'With a building management system (BMS) equipped with the power saving program (PSP), because you run the day\u2026 the day doesn\u2019t run you.', ar:'مع نظام إدارة مبانٍ (BMS) مزوّد ببرنامج توفير الطاقة (PSP)، لأنك أنت من يدير اليوم… لا العكس.'},
+groups:[
+{label:{en:'Ergonomic principles', ar:'مبادئ الراحة والكفاءة'}, rows:[
+{k:{en:'Maximizing usability of space', ar:'تعظيم الاستفادة من المساحة'}, v:{en:'', ar:''}},
+{k:{en:'Raised floor installation', ar:'أرضيات مرتفعة'}, v:{en:'', ar:''}},
+{k:{en:'High speed fiber optic wiring', ar:'كابلات ألياف ضوئية عالية السرعة'}, v:{en:'', ar:''}},
+{k:{en:'External power sources', ar:'مصادر طاقة خارجية'}, v:{en:'', ar:''}},
+{k:{en:'High quality elevators', ar:'مصاعد عالية الجودة'}, v:{en:'', ar:''}}]},
+{label:{en:'Productivity', ar:'الإنتاجية'}, rows:[
+{k:{en:'Heating, ventilation and air conditioning (HVAC)', ar:'تدفئة وتهوية وتكييف (HVAC)'}, v:{en:'', ar:''}},
+{k:{en:'Special needs friendly', ar:'مهيّأ لذوي الاحتياجات الخاصة'}, v:{en:'', ar:''}},
+{k:{en:'LED lighting', ar:'إضاءة LED'}, v:{en:'', ar:''}},
+{k:{en:'Motion sensors', ar:'حسّاسات حركة'}, v:{en:'', ar:''}},
+{k:{en:'Smart interactive building', ar:'مبنى ذكي تفاعلي'}, v:{en:'', ar:''}},
+{k:{en:'Go Green system', ar:'نظام Go Green'}, v:{en:'', ar:''}}]},
+{label:{en:'Security and safety', ar:'الأمن والسلامة'}, rows:[
+{k:{en:'3M safety glass breakage protection', ar:'حماية زجاج الأمان 3M'}, v:{en:'', ar:''}},
+{k:{en:'24/7 security services \u2014 access', ar:'خدمات أمن على مدار الساعة — التحكّم في الدخول'}, v:{en:'', ar:''}},
+{k:{en:'CCTV system', ar:'نظام كاميرات مراقبة'}, v:{en:'', ar:''}},
+{k:{en:'Firefighting system NFPA', ar:'نظام إطفاء حريق NFPA'}, v:{en:'', ar:''}},
+{k:{en:'Fire alarm system LPCB', ar:'نظام إنذار حريق LPCB'}, v:{en:'', ar:''}}]}
+]
+}},
+{en:'Clinics', ar:'العيادات', icon:'am_clinic',
+imgs:[TS+'clinics.webp', TS+'clinic-interior.webp'],
+copy:{
+lead:{en:'3\u2019Sixty offers a variety of clinics \u2014 a high-standard medical facility architecturally designed to offer supreme comfort and ensure the best quality of medical care, day and night.', ar:'يقدّم 3’Sixty مجموعة متنوّعة من العيادات — منشأة طبية عالية المستوى مصمَّمة معمارياً لتوفير أقصى راحة وضمان أفضل جودة رعاية طبية، ليلاً ونهاراً.'},
+groups:[
+{label:{en:'Types', ar:'الأنواع'}, rows:[
+{k:{en:'Polyclinics', ar:'عيادات متعدّدة التخصّصات'}, v:{en:'', ar:''}},
+{k:{en:'Specialized centers', ar:'مراكز متخصّصة'}, v:{en:'', ar:''}},
+{k:{en:'Radiology centers', ar:'مراكز أشعة'}, v:{en:'', ar:''}},
+{k:{en:'Laboratories', ar:'معامل تحاليل'}, v:{en:'', ar:''}}]},
+{label:{en:'Facilities', ar:'التجهيزات'}, rows:[
+{k:{en:'CCTV', ar:'كاميرات مراقبة'}, v:{en:'', ar:''}},
+{k:{en:'BMS', ar:'نظام إدارة المباني'}, v:{en:'', ar:''}},
+{k:{en:'Access control', ar:'التحكّم في الدخول'}, v:{en:'', ar:''}}]}
+]
+}}
+]
+},
 'shams-soma': {
 masterplan: {en:'Master plan', ar:'الماستر بلان', icon:'layers', src:SHS+'masterplan.webp'},
 cards: [

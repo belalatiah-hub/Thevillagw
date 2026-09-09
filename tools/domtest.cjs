@@ -2435,6 +2435,59 @@ try {
     return (a.baths === 2 && b.price === 133036888 && c.price === 133036888) ||
            ('MR-01 baths='+a.baths+' MR-08='+b.price+' MR-11='+c.price);
   })(), true);
+  /* Three LMD projects gained their own brochures. Each figure below is the
+     one printed on that brochure's own board and appears nowhere else on the
+     site, so nothing but this would notice one going stale. */
+  ck('lmd projects: the three brochures are on their cards, both languages', (function(){
+    var fsx=require('fs'), pathx=require('path');
+    var want = {'three-sixty':[8,'/project-media/lmd/three-sixty/'],
+                'zoya':[13,'/project-media/lmd/zoya/'],
+                'one-ninety':[9,'/project-media/lmd/one-ninety/']};
+    var bad = [];
+    Object.keys(want).forEach(function(slug){
+      var f = api.projFeatures(slug);
+      if(!f) { bad.push(slug+': no features'); return; }
+      if(f.cards.length !== want[slug][0]) bad.push(slug+': '+f.cards.length+' cards');
+      if(!f.masterplan || !f.masterplan.src) bad.push(slug+': no master plan');
+      var frames = [f.masterplan && f.masterplan.src].concat(
+        [].concat.apply([], f.cards.map(function(c){ return c.imgs; })));
+      frames.forEach(function(src){
+        if(String(src).indexOf(want[slug][1]) !== 0) bad.push(slug+': stray '+src);
+        if(!fsx.existsSync(pathx.join(__dirname,'..',String(src).replace(/^\//,''))))
+          bad.push(slug+': missing '+src);
+      });
+      f.cards.forEach(function(c){
+        if(!c.en || !c.ar || !c.copy || !c.copy.lead.en || !c.copy.lead.ar) bad.push(slug+': '+c.en);
+        if(c.copy.more && (!c.copy.more.en || !c.copy.more.ar)) bad.push(slug+': more '+c.en);
+        (c.copy.list||[]).forEach(function(i){ if(!i.en || !i.ar) bad.push(slug+': list '+c.en); });
+        (c.copy.groups||[]).forEach(function(g){
+          if(!g.label.en || !g.label.ar) bad.push(slug+': label '+c.en);
+          g.rows.forEach(function(r){ if(!r.k.en || !r.k.ar) bad.push(slug+': row '+c.en); });
+        });
+      });
+    });
+    return bad.length === 0 || bad.slice(0,4).join('; ');
+  })(), true);
+  ck('lmd projects: each brochure\'s own figures survive', (function(){
+    var miss = [];
+    function has(slug, want){
+      var t = txt(api.V.project(slug).node);
+      Object.keys(want).forEach(function(k){ if(t.indexOf(want[k]) === -1) miss.push(slug+':'+k); });
+    }
+    has('three-sixty', {land:'55,203', bua:'153,642', parking:'1,700', promenade:'271 m'});
+    has('zoya',        {land:'134 acres', planner:'Archi-View', arch:'Alchemy'});
+    has('one-ninety',  {land:'344,315', bua:'460,766', footprint:'94,019',
+                        quarterA:'19,113', park:'34,553', cdd:'86,472'});
+    return miss.length === 0 || miss.join(',');
+  })(), true);
+  /* The One Ninety brochure prints minutes from Maadi, the AUC, Heliopolis, the
+     airport, Sokhna Road and the New Capital, and Zoya's prints a drive from
+     Cairo. The site does not carry distances. */
+  ck('lmd projects: no drive time from any of the three brochures', (function(){
+    var bad = ['three-sixty','zoya','one-ninety'].filter(function(s){
+      return /\b\d+(\.\d+)?\s*(mins?|minutes|hours?|hrs?)\b/i.test(txt(api.V.project(s).node)); });
+    return bad.length === 0 || bad.join(',');
+  })(), true);
   ck('site: no per-unit map points at a unit that no longer exists', (function(){
     var live = {}; api.UNITS.forEach(function(u){ live[u.id] = 1; });
     var maps = {UNIT_EXTRA:api.UNIT_EXTRA, UNIT_IMAGES:api.UNIT_IMAGES,
