@@ -2488,6 +2488,111 @@ try {
       return /\b\d+(\.\d+)?\s*(mins?|minutes|hours?|hrs?)\b/i.test(txt(api.V.project(s).node)); });
     return bad.length === 0 || bad.join(',');
   })(), true);
+  /* El Masria's two ISOLA addresses, from their own 2025 and 2026 brochures.
+     Neither brochure publishes a price, a plan, a delivery date or a finishing
+     specification, so every one of those keys must stay absent — a placeholder
+     would read as a figure the developer never gave. */
+  /* `types` names products, and the type chips on a project page are drawn
+     from it by looking each one up in the type vocabulary. A word that is not
+     in it — a brochure's use category rather than a product, say — silently
+     becomes a chip reading "other", which is how ISOLA Centra first shipped
+     four of them. Nothing else on the site notices. */
+  ck('every project type names a product the vocabulary knows', (function(){
+    var bad = [];
+    api.PROJECTS.forEach(function(p){
+      if(!p.types || !p.types.en) return;
+      p.types.en.split('·').map(function(s){ return s.trim(); }).filter(Boolean)
+        .forEach(function(t){
+          if(api.normalizeUnitType(t) === 'other') bad.push(p.slug+': '+t); });
+    });
+    return bad.length === 0 || bad.slice(0,6).join('; ');
+  })(), true);
+  ck('isola: the two projects carry no price the brochures never printed', (function(){
+    var bad = [];
+    ['isola-centra','isola-quattro'].forEach(function(slug){
+      var p = api.PROJECTS.filter(function(x){ return x.slug === slug; })[0];
+      if(!p) { bad.push(slug+': missing'); return; }
+      if(p.dev !== 'elmasria') bad.push(slug+': dev='+p.dev);
+      if(p.area !== 'newcairo') bad.push(slug+': area='+p.area);
+      if(p.status !== 'primary') bad.push(slug+': status='+p.status);
+      ['price','dp','years','delivery','finishing'].forEach(function(k){
+        if(p[k] !== undefined) bad.push(slug+': '+k+'='+p[k]); });
+      if(!p.name_ar || !p.blurb.ar || !p.types.ar || !p.tags.ar.length) bad.push(slug+': not bilingual');
+    });
+    return bad.length === 0 || bad.join('; ');
+  })(), true);
+  ck('isola: both brochures are on their cards, both languages', (function(){
+    var fsx=require('fs'), pathx=require('path');
+    var want = {'isola-centra':[6,'/project-media/elmasria/isola-centra/'],
+                'isola-quattro':[6,'/project-media/elmasria/isola-quattro/']};
+    var bad = [];
+    Object.keys(want).forEach(function(slug){
+      var f = api.projFeatures(slug);
+      if(!f) { bad.push(slug+': no features'); return; }
+      if(f.cards.length !== want[slug][0]) bad.push(slug+': '+f.cards.length+' cards');
+      if(!f.masterplan || !f.masterplan.src) bad.push(slug+': no master plan');
+      var frames = [f.masterplan && f.masterplan.src]
+        .concat([].concat.apply([], f.cards.map(function(c){ return c.imgs; })))
+        .concat(api.PROJECT_GALLERY[slug] || [])
+        .concat([api.PROJECT_COVERS[slug]])
+        .concat((api.PROJECT_PLANS[slug] || {}).loc || []);
+      frames.forEach(function(src){
+        // Every picture on a project comes from that project's own folder —
+        // the two ISOLAs are the same developer in the same city, so nothing
+        // but this stops one of them wearing the other's render.
+        if(String(src).indexOf(want[slug][1]) !== 0) bad.push(slug+': stray '+src);
+        if(!fsx.existsSync(pathx.join(__dirname,'..',String(src).replace(/^\//,''))))
+          bad.push(slug+': missing '+src);
+      });
+      f.cards.forEach(function(c){
+        if(!c.en || !c.ar || !c.copy || !c.copy.lead.en || !c.copy.lead.ar) bad.push(slug+': '+c.en);
+        if(c.copy.more && (!c.copy.more.en || !c.copy.more.ar)) bad.push(slug+': more '+c.en);
+        (c.copy.list||[]).forEach(function(i){ if(!i.en || !i.ar) bad.push(slug+': list '+c.en); });
+        (c.copy.groups||[]).forEach(function(g){
+          if(!g.label.en || !g.label.ar) bad.push(slug+': label '+c.en);
+          g.rows.forEach(function(r){
+            if(!r.k.en || !r.k.ar || !r.v.en || !r.v.ar) bad.push(slug+': row '+c.en); });
+        });
+      });
+    });
+    return bad.length === 0 || bad.slice(0,4).join('; ');
+  })(), true);
+  ck('isola: each brochure\'s own figures survive', (function(){
+    var miss = [];
+    function has(slug, want){
+      var t = txt(api.V.project(slug).node);
+      Object.keys(want).forEach(function(k){ if(t.indexOf(want[k]) === -1) miss.push(slug+':'+k); });
+    }
+    has('isola-centra',  {area:'25 acres', levels:'Up to 5 levels', blocks:'A to H',
+                          ground:'87 – 189 m²', typical:'114 – 208 m²',
+                          loft:'143 – 260 m²', commercial:'36 – 171 m²'});
+    has('isola-quattro', {area:'15 acres', footprint:'25%', typeA:'89 – 155 m²',
+                          typeB:'160 – 232 m²', typeC:'128 – 213 m²',
+                          typeD:'149 – 216 m²', typeE:'135 – 199 m²'});
+    return miss.length === 0 || miss.join(',');
+  })(), true);
+  /* Both brochures print their land in acres. An acre is not a feddan — 25
+     acres is about 23.7 — so the Arabic keeps the developer's own word. A
+     silent swap to فدان would restate the developer's figure as a bigger one. */
+  ck('isola: an acre is never quietly restated as a feddan', (function(){
+    var bad = [];
+    [['isola-centra','٢٥'],['isola-quattro','١٥']].forEach(function(p){
+      var t = txt(api.V.project(p[0], 'ar').node);
+      if(t.indexOf(p[1]+' أكر') === -1) bad.push(p[0]+': no acre');
+      if(new RegExp(p[1]+'\\s*فدان').test(t)) bad.push(p[0]+': converted');
+    });
+    return bad.length === 0 || bad.join(',');
+  })(), true);
+  /* ISOLA Quattro's company page prints EGP 40 billion and 12,000 delivered
+     units where the 2025 Centra brochure and the company profile both print 20
+     billion and 10,000 — and it contradicts itself, its own paragraph saying
+     more than 10,000 beside a graphic saying 12,000. None of it is project
+     data, and none of it is repeated on either page. */
+  ck('isola: the contradicted company figures reach neither page', (function(){
+    var bad = ['isola-centra','isola-quattro'].filter(function(s){
+      return /(40\s*billion|12,000|١٢٬٠٠٠|٤٠ مليار)/.test(txt(api.V.project(s).node)); });
+    return bad.length === 0 || bad.join(',');
+  })(), true);
   /* The Stei8ht brochure is the destination's, and the destination is a
      villas-only community. The three projects the site sells inside it are a
      clinic address, an office address and an administrative one, so not one of

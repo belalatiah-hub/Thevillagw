@@ -247,6 +247,26 @@
        the blurb, because a bedroom count is not a unit type. */
     {slug:'ledge-valley', name:'Ledge Valley', name_ar:'ليدج فالي', dev:'orascom', area:'redsea', status:'primary', price:11410000, dp:10, years:7, delivery:'2030', types:{en:'Chalet · Penthouse',ar:'شاليه · بنتهاوس'}, tags:{en:['Red Sea','Makadi Bay','Lagoons','Waterfront'],ar:['البحر الأحمر','خليج مكادي','بحيرات','على الماء']}, blurb:{en:'A waterfront neighbourhood of 274 homes on 91,049 m² inside Makadi Heights, built around expansive lagoons and landscaped open space, with a mix of one to four bedroom residences.',ar:'حي على الماء من ٢٧٤ وحدة على ٩١٬٠٤٩ م² داخل مدن مكادي هايتس، مبني حول بحيرات واسعة ومساحات مفتوحة منسّقة، بوحدات من غرفة إلى أربع غرف.'}},
     {slug:'makadi-heights', name:'Makadi Heights', name_ar:'مكادي هايتس', dev:'orascom', area:'redsea', status:'primary', dp:10, years:7, delivery:'Ready – 2 years', types:{en:'Apartment · Townhouse · Twin house · Villa',ar:'شقة · تاون هاوس · توين هاوس · فيلا'}, tags:{en:['Makadi Bay','78 m above sea level'],ar:['خليج مكادي','٧٨ متراً فوق سطح البحر']}, blurb:{en:'Orascom Development’s town above Makadi Bay, in the heart of South Hurghada — 3.7 million m² of land, elevated 78 metres above sea level, released phase by phase from ready-to-move homes onward.',ar:'مدينة أوراسكوم للتطوير فوق خليج مكادي في قلب جنوب الغردقة — ٣٫٧ مليون م² من الأرض، على ارتفاع ٧٨ متراً فوق سطح البحر، تُطرح مرحلةً تلو الأخرى بدءاً من وحدات جاهزة للسكن.'}},
+    /* El Masria's two ISOLA addresses in New Cairo, from the brochures the
+       owner supplied — ISOLA Centra 2025 and ISOLA Quattro 2026.
+
+       Neither brochure publishes a price, a payment plan, a delivery date or a
+       finishing specification, so those keys are omitted and both pages show
+       the awaiting-price-list notice rather than a figure nobody printed.
+
+       `types` names products, not uses. Centra's brochure lists its uses as
+       residential, administrative, medical and commercial — four words that
+       match no product in the site's type vocabulary, so the finder rendered
+       four "other" chips. The products its own floor plans draw are named
+       instead, and the brochure's four words are kept intact on the facts card.
+       Quattro's brochure states no list at all, so it too names what its plans
+       draw: apartments over a ground, typical and loft floor.
+
+       The area is given as the brochures give it — 25 and 15 *acres*. An acre
+       is not a feddan (25 acres is about 23.7), so the Arabic keeps the word
+       rather than converting a figure the developer did not convert. */
+    {slug:'isola-centra', name:'ISOLA Centra', name_ar:'إيزولا سنترا', dev:'elmasria', area:'newcairo', status:'primary', types:{en:'Apartment · Loft · Administrative Office · Medical Unit · Retail',ar:'شقة · لوفت · مكتب إداري · وحدة طبية · محل تجاري'}, tags:{en:['New Cairo','25 acres','Mixed-use'],ar:['القاهرة الجديدة','٢٥ أكر','متعدد الاستخدامات']}, blurb:{en:'El Masria’s ISOLA Centra in the heart of New Cairo, between North 90 and South 90 and a few steps from the American University in Cairo — twenty-six residential buildings of up to five levels with apartments from 87 to 260 m², around a commercial, administrative and medical spine. Developer-direct primary units.',ar:'إيزولا سنترا من المصرية جروب في قلب القاهرة الجديدة، بين التسعين الشمالي والتسعين الجنوبي وعلى بعد خطوات من الجامعة الأمريكية بالقاهرة — ستة وعشرون مبنى سكنياً حتى خمسة أدوار بشقق من ٨٧ إلى ٢٦٠ م²، حول محور تجاري وإداري وطبي. وحدات أولية من المطوّر مباشرة.'}},
+    {slug:'isola-quattro', name:'ISOLA Quattro', name_ar:'إيزولا كواترو', dev:'elmasria', area:'newcairo', status:'primary', types:{en:'Apartment · Loft',ar:'شقة · لوفت'}, tags:{en:['New Cairo','Golden Square','15 acres'],ar:['القاهرة الجديدة','جولدن سكوير','١٥ أكر']}, blurb:{en:'El Masria’s ISOLA Quattro in New Cairo’s Golden Square, on Mohamed Ebn Zayed Road and close to the New Administrative Capital — thirteen buildings on 15 acres with only a quarter of the ground built on, and apartments from 89 to 232 m². Developer-direct primary units.',ar:'إيزولا كواترو من المصرية جروب في جولدن سكوير بالقاهرة الجديدة، على محور محمد بن زايد وقريباً من العاصمة الإدارية الجديدة — ثلاثة عشر مبنى على ١٥ أكر لا يشغل البناء منها سوى الربع، وشقق من ٨٩ إلى ٢٣٢ م². وحدات أولية من المطوّر مباشرة.'}},
   ];
 
   /* Representative UNITS — illustrative sample inventory (always badged).

@@ -577,6 +577,8 @@ var PROJECTS = [
 {slug:'marina-gate', name:'Marina Gate', name_ar:'مارينا جيت', dev:'travco', area:'redsea', status:'launch', price:19000000, dp:10, years:8, delivery:'2030', types:{en:'Duplex · Penthouse · Townhouse · Twin house · Villa',ar:'دوبلكس · بنتهاوس · تاون هاوس · توين هاوس · فيلا'}, tags:{en:['Red Sea','Almaza Bay Ras Soma','Marina'],ar:['البحر الأحمر','ألماظة باي رأس سوما','مارينا']}, blurb:{en:'The gateway phase of Almaza Bay Ras Soma on the bay of Ras Abu Soma, positioned at the marina and bridging the coast with the town. Seven products, from a one storey villa to a penthouse, each with the kit\u2019s own floor plan; the destination around them carries a private marina, a village of dining and retail, a water sports centre and serviced homes.',ar:'المرحلة الافتتاحية من ألماظة باي رأس سوما على خليج رأس أبو سوما، تقع عند المارينا وتصل الساحل بالمدينة. سبعة منتجات من فيلا الدور الواحد إلى البنتهاوس، لكلٍّ منها مخطط أرضي في الكتيّب؛ وتضمّ الوجهة حولها مارينا خاصة وقرية للمطاعم والتجزئة ومركزاً للرياضات المائية ومنازل مخدومة.'}},
 {slug:'ledge-valley', name:'Ledge Valley', name_ar:'ليدج فالي', dev:'orascom', area:'redsea', status:'primary', price:11410000, dp:10, years:7, delivery:'2030', types:{en:'Chalet · Penthouse',ar:'شاليه · بنتهاوس'}, tags:{en:['Red Sea','Makadi Bay','Lagoons','Waterfront'],ar:['البحر الأحمر','خليج مكادي','بحيرات','على الماء']}, blurb:{en:'A waterfront neighbourhood of 274 homes on 91,049 m² inside Makadi Heights, built around expansive lagoons and landscaped open space, with a mix of one to four bedroom residences.',ar:'حي على الماء من ٢٧٤ وحدة على ٩١٬٠٤٩ م² داخل مدن مكادي هايتس، مبني حول بحيرات واسعة ومساحات مفتوحة منسّقة، بوحدات من غرفة إلى أربع غرف.'}},
 {slug:'makadi-heights', name:'Makadi Heights', name_ar:'مكادي هايتس', dev:'orascom', area:'redsea', status:'primary', dp:10, years:7, delivery:'Ready – 2 years', types:{en:'Apartment · Townhouse · Twin house · Villa',ar:'شقة · تاون هاوس · توين هاوس · فيلا'}, tags:{en:['Makadi Bay','78 m above sea level'],ar:['خليج مكادي','٧٨ متراً فوق سطح البحر']}, blurb:{en:'Orascom Development’s town above Makadi Bay, in the heart of South Hurghada — 3.7 million m² of land, elevated 78 metres above sea level, released phase by phase from ready-to-move homes onward.',ar:'مدينة أوراسكوم للتطوير فوق خليج مكادي في قلب جنوب الغردقة — ٣٫٧ مليون م² من الأرض، على ارتفاع ٧٨ متراً فوق سطح البحر، تُطرح مرحلةً تلو الأخرى بدءاً من وحدات جاهزة للسكن.'}},
+{slug:'isola-centra', name:'ISOLA Centra', name_ar:'إيزولا سنترا', dev:'elmasria', area:'newcairo', status:'primary', types:{en:'Apartment · Loft · Administrative Office · Medical Unit · Retail',ar:'شقة · لوفت · مكتب إداري · وحدة طبية · محل تجاري'}, tags:{en:['New Cairo','25 acres','Mixed-use'],ar:['القاهرة الجديدة','٢٥ أكر','متعدد الاستخدامات']}, blurb:{en:'El Masria’s ISOLA Centra in the heart of New Cairo, between North 90 and South 90 and a few steps from the American University in Cairo — twenty-six residential buildings of up to five levels with apartments from 87 to 260 m², around a commercial, administrative and medical spine. Developer-direct primary units.',ar:'إيزولا سنترا من المصرية جروب في قلب القاهرة الجديدة، بين التسعين الشمالي والتسعين الجنوبي وعلى بعد خطوات من الجامعة الأمريكية بالقاهرة — ستة وعشرون مبنى سكنياً حتى خمسة أدوار بشقق من ٨٧ إلى ٢٦٠ م²، حول محور تجاري وإداري وطبي. وحدات أولية من المطوّر مباشرة.'}},
+{slug:'isola-quattro', name:'ISOLA Quattro', name_ar:'إيزولا كواترو', dev:'elmasria', area:'newcairo', status:'primary', types:{en:'Apartment · Loft',ar:'شقة · لوفت'}, tags:{en:['New Cairo','Golden Square','15 acres'],ar:['القاهرة الجديدة','جولدن سكوير','١٥ أكر']}, blurb:{en:'El Masria’s ISOLA Quattro in New Cairo’s Golden Square, on Mohamed Ebn Zayed Road and close to the New Administrative Capital — thirteen buildings on 15 acres with only a quarter of the ground built on, and apartments from 89 to 232 m². Developer-direct primary units.',ar:'إيزولا كواترو من المصرية جروب في جولدن سكوير بالقاهرة الجديدة، على محور محمد بن زايد وقريباً من العاصمة الإدارية الجديدة — ثلاثة عشر مبنى على ١٥ أكر لا يشغل البناء منها سوى الربع، وشقق من ٨٩ إلى ٢٣٢ م². وحدات أولية من المطوّر مباشرة.'}},
 ];
 var UNITS = [
 {id:'SB-ST-01', project:'sumou-boulevard', type:'Studio', beds:1, baths:1, area:31, areaTo:33, price:2480000},
@@ -1246,6 +1248,8 @@ sEl('circle',{cx:x,cy:y-19,r:'12',fill:'#1e7a5a'}),
 sEl('circle',{cx:x-7,cy:y-13,r:'8',fill:'#20855f'}),
 sEl('circle',{cx:x+7,cy:y-13,r:'8',fill:'#20855f'})); }
 var PROJECT_COVERS = {
+'isola-centra':'/project-media/elmasria/isola-centra/cover.webp',
+'isola-quattro':'/project-media/elmasria/isola-quattro/cover.webp',
 'makadina':'/project-media/travco/makadina/p27.webp',
 'marina-gate':'/project-media/travco/marina-gate/p46.webp',
 'ledge-valley':'/project-media/orascom/ledge-valley/hero.webp',
@@ -3763,7 +3767,9 @@ var PROJECT_PLANS = {
 'marassi-red-sea': {mp:['/project-media/emaarmisr/marassi-red-sea/units/masterplan.webp']},
 'makadi-heights': {loc:['/project-media/orascom/makadi-heights/plans/location.webp']},
 'zoya': {loc:['/project-media/lmd/zoya/location.webp']},
-'one-ninety': {loc:['/project-media/lmd/brochure/one-ninety-location.webp']}
+'one-ninety': {loc:['/project-media/lmd/brochure/one-ninety-location.webp']},
+'isola-centra': {loc:['/project-media/elmasria/isola-centra/location.webp']},
+'isola-quattro': {loc:['/project-media/elmasria/isola-quattro/location.webp']}
 };
 function projectPlans(slug){
 var own = PROJECT_PLANS[slug], back = PROJECT_PLAN_FALLBACK[slug] || {};
@@ -4044,6 +4050,19 @@ return media;
 }
 var MSQ = '/project-media/msquared/';
 var PROJECT_GALLERY = {
+'isola-centra': [
+'/project-media/elmasria/isola-centra/residences-a.webp',
+'/project-media/elmasria/isola-centra/residences-b.webp',
+'/project-media/elmasria/isola-centra/commercial-a.webp',
+'/project-media/elmasria/isola-centra/commercial-b.webp'
+],
+'isola-quattro': [
+'/project-media/elmasria/isola-quattro/facade-a.webp',
+'/project-media/elmasria/isola-quattro/terraces.webp',
+'/project-media/elmasria/isola-quattro/walkway.webp',
+'/project-media/elmasria/isola-quattro/facade-d.webp',
+'/project-media/elmasria/isola-quattro/waterway.webp'
+],
 'zoya': [
 '/project-media/lmd/zoya/waterfront-pool.webp',
 '/project-media/lmd/zoya/beach.webp',
@@ -4486,6 +4505,8 @@ var SU = '/project-media/sumou/';
 var BAB = '/project-media/beitalbahr/';
 var MB  = '/project-media/baghush/';
 var EM  = '/project-media/elmasria/';
+var ISC = '/project-media/elmasria/isola-centra/';
+var ISQ = '/project-media/elmasria/isola-quattro/';
 var LMB = '/project-media/lmd/brochure/';
 var DEV_FEATURES = {
 'elmasria': {
@@ -5717,6 +5738,156 @@ var TS = '/project-media/lmd/three-sixty/';
 var ZO = '/project-media/lmd/zoya/';
 var ON = '/project-media/lmd/one-ninety/';
 var PROJECT_FEATURES = {
+'isola-centra': {
+masterplan: {en:'Master plan', ar:'الماستر بلان', icon:'masterplan', src:ISC+'masterplan.webp'},
+cards: [
+{en:'About ISOLA Centra', ar:'عن إيزولا سنترا', icon:'shield',
+imgs:[ISC+'residences-a.webp'],
+copy:{
+lead:{en:'The allure of elegance and comfort lies at the heart of Isola Centra. Every aspect of the project — from the layout to the landscape — is crafted to reflect a modern architectural identity and harmonious design, creating a refined and comfortable lifestyle for all residents.', ar:'سحر الأناقة والراحة يقع في قلب إيزولا سنترا. كل جانب من المشروع — من المخطط إلى المساحات المفتوحة — مصمّم ليعكس هوية معمارية حديثة وتصميماً متناغماً، يخلق أسلوب حياة راقياً ومريحاً لكل السكان.'},
+more:{en:'Immerse in nature. What sets our buildings apart is not just their architectural excellence, but also the surrounding green landscapes and waterfront views. The project is wrapped in serene greenery and lakes, serving as a peaceful retreat from the city’s hustle. Enjoy the tranquility of nature — right at your doorstep.', ar:'انغمس في الطبيعة. ما يميّز مبانينا ليس تفوّقها المعماري وحده، بل أيضاً المساحات الخضراء المحيطة وإطلالات الماء. المشروع محاط بخضرة هادئة وبحيرات، ملاذاً وادعاً بعيداً عن صخب المدينة. استمتع بسكينة الطبيعة — على عتبة بابك.'}
+}},
+{en:'Location', ar:'الموقع', icon:'pin',
+imgs:[ISC+'location.webp'],
+copy:{
+lead:{en:'Isola Centra enjoys a premium spot in the heart of New Cairo, perfectly situated between North 90 and South 90 streets. Just a few steps from The American University in Cairo (AUC), and within immediate reach of top destinations — offering unparalleled accessibility and investment potential.', ar:'تحتل إيزولا سنترا موقعاً متميّزاً في قلب القاهرة الجديدة، بين شارعي التسعين الشمالي والتسعين الجنوبي. على بعد خطوات من الجامعة الأمريكية بالقاهرة، وعلى مقربة مباشرة من أبرز الوجهات — بما يمنحها سهولة وصول وقيمة استثمارية لا تُضاهى.'},
+list:[
+{en:'The American University in Cairo (AUC)', ar:'الجامعة الأمريكية بالقاهرة'},
+{en:'Maxim Mall', ar:'ماكسيم مول'},
+{en:'Waterway', ar:'ووتر واي'},
+{en:'Concord Plaza', ar:'كونكورد بلازا'},
+{en:'Teseen Road', ar:'طريق التسعين'}]
+}},
+{en:'Facts about the project', ar:'حقائق عن المشروع', icon:'star',
+imgs:[ISC+'masterplan.webp'],
+copy:{
+lead:{en:'The brochure gives the project one page of figures. They are reproduced here as it prints them.', ar:'يخصّص البروشور للمشروع صفحة واحدة من الأرقام، وهي منقولة هنا كما يذكرها.'},
+more:{en:'The area is printed as 25 acres. An acre is not a feddan — 25 acres is about 23.7 — so the figure is kept in the developer’s own unit rather than converted.', ar:'المساحة مكتوبة ٢٥ أكر. والأكر ليس فداناً — ٢٥ أكر نحو ٢٣٫٧ فداناً — لذلك تُركت الوحدة كما كتبها المطوّر دون تحويل.'},
+list:[
+{en:'Swimming pools', ar:'حمّامات سباحة'},
+{en:'Water features', ar:'عناصر مائية'},
+{en:'Walking track', ar:'مسار للمشي'},
+{en:'Kids area', ar:'منطقة أطفال'},
+{en:'Clubhouse', ar:'كلوب هاوس'},
+{en:'Safe zone', ar:'منطقة آمنة'}],
+groups:[
+{label:{en:'As the brochure prints them', ar:'كما يذكرها البروشور'}, rows:[
+{k:{en:'Project area', ar:'مساحة المشروع'}, v:{en:'25 acres', ar:'٢٥ أكر'}},
+{k:{en:'Uses', ar:'الاستخدامات'}, v:{en:'Residential · Administrative · Medical · Commercial', ar:'سكني · إداري · طبي · تجاري'}},
+{k:{en:'Apartment height classification', ar:'ارتفاع المباني السكنية'}, v:{en:'Up to 5 levels', ar:'حتى ٥ أدوار'}},
+{k:{en:'Residential buildings', ar:'المباني السكنية'}, v:{en:'26, numbered 1 to 26 on the master plan', ar:'٢٦ مبنى، مرقّمة من ١ إلى ٢٦ على الماستر بلان'}},
+{k:{en:'Commercial blocks', ar:'الكتل التجارية'}, v:{en:'8, lettered A to H', ar:'٨ كتل، من A إلى H'}}]}
+]
+}},
+{en:'The residences', ar:'المساكن', icon:'home',
+imgs:[ISC+'residences-a.webp', ISC+'residences-b.webp'],
+copy:{
+lead:{en:'Twenty-six residential buildings of up to five levels, drawn in the brochure as eleven groups — each with its own ground, typical and loft floor plan. The areas below are read off those drawings.', ar:'ستة وعشرون مبنى سكنياً حتى خمسة أدوار، يرسمها البروشور في إحدى عشرة مجموعة، لكل منها مخطط للدور الأرضي والمتكرّر واللوفت. والمساحات أدناه مقروءة من تلك المخططات.'},
+more:{en:'The building groups the brochure draws are 6 · 2-8 · 17-24 · 18-25 · 10-15-22 · 5-19-26 · 1-9-16-23 · 7-11-12-21 · 3-14-20 · 4 · 13.', ar:'مجموعات المباني كما يرسمها البروشور: ٦ · ٢-٨ · ١٧-٢٤ · ١٨-٢٥ · ١٠-١٥-٢٢ · ٥-١٩-٢٦ · ١-٩-١٦-٢٣ · ٧-١١-١٢-٢١ · ٣-١٤-٢٠ · ٤ · ١٣.'},
+groups:[
+{label:{en:'Apartment areas, floor by floor', ar:'مساحات الشقق دوراً بدور'}, rows:[
+{k:{en:'Ground floor', ar:'الدور الأرضي'}, v:{en:'87 – 189 m²', ar:'٨٧ – ١٨٩ م²'}},
+{k:{en:'Typical floor', ar:'الدور المتكرّر'}, v:{en:'114 – 208 m²', ar:'١١٤ – ٢٠٨ م²'}},
+{k:{en:'Loft floor', ar:'دور اللوفت'}, v:{en:'143 – 260 m²', ar:'١٤٣ – ٢٦٠ م²'}}]}
+]
+}},
+{en:'Commercial, administrative and medical', ar:'التجاري والإداري والطبي', icon:'am_retail',
+imgs:[ISC+'commercial-a.webp', ISC+'commercial-b.webp'],
+copy:{
+lead:{en:'Eight commercial blocks, lettered A to H on the master plan, of which the brochure draws four — types A, B, E and F — over a ground floor and four upper floors.', ar:'ثماني كتل تجارية، من A إلى H على الماستر بلان، يرسم البروشور منها أربعة أنماط — A و B و E و F — على دور أرضي وأربعة أدوار علوية.'},
+groups:[
+{label:{en:'As the plans print them', ar:'كما تذكرها المخططات'}, rows:[
+{k:{en:'Types drawn', ar:'الأنماط المرسومة'}, v:{en:'A · B · E · F', ar:'A · B · E · F'}},
+{k:{en:'Floors', ar:'الأدوار'}, v:{en:'Ground, first & third, second & fourth', ar:'الأرضي، الأول والثالث، الثاني والرابع'}},
+{k:{en:'Unit areas', ar:'مساحات الوحدات'}, v:{en:'36 – 171 m²', ar:'٣٦ – ١٧١ م²'}}]}
+]
+}},
+{en:'The consultants', ar:'بيوت الخبرة', icon:'build',
+imgs:[],
+copy:{
+lead:{en:'The brochure closes on a partners page. These are the names it prints.', ar:'يُختتم البروشور بصفحة للشركاء، وهذه هي الأسماء التي يذكرها.'},
+list:[
+{en:'EDIO', ar:'EDIO'},
+{en:'Archist Design Studio', ar:'أركِست ديزاين ستوديو'},
+{en:'Dr Eng Amr Radwan', ar:'الدكتور المهندس عمرو رضوان'},
+{en:'The engineering office of Dr Eng Tamer Hanafy Sayed — design and structural consultancy', ar:'المكتب الهندسي لأعمال التصميمات والاستشارات الإنشائية — د.م. تامر حنفي سيد'},
+{en:'The Arab Academy for Science, Technology and Maritime Transport', ar:'الأكاديمية العربية للعلوم والتكنولوجيا والنقل البحري'},
+{en:'The Academy’s information-technology company', ar:'شركة الأكاديمية لتكنولوجيا المعلومات'}]
+}}
+]
+},
+'isola-quattro': {
+masterplan: {en:'Master plan', ar:'الماستر بلان', icon:'masterplan', src:ISQ+'masterplan.webp'},
+cards: [
+{en:'The art of living', ar:'فنّ العيش', icon:'shield',
+imgs:[ISQ+'facade-a.webp'],
+copy:{
+lead:{en:'At the heart of every project lies our unwavering commitment to elegance, comfort, and timeless design. Each detail — whether in layout, architecture, or landscape — is thoughtfully crafted to create a seamless blend of modern sophistication and harmonious living.', ar:'في قلب كل مشروع التزام لا يتزعزع بالأناقة والراحة والتصميم الذي لا يشيخ. وكل تفصيلة — في المخطط أو العمارة أو المساحات المفتوحة — مصنوعة بعناية لتمزج بين رقيّ حديث وحياة متناغمة.'},
+more:{en:'What truly sets our developments apart is the embrace of nature and serenity. Surrounded by lush green landscapes and calming waterfront views, our communities offer a rare balance between architectural excellence and natural beauty.', ar:'وما يميّز مشروعاتنا حقاً هو احتضانها للطبيعة والسكينة. فمجتمعاتنا، وقد أحاطت بها المساحات الخضراء الوارفة وإطلالات الماء الهادئة، تقدّم توازناً نادراً بين التفوّق المعماري والجمال الطبيعي.'}
+}},
+{en:'Location', ar:'الموقع', icon:'pin',
+imgs:[ISQ+'location.webp'],
+copy:{
+lead:{en:'The project is strategically situated in the prestigious Golden Square, at the heart of New Cairo, and in close proximity to the New Administrative Capital.', ar:'يقع المشروع في موقع استراتيجي داخل جولدن سكوير المرموقة، في قلب القاهرة الجديدة، وعلى مقربة من العاصمة الإدارية الجديدة.'},
+more:{en:'The brochure’s map places it on Mohamed Ebn Zayed Road, between North and South Teseen, with the Amaly Ring Road to its east.', ar:'وتضعه خريطة البروشور على محور محمد بن زايد، بين التسعين الشمالي والتسعين الجنوبي، والطريق الدائري الأملي إلى شرقه.'},
+list:[
+{en:'Mohamed Ebn Zayed Road', ar:'محور محمد بن زايد'},
+{en:'Al Fattah Al Aleem Mosque', ar:'مسجد الفتاح العليم'},
+{en:'City Gate', ar:'سيتي جيت'},
+{en:'Mivida', ar:'ميفيدا'},
+{en:'Palm Hills', ar:'بالم هيلز'}]
+}},
+{en:'Project area', ar:'مساحة المشروع', icon:'star',
+imgs:[ISQ+'masterplan.webp'],
+copy:{
+lead:{en:'Spanning 15 acres, with only 25% dedicated to buildings, the masterplan ensures expansive open spaces and a balanced, harmonious living environment.', ar:'يمتد على ١٥ أكر، لا يشغل البناء منها سوى ٢٥٪، بما يضمن مساحات مفتوحة رحبة وبيئة معيشية متوازنة ومتناغمة.'},
+more:{en:'The area is printed as 15 acres. An acre is not a feddan — 15 acres is about 14.2 — so the figure is kept in the developer’s own unit rather than converted.', ar:'المساحة مكتوبة ١٥ أكر. والأكر ليس فداناً — ١٥ أكر نحو ١٤٫٢ فداناً — لذلك تُركت الوحدة كما كتبها المطوّر دون تحويل.'},
+groups:[
+{label:{en:'As the brochure prints them', ar:'كما يذكرها البروشور'}, rows:[
+{k:{en:'Project area', ar:'مساحة المشروع'}, v:{en:'15 acres', ar:'١٥ أكر'}},
+{k:{en:'Built footprint', ar:'البصمة الإنشائية'}, v:{en:'25%', ar:'٢٥٪'}},
+{k:{en:'Buildings', ar:'المباني'}, v:{en:'13, numbered on the master plan', ar:'١٣ مبنى، مرقّمة على الماستر بلان'}},
+{k:{en:'Building types', ar:'أنماط المباني'}, v:{en:'A · B · C · D · E', ar:'A · B · C · D · E'}}]}
+]
+}},
+{en:'Project facilities', ar:'مرافق المشروع', icon:'am_community',
+imgs:[ISQ+'walkway.webp', ISQ+'waterway.webp'],
+copy:{
+lead:{en:'Four facilities are named on the brochure’s own page. The photographs beside them there are stock pictures of people, so the project’s own landscape is shown instead.', ar:'يذكر البروشور في صفحته أربعة مرافق. والصور المرافقة لها هناك صور استوك لأشخاص، لذلك تُعرض هنا مساحات المشروع نفسه بدلاً منها.'},
+list:[
+{en:'Kids area', ar:'منطقة أطفال'},
+{en:'Walking track', ar:'مسار للمشي'},
+{en:'Water features', ar:'عناصر مائية'},
+{en:'Outdoor gym', ar:'جيم في الهواء الطلق'}]
+}},
+{en:'The buildings and their homes', ar:'المباني ووحداتها', icon:'home',
+imgs:[ISQ+'facade-a.webp', ISQ+'terraces.webp', ISQ+'facade-d.webp'],
+copy:{
+lead:{en:'Thirteen buildings in five types, each drawn over a ground, a typical and a loft floor. The areas below are read off those drawings.', ar:'ثلاثة عشر مبنى في خمسة أنماط، كل منها مرسوم على دور أرضي ودور متكرّر ودور لوفت. والمساحات أدناه مقروءة من تلك المخططات.'},
+groups:[
+{label:{en:'Apartment areas by type', ar:'مساحات الشقق حسب النمط'}, rows:[
+{k:{en:'Type A — buildings 2, 3, 5, 6, 7, 8', ar:'النمط A — مبانٍ ٢ و٣ و٥ و٦ و٧ و٨'}, v:{en:'89 – 155 m²', ar:'٨٩ – ١٥٥ م²'}},
+{k:{en:'Type B — building 9', ar:'النمط B — مبنى ٩'}, v:{en:'160 – 232 m²', ar:'١٦٠ – ٢٣٢ م²'}},
+{k:{en:'Type C — buildings 10, 11', ar:'النمط C — مبنيا ١٠ و١١'}, v:{en:'128 – 213 m²', ar:'١٢٨ – ٢١٣ م²'}},
+{k:{en:'Type D — building 4', ar:'النمط D — مبنى ٤'}, v:{en:'149 – 216 m²', ar:'١٤٩ – ٢١٦ م²'}},
+{k:{en:'Type E — buildings 1, 12, 13', ar:'النمط E — مبانٍ ١ و١٢ و١٣'}, v:{en:'135 – 199 m²', ar:'١٣٥ – ١٩٩ م²'}}]}
+]
+}},
+{en:'The consultants', ar:'بيوت الخبرة', icon:'build',
+imgs:[],
+copy:{
+lead:{en:'The brochure closes on a partners page. These are the names it prints — the same list as ISOLA Centra’s, with one more.', ar:'يُختتم البروشور بصفحة للشركاء، وهذه هي الأسماء التي يذكرها — القائمة نفسها التي في إيزولا سنترا، بزيادة اسم واحد.'},
+list:[
+{en:'EDIO', ar:'EDIO'},
+{en:'Archist Design Studio', ar:'أركِست ديزاين ستوديو'},
+{en:'Dr Eng Amr Radwan', ar:'الدكتور المهندس عمرو رضوان'},
+{en:'The engineering office of Dr Eng Tamer Hanafy Sayed — design and structural consultancy', ar:'المكتب الهندسي لأعمال التصميمات والاستشارات الإنشائية — د.م. تامر حنفي سيد'},
+{en:'Renovation — Eslam Sedik Engineering Consultancy', ar:'رينوفيشن — إسلام صديق للاستشارات الهندسية'},
+{en:'The Arab Academy for Science, Technology and Maritime Transport', ar:'الأكاديمية العربية للعلوم والتكنولوجيا والنقل البحري'},
+{en:'The Academy’s information-technology company', ar:'شركة الأكاديمية لتكنولوجيا المعلومات'}]
+}}
+]
+},
 'stei8ht-eastmed': {
 cards: [
 {en:'Inside Stei8ht', ar:'داخل Stei8ht', icon:'shield',
