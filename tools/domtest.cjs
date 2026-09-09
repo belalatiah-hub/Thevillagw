@@ -2543,7 +2543,7 @@ try {
      Landscape frames only — the strip is a wide crop, and a portrait page put
      through it loses its top and bottom. */
   ck('lmd projects: each hero flips through its own photographs', (function(){
-    var want = {'zoya':16, 'one-ninety':14, 'three-sixty':8,
+    var want = {'zoya':16, 'one-ninety':14, 'three-sixty':7,
                 'stei8ht-eastmed':4, 'stei8ht-there':3, 'stei8ht-eastside':2};
     var fsx=require('fs'), pathx=require('path'), bad=[];
     Object.keys(want).forEach(function(slug){

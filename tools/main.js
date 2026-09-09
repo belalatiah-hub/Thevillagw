@@ -4073,7 +4073,6 @@ var PROJECT_GALLERY = {
 '/project-media/lmd/one-ninety/boulevard-night.webp'],
 'three-sixty': [
 '/project-media/lmd/three-sixty/entrance.webp',
-'/project-media/lmd/three-sixty/crossing.webp',
 '/project-media/lmd/three-sixty/promenade.webp',
 '/project-media/lmd/three-sixty/retail-street.webp',
 '/project-media/lmd/three-sixty/retail-terrace.webp',
@@ -6030,7 +6029,7 @@ more:{en:'Zoya Ghazala Bay comes to life, offering top-class DJs, live performan
 masterplan: {en:'Master plan', ar:'الماستر بلان', icon:'layers', src:TS+'masterplan-aerial.webp'},
 cards: [
 {en:'Introducing 3\u2019Sixty', ar:'عن 3’Sixty', icon:'shield',
-imgs:[TS+'entrance.webp', TS+'crossing.webp'],
+imgs:[TS+'entrance.webp'],
 copy:{
 lead:{en:'3\u2019Sixty was born different \u2014 a spot destined to break all boundaries, with an array of unique selections of venues. Where everything comes to a full circle.', ar:'3’Sixty وُلد مختلفاً — مكان قُدِّر له أن يكسر كل الحدود، بمجموعة فريدة من الوجهات. حيث تكتمل الدائرة.'},
 more:{en:'The circle of life is complete with arranged fine dining restaurants, shops, services, progressive offices and premium health care clinics, for you to spend an entire day without feeling like anything you need is missing. Here is where you run into everyone you were fated to meet. Who says you can only enjoy the weekends?', ar:'تكتمل دائرة الحياة بمطاعم راقية ومحلات وخدمات ومكاتب متقدّمة وعيادات رعاية صحية متميّزة، لتقضي يوماً كاملاً دون أن تشعر أن شيئاً ينقصك. هنا تقابل كل من قُدِّر لك أن تقابله. ومن قال إن المتعة في عطلة الأسبوع فقط؟'}
@@ -6056,7 +6055,7 @@ groups:[
 ]
 }},
 {en:'A commercial mix with a 360 experience', ar:'مزيج تجاري بتجربة ٣٦٠', icon:'build',
-imgs:[TS+'crossing.webp', TS+'entrance.webp'],
+imgs:[TS+'entrance.webp', TS+'retail-terrace.webp'],
 copy:{
 lead:{en:'3\u2019Sixty is a commercial project \u2014 a one-stop destination planned to complete the circle of life. Your day starts with work then is handed over to a night of entertainment and leisure.', ar:'3’Sixty مشروع تجاري — وجهة واحدة مخطّطة لتكتمل بها دائرة الحياة. يبدأ يومك بالعمل ثم يُسلَّم إلى ليلة من الترفيه والاستجمام.'},
 more:{en:'The circle is whole with cafes, markets, bakeries, bistros and a mixture of restaurants that will satisfy your senses. The thrill comes to life at the cinemas, the most interactive entertainment experience for the whole family. 3\u2019Sixty is an evolutionary movement that took offices and clinics from the streets to a dedicated and prestigious complex, composed to fulfill the style of your lifestyle and your day-to-day desires.', ar:'تكتمل الدائرة بالمقاهي والأسواق والمخابز والبيسترو ومزيج من المطاعم يُرضي حواسك. وتنبض الإثارة في السينمات، أكثر تجارب الترفيه تفاعلاً للعائلة كلها. 3’Sixty حركة تطوّرية نقلت المكاتب والعيادات من الشوارع إلى مجمّع مخصّص ومرموق، مؤلَّف ليلبّي أسلوب حياتك ورغباتك اليومية.'}
