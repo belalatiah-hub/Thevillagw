@@ -73,6 +73,9 @@ from (values
   ('/project-media/' || 'elmasria/isola-quattro/facade-a.webp','gallery',0,array['isola-quattro']),
   ('/project-media/' || 'elmasria/isola-quattro/facade-d.webp','gallery',3,array['isola-quattro']),
   ('/project-media/' || 'elmasria/isola-quattro/terraces.webp','gallery',1,array['isola-quattro']),
+  ('/project-media/' || 'elmasria/isola-quattro/units/render-6.webp','gallery',5,array['isola-quattro']),
+  ('/project-media/' || 'elmasria/isola-quattro/units/render-7.webp','gallery',6,array['isola-quattro']),
+  ('/project-media/' || 'elmasria/isola-quattro/units/render-8.webp','gallery',7,array['isola-quattro']),
   ('/project-media/' || 'elmasria/isola-quattro/walkway.webp','gallery',2,array['isola-quattro']),
   ('/project-media/' || 'elmasria/isola-quattro/waterway.webp','gallery',4,array['isola-quattro']),
   ('/project-media/' || 'emaarmisr/marassi-red-sea/beach-lagoons.webp','gallery',7,array['marassi-red-sea']),
@@ -222,10 +225,7 @@ from (values
   ('/project-media/' || 'qataridiar/alam-al-roum/boulevard.webp','gallery',4,array['alam-al-roum']),
   ('/project-media/' || 'qataridiar/alam-al-roum/city.webp','gallery',0,array['alam-al-roum']),
   ('/project-media/' || 'qataridiar/alam-al-roum/coast.webp','gallery',1,array['alam-al-roum']),
-  ('/project-media/' || 'qataridiar/alam-al-roum/golf.webp','gallery',10,array['alam-al-roum']),
-  ('/project-media/' || 'qataridiar/alam-al-roum/lagoon.webp','gallery',6,array['alam-al-roum']),
-  ('/project-media/' || 'qataridiar/alam-al-roum/marina.webp','gallery',9,array['alam-al-roum']),
-  ('/project-media/' || 'qataridiar/alam-al-roum/masterplan.webp','gallery',3,array['alam-al-roum'])
+  ('/project-media/' || 'qataridiar/alam-al-roum/golf.webp','gallery',10,array['alam-al-roum'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path

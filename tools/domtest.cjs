@@ -2507,19 +2507,98 @@ try {
     });
     return bad.length === 0 || bad.slice(0,6).join('; ');
   })(), true);
-  ck('isola: the two projects carry no price the brochures never printed', (function(){
+  ck('isola: the two projects sit under El Masria on the sheet\'s terms', (function(){
     var bad = [];
-    ['isola-centra','isola-quattro'].forEach(function(slug){
+    var want = {'isola-centra':  {price:8560000, dp:8, years:8, delivery:'2030'},
+                'isola-quattro': {price:4410000, dp:3, years:9, delivery:'2030'}};
+    Object.keys(want).forEach(function(slug){
       var p = api.PROJECTS.filter(function(x){ return x.slug === slug; })[0];
       if(!p) { bad.push(slug+': missing'); return; }
       if(p.dev !== 'elmasria') bad.push(slug+': dev='+p.dev);
       if(p.area !== 'newcairo') bad.push(slug+': area='+p.area);
       if(p.status !== 'primary') bad.push(slug+': status='+p.status);
-      ['price','dp','years','delivery','finishing'].forEach(function(k){
-        if(p[k] !== undefined) bad.push(slug+': '+k+'='+p[k]); });
+      Object.keys(want[slug]).forEach(function(k){
+        if(p[k] !== want[slug][k]) bad.push(slug+': '+k+'='+p[k]); });
+      // Neither document gives a finishing specification, so it stays absent.
+      if(p.finishing !== undefined) bad.push(slug+': finishing='+JSON.stringify(p.finishing));
+      // The headline price is the cheapest unit actually on the list, not a
+      // figure of its own — a stale one would undercut every unit on the page.
+      var min = Math.min.apply(null, api.UNITS.filter(function(u){ return u.project === slug; })
+                                              .map(function(u){ return u.price; }));
+      if(p.price !== min) bad.push(slug+': price '+p.price+' but cheapest unit '+min);
       if(!p.name_ar || !p.blurb.ar || !p.types.ar || !p.tags.ar.length) bad.push(slug+': not bilingual');
     });
     return bad.length === 0 || bad.join('; ');
+  })(), true);
+  /* The client's unit sheet, row for row, in the order it lists them. Two of
+     its columns are read rather than copied, and both readings live or die
+     here: the down payment is stored as a percent-formatted fraction (0.03,
+     0.08) where every other developer's row holds a plain number, and the
+     handover year sits in the availability column, whose own list offers only
+     متاحة / محجوزة / مباعة. A re-parse that took either at face value would put
+     a 0.03% down payment and an availability of "2030" on the page. */
+  ck('isola units: every figure is the client sheet\'s', (function(){
+    var SHEET = [
+      ['IQ-01','isola-quattro','Apartment',   2,2,104, 4410000,3,9],
+      ['IQ-02','isola-quattro','Apartment',   2,2,121, 5280000,3,9],
+      ['IQ-03','isola-quattro','Apartment',   2,2,128, 5530000,3,9],
+      ['IQ-04','isola-quattro','Apartment',   3,3,178, 7660000,3,9],
+      ['IQ-05','isola-quattro','Apartment',   3,3,188, 8090000,3,9],
+      ['IC-01','isola-centra','Apartment',    2,2,114, 9220000,8,8],
+      ['IC-02','isola-centra','Apartment',    2,2,118, 8850000,8,8],
+      ['IC-03','isola-centra','Apartment',    3,3,156,11130000,8,8],
+      ['IC-04','isola-centra','Apartment',    3,3,164,12150000,8,8],
+      ['IC-05','isola-centra','Apartment',    3,3,189,13950000,8,8],
+      ['IC-06','isola-centra','Apartment',    2,2,114, 8560000,8,8],
+      ['IC-07','isola-centra','Apartment',    2,2,126, 8630000,8,8],
+      ['IC-08','isola-centra','Apartment',    3,3,168,10960000,8,8],
+      ['IC-09','isola-centra','Apartment',    3,3,208,14390000,8,8],
+      ['IC-10','isola-centra','Penthouse',    2,2,143, 8580000,8,8],
+      ['IC-11','isola-centra','Penthouse',    3,3,210,11510000,8,8],
+      ['IC-12','isola-centra','Administrative Office',null,null, 87, 8800000,8,8],
+      ['IC-13','isola-centra','Administrative Office',null,null,108,10910000,8,8],
+      ['IC-14','isola-centra','Clinic',       null,null,177,17890000,8,8]
+    ];
+    var by = {}; api.UNITS.forEach(function(u){ by[u.id] = u; });
+    var bad = [];
+    SHEET.forEach(function(r){
+      var u = by[r[0]];
+      if(!u) { bad.push(r[0]+': missing'); return; }
+      var got = [u.id, u.project, u.type,
+                 u.beds === undefined ? null : u.beds,
+                 u.baths === undefined ? null : u.baths,
+                 u.area, u.price, u.dp, u.years];
+      got.forEach(function(v, i){ if(v !== r[i]) bad.push(r[0]+': #'+i+' '+v+' != '+r[i]); });
+      if(u.handover !== '2030') bad.push(r[0]+': handover='+u.handover);
+      if(!u.label || !u.label.en || !u.label.ar) bad.push(r[0]+': label not bilingual');
+    });
+    // The sheet holds nineteen El Masria rows and no more.
+    var n = api.UNITS.filter(function(u){ return /^isola-/.test(u.project); }).length;
+    if(n !== SHEET.length) bad.push('unit count '+n);
+    return bad.length === 0 || bad.slice(0,6).join('; ');
+  })(), true);
+  /* Each unit carries the four pictures its sheet row names, in the sheet's
+     own column order — render, master plan, floor plan, location. Every one has
+     to sit under its own project's folder: the two ISOLAs are the same
+     developer in the same city and nothing else would stop one wearing the
+     other's drawings. */
+  ck('isola units: four pictures each, all from their own project', (function(){
+    var fsx = require('fs'), pathx = require('path');
+    var bad = [];
+    api.UNITS.filter(function(u){ return /^isola-/.test(u.project); }).forEach(function(u){
+      var own = '/project-media/elmasria/' + u.project + '/';
+      var four = [api.UNIT_IMAGES[u.id]]
+        .concat(api.UNIT_MASTERPLANS[u.id] || [], api.UNIT_FLOORPLANS[u.id] || [],
+                api.UNIT_LOCATIONS[u.id] || []);
+      if(four.length !== 4) bad.push(u.id+': '+four.length+' pictures');
+      four.forEach(function(src){
+        if(!src) { bad.push(u.id+': empty'); return; }
+        if(String(src).indexOf(own) !== 0) bad.push(u.id+': stray '+src);
+        if(!fsx.existsSync(pathx.join(__dirname,'..',String(src).replace(/^\//,''))))
+          bad.push(u.id+': missing '+src);
+      });
+    });
+    return bad.length === 0 || bad.slice(0,5).join('; ');
   })(), true);
   ck('isola: both brochures are on their cards, both languages', (function(){
     var fsx=require('fs'), pathx=require('path');

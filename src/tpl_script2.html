@@ -250,9 +250,11 @@
     /* El Masria's two ISOLA addresses in New Cairo, from the brochures the
        owner supplied — ISOLA Centra 2025 and ISOLA Quattro 2026.
 
-       Neither brochure publishes a price, a payment plan, a delivery date or a
-       finishing specification, so those keys are omitted and both pages show
-       the awaiting-price-list notice rather than a figure nobody printed.
+       Neither brochure published a price, a payment plan or a delivery date;
+       the client's unit sheet since has, so `price` is the lowest figure on
+       that sheet for each project and `dp`, `years` and `delivery` are the
+       terms it gives. Finishing is still absent from both documents and stays
+       omitted rather than guessed.
 
        `types` names products, not uses. Centra's brochure lists its uses as
        residential, administrative, medical and commercial — four words that
@@ -265,8 +267,8 @@
        The area is given as the brochures give it — 25 and 15 *acres*. An acre
        is not a feddan (25 acres is about 23.7), so the Arabic keeps the word
        rather than converting a figure the developer did not convert. */
-    {slug:'isola-centra', name:'ISOLA Centra', name_ar:'إيزولا سنترا', dev:'elmasria', area:'newcairo', status:'primary', types:{en:'Apartment · Loft · Administrative Office · Medical Unit · Retail',ar:'شقة · لوفت · مكتب إداري · وحدة طبية · محل تجاري'}, tags:{en:['New Cairo','25 acres','Mixed-use'],ar:['القاهرة الجديدة','٢٥ أكر','متعدد الاستخدامات']}, blurb:{en:'El Masria’s ISOLA Centra in the heart of New Cairo, between North 90 and South 90 and a few steps from the American University in Cairo — twenty-six residential buildings of up to five levels with apartments from 87 to 260 m², around a commercial, administrative and medical spine. Developer-direct primary units.',ar:'إيزولا سنترا من المصرية جروب في قلب القاهرة الجديدة، بين التسعين الشمالي والتسعين الجنوبي وعلى بعد خطوات من الجامعة الأمريكية بالقاهرة — ستة وعشرون مبنى سكنياً حتى خمسة أدوار بشقق من ٨٧ إلى ٢٦٠ م²، حول محور تجاري وإداري وطبي. وحدات أولية من المطوّر مباشرة.'}},
-    {slug:'isola-quattro', name:'ISOLA Quattro', name_ar:'إيزولا كواترو', dev:'elmasria', area:'newcairo', status:'primary', types:{en:'Apartment · Loft',ar:'شقة · لوفت'}, tags:{en:['New Cairo','Golden Square','15 acres'],ar:['القاهرة الجديدة','جولدن سكوير','١٥ أكر']}, blurb:{en:'El Masria’s ISOLA Quattro in New Cairo’s Golden Square, on Mohamed Ebn Zayed Road and close to the New Administrative Capital — thirteen buildings on 15 acres with only a quarter of the ground built on, and apartments from 89 to 232 m². Developer-direct primary units.',ar:'إيزولا كواترو من المصرية جروب في جولدن سكوير بالقاهرة الجديدة، على محور محمد بن زايد وقريباً من العاصمة الإدارية الجديدة — ثلاثة عشر مبنى على ١٥ أكر لا يشغل البناء منها سوى الربع، وشقق من ٨٩ إلى ٢٣٢ م². وحدات أولية من المطوّر مباشرة.'}},
+    {slug:'isola-centra', name:'ISOLA Centra', name_ar:'إيزولا سنترا', dev:'elmasria', area:'newcairo', status:'primary', price:8560000, dp:8, years:8, delivery:'2030', types:{en:'Apartment · Loft · Administrative Office · Medical Unit · Retail',ar:'شقة · لوفت · مكتب إداري · وحدة طبية · محل تجاري'}, tags:{en:['New Cairo','25 acres','Mixed-use'],ar:['القاهرة الجديدة','٢٥ أكر','متعدد الاستخدامات']}, blurb:{en:'El Masria’s ISOLA Centra in the heart of New Cairo, between North 90 and South 90 and a few steps from the American University in Cairo — twenty-six residential buildings of up to five levels with apartments from 87 to 260 m², around a commercial, administrative and medical spine. Developer-direct primary units.',ar:'إيزولا سنترا من المصرية جروب في قلب القاهرة الجديدة، بين التسعين الشمالي والتسعين الجنوبي وعلى بعد خطوات من الجامعة الأمريكية بالقاهرة — ستة وعشرون مبنى سكنياً حتى خمسة أدوار بشقق من ٨٧ إلى ٢٦٠ م²، حول محور تجاري وإداري وطبي. وحدات أولية من المطوّر مباشرة.'}},
+    {slug:'isola-quattro', name:'ISOLA Quattro', name_ar:'إيزولا كواترو', dev:'elmasria', area:'newcairo', status:'primary', price:4410000, dp:3, years:9, delivery:'2030', types:{en:'Apartment · Loft',ar:'شقة · لوفت'}, tags:{en:['New Cairo','Golden Square','15 acres'],ar:['القاهرة الجديدة','جولدن سكوير','١٥ أكر']}, blurb:{en:'El Masria’s ISOLA Quattro in New Cairo’s Golden Square, on Mohamed Ebn Zayed Road and close to the New Administrative Capital — thirteen buildings on 15 acres with only a quarter of the ground built on, and apartments from 89 to 232 m². Developer-direct primary units.',ar:'إيزولا كواترو من المصرية جروب في جولدن سكوير بالقاهرة الجديدة، على محور محمد بن زايد وقريباً من العاصمة الإدارية الجديدة — ثلاثة عشر مبنى على ١٥ أكر لا يشغل البناء منها سوى الربع، وشقق من ٨٩ إلى ٢٣٢ م². وحدات أولية من المطوّر مباشرة.'}},
   ];
 
   /* Representative UNITS — illustrative sample inventory (always badged).
@@ -891,6 +893,52 @@
     {id:'SE-13', project:'sodic-east', type:'Apartment', label:{en:'Apartment',ar:'شقة'}, beds:2, baths:3, area:129, price:14360499, dp:5, years:10, handover:'2027'},
     {id:'SE-14', project:'sodic-east', type:'Apartment', label:{en:'Apartment',ar:'شقة'}, beds:2, baths:3, area:125, price:14191500, dp:5, years:10, handover:'2027'},
     {id:'SE-15', project:'sodic-east', type:'Apartment', label:{en:'Apartment',ar:'شقة'}, beds:3, baths:3, area:153, price:17711000, dp:5, years:10, handover:'2027'},
+    /* ---- El Masria — ISOLA Quattro and ISOLA Centra ------------------------
+       The client's own unit sheet, nineteen rows, kept in the order it lists
+       them. Price, area, bedrooms, bathrooms, down payment and instalment
+       years are the sheet's; so are the image codes, which are wired up in
+       tpl_script2b beside the archives they name.
+
+       Two readings of the sheet worth recording, because a reload would
+       otherwise silently disagree with them:
+
+       The down-payment cells hold 0.03 and 0.08 where every other developer's
+       row holds a plain 10 or 5. Those two cells are formatted `0%`, so they
+       display as 3% and 8% — the fraction is the stored value, not a typo, and
+       3 and 8 are what is carried here.
+
+       The delivery year sits in the availability column. Every El Masria row
+       has 2030 there, where that column's own list offers متاحة / محجوزة /
+       مباعة; 2030 is not one of them and can only be a handover year, so it is
+       read as one and availability falls back to the site's default.
+
+       `type` names a product in the site's vocabulary; the sheet's own wording
+       for the floor a unit sits on is kept in `label`, which is what the card
+       and the page actually print. "apartment" and "apartment typical" are the
+       ground and typical floors of the same building — the floor plans confirm
+       it, each one headed GROUND FLOOR or TYPICAL FLOOR and carrying the very
+       area its row gives. */
+    {id:'IQ-01', project:'isola-quattro', type:'Apartment', label:{en:'Typical floor',ar:'دور متكرّر'}, beds:2, baths:2, area:104, price:4410000, dp:3, years:9, handover:'2030'},
+    {id:'IQ-02', project:'isola-quattro', type:'Apartment', label:{en:'Typical floor',ar:'دور متكرّر'}, beds:2, baths:2, area:121, price:5280000, dp:3, years:9, handover:'2030'},
+    {id:'IQ-03', project:'isola-quattro', type:'Apartment', label:{en:'Typical floor',ar:'دور متكرّر'}, beds:2, baths:2, area:128, price:5530000, dp:3, years:9, handover:'2030'},
+    {id:'IQ-04', project:'isola-quattro', type:'Apartment', label:{en:'Typical floor',ar:'دور متكرّر'}, beds:3, baths:3, area:178, price:7660000, dp:3, years:9, handover:'2030'},
+    {id:'IQ-05', project:'isola-quattro', type:'Apartment', label:{en:'Typical floor',ar:'دور متكرّر'}, beds:3, baths:3, area:188, price:8090000, dp:3, years:9, handover:'2030'},
+    {id:'IC-01', project:'isola-centra', type:'Apartment', label:{en:'Ground floor',ar:'دور أرضي'}, beds:2, baths:2, area:114, price:9220000, dp:8, years:8, handover:'2030'},
+    {id:'IC-02', project:'isola-centra', type:'Apartment', label:{en:'Ground floor',ar:'دور أرضي'}, beds:2, baths:2, area:118, price:8850000, dp:8, years:8, handover:'2030'},
+    {id:'IC-03', project:'isola-centra', type:'Apartment', label:{en:'Ground floor',ar:'دور أرضي'}, beds:3, baths:3, area:156, price:11130000, dp:8, years:8, handover:'2030'},
+    {id:'IC-04', project:'isola-centra', type:'Apartment', label:{en:'Ground floor',ar:'دور أرضي'}, beds:3, baths:3, area:164, price:12150000, dp:8, years:8, handover:'2030'},
+    {id:'IC-05', project:'isola-centra', type:'Apartment', label:{en:'Ground floor',ar:'دور أرضي'}, beds:3, baths:3, area:189, price:13950000, dp:8, years:8, handover:'2030'},
+    {id:'IC-06', project:'isola-centra', type:'Apartment', label:{en:'Typical floor',ar:'دور متكرّر'}, beds:2, baths:2, area:114, price:8560000, dp:8, years:8, handover:'2030'},
+    {id:'IC-07', project:'isola-centra', type:'Apartment', label:{en:'Typical floor',ar:'دور متكرّر'}, beds:2, baths:2, area:126, price:8630000, dp:8, years:8, handover:'2030'},
+    {id:'IC-08', project:'isola-centra', type:'Apartment', label:{en:'Typical floor',ar:'دور متكرّر'}, beds:3, baths:3, area:168, price:10960000, dp:8, years:8, handover:'2030'},
+    {id:'IC-09', project:'isola-centra', type:'Apartment', label:{en:'Typical floor',ar:'دور متكرّر'}, beds:3, baths:3, area:208, price:14390000, dp:8, years:8, handover:'2030'},
+    {id:'IC-10', project:'isola-centra', type:'Penthouse', label:{en:'Penthouse with roof',ar:'بنتهاوس بروف'}, beds:2, baths:2, area:143, price:8580000, dp:8, years:8, handover:'2030'},
+    {id:'IC-11', project:'isola-centra', type:'Penthouse', label:{en:'Penthouse with roof',ar:'بنتهاوس بروف'}, beds:3, baths:3, area:210, price:11510000, dp:8, years:8, handover:'2030'},
+    // The sheet gives the commercial rows no bedroom or bathroom count, and the
+    // site drops both fields for commercial stock rather than printing a dash.
+    {id:'IC-12', project:'isola-centra', type:'Administrative Office', label:{en:'Administrative office',ar:'مكتب إداري'}, area:87, price:8800000, dp:8, years:8, handover:'2030'},
+    {id:'IC-13', project:'isola-centra', type:'Administrative Office', label:{en:'Administrative office',ar:'مكتب إداري'}, area:108, price:10910000, dp:8, years:8, handover:'2030'},
+    {id:'IC-14', project:'isola-centra', type:'Clinic', label:{en:'Clinic',ar:'عيادة'}, area:177, price:17890000, dp:8, years:8, handover:'2030'},
   ];
   // Floor / internal-level enrichment (illustrative). Units without a floor
   // remain "floor to confirm" and never pass a strict floor filter.

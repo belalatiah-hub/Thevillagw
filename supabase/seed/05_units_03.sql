@@ -159,7 +159,26 @@ from (values
   ('SE-12','sodic-east','Apartment','Apartment','شقة',3,3,153,157,17711000,5,10,'2027',null,'available'),
   ('SE-13','sodic-east','Apartment','Apartment','شقة',2,3,129,null,14360499,5,10,'2027',null,'available'),
   ('SE-14','sodic-east','Apartment','Apartment','شقة',2,3,125,null,14191500,5,10,'2027',null,'available'),
-  ('SE-15','sodic-east','Apartment','Apartment','شقة',3,3,153,null,17711000,5,10,'2027',null,'available')
+  ('SE-15','sodic-east','Apartment','Apartment','شقة',3,3,153,null,17711000,5,10,'2027',null,'available'),
+  ('IQ-01','isola-quattro','Apartment','Typical floor','دور متكرّر',2,2,104,null,4410000,3,9,'2030',null,'available'),
+  ('IQ-02','isola-quattro','Apartment','Typical floor','دور متكرّر',2,2,121,null,5280000,3,9,'2030',null,'available'),
+  ('IQ-03','isola-quattro','Apartment','Typical floor','دور متكرّر',2,2,128,null,5530000,3,9,'2030',null,'available'),
+  ('IQ-04','isola-quattro','Apartment','Typical floor','دور متكرّر',3,3,178,null,7660000,3,9,'2030',null,'available'),
+  ('IQ-05','isola-quattro','Apartment','Typical floor','دور متكرّر',3,3,188,null,8090000,3,9,'2030',null,'available'),
+  ('IC-01','isola-centra','Apartment','Ground floor','دور أرضي',2,2,114,null,9220000,8,8,'2030',null,'available'),
+  ('IC-02','isola-centra','Apartment','Ground floor','دور أرضي',2,2,118,null,8850000,8,8,'2030',null,'available'),
+  ('IC-03','isola-centra','Apartment','Ground floor','دور أرضي',3,3,156,null,11130000,8,8,'2030',null,'available'),
+  ('IC-04','isola-centra','Apartment','Ground floor','دور أرضي',3,3,164,null,12150000,8,8,'2030',null,'available'),
+  ('IC-05','isola-centra','Apartment','Ground floor','دور أرضي',3,3,189,null,13950000,8,8,'2030',null,'available'),
+  ('IC-06','isola-centra','Apartment','Typical floor','دور متكرّر',2,2,114,null,8560000,8,8,'2030',null,'available'),
+  ('IC-07','isola-centra','Apartment','Typical floor','دور متكرّر',2,2,126,null,8630000,8,8,'2030',null,'available'),
+  ('IC-08','isola-centra','Apartment','Typical floor','دور متكرّر',3,3,168,null,10960000,8,8,'2030',null,'available'),
+  ('IC-09','isola-centra','Apartment','Typical floor','دور متكرّر',3,3,208,null,14390000,8,8,'2030',null,'available'),
+  ('IC-10','isola-centra','Penthouse','Penthouse with roof','بنتهاوس بروف',2,2,143,null,8580000,8,8,'2030',null,'available'),
+  ('IC-11','isola-centra','Penthouse','Penthouse with roof','بنتهاوس بروف',3,3,210,null,11510000,8,8,'2030',null,'available'),
+  ('IC-12','isola-centra','Administrative Office','Administrative office','مكتب إداري',null,null,87,null,8800000,8,8,'2030',null,'available'),
+  ('IC-13','isola-centra','Administrative Office','Administrative office','مكتب إداري',null,null,108,null,10910000,8,8,'2030',null,'available'),
+  ('IC-14','isola-centra','Clinic','Clinic','عيادة',null,null,177,null,17890000,8,8,'2030',null,'available')
 ) as v(unit_code, project_slug, unit_type_en, label_en, label_ar, bedrooms, bathrooms,
        bua, bua_to, price, dp, years, delivery_label, floor, availability)
 join cms.projects p on p.slug = v.project_slug

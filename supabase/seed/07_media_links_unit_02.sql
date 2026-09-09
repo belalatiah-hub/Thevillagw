@@ -5,6 +5,26 @@
 insert into cms.media_links (asset_id, unit_id, role, sort_order)
 select a.id, o.id, v.role::cms.media_role, v.sort_order
 from (values
+  ('/project-media/' || 'ora/ap3-cr-01.webp','cover',0,array['OR-CR-05']),
+  ('/project-media/' || 'ora/ap3-cr-03.webp','cover',0,array['OR-CR-06']),
+  ('/project-media/' || 'ora/ap3-se-0.webp','cover',0,array['OR-SE-03']),
+  ('/project-media/' || 'ora/ap3-sw-0.webp','cover',0,array['OR-SW-11','OR-SW-14']),
+  ('/project-media/' || 'ora/ap3-z-0.webp','cover',0,array['OR-ZE-03']),
+  ('/project-media/' || 'ora/ap3-ze-0.webp','cover',0,array['OR-ZE-08']),
+  ('/project-media/' || 'ora/ap3-zw-0.webp','cover',0,array['OR-ZW-03']),
+  ('/project-media/' || 'ora/ap4-sw-0.webp','cover',0,array['OR-SW-12']),
+  ('/project-media/' || 'ora/ap4-zw-0.webp','cover',0,array['OR-ZW-04']),
+  ('/project-media/' || 'ora/ap5-sw-0.webp','cover',0,array['OR-SW-13']),
+  ('/project-media/' || 'ora/ap6-zw-0.webp','cover',0,array['OR-ZW-05']),
+  ('/project-media/' || 'ora/ap6-zw-01.webp','cover',0,array['OR-ZW-06']),
+  ('/project-media/' || 'ora/ch2-ss-0.webp','cover',0,array['OR-ST-02']),
+  ('/project-media/' || 'ora/du1-em-0.webp','cover',0,array['OR-EM-01']),
+  ('/project-media/' || 'ora/du2-em-0.webp','cover',0,array['OR-EM-02']),
+  ('/project-media/' || 'ora/four-0.webp','cover',0,array['OR-EM-03']),
+  ('/project-media/' || 'ora/lo-z-0.webp','cover',0,array['OR-ZE-04']),
+  ('/project-media/' || 'ora/pen-sw-0.webp','cover',0,array['OR-SW-15']),
+  ('/project-media/' || 'ora/pen2.webp','cover',0,array['OR-SW-16']),
+  ('/project-media/' || 'ora/st-em-0.webp','cover',0,array['OR-EM-06']),
   ('/project-media/' || 'ora/st-zw-0.webp','cover',0,array['OR-ZW-01']),
   ('/project-media/' || 'ora/stu-z-0.webp','cover',0,array['OR-ZE-05']),
   ('/project-media/' || 'ora/th-sw-0.webp','cover',0,array['OR-SW-07']),
@@ -231,23 +251,7 @@ from (values
   ('/project-media/' || 'beitalbahr/units/fp-ch3-roo.webp','floorplan',1,array['BAB-RO03']),
   ('/project-media/' || 'beitalbahr/units/fp-ch3-shores.webp','floorplan',0,array['BAB-SH03']),
   ('/project-media/' || 'beitalbahr/units/fp-ch4-sh.webp','floorplan',0,array['BAB-SH04']),
-  ('/project-media/' || 'beitalbahr/units/fp-ch5-sh.webp','floorplan',0,array['BAB-SH05']),
-  ('/project-media/' || 'beitalbahr/units/fp-ch6-sh.webp','floorplan',0,array['BAB-SH06']),
-  ('/project-media/' || 'beitalbahr/units/fp-ch7-sh.webp','floorplan',0,array['BAB-SH07']),
-  ('/project-media/' || 'beitalbahr/units/fp-ch8-sh.webp','floorplan',0,array['BAB-SH08']),
-  ('/project-media/' || 'beitalbahr/units/fp-ch9-sh.webp','floorplan',0,array['BAB-SH09']),
-  ('/project-media/' || 'beitalbahr/units/fp-to2-rays.webp','floorplan',0,array['BAB-RY03']),
-  ('/project-media/' || 'beitalbahr/units/fp-v1-hills.webp','floorplan',0,array['BAB-HS01']),
-  ('/project-media/' || 'beitalbahr/units/fp-v1-hills2.webp','floorplan',1,array['BAB-HS01']),
-  ('/project-media/' || 'beitalbahr/units/fp-v1-rays1.webp','floorplan',0,array['BAB-RY01']),
-  ('/project-media/' || 'beitalbahr/units/fp-v1-roo-2.webp','floorplan',1,array['BAB-RO01']),
-  ('/project-media/' || 'beitalbahr/units/fp-v1-roo.webp','floorplan',0,array['BAB-RO01']),
-  ('/project-media/' || 'beitalbahr/units/fp-v2-hills.webp','floorplan',0,array['BAB-HS02']),
-  ('/project-media/' || 'beitalbahr/units/fp-v2-roo.webp','floorplan',0,array['BAB-RO02']),
-  ('/project-media/' || 'beitalbahr/units/to1-0-rays.webp','floorplan',0,array['BAB-RY02']),
-  ('/project-media/' || 'beitalbahr/units/to1-01-rays.webp','floorplan',1,array['BAB-RY02']),
-  ('/project-media/' || 'beitalbahr/units/tw1-0-roo.webp','floorplan',0,array['BAB-RO05']),
-  ('/project-media/' || 'beitalbahr/units/tw1-01-roo.webp','floorplan',1,array['BAB-RO05'])
+  ('/project-media/' || 'beitalbahr/units/fp-ch5-sh.webp','floorplan',0,array['BAB-SH05'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path

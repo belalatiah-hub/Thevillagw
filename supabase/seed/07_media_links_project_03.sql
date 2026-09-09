@@ -5,6 +5,9 @@
 insert into cms.media_links (asset_id, project_id, role, sort_order)
 select a.id, o.id, v.role::cms.media_role, v.sort_order
 from (values
+  ('/project-media/' || 'qataridiar/alam-al-roum/lagoon.webp','gallery',6,array['alam-al-roum']),
+  ('/project-media/' || 'qataridiar/alam-al-roum/marina.webp','gallery',9,array['alam-al-roum']),
+  ('/project-media/' || 'qataridiar/alam-al-roum/masterplan.webp','gallery',3,array['alam-al-roum']),
   ('/project-media/' || 'qataridiar/alam-al-roum/spine.webp','gallery',7,array['alam-al-roum']),
   ('/project-media/' || 'qataridiar/alam-al-roum/story.webp','gallery',2,array['alam-al-roum']),
   ('/project-media/' || 'sodic/caesar-north-coast/brochure/p01.webp','gallery',0,array['caesar-north-coast']),

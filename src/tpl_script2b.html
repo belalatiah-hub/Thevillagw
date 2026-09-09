@@ -180,6 +180,31 @@
   function groupMembers(g){ return (g?g.members:[]).map(projBySlug).filter(Boolean); }
   function groupFrom(g){ var m=groupMembers(g).map(function(p){return p.price;}).filter(function(x){return x!=null;}); return m.length?Math.min.apply(null,m):null; }
   var UNIT_IMAGES = {
+    /* El Masria's two ISOLA projects. Each unit carries the four pictures
+       its sheet row names, in the sheet's own column order: the render, the
+       master plan, its floor plan, then the location map. The master plan and
+       the location map arrived a second time inside the unit archives; they
+       are the same two drawings already taken from each brochure, at a
+       smaller crop, so both point at the copies already on the site. */
+    'IQ-01':'/project-media/elmasria/isola-quattro/units/render-1.webp',
+    'IQ-02':'/project-media/elmasria/isola-quattro/units/render-2.webp',
+    'IQ-03':'/project-media/elmasria/isola-quattro/units/render-3.webp',
+    'IQ-04':'/project-media/elmasria/isola-quattro/units/render-4.webp',
+    'IQ-05':'/project-media/elmasria/isola-quattro/units/render-5.webp',
+    'IC-01':'/project-media/elmasria/isola-centra/units/render-1.webp',
+    'IC-02':'/project-media/elmasria/isola-centra/units/render-2.webp',
+    'IC-03':'/project-media/elmasria/isola-centra/units/render-3.webp',
+    'IC-04':'/project-media/elmasria/isola-centra/units/render-4.webp',
+    'IC-05':'/project-media/elmasria/isola-centra/units/render-5.webp',
+    'IC-06':'/project-media/elmasria/isola-centra/units/render-6.webp',
+    'IC-07':'/project-media/elmasria/isola-centra/units/render-7.webp',
+    'IC-08':'/project-media/elmasria/isola-centra/units/render-1.webp',
+    'IC-09':'/project-media/elmasria/isola-centra/units/render-2.webp',
+    'IC-10':'/project-media/elmasria/isola-centra/units/render-3.webp',
+    'IC-11':'/project-media/elmasria/isola-centra/units/render-7.webp',
+    'IC-12':'/project-media/elmasria/isola-centra/units/commercial-1.webp',
+    'IC-13':'/project-media/elmasria/isola-centra/units/commercial-2.webp',
+    'IC-14':'/project-media/elmasria/isola-centra/units/commercial-3.webp',
     'VL-01':'/project-media/sodic/villette/units/ap1-villette-0.webp',
     'VL-02':'/project-media/sodic/villette/units/ap2-villette-0.webp',
     'VL-03':'/project-media/sodic/villette/units/ap3-villette-0.webp',
@@ -1243,6 +1268,31 @@
      guesswork. Two floor plans the sheet names (fp-th-3-cr, v4-cr-0) are
      corrupt inside the source archive and are therefore simply absent. */
   var UNIT_MASTERPLANS = {
+    /* El Masria's two ISOLA projects. Each unit carries the four pictures
+       its sheet row names, in the sheet's own column order: the render, the
+       master plan, its floor plan, then the location map. The master plan and
+       the location map arrived a second time inside the unit archives; they
+       are the same two drawings already taken from each brochure, at a
+       smaller crop, so both point at the copies already on the site. */
+    'IQ-01':['/project-media/elmasria/isola-quattro/masterplan.webp'],
+    'IQ-02':['/project-media/elmasria/isola-quattro/masterplan.webp'],
+    'IQ-03':['/project-media/elmasria/isola-quattro/masterplan.webp'],
+    'IQ-04':['/project-media/elmasria/isola-quattro/masterplan.webp'],
+    'IQ-05':['/project-media/elmasria/isola-quattro/masterplan.webp'],
+    'IC-01':['/project-media/elmasria/isola-centra/masterplan.webp'],
+    'IC-02':['/project-media/elmasria/isola-centra/masterplan.webp'],
+    'IC-03':['/project-media/elmasria/isola-centra/masterplan.webp'],
+    'IC-04':['/project-media/elmasria/isola-centra/masterplan.webp'],
+    'IC-05':['/project-media/elmasria/isola-centra/masterplan.webp'],
+    'IC-06':['/project-media/elmasria/isola-centra/masterplan.webp'],
+    'IC-07':['/project-media/elmasria/isola-centra/masterplan.webp'],
+    'IC-08':['/project-media/elmasria/isola-centra/masterplan.webp'],
+    'IC-09':['/project-media/elmasria/isola-centra/masterplan.webp'],
+    'IC-10':['/project-media/elmasria/isola-centra/masterplan.webp'],
+    'IC-11':['/project-media/elmasria/isola-centra/masterplan.webp'],
+    'IC-12':['/project-media/elmasria/isola-centra/masterplan.webp'],
+    'IC-13':['/project-media/elmasria/isola-centra/masterplan.webp'],
+    'IC-14':['/project-media/elmasria/isola-centra/masterplan.webp'],
     'VL-01':['/project-media/sodic/villette/units/mp-villette.webp'],
     'VL-02':['/project-media/sodic/villette/units/mp-villette.webp'],
     'VL-03':['/project-media/sodic/villette/units/mp-villette.webp'],
@@ -1756,6 +1806,31 @@
     'SL-SV15':["/project-media/hassan-allam/sl-sv15-mp1.webp"],
   };
   var UNIT_FLOORPLANS = {
+    /* El Masria's two ISOLA projects. Each unit carries the four pictures
+       its sheet row names, in the sheet's own column order: the render, the
+       master plan, its floor plan, then the location map. The master plan and
+       the location map arrived a second time inside the unit archives; they
+       are the same two drawings already taken from each brochure, at a
+       smaller crop, so both point at the copies already on the site. */
+    'IQ-01':['/project-media/elmasria/isola-quattro/plans/floor-1-2-bed.webp'],
+    'IQ-02':['/project-media/elmasria/isola-quattro/plans/floor-1-2-bed.webp'],
+    'IQ-03':['/project-media/elmasria/isola-quattro/plans/floor-1-2-bed.webp'],
+    'IQ-04':['/project-media/elmasria/isola-quattro/plans/floor-3-bed.webp'],
+    'IQ-05':['/project-media/elmasria/isola-quattro/plans/floor-3-bed.webp'],
+    'IC-01':['/project-media/elmasria/isola-centra/plans/floor-01.webp'],
+    'IC-02':['/project-media/elmasria/isola-centra/plans/floor-02.webp'],
+    'IC-03':['/project-media/elmasria/isola-centra/plans/floor-03.webp'],
+    'IC-04':['/project-media/elmasria/isola-centra/plans/floor-04.webp'],
+    'IC-05':['/project-media/elmasria/isola-centra/plans/floor-05.webp'],
+    'IC-06':['/project-media/elmasria/isola-centra/plans/floor-06.webp'],
+    'IC-07':['/project-media/elmasria/isola-centra/plans/floor-07.webp'],
+    'IC-08':['/project-media/elmasria/isola-centra/plans/floor-08.webp'],
+    'IC-09':['/project-media/elmasria/isola-centra/plans/floor-09.webp'],
+    'IC-10':['/project-media/elmasria/isola-centra/plans/floor-10.webp'],
+    'IC-11':['/project-media/elmasria/isola-centra/plans/floor-10.webp'],
+    'IC-12':['/project-media/elmasria/isola-centra/plans/floor-admin-1.webp'],
+    'IC-13':['/project-media/elmasria/isola-centra/plans/floor-admin-2.webp'],
+    'IC-14':['/project-media/elmasria/isola-centra/plans/floor-admin-2.webp'],
     'VL-01':['/project-media/sodic/villette/units/fp-ap1-villette.webp'],
     'VL-02':['/project-media/sodic/villette/units/fp-ap2-villette.webp'],
     'VL-03':['/project-media/sodic/villette/units/fp-ap3-villette.webp'],
@@ -2258,6 +2333,31 @@
   /* Per-unit location renders (LMD). When present, the Location viewer shows the
      unit-specific aerial; otherwise it falls back to the area aerial. */
   var UNIT_LOCATIONS = {
+    /* El Masria's two ISOLA projects. Each unit carries the four pictures
+       its sheet row names, in the sheet's own column order: the render, the
+       master plan, its floor plan, then the location map. The master plan and
+       the location map arrived a second time inside the unit archives; they
+       are the same two drawings already taken from each brochure, at a
+       smaller crop, so both point at the copies already on the site. */
+    'IQ-01':['/project-media/elmasria/isola-quattro/location.webp'],
+    'IQ-02':['/project-media/elmasria/isola-quattro/location.webp'],
+    'IQ-03':['/project-media/elmasria/isola-quattro/location.webp'],
+    'IQ-04':['/project-media/elmasria/isola-quattro/location.webp'],
+    'IQ-05':['/project-media/elmasria/isola-quattro/location.webp'],
+    'IC-01':['/project-media/elmasria/isola-centra/location.webp'],
+    'IC-02':['/project-media/elmasria/isola-centra/location.webp'],
+    'IC-03':['/project-media/elmasria/isola-centra/location.webp'],
+    'IC-04':['/project-media/elmasria/isola-centra/location.webp'],
+    'IC-05':['/project-media/elmasria/isola-centra/location.webp'],
+    'IC-06':['/project-media/elmasria/isola-centra/location.webp'],
+    'IC-07':['/project-media/elmasria/isola-centra/location.webp'],
+    'IC-08':['/project-media/elmasria/isola-centra/location.webp'],
+    'IC-09':['/project-media/elmasria/isola-centra/location.webp'],
+    'IC-10':['/project-media/elmasria/isola-centra/location.webp'],
+    'IC-11':['/project-media/elmasria/isola-centra/location.webp'],
+    'IC-12':['/project-media/elmasria/isola-centra/location.webp'],
+    'IC-13':['/project-media/elmasria/isola-centra/location.webp'],
+    'IC-14':['/project-media/elmasria/isola-centra/location.webp'],
     'VL-01':['/project-media/sodic/villette/units/location-villette.webp'],
     'VL-02':['/project-media/sodic/villette/units/location-villette.webp'],
     'VL-03':['/project-media/sodic/villette/units/location-villette.webp'],
@@ -3088,13 +3188,19 @@
       '/project-media/elmasria/isola-centra/commercial-b.webp'
     ],
     /* ISOLA Quattro: one render per building type page, in the brochure's own
-       order — Type A through Type E. */
+       order — Type A through Type E — then the three renders in the client's
+       unit archive that no sheet row points at. They are unmistakably this
+       project, from the same set as the five the rows do name, so they belong
+       to it even though they belong to no particular unit. */
     'isola-quattro': [
       '/project-media/elmasria/isola-quattro/facade-a.webp',
       '/project-media/elmasria/isola-quattro/terraces.webp',
       '/project-media/elmasria/isola-quattro/walkway.webp',
       '/project-media/elmasria/isola-quattro/facade-d.webp',
-      '/project-media/elmasria/isola-quattro/waterway.webp'
+      '/project-media/elmasria/isola-quattro/waterway.webp',
+      '/project-media/elmasria/isola-quattro/units/render-6.webp',
+      '/project-media/elmasria/isola-quattro/units/render-7.webp',
+      '/project-media/elmasria/isola-quattro/units/render-8.webp'
     ],
     /* Zoya Ghazala Bay: the brochure's own renders in its own order — the
        waterfront and the beach, then each home in the collection, then the
