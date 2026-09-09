@@ -3409,7 +3409,8 @@
     ilcazar:'il-cazar.png', inertia:'inertia.png', lavista:'la-vista.png',
     cityedge:'city-edge.png', madinetmasr:'madinet-masr.png',
     qataridiar:'qatari-diar.png', saudiegyptian:'saudi-egyptian.png',
-    sumou:'sumou.png', beitalbahr:'beit-al-bahr.png', baghush:'marsa-baghush.png'
+    sumou:'sumou.png', beitalbahr:'beit-al-bahr.png', baghush:'marsa-baghush.png',
+    elmasria:'elmasria-group.png'
   };
   var PROJECT_LOGOS = {
     'villette':'villette.png', 'sodic-east':'sodic-east.png',
@@ -3491,6 +3492,12 @@
   var MV = '/project-media/mountainview/';
   var SD = '/project-media/sodic/';
   var DEV_GALLERY = {
+    /* El Masria: the render the profile opens each ISOLA development with. */
+    'elmasria': ['/project-media/elmasria/isola-october.webp',
+                 '/project-media/elmasria/isola-sheraton.webp',
+                 '/project-media/elmasria/isola-villa.webp',
+                 '/project-media/elmasria/isola-centra.webp',
+                 '/project-media/elmasria/isola-quattro.webp'],
     /* LMD, from the 2025 Company Profile: the render the profile opens each
        project with, in the profile's own order. Landscape frames only — the
        divider pages carry the project's wordmark on black and no picture. */
@@ -3644,8 +3651,71 @@
   var SU = '/project-media/sumou/';
   var BAB = '/project-media/beitalbahr/';
   var MB  = '/project-media/baghush/';
+  var EM  = '/project-media/elmasria/';
   var LMB = '/project-media/lmd/brochure/';
   var DEV_FEATURES = {
+    'elmasria': {
+      cards: [
+        {en:'About El Masria', ar:'عن المصرية جروب', icon:'shield',
+         imgs:[EM+'companies.webp', EM+'mission.webp'],
+         copy:{
+           lead:{en:'Founded in 1987, El Masria Developments has consistently delivered outstanding real estate projects across Egypt. With a commitment to growth and innovation, the company expanded its international presence by establishing operations in Canada in 2011.', ar:'تأسّست المصرية للتطوير عام ١٩٨٧، وقدّمت منذ ذلك الحين مشروعات عقارية متميّزة في أنحاء مصر. والتزاماً بالنمو والابتكار، وسّعت الشركة حضورها الدولي بتأسيس عمليات في كندا عام ٢٠١١.'},
+           more:{en:'Our mission: we strive to grow by embracing the essential elements of success, alongside the key requirements for positive and accelerated development in the real estate sector. Our portfolio includes a diverse range of land plots in several prime locations, reserved for future strategic projects. Before launching any new development, we conduct a thorough analysis of our clients\u2019 needs to establish the appropriate framework, ensuring each project is introduced with maximum potential for success and long-term value.', ar:'رسالتنا: نسعى للنمو باحتضان عناصر النجاح الأساسية، إلى جانب المتطلّبات الرئيسية لتطوير إيجابي ومتسارع في القطاع العقاري. وتضمّ محفظتنا مجموعة متنوّعة من قطع الأراضي في عدّة مواقع متميّزة، محجوزة لمشروعات استراتيجية مستقبلية. وقبل إطلاق أي مشروع جديد، نجري تحليلاً دقيقاً لاحتياجات عملائنا لوضع الإطار المناسب، بما يضمن طرح كل مشروع بأقصى إمكانات النجاح والقيمة على المدى الطويل.'}
+         }},
+        {en:'The record', ar:'السجلّ', icon:'star',
+         imgs:[EM+'numbers.webp'],
+         copy:{
+           lead:{en:'El Masria Developments is a fully Egyptian-owned group that has been actively operating in the local market since 1987.', ar:'المصرية للتطوير مجموعة مملوكة بالكامل لمصريين، وتعمل بنشاط في السوق المحلي منذ عام ١٩٨٧.'},
+           list:[
+             {en:'Residential', ar:'سكني'},
+             {en:'Commercial', ar:'تجاري'},
+             {en:'Administrative', ar:'إداري'},
+             {en:'Clinics', ar:'عيادات'}],
+           groups:[
+             {label:{en:'As the profile states them', ar:'كما يذكرها ملف الشركة'}, rows:[
+               {k:{en:'Delivered', ar:'المُسلَّم'}, v:{en:'More than 10,000 turn-key residential, commercial and administrative units', ar:'أكثر من ١٠٬٠٠٠ وحدة تسليم مفتاح سكنية وتجارية وإدارية'}},
+               {k:{en:'Currently being delivered', ar:'قيد التسليم حالياً'}, v:{en:'More than 1,000 units', ar:'أكثر من ١٬٠٠٠ وحدة'}},
+               {k:{en:'Internationally', ar:'دولياً'}, v:{en:'Approximately seven projects introduced to the Canadian market', ar:'نحو سبعة مشروعات طُرحت في السوق الكندي'}},
+               {k:{en:'Owned portfolio', ar:'المحفظة المملوكة'}, v:{en:'Land and ready-to-deliver units in Egypt valued at approximately EGP 20 billion', ar:'أراضٍ ووحدات جاهزة للتسليم في مصر بقيمة تقارب ٢٠ مليار جنيه'}},
+               {k:{en:'Active since', ar:'النشاط منذ'}, v:{en:'1987', ar:'١٩٨٧'}}]}
+           ]
+         }},
+        {en:'The group\u2019s companies', ar:'شركات المجموعة', icon:'build',
+         imgs:[EM+'companies.webp'],
+         copy:{
+           lead:{en:'El Masria Group contains several companies, as the profile lists them.', ar:'تضمّ المصرية جروب عدّة شركات، كما يسردها ملف الشركة.'},
+           list:[
+             {en:'The Egyptian General Trading and Contracting Company', ar:'الشركة المصرية العامة للتجارة والمقاولات'},
+             {en:'The Egyptian Contracting and Civil Works Company', ar:'الشركة المصرية للمقاولات والأعمال المدنية'},
+             {en:'The Egyptian Green Built for Construction and Development', ar:'المصرية جرين بيلت للإنشاء والتعمير'},
+             {en:'The Egyptian Canadian Investment Company', ar:'الشركة المصرية الكندية للاستثمار'},
+             {en:'Garawla for Tourism Development and Real Estate Investment', ar:'جراولة للتنمية السياحية والاستثمار العقاري'}]
+         }},
+        {en:'Owners of El Masria Group', ar:'مُلّاك المصرية جروب', icon:'am_community',
+         imgs:[EM+'owners.webp'],
+         copy:{
+           lead:{en:'The profile names the two owners of El Masria Group.', ar:'يذكر ملف الشركة مالكَي المصرية جروب.'},
+           groups:[
+             {label:{en:'Leadership', ar:'القيادة'}, rows:[
+               {k:{en:'Wathek Elzeneny', ar:'واثق الزيني'}, v:{en:'COB', ar:'رئيس مجلس الإدارة'}},
+               {k:{en:'Waleed Elzeneny', ar:'وليد الزيني'}, v:{en:'CEO', ar:'الرئيس التنفيذي'}}]}
+           ]
+         }},
+        {en:'The ISOLA projects', ar:'مشروعات ISOLA', icon:'pin',
+         imgs:[EM+'isola-october.webp', EM+'isola-sheraton.webp', EM+'isola-villa.webp', EM+'isola-centra.webp', EM+'isola-quattro.webp'],
+         copy:{
+           lead:{en:'The profile gives a page to each of five ISOLA developments, naming the project and the city it stands in. It publishes no areas, unit counts or prices for them.', ar:'يخصّص ملف الشركة صفحة لكل من خمسة مشروعات ISOLA، يذكر فيها اسم المشروع والمدينة التي يقع بها. ولا ينشر لها مساحات ولا أعداد وحدات ولا أسعار.'},
+           groups:[
+             {label:{en:'As the profile presents them', ar:'كما يعرضها ملف الشركة'}, rows:[
+               {k:{en:'ISOLA October', ar:'ISOLA October'}, v:{en:'October City', ar:'مدينة أكتوبر'}},
+               {k:{en:'ISOLA Sheraton', ar:'ISOLA Sheraton'}, v:{en:'Sheraton', ar:'شيراتون'}},
+               {k:{en:'ISOLA Villa', ar:'ISOLA Villa'}, v:{en:'New Zayed', ar:'زايد الجديدة'}},
+               {k:{en:'ISOLA Centra', ar:'ISOLA Centra'}, v:{en:'New Cairo', ar:'القاهرة الجديدة'}},
+               {k:{en:'ISOLA Quattro', ar:'ISOLA Quattro'}, v:{en:'New Cairo', ar:'القاهرة الجديدة'}}]}
+           ]
+         }}
+      ]
+    },
     /* Orascom Development, read off its corporate presentation and nothing
        else. Every figure below is printed on the deck's own page for that
        destination; the deck is dated 2019 on its cover, which the first card

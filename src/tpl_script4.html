@@ -961,8 +961,11 @@
             d.since ? h('span',{class:'chip chip--muted'}, (lang==='ar'?'منذ ':'Since ')+d.since) : null)),
         h('aside',{class:'aside-card'},
           h('div',{class:'muted', style:'font-weight:700;font-size:.85rem'}, t('by_dev')),
-          h('div',{class:'price-lg', style:'font-size:2.4rem'}, num(ps.length)),
-          h('div',{class:'prov'}, ic('info'), t('derived')),
+          // A developer whose projects are not listed here yet says so in the
+          // empty state below; a big zero above it reads as an inventory claim
+          // and is the same placeholder-where-a-number-goes problem as a price.
+          ps.length ? h('div',{class:'price-lg', style:'font-size:2.4rem'}, num(ps.length)) : null,
+          ps.length ? h('div',{class:'prov'}, ic('info'), t('derived')) : null,
           h('a',{class:'btn btn--primary btn--block mt-16', href:U(buildPath('contact'))}, t('cta_talk'))))));
     // Destination story under the hero: masterplan, then the themed cards.
     var mpSec = devMasterplanSection(d); if(mpSec) node.appendChild(mpSec);

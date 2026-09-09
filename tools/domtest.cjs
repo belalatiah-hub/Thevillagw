@@ -2577,6 +2577,49 @@ try {
     });
     return (rule.test(css) && solo > 0) || ('rule='+rule.test(css)+' solo='+solo+'/'+total);
   })(), true);
+  /* El Masria Group: a developer added from its own profile with no project
+     listed here yet. Everything the page shows is in that document; the five
+     ISOLA developments it names have no areas, unit counts or prices in it, so
+     none is claimed and no project card exists for them. */
+  ck('elmasria: the profile is on the page, both languages, five ISOLA frames', (function(){
+    var fsx=require('fs'), pathx=require('path');
+    var d = api.devByKey('elmasria');
+    if(!d) return 'no developer';
+    var f = api.DEV_FEATURES.elmasria, g = api.DEV_GALLERY.elmasria || [];
+    if(!f || f.cards.length !== 5) return 'cards=' + (f && f.cards.length);
+    if(g.length !== 5) return 'gallery=' + g.length;
+    if(f.masterplan) return 'a company profile has no master plan';
+    var bad = [];
+    g.concat([].concat.apply([], f.cards.map(function(c){ return c.imgs; }))).forEach(function(src){
+      if(String(src).indexOf('/project-media/elmasria/') !== 0) bad.push('stray '+src);
+      if(!fsx.existsSync(pathx.join(__dirname,'..',String(src).replace(/^\//,''))))
+        bad.push('missing '+src);
+    });
+    f.cards.forEach(function(c){
+      if(!c.en || !c.ar || !c.copy || !c.copy.lead.en || !c.copy.lead.ar) bad.push('card '+c.en);
+      (c.copy.list||[]).forEach(function(i){ if(!i.en || !i.ar) bad.push('list '+c.en); });
+      (c.copy.groups||[]).forEach(function(gr){
+        if(!gr.label.en || !gr.label.ar) bad.push('label '+c.en);
+        gr.rows.forEach(function(r){ if(!r.k.en || !r.k.ar || !r.v.en || !r.v.ar) bad.push('row '+c.en); });
+      });
+    });
+    if(!fsx.existsSync(pathx.join(__dirname,'..','logos','elmasria-group.png'))) bad.push('no logo');
+    var t2 = txt(api.V.developer('elmasria').node);
+    ['1987','10,000','20 billion','ISOLA Quattro','Wathek Elzeneny'].forEach(function(w){
+      if(t2.indexOf(w) === -1) bad.push('missing figure '+w); });
+    return bad.length === 0 || bad.slice(0,4).join('; ');
+  })(), true);
+  /* A big zero over "Projects by this developer" reads as an inventory claim.
+     The empty state under it already says the projects are being added. */
+  ck('developer: no project count is printed when there are none', (function(){
+    var none = api.DEVELOPERS.filter(function(d){ return api.PROJECTS.every(function(p){ return p.dev !== d.key; }); });
+    if(!none.length) return 'no developer without projects to check';
+    var some = api.DEVELOPERS.filter(function(d){ return api.PROJECTS.some(function(p){ return p.dev === d.key; }); })[0];
+    var bad = none.filter(function(d){ return qsa(api.V.developer(d.key).node,'.price-lg').length !== 0; })
+                  .map(function(d){ return d.key; });
+    if(qsa(api.V.developer(some.key).node,'.price-lg').length === 0) bad.push(some.key+': lost its count');
+    return bad.length === 0 || bad.join(',');
+  })(), true);
   ck('site: no per-unit map points at a unit that no longer exists', (function(){
     var live = {}; api.UNITS.forEach(function(u){ live[u.id] = 1; });
     var maps = {UNIT_EXTRA:api.UNIT_EXTRA, UNIT_IMAGES:api.UNIT_IMAGES,
