@@ -2366,6 +2366,44 @@ try {
     var d = l.slice().sort(api.cmpPrice(-1)).map(function(p){ return p.price; });
     return String(a) === String([3,9,null,null]) && String(d) === String([9,3,null,null]);
   })(), true);
+  /* LMD's 2025 Company Profile. The figures below are printed on the profile's
+     own boards and nowhere else on the site, so nothing but this would notice
+     one going stale, and the two areas the profile itself gives twice are
+     asserted as the pair they are — the One Ninety board and the W Residences
+     site plan disagree, and the page shows both rather than picking one. */
+  ck('lmd: the profile is on the page — 18 cards, 47 frames, both languages', (function(){
+    var f = api.DEV_FEATURES.lmd;
+    if(!f || f.cards.length !== 18) return 'cards='+(f && f.cards.length);
+    var frames = [];
+    var bad = f.cards.filter(function(c){
+      c.imgs.forEach(function(i){ frames.push(i); });
+      if(!c.en || !c.ar || !c.imgs.length || !c.copy) return true;
+      if(!c.copy.lead || !c.copy.lead.en || !c.copy.lead.ar) return true;
+      if(c.copy.more && (!c.copy.more.en || !c.copy.more.ar)) return true;
+      if((c.copy.list||[]).some(function(i){ return !i.en || !i.ar; })) return true;
+      return (c.copy.groups||[]).some(function(g){
+        return !g.label.en || !g.label.ar ||
+          g.rows.some(function(r){ return !r.k.en || !r.k.ar || !r.v.en || !r.v.ar; });
+      });
+    });
+    var under = frames.filter(function(i){ return i.indexOf('/project-media/lmd/brochure/') !== 0; });
+    return (bad.length === 0 && frames.length === 47 && under.length === 0) ||
+           ('bad='+bad.length+' frames='+frames.length+' stray='+under.length);
+  })(), true);
+  ck('lmd: the boards\' own figures survive, both disputed areas included', (function(){
+    var t = txt(api.V.developer('lmd').node);
+    var want = {land:'344,315', bua:'460,766', cdd:'199,000', boulevard:'598.8',
+                w_on_board:'42,545', w_on_plan:'47,876', sixty:'55,203',
+                zoya:'134 acres', stei8ht:'550 acres', eastside:'35.5 acres'};
+    var miss = Object.keys(want).filter(function(k){ return t.indexOf(want[k]) === -1; });
+    return miss.length === 0 || 'missing: '+miss.join(',');
+  })(), true);
+  /* The profile's last page is a named sales consultant's business card —
+     personal mobile and personal email. It is not ours to publish. */
+  ck('lmd: no personal contact from the profile reaches the page', (function(){
+    var t = txt(api.V.developer('lmd').node);
+    return !/201005086744|abdellatif/i.test(t);
+  })(), true);
   ck('site: no per-unit map points at a unit that no longer exists', (function(){
     var live = {}; api.UNITS.forEach(function(u){ live[u.id] = 1; });
     var maps = {UNIT_EXTRA:api.UNIT_EXTRA, UNIT_IMAGES:api.UNIT_IMAGES,
