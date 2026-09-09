@@ -4411,6 +4411,7 @@ var ORB = '/project-media/ora/brochure/';
 var SU = '/project-media/sumou/';
 var BAB = '/project-media/beitalbahr/';
 var MB  = '/project-media/baghush/';
+var LMB = '/project-media/lmd/brochure/';
 var DEV_FEATURES = {
 'orascom': {
 cards: [
@@ -5214,6 +5215,302 @@ groups:[
 {k:{en:'Sails',ar:'سيلز'},                            v:{en:'',ar:''}},
 {k:{en:'Serviced Apartments',ar:'شقق فندقية'},        v:{en:'',ar:''}},
 {k:{en:'Commercial Area',ar:'المنطقة التجارية'},       v:{en:'',ar:''}}]}]
+}}
+]
+},
+'lmd': {
+cards: [
+{en:'About LMD', ar:'عن LMD', icon:'shield',
+imgs:[LMB+'about.webp', LMB+'brand.webp'],
+copy:{
+lead:{en:'Crafting transformative residential and commercial experiences has been LMD\u2019s dedicated pursuit since 2007 \u2014 an ever-evolving journey of exceptional innovation with the future in mind.', ar:'صناعة تجارب سكنية وتجارية تُحدث تحوّلاً هي ما تسعى إليه LMD منذ عام ٢٠٠٧ — رحلة متجدّدة من الابتكار الاستثنائي بعين على المستقبل.'},
+more:{en:'Our journey resulted in a significant portfolio of iconic mixed-use developments, spanning the best locations in Egypt, Dubai, Spain and Greece. We offer community-centric experiences powered by a holistic vision of seamless living.', ar:'أثمرت رحلتنا محفظة كبيرة من المشروعات الأيقونية متعدّدة الاستخدامات، تمتدّ في أفضل المواقع في مصر ودبي وإسبانيا واليونان. ونقدّم تجارب محورها المجتمع، تقوم على رؤية شاملة لحياة متّصلة.'},
+groups:[
+{label:{en:'As the profile states it', ar:'كما يذكرها ملف الشركة'}, rows:[
+{k:{en:'Since', ar:'التأسيس'}, v:{en:'2007', ar:'٢٠٠٧'}},
+{k:{en:'Markets', ar:'الأسواق'}, v:{en:'Egypt \u00b7 Dubai \u00b7 Spain \u00b7 Greece', ar:'مصر · دبي · إسبانيا · اليونان'}},
+{k:{en:'Signature', ar:'البصمة'}, v:{en:'Larger-than-life destinations that set the benchmark in quality integration and progressive design', ar:'وجهات أكبر من الحياة تضع المعيار في تكامل الجودة والتصميم المتقدّم'}},
+{k:{en:'Brand purpose', ar:'غاية العلامة'}, v:{en:'To create meaningful transformations to human lives, by refining living and entertainment standards of sophisticated communities', ar:'إحداث تحوّلات ذات معنى في حياة الناس، عبر الارتقاء بمعايير المعيشة والترفيه لمجتمعات راقية'}}]}
+]
+}},
+{en:'LMD Journey', ar:'رحلة LMD', icon:'globe',
+imgs:[LMB+'journey.webp'],
+copy:{
+lead:{en:'LMD is committed to geographic expansion that reflects its distinctive vision of a world in search of premium developments that transcend the ordinary in every aspect.', ar:'تلتزم LMD بتوسّع جغرافي يعكس رؤيتها المميّزة لعالم يبحث عن مشروعات متميّزة تتجاوز المألوف في كل جانب.'},
+list:[
+{en:'2011 \u2014 Continental Investment Company founded, conceiving its first hallmark project in Dubai Marina: The Continental Tower', ar:'٢٠١١ — تأسيس شركة كونتيننتال للاستثمار، ومعها أول مشروعاتها المميّزة في مارينا دبي: ذا كونتيننتال تاور'},
+{en:'Rukan \u2014 a residential community in Dubai Land', ar:'روكان — مجتمع سكني في دبي لاند'},
+{en:'Muntaner 91 \u2014 a world-class address in Barcelona, Spain', ar:'مونتانير ٩١ — عنوان عالمي المستوى في برشلونة، إسبانيا'},
+{en:'Athines By the Sea \u2014 Greece, by the Mediterranean Sea', ar:'أثينيس باي ذا سي — اليونان، على البحر المتوسط'}],
+more:{en:'Our knowledge and expertise confidently transcend local boundaries to meet the rising demand on integrated quality with a strong amenity offering. We create a deep sense of belonging within our developments and a wider local area in which we operate.', ar:'معرفتنا وخبرتنا تتجاوزان الحدود المحلية بثقة لتلبية الطلب المتزايد على جودة متكاملة مع باقة قوية من الخدمات. ونصنع إحساساً عميقاً بالانتماء داخل مشروعاتنا وفي المحيط الأوسع الذي نعمل فيه.'}
+}},
+{en:'An Unrivaled Footprint', ar:'بصمة لا تُضاهى', icon:'pin',
+imgs:[LMB+'footprint.webp'],
+copy:{
+lead:{en:'LMD\u2019s developments exactly as the profile lists them \u2014 twenty-six projects across four countries.', ar:'مشروعات LMD كما يسردها ملف الشركة تماماً — ستة وعشرون مشروعاً في أربع دول.'},
+groups:[
+{label:{en:'Egypt', ar:'مصر'}, rows:[
+{k:{en:'STEI8HT', ar:'STEI8HT'}, v:{en:'Mixed-use development and Residential \u2014 New Cairo', ar:'تطوير متعدّد الاستخدامات وسكني — القاهرة الجديدة'}},
+{k:{en:'There', ar:'There'}, v:{en:'Mixed-use development \u2014 New Cairo', ar:'تطوير متعدّد الاستخدامات — القاهرة الجديدة'}},
+{k:{en:'Eastside', ar:'Eastside'}, v:{en:'Office Spaces \u2014 New Cairo', ar:'مساحات مكتبية — القاهرة الجديدة'}},
+{k:{en:'Eastmed', ar:'Eastmed'}, v:{en:'Medical \u2014 New Cairo', ar:'طبي — القاهرة الجديدة'}},
+{k:{en:'More', ar:'More'}, v:{en:'Serviced Residences \u2014 New Cairo', ar:'شقق فندقية — القاهرة الجديدة'}},
+{k:{en:'Office Villas', ar:'Office Villas'}, v:{en:'Offices \u2014 New Cairo', ar:'مكاتب — القاهرة الجديدة'}},
+{k:{en:'One Ninety', ar:'One Ninety'}, v:{en:'Mixed-use development (Commercial, Retail & Offices) \u2014 New Cairo', ar:'تطوير متعدّد الاستخدامات (تجاري وتجزئة ومكاتب) — القاهرة الجديدة'}},
+{k:{en:'W Residences Cairo', ar:'W Residences Cairo'}, v:{en:'Branded Residences \u2014 New Cairo', ar:'وحدات سكنية بعلامة فندقية — القاهرة الجديدة'}},
+{k:{en:'Cairo Design District', ar:'Cairo Design District'}, v:{en:'Commercial and Hospitality \u2014 New Cairo', ar:'تجاري وضيافة — القاهرة الجديدة'}},
+{k:{en:'3\u2019Sixty', ar:'3\u2019Sixty'}, v:{en:'Commercial (Retail, Offices, Clinics) \u2014 Golden Square, New Cairo', ar:'تجاري (تجزئة ومكاتب وعيادات) — الجولدن سكوير، القاهرة الجديدة'}},
+{k:{en:'Being', ar:'Being'}, v:{en:'Residential & Commercial \u2014 New Zayed', ar:'سكني وتجاري — زايد الجديدة'}},
+{k:{en:'Zoya', ar:'Zoya'}, v:{en:'Coastal Living \u2014 Ghazala Bay, North Coast', ar:'حياة ساحلية — خليج غزالة، الساحل الشمالي'}},
+{k:{en:'Layan Residence', ar:'Layan Residence'}, v:{en:'Residential \u2014 Golden Square, New Cairo', ar:'سكني — الجولدن سكوير، القاهرة الجديدة'}},
+{k:{en:'Aria', ar:'Aria'}, v:{en:'Residential \u2014 Mostakbal City, New Cairo', ar:'سكني — مدينة المستقبل، القاهرة الجديدة'}}]},
+{label:{en:'Dubai, UAE', ar:'دبي، الإمارات'}, rows:[
+{k:{en:'Continental Tower', ar:'Continental Tower'}, v:{en:'Residential \u2014 Marina', ar:'سكني — مارينا دبي'}},
+{k:{en:'Rukan', ar:'Rukan'}, v:{en:'Residential \u2014 Dubai Land', ar:'سكني — دبي لاند'}},
+{k:{en:'Marina Living', ar:'Marina Living'}, v:{en:'Residential \u2014 Al Jaddaf', ar:'سكني — الجداف'}},
+{k:{en:'Boutique XII', ar:'Boutique XII'}, v:{en:'Residential \u2014 Al Jaddaf', ar:'سكني — الجداف'}},
+{k:{en:'Boutique\u201923', ar:'Boutique\u201923'}, v:{en:'Residential \u2014 Al Jaddaf', ar:'سكني — الجداف'}},
+{k:{en:'La Boutique', ar:'La Boutique'}, v:{en:'Residential \u2014 Al Jaddaf', ar:'سكني — الجداف'}},
+{k:{en:'The Pier Residence', ar:'The Pier Residence'}, v:{en:'Residential \u2014 Dubai Maritime City', ar:'سكني — دبي ماريتايم سيتي'}},
+{k:{en:'Taiyo Residences', ar:'Taiyo Residences'}, v:{en:'Residential \u2014 Wasl Gate', ar:'سكني — وصل جيت'}}]},
+{label:{en:'Barcelona, Spain', ar:'برشلونة، إسبانيا'}, rows:[
+{k:{en:'Muntaner 91', ar:'Muntaner 91'}, v:{en:'Residential \u2014 Barcelona', ar:'سكني — برشلونة'}}]},
+{label:{en:'Greece', ar:'اليونان'}, rows:[
+{k:{en:'Karaiskaki 15', ar:'Karaiskaki 15'}, v:{en:'Residential \u2014 Voula', ar:'سكني — فولا'}},
+{k:{en:'Archimidous 5', ar:'Archimidous 5'}, v:{en:'Residential \u2014 Glyfada', ar:'سكني — غليفادا'}},
+{k:{en:'The Lemon Tree & Co', ar:'The Lemon Tree & Co'}, v:{en:'Hospitality \u2014 Athens', ar:'ضيافة — أثينا'}}]}
+]
+}},
+{en:'LMD Visionaries', ar:'قيادات LMD', icon:'star',
+imgs:[LMB+'chairman.webp', LMB+'ceo.webp'],
+copy:{
+lead:{en:'Engineer Sabbour is the visionary name behind LMD, the driving catalyst behind Sabbour companies\u2019 growth.', ar:'المهندس صبور هو الاسم صاحب الرؤية خلف LMD، والمحرّك الدافع لنمو شركات صبور.'},
+more:{en:'Eng. Ahmed Sabbour is executive director, partner and founder of Al-Ahly for Real Estate Development, with an authorized capital of EGP 500 million, and a member of associations including The American Society of Civil Engineers, The Egyptian-British Chamber of Commerce in London, Harvard University\u2019s ISEP Institution in the Middle East and Chi Epsilon. Eng. Amr Sultan is the founder, partner and Chief Executive Officer of LMD, with over 27 years of management expertise in real estate; his record includes managing Al Ahly for Real Estate Development while acting as deputy CEO of Al Ahly Sabbour Group, with over 57 projects across 12 million m\u00b2 in Egypt, and LMD across 4 countries and five sectors: construction, real estate development, tourism, retail and entertainment.', ar:'م. أحمد صبور هو المدير التنفيذي والشريك ومؤسّس شركة الأهلي للتطوير العقاري برأس مال مرخّص قدره ٥٠٠ مليون جنيه، وعضو في جمعيات منها الجمعية الأمريكية للمهندسين المدنيين، والغرفة التجارية المصرية البريطانية في لندن، ومؤسسة ISEP التابعة لجامعة هارفارد في الشرق الأوسط، وجمعية Chi Epsilon. أما م. عمرو سلطان فهو المؤسّس والشريك والرئيس التنفيذي لـ LMD، بخبرة إدارية تتجاوز ٢٧ عاماً في القطاع العقاري؛ ويشمل سجلّه إدارة شركة الأهلي للتطوير العقاري ونيابة الرئيس التنفيذي لمجموعة الأهلي صبور، مع أكثر من ٥٧ مشروعاً على ١٢ مليون م² في مصر، وقيادة LMD في ٤ دول وخمسة قطاعات: المقاولات والتطوير العقاري والسياحة والتجزئة والترفيه.'},
+groups:[
+{label:{en:'Leadership', ar:'القيادة'}, rows:[
+{k:{en:'Eng. Ahmed Sabbour', ar:'م. أحمد صبور'}, v:{en:'Chairman', ar:'رئيس مجلس الإدارة'}},
+{k:{en:'Eng. Amr Sultan', ar:'م. عمرو سلطان'}, v:{en:'Founder & CEO', ar:'المؤسّس والرئيس التنفيذي'}}]}
+]
+}},
+{en:'LMD Strategic Partners', ar:'شركاء LMD الاستراتيجيون', icon:'am_community',
+imgs:[LMB+'partners-1.webp', LMB+'partners-2.webp'],
+copy:{
+lead:{en:'The consultants, architects, contractors, hotel operators and advisers the profile names as LMD\u2019s strategic partners \u2014 forty-one in all, in the order printed.', ar:'الاستشاريون والمعماريون والمقاولون ومشغّلو الفنادق والمستشارون الذين يسمّيهم ملف الشركة شركاء LMD الاستراتيجيين — واحد وأربعون شريكاً، بالترتيب المطبوع.'},
+list:[
+{en:'Sabbour Consulting', ar:'Sabbour Consulting'},
+{en:'Bowler James Brindley', ar:'Bowler James Brindley'},
+{en:'ESE', ar:'ESE'},
+{en:'SOM', ar:'SOM'},
+{en:'Hill International', ar:'Hill International'},
+{en:'Gensler', ar:'Gensler'},
+{en:'Cosmos Engineers & Consultants', ar:'Cosmos Engineers & Consultants'},
+{en:'LMS Construction', ar:'LMS Construction'},
+{en:'Marriott International', ar:'Marriott International'},
+{en:'Manazel Real Estate Developments', ar:'Manazel Real Estate Developments'},
+{en:'Shaker Consultancy Group', ar:'Shaker Consultancy Group'},
+{en:'Design Avenue', ar:'Design Avenue'},
+{en:'El Ghoneimi', ar:'El Ghoneimi'},
+{en:'RMJM', ar:'RMJM'},
+{en:'W Hotels Worldwide', ar:'W Hotels Worldwide'},
+{en:'Portland.', ar:'Portland.'},
+{en:'JLL', ar:'JLL'},
+{en:'Prime Consulting Office', ar:'Prime Consulting Office'},
+{en:'EMDEG', ar:'EMDEG'},
+{en:'I. El-Habrouk Architects', ar:'I. El-Habrouk Architects'},
+{en:'Alchemy', ar:'Alchemy'},
+{en:'PRAGMA', ar:'PRAGMA'},
+{en:'TLT Concepts', ar:'TLT Concepts'},
+{en:'Netherfield Developments', ar:'Netherfield Developments'},
+{en:'Castle Architectural Consultants', ar:'Castle Architectural Consultants'},
+{en:'Dubailand', ar:'Dubailand'},
+{en:'CVTEC Consulting Engineers', ar:'CVTEC Consulting Engineers'},
+{en:'Carbon', ar:'Carbon'},
+{en:'LACASA Architects & Engineering Consultants', ar:'LACASA Architects & Engineering Consultants'},
+{en:'Khatib & Alami', ar:'Khatib & Alami'},
+{en:'TIJ', ar:'TIJ'},
+{en:'Pioneer Engineering Consultancy', ar:'Pioneer Engineering Consultancy'},
+{en:'KRA Contracting', ar:'KRA Contracting'},
+{en:'Reportage Properties', ar:'Reportage Properties'},
+{en:'Structure', ar:'Structure'},
+{en:'EDSA', ar:'EDSA'},
+{en:'DAG', ar:'DAG'},
+{en:'Archi-View Architects', ar:'Archi-View Architects'},
+{en:'\u00d6koplan Landscaping', ar:'\u00d6koplan Landscaping'},
+{en:'studio 314', ar:'studio 314'},
+{en:'KKMK Karagianni Karamali Architects', ar:'KKMK Karagianni Karamali Architects'}]
+}},
+{en:'STEI8HT', ar:'STEI8HT', icon:'ty_villa',
+imgs:[LMB+'stei8ht.webp', LMB+'stei8ht-life.webp', LMB+'stei8ht-masterplan.webp'],
+copy:{
+lead:{en:'Eight States on the Path of Wholeness \u2014 a refined home coming, villas-only home living, on a New Cairo strategic location directly on Yousef Abbas.', ar:'ثماني حالات على طريق الاكتمال — عودة راقية إلى البيت، معيشة فيلات فقط، في موقع استراتيجي بالقاهرة الجديدة مباشرة على يوسف عباس.'},
+more:{en:'LMD takes pride in the distinction of STEI8HT\u2019s inspiration: its eight states to reach wholeness. Villa entrances lay the growth foundation of your emerald trees; sleek contemporary lines are perfected by a grand facade and sweeping glass windows that welcome daylight and breathe nature into the living space, with seamless integration between indoor and outdoor experiences.', ar:'تفخر LMD بتميّز الإلهام وراء STEI8HT: حالاته الثماني للوصول إلى الاكتمال. مداخل الفيلات تضع أساس نمو أشجارك الزمرّدية؛ وخطوط معاصرة أنيقة تكتمل بواجهة كبيرة ونوافذ زجاجية ممتدّة تستقبل ضوء النهار وتُدخل الطبيعة إلى مساحة المعيشة، مع تكامل سلس بين التجارب الداخلية والخارجية.'},
+groups:[
+{label:{en:'As the profile states it', ar:'كما يذكرها ملف الشركة'}, rows:[
+{k:{en:'Land', ar:'المساحة'}, v:{en:'Around 550 acres of lush foliage', ar:'نحو ٥٥٠ فداناً من المساحات الخضراء الوارفة'}},
+{k:{en:'Open space', ar:'المساحات المفتوحة'}, v:{en:'85%', ar:'٨٥٪'}},
+{k:{en:'Entrances', ar:'المداخل'}, v:{en:'Two', ar:'مدخلان'}},
+{k:{en:'Design', ar:'التصميم'}, v:{en:'Alchemy', ar:'Alchemy'}}]}
+]
+}},
+{en:'There', ar:'There', icon:'build',
+imgs:[LMB+'there.webp', LMB+'there-life.webp', LMB+'there-masterplan.webp'],
+copy:{
+lead:{en:'New Cairo\u2019s largest mixed-use development, where work and leisure seamlessly blend.', ar:'أكبر مشروع متعدّد الاستخدامات في القاهرة الجديدة، حيث يمتزج العمل والترفيه بسلاسة.'},
+list:[
+{en:'Serviced Residences', ar:'شقق فندقية'},
+{en:'Offices', ar:'مكاتب'},
+{en:'Community Hubs', ar:'مراكز مجتمعية'},
+{en:'Sports Club', ar:'نادٍ رياضي'},
+{en:'Retail', ar:'تجزئة'},
+{en:'F&B', ar:'مطاعم ومقاهٍ'}],
+more:{en:'Visitors can enjoy a range of club activities and stroll along scenic walkways. Creative workspaces inspire innovation, while upscale shopping and dining options ensure a vibrant, energizing atmosphere.', ar:'يمكن للزوّار الاستمتاع بمجموعة من أنشطة النادي والتنزّه على ممرّات ذات مناظر خلّابة. مساحات عمل إبداعية تُلهم الابتكار، مع خيارات تسوّق ومطاعم راقية تصنع أجواءً نابضة بالحياة.'},
+groups:[
+{label:{en:'As the profile states it', ar:'كما يذكرها ملف الشركة'}, rows:[
+{k:{en:'Land', ar:'المساحة'}, v:{en:'170 acres', ar:'١٧٠ فداناً'}},
+{k:{en:'Greenery in view', ar:'المساحات الخضراء في المدى'}, v:{en:'Sweeping views of 450 acres of lush greenery', ar:'إطلالات ممتدّة على ٤٥٠ فداناً من المساحات الخضراء'}}]}
+]
+}},
+{en:'Eastside', ar:'Eastside', icon:'ty_office',
+imgs:[LMB+'eastside.webp', LMB+'eastside-plan.webp'],
+copy:{
+lead:{en:'The Unstoppable Office Spaces \u2014 a commercial project with a different kind of energy, on the dynamic intersection between Mohamed Naguib Axis and Youssef Al Sebai.', ar:'المساحات المكتبية التي لا تتوقّف — مشروع تجاري بطاقة من نوع مختلف، عند التقاطع الحيوي بين محور محمد نجيب ويوسف السباعي.'},
+list:[
+{en:'Business Court', ar:'باحة الأعمال'},
+{en:'Health and Wellness', ar:'الصحة والعافية'},
+{en:'Sports and Lifestyle', ar:'الرياضة وأسلوب الحياة'},
+{en:'Shopping and Dining', ar:'التسوّق والمطاعم'}],
+more:{en:'Eastside is the catalyst that ignites this energy and maintains its flow through 35.5 acres of interconnected structures designed to promote infinite dynamic growth. Its four components work in harmony: the Business Court feeds into Health and Wellness, which fuels Sports and Lifestyle, and the energy flows back into Shopping and Dining. It enjoys direct access from Suez Road and proximity to the AUC and the airport.', ar:'Eastside هو الشرارة التي تُشعل هذه الطاقة وتحافظ على تدفّقها عبر ٣٥٫٥ فداناً من المباني المترابطة المصمّمة لدفع نمو ديناميكي لا ينتهي. ومكوّناته الأربعة تعمل في تناغم: باحة الأعمال تغذّي الصحة والعافية، التي تغذّي الرياضة وأسلوب الحياة، ثم تعود الطاقة إلى التسوّق والمطاعم. ويتمتّع بوصول مباشر من طريق السويس وقربٍ من الجامعة الأمريكية والمطار.'},
+groups:[
+{label:{en:'As printed on the profile\u2019s Eastside plan', ar:'كما هو مطبوع على مخطط Eastside في ملف الشركة'}, rows:[
+{k:{en:'Eastside', ar:'Eastside'}, v:{en:'35.5 acres', ar:'٣٥٫٥ فداناً'}},
+{k:{en:'There', ar:'There'}, v:{en:'170 acres', ar:'١٧٠ فداناً'}}]}
+]
+}},
+{en:'Eastmed', ar:'Eastmed', icon:'am_clinic',
+imgs:[LMB+'eastmed.webp', LMB+'eastmed-life.webp'],
+copy:{
+lead:{en:'Crafting your wellness masterpiece \u2014 the start of a new innovative stage in healthcare.', ar:'صناعة تحفتك في العافية — بداية مرحلة مبتكرة جديدة في الرعاية الصحية.'},
+more:{en:'Adjacent to Eastside, Eastmed is one of the four components that Eastside offers. With a group of specialized facilities, the visionary medical area refines the traditional view of wellness and healthcare.', ar:'ملاصقاً لـ Eastside، يُعد Eastmed أحد المكوّنات الأربعة التي يقدّمها. وبمجموعة من المنشآت المتخصّصة، تعيد هذه المنطقة الطبية صياغة النظرة التقليدية للعافية والرعاية الصحية.'}
+}},
+{en:'More Residences', ar:'More Residences', icon:'key',
+imgs:[LMB+'more.webp', LMB+'more-life.webp'],
+copy:{
+lead:{en:'Serviced homes that gift you time to do more \u2014 magical homes in the soul of There.', ar:'منازل بخدمات فندقية تمنحك وقتاً لتفعل المزيد — منازل ساحرة في قلب There.'},
+more:{en:'A vibrant sanctuary awaits at LMD\u2019s latest mixed-use concept. These serviced apartments blend creativity and detail-oriented offices with stylish display rooms, a club, social hubs and F&B options. Sky-high homes look over water and greenery; serene pools and club views below offer relaxation, while scenic pedestrian paths inspire an active lifestyle.', ar:'ملاذ نابض بالحياة في أحدث مفاهيم LMD متعدّدة الاستخدامات. تجمع هذه الشقق المخدومة بين الإبداع ومكاتب دقيقة التفاصيل، مع غرف عرض أنيقة ونادٍ ومراكز اجتماعية ومطاعم ومقاهٍ. منازل مرتفعة تطلّ على المياه والخضرة؛ وحمامات سباحة هادئة وإطلالات على النادي في الأسفل، فيما تُلهم الممرّات ذات المناظر أسلوب حياة نشطاً.'}
+}},
+{en:'Office Villas', ar:'Office Villas', icon:'ty_office',
+imgs:[LMB+'office-villas.webp', LMB+'office-villas-life.webp'],
+copy:{
+lead:{en:'Where office meets villa \u2014 New Cairo\u2019s newest work concept, inside There.', ar:'حيث يلتقي المكتب بالفيلا — أحدث مفاهيم العمل في القاهرة الجديدة، داخل There.'},
+list:[
+{en:'Standalone, Twin and Town models', ar:'نماذج مستقلة وتوين وتاون'},
+{en:'A distinct identity with signage', ar:'هوية مميّزة مع لافتات خاصة'},
+{en:'Private parking and a prestigious address', ar:'انتظار خاص وعنوان مرموق'},
+{en:'Open spaces, walking trails and water elements', ar:'مساحات مفتوحة وممرّات للمشي وعناصر مائية'}],
+more:{en:'A work villa you can call your own is not just a luxury experience but a statement engraved with your name. Blending privacy, prestige and community within a secure, scenic setting, Office Villas offer businesses a balance between focus and relaxation.', ar:'فيلا عمل تملكها ليست تجربة فاخرة فحسب، بل بيان محفور باسمك. وبالجمع بين الخصوصية والمكانة والمجتمع في محيط آمن وجميل، تمنح Office Villas الشركات توازناً بين التركيز والاسترخاء.'}
+}},
+{en:'One Ninety', ar:'One Ninety', icon:'star',
+imgs:[LMB+'one-ninety.webp', LMB+'one-ninety-plan.webp', LMB+'one-ninety-life.webp'],
+copy:{
+lead:{en:'The well-connected address \u2014 a comprehensive mixed-use vision located directly on 90 Street in New Cairo, expertly master-planned by leading SOM.', ar:'العنوان جيّد الاتصال — رؤية شاملة متعدّدة الاستخدامات مباشرة على شارع ٩٠ بالقاهرة الجديدة، بمخطط عام من SOM الرائدة.'},
+list:[
+{en:'Six main entrances, including a private one on the Ring Road', ar:'ستة مداخل رئيسية، منها مدخل خاص على الطريق الدائري'},
+{en:'Minutes from the central monorail station, with a tunnel into the development', ar:'دقائق من محطة المونوريل المركزية، مع نفق يؤدّي إلى داخل المشروع'},
+{en:'Africa\u2019s first W Residences Cairo, W Cairo hotel and Aloft hotel', ar:'أول W Residences في أفريقيا، وفندق W القاهرة، وفندق Aloft'},
+{en:'Cairo Design District and The Boulevard', ar:'كايرو ديزاين ديستريكت وذا بوليفارد'}],
+groups:[
+{label:{en:'Component areas, as printed on the profile\u2019s One Ninety board', ar:'مساحات المكوّنات كما هي مطبوعة على لوحة One Ninety في ملف الشركة'}, rows:[
+{k:{en:'Total Land Area', ar:'إجمالي مساحة الأرض'}, v:{en:'344,315 m\u00b2', ar:'٣٤٤٬٣١٥ م²'}},
+{k:{en:'Total Built Up Area', ar:'إجمالي المسطّح المبني'}, v:{en:'460,766 m\u00b2', ar:'٤٦٠٬٧٦٦ م²'}},
+{k:{en:'Business Quarter', ar:'حي الأعمال'}, v:{en:'66,242 m\u00b2', ar:'٦٦٬٢٤٢ م²'}},
+{k:{en:'W Residences Cairo', ar:'W Residences Cairo'}, v:{en:'42,545 m\u00b2', ar:'٤٢٬٥٤٥ م²'}},
+{k:{en:'W Cairo', ar:'W Cairo'}, v:{en:'15,616 m\u00b2', ar:'١٥٬٦١٦ م²'}},
+{k:{en:'Urban Park', ar:'الحديقة الحضرية'}, v:{en:'34,553 m\u00b2', ar:'٣٤٬٥٥٣ م²'}},
+{k:{en:'Cairo Design District', ar:'كايرو ديزاين ديستريكت'}, v:{en:'199,000 m\u00b2', ar:'١٩٩٬٠٠٠ م²'}},
+{k:{en:'The Boulevard', ar:'ذا بوليفارد'}, v:{en:'598.8 m', ar:'٥٩٨٫٨ متراً'}},
+{k:{en:'Aloft Hotel', ar:'فندق Aloft'}, v:{en:'22,000 m\u00b2', ar:'٢٢٬٠٠٠ م²'}}]}
+]
+}},
+{en:'W Residences Cairo', ar:'W Residences Cairo', icon:'am_hotel',
+imgs:[LMB+'w-residences.webp', LMB+'w-residences-plan.webp', LMB+'w-living.webp'],
+copy:{
+lead:{en:'Legendary hotel services a touch of a button away \u2014 Africa\u2019s first W Residences, inside One Ninety, with W Cairo hotel alongside.', ar:'خدمات فندقية أسطورية على بُعد لمسة زر — أول W Residences في أفريقيا، داخل One Ninety، وإلى جانبه فندق W القاهرة.'},
+list:[
+{en:'A 24/7 WHATEVER/WHENEVER\u00ae service', ar:'خدمة WHATEVER/WHENEVER® على مدار الساعة'},
+{en:'Personal concierge, full housekeeping and in-residence dining', ar:'كونسيرج شخصي وخدمة تدبير كاملة وتقديم طعام داخل الوحدة'},
+{en:'WET DECK\u00ae pool and AWAY SPA\u00ae signature treatments', ar:'حمام سباحة WET DECK® وعلاجات AWAY SPA® المميّزة'},
+{en:'FIT\u00ae FITNESS CENTER and WIRED\u00ae BUSINESS CENTER', ar:'مركز FIT® للياقة ومركز WIRED® للأعمال'},
+{en:'THE LIVING ROOM\u00ae and an owners\u2019 exclusive Club House', ar:'THE LIVING ROOM® ونادٍ خاص بالمُلّاك'}],
+more:{en:'W Residences Cairo lies at the centre stage of New Cairo, captured by One Ninety\u2019s spot at the meeting point between 90 Street and the Ring Road, with direct access through the central monorail station and One Ninety\u2019s private tunnel. Note: the profile prints a different pair of figures for these two components on its One Ninety board \u2014 42,545 m\u00b2 and 15,616 m\u00b2. Both sets are shown here as published; confirm with an advisor.', ar:'يقع W Residences Cairo في قلب القاهرة الجديدة، بفضل موقع One Ninety عند التقاء شارع ٩٠ بالطريق الدائري، مع وصول مباشر عبر محطة المونوريل المركزية ونفق One Ninety الخاص. ملاحظة: يطبع ملف الشركة رقمين مختلفين لهذين المكوّنين على لوحة One Ninety — ٤٢٬٥٤٥ م² و١٥٬٦١٦ م². والمجموعتان معروضتان هنا كما نُشرتا؛ يُرجى التأكيد مع المستشار.'},
+groups:[
+{label:{en:'As printed on the profile\u2019s W Residences site plan', ar:'كما هو مطبوع على المخطط العام لـ W Residences في ملف الشركة'}, rows:[
+{k:{en:'W Residences Cairo', ar:'W Residences Cairo'}, v:{en:'47,876 m\u00b2', ar:'٤٧٬٨٧٦ م²'}},
+{k:{en:'W Cairo hotel', ar:'فندق W القاهرة'}, v:{en:'10,699 m\u00b2', ar:'١٠٬٦٩٩ م²'}}]}
+]
+}},
+{en:'One Ninety Business Quarter', ar:'One Ninety Business Quarter', icon:'am_retail',
+imgs:[LMB+'business-quarter.webp', LMB+'bq-aerial.webp'],
+copy:{
+lead:{en:'Showcase your brand in style \u2014 showrooms nestled at the intersection of 90th Street and the Ring Road.', ar:'اعرض علامتك بأناقة — صالات عرض عند تقاطع شارع ٩٠ مع الطريق الدائري.'},
+list:[
+{en:'Grand 5-metre-high shop windows', ar:'واجهات عرض بارتفاع ٥ أمتار'},
+{en:'State-of-the-art facades and tailored interiors', ar:'واجهات متطوّرة وتصميمات داخلية مفصّلة'},
+{en:'A coveted position among a mix of high-end corporations', ar:'موقع مرغوب بين مزيج من الشركات الراقية'}],
+more:{en:'The Business Quarter introduces a contemporary elegance to tranquil work settings. Whether establishing a flagship presence or elevating a current position, it provides the platform to showcase a brand in style.', ar:'يقدّم حي الأعمال أناقة معاصرة لبيئات عمل هادئة. وسواء أردت تأسيس حضور رئيسي أو الارتقاء بموقعك الحالي، فهو المنصّة لعرض علامتك بأناقة.'}
+}},
+{en:'Cairo Design District', ar:'كايرو ديزاين ديستريكت', icon:'gallery',
+imgs:[LMB+'cdd.webp', LMB+'cdd-art.webp', LMB+'cdd-culinary.webp', LMB+'cdd-offices.webp', LMB+'cdd-entertainment.webp', LMB+'cdd-hospitality.webp', LMB+'boulevard.webp', LMB+'cdd-plan.webp'],
+copy:{
+lead:{en:'The design highlight of the city \u2014 the first forward-looking immersive cultural experience in Cairo, a global idea brought to life for the first time in Cairo by LMD, inspired by Dubai, London and Miami.', ar:'أبرز معالم التصميم في المدينة — أول تجربة ثقافية غامرة واستشرافية في القاهرة، فكرة عالمية تُنفّذها LMD لأول مرة في القاهرة، مستلهمة من دبي ولندن وميامي.'},
+groups:[
+{label:{en:'As printed on the profile\u2019s CDD board', ar:'كما هو مطبوع على لوحة CDD في ملف الشركة'}, rows:[
+{k:{en:'Total Built Up Area', ar:'إجمالي المسطّح المبني'}, v:{en:'199,000 m\u00b2', ar:'١٩٩٬٠٠٠ م²'}},
+{k:{en:'Hotels', ar:'الفنادق'}, v:{en:'30,000 m\u00b2', ar:'٣٠٬٠٠٠ م²'}},
+{k:{en:'Retail', ar:'التجزئة'}, v:{en:'53,000 m\u00b2', ar:'٥٣٬٠٠٠ م²'}},
+{k:{en:'Offices', ar:'المكاتب'}, v:{en:'116,000 m\u00b2', ar:'١١٦٬٠٠٠ م²'}},
+{k:{en:'Buildings Height', ar:'ارتفاع المباني'}, v:{en:'G+5', ar:'أرضي + ٥'}}]},
+{label:{en:'Inside CDD', ar:'داخل CDD'}, rows:[
+{k:{en:'Art & Culture', ar:'الفن والثقافة'}, v:{en:'Yoga, fitness, health & dance \u00b7 cinemas & theatres \u00b7 event centers & art galleries \u00b7 interior furniture & accessories outlets', ar:'يوغا ولياقة وصحة ورقص · سينمات ومسارح · مراكز فعاليات وصالات عرض فنية · منافذ أثاث وإكسسوارات داخلية'}},
+{k:{en:'Culinary Artists', ar:'فنّانو الطهي'}, v:{en:'Luxury fine dining \u00b7 high-end casual dining \u00b7 trending bars \u00b7 bistros \u00b7 international cuisine experiences', ar:'مطاعم فاخرة · مطاعم راقية غير رسمية · بارات رائجة · بيسترو · تجارب مطابخ عالمية'}},
+{k:{en:'Contemporary Offices', ar:'مكاتب معاصرة'}, v:{en:'Creative agencies \u00b7 architecture, design & engineering firms \u00b7 consulting groups \u00b7 global corporations \u00b7 fashion houses \u00b7 co-working spaces', ar:'وكالات إبداعية · شركات عمارة وتصميم وهندسة · مجموعات استشارية · شركات عالمية · دور أزياء · مساحات عمل مشتركة'}},
+{k:{en:'Entertainment', ar:'الترفيه'}, v:{en:'Arena for mega musical concerts \u00b7 ticketing and public events', ar:'ساحة للحفلات الموسيقية الكبرى · تذاكر وفعاليات عامة'}},
+{k:{en:'Maestros of Hospitality', ar:'أساتذة الضيافة'}, v:{en:'Signature hotels in the beating heart of the district', ar:'فنادق مميّزة في قلب الحي النابض'}},
+{k:{en:'The Boulevard', ar:'ذا بوليفارد'}, v:{en:'A car-free street experience passing through CDD \u2014 One Ninety\u2019s version of Oxford Street and the Champs-\u00c9lys\u00e9es', ar:'تجربة شارع خالٍ من السيارات يمرّ عبر CDD — نسخة One Ninety من أكسفورد ستريت والشانزليزيه'}}]}
+]
+}},
+{en:'3\u2019Sixty', ar:'3\u2019Sixty', icon:'am_retail',
+imgs:[LMB+'three-sixty.webp', LMB+'three-sixty-aerial.webp', LMB+'three-sixty-life.webp'],
+copy:{
+lead:{en:'The Circle of Life \u2014 a commercial and leisure mix of offices, clinics and retail, reviving New Cairo\u2019s Golden Square, master-planned by Gensler in collaboration with global retail consultant JLL.', ar:'دائرة الحياة — مزيج تجاري وترفيهي من مكاتب وعيادات وتجزئة، يعيد الحياة إلى الجولدن سكوير بالقاهرة الجديدة، بمخطط عام من Gensler بالتعاون مع الاستشاري العالمي للتجزئة JLL.'},
+more:{en:'3\u2019Sixty combines the best in retail with top-grade office spaces and clinics elevated on varied site levels. At its heart is a retail zone with dining options and caf\u00e9s, art and music galleries, daycare centers, beauty salons, a gym, an entertainment center, a supermarket and a cinema complex. It sits on Bin Zayed\u2019s Axis in the Fifth Settlement\u2019s Golden Square, with direct access to both the New Capital and New Cairo.', ar:'يجمع 3’Sixty بين أفضل ما في التجزئة ومساحات مكتبية من الدرجة الأولى وعيادات على مناسيب متعدّدة. وفي قلبه منطقة تجزئة بخيارات مطاعم ومقاهٍ، وصالات فنون وموسيقى، ومراكز رعاية أطفال، وصالونات تجميل، وصالة رياضية، ومركز ترفيهي، وسوبر ماركت، ومجمّع سينمات. ويقع على محور بن زايد في الجولدن سكوير بالتجمّع الخامس، بوصول مباشر إلى العاصمة الإدارية والقاهرة الجديدة.'},
+groups:[
+{label:{en:'As printed on the profile\u2019s 3\u2019Sixty board', ar:'كما هو مطبوع على لوحة 3’Sixty في ملف الشركة'}, rows:[
+{k:{en:'Total Land Area', ar:'إجمالي مساحة الأرض'}, v:{en:'55,203 m\u00b2', ar:'٥٥٬٢٠٣ م²'}},
+{k:{en:'Total Built Up Area', ar:'إجمالي المسطّح المبني'}, v:{en:'153,642 m\u00b2', ar:'١٥٣٬٦٤٢ م²'}},
+{k:{en:'Outdoor Area', ar:'المساحات الخارجية'}, v:{en:'70%', ar:'٧٠٪'}},
+{k:{en:'Footprint', ar:'البصمة الإنشائية'}, v:{en:'30%', ar:'٣٠٪'}},
+{k:{en:'Parking Slots', ar:'أماكن الانتظار'}, v:{en:'1,700 approx.', ar:'نحو ١٬٧٠٠'}},
+{k:{en:'Buildings Height', ar:'ارتفاع المباني'}, v:{en:'G+3', ar:'أرضي + ٣'}},
+{k:{en:'Entrances', ar:'المداخل'}, v:{en:'Three', ar:'ثلاثة'}}]}
+]
+}},
+{en:'Being', ar:'Being', icon:'am_yoga',
+imgs:[LMB+'being.webp', LMB+'being-life.webp', LMB+'being-plan.webp'],
+copy:{
+lead:{en:'A space for life in motion \u2014 wellness-integrated living, and Mindset, Egypt\u2019s first work wellness concept, in the heart of Sheikh Zayed City.', ar:'مساحة لحياة في حركة — معيشة متكاملة مع العافية، وMindset، أول مفهوم للعافية في العمل في مصر، في قلب مدينة الشيخ زايد.'},
+more:{en:'Centered on balance, vitality and inspired living, Being brings to life a community that nurtures mind, body and ambition, designed with a holistic pulse that redefines the urban experience. The LMD x LA7 mindset goes beyond conventional living: a wellness-integrated lifestyle, with seamless access to key roads and highways.', ar:'يقوم Being على التوازن والحيوية والمعيشة المُلهمة، فيخلق مجتمعاً يغذّي العقل والجسد والطموح، بتصميم ذي نبض شامل يعيد تعريف التجربة الحضرية. وتتجاوز عقلية LMD x LA7 المعيشة التقليدية: أسلوب حياة متكامل مع العافية، مع وصول سلس إلى الطرق والمحاور الرئيسية.'}
+}},
+{en:'Zoya Ghazala Bay', ar:'زويا خليج غزالة', icon:'am_beach',
+imgs:[LMB+'zoya.webp', LMB+'zoya-plan.webp', LMB+'zoya-pool.webp'],
+copy:{
+lead:{en:'Profound coastal simplicity \u2014 a floating bay-front paradise in the heart of Ghazala Bay on the North Coast, master-planned by the internationally-acclaimed Alchemy and Archi View.', ar:'بساطة ساحلية عميقة — فردوس عائم على الخليج في قلب خليج غزالة بالساحل الشمالي، بمخطط عام من Alchemy وArchi View المعروفتين عالمياً.'},
+more:{en:'Developed in absolute harmony with the North Coast\u2019s velvet sands and dazzling shades of blue, Zoya evokes a tranquil ambiance through lush cascading levels and free-form lakes. It gifts a signature collection of fully-finished waterfront homes with panoramic sea and lagoon views, surrounded by dining experiences, private access to a lively beach hub, an elegant clubhouse, water activities, spa treatments and hotel hospitality.', ar:'طُوِّرت زويا في انسجام تام مع رمال الساحل الشمالي المخملية ودرجات الأزرق الساحرة، فتبعث أجواءً هادئة عبر مناسيب متدرّجة وارفة وبحيرات حرّة الشكل. وتقدّم مجموعة مميّزة من المنازل المكتملة التشطيب على الواجهة المائية بإطلالات بانورامية على البحر واللاجون، تحيط بها تجارب مطاعم، ووصول خاص إلى مركز شاطئي نابض، وكلوب هاوس أنيق، وأنشطة مائية، وعلاجات سبا، وضيافة فندقية.'},
+groups:[
+{label:{en:'As printed on the profile\u2019s Zoya board', ar:'كما هو مطبوع على لوحة Zoya في ملف الشركة'}, rows:[
+{k:{en:'Total Land Area', ar:'إجمالي مساحة الأرض'}, v:{en:'134 acres', ar:'١٣٤ فداناً'}},
+{k:{en:'Types of Units', ar:'أنواع الوحدات'}, v:{en:'Standalone Villas, One Story Villas, Twin Houses, Town Houses, Chalets & Cabanas', ar:'فيلات مستقلة، وفيلات بدور واحد، وتوين هاوس، وتاون هاوس، وشاليهات وكابانات'}},
+{k:{en:'Location', ar:'الموقع'}, v:{en:'Ghazala Bay, on the Alexandria\u2013Matrouh Road, between the Telal and Ghazala Bay Rixos projects', ar:'خليج غزالة، على طريق الإسكندرية — مطروح، بين مشروعي تلال وريكسوس خليج غزالة'}}]}
+]
 }}
 ]
 }
