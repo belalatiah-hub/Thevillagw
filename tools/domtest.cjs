@@ -2538,6 +2538,28 @@ try {
     });
     return miss.length === 0 || miss.join(',');
   })(), true);
+  /* Every LMD project showed a single photograph in its hero because none had a
+     gallery; with one, the hero becomes the flipper the rest of the site uses.
+     Landscape frames only — the strip is a wide crop, and a portrait page put
+     through it loses its top and bottom. */
+  ck('lmd projects: each hero flips through its own photographs', (function(){
+    var want = {'zoya':16, 'one-ninety':14, 'three-sixty':8,
+                'stei8ht-eastmed':4, 'stei8ht-there':3, 'stei8ht-eastside':2};
+    var fsx=require('fs'), pathx=require('path'), bad=[];
+    Object.keys(want).forEach(function(slug){
+      var g = api.PROJECT_GALLERY[slug] || [];
+      if(g.length !== want[slug]) { bad.push(slug+': '+g.length); return; }
+      if(g.indexOf(api.PROJECT_COVERS[slug]) > -1) bad.push(slug+': cover repeated in the strip');
+      g.forEach(function(src){
+        if(!fsx.existsSync(pathx.join(__dirname,'..',String(src).replace(/^\//,''))))
+          bad.push(slug+': missing '+src);
+        if(/masterplan|location|-plan\./.test(src)) bad.push(slug+': a plan in the strip — '+src);
+      });
+      var n = qsa(api.V.project(slug).node,'.detail-media--gal').length;
+      if(n !== 1) bad.push(slug+': hero is not a gallery');
+    });
+    return bad.length === 0 || bad.slice(0,4).join('; ');
+  })(), true);
   ck('site: no per-unit map points at a unit that no longer exists', (function(){
     var live = {}; api.UNITS.forEach(function(u){ live[u.id] = 1; });
     var maps = {UNIT_EXTRA:api.UNIT_EXTRA, UNIT_IMAGES:api.UNIT_IMAGES,
