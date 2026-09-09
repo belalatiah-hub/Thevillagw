@@ -2371,7 +2371,7 @@ try {
      one going stale, and the two areas the profile itself gives twice are
      asserted as the pair they are — the One Ninety board and the W Residences
      site plan disagree, and the page shows both rather than picking one. */
-  ck('lmd: the profile is on the page — 18 cards, 53 frames, both languages', (function(){
+  ck('lmd: the profile is on the page — 18 cards, 55 frames, both languages', (function(){
     var f = api.DEV_FEATURES.lmd;
     if(!f || f.cards.length !== 18) return 'cards='+(f && f.cards.length);
     var frames = [];
@@ -2387,33 +2387,27 @@ try {
       });
     });
     var under = frames.filter(function(i){ return i.indexOf('/project-media/lmd/brochure/') !== 0; });
-    return (bad.length === 0 && frames.length === 53 && under.length === 0) ||
+    return (bad.length === 0 && frames.length === 55 && under.length === 0) ||
            ('bad='+bad.length+' frames='+frames.length+' stray='+under.length);
   })(), true);
-  /* The page had a hole where every other developer shows photographs, and no
-     plan band at all: LMD declares no single company master plan because its
-     profile draws none. It draws one per project instead, and those go in the
-     band together with the location maps, each frame naming its project. */
-  ck('lmd: the page carries a gallery and a plan band with both buttons', (function(){
+  /* The page had a hole where every other developer shows photographs, and the
+     gallery fills it. There is deliberately no plan band: a master plan and a
+     location map belong to a project, and a company with twenty-six of them in
+     four countries has neither of its own — the profile's drawings sit in the
+     card of the project each was drawn for, as with Orascom. */
+  ck('lmd: a gallery, and no plan band claiming a company master plan', (function(){
     var fsx=require('fs'), pathx=require('path');
-    var g = api.DEV_GALLERY.lmd || [], pl = (api.DEV_FEATURES.lmd || {}).plans || {};
-    var frames = g.concat((pl.mp||[]).map(function(e){ return e.src; }),
-                          (pl.loc||[]).map(function(e){ return e.src; }));
-    var missing = frames.filter(function(f){
-      return !fsx.existsSync(pathx.join(__dirname,'..',String(f).replace(/^\//,''))); });
-    var named = (pl.mp||[]).concat(pl.loc||[])
-      .every(function(e){ return e.of && e.of.en && e.of.ar; });
+    var g = api.DEV_GALLERY.lmd || [], f = api.DEV_FEATURES.lmd || {};
+    var missing = g.filter(function(x){
+      return !fsx.existsSync(pathx.join(__dirname,'..',String(x).replace(/^\//,''))); });
     var n = api.V.developer('lmd').node;
-    var strip = qsa(n,'.dev-gal').length;
-    var band  = qsa(n,'.dev-mp').length;
-    var btns  = qsa(n,'.dev-mp .ufeat').length;
-    /* One master plan and one location on the band, which is what the schema
-       models — cms.media_links allows a developer exactly one master plan. The
-       other eleven projects' plans and maps ride in their own cards. */
-    return (g.length === 13 && (pl.mp||[]).length === 1 && (pl.loc||[]).length === 1 &&
-            missing.length === 0 && named && strip === 1 && band === 1 && btns === 2) ||
-           ('gal='+g.length+' mp='+(pl.mp||[]).length+' loc='+(pl.loc||[]).length+
-            ' missing='+missing.length+' named='+named+' strip='+strip+' band='+band+' btns='+btns);
+    var strip = qsa(n,'.dev-gal').length, band = qsa(n,'.dev-mp').length;
+    // the drawings are still on the page, inside the cards that own them
+    var inCards = [].concat.apply([], (f.cards||[]).map(function(c){ return c.imgs; }))
+      .filter(function(x){ return /-(plan|masterplan|location)\.webp$/.test(x); }).length;
+    return (g.length === 13 && missing.length === 0 && strip === 1 && band === 0 &&
+            !f.masterplan && !f.plans && inCards === 16) ||
+           ('gal='+g.length+' missing='+missing.length+' strip='+strip+' band='+band+' inCards='+inCards);
   })(), true);
   ck('lmd: the boards\' own figures survive, both disputed areas included', (function(){
     var t = txt(api.V.developer('lmd').node);

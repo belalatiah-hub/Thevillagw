@@ -5232,10 +5232,6 @@ groups:[
 ]
 },
 'lmd': {
-plans: {
-mp:  [{src:LMB+'one-ninety-plan.webp',     of:{en:'One Ninety', ar:'One Ninety'}}],
-loc: [{src:LMB+'one-ninety-location.webp', of:{en:'One Ninety', ar:'One Ninety'}}]
-},
 cards: [
 {en:'About LMD', ar:'عن LMD', icon:'shield',
 imgs:[LMB+'about.webp', LMB+'brand.webp'],
@@ -5427,7 +5423,7 @@ list:[
 more:{en:'A work villa you can call your own is not just a luxury experience but a statement engraved with your name. Blending privacy, prestige and community within a secure, scenic setting, Office Villas offer businesses a balance between focus and relaxation.', ar:'فيلا عمل تملكها ليست تجربة فاخرة فحسب، بل بيان محفور باسمك. وبالجمع بين الخصوصية والمكانة والمجتمع في محيط آمن وجميل، تمنح Office Villas الشركات توازناً بين التركيز والاسترخاء.'}
 }},
 {en:'One Ninety', ar:'One Ninety', icon:'star',
-imgs:[LMB+'one-ninety.webp', LMB+'one-ninety-life.webp'],
+imgs:[LMB+'one-ninety.webp', LMB+'one-ninety-plan.webp', LMB+'one-ninety-life.webp', LMB+'one-ninety-location.webp'],
 copy:{
 lead:{en:'The well-connected address \u2014 a comprehensive mixed-use vision located directly on 90 Street in New Cairo, expertly master-planned by leading SOM.', ar:'العنوان جيّد الاتصال — رؤية شاملة متعدّدة الاستخدامات مباشرة على شارع ٩٠ بالقاهرة الجديدة، بمخطط عام من SOM الرائدة.'},
 list:[
@@ -6123,11 +6119,7 @@ img.addEventListener('error', function(){ if(img.parentNode) img.parentNode.remo
 img.addEventListener('click', function(){ mediaViewer(items, alt, i); });
 return img;
 }
-function devMasterplanSection(dev){
-var f = devFeatures(dev.key);
-if(f && f.plans) return planBand(L(dev.name), f.plans.mp || null, f.plans.loc || null);
-return masterplanSection(f, L(dev.name));
-}
+function devMasterplanSection(dev){ return masterplanSection(devFeatures(dev.key), L(dev.name)); }
 function masterplanSection(f, nm){
 if(!f || !f.masterplan) return null;
 var m = f.masterplan, label = L({en:m.en, ar:m.ar});
@@ -6161,10 +6153,7 @@ var label = (mp && loc) ? (lang==='ar' ? 'الماستر بلان والموقع
 var row = h('div',{class:'dev-mp'});
 function btn(list, title, icon, text){
 var items = list.map(function(s,i){
-var src = (typeof s === 'string') ? s : s.src;
-var of  = (typeof s === 'string') ? '' : (' — ' + L(s.of));
-return {src:planUrl(src),
-cap:nm+' · '+title+of+(list.length>1?(' ('+(i+1)+'/'+list.length+')'):'')};
+return {src:planUrl(s), cap:nm+' · '+title+(list.length>1?(' ('+(i+1)+'/'+list.length+')'):'')};
 });
 var b = h('button',{class:'ufeat', type:'button'}, ic(icon,'ufeat__ic'), h('span',null,text));
 b.addEventListener('click', function(){ mediaViewer(items, nm+' · '+title, 0); });
