@@ -2620,6 +2620,47 @@ try {
     if(qsa(api.V.developer(some.key).node,'.price-lg').length === 0) bad.push(some.key+': lost its count');
     return bad.length === 0 || bad.join(',');
   })(), true);
+  /* Six brochure cards lost their only picture: it was a stock photograph of a
+     person, not of the place being sold. The copy is the content, so the card
+     stays and renders without media rather than borrowing a render from
+     another card — a villa where a clubhouse belongs is the same error as a
+     villa on a clinic listing. */
+  ck('cards: a card with no picture renders its copy and no broken image', (function(){
+    var empty = [];
+    [api.DEV_FEATURES, api.PROJECT_FEATURES].forEach(function(m){
+      Object.keys(m).forEach(function(k){
+        (m[k].cards||[]).forEach(function(c){ if(!c.imgs.length) empty.push(k+':'+c.en); });
+      });
+    });
+    if(empty.length !== 6) return 'expected 6 text-only cards, found '+empty.length;
+    var bad = [];
+    ['zoya','one-ninety'].forEach(function(slug){
+      var n = api.V.project(slug).node;
+      qsa(n,'.dev-feat').forEach(function(card){
+        var imgs = qsa(card,'img').filter(function(i){
+          var src = i.getAttribute && i.getAttribute('src'); return !src || src === 'undefined'; });
+        if(imgs.length) bad.push(slug+': an img with no src');
+        if(!qsa(card,'.feat-copy').length) bad.push(slug+': a card with no copy');
+      });
+    });
+    return bad.length === 0 || bad.join(',');
+  })(), true);
+  /* Not one of the thirteen may come back anywhere on the site. */
+  ck('cards: the stock people photographs are gone from every map', (function(){
+    var gone = ['zoya/ways','zoya/clubhouse','zoya/sports','zoya/kids','zoya/retail',
+                'zoya/nightlife','one-ninety/curated','one-ninety/park',
+                'one-ninety/w-cairo-hotel','one-ninety/aloft','one-ninety/cdd',
+                'one-ninety/cdd-street','one-ninety/boulevard.webp'];
+    var seen = [];
+    function scan(v){
+      if(typeof v === 'string'){ gone.forEach(function(g){ if(v.indexOf('/lmd/'+g) > -1) seen.push(g); }); }
+      else if(Array.isArray(v)) v.forEach(scan);
+      else if(v && typeof v === 'object') Object.keys(v).forEach(function(k){ scan(v[k]); });
+    }
+    scan(api.PROJECT_FEATURES); scan(api.PROJECT_GALLERY);
+    scan(api.DEV_FEATURES); scan(api.DEV_GALLERY); scan(api.PROJECT_COVERS);
+    return seen.length === 0 || seen.join(',');
+  })(), true);
   ck('site: no per-unit map points at a unit that no longer exists', (function(){
     var live = {}; api.UNITS.forEach(function(u){ live[u.id] = 1; });
     var maps = {UNIT_EXTRA:api.UNIT_EXTRA, UNIT_IMAGES:api.UNIT_IMAGES,
