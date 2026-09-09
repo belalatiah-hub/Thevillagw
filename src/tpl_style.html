@@ -316,6 +316,11 @@
     padding:18px;box-shadow:var(--shadow-sm)}
   .dev-feat img{width:100%;height:auto;display:block;border-radius:12px;
     background:var(--line-2);cursor:zoom-in}
+  /* A card holding one picture is framed like a card holding several. The
+     flipper below is 3:2 with a cover fit; a lone image left at its natural
+     height made its card twice as tall as the ones beside it whenever the
+     brochure page it came from was portrait. */
+  .dev-feat > img{aspect-ratio:3/2;object-fit:cover}
   /* Card copy with a chevron that reveals the rest. */
   .feat-copy{margin-top:14px}
   .feat-copy__p{color:var(--ink-2);font-size:.92rem;line-height:1.65;margin:0}

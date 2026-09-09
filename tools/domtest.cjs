@@ -2560,6 +2560,23 @@ try {
     });
     return bad.length === 0 || bad.slice(0,4).join('; ');
   })(), true);
+  /* Card media is one shape whatever the picture. A card with several photos
+     has always been framed 3:2 by the flipper; a card with one was left at the
+     picture's own height, so a portrait brochure page made its card twice as
+     tall as the ones beside it. Both are 3:2 now — jsdom has no layout, so this
+     asserts the rule that produces it rather than the measured height. */
+  ck('cards: one picture is framed like several', (function(){
+    var css = doc.querySelector('style') ? Array.prototype.map.call(doc.querySelectorAll('style'),
+      function(s){ return s.textContent; }).join('\n') : '';
+    var rule = /\.dev-feat\s*>\s*img\s*\{[^}]*aspect-ratio\s*:\s*3\s*\/\s*2[^}]*object-fit\s*:\s*cover[^}]*\}/;
+    var solo = 0, total = 0;
+    [api.DEV_FEATURES, api.PROJECT_FEATURES].forEach(function(m){
+      Object.keys(m).forEach(function(k){
+        (m[k].cards||[]).forEach(function(c){ total++; if(c.imgs.length === 1) solo++; });
+      });
+    });
+    return (rule.test(css) && solo > 0) || ('rule='+rule.test(css)+' solo='+solo+'/'+total);
+  })(), true);
   ck('site: no per-unit map points at a unit that no longer exists', (function(){
     var live = {}; api.UNITS.forEach(function(u){ live[u.id] = 1; });
     var maps = {UNIT_EXTRA:api.UNIT_EXTRA, UNIT_IMAGES:api.UNIT_IMAGES,
