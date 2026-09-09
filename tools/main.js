@@ -4058,18 +4058,14 @@ var PROJECT_GALLERY = {
 '/project-media/lmd/zoya/interior-kitchen.webp'],
 'one-ninety': [
 '/project-media/lmd/one-ninety/aerial.webp',
-'/project-media/lmd/one-ninety/curated.webp',
 '/project-media/lmd/one-ninety/entrances.webp',
 '/project-media/lmd/one-ninety/bq-aerial.webp',
 '/project-media/lmd/one-ninety/bq-lobby.webp',
-'/project-media/lmd/one-ninety/w-residences.webp',
 '/project-media/lmd/one-ninety/w-terrace.webp',
 '/project-media/lmd/one-ninety/w-living.webp',
 '/project-media/lmd/one-ninety/w-suite.webp',
 '/project-media/lmd/one-ninety/w-view.webp',
 '/project-media/lmd/one-ninety/park-aerial.webp',
-'/project-media/lmd/one-ninety/park.webp',
-'/project-media/lmd/one-ninety/w-cairo-hotel.webp',
 '/project-media/lmd/one-ninety/boulevard-night.webp'],
 'three-sixty': [
 '/project-media/lmd/three-sixty/entrance.webp',
@@ -5857,7 +5853,7 @@ groups:[
 ]
 }},
 {en:'W Residences Cairo', ar:'W Residences Cairo', icon:'am_hotel',
-imgs:[ON+'w-residences.webp', ON+'w-terrace.webp', ON+'w-design.webp', ON+'w-suite.webp', ON+'w-view.webp', ON+'w-interior.webp', ON+'w-living.webp'],
+imgs:[ON+'w-terrace.webp', ON+'w-design.webp', ON+'w-suite.webp', ON+'w-view.webp', ON+'w-interior.webp', ON+'w-living.webp'],
 copy:{
 lead:{en:'Arriving at W Residences Cairo is to come home to unmistakable style and design-led luxury, with exclusive access to world-class hospitality located just steps away from W Cairo hotel.', ar:'الوصول إلى W Residences Cairo هو عودة إلى بيت بأسلوب لا يُخطئه أحد وفخامة يقودها التصميم، مع وصول حصري إلى ضيافة عالمية المستوى على بُعد خطوات من فندق W القاهرة.'},
 list:[
