@@ -290,7 +290,12 @@ const CMS = sandbox.window.CMS;
 
 /* --------------------------------------------------------------- assert */
 const R = [];
-const ck = (n, c, x) => R.push({ n, ok: !!c, x: x || '' });
+// A string means failure and is its own message — see the note on domtest's
+// helper. No check here returns one today; this stops the next one that does
+// from reporting PASS.
+const ck = (n, c, x) => R.push({
+  n, ok: typeof c === 'string' ? false : !!c,
+  x: typeof c === 'string' ? c : (x || '') });
 if (process.argv.includes('--list')) {
   // filled in as the assertions run below
 }
@@ -352,8 +357,10 @@ function findText(node, s) { return textIn(node).indexOf(s) > -1; }
   ck('auth: nothing is stored after a failed sign-in', CMS.api.session() == null);
 
   const s = await CMS.api.signIn('owner@example.com', 'right');
+  // Explicitly boolean: the expression's value is the refresh token itself, and
+  // a string now means failure — it is a check's own message, not its result.
   ck('auth: a good password yields a session with both tokens',
-     s && s.access_token && s.refresh_token);
+     !!(s && s.access_token && s.refresh_token));
   ck('auth: the session survives a reload', (function () {
     const raw = store['tvi_admin_session'];
     return raw && JSON.parse(raw).access_token === s.access_token;

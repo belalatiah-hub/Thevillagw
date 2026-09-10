@@ -37,7 +37,13 @@ function everyRoute() {
 }
 
 const results = [];
-const ck = (name, ok, extra) => results.push({ name, ok, extra });
+// A string means failure and is its own message. domtest's helper was
+// `ok:!!c`, and every check written as `bad.length === 0 || bad.join('; ')`
+// reported PASS at the exact moment it had something to say; this closes the
+// same trap here before a check is written that way.
+const ck = (name, ok, extra) => results.push({
+  name, ok: typeof ok === 'string' ? false : !!ok,
+  extra: typeof ok === 'string' ? ok : extra });
 
 (async () => {
   const all = process.argv.includes('--all');
