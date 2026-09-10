@@ -1352,7 +1352,8 @@ members:['stei8ht-eastmed','stei8ht-there','stei8ht-eastside'],
 blurb:{en:'LMD’s Stei8ht collection — business, medical and retail addresses in New Cairo, developer-direct primary units.',
 ar:'مجموعة ستيت من LMD — مكاتب وعيادات ومحلات في القاهرة الجديدة، وحدات أولية من المطوّر مباشرة.'}}
 ];
-var PROJECT_PHASES = {'makadi-heights': ['ledge-valley', 'siyal']};
+var PROJECT_PHASES = {'makadi-heights': ['ledge-valley', 'siyal'],
+'ras-soma': ['marina-gate']};
 var PHASE_OF = {};
 Object.keys(PROJECT_PHASES).forEach(function(parent){
 PROJECT_PHASES[parent].forEach(function(s){ PHASE_OF[s] = parent; });

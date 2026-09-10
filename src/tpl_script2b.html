@@ -163,8 +163,18 @@
      inside the parent's page: the client sheet files all seventeen Makadi
      Heights rows under that one name, with Ledge Valley or Siyal beside them,
      so the town is the project and these are how it is sold. The developer
-     page shows the parent alone; its count still counts them. */
-  var PROJECT_PHASES = {'makadi-heights': ['ledge-valley', 'siyal']};
+     page shows the parent alone; its count still counts them.
+
+     Marina Gate is item 9 on Ras Soma's own master plan. The Ras Soma brochure
+     of 2023 numbers that spot Lagoon Beach Club; the later Marina Gate sales
+     kit prints the same plan with 8 and 9 renumbered The Condos and Marina
+     Gate, and heads its pages ALMAZA BAY RAS SOMA. Same destination, same bay,
+     same twenty-one destinations — so Marina Gate is a phase of it, not a
+     project beside it. The parent keeps no price of its own; the phase carries
+     the price list, exactly as Ledge Valley and Siyal do inside Makadi
+     Heights. */
+  var PROJECT_PHASES = {'makadi-heights': ['ledge-valley', 'siyal'],
+                        'ras-soma': ['marina-gate']};
   var PHASE_OF = {};
   Object.keys(PROJECT_PHASES).forEach(function(parent){
     PROJECT_PHASES[parent].forEach(function(s){ PHASE_OF[s] = parent; });

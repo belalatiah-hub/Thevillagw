@@ -2510,6 +2510,26 @@ try {
   /* Ras Soma — Travco's third project here, from its own 2023 brochure. It
      publishes no price, no plan and no delivery date, so those keys stay absent
      and the page shows the awaiting-price-list notice. */
+  /* Marina Gate is item 9 on Ras Soma's own master plan, not a project beside
+     it, so it sits inside the parent's page and off the developer's card list —
+     the same shape Ledge Valley and Siyal have inside Makadi Heights. */
+  ck('ras soma: Marina Gate is a phase of it, not a card beside it', (function(){
+    var bad = [];
+    if(api.phaseOf('marina-gate') !== 'ras-soma') bad.push('phaseOf='+api.phaseOf('marina-gate'));
+    var ph = api.projectPhases('ras-soma').map(function(p){ return p.slug; });
+    if(ph.join(',') !== 'marina-gate') bad.push('phases='+ph.join(','));
+    // A phase keeps its own page, its own units and its own price list.
+    var mg = api.PROJECTS.filter(function(p){ return p.slug === 'marina-gate'; })[0];
+    if(!mg || mg.price !== 19000000) bad.push('marina gate price='+(mg && mg.price));
+    if(api.UNITS.filter(function(u){ return u.project === 'marina-gate'; }).length !== 7)
+      bad.push('marina gate units');
+    // The parent has no price of its own and must not borrow the phase's.
+    var rs = api.PROJECTS.filter(function(p){ return p.slug === 'ras-soma'; })[0];
+    if(rs.price !== undefined) bad.push('ras soma price='+rs.price);
+    // Both are Travco's, and neither is also filed as a group member.
+    if(api.GROUPED_PROJECT && api.GROUPED_PROJECT['marina-gate']) bad.push('also grouped');
+    return bad.length === 0 || bad.join('; ');
+  })(), true);
   ck('ras soma: under Travco, with no figure the brochure never printed', (function(){
     var p = api.PROJECTS.filter(function(x){ return x.slug === 'ras-soma'; })[0];
     if(!p) return 'missing';
