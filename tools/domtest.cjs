@@ -2577,26 +2577,41 @@ try {
     if(n !== SHEET.length) bad.push('unit count '+n);
     return bad.length === 0 || bad.slice(0,6).join('; ');
   })(), true);
-  /* Each unit carries the four pictures its sheet row names, in the sheet's
-     own column order — render, master plan, floor plan, location. Every one has
-     to sit under its own project's folder: the two ISOLAs are the same
-     developer in the same city and nothing else would stop one wearing the
-     other's drawings. */
-  ck('isola units: four pictures each, all from their own project', (function(){
+  /* Each unit carries its whole render set, not one frame of it — the strip
+     first showed a single picture because UNIT_GALLERY was never filled and the
+     page falls back to the lone cover when it is empty. Apartments and
+     penthouses take the seven (Centra) or eight (Quattro) ap1- renders; the
+     administrative and clinic units take the three ad- ones, which are a
+     different building. Then the master plan, the floor plan and the location
+     map, as the sheet's columns order them. Every picture has to sit under its
+     own project's folder: the two ISOLAs are the same developer in the same
+     city and nothing else would stop one wearing the other's drawings. */
+  ck('isola units: the whole render set, all from their own project', (function(){
     var fsx = require('fs'), pathx = require('path');
+    var want = {'isola-quattro': 8, 'isola-centra': 7};   // apartments and penthouses
     var bad = [];
     api.UNITS.filter(function(u){ return /^isola-/.test(u.project); }).forEach(function(u){
       var own = '/project-media/elmasria/' + u.project + '/';
-      var four = [api.UNIT_IMAGES[u.id]]
-        .concat(api.UNIT_MASTERPLANS[u.id] || [], api.UNIT_FLOORPLANS[u.id] || [],
-                api.UNIT_LOCATIONS[u.id] || []);
-      if(four.length !== 4) bad.push(u.id+': '+four.length+' pictures');
-      four.forEach(function(src){
+      var gal = api.UNIT_GALLERY[u.id] || [];
+      var commercial = /Office|Clinic/.test(u.type);
+      var n = commercial ? 3 : want[u.project];
+      if(gal.length !== n) bad.push(u.id+': '+gal.length+' frames, wanted '+n);
+      // The cover and the first frame of the strip are the same picture, so the
+      // card and the page open on what the unit's own row names.
+      if(gal[0] !== api.UNIT_IMAGES[u.id]) bad.push(u.id+': strip opens on '+gal[0]);
+      if(new Set(gal).size !== gal.length) bad.push(u.id+': repeats a frame');
+      // Commercial units take the ad- set and residential the ap1- set.
+      gal.forEach(function(s){
+        if(commercial !== /\/commercial-/.test(s)) bad.push(u.id+': wrong set '+s); });
+      [].concat(gal, api.UNIT_MASTERPLANS[u.id] || [], api.UNIT_FLOORPLANS[u.id] || [],
+                api.UNIT_LOCATIONS[u.id] || []).forEach(function(src){
         if(!src) { bad.push(u.id+': empty'); return; }
         if(String(src).indexOf(own) !== 0) bad.push(u.id+': stray '+src);
         if(!fsx.existsSync(pathx.join(__dirname,'..',String(src).replace(/^\//,''))))
           bad.push(u.id+': missing '+src);
       });
+      ['UNIT_MASTERPLANS','UNIT_FLOORPLANS','UNIT_LOCATIONS'].forEach(function(m){
+        if((api[m][u.id] || []).length !== 1) bad.push(u.id+': '+m+' not one'); });
     });
     return bad.length === 0 || bad.slice(0,5).join('; ');
   })(), true);
