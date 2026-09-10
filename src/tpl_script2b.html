@@ -22,13 +22,21 @@
   function isNewLaunch(p){ return !!p && (p.newLaunch===true || NEW_LAUNCH_SLUGS.indexOf(p.slug)>-1); }
   function newLaunchProjects(){ return PROJECTS.filter(isNewLaunch); }
   /* Upcoming launch teasers — image-only "Coming Soon" cards, no price and no
-     details, because for these we have neither. Each says where clicking it
-     goes: `link` is a project slug, `dev` a developer key for a launch with no
-     page of its own yet. A card with `dev` prints that developer's name, so
-     both languages come from the DEVELOPERS record and cannot drift apart.
+     details, because for these we have neither.
+
+     `dev` names whose launch it is, and the card prints that developer's name
+     across its foot — read from the DEVELOPERS record, so both languages come
+     from one place and cannot drift apart.
+
+     `link` says where clicking it goes. With a project slug it opens that
+     project; without one it opens `dev`'s own page, which is what a launch
+     with no page of its own yet has to do.
      (literal paths: this runs before the media *_BASE vars below are assigned) */
   var COMING_SOON_LAUNCHES = [
-    { img:'/project-media/launches/giza-terraces.webp', name:'Giza Terraces', link:'ramla-ras-el-hekma' },
+    /* Giza Terraces is Marakez's, and opens Ramla Ras El Hekma — the project it
+       is a launch within — rather than the developer's page. */
+    { img:'/project-media/launches/giza-terraces.webp', name:'Giza Terraces',
+      dev:'marakez', link:'ramla-ras-el-hekma' },
     /* Adagio — El Masria Group's next launch, in New Cairo and Sheikh Zayed.
        The developer's poster is all we have of it: it publishes no price, no
        areas and no delivery date, so the card carries none and opens El Masria's

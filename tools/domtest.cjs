@@ -2541,11 +2541,16 @@ try {
     // …and Adagio is not smuggled in as a project record either.
     if(api.PROJECTS.some(function(p){ return /adagio/i.test(p.slug) || /adagio/i.test(p.name); }))
       bad.push('also a project record');
-    // Giza Terraces is untouched: still first, still opening its parent project.
+    /* Giza Terraces is still first and still opens Ramla, the project it is a
+       launch within — naming its developer for the card's foot must not have
+       redirected it to Marakez's page the way a teaser with no project does. */
     var g = api.COMING_SOON_LAUNCHES[0];
     if(g.name !== 'Giza Terraces' || g.link !== 'ramla-ras-el-hekma') bad.push('giza terraces moved');
     if(api.comingSoonFor('ramla-ras-el-hekma') !== g) bad.push('giza terraces lost its project');
-    if(api.csTitle(g) !== '') bad.push('giza terraces gained a title');
+    if(api.csHref(g) !== api.buildPath('project',{slug:'ramla-ras-el-hekma'}))
+      bad.push('giza terraces href='+api.csHref(g));
+    if(api.csTitle(g) !== api.devByKey('marakez').name[api.lang])
+      bad.push('giza terraces title='+api.csTitle(g));
     return bad.length === 0 || bad.join('; ');
   })(), true);
   ck('marina gate: the page carries the kit’s own figures and no borrowed ones', (function(){

@@ -1250,7 +1250,8 @@ var NEW_LAUNCH_SLUGS = [];
 function isNewLaunch(p){ return !!p && (p.newLaunch===true || NEW_LAUNCH_SLUGS.indexOf(p.slug)>-1); }
 function newLaunchProjects(){ return PROJECTS.filter(isNewLaunch); }
 var COMING_SOON_LAUNCHES = [
-{ img:'/project-media/launches/giza-terraces.webp', name:'Giza Terraces', link:'ramla-ras-el-hekma' },
+{ img:'/project-media/launches/giza-terraces.webp', name:'Giza Terraces',
+dev:'marakez', link:'ramla-ras-el-hekma' },
 { img:'/project-media/launches/adagio.webp', name:'Adagio', dev:'elmasria' }
 ];
 var COMING_SOON_LAUNCH = COMING_SOON_LAUNCHES[0];
