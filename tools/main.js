@@ -209,6 +209,7 @@ f_primary:"Primary-sale property only · New launches & developer-direct units",
 illustrative:"Illustrative figure — confirm current price & availability with an advisor",
 illustrative_short:"Illustrative — confirm with advisor",
 call:"Call", whatsapp:"WhatsApp", email_label:"Email",
+rail_contact:"Contact us", rail_contact_open:"Show contact channels", rail_contact_close:"Hide contact channels",
 send_wa:"Send on WhatsApp", send_email:"Send by email",
 unit_types_h:"Unit types", unit_types_p:"Unit types available in this project. Layouts are illustrative — confirm current availability and prices with an advisor.",
 art_note:"Images are original brand illustrations, not photographs of the actual project. Real photography can replace them once supplied with usage rights.",
@@ -334,6 +335,7 @@ f_primary:"بيع أولي فقط · إطلاقات جديدة ووحدات من
 illustrative:"رقم تقديري — تأكّد من السعر والإتاحة الحالية مع المستشار",
 illustrative_short:"تقديري — تأكّد مع المستشار",
 call:"اتصال", whatsapp:"واتساب", email_label:"البريد",
+rail_contact:"تواصل معنا", rail_contact_open:"إظهار قنوات التواصل", rail_contact_close:"إخفاء قنوات التواصل",
 send_wa:"أرسل عبر واتساب", send_email:"أرسل عبر البريد",
 unit_types_h:"أنواع الوحدات", unit_types_p:"أنواع الوحدات المتاحة في هذا المشروع. التصاميم استرشادية — أكّد الإتاحة والأسعار الحالية مع المستشار.",
 art_note:"الصور رسوم أصلية للعلامة وليست صوراً فوتوغرافية للمشروع الفعلي. يمكن استبدالها بتصوير حقيقي عند توفيره بحقوق الاستخدام.",
@@ -8885,16 +8887,58 @@ return chatActions(t('chat_noanswer'));
 var railEls=null, railNudge={el:null, dismissed:false, timer:null, hideT:null};
 function railWaMsg(){ return lang==='ar'?'مرحباً، أرغب في الاستفسار عن عقارات The Village':'Hello, I would like to enquire about The Village properties'; }
 function nudgeText(){ return lang==='ar'?'محتاج مساعدة؟ كلّم مستشار الآن':'Need help? Talk to an advisor'; }
+var CR_R = 30, CR_C = 2 * Math.PI * CR_R;
+function crRing(){
+var svg = sEl('svg', {class:'cr-ring', viewBox:'0 0 74 74', 'aria-hidden':'true', focusable:'false'});
+var defs = sEl('defs');
+defs.appendChild(sEl('path', {id:'cr-ring-path', fill:'none',
+d:'M 37,37 m -'+CR_R+',0 a '+CR_R+','+CR_R+' 0 1,1 '+(CR_R*2)+',0 a '+CR_R+','+CR_R+' 0 1,1 -'+(CR_R*2)+',0'}));
+var text = sEl('text');
+text.appendChild(sEl('textPath', {href:'#cr-ring-path', 'xlink:href':'#cr-ring-path'}));
+svg.appendChild(defs); svg.appendChild(text);
+return svg;
+}
+function crRingFit(svg){
+var tp = svg && svg.querySelector('textPath'); if(!tp) return;
+var label = t('rail_contact'), unit = (lang==='ar' ? label : label.toUpperCase()) + ' · ';
+var text = tp.parentNode;
+text.style.wordSpacing = '0';
+tp.textContent = unit;
+var one = 0;
+try { one = tp.getComputedTextLength(); } catch(e){}
+if(!(one > 4)){ tp.textContent = unit + unit; return; }
+var n = Math.max(2, Math.floor(CR_C / one));
+tp.textContent = new Array(n + 1).join(unit);
+var gaps = (unit.split(' ').length - 1) * n;
+if(gaps > 0) text.style.wordSpacing = ((CR_C - n * one) / gaps).toFixed(3) + 'px';
+}
+function crToggle(open){
+if(!railEls) return;
+var on = open === undefined ? !railEls.rail.classList.contains('is-open') : !!open;
+railEls.rail.classList.toggle('is-open', on);
+railEls.toggle.setAttribute('aria-expanded', on ? 'true' : 'false');
+railEls.toggle.setAttribute('aria-label', t(on ? 'rail_contact_close' : 'rail_contact_open'));
+track(on ? 'contact_rail_opened' : 'contact_rail_closed');
+}
 function contactRailBuild(){
 if(railEls) return;
 var rail=h('div',{class:'contact-rail', id:'contact-rail', role:'group'});
+var pill=h('div',{class:'cr-pill'});
 var phoneB = CONFIG.phone ? h('a',{class:'cr-btn'}, ic('phone')) : null;
 var emailB = CONFIG.email ? h('a',{class:'cr-btn'}, ic('mail')) : null;
 var waB    = CONFIG.whatsapp ? h('a',{class:'cr-btn cr-btn--wa', target:'_blank', rel:'noopener'}, svgSolid(ICON.wa_solid)) : null;
-[waB,phoneB,emailB].forEach(function(b){ if(b) rail.appendChild(b); });
-if(!rail.childNodes.length) return;
+[waB,phoneB,emailB].forEach(function(b){ if(b) pill.appendChild(b); });
+if(!pill.childNodes.length) return;
+var ring = crRing();
+var toggle = h('button',{class:'cr-toggle', type:'button', id:'cr-toggle', 'aria-expanded':'false',
+'aria-controls':'contact-rail'}, ring, ic('chevdown','cr-toggle__ic'));
+toggle.addEventListener('click', function(){ crToggle(); });
+rail.appendChild(pill); rail.appendChild(toggle);
 document.body.appendChild(rail);
-railEls={rail:rail, phone:phoneB, email:emailB, wa:waB};
+railEls={rail:rail, pill:pill, toggle:toggle, ring:ring, phone:phoneB, email:emailB, wa:waB};
+crRingFit(ring);
+if(document.fonts && document.fonts.ready && document.fonts.ready.then)
+document.fonts.ready.then(function(){ crRingFit(ring); });
 contactNudgeInit();
 railRefresh();
 }
@@ -8926,6 +8970,11 @@ function railNudgeHide(){ var n=railNudge.el; if(!n) return; n.classList.remove(
 function railRefresh(){
 if(!railEls) return;
 railEls.rail.setAttribute('aria-label', lang==='ar'?'قنوات التواصل':'Contact channels');
+if(railEls.toggle){
+var on = railEls.rail.classList.contains('is-open');
+railEls.toggle.setAttribute('aria-label', t(on ? 'rail_contact_close' : 'rail_contact_open'));
+crRingFit(railEls.ring);
+}
 if(railEls.phone){ railEls.phone.setAttribute('href','tel:'+CONFIG.phone); railEls.phone.setAttribute('aria-label', t('call')+' '+(CONFIG.phoneDisplay||CONFIG.phone)); }
 if(railEls.email){ railEls.email.setAttribute('href','mailto:'+CONFIG.email+'?subject='+encodeURIComponent(lang==='ar'?'استفسار عقاري':'Property enquiry')); railEls.email.setAttribute('aria-label', t('email_label')); }
 if(railEls.wa){ railEls.wa.setAttribute('href', waLink(railWaMsg())); railEls.wa.setAttribute('aria-label', t('whatsapp')); }

@@ -392,8 +392,24 @@ try {
   var rail=doc.getElementById('contact-rail');
   ck('rail: contact rail built with phone/email/WhatsApp', !!rail && countClass(rail,'cr-btn')===3, 'btns='+(rail?countClass(rail,'cr-btn'):0));
   ck('rail: WhatsApp button links to wa.me', !!findAttr(rail,'class','cr-btn cr-btn--wa') && (findAttr(rail,'class','cr-btn cr-btn--wa').getAttribute('href')||'').indexOf('wa.me')>=0);
-  var firstBtn=(rail?rail.childNodes:[])[0];
-  ck('rail: first button is the WhatsApp link (reference order)', firstBtn && (firstBtn.getAttribute('href')||'').indexOf('wa.me')>=0);
+  // The channels sit in the pill the badge opens, so the order is read there.
+  var pill=(rail?qsa(rail,'.cr-pill'):[])[0];
+  var firstBtn=(pill?pill.childNodes:[])[0];
+  ck('rail: first button is the WhatsApp link (reference order)', !!firstBtn && (firstBtn.getAttribute('href')||'').indexOf('wa.me')>=0);
+  ck('rail: the badge opens the channels, and they start closed', (function(){
+    var bad=[], b=(rail?qsa(rail,'.cr-toggle'):[])[0];
+    if(!b) return 'no badge';
+    if(b.getAttribute('aria-expanded') !== 'false') bad.push('starts expanded');
+    if(b.getAttribute('aria-controls') !== 'contact-rail') bad.push('controls nothing');
+    if((rail.getAttribute('class')||'').indexOf('is-open') > -1) bad.push('rail starts open');
+    // The label runs round the rim as one string, which is what keeps Arabic
+    // joined; a letter per element would break every join in the word.
+    var tp=qsa(rail,'textPath')[0];
+    if(!tp) return bad.concat('no textPath').join('; ');
+    if((tp.textContent||'').toUpperCase().indexOf('CONTACT US') < 0) bad.push('rim reads "'+tp.textContent+'"');
+    if((tp.textContent||'').split('·').length < 3) bad.push('the label does not repeat round the rim');
+    return bad.length === 0 || bad.join('; ');
+  })(), true);
   ck('rail: 30s nudge element present and hidden initially', (function(){ var n=doc.body.querySelectorAll?doc.body.querySelector('.rail-nudge'):null; return !!n && n.getAttribute('aria-hidden')==='true'; })());
 
   // ---- SCROLL PRESERVATION (critical UX bug: dynamic updates must NOT jump to top) ----

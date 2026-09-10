@@ -665,14 +665,41 @@
   .chat-fab:hover{background:var(--teal-700);transform:translateY(-2px)}
   .chat-fab svg{width:22px;height:22px}
   @media(max-width:640px){.chat-fab{inset-block-end:84px;padding:0;width:52px;justify-content:center}.chat-fab .lbl{display:none}}
-  /* ---- Floating contact rail (phone / email / WhatsApp) + 30s nudge ---- */
-  .contact-rail{position:fixed;inset-inline-end:14px;top:50%;transform:translateY(-50%);z-index:92;display:flex;flex-direction:column;align-items:center;gap:2px;background:var(--paper);padding:7px 6px;border-radius:36px;box-shadow:0 10px 34px rgba(7,61,82,.20);border:1px solid var(--line-2)}
+  /* ---- Floating contact rail (phone / email / WhatsApp) + 30s nudge ----
+     The rail is a dock: a round CONTACT US badge that is always there, and the
+     pill of channels above it, which the badge opens. The badge wears its label
+     around its own rim so it reads as an invitation rather than three bare
+     icons, and the rim turns slowly — deliberately the only thing on the page
+     that moves by itself, and stopped for anyone who asked for less motion. */
+  .contact-rail{position:fixed;inset-inline-end:14px;top:50%;transform:translateY(-50%);z-index:92;display:flex;flex-direction:column;align-items:center;gap:9px}
+  .cr-pill{display:flex;flex-direction:column;align-items:center;gap:2px;background:var(--paper);padding:0 6px;border-radius:36px;box-shadow:0 10px 34px rgba(7,61,82,.20);border:1px solid var(--line-2);
+    max-height:0;opacity:0;visibility:hidden;overflow:hidden;transform:translateY(10px) scale(.92);transform-origin:bottom center;
+    transition:max-height .34s ease,padding .34s ease,opacity .22s ease,visibility .34s,transform .34s cubic-bezier(.2,.8,.3,1)}
+  /* visibility, not just opacity: a collapsed channel must be out of the tab
+     order too, or it is reachable by keyboard while invisible. */
+  .contact-rail.is-open .cr-pill{max-height:180px;padding-block:7px;opacity:1;visibility:visible;transform:none}
+  .cr-toggle{position:relative;flex:none;width:74px;height:74px;border-radius:50%;padding:0;background:var(--paper);color:var(--teal-800);
+    border:1px solid var(--line-2);box-shadow:0 10px 34px rgba(7,61,82,.20);display:grid;place-items:center;transition:transform .25s ease,box-shadow .25s ease}
+  .cr-toggle:hover,.cr-toggle:focus-visible{transform:scale(1.06);box-shadow:0 14px 40px rgba(7,61,82,.28);outline:none}
+  .cr-toggle:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+  .cr-toggle__ic{position:relative;z-index:1;width:19px;height:19px;transform:rotate(180deg);transition:transform .3s ease}
+  .contact-rail.is-open .cr-toggle__ic{transform:rotate(0)}
+  .cr-ring{position:absolute;inset:0;width:100%;height:100%;overflow:visible;animation:cr-spin 18s linear infinite}
+  /* direction:ltr is about the path, not the language. A right-to-left base
+     direction makes Chrome lay the run backwards from the path's end and
+     collapse it to a point — the Arabic rim measured 10px across instead of 79.
+     The paragraph runs along the path; isolate keeps each Arabic word shaped
+     and ordered right-to-left inside it, joins and all. */
+  .cr-ring text{font-family:var(--sans);font-size:9px;font-weight:700;letter-spacing:.1em;fill:var(--teal-700);direction:ltr;unicode-bidi:isolate}
+  @keyframes cr-spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+  @media(prefers-reduced-motion:reduce){.cr-ring{animation:none}.cr-pill{transition:opacity .2s,visibility .2s}}
   .cr-btn{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:transparent;color:var(--teal-800);transition:var(--t)}
   .cr-btn svg{width:24px;height:24px}
   .cr-btn:hover,.cr-btn:focus-visible{background:var(--teal-050);transform:scale(1.08);outline:none}
   .cr-btn--wa{color:var(--teal-800)}
   .cr-btn--wa:hover,.cr-btn--wa:focus-visible{background:var(--teal-050)}
-  .rail-nudge{position:fixed;inset-inline-end:82px;top:50%;transform:translateY(-50%) translateX(14px);z-index:91;display:flex;align-items:center;gap:9px;max-width:min(74vw,258px);padding:10px 12px;background:var(--paper);color:var(--ink);border:1px solid var(--line-2);border-radius:14px;box-shadow:0 12px 34px rgba(7,61,82,.24);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .3s,transform .3s,visibility .3s;text-decoration:none;font-size:.85rem;font-weight:600;line-height:1.3}
+  /* clear of the badge, which is wider than the pill it replaced */
+  .rail-nudge{position:fixed;inset-inline-end:100px;top:50%;transform:translateY(-50%) translateX(14px);z-index:91;display:flex;align-items:center;gap:9px;max-width:min(74vw,258px);padding:10px 12px;background:var(--paper);color:var(--ink);border:1px solid var(--line-2);border-radius:14px;box-shadow:0 12px 34px rgba(7,61,82,.24);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .3s,transform .3s,visibility .3s;text-decoration:none;font-size:.85rem;font-weight:600;line-height:1.3}
   .rail-nudge.show{opacity:1;visibility:visible;transform:translateY(-50%) translateX(0);pointer-events:auto}
   .rail-nudge__ic{width:30px;height:30px;border-radius:50%;background:#1f8f4e;color:#fff;display:grid;place-items:center;flex:none}
   .rail-nudge__ic svg{width:17px;height:17px}
