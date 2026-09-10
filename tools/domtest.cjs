@@ -2507,6 +2507,81 @@ try {
     });
     return bad.length === 0 || bad.slice(0,6).join('; ');
   })(), true);
+  /* Ras Soma — Travco's third project here, from its own 2023 brochure. It
+     publishes no price, no plan and no delivery date, so those keys stay absent
+     and the page shows the awaiting-price-list notice. */
+  ck('ras soma: under Travco, with no figure the brochure never printed', (function(){
+    var p = api.PROJECTS.filter(function(x){ return x.slug === 'ras-soma'; })[0];
+    if(!p) return 'missing';
+    var bad = [];
+    if(p.dev !== 'travco') bad.push('dev='+p.dev);
+    if(p.area !== 'redsea') bad.push('area='+p.area);
+    ['price','dp','years','delivery','finishing'].forEach(function(k){
+      if(p[k] !== undefined) bad.push(k+'='+JSON.stringify(p[k])); });
+    if(!p.name_ar || !p.blurb.ar || !p.types.ar || !p.tags.ar.length) bad.push('not bilingual');
+    return bad.length === 0 || bad.join('; ');
+  })(), true);
+  ck('ras soma: the brochure is on its card, both languages', (function(){
+    var fsx = require('fs'), pathx = require('path');
+    var own = '/project-media/travco/ras-soma/';
+    var f = api.projFeatures('ras-soma');
+    if(!f) return 'no features';
+    var bad = [];
+    if(f.cards.length !== 14) bad.push(f.cards.length+' cards');
+    if(!f.masterplan || !f.masterplan.src) bad.push('no master plan');
+    [].concat([f.masterplan && f.masterplan.src],
+              [].concat.apply([], f.cards.map(function(c){ return c.imgs; })),
+              api.PROJECT_GALLERY['ras-soma'] || [],
+              [api.PROJECT_COVERS['ras-soma']],
+              (api.PROJECT_PLANS['ras-soma'] || {}).loc || []).forEach(function(src){
+      if(String(src).indexOf(own) !== 0) bad.push('stray '+src);
+      if(!fsx.existsSync(pathx.join(__dirname,'..',String(src).replace(/^\//,''))))
+        bad.push('missing '+src);
+    });
+    f.cards.forEach(function(c){
+      if(!c.en || !c.ar || !c.copy || !c.copy.lead.en || !c.copy.lead.ar) bad.push(c.en);
+      if(c.copy.more && (!c.copy.more.en || !c.copy.more.ar)) bad.push('more '+c.en);
+      (c.copy.list||[]).forEach(function(i){ if(!i.en || !i.ar) bad.push('list '+c.en); });
+      (c.copy.groups||[]).forEach(function(g){
+        if(!g.label.en || !g.label.ar) bad.push('label '+c.en);
+        g.rows.forEach(function(r){
+          if(!r.k.en || !r.k.ar || !r.v.en || !r.v.ar) bad.push('row '+c.en); });
+      });
+    });
+    return bad.length === 0 || bad.slice(0,4).join('; ');
+  })(), true);
+  ck('ras soma: every area its floor plans print survives', (function(){
+    var t = txt(api.V.project('ras-soma').node);
+    var want = ['392 m²','237 m²','200 m²','171 m²','247 m²','70 m²','118 m²','135 m²','173 m²'];
+    var miss = want.filter(function(w){ return t.indexOf(w) === -1; });
+    return miss.length === 0 || miss.join(',');
+  })(), true);
+  /* The brochure opens with thirteen pages of Almaza Bay, Travco's North Coast
+     development. None of it belongs on this page — not a picture, not a figure,
+     not the name. And its drive times stay off, as every project's do. */
+  ck('ras soma: no Almaza Bay and no drive time', (function(){
+    var bad = [];
+    ['en','ar'].forEach(function(l){
+      var t = txt(api.V.project('ras-soma', l).node);
+      if(/almaza|ألمازا/i.test(t)) bad.push(l+': almaza');
+      if(/\b\d+(\.\d+)?\s*(mins?|minutes|hours?|hrs?)\b/i.test(t)) bad.push(l+': drive time');
+    });
+    return bad.length === 0 || bad.join(',');
+  })(), true);
+  /* Three of the brochure's spreads caption a picture with a place the picture
+     does not show — a horse on a beach over the sports club, a paddleboarder
+     over the water activities, a speedboat with no marina in frame over RAS
+     SOMA MARINA. The extractor takes none of them, nor anything from the
+     Almaza Bay pages. Nothing else would notice if that changed. */
+  ck('ras soma: the extractor still skips the mislabelled and borrowed pages', (function(){
+    var fsx = require('fs'), pathx = require('path');
+    var src = fsx.readFileSync(pathx.join(__dirname,'pull_ras_soma.py'), 'utf8');
+    var body = src.slice(src.indexOf('RENDERS = {'));
+    var pages = (body.match(/^\s{4}(\d+):/gm) || []).map(function(m){ return Number(m.trim()); });
+    var banned = [9,10,11,12,13,29,32,36];
+    var hit = banned.filter(function(p){ return pages.indexOf(p) !== -1; });
+    return (hit.length === 0 && pages.length > 30) || ('takes '+hit.join(',')+' of '+pages.length);
+  })(), true);
   ck('isola: the two projects sit under El Masria on the sheet\'s terms', (function(){
     var bad = [];
     var want = {'isola-centra':  {price:8560000, dp:8, years:8, delivery:'2030'},

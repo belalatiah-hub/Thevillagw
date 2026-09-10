@@ -477,7 +477,7 @@ var DEVELOPERS = [
 {key:'saudiegyptian', c1:'#26315f', name:{en:'Saudi Egyptian Developers',ar:'السعودية المصرية للتعمير'}, since:1975, areas:{en:'New Cairo · New Capital',ar:'القاهرة الجديدة · العاصمة الإدارية'}, tagline:{en:'Large-scale urban development',ar:'تطوير حضري واسع النطاق'}, desc:{en:'A long-standing developer active in large-scale urban development in Egypt.',ar:'مطوّر عريق نشط في التطوير الحضري واسع النطاق في مصر.'}},
 {key:'sumou', c1:'#0077fe', name:{en:'SumouBlvd.',ar:'سمو بوليفارد'}, areas:{en:'Mostakbal City · East Cairo',ar:'مدينة المستقبل · شرق القاهرة'}, tagline:{en:'Hospitality, culture and innovation districts',ar:'وجهات الضيافة والثقافة والابتكار'}, desc:{en:'A leading Saudi developer of hospitality, entertainment and real-estate projects, focused on innovation, luxury and culture. It enters Egypt with Sumou Boulevard in Mostakbal City.',ar:'مطوّر سعودي رائد في مشروعات الضيافة والترفيه والعقارات، يركّز على الابتكار والفخامة والثقافة. يدخل السوق المصري بمشروع سمو بوليفارد في مدينة المستقبل.'}},
 {key:'baghush', c1:'#636e63', name:{en:'Marsa Baghush',ar:'مرسى باغوش'}, areas:{en:'Sidi Heneish · North Coast',ar:'سيدي حنيش · الساحل الشمالي'}, tagline:{en:'A place of good spirits',ar:'مكان الأرواح الطيبة'}, desc:{en:'In the most sought-after area of the North Coast, where the sandy beaches and bluest of blue waters of Sidi Heneish are a welcomed reminder of what good living is all about, you can find a gem of the coast called Marsa Baghush. Just off the coastal road and linked to Cairo via the El Alamein and Dabaa roads, this part of the North Coast is now a stone’s throw from the capital.',ar:'في أكثر مناطق الساحل الشمالي رغبةً، حيث الشواطئ الرملية وأصفى مياه سيدي حنيش تذكّرك بمعنى الحياة الجيدة، تجد جوهرة الساحل التي تُسمّى مرسى باغوش. على مقربة من الطريق الساحلي ومتصل بالقاهرة عبر طريقي العلمين والضبعة، أصبح هذا الجزء من الساحل الشمالي على بُعد خطوة من العاصمة.'}},
-{key:'travco', c1:'#A65056', name:{en:'Travco Properties',ar:'ترافكو بروبرتيز'}, areas:{en:'Red Sea',ar:'البحر الأحمر'}, tagline:{en:'Red Sea resort communities',ar:'مجتمعات منتجعية على البحر الأحمر'}, desc:{en:'An Egyptian developer active on the Red Sea coast, where its Makadina and MarinaGate communities are offered as primary sale.',ar:'مطوّر مصري نشط على ساحل البحر الأحمر، حيث تُطرح مجتمعاته «مكادينا» و«مارينا جيت» للبيع الأولي.'}},
+{key:'travco', c1:'#A65056', name:{en:'Travco Properties',ar:'ترافكو بروبرتيز'}, since:2014, areas:{en:'Red Sea',ar:'البحر الأحمر'}, tagline:{en:'Red Sea resort communities',ar:'مجتمعات منتجعية على البحر الأحمر'}, desc:{en:'The real estate arm of Travco Group, established in 2014 and drawing on the group’s land bank of 16 million m². It launched with Almaza Bay on the North Coast, and on the Red Sea coast its Makadina, MarinaGate and Ras Soma communities are offered as primary sale.',ar:'الذراع العقارية لمجموعة ترافكو، تأسّست عام ٢٠١٤ وتعتمد على بنك أراضي المجموعة البالغ ١٦ مليون م². انطلقت بمشروع «ألمازة باي» في الساحل الشمالي، وعلى ساحل البحر الأحمر تُطرح مجتمعاتها «مكادينا» و«مارينا جيت» و«رأس سوما» للبيع الأولي.'}},
 {key:'beitalbahr', c1:'#444991', name:{en:'Beit Al Bahr',ar:'بيت البحر'}, areas:{en:'Sidi Heneish · North Coast',ar:'سيدي حنيش · الساحل الشمالي'}, tagline:{en:'ELABD Resort, Sidi Heneish',ar:'منتجع العبد، سيدي حنيش'}, desc:{en:'Beit Al Bahr is the result of a collaboration between leading entities in the Egyptian market, collectively forming BAM — a joint venture of El Abd, Gura and J Properties. Its mission is designing and building beachfront units that focus on privacy and exclusivity. A refined beachfront escape spread over 450 acres at El-Abd Resort, Sidi Heneish, with a private 3.5 km beach on the Mediterranean. The master plan loops around people and privacy, bringing homes closer to the seafront, the shimmering pools and the swimmable lagoons, with four boutique hotels, F&B tenants along the shore and native plantations throughout. Design draws on the four elements of life — air, water, earth and fire. Developer-direct primary units.',ar:'بيت البحر نتيجة تعاون بين كيانات رائدة في السوق المصري، تشكّل معاً «BAM» — مشروع مشترك بين العبد وجورا وجي بروبرتيز. ومهمتها تصميم وبناء وحدات على الشاطئ تركّز على الخصوصية والتميّز. ملاذ شاطئي راقٍ على ٤٥٠ فداناً في منتجع العبد بسيدي حنيش، بشاطئ خاص ٣٫٥ كم على البحر المتوسط. الماستر بلان يلتف حول الناس والخصوصية، فيقرّب المنازل من الشاطئ وحمامات السباحة والبحيرات القابلة للسباحة، مع أربعة فنادق بوتيك ومطاعم على الشاطئ ونباتات محلية في كل مكان. التصميم مستوحى من عناصر الحياة الأربعة — الهواء والماء والأرض والنار. وحدات أولية من المطوّر مباشرة.'}},
 {key:'elmasria', c1:'#b19253', name:{en:'El Masria Group',ar:'المصرية جروب'},
 areas:{en:'New Cairo · New Zayed · October City · Sheraton',ar:'القاهرة الجديدة · زايد الجديدة · مدينة أكتوبر · شيراتون'},
@@ -579,6 +579,7 @@ var PROJECTS = [
 {slug:'makadi-heights', name:'Makadi Heights', name_ar:'مكادي هايتس', dev:'orascom', area:'redsea', status:'primary', dp:10, years:7, delivery:'Ready – 2 years', types:{en:'Apartment · Townhouse · Twin house · Villa',ar:'شقة · تاون هاوس · توين هاوس · فيلا'}, tags:{en:['Makadi Bay','78 m above sea level'],ar:['خليج مكادي','٧٨ متراً فوق سطح البحر']}, blurb:{en:'Orascom Development’s town above Makadi Bay, in the heart of South Hurghada — 3.7 million m² of land, elevated 78 metres above sea level, released phase by phase from ready-to-move homes onward.',ar:'مدينة أوراسكوم للتطوير فوق خليج مكادي في قلب جنوب الغردقة — ٣٫٧ مليون م² من الأرض، على ارتفاع ٧٨ متراً فوق سطح البحر، تُطرح مرحلةً تلو الأخرى بدءاً من وحدات جاهزة للسكن.'}},
 {slug:'isola-centra', name:'ISOLA Centra', name_ar:'إيزولا سنترا', dev:'elmasria', area:'newcairo', status:'primary', price:8560000, dp:8, years:8, delivery:'2030', types:{en:'Apartment · Loft · Administrative Office · Medical Unit · Retail',ar:'شقة · لوفت · مكتب إداري · وحدة طبية · محل تجاري'}, tags:{en:['New Cairo','25 acres','Mixed-use'],ar:['القاهرة الجديدة','٢٥ أكر','متعدد الاستخدامات']}, blurb:{en:'El Masria’s ISOLA Centra in the heart of New Cairo, between North 90 and South 90 and a few steps from the American University in Cairo — twenty-six residential buildings of up to five levels with apartments from 87 to 260 m², around a commercial, administrative and medical spine. Developer-direct primary units.',ar:'إيزولا سنترا من المصرية جروب في قلب القاهرة الجديدة، بين التسعين الشمالي والتسعين الجنوبي وعلى بعد خطوات من الجامعة الأمريكية بالقاهرة — ستة وعشرون مبنى سكنياً حتى خمسة أدوار بشقق من ٨٧ إلى ٢٦٠ م²، حول محور تجاري وإداري وطبي. وحدات أولية من المطوّر مباشرة.'}},
 {slug:'isola-quattro', name:'ISOLA Quattro', name_ar:'إيزولا كواترو', dev:'elmasria', area:'newcairo', status:'primary', price:4410000, dp:3, years:9, delivery:'2030', types:{en:'Apartment · Loft',ar:'شقة · لوفت'}, tags:{en:['New Cairo','Golden Square','15 acres'],ar:['القاهرة الجديدة','جولدن سكوير','١٥ أكر']}, blurb:{en:'El Masria’s ISOLA Quattro in New Cairo’s Golden Square, on Mohamed Ebn Zayed Road and close to the New Administrative Capital — thirteen buildings on 15 acres with only a quarter of the ground built on, and apartments from 89 to 232 m². Developer-direct primary units.',ar:'إيزولا كواترو من المصرية جروب في جولدن سكوير بالقاهرة الجديدة، على محور محمد بن زايد وقريباً من العاصمة الإدارية الجديدة — ثلاثة عشر مبنى على ١٥ أكر لا يشغل البناء منها سوى الربع، وشقق من ٨٩ إلى ٢٣٢ م². وحدات أولية من المطوّر مباشرة.'}},
+{slug:'ras-soma', name:'Ras Soma', name_ar:'رأس سوما', dev:'travco', area:'redsea', status:'launch', types:{en:'Apartment · Chalet · Villa',ar:'شقة · شاليه · فيلا'}, tags:{en:['Red Sea','Ras Abu Soma bay','Beachfront','Marina'],ar:['البحر الأحمر','خليج رأس أبو سوما','على الشاطئ','مارينا']}, blurb:{en:'Travco Properties’ Red Sea town on the bay of Ras Abu Soma, master planned by WATG — beachfront villas, quad chalets and garden apartments from 70 to 392 m², set around a marina, a town centre, two resort hotels and a green spine of parks that runs down to the sand.',ar:'مدينة ترافكو بروبرتيز على البحر الأحمر في خليج رأس أبو سوما، من تخطيط WATG — فيلات على الشاطئ وشاليهات رباعية وشقق بحدائق من ٧٠ إلى ٣٩٢ م²، حول مارينا ومركز للمدينة وفندقين منتجعيين وعمود أخضر من الحدائق ينزل حتى الرمال.'}},
 ];
 var UNITS = [
 {id:'SB-ST-01', project:'sumou-boulevard', type:'Studio', beds:1, baths:1, area:31, areaTo:33, price:2480000},
@@ -1267,6 +1268,7 @@ sEl('circle',{cx:x,cy:y-19,r:'12',fill:'#1e7a5a'}),
 sEl('circle',{cx:x-7,cy:y-13,r:'8',fill:'#20855f'}),
 sEl('circle',{cx:x+7,cy:y-13,r:'8',fill:'#20855f'})); }
 var PROJECT_COVERS = {
+'ras-soma':'/project-media/travco/ras-soma/cover.webp',
 'isola-centra':'/project-media/elmasria/isola-centra/cover.webp',
 'isola-quattro':'/project-media/elmasria/isola-quattro/cover.webp',
 'makadina':'/project-media/travco/makadina/p27.webp',
@@ -3883,7 +3885,8 @@ var PROJECT_PLANS = {
 'zoya': {loc:['/project-media/lmd/zoya/location.webp']},
 'one-ninety': {loc:['/project-media/lmd/brochure/one-ninety-location.webp']},
 'isola-centra': {loc:['/project-media/elmasria/isola-centra/location.webp']},
-'isola-quattro': {loc:['/project-media/elmasria/isola-quattro/location.webp']}
+'isola-quattro': {loc:['/project-media/elmasria/isola-quattro/location.webp']},
+'ras-soma': {loc:['/project-media/travco/ras-soma/location.webp']}
 };
 function projectPlans(slug){
 var own = PROJECT_PLANS[slug], back = PROJECT_PLAN_FALLBACK[slug] || {};
@@ -4164,6 +4167,24 @@ return media;
 }
 var MSQ = '/project-media/msquared/';
 var PROJECT_GALLERY = {
+'ras-soma': [
+'/project-media/travco/ras-soma/cover.webp',
+'/project-media/travco/ras-soma/residences-aerial.webp',
+'/project-media/travco/ras-soma/bay.webp',
+'/project-media/travco/ras-soma/beach-cabana.webp',
+'/project-media/travco/ras-soma/the-town.webp',
+'/project-media/travco/ras-soma/the-village.webp',
+'/project-media/travco/ras-soma/marina.webp',
+'/project-media/travco/ras-soma/beach-club.webp',
+'/project-media/travco/ras-soma/lagoon-beach-club.webp',
+'/project-media/travco/ras-soma/oasis-lagoon-park.webp',
+'/project-media/travco/ras-soma/wadi-park.webp',
+'/project-media/travco/ras-soma/beachfront-villa.webp',
+'/project-media/travco/ras-soma/beach-villa.webp',
+'/project-media/travco/ras-soma/shore-villa.webp',
+'/project-media/travco/ras-soma/quad-chalet.webp',
+'/project-media/travco/ras-soma/apartments.webp'
+],
 'isola-centra': [
 '/project-media/elmasria/isola-centra/residences-a.webp',
 '/project-media/elmasria/isola-centra/residences-b.webp',
@@ -4622,6 +4643,7 @@ var SU = '/project-media/sumou/';
 var BAB = '/project-media/beitalbahr/';
 var MB  = '/project-media/baghush/';
 var EM  = '/project-media/elmasria/';
+var RSM = '/project-media/travco/ras-soma/';
 var ISC = '/project-media/elmasria/isola-centra/';
 var ISQ = '/project-media/elmasria/isola-quattro/';
 var LMB = '/project-media/lmd/brochure/';
@@ -5855,6 +5877,121 @@ var TS = '/project-media/lmd/three-sixty/';
 var ZO = '/project-media/lmd/zoya/';
 var ON = '/project-media/lmd/one-ninety/';
 var PROJECT_FEATURES = {
+'ras-soma': {
+masterplan: {en:'Master plan', ar:'الماستر بلان', icon:'masterplan', src:RSM+'masterplan.webp'},
+cards: [
+{en:'Welcome to Ras Soma', ar:'أهلاً بك في رأس سوما', icon:'shield',
+imgs:[RSM+'cover.webp', RSM+'bay.webp'],
+copy:{
+lead:{en:'Nestled on the bay of Ras Abu Soma, Travco Group’s latest destination on the Red Sea is flourishing and ready to be the next flagship town on Egypt’s East Coast.', ar:'على خليج رأس أبو سوما، تنمو أحدث وجهات مجموعة ترافكو على البحر الأحمر لتكون المدينة الرائدة التالية على الساحل الشرقي لمصر.'},
+more:{en:'The unique combination of world class service and years of experience in the hospitality industry births a one of a kind international residential destination and tourist hot spot, that celebrates nature and all the wonders it has to offer. WATG have worked closely with the Travco development team to conceive a unique development on the tranquil coastal setting of Ras Soma bay with inviting shallow turquoise waters.', ar:'المزيج الفريد بين خدمة عالمية المستوى وسنوات من الخبرة في قطاع الضيافة يُنتج وجهة سكنية دولية فريدة ومقصداً سياحياً يحتفي بالطبيعة وكل ما تقدّمه. وقد عمل مكتب WATG عن قرب مع فريق التطوير في ترافكو لتصوّر مشروع متفرّد في الإطار الساحلي الهادئ لخليج رأس سوما بمياهه الضحلة الفيروزية.'}
+}},
+{en:'Location', ar:'الموقع', icon:'pin',
+imgs:[RSM+'location.webp'],
+copy:{
+lead:{en:'On the Red Sea coast at Ras Abu Soma, between Hurghada and Safaga, with Hurghada International Airport to the north.', ar:'على ساحل البحر الأحمر عند رأس أبو سوما، بين الغردقة وسفاجا، ومطار الغردقة الدولي إلى الشمال.'},
+more:{en:'The brochure’s own map places it against Cairo, Luxor, Safaga, Hurghada, Sharm El Sheikh and Taba. Its drive times are not carried here, as no project’s are.', ar:'وتضعه خريطة البروشور بالنسبة للقاهرة والأقصر وسفاجا والغردقة وشرم الشيخ وطابا. أما أزمنة القيادة فلا تُنقل هنا، شأنها شأن كل المشروعات.'}
+}},
+{en:'Master plan overview', ar:'نظرة على الماستر بلان', icon:'masterplan',
+imgs:[RSM+'masterplan-overview.webp', RSM+'masterplan.webp'],
+copy:{
+lead:{en:'Twenty-one numbered destinations on one plan, from the main entry down to the marina and the sea.', ar:'إحدى وعشرون وجهة مرقّمة على مخطط واحد، من المدخل الرئيسي نزولاً إلى المارينا والبحر.'},
+list:[
+{en:'The Town · The Village · Ras Soma Residences · Marina Apartments', ar:'المدينة · القرية · مساكن رأس سوما · شقق المارينا'},
+{en:'Ras Soma Marina · Beach Club · Lagoon Beach Club', ar:'مارينا رأس سوما · بيتش كلوب · لاجون بيتش كلوب'},
+{en:'Oasis Lagoon Park · Wadi Park · Adventure Park · Water park · Go-karting', ar:'حديقة الواحة · حديقة الوادي · حديقة المغامرات · الحديقة المائية · الكارتينج'},
+{en:'Sports Club · Kite Surfing and Dive Center', ar:'النادي الرياضي · مركز الكايت سيرف والغوص'},
+{en:'Steigenberger Ras Soma · Jaz Ras Soma · Village Hotel · Hotel Conference Center · Hotel Serviced Apartments', ar:'شتايجنبرجر رأس سوما · جاز رأس سوما · فندق القرية · مركز مؤتمرات الفندق · الشقق الفندقية المخدومة'}]
+}},
+{en:'Ras Soma Residences', ar:'مساكن رأس سوما', icon:'star',
+imgs:[RSM+'residences-aerial.webp', RSM+'cover.webp'],
+copy:{
+lead:{en:'Located along the crystal clear waters of the Red Sea with a magical backdrop of the mountains, Ras Soma presents ultimate harmony with nature.', ar:'على امتداد مياه البحر الأحمر الصافية وبخلفية ساحرة من الجبال، تقدّم رأس سوما انسجاماً تاماً مع الطبيعة.'},
+more:{en:'Inspired by the serenity of the surrounding landscape, this is the place where people come to live a life that is tranquil, yet dynamic — a life that is simple, yet luxurious. Travco Properties is proud to unveil its latest residential sea side community, launching hotel-serviced residential units ranging from beachfront villas to cozy apartment condos; beautifully masterplanned and interlaced with stunning landscaping and water features.', ar:'مستوحاةً من سكينة المشهد المحيط، هنا يأتي الناس ليعيشوا حياةً هادئة وحيويةً في آن — بسيطةً وفخمةً معاً. وتفخر ترافكو بروبرتيز بالكشف عن أحدث مجتمعاتها السكنية على البحر، بوحدات سكنية بخدمة فندقية تمتد من فيلات على الشاطئ إلى شقق دافئة، بتخطيط بديع تتخلّله مساحات خضراء وعناصر مائية.'}
+}},
+{en:'The villas and the chalet', ar:'الفيلات والشاليه', icon:'ty_villa',
+imgs:[RSM+'beachfront-villa.webp', RSM+'beachfront-villa-entry.webp', RSM+'plans/beachfront-villa.webp',
+RSM+'beach-villa.webp',      RSM+'beach-villa-entry.webp',      RSM+'plans/beach-villa.webp',
+RSM+'shore-villa.webp',      RSM+'shore-villa-entry.webp',      RSM+'plans/shore-villa.webp',
+RSM+'quad-chalet.webp',      RSM+'quad-chalet-entry.webp',
+RSM+'plans/quad-chalet-ground.webp', RSM+'plans/quad-chalet-upper.webp'],
+copy:{
+lead:{en:'Four homes, each drawn over a ground and a first floor with its own roof terrace. The areas below are the ones printed on their plans.', ar:'أربعة نماذج، كلٌّ مرسوم على دور أرضي وأول بروف خاص به. والمساحات أدناه هي المطبوعة على مخططاتها.'},
+groups:[
+{label:{en:'As the plans print them', ar:'كما تذكرها المخططات'}, rows:[
+{k:{en:'Beachfront Villa', ar:'فيلا على الشاطئ'}, v:{en:'5 bedrooms · 392 m² · 157 m² roof terrace', ar:'٥ غرف · ٣٩٢ م² · روف ١٥٧ م²'}},
+{k:{en:'Beach Villa', ar:'بيتش فيلا'}, v:{en:'4 bedrooms · 237 m² · 72 m² roof terrace', ar:'٤ غرف · ٢٣٧ م² · روف ٧٢ م²'}},
+{k:{en:'Shore Villa', ar:'شور فيلا'}, v:{en:'3 bedrooms · 200 m² · 44 m² roof terrace', ar:'٣ غرف · ٢٠٠ م² · روف ٤٤ م²'}},
+{k:{en:'Quad Chalet, ground floor', ar:'الشاليه الرباعي، الدور الأرضي'}, v:{en:'3 bedrooms · 171 m²', ar:'٣ غرف · ١٧١ م²'}},
+{k:{en:'Quad Chalet, upper floor', ar:'الشاليه الرباعي، الدور العلوي'}, v:{en:'4 bedrooms · 247 m² · 133 m² roof terrace', ar:'٤ غرف · ٢٤٧ م² · روف ١٣٣ م²'}}]}
+]
+}},
+{en:'The apartments', ar:'الشقق', icon:'home',
+imgs:[RSM+'apartments.webp', RSM+'apartments-entry.webp',
+RSM+'plans/apartments-ground.webp', RSM+'plans/apartments-upper.webp'],
+copy:{
+lead:{en:'Four apartment types over three floors. The ground floor pairs each with a garden; the first and second repeat the same layouts without one.', ar:'أربعة نماذج من الشقق على ثلاثة أدوار. الدور الأرضي يقرن كل نموذج بحديقة، والأول والثاني يكرّران المخططات نفسها دونها.'},
+groups:[
+{label:{en:'As the plans print them', ar:'كما تذكرها المخططات'}, rows:[
+{k:{en:'1-Bedroom', ar:'غرفة واحدة'}, v:{en:'70 m² · 8 m² terrace · 42 m² garden on the ground floor', ar:'٧٠ م² · تراس ٨ م² · حديقة ٤٢ م² في الأرضي'}},
+{k:{en:'2-Bedroom B', ar:'غرفتان — نموذج B'}, v:{en:'118 m² · 13 m² terrace · 75 m² garden', ar:'١١٨ م² · تراس ١٣ م² · حديقة ٧٥ م²'}},
+{k:{en:'2-Bedroom A', ar:'غرفتان — نموذج A'}, v:{en:'135 m² · 28 m² terraces · 91 m² garden', ar:'١٣٥ م² · تراسات ٢٨ م² · حديقة ٩١ م²'}},
+{k:{en:'3-Bedroom', ar:'ثلاث غرف'}, v:{en:'173 m² · 35 m² terraces · 97 m² garden', ar:'١٧٣ م² · تراسات ٣٥ م² · حديقة ٩٧ م²'}}]}
+]
+}},
+{en:'Interiors', ar:'التشطيبات الداخلية', icon:'am_finished',
+imgs:[RSM+'interior-living.webp', RSM+'interior-lounge.webp'],
+copy:{
+lead:{en:'The interiors the brochure shows for the residences — a bedroom and a living room, both opening to the light.', ar:'التشطيبات الداخلية كما يعرضها البروشور للمساكن — غرفة نوم وغرفة معيشة، كلتاهما مفتوحة على الضوء.'}
+}},
+{en:'The Town and The Village', ar:'المدينة والقرية', icon:'am_retail',
+imgs:[RSM+'the-town.webp', RSM+'the-village.webp'],
+copy:{
+lead:{en:'The Town offers that cosmopolitan buzz thanks to its retail area, world-class dining options, bars, boutiques and more.', ar:'تقدّم «المدينة» صخبها العالمي بمنطقتها التجارية وخيارات الطعام عالمية المستوى والبارات والبوتيكات وغيرها.'},
+more:{en:'The Ras Soma resort village sits at the heart of the park route and adjacent to the main resort hotels. It will be the centre for retail, dining, and entertainment, both during the day and at night-time. As the spine park meanders down towards the beach the experience becomes calmer with an immersion into a dune-inspired beach landscape, that buffers the beach residential, on to the pristine sandy beaches of the bay.', ar:'وتقع قرية منتجع رأس سوما في قلب مسار الحدائق وبجوار فنادق المنتجع الرئيسية، لتكون مركزاً للتجزئة والمطاعم والترفيه نهاراً وليلاً. وكلما تعرّج العمود الأخضر نازلاً نحو الشاطئ هدأت التجربة وانغمست في مشهد شاطئي مستوحى من الكثبان، يفصل المساكن الشاطئية عن رمال الخليج النقية.'}
+}},
+{en:'Ras Soma Marina', ar:'مارينا رأس سوما', icon:'am_lagoon',
+imgs:[RSM+'marina.webp'],
+copy:{
+lead:{en:'For those seeking sea-bound leisure the marina will be the hub for boat cruising, deep sea fishing, diving and coastal tours.', ar:'لمن يبحث عن متعة البحر، ستكون المارينا مركزاً للإبحار وصيد أعماق البحار والغوص والجولات الساحلية.'},
+more:{en:'The marina will be further activated by a waterfront dining and retail experience along its quayside, with private and serviced apartments overlooking the marina basin.', ar:'وستنشّطها تجربة من المطاعم والمحال على امتداد رصيفها، مع شقق خاصة وأخرى مخدومة تطل على حوض المارينا.'}
+}},
+{en:'The beach clubs', ar:'نوادي الشاطئ', icon:'am_club',
+imgs:[RSM+'beach-club.webp', RSM+'lagoon-beach-club.webp', RSM+'beach-cabana.webp'],
+copy:{
+lead:{en:'Two clubs on the plan — the Beach Club on the bay itself and the Lagoon Beach Club inland on the water.', ar:'ناديان على المخطط — بيتش كلوب على الخليج نفسه، ولاجون بيتش كلوب في الداخل على الماء.'}
+}},
+{en:'The parks', ar:'الحدائق', icon:'am_gardenpark',
+imgs:[RSM+'oasis-lagoon-park.webp', RSM+'wadi-park.webp'],
+copy:{
+lead:{en:'The project has been designed to encourage direct connectivity to the coast for all residential neighbourhoods, made possible by the active green spine park that runs through the centre of the development.', ar:'صُمّم المشروع ليشجّع الاتصال المباشر بالساحل من كل الأحياء السكنية، عبر العمود الأخضر النشط الذي يمرّ في وسط المشروع.'},
+more:{en:'Not only does this provide prime views of a landscaped park space for the residences, along its length a variety of leisure and family amenities have also been planned. These have been set amid a desert and wadi-inspired landscape, providing a more natural resort setting in keeping with the spirit of place.', ar:'وهو لا يمنح المساكن إطلالات مميّزة على مساحة منسّقة فحسب، بل خُطِّط على امتداده لمجموعة من مرافق الترفيه والعائلة، وُضِعت وسط مشهد مستوحى من الصحراء والوادي، بما يمنح المنتجع إطاراً أقرب إلى الطبيعة ووفياً لروح المكان.'}
+}},
+{en:'Sport and the water', ar:'الرياضة والبحر', icon:'am_sports',
+imgs:[RSM+'sports-club.webp'],
+copy:{
+lead:{en:'From beach volleyball to padel and tennis, the Sports Club keeps the whole community on the move; the plan also marks a kite surfing and dive centre on the bay.', ar:'من الكرة الطائرة الشاطئية إلى البادل والتنس، يُبقي النادي الرياضي المجتمع كله في حركة؛ ويضع المخطط أيضاً مركزاً للكايت سيرف والغوص على الخليج.'},
+more:{en:'The Red Sea is one of the most beautiful bodies of water in the world, with a glistening calm on the surface and colorful adventures awaiting below. At Ras Soma Residences the water activities range from diving to kitesurfing and more.', ar:'البحر الأحمر من أجمل مسطّحات المياه في العالم، بهدوء لامع على سطحه ومغامرات ملوّنة في أعماقه. وفي مساكن رأس سوما تمتد الأنشطة المائية من الغوص إلى الكايت سيرف وغيرهما.'}
+}},
+{en:'The hotels', ar:'الفنادق', icon:'am_concierge',
+imgs:[RSM+'steigenberger.webp', RSM+'steigenberger-lobby.webp', RSM+'spa.webp'],
+copy:{
+lead:{en:'Steigenberger Ras Soma is harboured on the golden Eastern shores of the Red Sea, with luxurious rooms and villas — some with a terrace, a garden or a swim-up pool — restaurants and bars, and a spa and wellness centre.', ar:'يرسو شتايجنبرجر رأس سوما على الشواطئ الشرقية الذهبية للبحر الأحمر، بغرف وفيلات فاخرة — بعضها بتراس أو حديقة أو حمام سباحة متصل — ومطاعم وبارات ومركز للسبا والعافية.'},
+more:{en:'The master plan marks a second hotel, Jaz Ras Soma, alongside a Village Hotel, a hotel conference centre and hotel serviced apartments. The spa is the Mivida Spa.', ar:'ويضع الماستر بلان فندقاً ثانياً هو جاز رأس سوما، إلى جانب فندق القرية ومركز مؤتمرات الفندق وشقق فندقية مخدومة. أما السبا فهو ميفيدا سبا.'}
+}},
+{en:'The partners', ar:'الشركاء', icon:'build',
+imgs:[],
+copy:{
+lead:{en:'The brochure closes on a partners page. These are the names it prints.', ar:'يُختتم البروشور بصفحة للشركاء، وهذه هي الأسماء التي يذكرها.'},
+list:[
+{en:'Travco Properties — the developer', ar:'ترافكو بروبرتيز — المطوّر'},
+{en:'WATG — master planners and architects', ar:'WATG — التخطيط العام والعمارة'},
+{en:'Travco Engineering & Construction', ar:'ترافكو للهندسة والإنشاءات'},
+{en:'Travco Group', ar:'مجموعة ترافكو'},
+{en:'Steigenberger Hotels & Resorts', ar:'شتايجنبرجر للفنادق والمنتجعات'}]
+}}
+]
+},
 'isola-centra': {
 masterplan: {en:'Master plan', ar:'الماستر بلان', icon:'masterplan', src:ISC+'masterplan.webp'},
 cards: [

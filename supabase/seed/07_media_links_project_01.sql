@@ -127,6 +127,7 @@ from (values
   ('/project-media/' || 'tatweer/tm-sv-il-0.webp','cover',0,array['il-monte-galala']),
   ('/project-media/' || 'travco/makadina/p27.webp','cover',0,array['makadina']),
   ('/project-media/' || 'travco/marina-gate/p46.webp','cover',0,array['marina-gate']),
+  ('/project-media/' || 'travco/ras-soma/cover.webp','cover',0,array['ras-soma']),
   ('/project-media/' || 'elmasria/isola-centra/commercial-a.webp','feature',5,array['isola-centra']),
   ('/project-media/' || 'elmasria/isola-centra/commercial-b.webp','feature',6,array['isola-centra']),
   ('/project-media/' || 'elmasria/isola-centra/location.webp','feature',1,array['isola-centra']),
@@ -232,8 +233,7 @@ from (values
   ('/project-media/' || 'msquared/masyaf-ritsa-day.webp','feature',10,array['masyaf-ras-alhekma']),
   ('/project-media/' || 'msquared/masyaf-ritsa-night.webp','feature',9,array['masyaf-ras-alhekma']),
   ('/project-media/' || 'msquared/masyaf-ritsa.webp','feature',8,array['masyaf-ras-alhekma']),
-  ('/project-media/' || 'msquared/masyaf-shore.webp','feature',0,array['masyaf-ras-alhekma']),
-  ('/project-media/' || 'msquared/mist-apartments.webp','feature',1,array['mist-new-cairo'])
+  ('/project-media/' || 'msquared/masyaf-shore.webp','feature',0,array['masyaf-ras-alhekma'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path
