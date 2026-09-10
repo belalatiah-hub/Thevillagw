@@ -21,9 +21,33 @@
   var NEW_LAUNCH_SLUGS = [];
   function isNewLaunch(p){ return !!p && (p.newLaunch===true || NEW_LAUNCH_SLUGS.indexOf(p.slug)>-1); }
   function newLaunchProjects(){ return PROJECTS.filter(isNewLaunch); }
-  // Upcoming launch teaser — image-only "Coming Soon" card (no price/details).
-  // (literal path: this runs before the media *_BASE vars below are assigned)
-  var COMING_SOON_LAUNCH = { img:'/project-media/launches/giza-terraces.webp', name:'Giza Terraces', link:'ramla-ras-el-hekma' };
+  /* Upcoming launch teasers — image-only "Coming Soon" cards, no price and no
+     details, because for these we have neither. Each says where clicking it
+     goes: `link` is a project slug, `dev` a developer key for a launch with no
+     page of its own yet. A card with `dev` prints that developer's name, so
+     both languages come from the DEVELOPERS record and cannot drift apart.
+     (literal paths: this runs before the media *_BASE vars below are assigned) */
+  var COMING_SOON_LAUNCHES = [
+    { img:'/project-media/launches/giza-terraces.webp', name:'Giza Terraces', link:'ramla-ras-el-hekma' },
+    /* Adagio — El Masria Group's next launch, in New Cairo and Sheikh Zayed.
+       The developer's poster is all we have of it: it publishes no price, no
+       areas and no delivery date, so the card carries none and opens El Masria's
+       own page rather than a project page that would have nothing on it. */
+    { img:'/project-media/launches/adagio.webp', name:'Adagio', dev:'elmasria' }
+  ];
+  var COMING_SOON_LAUNCH = COMING_SOON_LAUNCHES[0];
+  // The teaser, if any, that belongs on this project's own page.
+  function comingSoonFor(slug){
+    for(var i=0;i<COMING_SOON_LAUNCHES.length;i++)
+      if(COMING_SOON_LAUNCHES[i].link===slug) return COMING_SOON_LAUNCHES[i];
+    return null;
+  }
+  // …and the one that belongs on this developer's page.
+  function comingSoonForDev(key){
+    for(var i=0;i<COMING_SOON_LAUNCHES.length;i++)
+      if(COMING_SOON_LAUNCHES[i].dev===key) return COMING_SOON_LAUNCHES[i];
+    return null;
+  }
   function shade(hex,f){ hex=(hex||'#0d6e7d').replace('#',''); if(hex.length===3) hex=hex.replace(/(.)/g,'$1$1');
     var n=parseInt(hex,16), r=(n>>16)&255, g=(n>>8)&255, b=n&255, t=f<0?0:255, a=Math.abs(f);
     r=Math.round(r+(t-r)*a); g=Math.round(g+(t-g)*a); b=Math.round(b+(t-b)*a);

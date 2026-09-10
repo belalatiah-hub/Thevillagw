@@ -284,8 +284,12 @@
     letter-spacing:.08em;text-transform:uppercase;padding:0 0 6px}
   .rel-table td{padding:6px 0;border-top:1px solid var(--line-2);color:var(--ink-2)}
   .rel-table__p{font-weight:700;color:var(--ink);white-space:nowrap;text-align:end}
-  .cs-wrap{display:flex;justify-content:center;gap:clamp(14px,2.4vw,26px);flex-wrap:wrap;margin-top:6px}
-  .cs-card{position:relative;margin:0;width:100%;max-width:400px;border-radius:var(--r-lg);overflow:hidden;background:var(--teal-900);box-shadow:var(--shadow-lg)}
+  /* A grid, not a flex row: with three cards a flex row put two on one line and
+     let the third grow alone underneath at a different size. auto-fit fits as
+     many equal columns as the width allows and every card matches, on whichever
+     row it lands. */
+  .cs-wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));justify-content:center;gap:clamp(14px,2.4vw,26px);margin-top:6px}
+  .cs-card{position:relative;margin:0;width:100%;max-width:400px;justify-self:center;border-radius:var(--r-lg);overflow:hidden;background:var(--teal-900);box-shadow:var(--shadow-lg)}
   .cs-img{display:block;width:100%;height:auto;aspect-ratio:1/1;object-fit:cover}
   .cs-scrim{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(5,46,61,.5),rgba(5,46,61,0) 34%)}
   .cs-badge{position:absolute;inset-block-start:14px;inset-inline-start:14px;z-index:2;display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border-radius:var(--r-pill);background:rgba(5,46,61,.62);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.28);color:var(--bone);font-weight:700;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase}

@@ -819,16 +819,33 @@
   // New Launches teaser — the upcoming launch as an image-only "Coming Soon"
   // card (no price, developer, or details). In the New Launch section it links
   // to its parent project; on that project's own page it is a plain figure.
-  function comingSoonLaunch(asLink){
+  // The title a teaser prints across its foot, or '' for one that prints none.
+  function csTitle(c){ var d = c.dev && devByKey(c.dev); return d ? L(d.name) : ''; }
+  function csHref(c){
+    return c.link ? U(buildPath('project',{slug:c.link}))
+         : c.dev  ? U(buildPath('developer',{slug:c.dev})) : '';
+  }
+  /* One Coming Soon teaser. `asLink===false` renders the plain figure used on
+     the page the card would otherwise link to, where the link goes nowhere. */
+  function comingSoonCard(c, asLink){
+    var title = csTitle(c);
     var kids=[
-      h('img',{class:'cs-img', src:COMING_SOON_LAUNCH.img, alt:COMING_SOON_LAUNCH.name+' — '+t('coming_soon'), width:'1000', height:'1000', loading:'lazy', decoding:'async'}),
+      // With a title below, the artwork is decorative and the link takes its
+      // accessible name from the visible text. Without one, the image carries it.
+      h('img',{class:'cs-img', src:c.img, alt:title?'':c.name+' — '+t('coming_soon'),
+        width:'1000', height:'1000', loading:'lazy', decoding:'async'}),
       h('span',{class:'cs-scrim','aria-hidden':'true'}),
       h('span',{class:'cs-badge'}, t('coming_soon'))];
-    var card = (asLink===false || !COMING_SOON_LAUNCH.link)
-      ? h('figure',{class:'cs-card'}, kids)
-      : h('a',{class:'cs-card cs-card--link', href:U(buildPath('project',{slug:COMING_SOON_LAUNCH.link})), 'aria-label':COMING_SOON_LAUNCH.name+' — '+t('coming_soon')}, kids);
-    return h('div',{class:'cs-wrap'}, card);
+    if(title) kids.push(h('span',{class:'cs-title'}, title));
+    var href = asLink===false ? '' : csHref(c);
+    if(!href) return h('figure',{class:'cs-card'}, kids);
+    var at = {class:'cs-card cs-card--link', href:href};
+    // An aria-label on a titled card reorders the visible words and trips
+    // WCAG 2.5.3 Label in Name, so only an untitled card gets one.
+    if(!title) at['aria-label'] = c.name+' — '+t('coming_soon');
+    return h('a', at, kids);
   }
+  function comingSoonLaunch(c, asLink){ return h('div',{class:'cs-wrap'}, comingSoonCard(c, asLink)); }
   /* Release teaser — same card shell as the Coming Soon tile, badged NEW
      RELEASE and opening that developer's release page. */
   function releaseTeaser(r){
@@ -847,13 +864,7 @@
   // New Launches strip: the upcoming-project teaser plus any live releases.
   function launchStrip(){
     var wrap = h('div',{class:'cs-wrap'});
-    var kids=[
-      h('img',{class:'cs-img', src:COMING_SOON_LAUNCH.img, alt:COMING_SOON_LAUNCH.name+' — '+t('coming_soon'), width:'1000', height:'1000', loading:'lazy', decoding:'async'}),
-      h('span',{class:'cs-scrim','aria-hidden':'true'}),
-      h('span',{class:'cs-badge'}, t('coming_soon'))];
-    wrap.appendChild(COMING_SOON_LAUNCH.link
-      ? h('a',{class:'cs-card cs-card--link', href:U(buildPath('project',{slug:COMING_SOON_LAUNCH.link})), 'aria-label':COMING_SOON_LAUNCH.name+' — '+t('coming_soon')}, kids)
-      : h('figure',{class:'cs-card'}, kids));
+    COMING_SOON_LAUNCHES.forEach(function(c){ wrap.appendChild(comingSoonCard(c, true)); });
     RELEASES.forEach(function(r){ wrap.appendChild(releaseTeaser(r)); });
     return wrap;
   }

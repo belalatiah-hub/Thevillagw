@@ -1249,7 +1249,21 @@ function areaCat(k){ return (k==='sahel'||k==='sokhna'||k==='raselhekma')?'coast
 var NEW_LAUNCH_SLUGS = [];
 function isNewLaunch(p){ return !!p && (p.newLaunch===true || NEW_LAUNCH_SLUGS.indexOf(p.slug)>-1); }
 function newLaunchProjects(){ return PROJECTS.filter(isNewLaunch); }
-var COMING_SOON_LAUNCH = { img:'/project-media/launches/giza-terraces.webp', name:'Giza Terraces', link:'ramla-ras-el-hekma' };
+var COMING_SOON_LAUNCHES = [
+{ img:'/project-media/launches/giza-terraces.webp', name:'Giza Terraces', link:'ramla-ras-el-hekma' },
+{ img:'/project-media/launches/adagio.webp', name:'Adagio', dev:'elmasria' }
+];
+var COMING_SOON_LAUNCH = COMING_SOON_LAUNCHES[0];
+function comingSoonFor(slug){
+for(var i=0;i<COMING_SOON_LAUNCHES.length;i++)
+if(COMING_SOON_LAUNCHES[i].link===slug) return COMING_SOON_LAUNCHES[i];
+return null;
+}
+function comingSoonForDev(key){
+for(var i=0;i<COMING_SOON_LAUNCHES.length;i++)
+if(COMING_SOON_LAUNCHES[i].dev===key) return COMING_SOON_LAUNCHES[i];
+return null;
+}
 function shade(hex,f){ hex=(hex||'#0d6e7d').replace('#',''); if(hex.length===3) hex=hex.replace(/(.)/g,'$1$1');
 var n=parseInt(hex,16), r=(n>>16)&255, g=(n>>8)&255, b=n&255, t=f<0?0:255, a=Math.abs(f);
 r=Math.round(r+(t-r)*a); g=Math.round(g+(t-g)*a); b=Math.round(b+(t-b)*a);
@@ -8450,16 +8464,26 @@ items.forEach(function(it){ var cell=h('div',{class:'hscroll__cell', role:'listi
 sec.appendChild(h('div',{class:'wrap'}, row, track));
 return sec;
 }
-function comingSoonLaunch(asLink){
+function csTitle(c){ var d = c.dev && devByKey(c.dev); return d ? L(d.name) : ''; }
+function csHref(c){
+return c.link ? U(buildPath('project',{slug:c.link}))
+: c.dev  ? U(buildPath('developer',{slug:c.dev})) : '';
+}
+function comingSoonCard(c, asLink){
+var title = csTitle(c);
 var kids=[
-h('img',{class:'cs-img', src:COMING_SOON_LAUNCH.img, alt:COMING_SOON_LAUNCH.name+' — '+t('coming_soon'), width:'1000', height:'1000', loading:'lazy', decoding:'async'}),
+h('img',{class:'cs-img', src:c.img, alt:title?'':c.name+' — '+t('coming_soon'),
+width:'1000', height:'1000', loading:'lazy', decoding:'async'}),
 h('span',{class:'cs-scrim','aria-hidden':'true'}),
 h('span',{class:'cs-badge'}, t('coming_soon'))];
-var card = (asLink===false || !COMING_SOON_LAUNCH.link)
-? h('figure',{class:'cs-card'}, kids)
-: h('a',{class:'cs-card cs-card--link', href:U(buildPath('project',{slug:COMING_SOON_LAUNCH.link})), 'aria-label':COMING_SOON_LAUNCH.name+' — '+t('coming_soon')}, kids);
-return h('div',{class:'cs-wrap'}, card);
+if(title) kids.push(h('span',{class:'cs-title'}, title));
+var href = asLink===false ? '' : csHref(c);
+if(!href) return h('figure',{class:'cs-card'}, kids);
+var at = {class:'cs-card cs-card--link', href:href};
+if(!title) at['aria-label'] = c.name+' — '+t('coming_soon');
+return h('a', at, kids);
 }
+function comingSoonLaunch(c, asLink){ return h('div',{class:'cs-wrap'}, comingSoonCard(c, asLink)); }
 function releaseTeaser(r){
 var nm = L(r.name);
 return h('a',{class:'cs-card cs-card--link', href:U(buildPath('release',{slug:r.slug}))},
@@ -8471,13 +8495,7 @@ h('span',{class:'cs-title'}, nm));
 }
 function launchStrip(){
 var wrap = h('div',{class:'cs-wrap'});
-var kids=[
-h('img',{class:'cs-img', src:COMING_SOON_LAUNCH.img, alt:COMING_SOON_LAUNCH.name+' — '+t('coming_soon'), width:'1000', height:'1000', loading:'lazy', decoding:'async'}),
-h('span',{class:'cs-scrim','aria-hidden':'true'}),
-h('span',{class:'cs-badge'}, t('coming_soon'))];
-wrap.appendChild(COMING_SOON_LAUNCH.link
-? h('a',{class:'cs-card cs-card--link', href:U(buildPath('project',{slug:COMING_SOON_LAUNCH.link})), 'aria-label':COMING_SOON_LAUNCH.name+' — '+t('coming_soon')}, kids)
-: h('figure',{class:'cs-card'}, kids));
+COMING_SOON_LAUNCHES.forEach(function(c){ wrap.appendChild(comingSoonCard(c, true)); });
 RELEASES.forEach(function(r){ wrap.appendChild(releaseTeaser(r)); });
 return wrap;
 }
@@ -9354,10 +9372,11 @@ var pFeat= featureCardsSection(projFeatures(p.slug), L({en:p.name, ar:p.name_ar}
 if(pFeat) node.appendChild(pFeat);
 track('project_viewed', {project:p.slug});
 if(typeof leadArm==='function') leadArm();
-if(COMING_SOON_LAUNCH.link === p.slug){
+var pSoon = comingSoonFor(p.slug);
+if(pSoon){
 var lsec=h('section',{class:'section--tight'}), lsw=h('div',{class:'wrap'});
 lsw.appendChild(sectionHead(t('nav_launches'), t('home_launch_h'), t('home_launch_p')));
-lsw.appendChild(comingSoonLaunch(false));
+lsw.appendChild(comingSoonLaunch(pSoon, false));
 lsec.appendChild(lsw); node.appendChild(lsec);
 }
 var typesEn=(p.types && p.types.en) ? p.types.en.split(' · ') : [];
@@ -9875,6 +9894,13 @@ else node.appendChild(h('section',{class:'section band'}, h('div',{class:'wrap'}
 h('div',{class:'empty-state'}, h('div',{class:'empty-ico'}, ic('home')),
 h('p',null, (lang==='ar'?'نضيف مشروعات '+L(d.name)+' حاليًا — تواصل مع مستشار لمعرفة المتاح الآن.':'We’re adding '+L(d.name)+'’s projects — talk to an advisor for current availability.')),
 h('a',{class:'btn btn--primary', href:U(buildPath('contact'))}, t('cta_talk'))))));
+var dSoon = comingSoonForDev(key);
+if(dSoon){
+var dls=h('section',{class:'section--tight'}), dlw=h('div',{class:'wrap'});
+dlw.appendChild(sectionHead(t('nav_launches'), t('home_launch_h'), t('home_launch_p')));
+dlw.appendChild(comingSoonLaunch(dSoon, false));
+dls.appendChild(dlw); node.appendChild(dls);
+}
 node.appendChild(ctaBand());
 return {node:node, title:L(d.name)+' — '+t('nav_developers')+' · The Village Investment', desc:devDesc(d), indexable:true,
 crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_developers'),path:buildPath('developers')},{label:L(d.name)}]};

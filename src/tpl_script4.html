@@ -370,10 +370,11 @@
     if(typeof leadArm==='function') leadArm();   // a project view is a qualifying engagement
 
     // Upcoming sub-launch teaser within this project (image + "Coming Soon").
-    if(COMING_SOON_LAUNCH.link === p.slug){
+    var pSoon = comingSoonFor(p.slug);
+    if(pSoon){
       var lsec=h('section',{class:'section--tight'}), lsw=h('div',{class:'wrap'});
       lsw.appendChild(sectionHead(t('nav_launches'), t('home_launch_h'), t('home_launch_p')));
-      lsw.appendChild(comingSoonLaunch(false));
+      lsw.appendChild(comingSoonLaunch(pSoon, false));
       lsec.appendChild(lsw); node.appendChild(lsec);
     }
 
@@ -992,6 +993,16 @@
       h('div',{class:'empty-state'}, h('div',{class:'empty-ico'}, ic('home')),
         h('p',null, (lang==='ar'?'نضيف مشروعات '+L(d.name)+' حاليًا — تواصل مع مستشار لمعرفة المتاح الآن.':'We’re adding '+L(d.name)+'’s projects — talk to an advisor for current availability.')),
         h('a',{class:'btn btn--primary', href:U(buildPath('contact'))}, t('cta_talk'))))));
+    // A launch of this developer's that has no page of its own yet — the same
+    // teaser the New Launches strip carries, shown here as a plain figure since
+    // its link would only lead back to this page.
+    var dSoon = comingSoonForDev(key);
+    if(dSoon){
+      var dls=h('section',{class:'section--tight'}), dlw=h('div',{class:'wrap'});
+      dlw.appendChild(sectionHead(t('nav_launches'), t('home_launch_h'), t('home_launch_p')));
+      dlw.appendChild(comingSoonLaunch(dSoon, false));
+      dls.appendChild(dlw); node.appendChild(dls);
+    }
     node.appendChild(ctaBand());
     return {node:node, title:L(d.name)+' — '+t('nav_developers')+' · The Village Investment', desc:devDesc(d), indexable:true,
       crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_developers'),path:buildPath('developers')},{label:L(d.name)}]};
