@@ -86,9 +86,15 @@ sandbox.globalThis = sandbox; sandbox.self = sandbox;
 
 let src = fs.readFileSync(require('path').join(__dirname,'..','index.html'),'utf8');
 src = src.match(/<script>\s*"use strict"[\s\S]*?<\/script>/)[0].replace(/^<script>/,'').replace(/<\/script>$/,'');
-src += "\n;globalThis.__api={h:h,V:V,unitCard:unitCard,projectArt:projectArt,projectMedia:projectMedia,projectCoverSrc:projectCoverSrc,chatRespond:chatRespond,offerText:offerText,money:money,num:num,cmpPrice:cmpPrice,planLine:planLine,projectOffer:projectOffer,bestNameMatch:bestNameMatch,unitDisplayName:unitDisplayName,PROJECTS:PROJECTS,UNITS:UNITS,DEVELOPERS:DEVELOPERS,TYPES:TYPES,lang:lang,filterUnits:filterUnits,defaultFilter:defaultFilter,normalizeUnitType:normalizeUnitType,reconcileFilter:reconcileFilter,filterToQuery:filterToQuery,filterFromQuery:filterFromQuery,areaFacets:areaFacets,devFacets:devFacets,typeFacets:typeFacets,bedFacets:bedFacets,floorFacets:floorFacets,usesFloorBands:usesFloorBands,recommendUnits:recommendUnits,scoreUnit:scoreUnit,relaxationPlan:relaxationPlan,matchHard:matchHard,hasSelection:hasSelection,selectionSummary:selectionSummary,chatRecommend:chatRecommend,chatBriefText:chatBriefText,projBySlug:projBySlug,unitCanon:unitCanon,setFilter:function(f){FILTER=f;},getFilter:function(){return FILTER;},searchAll:searchAll,arNorm:arNorm,buildSearchIndex:buildSearchIndex,setSearch:function(s){CUR.search=s;},paymentCalc:paymentCalc,printFactsheet:printFactsheet,projFloorplan:projFloorplan,installmentCount:installmentCount,projectCoverSrc:projectCoverSrc,printUnitFactsheet:printUnitFactsheet,openFactsheet:openFactsheet,closeFactsheet:closeFactsheet,track:track,render:render,parse:parse,buildPath:buildPath,navigateTo:navigateTo,getRoute:function(){return currentRoute;},searchLabel:searchLabel,saveCurrentSearch:saveCurrentSearch,savedSearches:savedSearches,removeSearch:removeSearch,leadSubmit:leadSubmit,leadArm:leadArm,leadReset:function(){LEAD.shown=0;LEAD.armed=false;LEAD.open=false;},leadState:function(){return LEAD;},isExternalLink:isExternalLink,CONFIG:CONFIG,devLogoSrc:devLogoSrc,projectLogoSrc:projectLogoSrc,devBadge:devBadge,devByKey:devByKey,DEV_LOGOS:DEV_LOGOS,DEV_GALLERY:DEV_GALLERY,devGallery:devGallery,PROJECT_LOGOS:PROJECT_LOGOS,unitMasterplans:unitMasterplans,unitFloorplans:unitFloorplans,unitAmenities:unitAmenities,unitLocationImg:unitLocationImg,unitGallery:unitGallery,unitGalleryItems:unitGalleryItems,unitFeatureRow:unitFeatureRow,amenitiesSection:amenitiesSection,areaImageSrc:areaImageSrc,AMENITY_CAT:AMENITY_CAT,unitById:unitById,unitIsCommercial:unitIsCommercial,typeFamily:typeFamily,releaseBySlug:releaseBySlug,RELEASES:RELEASES,rotateByDev:rotateByDev,devRotationOffset:devRotationOffset,areaByKey:areaByKey,hasUnitImage:hasUnitImage,sortUnits:sortUnits,searchAll:searchAll,searchTypeOne:searchTypeOne,buildSearchIndex:buildSearchIndex,releaseMasterplan:releaseMasterplan,spreadByDev:spreadByDev,isNewLaunch:isNewLaunch,newLaunchProjects:newLaunchProjects,NEW_LAUNCH_SLUGS:NEW_LAUNCH_SLUGS,PROJECT_GROUPS:PROJECT_GROUPS,groupBySlug:groupBySlug,groupsByDev:groupsByDev,groupMembers:groupMembers,GROUPED_PROJECT:GROUPED_PROJECT,setCompare:function(a){compare.length=0;for(var i=0;i<a.length;i++)compare.push(a[i]);},getCompare:function(){return compare;},toggleCompare:toggleCompare,HERO_SLIDES:HERO_SLIDES,heroSrc:heroSrc,AREAS:AREAS,RESEARCH:RESEARCH,areaText:areaText,areaValue:areaValue,DEV_AMENITIES:DEV_AMENITIES,AMENITY_CAT:AMENITY_CAT,ICON:ICON,devAmenitiesSection:devAmenitiesSection,DEV_FEATURES:DEV_FEATURES,UNIT_GALLERY:UNIT_GALLERY,unitMasterplans:unitMasterplans,unitLocationImg:unitLocationImg,unitFloorplans:unitFloorplans,PROJECT_AMENITIES:PROJECT_AMENITIES,unitAmenities:unitAmenities,projectGalleryItems:projectGalleryItems,projFeatures:projFeatures,projectPlans:projectPlans,projectPlanSection:projectPlanSection,unitMedia:unitMedia,UNIT_IMAGES:UNIT_IMAGES,PROJECT_COVERS:PROJECT_COVERS,PROJECT_GALLERY:PROJECT_GALLERY,projectPhases:projectPhases,phaseOf:phaseOf,PROJECT_BROCHURE:PROJECT_BROCHURE,PROJECT_FEATURES:PROJECT_FEATURES,PROJECT_PLANS:PROJECT_PLANS,UNIT_EXTRA:UNIT_EXTRA,UNIT_MASTERPLANS:UNIT_MASTERPLANS,UNIT_FLOORPLANS:UNIT_FLOORPLANS,UNIT_LOCATIONS:UNIT_LOCATIONS,COMING_SOON_LAUNCHES:COMING_SOON_LAUNCHES,comingSoonFor:comingSoonFor,comingSoonForDev:comingSoonForDev,comingSoonCard:comingSoonCard,csHref:csHref,csTitle:csTitle};";
+src += "\n;globalThis.__api={h:h,V:V,unitCard:unitCard,projectArt:projectArt,projectMedia:projectMedia,projectCoverSrc:projectCoverSrc,chatRespond:chatRespond,offerText:offerText,money:money,num:num,cmpPrice:cmpPrice,planLine:planLine,projectOffer:projectOffer,bestNameMatch:bestNameMatch,unitDisplayName:unitDisplayName,PROJECTS:PROJECTS,UNITS:UNITS,DEVELOPERS:DEVELOPERS,TYPES:TYPES,lang:lang,filterUnits:filterUnits,defaultFilter:defaultFilter,normalizeUnitType:normalizeUnitType,reconcileFilter:reconcileFilter,filterToQuery:filterToQuery,filterFromQuery:filterFromQuery,areaFacets:areaFacets,devFacets:devFacets,typeFacets:typeFacets,bedFacets:bedFacets,floorFacets:floorFacets,usesFloorBands:usesFloorBands,recommendUnits:recommendUnits,scoreUnit:scoreUnit,relaxationPlan:relaxationPlan,matchHard:matchHard,hasSelection:hasSelection,selectionSummary:selectionSummary,chatRecommend:chatRecommend,chatBriefText:chatBriefText,projBySlug:projBySlug,unitCanon:unitCanon,setFilter:function(f){FILTER=f;},getFilter:function(){return FILTER;},searchAll:searchAll,arNorm:arNorm,buildSearchIndex:buildSearchIndex,setSearch:function(s){CUR.search=s;},paymentCalc:paymentCalc,printFactsheet:printFactsheet,projFloorplan:projFloorplan,installmentCount:installmentCount,projectCoverSrc:projectCoverSrc,printUnitFactsheet:printUnitFactsheet,openFactsheet:openFactsheet,closeFactsheet:closeFactsheet,track:track,render:render,parse:parse,buildPath:buildPath,navigateTo:navigateTo,getRoute:function(){return currentRoute;},searchLabel:searchLabel,saveCurrentSearch:saveCurrentSearch,savedSearches:savedSearches,removeSearch:removeSearch,leadSubmit:leadSubmit,leadArm:leadArm,leadReset:function(){LEAD.shown=0;LEAD.armed=false;LEAD.open=false;},leadState:function(){return LEAD;},isExternalLink:isExternalLink,CONFIG:CONFIG,devLogoSrc:devLogoSrc,projectLogoSrc:projectLogoSrc,devBadge:devBadge,devByKey:devByKey,DEV_LOGOS:DEV_LOGOS,DEV_GALLERY:DEV_GALLERY,devGallery:devGallery,PROJECT_LOGOS:PROJECT_LOGOS,unitMasterplans:unitMasterplans,unitFloorplans:unitFloorplans,unitAmenities:unitAmenities,unitLocationImg:unitLocationImg,unitGallery:unitGallery,unitGalleryItems:unitGalleryItems,unitFeatureRow:unitFeatureRow,amenitiesSection:amenitiesSection,areaImageSrc:areaImageSrc,AMENITY_CAT:AMENITY_CAT,unitById:unitById,unitIsCommercial:unitIsCommercial,typeFamily:typeFamily,releaseBySlug:releaseBySlug,RELEASES:RELEASES,rotateByDev:rotateByDev,devRotationOffset:devRotationOffset,areaByKey:areaByKey,hasUnitImage:hasUnitImage,sortUnits:sortUnits,searchAll:searchAll,searchTypeOne:searchTypeOne,buildSearchIndex:buildSearchIndex,releaseMasterplan:releaseMasterplan,spreadByDev:spreadByDev,isNewLaunch:isNewLaunch,newLaunchProjects:newLaunchProjects,NEW_LAUNCH_SLUGS:NEW_LAUNCH_SLUGS,PROJECT_GROUPS:PROJECT_GROUPS,groupBySlug:groupBySlug,groupsByDev:groupsByDev,groupMembers:groupMembers,GROUPED_PROJECT:GROUPED_PROJECT,setCompare:function(a){compare.length=0;for(var i=0;i<a.length;i++)compare.push(a[i]);},getCompare:function(){return compare;},toggleCompare:toggleCompare,HERO_SLIDES:HERO_SLIDES,heroSrc:heroSrc,AREAS:AREAS,RESEARCH:RESEARCH,areaText:areaText,areaValue:areaValue,DEV_AMENITIES:DEV_AMENITIES,AMENITY_CAT:AMENITY_CAT,ICON:ICON,devAmenitiesSection:devAmenitiesSection,DEV_FEATURES:DEV_FEATURES,UNIT_GALLERY:UNIT_GALLERY,unitMasterplans:unitMasterplans,unitLocationImg:unitLocationImg,unitFloorplans:unitFloorplans,PROJECT_AMENITIES:PROJECT_AMENITIES,unitAmenities:unitAmenities,projectGalleryItems:projectGalleryItems,projFeatures:projFeatures,projectPlans:projectPlans,projectPlanSection:projectPlanSection,unitMedia:unitMedia,UNIT_IMAGES:UNIT_IMAGES,PROJECT_COVERS:PROJECT_COVERS,PROJECT_GALLERY:PROJECT_GALLERY,projectPhases:projectPhases,phaseOf:phaseOf,PROJECT_BROCHURE:PROJECT_BROCHURE,PROJECT_FEATURES:PROJECT_FEATURES,PROJECT_PLANS:PROJECT_PLANS,UNIT_EXTRA:UNIT_EXTRA,UNIT_MASTERPLANS:UNIT_MASTERPLANS,UNIT_FLOORPLANS:UNIT_FLOORPLANS,UNIT_LOCATIONS:UNIT_LOCATIONS,COMING_SOON_LAUNCHES:COMING_SOON_LAUNCHES,comingSoonFor:comingSoonFor,comingSoonForDev:comingSoonForDev,comingSoonCard:comingSoonCard,csHref:csHref,csTitle:csTitle,setLang:function(l){var p=lang;lang=l;return p;}};";
 
-const R=[]; const ck=(n,c,x)=>R.push({n,ok:!!c,x:x||''});
+/* A check passes on `true` and fails on a string, which is its own message.
+   `ok:!!c` used to be the rule, and a string is truthy — so every check written
+   as `return bad.length === 0 || bad.join('; ')`, which is how the harder ones
+   are written, reported PASS at the exact moment it had something to say. */
+const R=[]; const ck=(n,c,x)=>R.push({
+  n, ok: typeof c === 'string' ? false : !!c,
+  x: typeof c === 'string' ? c : (x||'')});
 function countClass(node,cls){ let n=0; (function w(x){ for(const c of (x.childNodes||[])){ if(c.nodeType===1){ if((c.className||'').split(/\s+/).indexOf(cls)>-1) n++; w(c); } } })(node); return n; }
 function countTag(node,tag){ let n=0; (function w(x){ for(const c of (x.childNodes||[])){ if(c.nodeType===1){ if(c.tagName===tag) n++; w(c); } } })(node); return n; }
 function findAttr(node,attr,val){ let r=null; (function w(x){ for(const c of (x.childNodes||[])){ if(c.nodeType===1){ if(c.getAttribute&&c.getAttribute(attr)===val) { r=r||c; } w(c); } } })(node); return r; }
@@ -2542,6 +2548,77 @@ try {
     if(api.csTitle(g) !== '') bad.push('giza terraces gained a title');
     return bad.length === 0 || bad.join('; ');
   })(), true);
+  ck('marina gate: the page carries the kit’s own figures and no borrowed ones', (function(){
+    var bad = [], f = api.projFeatures('marina-gate');
+    if(!f || !f.cards || f.cards.length < 6) return 'no cards';
+    var flat = JSON.stringify(f);
+    // Built-up areas exactly as the kit prints them, and each matching its unit.
+    var AREAS = {'MG-01':198, 'MG-02':188, 'MG-03':171, 'MG-04':148,
+                 'MG-05':142, 'MG-06':137, 'MG-07':149};
+    Object.keys(AREAS).forEach(function(id){
+      var u = api.unitById(id);
+      if(!u || u.area !== AREAS[id]) bad.push(id+' area='+(u && u.area));
+      if(flat.indexOf(AREAS[id]+' m² built-up') < 0) bad.push(id+' area not on the card');
+    });
+    // The kit prints no roof terrace for the two Hexa duplexes; none is invented.
+    ['192','87','58','65','108'].forEach(function(m){
+      if(flat.indexOf(m+' m² roof terrace') < 0) bad.push('roof '+m+' missing');
+    });
+    var rows = [];
+    f.cards.forEach(function(c){
+      ((c.copy && c.copy.groups) || []).forEach(function(g){
+        g.rows.forEach(function(r){ rows.push([r.k.en, r.v.en]); });
+      });
+    });
+    if(rows.length !== 7) bad.push('the homes table has '+rows.length+' rows, not 7');
+    rows.forEach(function(r){
+      var duplex = /duplex/i.test(r[0]), roof = /roof terrace/i.test(r[1]);
+      if(duplex && roof) bad.push(r[0]+' gained a roof terrace the kit never printed');
+      if(!duplex && !roof) bad.push(r[0]+' lost its roof terrace');
+    });
+    // Bedroom counts are deliberately not restated: the kit's schedules and the
+    // unit rows disagree on the maid's room, so the cards stay off that ground.
+    if(/bedroom/i.test(flat)) bad.push('the cards restate bedrooms');
+    // No drive time, in either language, anywhere on this project.
+    var p = api.PROJECTS.filter(function(x){ return x.slug === 'marina-gate'; })[0];
+    var all = flat + JSON.stringify(p) + JSON.stringify(api.projectPlans('marina-gate'));
+    if(/\b\d+\s*(min|mins|minutes|hr|hrs|hours)\b/i.test(all)) bad.push('a drive time');
+    if(/\d+\s*(دقيقة|دقائق|ساعة|ساعات)/.test(all)) bad.push('a drive time (ar)');
+    // Every card is bilingual, and no picture is borrowed from another project.
+    f.cards.forEach(function(c){
+      if(!c.en || !c.ar) bad.push('card not bilingual: '+(c.en||c.ar));
+      c.imgs.forEach(function(s){
+        if(s.indexOf('/project-media/travco/marina-gate/') !== 0) bad.push('foreign image '+s);
+      });
+    });
+    /* The plan band carries this phase's own layout and its location map. The
+       destination plan is Ras Soma's, not a second master plan for Marina Gate,
+       and it lives on the card that explains the numbering — which is also the
+       only shape the database can hold, having room for one master plan each. */
+    var g = api.projectPlans('marina-gate');
+    if(!g.loc || g.loc.length !== 1) bad.push('no location map');
+    if(g.mp && g.mp.length !== 1) bad.push('two master plans: '+(g.mp||[]).join(','));
+    if(!f.masterplan || f.masterplan.src.indexOf('mp-marina-gate') < 0)
+      bad.push('no phase layout');
+    if(flat.indexOf('/marina-gate/p10.webp') < 0) bad.push('the destination plan is nowhere');
+    return bad.length === 0 || bad.join('; ');
+  })(), true);
+  ck('marina gate: the kit’s stock people photographs stay off the page', (function(){
+    // p18's housekeeper, p20's sun loungers, p21's model on a yacht. None was
+    // extracted, so none can be referenced; this fails if one is added back.
+    var bad = [], f = api.projFeatures('marina-gate');
+    var flat = JSON.stringify(f) + JSON.stringify(api.PROJECT_GALLERY['marina-gate']);
+    ['p18', 'p20', 'p21'].forEach(function(pg){
+      if(flat.indexOf('/marina-gate/' + pg + '.webp') > -1) bad.push(pg+' is on the page');
+    });
+    // …and the ten floor-plan pages stay off it too: the units carry those
+    // drawings already, cropped closer, and two copies of one plan is one copy
+    // too many. Compared side by side before this was written.
+    ['p27','p33','p34','p39','p40','p42','p43','p47','p48','p49','p22','p09'].forEach(function(pg){
+      if(flat.indexOf('/marina-gate/' + pg + '.webp') > -1) bad.push(pg+' duplicates a unit drawing');
+    });
+    return bad.length === 0 || bad.join('; ');
+  })(), true);
   ck('ras soma: Marina Gate is a phase of it, not a card beside it', (function(){
     var bad = [];
     if(api.phaseOf('marina-gate') !== 'ras-soma') bad.push('phaseOf='+api.phaseOf('marina-gate'));
@@ -2609,12 +2686,15 @@ try {
      development. None of it belongs on this page — not a picture, not a figure,
      not the name. And its drive times stay off, as every project's do. */
   ck('ras soma: no Almaza Bay and no drive time', (function(){
-    var bad = [];
+    var bad = [], was = api.lang;
     ['en','ar'].forEach(function(l){
-      var t = txt(api.V.project('ras-soma', l).node);
+      api.setLang(l);                       // V.project takes no lang argument
+      var t = txt(api.V.project('ras-soma').node);
       if(/almaza|ألمازا/i.test(t)) bad.push(l+': almaza');
       if(/\b\d+(\.\d+)?\s*(mins?|minutes|hours?|hrs?)\b/i.test(t)) bad.push(l+': drive time');
+      if(/\d+\s*(دقيقة|دقائق|ساعة|ساعات)/.test(t)) bad.push(l+': drive time (ar)');
     });
+    api.setLang(was);
     return bad.length === 0 || bad.join(',');
   })(), true);
   /* Three of the brochure's spreads caption a picture with a place the picture
@@ -2793,12 +2873,15 @@ try {
      acres is about 23.7 — so the Arabic keeps the developer's own word. A
      silent swap to فدان would restate the developer's figure as a bigger one. */
   ck('isola: an acre is never quietly restated as a feddan', (function(){
-    var bad = [];
+    // V.project takes a slug and nothing else — the second argument this used
+    // to pass was ignored, so it read the English page and looked for Arabic.
+    var bad = [], was = api.setLang('ar');
     [['isola-centra','٢٥'],['isola-quattro','١٥']].forEach(function(p){
-      var t = txt(api.V.project(p[0], 'ar').node);
+      var t = txt(api.V.project(p[0]).node);
       if(t.indexOf(p[1]+' أكر') === -1) bad.push(p[0]+': no acre');
       if(new RegExp(p[1]+'\\s*فدان').test(t)) bad.push(p[0]+': converted');
     });
+    api.setLang(was);
     return bad.length === 0 || bad.join(',');
   })(), true);
   /* ISOLA Quattro's company page prints EGP 40 billion and 12,000 delivered
@@ -2889,8 +2972,13 @@ try {
      tall as the ones beside it. Both are 3:2 now — jsdom has no layout, so this
      asserts the rule that produces it rather than the measured height. */
   ck('cards: one picture is framed like several', (function(){
-    var css = doc.querySelector('style') ? Array.prototype.map.call(doc.querySelectorAll('style'),
-      function(s){ return s.textContent; }).join('\n') : '';
+    // The document here is a stub the script builds itself; index.html's own
+    // <style> is never parsed into it, so reading the rule off `doc` read an
+    // empty string and the rule could not be found however right it was.
+    var fsy = require('fs'), pathy = require('path');
+    var html = fsy.readFileSync(pathy.join(__dirname,'..','index.html'),'utf8');
+    var css = (html.match(/<style[^>]*>[\s\S]*?<\/style>/g)||[]).join('\n');
+    if(!css) return 'no stylesheet in index.html';
     var rule = /\.dev-feat\s*>\s*img\s*\{[^}]*aspect-ratio\s*:\s*3\s*\/\s*2[^}]*object-fit\s*:\s*cover[^}]*\}/;
     var solo = 0, total = 0;
     [api.DEV_FEATURES, api.PROJECT_FEATURES].forEach(function(m){
@@ -2949,14 +3037,21 @@ try {
      another card — a villa where a clubhouse belongs is the same error as a
      villa on a clinic listing. */
   ck('cards: a card with no picture renders its copy and no broken image', (function(){
-    var empty = [];
+    var empty = {};
     [api.DEV_FEATURES, api.PROJECT_FEATURES].forEach(function(m){
       Object.keys(m).forEach(function(k){
-        (m[k].cards||[]).forEach(function(c){ if(!c.imgs.length) empty.push(k+':'+c.en); });
+        (m[k].cards||[]).forEach(function(c){ if(!c.imgs.length) empty[k+':'+c.en] = 1; });
       });
     });
-    if(empty.length !== 6) return 'expected 6 text-only cards, found '+empty.length;
     var bad = [];
+    /* The six the stock photographs were taken from must still be here — a card
+       that quietly regained a picture regained a borrowed one. Counting them
+       instead of naming them went stale the moment a seventh text-only card was
+       added for a different and legitimate reason. */
+    ['zoya:Zoya’s Beach Clubhouse', 'zoya:Inspiring the Athlete in You',
+     'zoya:Small Heartbeats of Excitement', 'zoya:Retail Therapy by the Sea',
+     'zoya:Young All Summer Long', 'one-ninety:Cairo Design District'
+    ].forEach(function(k){ if(!empty[k]) bad.push(k+' is no longer text-only'); });
     ['zoya','one-ninety'].forEach(function(slug){
       var n = api.V.project(slug).node;
       qsa(n,'.dev-feat').forEach(function(card){
@@ -2970,10 +3065,13 @@ try {
   })(), true);
   /* Not one of the thirteen may come back anywhere on the site. */
   ck('cards: the stock people photographs are gone from every map', (function(){
-    var gone = ['zoya/ways','zoya/clubhouse','zoya/sports','zoya/kids','zoya/retail',
-                'zoya/nightlife','one-ninety/curated','one-ninety/park',
-                'one-ninety/w-cairo-hotel','one-ninety/aloft','one-ninety/cdd',
-                'one-ninety/cdd-street','one-ninety/boulevard.webp'];
+    /* Each name ends in .webp. Matching on the stem flagged park-aerial.webp,
+       which is a render of One Ninety itself and was never one of the thirteen —
+       a false alarm that would have had a real picture deleted to silence it. */
+    var gone = ['zoya/ways.webp','zoya/clubhouse.webp','zoya/sports.webp','zoya/kids.webp',
+                'zoya/retail.webp','zoya/nightlife.webp','one-ninety/curated.webp',
+                'one-ninety/park.webp','one-ninety/w-cairo-hotel.webp','one-ninety/aloft.webp',
+                'one-ninety/cdd.webp','one-ninety/cdd-street.webp','one-ninety/boulevard.webp'];
     var seen = [];
     function scan(v){
       if(typeof v === 'string'){ gone.forEach(function(g){ if(v.indexOf('/lmd/'+g) > -1) seen.push(g); }); }

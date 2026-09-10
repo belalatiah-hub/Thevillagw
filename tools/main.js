@@ -3901,7 +3901,8 @@ var PROJECT_PLANS = {
 'one-ninety': {loc:['/project-media/lmd/brochure/one-ninety-location.webp']},
 'isola-centra': {loc:['/project-media/elmasria/isola-centra/location.webp']},
 'isola-quattro': {loc:['/project-media/elmasria/isola-quattro/location.webp']},
-'ras-soma': {loc:['/project-media/travco/ras-soma/location.webp']}
+'ras-soma': {loc:['/project-media/travco/ras-soma/location.webp']},
+'marina-gate': {loc:['/project-media/travco/marina-gate/units/location-marina-gate.webp']}
 };
 function projectPlans(slug){
 var own = PROJECT_PLANS[slug], back = PROJECT_PLAN_FALLBACK[slug] || {};
@@ -4659,6 +4660,7 @@ var BAB = '/project-media/beitalbahr/';
 var MB  = '/project-media/baghush/';
 var EM  = '/project-media/elmasria/';
 var RSM = '/project-media/travco/ras-soma/';
+var MGT = '/project-media/travco/marina-gate/';
 var ISC = '/project-media/elmasria/isola-centra/';
 var ISQ = '/project-media/elmasria/isola-quattro/';
 var LMB = '/project-media/lmd/brochure/';
@@ -6004,6 +6006,73 @@ list:[
 {en:'Travco Engineering & Construction', ar:'ترافكو للهندسة والإنشاءات'},
 {en:'Travco Group', ar:'مجموعة ترافكو'},
 {en:'Steigenberger Hotels & Resorts', ar:'شتايجنبرجر للفنادق والمنتجعات'}]
+}}
+]
+},
+'marina-gate': {
+masterplan: {en:'Marina Gate layout', ar:'مخطط مارينا جيت', icon:'masterplan', src:MGT+'units/mp-marina-gate.webp'},
+cards: [
+{en:'Your gateway to the nautical world', ar:'بوابتك إلى العالم البحري', icon:'key',
+imgs:[MGT+'p23.webp'],
+copy:{
+lead:{en:'Marina Gate, the forthcoming phase of Almaza Bay Ras Soma, serves as the welcoming gateway to the maritime world.', ar:'مارينا جيت، المرحلة القادمة من ألماظة باي رأس سوما، هي البوابة التي ترحّب بك إلى عالم البحر.'},
+more:{en:'Positioned as the gateway to the Marina, it bridges pristine coastal living with the vibrant nautical life, offering residents and visitors a prelude to the shimmering waters, diverse marine life, and exclusive access to the boating and waterfront experiences that define Almaza Bay Ras Soma.', ar:'وبموقعها عند مدخل المارينا، تصل بين حياة ساحلية بكر وحياة بحرية نابضة، وتمنح السكان والزوار مقدّمةً للمياه المتلألئة والحياة البحرية المتنوّعة، ووصولاً خاصاً إلى تجارب اليخوت والواجهة البحرية التي تميّز ألماظة باي رأس سوما.'}
+}},
+{en:'Where it sits', ar:'أين تقع', icon:'pin',
+imgs:[MGT+'p10.webp', MGT+'units/location-marina-gate.webp'],
+copy:{
+lead:{en:'Marina Gate is number 9 on the destination’s own plan — between The Condos and The Village, beside Ras Soma Marina.', ar:'مارينا جيت هي رقم ٩ على مخطط الوجهة نفسه — بين ذا كوندوز وذا فيلدج، بجوار مارينا رأس سوما.'},
+list:[
+{en:'Main entry · The Town · The Village · Ras Soma Residences · Marina Apartments · The Condos', ar:'المدخل الرئيسي · المدينة · القرية · مساكن رأس سوما · شقق المارينا · ذا كوندوز'},
+{en:'Ras Soma Marina · Beach Club · Kite Surfing and Dive Center', ar:'مارينا رأس سوما · بيتش كلوب · مركز الكايت سيرف والغوص'},
+{en:'Oasis Lagoon Park · Adventure Park · Water Park · Go-karting · Sports Club', ar:'حديقة الواحة · حديقة المغامرات · الحديقة المائية · الكارتينج · النادي الرياضي'},
+{en:'Steigenberger Ras Soma · Jaz Ras Soma · Village Hotel · Hotel Conference Center · Hotel Serviced Apartments', ar:'شتايجنبرجر رأس سوما · جاز رأس سوما · فندق القرية · مركز مؤتمرات الفندق · الشقق الفندقية المخدومة'}],
+more:{en:'The same plan appears in the Ras Soma brochure of 2023, where items 8 and 9 are named Wadi Park and Lagoon Beach Club; the later sales kit prints the identical drawing with those two renamed The Condos and Marina Gate. Its drive times are not carried here, as no project’s are.', ar:'ويظهر المخطط نفسه في بروشور رأس سوما ٢٠٢٣ ببندَي ٨ و٩ باسم وادي بارك ولاجون بيتش كلوب، ثم يطبع كتيّب المبيعات الأحدث الرسم ذاته بعد إعادة تسميتهما ذا كوندوز ومارينا جيت. أما أزمنة القيادة فلا تُنقل هنا، شأنها شأن كل المشروعات.'}
+}},
+{en:'The homes', ar:'النماذج', icon:'ty_villa',
+imgs:[MGT+'p25.webp', MGT+'p26.webp', MGT+'p31.webp', MGT+'p32.webp',
+MGT+'p37.webp', MGT+'p38.webp', MGT+'p45.webp', MGT+'p46.webp'],
+copy:{
+lead:{en:'Four homes drawn over seven layouts, each with its own room schedule. The areas below are the ones printed on those plans.', ar:'أربعة نماذج مرسومة على سبعة مخططات، لكلٍّ جدول غرفه. والمساحات أدناه هي المطبوعة على تلك المخططات.'},
+groups:[
+{label:{en:'As the plans print them', ar:'كما تذكرها المخططات'}, rows:[
+{k:{en:'One Story Villa', ar:'فيلا دور واحد'}, v:{en:'198 m² built-up · 192 m² roof terrace', ar:'١٩٨ م² بناء · روف ١٩٢ م²'}},
+{k:{en:'Twin Villa', ar:'توين فيلا'}, v:{en:'188 m² built-up · 87 m² roof terrace', ar:'١٨٨ م² بناء · روف ٨٧ م²'}},
+{k:{en:'Townhouse, corner unit', ar:'تاون هاوس — كورنر'}, v:{en:'171 m² built-up · 58 m² roof terrace', ar:'١٧١ م² بناء · روف ٥٨ م²'}},
+{k:{en:'Townhouse, middle unit', ar:'تاون هاوس — ميدل'}, v:{en:'148 m² built-up · 65 m² roof terrace', ar:'١٤٨ م² بناء · روف ٦٥ م²'}},
+{k:{en:'Hexa Home, duplex corner', ar:'هيكسا هوم — دوبلكس كورنر'}, v:{en:'142 m² built-up', ar:'١٤٢ م² بناء'}},
+{k:{en:'Hexa Home, duplex middle', ar:'هيكسا هوم — دوبلكس ميدل'}, v:{en:'137 m² built-up', ar:'١٣٧ م² بناء'}},
+{k:{en:'Hexa Home, penthouse', ar:'هيكسا هوم — بنتهاوس'}, v:{en:'149 m² built-up · 108 m² roof terrace', ar:'١٤٩ م² بناء · روف ١٠٨ م²'}}]}
+],
+more:{en:'The kit prints no roof terrace for either Hexa Home duplex, so none is given here. Its own disclaimer applies to all of them: the floor plans, features and specifications are conceptual and subject to change, and the dimensions are approximate and may vary with actual construction.', ar:'ولا يذكر الكتيّب روفاً لأيٍّ من دوبلكسي هيكسا هوم، فلم يُذكر هنا. ويسري إخلاء المسؤولية الوارد فيه على الجميع: المخططات والمواصفات تصوّرية وقابلة للتغيير، والأبعاد تقريبية وقد تختلف عن التنفيذ الفعلي.'}
+}},
+{en:'Inside', ar:'من الداخل', icon:'home',
+imgs:[MGT+'p50.webp', MGT+'units/v1-marina-gate-2.webp', MGT+'units/v1-marina-gate-3.webp',
+MGT+'units/tv-marina-gate-2.webp', MGT+'units/th-marina-gate-2.webp'],
+copy:{
+lead:{en:'The interiors the kit draws — a kitchen open to the living room, the villa’s living and dining rooms, and the double-height stair the twin villa and the townhouse share.', ar:'التشطيبات التي يرسمها الكتيّب — مطبخ مفتوح على المعيشة، وغرفتا المعيشة والطعام في الفيلا، والسلّم مزدوج الارتفاع الذي تشترك فيه التوين فيلا والتاون هاوس.'},
+more:{en:'The kit states that every detail shown — items of finish, furniture and decoration among them — is conceptual only and is not necessarily included in the unit.', ar:'ويذكر الكتيّب أن كل التفاصيل المعروضة — ومنها التشطيبات والأثاث والديكور — تصوّرية فقط وليست بالضرورة ضمن الوحدة.'}
+}},
+{en:'Serviced homes', ar:'منازل بخدمة فندقية', icon:'am_concierge',
+imgs:[],
+copy:{
+lead:{en:'The kit lists the services the homes come with.', ar:'يذكر الكتيّب الخدمات التي تأتي بها المنازل.'},
+list:[
+{en:'Housekeeping · Laundry service', ar:'خدمة تنظيف · خدمة غسيل'},
+{en:'Gym & spa', ar:'جيم وسبا'},
+{en:'Rentals & property management', ar:'تأجير وإدارة الأملاك'},
+{en:'Swimming pool cleaning service', ar:'خدمة تنظيف حمّام السباحة'}],
+more:{en:'Around them the destination carries The Village — world-class dining, bars and retail boutiques — and a private marina dedicated to homeowners with a marina district of its own, alongside the water sports, the parks and the hotels the plan marks.', ar:'ومن حولها تضمّ الوجهة «ذا فيلدج» بمطاعمه وباراته ومتاجره العالمية، ومارينا خاصة مخصّصة لملّاك الوحدات بحيّ مارينا خاص بها، إلى جانب الرياضات المائية والحدائق والفنادق التي يرسمها المخطط.'}
+}},
+{en:'The partners', ar:'الشركاء', icon:'build',
+imgs:[MGT+'p51.webp'],
+copy:{
+lead:{en:'The kit closes on a partners page. These are the names it prints.', ar:'يُختتم الكتيّب بصفحة للشركاء، وهذه هي الأسماء التي يذكرها.'},
+list:[
+{en:'Travco Properties — the developer', ar:'ترافكو بروبرتيز — المطوّر'},
+{en:'WATG — master planners and architects', ar:'WATG — التخطيط العام والعمارة'},
+{en:'Travco Engineering & Construction · Travco Group', ar:'ترافكو للهندسة والإنشاءات · مجموعة ترافكو'},
+{en:'HWM · Jaz Hotel Group · Steigenberger Hotels & Resorts', ar:'HWM · مجموعة جاز للفنادق · شتايجنبرجر للفنادق والمنتجعات'}]
 }}
 ]
 },
@@ -7517,11 +7586,12 @@ var TYPES = [
 {c:'townhouse', en:'Townhouse', ar:'تاون هاوس', icon:'ty_townhouse', fam:'house', al:['townhouse','town house','town home','تاون هاوس']},
 {c:'twin-house', en:'Twin House', ar:'توين هاوس', icon:'ty_twinhouse', fam:'house', al:['twin house','twinhouse','توين هاوس']},
 {c:'bungalow', en:'Bungalow', ar:'بنجلو', icon:'ty_villa', fam:'house', al:['bungalow','بنجلو']},
+{c:'estate', en:'Estate', ar:'قصر', icon:'ty_villa', fam:'house', al:['estate','estates','قصر','قصور']},
 {c:'chalet', en:'Chalet', ar:'شاليه', icon:'ty_chalet', fam:'flat', al:['chalet','شاليه']},
 {c:'cabin', en:'Cabin', ar:'كابين', icon:'ty_cabin', fam:'house', al:['cabin','كابين']},
 {c:'office', en:'Office', ar:'مكتب', icon:'ty_office', fam:'commercial', al:['office','offices','smart office','smart offices','loft office','مكتب','مكاتب']},
 {c:'administrative-office', en:'Administrative Office', ar:'مكتب إداري', icon:'ty_office', fam:'commercial', al:['administrative office','admin office','مكتب اداري','مكتب إداري']},
-{c:'clinic', en:'Clinic', ar:'عيادة', icon:'ty_office', fam:'commercial', al:['clinic','عيادة']},
+{c:'clinic', en:'Clinic', ar:'عيادة', icon:'ty_office', fam:'commercial', al:['clinic','clinics','عيادة','عيادات']},
 {c:'medical-unit', en:'Medical Unit', ar:'وحدة طبية', icon:'ty_office', fam:'commercial', al:['medical unit','وحدة طبية']},
 {c:'pharmacy', en:'Pharmacy', ar:'صيدلية', icon:'ty_office', fam:'commercial', al:['pharmacy','صيدلية']},
 {c:'retail-unit', en:'Retail', ar:'محل تجاري', icon:'ty_office', fam:'commercial', al:['retail','shop','retail unit','store','محل','تجاري']},
@@ -9384,7 +9454,12 @@ var utsec=h('section',{class:'section--tight band'}), utw=h('div',{class:'wrap'}
 utw.appendChild(sectionHead('', t('unit_types_h'), t('unit_types_p')));
 if(typesEn.length){
 var trow=h('div',{class:'type-row'});
-typesEn.forEach(function(te){ var c=normalizeUnitType(te); trow.appendChild(h('div',{class:'type-chip'}, typeIconC(c), h('span',null, typeLabelC(c)))); });
+var typesAr=(p.types && p.types.ar) ? p.types.ar.split(' · ') : [];
+typesEn.forEach(function(te, i){
+var c=normalizeUnitType(te);
+var label = c === 'other' ? ((lang==='ar' && typesAr[i]) || te) : typeLabelC(c);
+trow.appendChild(h('div',{class:'type-chip'}, typeIconC(c), h('span',null, label)));
+});
 utw.appendChild(trow);
 }
 var us=unitsIn(p.slug);
