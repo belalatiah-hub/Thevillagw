@@ -252,7 +252,14 @@ def main():
         with open(os.path.join(SRC, fname), encoding='utf-8') as f:
             doc = doc.replace(token, 'data:image/png;base64,' + f.read().strip())
 
-    left = doc.count('__LOGO') + doc.count('__INTRO_VIDEO__') + doc.count('__FAVICON__')
+    # The cursor is the same mark, cut out and rimmed by tools/make_cursor.py.
+    # Bare base64 rather than a full data URI: the stylesheet writes the prefix
+    # itself, so the CSS reads as CSS.
+    with open(os.path.join(SRC, 'cursor_v.b64'), encoding='utf-8') as f:
+        doc = doc.replace('__CURSOR_V__', f.read().strip())
+
+    left = (doc.count('__LOGO') + doc.count('__INTRO_VIDEO__')
+            + doc.count('__FAVICON__') + doc.count('__CURSOR'))
     if left:
         raise SystemExit('build aborted: %d placeholder(s) left unresolved' % left)
 

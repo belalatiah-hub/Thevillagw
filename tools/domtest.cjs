@@ -2553,6 +2553,33 @@ try {
       bad.push('giza terraces title='+api.csTitle(g));
     return bad.length === 0 || bad.join('; ');
   })(), true);
+  ck('cursor: the logo’s V replaces the arrow, and only the arrow', (function(){
+    var fsz = require('fs'), pathz = require('path');
+    var css = (fsz.readFileSync(pathz.join(__dirname,'..','index.html'),'utf8')
+                 .match(/<style[^>]*>[\s\S]*?<\/style>/g) || []).join('\n');
+    if(!css) return 'no stylesheet in index.html';
+    var bad = [];
+    var m = css.match(/:root\{cursor:url\("data:image\/png;base64,([A-Za-z0-9+/=]+)"\)\s*(\d+)\s+(\d+),\s*default\}/);
+    if(!m) return 'the rule is not there, or does not end in a fallback to default';
+    // A build that lost the asset would leave an empty data URI and a cursor
+    // that silently vanishes; the mark is ~4KB of base64.
+    if(m[1].length < 3000) bad.push('the image is only '+m[1].length+' base64 chars');
+    if(m[1].indexOf('__CURSOR') > -1) bad.push('the placeholder was never filled');
+    if(m[2] !== '5' || m[3] !== '5') bad.push('hotspot '+m[2]+' '+m[3]+', not the mark’s top-left');
+    // Only where there is a pointer to replace, and never over a text field.
+    var i = css.indexOf(m[0]);
+    var before = css.slice(Math.max(0, i - 400), i);
+    if(!/@media\s*\(hover:hover\)\s*and\s*\(pointer:fine\)\{\s*$/.test(before))
+      bad.push('not scoped to a device with a real pointer');
+    if(!/input,textarea,select,\[contenteditable\]\{cursor:auto\}/.test(css))
+      bad.push('a text field would inherit the mark instead of its I-beam');
+    if(!/@media\s*\(prefers-contrast:more\)\{:root\{cursor:auto\}\}/.test(css))
+      bad.push('no escape for a reader who asked for more contrast');
+    // The shapes that say what a thing does are left alone.
+    if(!/button\{font:inherit;cursor:pointer/.test(css)) bad.push('a button lost its hand');
+    if(!/\.detail-media--gal\{cursor:zoom-in\}/.test(css)) bad.push('a zoomable picture lost its magnifier');
+    return bad.length === 0 || bad.join('; ');
+  })(), true);
   ck('marina gate: the page carries the kit’s own figures and no borrowed ones', (function(){
     var bad = [], f = api.projFeatures('marina-gate');
     if(!f || !f.cards || f.cards.length < 6) return 'no cards';
