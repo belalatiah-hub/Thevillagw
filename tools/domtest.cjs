@@ -2717,9 +2717,16 @@ try {
     var bad = [];
     /* The sheet, row by row: area, price, down payment, years, handover, beds,
        baths. Written out rather than derived, so a typo in the data fails here
-       instead of shipping. */
+       instead of shipping.
+
+       One figure here is NOT the sheet's, and is marked where it sits: BD-01's
+       bathroom count. The sheet says two; the owner says one, and fp-ap1-bad —
+       the plan that unit's own page opens — draws a single Bath 1 in a 61 m²
+       one-bedroom. BD-02 is the same row shape and its plan draws one bath
+       too, but that plan is the cyan photograph this project does not publish,
+       so its two stands until the owner says otherwise. */
     var SHEET = {
-      'BD-01':[ 61,  6700000,  3, 12, '2030', 1, 2],
+      'BD-01':[ 61,  6700000,  3, 12, '2030', 1, 1],   // baths: owner's correction
       'BD-02':[ 63,  7200000,  3, 12, '2030', 1, 2],
       'BD-03':[132, 12997571,  3, 12, '2030', 2, 3],
       'BD-04':[152, 15297811,  3, 12, '2030', 3, 3],

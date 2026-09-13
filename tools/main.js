@@ -950,7 +950,7 @@ var UNITS = [
 {id:'BAB-HS01', project:'bab-hills-by-the-sea', type:'Villa', beds:5, baths:6, area:475, price:131400000, dp:10, years:7, handover:'2029'},
 {id:'BAB-HS02', project:'bab-hills-by-the-sea', type:'Villa', beds:6, baths:8, area:450, price:265500000, dp:10, years:7, handover:'2028'},
 {id:'BAB-HL01', project:'bab-hills', type:'Villa', beds:3, baths:4, area:180, price:54573750, dp:50, years:2, handover:'Ready'},
-{id:'BD-01', project:'badya-october', type:'Apartment', label:{en:'Apartment',ar:'شقة'}, beds:1, baths:2, area:61, price:6700000, dp:3, years:12, handover:'2030'},
+{id:'BD-01', project:'badya-october', type:'Apartment', label:{en:'Apartment',ar:'شقة'}, beds:1, baths:1, area:61, price:6700000, dp:3, years:12, handover:'2030'},
 {id:'BD-02', project:'badya-october', type:'Apartment', label:{en:'Apartment',ar:'شقة'}, beds:1, baths:2, area:63, price:7200000, dp:3, years:12, handover:'2030'},
 {id:'BD-03', project:'badya-october', type:'Apartment', label:{en:'Apartment',ar:'شقة'}, beds:2, baths:3, area:132, price:12997571, dp:3, years:12, handover:'2030'},
 {id:'BD-04', project:'badya-october', type:'Apartment', label:{en:'Apartment',ar:'شقة'}, beds:3, baths:3, area:152, price:15297811, dp:3, years:12, handover:'2030'},

@@ -174,7 +174,7 @@ from (values
   ('BAB-HS01','bab-hills-by-the-sea','Villa',null,null,5,6,475,null,131400000,10,7,'2029',null,'available'),
   ('BAB-HS02','bab-hills-by-the-sea','Villa',null,null,6,8,450,null,265500000,10,7,'2028',null,'available'),
   ('BAB-HL01','bab-hills','Villa',null,null,3,4,180,null,54573750,50,2,'Ready',null,'available'),
-  ('BD-01','badya-october','Apartment','Apartment','شقة',1,2,61,null,6700000,3,12,'2030',null,'available'),
+  ('BD-01','badya-october','Apartment','Apartment','شقة',1,1,61,null,6700000,3,12,'2030',null,'available'),
   ('BD-02','badya-october','Apartment','Apartment','شقة',1,2,63,null,7200000,3,12,'2030',null,'available'),
   ('BD-03','badya-october','Apartment','Apartment','شقة',2,3,132,null,12997571,3,12,'2030',null,'available'),
   ('BD-04','badya-october','Apartment','Apartment','شقة',3,3,152,null,15297811,3,12,'2030',null,'available'),
