@@ -7,7 +7,6 @@ select v.unit_code, p.id, v.unit_type_en, v.label_en, v.label_ar,
   v.price::bigint, v.dp::numeric, v.years::numeric,
   v.delivery_label, v.floor, v.availability::cms.unit_availability, 'published', now()
 from (values
-  ('WM-01','westown-medical-center','Clinic','clinic','عيادة',null,null,141,null,26950000,10,5,'2026',null,'available'),
   ('WM-02','westown-medical-center','Clinic','clinic','عيادة',null,null,145,null,27627000,10,5,'2026',null,'available'),
   ('WM-03','westown-medical-center','Clinic','clinic','عيادة',null,null,80,null,16894000,10,5,'2026',null,'available'),
   ('WM-04','westown-medical-center','Clinic','clinic','عيادة',null,null,71,null,15559000,10,5,'2026',null,'available'),

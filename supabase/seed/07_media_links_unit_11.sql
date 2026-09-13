@@ -5,11 +5,6 @@
 insert into cms.media_links (asset_id, unit_id, role, sort_order)
 select a.id, o.id, v.role::cms.media_role, v.sort_order
 from (values
-  ('/project-media/' || 'sodic/sodic-east/units/to3-se-0.webp','gallery',0,array['SE-03']),
-  ('/project-media/' || 'sodic/sodic-east/units/to3-se-0.webp','gallery',1,array['SE-04']),
-  ('/project-media/' || 'sodic/sodic-east/units/to3-se-01.webp','gallery',0,array['SE-04']),
-  ('/project-media/' || 'sodic/sodic-east/units/to3-se-01.webp','gallery',1,array['SE-03']),
-  ('/project-media/' || 'sodic/sodic-east/units/to3-se-02.webp','gallery',2,array['SE-03','SE-04']),
   ('/project-media/' || 'sodic/sodic-east/units/v1-se-0.webp','gallery',0,array['SE-05']),
   ('/project-media/' || 'sodic/sodic-east/units/v1-se-01.webp','gallery',1,array['SE-05']),
   ('/project-media/' || 'sodic/sodic-east/units/v1-se-02.webp','gallery',2,array['SE-05']),
@@ -227,7 +222,13 @@ from (values
   ('/project-media/' || 'tatweer/f-01.webp','gallery',1,array['TM-FK-01']),
   ('/project-media/' || 'tatweer/f-02.webp','gallery',2,array['TM-FK-01']),
   ('/project-media/' || 'tatweer/f2-0.webp','gallery',0,array['TM-FK-02']),
-  ('/project-media/' || 'tatweer/f2-01.webp','gallery',1,array['TM-FK-02'])
+  ('/project-media/' || 'tatweer/f2-01.webp','gallery',1,array['TM-FK-02']),
+  ('/project-media/' || 'tatweer/f2-02.webp','gallery',2,array['TM-FK-02']),
+  ('/project-media/' || 'tatweer/f4-0.webp','gallery',0,array['TM-FK-04']),
+  ('/project-media/' || 'tatweer/f4-01.webp','gallery',1,array['TM-FK-04']),
+  ('/project-media/' || 'tatweer/fouka-8.webp','gallery',0,array['TM-FK-03']),
+  ('/project-media/' || 'tatweer/fouka-serviced-apt.webp','gallery',1,array['TM-FK-03']),
+  ('/project-media/' || 'tatweer/mp-tm-st2-il.webp','gallery',1,array['TM-IM-18'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path

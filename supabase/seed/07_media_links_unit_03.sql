@@ -5,7 +5,6 @@
 insert into cms.media_links (asset_id, unit_id, role, sort_order)
 select a.id, o.id, v.role::cms.media_role, v.sort_order
 from (values
-  ('/project-media/' || 'beitalbahr/units/fp-ch14-sh.webp','floorplan',0,array['BAB-SH14']),
   ('/project-media/' || 'beitalbahr/units/fp-ch15-sh.webp','floorplan',0,array['BAB-SH15']),
   ('/project-media/' || 'beitalbahr/units/fp-ch16-sh.webp','floorplan',0,array['BAB-SH16']),
   ('/project-media/' || 'beitalbahr/units/fp-ch2-roo-2.webp','floorplan',1,array['BAB-RO04']),
@@ -239,7 +238,8 @@ from (values
   ('/project-media/' || 'msquared/units/fp-chalet8-masyaf.webp','floorplan',0,array['MS-MA-10']),
   ('/project-media/' || 'msquared/units/fp-duplex-masyaf.webp','floorplan',0,array['MS-MA-11']),
   ('/project-media/' || 'msquared/units/fp-lagoon-chalet-1-masyaf.webp','floorplan',0,array['MS-MA-03']),
-  ('/project-media/' || 'msquared/units/fp-off1-0.webp','floorplan',0,array['MS-41-01'])
+  ('/project-media/' || 'msquared/units/fp-off1-0.webp','floorplan',0,array['MS-41-01']),
+  ('/project-media/' || 'msquared/units/fp-off1-01.webp','floorplan',1,array['MS-41-01'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path

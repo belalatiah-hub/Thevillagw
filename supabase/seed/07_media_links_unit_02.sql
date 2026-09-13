@@ -64,7 +64,6 @@ from (values
   ('/project-media/' || 'orascom/siyal/units/v3-si-0.webp','cover',0,array['SY-03']),
   ('/project-media/' || 'orascom/siyal/units/v4-si-0.webp','cover',0,array['SY-05']),
   ('/project-media/' || 'palmhills/badya/units/ap1-bad-0.webp','cover',0,array['BD-01']),
-  ('/project-media/' || 'palmhills/badya/units/ap1-bad-03.webp','cover',0,array['BD-02']),
   ('/project-media/' || 'palmhills/badya/units/ap2-bed-0.webp','cover',0,array['BD-04']),
   ('/project-media/' || 'palmhills/badya/units/ap3-bad-0.webp','cover',0,array['BD-03']),
   ('/project-media/' || 'palmhills/badya/units/ap5-bad-0.webp','cover',0,array['BD-05']),
@@ -252,7 +251,8 @@ from (values
   ('/project-media/' || 'beitalbahr/units/fp-ch10-sh.webp','floorplan',0,array['BAB-SH10']),
   ('/project-media/' || 'beitalbahr/units/fp-ch11-sh.webp','floorplan',0,array['BAB-SH11']),
   ('/project-media/' || 'beitalbahr/units/fp-ch12-sh.webp','floorplan',0,array['BAB-SH12']),
-  ('/project-media/' || 'beitalbahr/units/fp-ch13-sh.webp','floorplan',0,array['BAB-SH13'])
+  ('/project-media/' || 'beitalbahr/units/fp-ch13-sh.webp','floorplan',0,array['BAB-SH13']),
+  ('/project-media/' || 'beitalbahr/units/fp-ch14-sh.webp','floorplan',0,array['BAB-SH14'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path

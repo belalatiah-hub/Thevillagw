@@ -2713,7 +2713,7 @@ try {
     });
     return bad.length === 0 || bad.join('; ');
   })(), true);
-  ck('badya: the units are the sheet’s eleven rows, and the invented three are gone', (function(){
+  ck('badya: the units are the sheet’s rows, less the one withdrawn, and the invented three are gone', (function(){
     var bad = [];
     /* The sheet, row by row: area, price, down payment, years, handover, beds,
        baths. Written out rather than derived, so a typo in the data fails here
@@ -2722,12 +2722,14 @@ try {
        One figure here is NOT the sheet's, and is marked where it sits: BD-01's
        bathroom count. The sheet says two; the owner says one, and fp-ap1-bad —
        the plan that unit's own page opens — draws a single Bath 1 in a 61 m²
-       one-bedroom. BD-02 is the same row shape and its plan draws one bath
-       too, but that plan is the cyan photograph this project does not publish,
-       so its two stands until the owner says otherwise. */
+       one-bedroom.
+
+       Ten rows, not eleven. BD-02 was the same case — 63 m², one bedroom, two
+       baths on the sheet and one on its plan — but that plan is the cyan
+       photograph this project does not publish, so there was nothing usable to
+       correct it against. The owner withdrew the unit instead. */
     var SHEET = {
       'BD-01':[ 61,  6700000,  3, 12, '2030', 1, 1],   // baths: owner's correction
-      'BD-02':[ 63,  7200000,  3, 12, '2030', 1, 2],
       'BD-03':[132, 12997571,  3, 12, '2030', 2, 3],
       'BD-04':[152, 15297811,  3, 12, '2030', 3, 3],
       'BD-05':[160, 14500000,  3, 12, '2030', 3, 4],
@@ -2747,7 +2749,8 @@ try {
       if(!u.label || !u.label.ar) bad.push(id+' label not bilingual');
     });
     var mine = api.UNITS.filter(function(u){ return u.project === 'badya-october'; });
-    if(mine.length !== 11) bad.push(mine.length+' units, not 11');
+    if(mine.length !== 10) bad.push(mine.length+' units, not 10');
+    if(api.unitById('BD-02')) bad.push('BD-02 is back');
     /* BD-AP1 priced the same 3-bedroom 160 m² at 6,500,000 that the sheet
        prices at 14,500,000; BD-TH1 and BD-VL1 had no row at all. If one comes
        back, two prices for one home come back with it. */
@@ -2792,9 +2795,9 @@ try {
     });
     /* Two rows have no floor plan and are not given another unit's: row 1765
        names the cyan photograph, row 1785 names none. */
-    ['BD-02','BD-07'].forEach(function(id){
-      if(api.unitFloorplans(api.unitById(id)).length) bad.push(id+' borrowed a plan');
-    });
+    /* BD-07 names no plan at all and is not given another unit's. (BD-02, the
+       row whose plan was the cyan photograph, is withdrawn entirely.) */
+    if(api.unitFloorplans(api.unitById('BD-07')).length) bad.push('BD-07 borrowed a plan');
     ['BD-01','BD-03','BD-04','BD-05','BD-06','BD-08','BD-09','BD-10','BD-11'].forEach(function(id){
       if(api.unitFloorplans(api.unitById(id)).length !== 1) bad.push(id+' has no plan of its own');
     });

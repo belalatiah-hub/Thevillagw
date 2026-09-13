@@ -5,7 +5,6 @@
 insert into cms.media_links (asset_id, unit_id, role, sort_order)
 select a.id, o.id, v.role::cms.media_role, v.sort_order
 from (values
-  ('/project-media/' || 'lmd/zy-tw3-r3.webp','gallery',2,array['ZY-TW3']),
   ('/project-media/' || 'marakez/shams-soma/units/ch1-shams-soma-0.webp','gallery',0,array['SS-04']),
   ('/project-media/' || 'marakez/shams-soma/units/ch1-shams-soma-1.webp','gallery',1,array['SS-04']),
   ('/project-media/' || 'marakez/shams-soma/units/ch1-shams-soma-2.webp','gallery',2,array['SS-04']),
@@ -246,7 +245,8 @@ from (values
   ('/project-media/' || 'modon/ap2-bp-05.webp','gallery',4,array['MD-BP-02']),
   ('/project-media/' || 'modon/ap2-bpl-0.webp','gallery',0,array['MD-BPL-02']),
   ('/project-media/' || 'modon/ap2-bpl-01.webp','gallery',1,array['MD-BPL-02']),
-  ('/project-media/' || 'modon/ap2-bpl-02.webp','gallery',2,array['MD-BPL-02'])
+  ('/project-media/' || 'modon/ap2-bpl-02.webp','gallery',2,array['MD-BPL-02']),
+  ('/project-media/' || 'modon/ap2-bpl-03.webp','gallery',3,array['MD-BPL-02'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path

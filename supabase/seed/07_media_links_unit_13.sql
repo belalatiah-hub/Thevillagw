@@ -5,9 +5,6 @@
 insert into cms.media_links (asset_id, unit_id, role, sort_order)
 select a.id, o.id, v.role::cms.media_role, v.sort_order
 from (values
-  ('/project-media/' || 'tatweer/lo-river.webp','location',0,array['TM-RV-01','TM-RV-02','TM-RV-03','TM-RV-04','TM-RV-05']),
-  ('/project-media/' || 'tatweer/lo-sc.webp','location',0,array['TM-SC-01','TM-SC-02','TM-SC-03']),
-  ('/project-media/' || 'tatweer/location-salt.webp','location',0,array['TM-SL-01','TM-SL-02','TM-SL-03','TM-SL-04','TM-SL-05','TM-SL-06']),
   ('/project-media/' || 'travco/makadina/units/location-makadina.webp','location',0,array['MK-01','MK-02','MK-03','MK-04','MK-05','MK-06','MK-07','MK-08','MK-09','MK-10']),
   ('/project-media/' || 'travco/marina-gate/units/location-marina-gate.webp','location',0,array['MG-01','MG-02','MG-03','MG-04','MG-05','MG-06','MG-07']),
   ('/project-media/' || 'baghush/units/mp-m.webp','masterplan',0,array['MB-V01','MB-V02','MB-V03','MB-V04','MB-CH01','MB-CH02','MB-CH03','MB-TW01','MB-CH04','MB-CH05','MB-CH06','MB-CH07']),
@@ -107,7 +104,7 @@ from (values
   ('/project-media/' || 'ora/mp-zw.webp','masterplan',0,array['OR-ZW-01','OR-ZW-02','OR-ZW-03','OR-ZW-04','OR-ZW-05','OR-ZW-06','OR-ZW-07']),
   ('/project-media/' || 'orascom/ledge-valley/units/mp-mko.webp','masterplan',0,array['LV-01','LV-02','LV-03','LV-04','LV-05','LV-06','LV-07','LV-08','LV-09','LV-10']),
   ('/project-media/' || 'orascom/siyal/units/mp-siyal.webp','masterplan',0,array['SY-01','SY-02','SY-03','SY-04','SY-05','SY-06','SY-07']),
-  ('/project-media/' || 'palmhills/badya/units/mp-bad.webp','masterplan',0,array['BD-01','BD-02','BD-03','BD-04','BD-05','BD-06','BD-07','BD-08','BD-09','BD-10','BD-11']),
+  ('/project-media/' || 'palmhills/badya/units/mp-bad.webp','masterplan',0,array['BD-01','BD-03','BD-04','BD-05','BD-06','BD-07','BD-08','BD-09','BD-10','BD-11']),
   ('/project-media/' || 'ramla/units/mp-a.webp','masterplan',0,array['AE-AP01']),
   ('/project-media/' || 'sodic/caesar-north-coast/units/mp-ca.webp','masterplan',0,array['CS-01','CS-02','CS-03','CS-04','CS-05','CS-06']),
   ('/project-media/' || 'sodic/caesar-north-coast/units/mp-ca2.webp','masterplan',0,array['CS-07','CS-08','CS-09']),

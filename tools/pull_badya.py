@@ -14,6 +14,10 @@ FROM THE BROCHURE  ->  project-media/palmhills/badya/pNN.webp
                                    embedded photograph so the family name
                                    printed over it does not come along
   p07 p15 p23 p31 p39 p44 p52      the interiors, the same way
+  p09 p17 p25 p33 p41 p49          the entry floor of each family, rendered
+  p12 p20 p28 p36 p43 p51          its penthouse floor, rendered — the room
+                                   schedule beside the drawing is the content,
+                                   so these pages are rendered whole
 
   Four exteriors and five interiors, though there are six family sections —
   because the brochure reuses its own pictures. p14 is the SAME EMBEDDED IMAGE
@@ -23,10 +27,6 @@ FROM THE BROCHURE  ->  project-media/palmhills/badya/pNN.webp
   copies of three others, and the project's gallery flipped through the same
   picture twice. They are not written, and no render here is captioned as one
   particular family's, because for four of the six that would not be true.
-  p09 p17 p25 p33 p41 p49          the entry floor of each family, rendered
-  p12 p20 p28 p36 p43 p51          its penthouse floor, rendered — the room
-                                   schedule beside the drawing is the content,
-                                   so these pages are rendered whole
 
   Not used: p03. It is headed BADYA MASTER PLAN and its paragraph is about the
   patios of the TOWNHOUSES — in a brochure that is apartments throughout. The
@@ -66,6 +66,15 @@ FROM THE ARCHIVES  ->  project-media/palmhills/badya/units/<name>.webp
                    it and so has no floor plan; that is reported rather than
                    filled in from another unit's.
 
+  NOT WRITTEN — the unit they belonged to is withdrawn
+
+    ap2-bad-01     two apartment exteriors, the second and third frames of the
+    ap2-bad-02     set row 1765 named. That row is withdrawn at the owner's
+                   instruction, and these two were its alone — the other three
+                   frames in its set are ap1- files the 61 m² unit still uses.
+                   They are Badya's own architecture and could go in the
+                   project gallery if the owner wants them there.
+
   NOT WRITTEN — named by no row
 
     ap4-bad-0      a street of villas
@@ -102,7 +111,8 @@ PHOTO = [4, 6, 7, 15, 22, 23, 30, 31, 38, 39, 44, 52]
 WHOLE = [8, 9, 12, 17, 20, 25, 28, 33, 36, 41, 43, 49, 51]
 
 SKIP = {'fp-ap4-bad01.png', 'fp-ap4-bad02.PNG', 'fp-ap5-bad-0.png',
-        'fp-ap2-bad.PNG', 'ap4-bad-0.PNG', 'ap4-bad-01.PNG'}
+        'fp-ap2-bad.PNG', 'ap4-bad-0.PNG', 'ap4-bad-01.PNG',
+        'ap2-bad-01.png', 'ap2-bad-02.png'}
 
 
 def save(im, path, width, quality=84):

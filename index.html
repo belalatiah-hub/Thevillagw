@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <!-- frame-ancestors/HSTS belong in HTTP response headers (see deploy runbook), not meta. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'sha256-0eB8s3A3aZQguW+SDJC/YssfCUQj66wY3V7A9qjdeKc=' 'sha256-yI6VCT38V7vjk7cAW7UM7qbGpBU7Ua/f8UOqpzWwxAc=' 'sha256-YvHevJmHHrhBzm9a+K1fYxwv5t1APr4XI8t4Am8p7D4=' 'sha256-RBNvo1WzZ4oRRq0W9+hknpT7T8If536DEMBg9hyq/4o=' 'sha256-h+L3y7wZkkL5cvv1fhgpYIvXGJJameBLNJ2aZMdfD0U=' https://static.cloudflareinsights.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://cloudflareinsights.com; base-uri 'self'; form-action 'self'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'sha256-0eB8s3A3aZQguW+SDJC/YssfCUQj66wY3V7A9qjdeKc=' 'sha256-yI6VCT38V7vjk7cAW7UM7qbGpBU7Ua/f8UOqpzWwxAc=' 'sha256-YvHevJmHHrhBzm9a+K1fYxwv5t1APr4XI8t4Am8p7D4=' 'sha256-RBNvo1WzZ4oRRq0W9+hknpT7T8If536DEMBg9hyq/4o=' 'sha256-BMJTOIQx19Vxe3KeFjyzAZa/bcHZJHTbFTMyOu51v9E=' https://static.cloudflareinsights.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://cloudflareinsights.com; base-uri 'self'; form-action 'self'" />
   <meta name="theme-color" content="#073D52" />
   <meta name="color-scheme" content="light" />
   <meta name="format-detection" content="telephone=no" />
@@ -1236,7 +1236,6 @@ var UNITS = [
 {id:'BAB-HS02', project:'bab-hills-by-the-sea', type:'Villa', beds:6, baths:8, area:450, price:265500000, dp:10, years:7, handover:'2028'},
 {id:'BAB-HL01', project:'bab-hills', type:'Villa', beds:3, baths:4, area:180, price:54573750, dp:50, years:2, handover:'Ready'},
 {id:'BD-01', project:'badya-october', type:'Apartment', label:{en:'Apartment',ar:'شقة'}, beds:1, baths:1, area:61, price:6700000, dp:3, years:12, handover:'2030'},
-{id:'BD-02', project:'badya-october', type:'Apartment', label:{en:'Apartment',ar:'شقة'}, beds:1, baths:2, area:63, price:7200000, dp:3, years:12, handover:'2030'},
 {id:'BD-03', project:'badya-october', type:'Apartment', label:{en:'Apartment',ar:'شقة'}, beds:2, baths:3, area:132, price:12997571, dp:3, years:12, handover:'2030'},
 {id:'BD-04', project:'badya-october', type:'Apartment', label:{en:'Apartment',ar:'شقة'}, beds:3, baths:3, area:152, price:15297811, dp:3, years:12, handover:'2030'},
 {id:'BD-05', project:'badya-october', type:'Apartment', label:{en:'Apartment',ar:'شقة'}, beds:3, baths:4, area:160, price:14500000, dp:3, years:12, handover:'2030'},
@@ -2195,7 +2194,6 @@ var UNIT_IMAGES = {
 'SL-SV14':'/project-media/hassan-allam/sl-sv14-r1.webp',
 'SL-SV15':'/project-media/hassan-allam/sl-sv15-r1.webp',
 'BD-01':'/project-media/palmhills/badya/units/ap1-bad-0.webp',
-'BD-02':'/project-media/palmhills/badya/units/ap1-bad-03.webp',
 'BD-03':'/project-media/palmhills/badya/units/ap3-bad-0.webp',
 'BD-04':'/project-media/palmhills/badya/units/ap2-bed-0.webp',
 'BD-05':'/project-media/palmhills/badya/units/ap5-bad-0.webp',
@@ -2720,7 +2718,6 @@ var UNIT_GALLERY = {
 'CW-A03':["/project-media/marakez/units/ap4-cr-0.webp", "/project-media/marakez/units/ap1-cr-00.webp", "/project-media/marakez/units/ap1-cr-001.webp", "/project-media/marakez/units/ap1-cr-002.webp", "/project-media/marakez/units/ap1-cr-003.webp"],
 'CW-A09':["/project-media/marakez/units/ap10-cr-0.webp", "/project-media/marakez/units/ap8-cr-01.webp", "/project-media/marakez/units/ap8-cr-02.webp", "/project-media/marakez/units/ap8-cr-03.webp", "/project-media/marakez/units/ap2-cr-01.webp"],
 'BD-01':['/project-media/palmhills/badya/units/ap1-bad-0.webp', '/project-media/palmhills/badya/units/ap1-bad-01.webp', '/project-media/palmhills/badya/units/ap1-bad-02.webp', '/project-media/palmhills/badya/units/ap1-bad-03.webp', '/project-media/palmhills/badya/units/ap1-bad-04.webp', '/project-media/palmhills/badya/units/ap1-bad-05.webp'],
-'BD-02':['/project-media/palmhills/badya/units/ap1-bad-03.webp', '/project-media/palmhills/badya/units/ap2-bad-01.webp', '/project-media/palmhills/badya/units/ap2-bad-02.webp', '/project-media/palmhills/badya/units/ap1-bad-05.webp', '/project-media/palmhills/badya/units/ap1-bad-04.webp'],
 'BD-03':['/project-media/palmhills/badya/units/ap3-bad-0.webp', '/project-media/palmhills/badya/units/ap3-bad-01.webp', '/project-media/palmhills/badya/units/ap3-bad-02.webp', '/project-media/palmhills/badya/units/ap3-bad-03.webp'],
 'BD-04':['/project-media/palmhills/badya/units/ap2-bed-0.webp'],
 'BD-05':['/project-media/palmhills/badya/units/ap5-bad-0.webp', '/project-media/palmhills/badya/units/ap5-bad-01.webp', '/project-media/palmhills/badya/units/ap5-bad-02.webp', '/project-media/palmhills/badya/units/ap5-bad-03.webp'],
@@ -3253,7 +3250,6 @@ var UNIT_MASTERPLANS = {
 'SL-SV14':["/project-media/hassan-allam/sl-sv14-mp1.webp"],
 'SL-SV15':["/project-media/hassan-allam/sl-sv15-mp1.webp"],
 'BD-01':['/project-media/palmhills/badya/units/mp-bad.webp'],
-'BD-02':['/project-media/palmhills/badya/units/mp-bad.webp'],
 'BD-03':['/project-media/palmhills/badya/units/mp-bad.webp'],
 'BD-04':['/project-media/palmhills/badya/units/mp-bad.webp'],
 'BD-05':['/project-media/palmhills/badya/units/mp-bad.webp'],
@@ -4223,7 +4219,6 @@ var UNIT_LOCATIONS = {
 'GL-AP2':["/project-media/hassan-allam/gl-ap2-loc1.webp"],
 'GL-AP3':["/project-media/hassan-allam/gl-ap3-loc1.webp"],
 'BD-01':['/project-media/palmhills/badya/units/location-badya.webp'],
-'BD-02':['/project-media/palmhills/badya/units/location-badya.webp'],
 'BD-03':['/project-media/palmhills/badya/units/location-badya.webp'],
 'BD-04':['/project-media/palmhills/badya/units/location-badya.webp'],
 'BD-05':['/project-media/palmhills/badya/units/location-badya.webp'],

@@ -298,8 +298,6 @@ insert into cms.media_assets (path) values
   ('/project-media/palmhills/badya/units/ap1-bad-03.webp'),
   ('/project-media/palmhills/badya/units/ap1-bad-04.webp'),
   ('/project-media/palmhills/badya/units/ap1-bad-05.webp'),
-  ('/project-media/palmhills/badya/units/ap2-bad-01.webp'),
-  ('/project-media/palmhills/badya/units/ap2-bad-02.webp'),
   ('/project-media/palmhills/badya/units/ap2-bed-0.webp'),
   ('/project-media/palmhills/badya/units/ap3-bad-0.webp'),
   ('/project-media/palmhills/badya/units/ap3-bad-01.webp'),
@@ -400,5 +398,8 @@ insert into cms.media_assets (path) values
   ('/project-media/qataridiar/alam-al-roum/spine.webp'),
   ('/project-media/qataridiar/alam-al-roum/story.webp'),
   ('/project-media/qataridiar/alam-al-roum/town.webp'),
-  ('/project-media/ramla/units/DU3-0.webp')
+  ('/project-media/ramla/units/DU3-0.webp'),
+  ('/project-media/ramla/units/DU3-01.webp'),
+  ('/project-media/ramla/units/DU3-02.webp'),
+  ('/project-media/ramla/units/DU3-03.webp')
 on conflict (path) do nothing;

@@ -175,7 +175,6 @@ from (values
   ('BAB-HS02','bab-hills-by-the-sea','Villa',null,null,6,8,450,null,265500000,10,7,'2028',null,'available'),
   ('BAB-HL01','bab-hills','Villa',null,null,3,4,180,null,54573750,50,2,'Ready',null,'available'),
   ('BD-01','badya-october','Apartment','Apartment','شقة',1,1,61,null,6700000,3,12,'2030',null,'available'),
-  ('BD-02','badya-october','Apartment','Apartment','شقة',1,2,63,null,7200000,3,12,'2030',null,'available'),
   ('BD-03','badya-october','Apartment','Apartment','شقة',2,3,132,null,12997571,3,12,'2030',null,'available'),
   ('BD-04','badya-october','Apartment','Apartment','شقة',3,3,152,null,15297811,3,12,'2030',null,'available'),
   ('BD-05','badya-october','Apartment','Apartment','شقة',3,4,160,null,14500000,3,12,'2030',null,'available'),
@@ -196,7 +195,8 @@ from (values
   ('CS-06','caesar-north-coast','Villa','breeze villa','فيلا',3,4,225,null,53576000,5,7,'2027',null,'available'),
   ('CS-07','caesar-north-coast','Twin house','twin house','توين هاوس',4,4,205,null,47260000,5,7,'2030',null,'available'),
   ('CS-08','caesar-north-coast','Twin house','twin house','توين هاوس',4,4,211,null,48479000,5,7,'2030',null,'available'),
-  ('CS-09','caesar-north-coast','Townhouse','town house','تاون هاوس',3,4,183,null,45735000,5,7,'2030',null,'available')
+  ('CS-09','caesar-north-coast','Townhouse','town house','تاون هاوس',3,4,183,null,45735000,5,7,'2030',null,'available'),
+  ('WM-01','westown-medical-center','Clinic','clinic','عيادة',null,null,141,null,26950000,10,5,'2026',null,'available')
 ) as v(unit_code, project_slug, unit_type_en, label_en, label_ar, bedrooms, bathrooms,
        bua, bua_to, price, dp, years, delivery_label, floor, availability)
 join cms.projects p on p.slug = v.project_slug

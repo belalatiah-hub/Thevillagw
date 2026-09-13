@@ -5,7 +5,6 @@
 insert into cms.media_links (asset_id, unit_id, role, sort_order)
 select a.id, o.id, v.role::cms.media_role, v.sort_order
 from (values
-  ('/project-media/' || 'msquared/units/fp-off1-01.webp','floorplan',1,array['MS-41-01']),
   ('/project-media/' || 'msquared/units/fp-off2-0.webp','floorplan',0,array['MS-41-02']),
   ('/project-media/' || 'msquared/units/fp-pen1-masyaf-0.webp','floorplan',0,array['MS-MA-09']),
   ('/project-media/' || 'msquared/units/fp-pen1-masyaf-01.webp','floorplan',1,array['MS-MA-09']),
@@ -240,7 +239,8 @@ from (values
   ('/project-media/' || 'sodic/the-estates-residence/units/fp-to-caesar-0.webp','floorplan',0,array['TR-20']),
   ('/project-media/' || 'sodic/the-estates-residence/units/fp-to-caesar-1.webp','floorplan',1,array['TR-20']),
   ('/project-media/' || 'sodic/the-estates-residence/units/fp-tw-caesar-0.webp','floorplan',0,array['TR-21']),
-  ('/project-media/' || 'sodic/the-estates-residence/units/fp-v1-0.webp','floorplan',0,array['TR-22'])
+  ('/project-media/' || 'sodic/the-estates-residence/units/fp-v1-0.webp','floorplan',0,array['TR-22']),
+  ('/project-media/' || 'sodic/the-estates-residence/units/fp-v1-01.webp','floorplan',1,array['TR-22'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path

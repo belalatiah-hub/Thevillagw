@@ -5,12 +5,6 @@
 insert into cms.media_links (asset_id, unit_id, role, sort_order)
 select a.id, o.id, v.role::cms.media_role, v.sort_order
 from (values
-  ('/project-media/' || 'tatweer/f2-02.webp','gallery',2,array['TM-FK-02']),
-  ('/project-media/' || 'tatweer/f4-0.webp','gallery',0,array['TM-FK-04']),
-  ('/project-media/' || 'tatweer/f4-01.webp','gallery',1,array['TM-FK-04']),
-  ('/project-media/' || 'tatweer/fouka-8.webp','gallery',0,array['TM-FK-03']),
-  ('/project-media/' || 'tatweer/fouka-serviced-apt.webp','gallery',1,array['TM-FK-03']),
-  ('/project-media/' || 'tatweer/mp-tm-st2-il.webp','gallery',1,array['TM-IM-18']),
   ('/project-media/' || 'tatweer/r-0.webp','gallery',0,array['TM-RV-01']),
   ('/project-media/' || 'tatweer/r-01.webp','gallery',1,array['TM-RV-01']),
   ('/project-media/' || 'tatweer/r-02.webp','gallery',2,array['TM-RV-01']),
@@ -194,7 +188,7 @@ from (values
   ('/project-media/' || 'ora/location-solana-east.webp','location',0,array['OR-SE-01','OR-SE-02','OR-SE-03','OR-SE-04','OR-SE-05']),
   ('/project-media/' || 'orascom/ledge-valley/units/location-mko.webp','location',0,array['LV-01','LV-02','LV-03','LV-04','LV-05','LV-06','LV-07','LV-08','LV-09','LV-10']),
   ('/project-media/' || 'orascom/siyal/units/location-siyal.webp','location',0,array['SY-01','SY-02','SY-03','SY-04','SY-05','SY-06','SY-07']),
-  ('/project-media/' || 'palmhills/badya/units/location-badya.webp','location',0,array['BD-01','BD-02','BD-03','BD-04','BD-05','BD-06','BD-07','BD-08','BD-09','BD-10','BD-11']),
+  ('/project-media/' || 'palmhills/badya/units/location-badya.webp','location',0,array['BD-01','BD-03','BD-04','BD-05','BD-06','BD-07','BD-08','BD-09','BD-10','BD-11']),
   ('/project-media/' || 'ramla/units/loc-a.webp','location',0,array['AE-AP01']),
   ('/project-media/' || 'ramla/units/loc-ramla.webp','location',0,array['RM-VL01','RM-TW01','RM-DX01','RM-PH01','RM-CH01','RM-DX02','RM-TW02','RM-DX03','RM-CH02','RM-CH03','RM-DX04','RM-TW03','RM-TH01','RM-CH04','RM-VL02','RM-TH02','RM-VL03','RM-VL04','RM-CH05','RM-CH06','RM-CH07']),
   ('/project-media/' || 'sodic/caesar-north-coast/units/location-ca.webp','location',0,array['CS-01','CS-02','CS-03','CS-04','CS-05','CS-06','CS-07','CS-08','CS-09']),
@@ -206,7 +200,10 @@ from (values
   ('/project-media/' || 'sodic/westown-medical-center/units/location-westown.webp','location',0,array['WM-01','WM-02','WM-03','WM-04','WM-05','WM-06','WM-07','WM-08','WM-09','WM-10','WM-11']),
   ('/project-media/' || 'sumou/lo-s.webp','location',0,array['SB-ST-01','SB-SP-01','SB-AP-01','SB-AP-02','SB-AP-03','SB-AP-04','SB-OF-01','SB-OF-02']),
   ('/project-media/' || 'tatweer/lo-bloom.webp','location',0,array['TM-BL-01','TM-BL-02','TM-BL-03','TM-BL-04','TM-BL-05','TM-BL-06','TM-BL-07','TM-BL-08']),
-  ('/project-media/' || 'tatweer/lo-dbay.webp','location',0,array['TM-DB-01','TM-DB-02','TM-DB-03'])
+  ('/project-media/' || 'tatweer/lo-dbay.webp','location',0,array['TM-DB-01','TM-DB-02','TM-DB-03']),
+  ('/project-media/' || 'tatweer/lo-river.webp','location',0,array['TM-RV-01','TM-RV-02','TM-RV-03','TM-RV-04','TM-RV-05']),
+  ('/project-media/' || 'tatweer/lo-sc.webp','location',0,array['TM-SC-01','TM-SC-02','TM-SC-03']),
+  ('/project-media/' || 'tatweer/location-salt.webp','location',0,array['TM-SL-01','TM-SL-02','TM-SL-03','TM-SL-04','TM-SL-05','TM-SL-06'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path

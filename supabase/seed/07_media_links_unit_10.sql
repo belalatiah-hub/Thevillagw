@@ -5,7 +5,6 @@
 insert into cms.media_links (asset_id, unit_id, role, sort_order)
 select a.id, o.id, v.role::cms.media_role, v.sort_order
 from (values
-  ('/project-media/' || 'orascom/siyal/units/v1-si-2.webp','gallery',2,array['SY-01']),
   ('/project-media/' || 'orascom/siyal/units/v1-si-3.webp','gallery',3,array['SY-01']),
   ('/project-media/' || 'orascom/siyal/units/v1-si-4.webp','gallery',4,array['SY-01']),
   ('/project-media/' || 'orascom/siyal/units/v2-si-0.webp','gallery',0,array['SY-02']),
@@ -25,13 +24,9 @@ from (values
   ('/project-media/' || 'palmhills/badya/units/ap1-bad-0.webp','gallery',0,array['BD-01']),
   ('/project-media/' || 'palmhills/badya/units/ap1-bad-01.webp','gallery',1,array['BD-01']),
   ('/project-media/' || 'palmhills/badya/units/ap1-bad-02.webp','gallery',2,array['BD-01']),
-  ('/project-media/' || 'palmhills/badya/units/ap1-bad-03.webp','gallery',0,array['BD-02']),
   ('/project-media/' || 'palmhills/badya/units/ap1-bad-03.webp','gallery',3,array['BD-01']),
-  ('/project-media/' || 'palmhills/badya/units/ap1-bad-04.webp','gallery',4,array['BD-01','BD-02']),
-  ('/project-media/' || 'palmhills/badya/units/ap1-bad-05.webp','gallery',3,array['BD-02']),
+  ('/project-media/' || 'palmhills/badya/units/ap1-bad-04.webp','gallery',4,array['BD-01']),
   ('/project-media/' || 'palmhills/badya/units/ap1-bad-05.webp','gallery',5,array['BD-01']),
-  ('/project-media/' || 'palmhills/badya/units/ap2-bad-01.webp','gallery',1,array['BD-02']),
-  ('/project-media/' || 'palmhills/badya/units/ap2-bad-02.webp','gallery',2,array['BD-02']),
   ('/project-media/' || 'palmhills/badya/units/ap2-bed-0.webp','gallery',0,array['BD-04']),
   ('/project-media/' || 'palmhills/badya/units/ap3-bad-0.webp','gallery',0,array['BD-03']),
   ('/project-media/' || 'palmhills/badya/units/ap3-bad-01.webp','gallery',1,array['BD-03']),
@@ -240,7 +235,12 @@ from (values
   ('/project-media/' || 'sodic/sodic-east/units/to1-se-03.webp','gallery',3,array['SE-01']),
   ('/project-media/' || 'sodic/sodic-east/units/to2-se-0.webp','gallery',0,array['SE-02']),
   ('/project-media/' || 'sodic/sodic-east/units/to2-se-01.webp','gallery',1,array['SE-02']),
-  ('/project-media/' || 'sodic/sodic-east/units/to2-se-02.webp','gallery',2,array['SE-02'])
+  ('/project-media/' || 'sodic/sodic-east/units/to2-se-02.webp','gallery',2,array['SE-02']),
+  ('/project-media/' || 'sodic/sodic-east/units/to3-se-0.webp','gallery',0,array['SE-03']),
+  ('/project-media/' || 'sodic/sodic-east/units/to3-se-0.webp','gallery',1,array['SE-04']),
+  ('/project-media/' || 'sodic/sodic-east/units/to3-se-01.webp','gallery',0,array['SE-04']),
+  ('/project-media/' || 'sodic/sodic-east/units/to3-se-01.webp','gallery',1,array['SE-03']),
+  ('/project-media/' || 'sodic/sodic-east/units/to3-se-02.webp','gallery',2,array['SE-03','SE-04'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path

@@ -5,7 +5,6 @@
 insert into cms.media_links (asset_id, unit_id, role, sort_order)
 select a.id, o.id, v.role::cms.media_role, v.sort_order
 from (values
-  ('/project-media/' || 'sodic/the-estates-residence/units/fp-v1-01.webp','floorplan',1,array['TR-22']),
   ('/project-media/' || 'sodic/the-estates-residence/units/fp-v2.webp','floorplan',0,array['TR-23']),
   ('/project-media/' || 'sodic/the-estates-residence/units/fp-v3.webp','floorplan',0,array['TR-24']),
   ('/project-media/' || 'sodic/the-estates-residence/units/fp8-caesar.webp','floorplan',0,array['TR-08']),
@@ -241,7 +240,8 @@ from (values
   ('/project-media/' || 'beitalbahr/units/tw1-03-roo-d2.webp','gallery',3,array['BAB-RO05']),
   ('/project-media/' || 'beitalbahr/units/v1-0-hills.webp','gallery',0,array['BAB-HS01']),
   ('/project-media/' || 'beitalbahr/units/v1-0-rays.webp','gallery',0,array['BAB-RY01']),
-  ('/project-media/' || 'beitalbahr/units/v1-0-roo.webp','gallery',0,array['BAB-RO01'])
+  ('/project-media/' || 'beitalbahr/units/v1-0-roo.webp','gallery',0,array['BAB-RO01']),
+  ('/project-media/' || 'beitalbahr/units/v1-01-hills.webp','gallery',1,array['BAB-HS01'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path
