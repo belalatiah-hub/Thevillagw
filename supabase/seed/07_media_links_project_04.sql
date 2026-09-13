@@ -1,0 +1,45 @@
+-- Where each image is attached. The path is written once and the owner
+-- codes are unnested beside it. A link is only written when both the asset
+-- and its owner exist, so a stale reference inserts nothing rather than
+-- pointing at the wrong row.
+insert into cms.media_links (asset_id, project_id, role, sort_order)
+select a.id, o.id, v.role::cms.media_role, v.sort_order
+from (values
+  ('/project-media/' || 'travco/ras-soma/wadi-park.webp','gallery',10,array['ras-soma']),
+  ('/project-media/' || 'elmasria/isola-centra/location.webp','location',0,array['isola-centra']),
+  ('/project-media/' || 'elmasria/isola-quattro/location.webp','location',0,array['isola-quattro']),
+  ('/project-media/' || 'lmd/brochure/one-ninety-location.webp','location',0,array['one-ninety']),
+  ('/project-media/' || 'lmd/zoya/location.webp','location',0,array['zoya']),
+  ('/project-media/' || 'orascom/makadi-heights/plans/location.webp','location',0,array['makadi-heights']),
+  ('/project-media/' || 'travco/marina-gate/units/location-marina-gate.webp','location',0,array['marina-gate']),
+  ('/project-media/' || 'travco/ras-soma/location.webp','location',0,array['ras-soma']),
+  ('/logos/projects/caesar.webp','logo',0,array['caesar-north-coast']),
+  ('/logos/projects/june.webp','logo',0,array['june-north-coast']),
+  ('/logos/projects/ogami.webp','logo',0,array['ogami-north-coast']),
+  ('/logos/projects/sodic-east.webp','logo',0,array['sodic-east']),
+  ('/logos/projects/the-estates.webp','logo',0,array['the-estates-zayed']),
+  ('/logos/projects/villette.webp','logo',0,array['villette']),
+  ('/project-media/' || 'elmasria/isola-centra/masterplan.webp','masterplan',0,array['isola-centra']),
+  ('/project-media/' || 'elmasria/isola-quattro/masterplan.webp','masterplan',0,array['isola-quattro']),
+  ('/project-media/' || 'emaarmisr/marassi-red-sea/units/masterplan.webp','masterplan',0,array['marassi-red-sea']),
+  ('/project-media/' || 'lmd/one-ninety/masterplan.webp','masterplan',0,array['one-ninety']),
+  ('/project-media/' || 'lmd/three-sixty/masterplan-aerial.webp','masterplan',0,array['three-sixty']),
+  ('/project-media/' || 'lmd/zoya/masterplan.webp','masterplan',0,array['zoya']),
+  ('/project-media/' || 'marakez/shams-soma/masterplan.webp','masterplan',0,array['shams-soma']),
+  ('/project-media/' || 'msquared/masyaf-masterplan.webp','masterplan',0,array['masyaf-ras-alhekma']),
+  ('/project-media/' || 'msquared/mist-masterplan.webp','masterplan',0,array['mist-new-cairo']),
+  ('/project-media/' || 'msquared/trio-masterplan.webp','masterplan',0,array['trio-new-cairo']),
+  ('/project-media/' || 'msquared/w31-masterplan.webp','masterplan',0,array['31-west-october']),
+  ('/project-media/' || 'orascom/ledge-valley/masterplan.webp','masterplan',0,array['ledge-valley']),
+  ('/project-media/' || 'orascom/makadi-heights/plans/masterplan.webp','masterplan',0,array['makadi-heights']),
+  ('/project-media/' || 'orascom/siyal/masterplan.webp','masterplan',0,array['siyal']),
+  ('/project-media/' || 'palmhills/badya/units/mp-bad.webp','masterplan',0,array['badya-october']),
+  ('/project-media/' || 'palmhills/hacienda-blue/units/mp-hacienda-blue.webp','masterplan',0,array['hacienda-blue']),
+  ('/project-media/' || 'palmhills/ph-new-cairo/units/mp-pl.webp','masterplan',0,array['palm-hills-new-cairo']),
+  ('/project-media/' || 'qataridiar/alam-al-roum/masterplan.webp','masterplan',0,array['alam-al-roum']),
+  ('/project-media/' || 'travco/marina-gate/units/mp-marina-gate.webp','masterplan',0,array['marina-gate']),
+  ('/project-media/' || 'travco/ras-soma/masterplan.webp','masterplan',0,array['ras-soma'])
+) as v(path, role, sort_order, owners)
+cross join lateral unnest(v.owners) as owner_code
+join cms.media_assets a on a.path = v.path
+join cms.projects o on lower(o.slug) = lower(owner_code);

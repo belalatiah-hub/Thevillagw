@@ -109,6 +109,8 @@ from (values
   ('/project-media/' || 'orascom/makadi-heights/renders/lagoon.webp','cover',0,array['makadi-heights']),
   ('/project-media/' || 'orascom/siyal/lagoon-beach.webp','cover',0,array['siyal']),
   ('/project-media/' || 'palmhills/badya/p30.webp','cover',0,array['badya-october']),
+  ('/project-media/' || 'palmhills/hacienda-blue/p07.webp','cover',0,array['hacienda-blue']),
+  ('/project-media/' || 'palmhills/ph-new-cairo/p01.webp','cover',0,array['palm-hills-new-cairo']),
   ('/project-media/' || 'qataridiar/alam-al-roum/city.webp','cover',0,array['alam-al-roum']),
   ('/project-media/' || 'ramla/units/ap-a-03.webp','cover',0,array['aeon']),
   ('/project-media/' || 'sodic/caesar-north-coast/units/villa1-ca-0.webp','cover',0,array['caesar-north-coast']),
@@ -231,9 +233,7 @@ from (values
   ('/project-media/' || 'msquared/masyaf-peppermint.webp','feature',4,array['masyaf-ras-alhekma']),
   ('/project-media/' || 'msquared/masyaf-ritsa-day.webp','feature',10,array['masyaf-ras-alhekma']),
   ('/project-media/' || 'msquared/masyaf-ritsa-night.webp','feature',9,array['masyaf-ras-alhekma']),
-  ('/project-media/' || 'msquared/masyaf-ritsa.webp','feature',8,array['masyaf-ras-alhekma']),
-  ('/project-media/' || 'msquared/masyaf-shore.webp','feature',0,array['masyaf-ras-alhekma']),
-  ('/project-media/' || 'msquared/mist-apartments.webp','feature',1,array['mist-new-cairo'])
+  ('/project-media/' || 'msquared/masyaf-ritsa.webp','feature',8,array['masyaf-ras-alhekma'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path

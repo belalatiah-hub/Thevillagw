@@ -73,6 +73,13 @@ from (values
   ('/project-media/' || 'palmhills/badya/units/villa1-bad-0.webp','cover',0,array['BD-06']),
   ('/project-media/' || 'palmhills/badya/units/villa2-bad-0.webp','cover',0,array['BD-07']),
   ('/project-media/' || 'palmhills/badya/units/villa30bad-0.webp','cover',0,array['BD-08']),
+  ('/project-media/' || 'palmhills/hacienda-blue/units/ch1-hsc-0.webp','cover',0,array['HB-01']),
+  ('/project-media/' || 'palmhills/hacienda-blue/units/ch1-hsc-1.webp','cover',0,array['HB-02']),
+  ('/project-media/' || 'palmhills/hacienda-blue/units/ch2-hac-0.webp','cover',0,array['HB-03']),
+  ('/project-media/' || 'palmhills/hacienda-blue/units/ch2-hac-3.webp','cover',0,array['HB-04']),
+  ('/project-media/' || 'palmhills/hacienda-blue/units/v-hac-0.webp','cover',0,array['HB-05']),
+  ('/project-media/' || 'palmhills/ph-new-cairo/units/ap1-pl-0.webp','cover',0,array['PHN-01','PHN-03','PHN-05']),
+  ('/project-media/' || 'palmhills/ph-new-cairo/units/ap1-pl-01.webp','cover',0,array['PHN-02','PHN-04','PHN-06']),
   ('/project-media/' || 'ramla/units/DU3-0.webp','cover',0,array['RM-DX04']),
   ('/project-media/' || 'ramla/units/ap-a-0.webp','cover',0,array['AE-AP01']),
   ('/project-media/' || 'ramla/units/ch2-0.webp','cover',0,array['RM-CH01']),
@@ -244,15 +251,7 @@ from (values
   ('/project-media/' || 'baghush/units/fp-v2.webp','floorplan',0,array['MB-V02']),
   ('/project-media/' || 'baghush/units/fp-v3.webp','floorplan',0,array['MB-V01']),
   ('/project-media/' || 'baghush/units/fp-v4.webp','floorplan',0,array['MB-V04']),
-  ('/project-media/' || 'beitalbahr/units/FP-H1.webp','floorplan',0,array['BAB-HL01']),
-  ('/project-media/' || 'beitalbahr/units/FP-H2.webp','floorplan',1,array['BAB-HL01']),
-  ('/project-media/' || 'beitalbahr/units/fp-ch1-roo.webp','floorplan',0,array['BAB-RO03']),
-  ('/project-media/' || 'beitalbahr/units/fp-ch1-shores.webp','floorplan',0,array['BAB-SH01']),
-  ('/project-media/' || 'beitalbahr/units/fp-ch10-sh.webp','floorplan',0,array['BAB-SH10']),
-  ('/project-media/' || 'beitalbahr/units/fp-ch11-sh.webp','floorplan',0,array['BAB-SH11']),
-  ('/project-media/' || 'beitalbahr/units/fp-ch12-sh.webp','floorplan',0,array['BAB-SH12']),
-  ('/project-media/' || 'beitalbahr/units/fp-ch13-sh.webp','floorplan',0,array['BAB-SH13']),
-  ('/project-media/' || 'beitalbahr/units/fp-ch14-sh.webp','floorplan',0,array['BAB-SH14'])
+  ('/project-media/' || 'beitalbahr/units/FP-H1.webp','floorplan',0,array['BAB-HL01'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path

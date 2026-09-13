@@ -2713,6 +2713,119 @@ try {
     });
     return bad.length === 0 || bad.join('; ');
   })(), true);
+  ck('hacienda blue: the sheet’s five rows, every area printed in the brochure', (function(){
+    var bad = [];
+    /* area, price, dp, years, handover, beds, baths — and the brochure page
+       whose table prints that area. Both sources agreed on all five, which is
+       why this check can assert the pairing rather than just the row. */
+    var SHEET = {
+      'HB-01':[164,   29000000, 5, 12, '2031', 4, 4, '164 m² built-up'],
+      'HB-02':[195,   30000000, 5, 12, '2031', 4, 5, '154.5 m² built-up · 41 m² penthouse'],
+      'HB-03':[116,   24300000, 5, 12, '2031', 3, 3, '116 m² built-up'],
+      'HB-04':[114.5, 22400000, 5, 12, '2031', 3, 4, '114.5 m² built-up'],
+      'HB-05':[324,   69000000, 5, 12, '2031', 5, 6, '278 m² built-up · 46 m² penthouse']
+    };
+    var flat = JSON.stringify(api.projFeatures('hacienda-blue'));
+    Object.keys(SHEET).forEach(function(id){
+      var u = api.unitById(id), w = SHEET[id];
+      if(!u) { bad.push(id+' missing'); return; }
+      ['area','price','dp','years','handover','beds','baths'].forEach(function(k, i){
+        if(u[k] !== w[i]) bad.push(id+'.'+k+'='+u[k]+' want '+w[i]);
+      });
+      if(flat.indexOf(w[7]) < 0) bad.push(id+': the brochure figure "'+w[7]+'" is not on the page');
+      if(!u.label || !u.label.ar) bad.push(id+' label not bilingual');
+    });
+    var mine = api.UNITS.filter(function(u){ return u.project === 'hacienda-blue'; });
+    if(mine.length !== 5) bad.push(mine.length+' units, not 5');
+    ['HBL-C1','HBL-A1','HBL-V1'].forEach(function(id){
+      if(api.unitById(id)) bad.push(id+' is back'); });
+    /* The sheet calls the 114.5 m² unit "junior CHALET GROUND". 114.5 is the
+       Junior Chalet FIRST floor — the ground is 116, on the same brochure
+       table — so the word GROUND must not reach that listing. */
+    var u4 = api.unitById('HB-04');
+    if(u4 && /ground/i.test(u4.label.en)) bad.push('HB-04 is labelled ground');
+    if(u4 && /أرضي/.test(u4.label.ar)) bad.push('HB-04 is labelled ground (ar)');
+    /* Its area moved off Ras El Hekma: the brochure's own map puts it between
+       Hacienda Waters and Hacienda White, off the Al Dabaa road. */
+    var p = api.projBySlug('hacienda-blue');
+    if(p.area !== 'sahel') bad.push('area='+p.area);
+    if(p.price !== 22400000 || p.dp !== 5 || p.years !== 12 || p.delivery !== '2031')
+      bad.push('headline '+p.price+'/'+p.dp+'/'+p.years+'/'+p.delivery);
+    if(/ras el hekma|رأس الحكمة|km 166/i.test(JSON.stringify(p)))
+      bad.push('the card still claims Ras El Hekma');
+    if(/apartment/i.test(p.types.en)) bad.push('types still claim an apartment');
+    /* The brochure's four stock photographs of people were never extracted. */
+    var all = flat + JSON.stringify(api.PROJECT_GALLERY['hacienda-blue'])
+                   + JSON.stringify(api.PROJECT_COVERS['hacienda-blue']);
+    ['p04','p06','p08','p09','p05','p11'].forEach(function(pg){
+      if(all.indexOf('/hacienda-blue/'+pg+'.webp') > -1) bad.push(pg+' is on the page'); });
+    if(/\b\d+\s*(min|mins|minutes|hr|hrs|hours)\b/i.test(all + JSON.stringify(p)))
+      bad.push('a drive time');
+    return bad.length === 0 || bad.join('; ');
+  })(), true);
+  ck('palm hills new cairo: the sheet’s six apartments, and no villa plan on one', (function(){
+    var bad = [];
+    var SHEET = {
+      'PHN-01':[ 70, 11549000, 3, 10, '2030', 1, 1],
+      'PHN-02':[131, 19337000, 3, 10, '2030', 2, 3],
+      'PHN-03':[114, 14600000, 3, 10, '2030', 2, 3],
+      'PHN-04':[172, 26500000, 3, 10, '2030', 3, 3],
+      'PHN-05':[200, 28000000, 3, 10, '2030', 3, 3],
+      'PHN-06':[154, 24100000, 3, 10, '2030', 3, 3]
+    };
+    Object.keys(SHEET).forEach(function(id){
+      var u = api.unitById(id), w = SHEET[id];
+      if(!u) { bad.push(id+' missing'); return; }
+      ['area','price','dp','years','handover','beds','baths'].forEach(function(k, i){
+        if(u[k] !== w[i]) bad.push(id+'.'+k+'='+u[k]+' want '+w[i]); });
+    });
+    var mine = api.UNITS.filter(function(u){ return u.project === 'palm-hills-new-cairo'; });
+    if(mine.length !== 6) bad.push(mine.length+' units, not 6');
+    ['PHN-A1','PHN-A2','PHN-A3'].forEach(function(id){
+      if(api.unitById(id)) bad.push(id+' is back'); });
+    /* The brochure draws villas; the units are apartments. A brochure page must
+       never end up beside a unit — that would put a villa's plan on a flat. */
+    mine.forEach(function(u){
+      var own = [api.UNIT_IMAGES[u.id]].concat(api.unitGallery(u), api.unitFloorplans(u),
+                                               api.unitMasterplans(u), [api.unitLocationImg(u)]);
+      own.forEach(function(src){
+        if(!src) return;
+        if(src.indexOf('/project-media/palmhills/ph-new-cairo/units/') !== 0)
+          bad.push(u.id+' carries '+src);
+      });
+    });
+    /* The building's own drawings, in floor order, behind the file the sheet
+       names. Two rows name the typical schedule and get the five upper floors. */
+    ['PHN-02','PHN-03'].forEach(function(id){
+      var f = api.unitFloorplans(api.unitById(id));
+      if(f.length !== 6) bad.push(id+' has '+f.length+' plans, not 6');
+      if(f[0].indexOf('fp-ap2-0.webp') < 0) bad.push(id+' does not lead with the sheet’s file');
+      var order = ['fp-ap2-0','fp-ap2-05','fp-ap2-01','fp-ap2-02','fp-ap2-03','fp-ap2-04'];
+      order.forEach(function(n, i){
+        if(f[i] && f[i].indexOf(n+'.webp') < 0) bad.push(id+' plan '+i+' is not '+n); });
+    });
+    ['PHN-01','PHN-04','PHN-05','PHN-06'].forEach(function(id){
+      var f = api.unitFloorplans(api.unitById(id));
+      if(f.length !== 1 || f[0].indexOf('fp-ap1-pl') < 0) bad.push(id+' plan set wrong');
+    });
+    /* Page 2 prints drive times and distance rings. It was never extracted, so
+       it cannot be referenced; this fails the moment it is. */
+    var p = api.projBySlug('palm-hills-new-cairo');
+    var all = JSON.stringify(api.projFeatures('palm-hills-new-cairo'))
+            + JSON.stringify(api.PROJECT_GALLERY['palm-hills-new-cairo'])
+            + JSON.stringify(api.PROJECT_COVERS['palm-hills-new-cairo']) + JSON.stringify(p);
+    if(all.indexOf('/ph-new-cairo/p02.webp') > -1) bad.push('p02 is on the page');
+    if(/\b\d+\s*(min|mins|minutes|hr|hrs|hours)\b/i.test(all)) bad.push('a drive time');
+    if(/\b\d+(\.\d+)?\s*km\b/i.test(all)) bad.push('a distance');
+    if(/\d+\s*(دقيقة|دقائق|ساعة|ساعات|كم)\b/.test(all)) bad.push('a drive time or distance (ar)');
+    if(p.price !== 11549000 || p.dp !== 3 || p.years !== 10 || p.delivery !== '2030')
+      bad.push('headline '+p.price+'/'+p.dp+'/'+p.years+'/'+p.delivery);
+    /* The 200 m² row is on neither schedule, so the card says so rather than
+       letting the figure pass as confirmed. */
+    if(all.indexOf('200 m²') > -1 && all.indexOf('173.5') < 0)
+      bad.push('200 m² is claimed without the schedule’s largest beside it');
+    return bad.length === 0 || bad.join('; ');
+  })(), true);
   ck('badya: the units are the sheet’s rows, less the one withdrawn, and the invented three are gone', (function(){
     var bad = [];
     /* The sheet, row by row: area, price, down payment, years, handover, beds,
