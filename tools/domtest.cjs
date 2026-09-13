@@ -2713,6 +2713,69 @@ try {
     });
     return bad.length === 0 || bad.join('; ');
   })(), true);
+  ck('p/x: the sheet’s seven rows, in West Cairo, with the brochure’s own areas', (function(){
+    var bad = [];
+    /* area, price, dp, years, handover, beds, baths, and the brochure figure
+       that confirms the area — empty for the two townhouse rows, which no page
+       confirms. */
+    var SHEET = {
+      'PX-01':[ 77, 14000000, 5, 10, '2030', 1, 2, '77.84'],
+      'PX-02':[138, 20900000, 5, 10, '2030', 2, 3, '138.19'],
+      'PX-03':[157, 24000000, 5, 10, '2030', 3, 3, '156.56'],
+      'PX-04':[164, 28385000, 5, 10, '2030', 3, 3, '164.48'],
+      'PX-05':[171, 30400000, 5, 10, '2030', 3, 3, '171.80'],
+      'PX-06':[231, 27000000, 5,  8, '2030', 3, 4, ''],
+      'PX-07':[231, 30500000, 5,  8, '2030', 3, 4, '']
+    };
+    var flat = JSON.stringify(api.projFeatures('px-new-cairo'));
+    Object.keys(SHEET).forEach(function(id){
+      var u = api.unitById(id), w = SHEET[id];
+      if(!u) { bad.push(id+' missing'); return; }
+      ['area','price','dp','years','handover','beds','baths'].forEach(function(k, i){
+        if(u[k] !== w[i]) bad.push(id+'.'+k+'='+u[k]+' want '+w[i]); });
+      if(w[7] && flat.indexOf(w[7]) < 0) bad.push(id+': the brochure figure '+w[7]+' is not on the page');
+      if(!u.label || !u.label.ar) bad.push(id+' label not bilingual');
+    });
+    var mine = api.UNITS.filter(function(u){ return u.project === 'px-new-cairo'; });
+    if(mine.length !== 7) bad.push(mine.length+' units, not 7');
+    ['PX-A1','PX-T1','PX-V1'].forEach(function(id){
+      if(api.unitById(id)) bad.push(id+' is back'); });
+    /* 231 m² is on no page. The card must say so rather than let it pass. */
+    if(flat.indexOf('231') < 0 || flat.indexOf('213.61') < 0)
+      bad.push('the 231 m² town house figure is not reconciled on the card');
+    /* West Cairo, not New Cairo — page 9, page 21's map, the archive's own
+       location map and the sheet all agree, and the card used to say otherwise. */
+    var p = api.projBySlug('px-new-cairo');
+    if(p.area !== 'october') bad.push('area='+p.area);
+    if(/new cairo|القاهرة الجديدة/i.test(JSON.stringify(p.tags) + JSON.stringify(p.blurb)))
+      bad.push('the card still claims New Cairo');
+    if(JSON.stringify(p).indexOf('373') < 0) bad.push('373 feddans is gone');
+    if(p.price !== 14000000 || p.dp !== 5 || p.years !== 10) bad.push('headline '+p.price+'/'+p.dp+'/'+p.years);
+    /* Every picture is P/X's own, and every file exists. */
+    var own = '/project-media/palmhills/px/';
+    var all = flat + JSON.stringify(api.PROJECT_GALLERY['px-new-cairo'])
+                   + JSON.stringify(api.PROJECT_COVERS['px-new-cairo']);
+    mine.forEach(function(u){
+      all += JSON.stringify([api.UNIT_IMAGES[u.id], api.unitGallery(u), api.unitFloorplans(u),
+                             api.unitMasterplans(u), api.unitLocationImg(u)]);
+    });
+    var fsp = require('fs'), pathp = require('path'), root = pathp.join(__dirname, '..');
+    var refs = all.match(/\/project-media\/[A-Za-z0-9._\/-]+\.webp/g) || [];
+    refs.forEach(function(src){
+      if(src.indexOf(own) !== 0) bad.push('foreign image '+src);
+      if(!fsp.existsSync(pathp.join(root, src.slice(1)))) bad.push('missing file '+src);
+    });
+    /* p60 is the same image object as p55 — xref 746, printed under SKYE 1 and
+       again under SKYE 2. It was never written, so it cannot be referenced. */
+    if(all.indexOf(own+'p60.webp') > -1) bad.push('p60 is on the page');
+    /* The brochure prints no drive time and no distance on any of its 66 pages,
+       and nothing here may introduce one. */
+    if(/\b\d+(\.\d+)?\s*(min|mins|minutes|hr|hrs|hours|km)\b/i.test(all + JSON.stringify(p)))
+      bad.push('a drive time or distance');
+    if(/\d+\s*(دقيقة|دقائق|ساعة|ساعات|كم)\b/.test(all + JSON.stringify(p)))
+      bad.push('a drive time or distance (ar)');
+    return bad.length === 0 || bad.join('; ');
+  })(), true);
   ck('hacienda blue: the sheet’s five rows, every area printed in the brochure', (function(){
     var bad = [];
     /* area, price, dp, years, handover, beds, baths — and the brochure page

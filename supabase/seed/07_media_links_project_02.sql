@@ -5,6 +5,7 @@
 insert into cms.media_links (asset_id, project_id, role, sort_order)
 select a.id, o.id, v.role::cms.media_role, v.sort_order
 from (values
+  ('/project-media/' || 'msquared/masyaf-ritsa.webp','feature',8,array['masyaf-ras-alhekma']),
   ('/project-media/' || 'msquared/masyaf-shore.webp','feature',0,array['masyaf-ras-alhekma']),
   ('/project-media/' || 'msquared/mist-apartments.webp','feature',1,array['mist-new-cairo']),
   ('/project-media/' || 'msquared/mist-townhouse.webp','feature',0,array['mist-new-cairo']),
@@ -123,6 +124,22 @@ from (values
   ('/project-media/' || 'palmhills/ph-new-cairo/units/ap1-pl-01.webp','feature',13,array['palm-hills-new-cairo']),
   ('/project-media/' || 'palmhills/ph-new-cairo/units/fp-ap1-pl.webp','feature',14,array['palm-hills-new-cairo']),
   ('/project-media/' || 'palmhills/ph-new-cairo/units/fp-ap2-0.webp','feature',15,array['palm-hills-new-cairo']),
+  ('/project-media/' || 'palmhills/px/p24.webp','feature',0,array['px-new-cairo']),
+  ('/project-media/' || 'palmhills/px/p25.webp','feature',1,array['px-new-cairo']),
+  ('/project-media/' || 'palmhills/px/p26.webp','feature',2,array['px-new-cairo']),
+  ('/project-media/' || 'palmhills/px/p27.webp','feature',3,array['px-new-cairo']),
+  ('/project-media/' || 'palmhills/px/p28.webp','feature',4,array['px-new-cairo']),
+  ('/project-media/' || 'palmhills/px/p32.webp','feature',5,array['px-new-cairo']),
+  ('/project-media/' || 'palmhills/px/p33.webp','feature',6,array['px-new-cairo']),
+  ('/project-media/' || 'palmhills/px/p34.webp','feature',7,array['px-new-cairo']),
+  ('/project-media/' || 'palmhills/px/p37.webp','feature',8,array['px-new-cairo']),
+  ('/project-media/' || 'palmhills/px/p38.webp','feature',9,array['px-new-cairo']),
+  ('/project-media/' || 'palmhills/px/p42.webp','feature',10,array['px-new-cairo']),
+  ('/project-media/' || 'palmhills/px/p43.webp','feature',11,array['px-new-cairo']),
+  ('/project-media/' || 'palmhills/px/p48.webp','feature',12,array['px-new-cairo']),
+  ('/project-media/' || 'palmhills/px/p49.webp','feature',13,array['px-new-cairo']),
+  ('/project-media/' || 'palmhills/px/p54.webp','feature',14,array['px-new-cairo']),
+  ('/project-media/' || 'palmhills/px/p55.webp','feature',15,array['px-new-cairo']),
   ('/project-media/' || 'qataridiar/alam-al-roum/arch.webp','feature',8,array['alam-al-roum']),
   ('/project-media/' || 'qataridiar/alam-al-roum/beach.webp','feature',5,array['alam-al-roum']),
   ('/project-media/' || 'qataridiar/alam-al-roum/boulevard.webp','feature',2,array['alam-al-roum']),
@@ -208,21 +225,7 @@ from (values
   ('/project-media/' || 'emaarmisr/marassi-red-sea/boutique-marina-air.webp','gallery',3,array['marassi-red-sea']),
   ('/project-media/' || 'emaarmisr/marassi-red-sea/boutique-marina.webp','gallery',2,array['marassi-red-sea']),
   ('/project-media/' || 'emaarmisr/marassi-red-sea/canal-pool.webp','gallery',10,array['marassi-red-sea']),
-  ('/project-media/' || 'emaarmisr/marassi-red-sea/infinity-beach.webp','gallery',6,array['marassi-red-sea']),
-  ('/project-media/' || 'emaarmisr/marassi-red-sea/island-beach.webp','gallery',5,array['marassi-red-sea']),
-  ('/project-media/' || 'emaarmisr/marassi-red-sea/jetty.webp','gallery',13,array['marassi-red-sea']),
-  ('/project-media/' || 'emaarmisr/marassi-red-sea/location.webp','gallery',16,array['marassi-red-sea']),
-  ('/project-media/' || 'emaarmisr/marassi-red-sea/main-beach.webp','gallery',4,array['marassi-red-sea']),
-  ('/project-media/' || 'emaarmisr/marassi-red-sea/marina-sunset.webp','gallery',9,array['marassi-red-sea']),
-  ('/project-media/' || 'emaarmisr/marassi-red-sea/marina.webp','gallery',0,array['marassi-red-sea']),
-  ('/project-media/' || 'emaarmisr/marassi-red-sea/palms.webp','gallery',14,array['marassi-red-sea']),
-  ('/project-media/' || 'emaarmisr/marassi-red-sea/promenade.webp','gallery',12,array['marassi-red-sea']),
-  ('/project-media/' || 'emaarmisr/marassi-red-sea/waterfront.webp','gallery',1,array['marassi-red-sea']),
-  ('/project-media/' || 'emaarmisr/marassi-red-sea/windsurf.webp','gallery',11,array['marassi-red-sea']),
-  ('/project-media/' || 'lmd/one-ninety/aerial.webp','gallery',0,array['one-ninety']),
-  ('/project-media/' || 'lmd/one-ninety/boulevard-night.webp','gallery',9,array['one-ninety']),
-  ('/project-media/' || 'lmd/one-ninety/bq-aerial.webp','gallery',2,array['one-ninety']),
-  ('/project-media/' || 'lmd/one-ninety/bq-lobby.webp','gallery',3,array['one-ninety'])
+  ('/project-media/' || 'emaarmisr/marassi-red-sea/infinity-beach.webp','gallery',6,array['marassi-red-sea'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path

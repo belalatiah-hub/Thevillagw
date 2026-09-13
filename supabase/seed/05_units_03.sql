@@ -60,9 +60,13 @@ from (values
   ('97H-V1','97-hills','Villa',null,null,4,5,250,null,37400000,null,null,null,null,'limited'),
   ('PMT-O1','palmet-new-cairo','Office',null,null,null,1,68,null,13000000,null,null,null,null,'available'),
   ('PMT-O2','palmet-new-cairo','Administrative Office',null,null,null,2,150,null,25000000,null,null,null,null,'available'),
-  ('PX-A1','px-new-cairo','Apartment',null,null,1,1,77,null,13500000,null,null,null,null,'available'),
-  ('PX-T1','px-new-cairo','Townhouse',null,null,4,4,231,null,26100000,null,null,null,null,'available'),
-  ('PX-V1','px-new-cairo','Villa',null,null,4,4,280,null,40200000,null,null,null,null,'limited'),
+  ('PX-01','px-new-cairo','Apartment','Apartment','شقة',1,2,77,null,14000000,5,10,'2030',null,'available'),
+  ('PX-02','px-new-cairo','Apartment','Apartment','شقة',2,3,138,null,20900000,5,10,'2030',null,'available'),
+  ('PX-03','px-new-cairo','Apartment','Apartment','شقة',3,3,157,null,24000000,5,10,'2030',null,'available'),
+  ('PX-04','px-new-cairo','Apartment','Apartment','شقة',3,3,164,null,28385000,5,10,'2030',null,'available'),
+  ('PX-05','px-new-cairo','Apartment','Apartment','شقة',3,3,171,null,30400000,5,10,'2030',null,'available'),
+  ('PX-06','px-new-cairo','Townhouse','Town House X · middle unit','تاون هاوس X · وحدة وسطى',3,4,231,null,27000000,5,8,'2030',null,'available'),
+  ('PX-07','px-new-cairo','Townhouse','Town House X · corner unit','تاون هاوس X · وحدة ركنية',3,4,231,null,30500000,5,8,'2030',null,'available'),
   ('JRN-A1','jirian-zayed','Apartment',null,null,1,1,62,null,7800000,null,null,null,null,'available'),
   ('JRN-A2','jirian-zayed','Apartment',null,null,3,3,150,null,16500000,null,null,null,null,'available'),
   ('JRN-V1','jirian-zayed','Villa',null,null,3,4,196,null,34400000,null,null,null,null,'limited'),
@@ -182,11 +186,7 @@ from (values
   ('IC-04','isola-centra','Apartment','Ground floor','دور أرضي',3,3,164,null,12150000,8,8,'2030',null,'available'),
   ('IC-05','isola-centra','Apartment','Ground floor','دور أرضي',3,3,189,null,13950000,8,8,'2030',null,'available'),
   ('IC-06','isola-centra','Apartment','Typical floor','دور متكرّر',2,2,114,null,8560000,8,8,'2030',null,'available'),
-  ('IC-07','isola-centra','Apartment','Typical floor','دور متكرّر',2,2,126,null,8630000,8,8,'2030',null,'available'),
-  ('IC-08','isola-centra','Apartment','Typical floor','دور متكرّر',3,3,168,null,10960000,8,8,'2030',null,'available'),
-  ('IC-09','isola-centra','Apartment','Typical floor','دور متكرّر',3,3,208,null,14390000,8,8,'2030',null,'available'),
-  ('IC-10','isola-centra','Penthouse','Penthouse with roof','بنتهاوس بروف',2,2,143,null,8580000,8,8,'2030',null,'available'),
-  ('IC-11','isola-centra','Penthouse','Penthouse with roof','بنتهاوس بروف',3,3,210,null,11510000,8,8,'2030',null,'available')
+  ('IC-07','isola-centra','Apartment','Typical floor','دور متكرّر',2,2,126,null,8630000,8,8,'2030',null,'available')
 ) as v(unit_code, project_slug, unit_type_en, label_en, label_ar, bedrooms, bathrooms,
        bua, bua_to, price, dp, years, delivery_label, floor, availability)
 join cms.projects p on p.slug = v.project_slug

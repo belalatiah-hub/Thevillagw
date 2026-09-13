@@ -5,6 +5,13 @@
 insert into cms.media_links (asset_id, unit_id, role, sort_order)
 select a.id, o.id, v.role::cms.media_role, v.sort_order
 from (values
+  ('/project-media/' || 'baghush/units/fp-t1-0.webp','floorplan',0,array['MB-TW01']),
+  ('/project-media/' || 'baghush/units/fp-t1-01.webp','floorplan',1,array['MB-TW01']),
+  ('/project-media/' || 'baghush/units/fp-v1.webp','floorplan',0,array['MB-V03']),
+  ('/project-media/' || 'baghush/units/fp-v2.webp','floorplan',0,array['MB-V02']),
+  ('/project-media/' || 'baghush/units/fp-v3.webp','floorplan',0,array['MB-V01']),
+  ('/project-media/' || 'baghush/units/fp-v4.webp','floorplan',0,array['MB-V04']),
+  ('/project-media/' || 'beitalbahr/units/FP-H1.webp','floorplan',0,array['BAB-HL01']),
   ('/project-media/' || 'beitalbahr/units/FP-H2.webp','floorplan',1,array['BAB-HL01']),
   ('/project-media/' || 'beitalbahr/units/fp-ch1-roo.webp','floorplan',0,array['BAB-RO03']),
   ('/project-media/' || 'beitalbahr/units/fp-ch1-shores.webp','floorplan',0,array['BAB-SH01']),
@@ -234,13 +241,7 @@ from (values
   ('/project-media/' || 'msquared/units/fp-ap8-west-0.webp','floorplan',1,array['MS-3W-08']),
   ('/project-media/' || 'msquared/units/fp-ap8-west.webp','floorplan',0,array['MS-3W-08']),
   ('/project-media/' || 'msquared/units/fp-ap9-west-0.webp','floorplan',0,array['MS-3W-09']),
-  ('/project-media/' || 'msquared/units/fp-ap9-west-01.webp','floorplan',1,array['MS-3W-09']),
-  ('/project-media/' || 'msquared/units/fp-chalet-2-masyaf.webp','floorplan',0,array['MS-MA-02']),
-  ('/project-media/' || 'msquared/units/fp-chalet-masyaf-0.webp','floorplan',0,array['MS-MA-01']),
-  ('/project-media/' || 'msquared/units/fp-chalet-masyaf-01.webp','floorplan',1,array['MS-MA-01']),
-  ('/project-media/' || 'msquared/units/fp-chalet3-masyaf.webp','floorplan',0,array['MS-MA-04']),
-  ('/project-media/' || 'msquared/units/fp-chalet4-masyaf.webp','floorplan',0,array['MS-MA-05']),
-  ('/project-media/' || 'msquared/units/fp-chalet5-masyaf.webp','floorplan',0,array['MS-MA-06'])
+  ('/project-media/' || 'msquared/units/fp-ap9-west-01.webp','floorplan',1,array['MS-3W-09'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path
