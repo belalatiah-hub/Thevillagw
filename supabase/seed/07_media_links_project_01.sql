@@ -108,6 +108,7 @@ from (values
   ('/project-media/' || 'orascom/ledge-valley/hero.webp','cover',0,array['ledge-valley']),
   ('/project-media/' || 'orascom/makadi-heights/renders/lagoon.webp','cover',0,array['makadi-heights']),
   ('/project-media/' || 'orascom/siyal/lagoon-beach.webp','cover',0,array['siyal']),
+  ('/project-media/' || 'palmhills/badya/p30.webp','cover',0,array['badya-october']),
   ('/project-media/' || 'qataridiar/alam-al-roum/city.webp','cover',0,array['alam-al-roum']),
   ('/project-media/' || 'ramla/units/ap-a-03.webp','cover',0,array['aeon']),
   ('/project-media/' || 'sodic/caesar-north-coast/units/villa1-ca-0.webp','cover',0,array['caesar-north-coast']),

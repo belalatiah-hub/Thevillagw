@@ -2667,6 +2667,134 @@ try {
     });
     return bad.length === 0 || bad.join('; ');
   })(), true);
+  ck('badya: the units are the sheet’s eleven rows, and the invented three are gone', (function(){
+    var bad = [];
+    /* The sheet, row by row: area, price, down payment, years, handover, beds,
+       baths. Written out rather than derived, so a typo in the data fails here
+       instead of shipping. */
+    var SHEET = {
+      'BD-01':[ 61,  6700000,  3, 12, '2030', 1, 2],
+      'BD-02':[ 63,  7200000,  3, 12, '2030', 1, 2],
+      'BD-03':[132, 12997571,  3, 12, '2030', 2, 3],
+      'BD-04':[152, 15297811,  3, 12, '2030', 3, 3],
+      'BD-05':[160, 14500000,  3, 12, '2030', 3, 4],
+      'BD-06':[180, 23600000,  3, 12, '2030', 3, 4],
+      'BD-07':[280, 30000000,  3, 12, '2030', 4, 6],
+      'BD-08':[365, 30000000,  3, 12, '2030', 5, 8],
+      'BD-09':[171, 17700000, 15,  8, 'Ready', 2, 3],
+      'BD-10':[195, 19300000, 15,  8, 'Ready', 3, 3],
+      'BD-11':[252, 20600000, 15,  8, 'Ready', 4, 4]
+    };
+    Object.keys(SHEET).forEach(function(id){
+      var u = api.unitById(id), w = SHEET[id];
+      if(!u) { bad.push(id+' missing'); return; }
+      ['area','price','dp','years','handover','beds','baths'].forEach(function(k, i){
+        if(u[k] !== w[i]) bad.push(id+'.'+k+'='+u[k]+' want '+w[i]);
+      });
+      if(!u.label || !u.label.ar) bad.push(id+' label not bilingual');
+    });
+    var mine = api.UNITS.filter(function(u){ return u.project === 'badya-october'; });
+    if(mine.length !== 11) bad.push(mine.length+' units, not 11');
+    /* BD-AP1 priced the same 3-bedroom 160 m² at 6,500,000 that the sheet
+       prices at 14,500,000; BD-TH1 and BD-VL1 had no row at all. If one comes
+       back, two prices for one home come back with it. */
+    ['BD-AP1','BD-TH1','BD-VL1'].forEach(function(id){
+      if(api.unitById(id)) bad.push(id+' is back');
+    });
+    var p = api.projBySlug('badya-october');
+    if(p.price !== 6700000) bad.push('headline price='+p.price);
+    if(p.dp !== 3 || p.years !== 12 || p.delivery !== '2030')
+      bad.push('headline terms='+p.dp+'/'+p.years+'/'+p.delivery);
+    var low = Math.min.apply(null, mine.map(function(u){ return u.price; }));
+    if(p.price !== low) bad.push('headline '+p.price+' is not the cheapest row '+low);
+    return bad.length === 0 || bad.join('; ');
+  })(), true);
+  ck('badya: the watermarked plans and the unclaimed renders are on no page', (function(){
+    var bad = [], own = '/project-media/palmhills/badya/';
+    var lists = [JSON.stringify(api.projFeatures('badya-october')),
+                 JSON.stringify(api.PROJECT_GALLERY['badya-october']),
+                 JSON.stringify(api.PROJECT_COVERS['badya-october'])];
+    api.UNITS.filter(function(u){ return u.project === 'badya-october'; }).forEach(function(u){
+      lists.push(JSON.stringify([api.UNIT_IMAGES[u.id], api.unitGallery(u),
+                                 api.unitFloorplans(u), api.unitMasterplans(u),
+                                 api.unitLocationImg(u)]));
+    });
+    var flat = lists.join('|');
+    /* Three plans carry a brokerage's LARIA watermark set across them, one is
+       a skewed photograph of a printed plan on a cyan sheet, and two renders
+       are named by no row in the sheet. None was ever converted, so none can
+       be referenced; this fails the moment one is. */
+    ['fp-ap4-bad01','fp-ap4-bad02','fp-ap5-bad-0.webp','fp-ap2-bad',
+     'ap4-bad-0.webp','ap4-bad-01'].forEach(function(f){
+      if(flat.indexOf(own+'units/'+f) > -1) bad.push(f+' is on the site');
+    });
+    // Every picture on this project is this project's own.
+    var refs = flat.match(/\/project-media\/[A-Za-z0-9._\/-]+\.webp/g) || [];
+    refs.forEach(function(s){ if(s.indexOf(own) !== 0) bad.push('foreign image '+s); });
+    if(refs.length < 60) bad.push('only '+refs.length+' pictures');
+    // …and every one of them is a file that exists.
+    var fsb = require('fs'), pathb = require('path'), root = pathb.join(__dirname, '..');
+    refs.forEach(function(s){
+      if(!fsb.existsSync(pathb.join(root, s.slice(1)))) bad.push('missing file '+s);
+    });
+    /* Two rows have no floor plan and are not given another unit's: row 1765
+       names the cyan photograph, row 1785 names none. */
+    ['BD-02','BD-07'].forEach(function(id){
+      if(api.unitFloorplans(api.unitById(id)).length) bad.push(id+' borrowed a plan');
+    });
+    ['BD-01','BD-03','BD-04','BD-05','BD-06','BD-08','BD-09','BD-10','BD-11'].forEach(function(id){
+      if(api.unitFloorplans(api.unitById(id)).length !== 1) bad.push(id+' has no plan of its own');
+    });
+    // No drive time anywhere on this project, in either language.
+    var all = flat + JSON.stringify(api.projBySlug('badya-october'));
+    if(/\b\d+\s*(min|mins|minutes|hr|hrs|hours)\b/i.test(all)) bad.push('a drive time');
+    if(/\d+\s*(دقيقة|دقائق|ساعة|ساعات)/.test(all)) bad.push('a drive time (ar)');
+    return bad.length === 0 || bad.join('; ');
+  })(), true);
+  ck('badya: the cards print the brochure’s own figures and its own words', (function(){
+    var bad = [], f = api.projFeatures('badya-october');
+    if(!f || !f.cards || f.cards.length !== 5) return 'cards=' + (f && f.cards && f.cards.length);
+    var flat = JSON.stringify(f);
+    // Built-up ranges, read off the six families' floor plans.
+    [['146.15','175.95'],['140.60','178.00'],['82.15','178.15'],
+     ['104.70','187.80'],['192.35','233.55'],['171.20','195.75']].forEach(function(r){
+      if(flat.indexOf(r[0]+' – '+r[1]+' m²') < 0) bad.push('range '+r.join('–')+' missing');
+    });
+    // Penthouse built-up · roof terrace, likewise.
+    [['220.40','80.20'],['222.30','81.75'],['234.15','111.00'],
+     ['247.55','85.85'],['295.17','208.50'],['245.20','180.75']].forEach(function(r){
+      if(flat.indexOf(r[0]+' m² · '+r[1]+' m²') < 0) bad.push('penthouse '+r[0]+' missing');
+    });
+    // The two villa type sheets, which the apartments brochure does not cover.
+    ['255 m² land · 180 m² built-up',
+     '550 m² land · 364 m² built-up · 46 m² penthouse · 95 m² roof · 21 m² semi-covered roof']
+      .forEach(function(v){ if(flat.indexOf(v) < 0) bad.push('villa type: '+v); });
+    /* Page 3 is headed BADYA MASTER PLAN and its paragraph is about the patios
+       of the townhouses, in a brochure that is apartments throughout. Neither
+       the page nor its words are used. */
+    if(flat.indexOf('/badya/p03.webp') > -1) bad.push('p03 is on the page');
+    if(/smart patio|patios of our townhouses/i.test(flat)) bad.push('p03’s words are on the page');
+    // Every card, every row, both languages.
+    f.cards.forEach(function(c){
+      if(!c.en || !c.ar) bad.push('card not bilingual: '+(c.en||c.ar));
+      var cp = c.copy || {};
+      if(!cp.lead || !cp.lead.en || !cp.lead.ar) bad.push(c.en+': lead not bilingual');
+      (cp.list||[]).forEach(function(l){ if(!l.en || !l.ar) bad.push(c.en+': list not bilingual'); });
+      (cp.groups||[]).forEach(function(g){
+        if(!g.label.en || !g.label.ar) bad.push(c.en+': group label not bilingual');
+        g.rows.forEach(function(r){
+          if(!r.k.en || !r.k.ar || !r.v.en || !r.v.ar) bad.push(c.en+': row not bilingual');
+        });
+      });
+      if(cp.more && (!cp.more.en || !cp.more.ar)) bad.push(c.en+': more not bilingual');
+    });
+    // The master plan is the anchors key map the sheet names, and there is one.
+    if(!f.masterplan || f.masterplan.src.indexOf('mp-bad') < 0) bad.push('no anchors key map');
+    var g = api.projectPlans('badya-october');
+    if(!g.mp || g.mp.length !== 1) bad.push('master plans='+(g.mp||[]).length);
+    if(!g.loc || g.loc.length !== 1) bad.push('location maps='+(g.loc||[]).length);
+    return bad.length === 0 || bad.join('; ');
+  })(), true);
   ck('ras soma: Marina Gate is a phase of it, not a card beside it', (function(){
     var bad = [];
     if(api.phaseOf('marina-gate') !== 'ras-soma') bad.push('phaseOf='+api.phaseOf('marina-gate'));

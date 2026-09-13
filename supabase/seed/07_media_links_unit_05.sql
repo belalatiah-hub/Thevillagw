@@ -5,6 +5,23 @@
 insert into cms.media_links (asset_id, unit_id, role, sort_order)
 select a.id, o.id, v.role::cms.media_role, v.sort_order
 from (values
+  ('/project-media/' || 'sodic/the-estates-residence/units/fp-v1-01.webp','floorplan',1,array['TR-22']),
+  ('/project-media/' || 'sodic/the-estates-residence/units/fp-v2.webp','floorplan',0,array['TR-23']),
+  ('/project-media/' || 'sodic/the-estates-residence/units/fp-v3.webp','floorplan',0,array['TR-24']),
+  ('/project-media/' || 'sodic/the-estates-residence/units/fp8-caesar.webp','floorplan',0,array['TR-08']),
+  ('/project-media/' || 'sodic/the-estates-zayed/units/fp-villa1-the-estates.webp','floorplan',0,array['ES-01']),
+  ('/project-media/' || 'sodic/the-estates-zayed/units/fp-villa1-the-estates1.webp','floorplan',1,array['ES-01']),
+  ('/project-media/' || 'sodic/the-estates-zayed/units/fp-villa2-the-estates-0.webp','floorplan',0,array['ES-02']),
+  ('/project-media/' || 'sodic/the-estates-zayed/units/fp-villa2-the-estates-01.webp','floorplan',1,array['ES-02']),
+  ('/project-media/' || 'sodic/the-estates-zayed/units/fp-villa2-the-estates-02.webp','floorplan',2,array['ES-02']),
+  ('/project-media/' || 'sodic/the-estates-zayed/units/fp-villa3-the-estates0.webp','floorplan',0,array['ES-03']),
+  ('/project-media/' || 'sodic/the-estates-zayed/units/fp-villa3-the-estates01.webp','floorplan',1,array['ES-03']),
+  ('/project-media/' || 'sodic/villette/units/fp-ap1-villette.webp','floorplan',0,array['VL-01']),
+  ('/project-media/' || 'sodic/villette/units/fp-ap2-villette.webp','floorplan',0,array['VL-02']),
+  ('/project-media/' || 'sodic/villette/units/fp-ap3-villette.webp','floorplan',0,array['VL-03']),
+  ('/project-media/' || 'sodic/villette/units/fp-ap4-villette.webp','floorplan',0,array['VL-04']),
+  ('/project-media/' || 'sodic/villette/units/fp-ap5-villette.webp','floorplan',0,array['VL-05']),
+  ('/project-media/' || 'sodic/westown-medical-center/units/fp-clinic-1-westown.webp','floorplan',0,array['WM-01','WM-02']),
   ('/project-media/' || 'sodic/westown-medical-center/units/fp-clinic-2-westown.webp','floorplan',0,array['WM-03','WM-04','WM-05','WM-06']),
   ('/project-media/' || 'sodic/westown-medical-center/units/fp-clinic-3-westown.webp','floorplan',0,array['WM-07','WM-08','WM-09','WM-10','WM-11']),
   ('/project-media/' || 'sumou/fp-2-0.webp','floorplan',0,array['SB-AP-02']),
@@ -224,27 +241,7 @@ from (values
   ('/project-media/' || 'beitalbahr/units/tw1-03-roo-d2.webp','gallery',3,array['BAB-RO05']),
   ('/project-media/' || 'beitalbahr/units/v1-0-hills.webp','gallery',0,array['BAB-HS01']),
   ('/project-media/' || 'beitalbahr/units/v1-0-rays.webp','gallery',0,array['BAB-RY01']),
-  ('/project-media/' || 'beitalbahr/units/v1-0-roo.webp','gallery',0,array['BAB-RO01']),
-  ('/project-media/' || 'beitalbahr/units/v1-01-hills.webp','gallery',1,array['BAB-HS01']),
-  ('/project-media/' || 'beitalbahr/units/v1-01-rays.webp','gallery',1,array['BAB-RY01']),
-  ('/project-media/' || 'beitalbahr/units/v1-01-roo.webp','gallery',1,array['BAB-RO01']),
-  ('/project-media/' || 'beitalbahr/units/v1-02-hills.webp','gallery',2,array['BAB-HS01']),
-  ('/project-media/' || 'beitalbahr/units/v1-02-rays.webp','gallery',2,array['BAB-RY01']),
-  ('/project-media/' || 'beitalbahr/units/v1-02-roo.webp','gallery',2,array['BAB-RO01']),
-  ('/project-media/' || 'beitalbahr/units/v1-03-hills.webp','gallery',3,array['BAB-HS01']),
-  ('/project-media/' || 'beitalbahr/units/v1-03-rays.webp','gallery',3,array['BAB-RY01']),
-  ('/project-media/' || 'beitalbahr/units/v1-03-roo.webp','gallery',3,array['BAB-RO01']),
-  ('/project-media/' || 'beitalbahr/units/v1-04-hills.webp','gallery',4,array['BAB-HS01']),
-  ('/project-media/' || 'beitalbahr/units/v1-04-roo.webp','gallery',4,array['BAB-RO01']),
-  ('/project-media/' || 'beitalbahr/units/v1-05-roo.webp','gallery',5,array['BAB-RO01']),
-  ('/project-media/' || 'beitalbahr/units/v2-0-hills.webp','gallery',0,array['BAB-HS02']),
-  ('/project-media/' || 'beitalbahr/units/v2-0-roo.webp','gallery',0,array['BAB-RO02']),
-  ('/project-media/' || 'beitalbahr/units/v2-01-hills.webp','gallery',1,array['BAB-HS02']),
-  ('/project-media/' || 'beitalbahr/units/v2-01-roo.webp','gallery',1,array['BAB-RO02']),
-  ('/project-media/' || 'beitalbahr/units/v2-02-hills.webp','gallery',2,array['BAB-HS02']),
-  ('/project-media/' || 'beitalbahr/units/v2-02-roo.webp','gallery',2,array['BAB-RO02']),
-  ('/project-media/' || 'beitalbahr/units/v2-03-hills.webp','gallery',3,array['BAB-HS02']),
-  ('/project-media/' || 'beitalbahr/units/v2-03-roo.webp','gallery',3,array['BAB-RO02'])
+  ('/project-media/' || 'beitalbahr/units/v1-0-roo.webp','gallery',0,array['BAB-RO01'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path

@@ -5,6 +5,26 @@
 insert into cms.media_links (asset_id, unit_id, role, sort_order)
 select a.id, o.id, v.role::cms.media_role, v.sort_order
 from (values
+  ('/project-media/' || 'beitalbahr/units/v1-01-hills.webp','gallery',1,array['BAB-HS01']),
+  ('/project-media/' || 'beitalbahr/units/v1-01-rays.webp','gallery',1,array['BAB-RY01']),
+  ('/project-media/' || 'beitalbahr/units/v1-01-roo.webp','gallery',1,array['BAB-RO01']),
+  ('/project-media/' || 'beitalbahr/units/v1-02-hills.webp','gallery',2,array['BAB-HS01']),
+  ('/project-media/' || 'beitalbahr/units/v1-02-rays.webp','gallery',2,array['BAB-RY01']),
+  ('/project-media/' || 'beitalbahr/units/v1-02-roo.webp','gallery',2,array['BAB-RO01']),
+  ('/project-media/' || 'beitalbahr/units/v1-03-hills.webp','gallery',3,array['BAB-HS01']),
+  ('/project-media/' || 'beitalbahr/units/v1-03-rays.webp','gallery',3,array['BAB-RY01']),
+  ('/project-media/' || 'beitalbahr/units/v1-03-roo.webp','gallery',3,array['BAB-RO01']),
+  ('/project-media/' || 'beitalbahr/units/v1-04-hills.webp','gallery',4,array['BAB-HS01']),
+  ('/project-media/' || 'beitalbahr/units/v1-04-roo.webp','gallery',4,array['BAB-RO01']),
+  ('/project-media/' || 'beitalbahr/units/v1-05-roo.webp','gallery',5,array['BAB-RO01']),
+  ('/project-media/' || 'beitalbahr/units/v2-0-hills.webp','gallery',0,array['BAB-HS02']),
+  ('/project-media/' || 'beitalbahr/units/v2-0-roo.webp','gallery',0,array['BAB-RO02']),
+  ('/project-media/' || 'beitalbahr/units/v2-01-hills.webp','gallery',1,array['BAB-HS02']),
+  ('/project-media/' || 'beitalbahr/units/v2-01-roo.webp','gallery',1,array['BAB-RO02']),
+  ('/project-media/' || 'beitalbahr/units/v2-02-hills.webp','gallery',2,array['BAB-HS02']),
+  ('/project-media/' || 'beitalbahr/units/v2-02-roo.webp','gallery',2,array['BAB-RO02']),
+  ('/project-media/' || 'beitalbahr/units/v2-03-hills.webp','gallery',3,array['BAB-HS02']),
+  ('/project-media/' || 'beitalbahr/units/v2-03-roo.webp','gallery',3,array['BAB-RO02']),
   ('/project-media/' || 'beitalbahr/units/v2-04-roo.webp','gallery',4,array['BAB-RO02']),
   ('/project-media/' || 'elmasria/isola-centra/units/commercial-1.webp','gallery',0,array['IC-12']),
   ('/project-media/' || 'elmasria/isola-centra/units/commercial-1.webp','gallery',1,array['IC-13','IC-14']),
@@ -217,25 +237,7 @@ from (values
   ('/project-media/' || 'lmd/zy-sv1-r1.webp','gallery',0,array['ZY-SV1']),
   ('/project-media/' || 'lmd/zy-sv1-r2.webp','gallery',1,array['ZY-SV1']),
   ('/project-media/' || 'lmd/zy-sv1-r3.webp','gallery',2,array['ZY-SV1']),
-  ('/project-media/' || 'lmd/zy-tw3-r1.webp','gallery',0,array['ZY-TW3']),
-  ('/project-media/' || 'lmd/zy-tw3-r2.webp','gallery',1,array['ZY-TW3']),
-  ('/project-media/' || 'lmd/zy-tw3-r3.webp','gallery',2,array['ZY-TW3']),
-  ('/project-media/' || 'marakez/shams-soma/units/ch1-shams-soma-0.webp','gallery',0,array['SS-04']),
-  ('/project-media/' || 'marakez/shams-soma/units/ch1-shams-soma-1.webp','gallery',1,array['SS-04']),
-  ('/project-media/' || 'marakez/shams-soma/units/ch1-shams-soma-2.webp','gallery',2,array['SS-04']),
-  ('/project-media/' || 'marakez/shams-soma/units/ch1-shams-soma-3.webp','gallery',3,array['SS-04']),
-  ('/project-media/' || 'marakez/shams-soma/units/ch2-shams-soma-0.webp','gallery',0,array['SS-05']),
-  ('/project-media/' || 'marakez/shams-soma/units/ch2-shams-soma-1.webp','gallery',1,array['SS-05']),
-  ('/project-media/' || 'marakez/shams-soma/units/ch2-shams-soma-2.webp','gallery',2,array['SS-05']),
-  ('/project-media/' || 'marakez/shams-soma/units/ch3-shams-soma-0.webp','gallery',0,array['SS-06']),
-  ('/project-media/' || 'marakez/shams-soma/units/ch3-shams-soma-1.webp','gallery',1,array['SS-06']),
-  ('/project-media/' || 'marakez/shams-soma/units/ch3-shams-soma-2.webp','gallery',2,array['SS-06']),
-  ('/project-media/' || 'marakez/shams-soma/units/loft-shams-soma-0.webp','gallery',0,array['SS-09']),
-  ('/project-media/' || 'marakez/shams-soma/units/loft-shams-soma-1.webp','gallery',1,array['SS-09']),
-  ('/project-media/' || 'marakez/shams-soma/units/loft-shams-soma-2.webp','gallery',2,array['SS-09']),
-  ('/project-media/' || 'marakez/shams-soma/units/pent-shams-soma-0.webp','gallery',0,array['SS-03']),
-  ('/project-media/' || 'marakez/shams-soma/units/pent-shams-soma-1.webp','gallery',1,array['SS-03']),
-  ('/project-media/' || 'marakez/shams-soma/units/pent-shams-soma-2.webp','gallery',2,array['SS-03'])
+  ('/project-media/' || 'lmd/zy-tw3-r1.webp','gallery',0,array['ZY-TW3'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path

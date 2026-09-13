@@ -5,6 +5,16 @@
 insert into cms.media_links (asset_id, unit_id, role, sort_order)
 select a.id, o.id, v.role::cms.media_role, v.sort_order
 from (values
+  ('/project-media/' || 'msquared/units/fp-off1-01.webp','floorplan',1,array['MS-41-01']),
+  ('/project-media/' || 'msquared/units/fp-off2-0.webp','floorplan',0,array['MS-41-02']),
+  ('/project-media/' || 'msquared/units/fp-pen1-masyaf-0.webp','floorplan',0,array['MS-MA-09']),
+  ('/project-media/' || 'msquared/units/fp-pen1-masyaf-01.webp','floorplan',1,array['MS-MA-09']),
+  ('/project-media/' || 'msquared/units/fp-pent1-mist.webp','floorplan',0,array['MS-MI-01']),
+  ('/project-media/' || 'msquared/units/fp-pent2-mist.webp','floorplan',0,array['MS-MI-02']),
+  ('/project-media/' || 'msquared/units/fp-pent3-mist.webp','floorplan',0,array['MS-MI-03']),
+  ('/project-media/' || 'msquared/units/fp-pent4-mist.webp','floorplan',0,array['MS-MI-04']),
+  ('/project-media/' || 'msquared/units/fp-th1.webp','floorplan',0,array['MS-MI-05']),
+  ('/project-media/' || 'msquared/units/fp-th2-b.webp','floorplan',0,array['MS-MI-06']),
   ('/project-media/' || 'msquared/units/fp-th2.webp','floorplan',1,array['MS-MI-05']),
   ('/project-media/' || 'msquared/units/fp-th20.webp','floorplan',1,array['MS-MI-06']),
   ('/project-media/' || 'msquared/units/fp-thouse1-west.webp','floorplan',0,array['MS-3W-12']),
@@ -134,6 +144,15 @@ from (values
   ('/project-media/' || 'orascom/siyal/units/fp-v3-si1.webp','floorplan',1,array['SY-03']),
   ('/project-media/' || 'orascom/siyal/units/fp-v4-si0.webp','floorplan',0,array['SY-05']),
   ('/project-media/' || 'orascom/siyal/units/fp-v4-si1.webp','floorplan',1,array['SY-05']),
+  ('/project-media/' || 'palmhills/badya/units/fp-ap1-bad.webp','floorplan',0,array['BD-01']),
+  ('/project-media/' || 'palmhills/badya/units/fp-ap3-bad.webp','floorplan',0,array['BD-03']),
+  ('/project-media/' || 'palmhills/badya/units/fp-ap4-bad0.webp','floorplan',0,array['BD-04']),
+  ('/project-media/' || 'palmhills/badya/units/fp-ap5-bad-01.webp','floorplan',0,array['BD-05']),
+  ('/project-media/' || 'palmhills/badya/units/fp-ap6-bad.webp','floorplan',0,array['BD-09']),
+  ('/project-media/' || 'palmhills/badya/units/fp-ap7-bad.webp','floorplan',0,array['BD-10']),
+  ('/project-media/' || 'palmhills/badya/units/fp-ap8-bad.webp','floorplan',0,array['BD-11']),
+  ('/project-media/' || 'palmhills/badya/units/fp-villa1-bad.webp','floorplan',0,array['BD-06']),
+  ('/project-media/' || 'palmhills/badya/units/fp-villa2-bad.webp','floorplan',0,array['BD-08']),
   ('/project-media/' || 'ramla/units/FP-DU.webp','floorplan',0,array['RM-DX04']),
   ('/project-media/' || 'ramla/units/d1-0.webp','floorplan',0,array['RM-DX01']),
   ('/project-media/' || 'ramla/units/fp-ay.webp','floorplan',0,array['AE-AP01']),
@@ -221,24 +240,7 @@ from (values
   ('/project-media/' || 'sodic/the-estates-residence/units/fp-to-caesar-0.webp','floorplan',0,array['TR-20']),
   ('/project-media/' || 'sodic/the-estates-residence/units/fp-to-caesar-1.webp','floorplan',1,array['TR-20']),
   ('/project-media/' || 'sodic/the-estates-residence/units/fp-tw-caesar-0.webp','floorplan',0,array['TR-21']),
-  ('/project-media/' || 'sodic/the-estates-residence/units/fp-v1-0.webp','floorplan',0,array['TR-22']),
-  ('/project-media/' || 'sodic/the-estates-residence/units/fp-v1-01.webp','floorplan',1,array['TR-22']),
-  ('/project-media/' || 'sodic/the-estates-residence/units/fp-v2.webp','floorplan',0,array['TR-23']),
-  ('/project-media/' || 'sodic/the-estates-residence/units/fp-v3.webp','floorplan',0,array['TR-24']),
-  ('/project-media/' || 'sodic/the-estates-residence/units/fp8-caesar.webp','floorplan',0,array['TR-08']),
-  ('/project-media/' || 'sodic/the-estates-zayed/units/fp-villa1-the-estates.webp','floorplan',0,array['ES-01']),
-  ('/project-media/' || 'sodic/the-estates-zayed/units/fp-villa1-the-estates1.webp','floorplan',1,array['ES-01']),
-  ('/project-media/' || 'sodic/the-estates-zayed/units/fp-villa2-the-estates-0.webp','floorplan',0,array['ES-02']),
-  ('/project-media/' || 'sodic/the-estates-zayed/units/fp-villa2-the-estates-01.webp','floorplan',1,array['ES-02']),
-  ('/project-media/' || 'sodic/the-estates-zayed/units/fp-villa2-the-estates-02.webp','floorplan',2,array['ES-02']),
-  ('/project-media/' || 'sodic/the-estates-zayed/units/fp-villa3-the-estates0.webp','floorplan',0,array['ES-03']),
-  ('/project-media/' || 'sodic/the-estates-zayed/units/fp-villa3-the-estates01.webp','floorplan',1,array['ES-03']),
-  ('/project-media/' || 'sodic/villette/units/fp-ap1-villette.webp','floorplan',0,array['VL-01']),
-  ('/project-media/' || 'sodic/villette/units/fp-ap2-villette.webp','floorplan',0,array['VL-02']),
-  ('/project-media/' || 'sodic/villette/units/fp-ap3-villette.webp','floorplan',0,array['VL-03']),
-  ('/project-media/' || 'sodic/villette/units/fp-ap4-villette.webp','floorplan',0,array['VL-04']),
-  ('/project-media/' || 'sodic/villette/units/fp-ap5-villette.webp','floorplan',0,array['VL-05']),
-  ('/project-media/' || 'sodic/westown-medical-center/units/fp-clinic-1-westown.webp','floorplan',0,array['WM-01','WM-02'])
+  ('/project-media/' || 'sodic/the-estates-residence/units/fp-v1-0.webp','floorplan',0,array['TR-22'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path

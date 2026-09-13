@@ -46,7 +46,13 @@ units as (
                      coalesce(u.price::text,''), coalesce(trim_scale(u.down_payment_pct)::text,''),
                      coalesce(trim_scale(u.instalment_years)::text,''), coalesce(u.delivery_label,''),
                      coalesce(u.floor,''), u.availability::text) as x
-    from cms.units u join cms.projects p on p.id = u.project_id) t),
+    -- Soft-deleted units stay in the table on purpose: a retired unit keeps its
+    -- row, its price and its history so the decision can be undone. The site
+    -- does not publish them, so counting them here would report a mismatch for
+    -- a database that is in fact correct. Badya's three placeholder units were
+    -- the first to be retired this way.
+    from cms.units u join cms.projects p on p.id = u.project_id
+    where u.deleted_at is null) t),
 media_assets as (
   select md5(string_agg(path, '|' order by path collate "C")) h, count(*) n from cms.media_assets),
 media_links as (
@@ -60,7 +66,10 @@ media_links as (
     join cms.media_assets a on a.id = ml.asset_id
     left join cms.units u      on u.id  = ml.unit_id
     left join cms.projects pr  on pr.id = ml.project_id
-    left join cms.developers dv on dv.id = ml.developer_id) t),
+    left join cms.developers dv on dv.id = ml.developer_id
+    -- …and a link to a retired unit is skipped for the same reason. The test is
+    -- written so a project or developer link, whose unit_id is null, still counts.
+    where ml.unit_id is null or u.deleted_at is null) t),
 project_amenities as (
   select md5(string_agg(x, '|' order by x collate "C")) h, count(*) n from (
     select concat_ws('~', p.slug, a.token, pa.sort_order::text) as x
