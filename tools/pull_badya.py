@@ -10,11 +10,19 @@ FROM THE BROCHURE  ->  project-media/palmhills/badya/pNN.webp
   p04                              the apartments district as the brochure
                                    draws it, from the page's own image
   p08                              the Unit Typology key and its legend
-  p06 p14 p22 p30 p38 p46          one exterior for each of the six apartment
-                                   families, full-bleed, taken from the
+  p06 p22 p30 p38                  the exteriors, full-bleed, taken from the
                                    embedded photograph so the family name
                                    printed over it does not come along
-  p07 p15 p23 p31 p39 p44 p47 p52  the interiors, the same way
+  p07 p15 p23 p31 p39 p44 p52      the interiors, the same way
+
+  Four exteriors and five interiors, though there are six family sections —
+  because the brochure reuses its own pictures. p14 is the SAME EMBEDDED IMAGE
+  OBJECT as p06 (xref 231, printed under Duo A and again under Duo B), p46 is
+  p38 (xref 259, both Park pages) and p47 is p39 (xref 260, both Park
+  interiors). Writing each page out gave three files that were byte-for-byte
+  copies of three others, and the project's gallery flipped through the same
+  picture twice. They are not written, and no render here is captioned as one
+  particular family's, because for four of the six that would not be true.
   p09 p17 p25 p33 p41 p49          the entry floor of each family, rendered
   p12 p20 p28 p36 p43 p51          its penthouse floor, rendered — the room
                                    schedule beside the drawing is the content,
@@ -87,8 +95,9 @@ RARS = [UP + '97492d20-badya1.rar', UP + '40a405a5-badya2.rar',
         UP + '69b59a70-badya3.rar']
 OUT = '/home/user/Thevillagw/project-media/palmhills/badya'
 
-# Pages whose content is the photograph behind them.
-PHOTO = [4, 6, 7, 14, 15, 22, 23, 30, 31, 38, 39, 44, 46, 47, 52]
+# Pages whose content is the photograph behind them. 14, 46 and 47 are absent
+# on purpose: each is the same embedded image as 6, 38 and 39 — see above.
+PHOTO = [4, 6, 7, 15, 22, 23, 30, 31, 38, 39, 44, 52]
 # Pages whose content is the drawing and the table beside it.
 WHOLE = [8, 9, 12, 17, 20, 25, 28, 33, 36, 41, 43, 49, 51]
 

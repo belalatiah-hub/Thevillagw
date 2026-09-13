@@ -1,6 +1,5 @@
 -- Every image path the site references, stored once.
 insert into cms.media_assets (path) values
-  ('/project-media/ora/fp-v2-ss-0.webp'),
   ('/project-media/ora/fp-v2-ss-01.webp'),
   ('/project-media/ora/fp-v2-sw.webp'),
   ('/project-media/ora/fp-v3-cr-0.webp'),
@@ -274,7 +273,6 @@ insert into cms.media_assets (path) values
   ('/project-media/palmhills/badya/p08.webp'),
   ('/project-media/palmhills/badya/p09.webp'),
   ('/project-media/palmhills/badya/p12.webp'),
-  ('/project-media/palmhills/badya/p14.webp'),
   ('/project-media/palmhills/badya/p15.webp'),
   ('/project-media/palmhills/badya/p17.webp'),
   ('/project-media/palmhills/badya/p20.webp'),
@@ -291,8 +289,6 @@ insert into cms.media_assets (path) values
   ('/project-media/palmhills/badya/p41.webp'),
   ('/project-media/palmhills/badya/p43.webp'),
   ('/project-media/palmhills/badya/p44.webp'),
-  ('/project-media/palmhills/badya/p46.webp'),
-  ('/project-media/palmhills/badya/p47.webp'),
   ('/project-media/palmhills/badya/p49.webp'),
   ('/project-media/palmhills/badya/p51.webp'),
   ('/project-media/palmhills/badya/p52.webp'),
@@ -401,5 +397,8 @@ insert into cms.media_assets (path) values
   ('/project-media/qataridiar/alam-al-roum/pages/p45.webp'),
   ('/project-media/qataridiar/alam-al-roum/pages/p46.webp'),
   ('/project-media/qataridiar/alam-al-roum/pages/p47.webp'),
-  ('/project-media/qataridiar/alam-al-roum/spine.webp')
+  ('/project-media/qataridiar/alam-al-roum/spine.webp'),
+  ('/project-media/qataridiar/alam-al-roum/story.webp'),
+  ('/project-media/qataridiar/alam-al-roum/town.webp'),
+  ('/project-media/ramla/units/DU3-0.webp')
 on conflict (path) do nothing;

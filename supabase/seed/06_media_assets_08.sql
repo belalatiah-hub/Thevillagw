@@ -1,9 +1,5 @@
 -- Every image path the site references, stored once.
 insert into cms.media_assets (path) values
-  ('/project-media/travco/makadina/p21.webp'),
-  ('/project-media/travco/makadina/p24.webp'),
-  ('/project-media/travco/makadina/p27.webp'),
-  ('/project-media/travco/makadina/units/ap1-makadaina-0.webp'),
   ('/project-media/travco/makadina/units/ap1-makadaina-1.webp'),
   ('/project-media/travco/makadina/units/ap1-makadaina-2.webp'),
   ('/project-media/travco/makadina/units/fp-ap1-makadina.webp'),

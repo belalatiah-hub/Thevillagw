@@ -2667,6 +2667,52 @@ try {
     });
     return bad.length === 0 || bad.join('; ');
   })(), true);
+  ck('site: no strip of pictures shows the same picture twice', (function(){
+    /* Found by eye first, on Badya: the gallery counted 16 frames and three of
+       them were a second copy of a frame already in it. Not the same PATH —
+       two different filenames holding identical bytes, which no path check can
+       see. The brochure prints one render over both Duo pages and one over
+       both Park pages, and the extractor faithfully wrote each page out.
+
+       So the rule is content, not name: within one strip a visitor flips
+       through — a project gallery, a unit gallery, one feature card — no file
+       may appear twice. Across strips it may, and often should: a cover is
+       usually also the first gallery frame, and two units that share a render
+       set each lead with their own frame. */
+    var fsd = require('fs'), pathd = require('path'), cryptod = require('crypto');
+    var root = pathd.join(__dirname, '..'), cache = {};
+    function digest(p){
+      if(!(p in cache)){
+        var f = pathd.join(root, String(p).slice(1));
+        cache[p] = fsd.existsSync(f)
+          ? cryptod.createHash('md5').update(fsd.readFileSync(f)).digest('hex') : null;
+      }
+      return cache[p];
+    }
+    var bad = [];
+    function strip(label, paths){
+      var seen = {};
+      (paths || []).forEach(function(p){
+        var d = digest(p);
+        if(d === null) return;                 // existence is another check's job
+        if(seen[d] && seen[d] !== p) bad.push(label+': '+p+' is '+seen[d]+' again');
+        seen[d] = p;
+      });
+    }
+    Object.keys(api.PROJECT_GALLERY).forEach(function(s){
+      strip('gallery '+s, api.PROJECT_GALLERY[s]); });
+    Object.keys(api.DEV_GALLERY).forEach(function(k){
+      strip('dev gallery '+k, api.DEV_GALLERY[k]); });
+    Object.keys(api.UNIT_GALLERY).forEach(function(u){
+      strip('unit '+u, api.UNIT_GALLERY[u]); });
+    [[api.PROJECT_FEATURES, 'project'], [api.DEV_FEATURES, 'developer']].forEach(function(pair){
+      Object.keys(pair[0]).forEach(function(k){
+        ((pair[0][k] || {}).cards || []).forEach(function(c){
+          strip(pair[1]+' '+k+' card "'+c.en+'"', c.imgs); });
+      });
+    });
+    return bad.length === 0 || bad.join('; ');
+  })(), true);
   ck('badya: the units are the sheet’s eleven rows, and the invented three are gone', (function(){
     var bad = [];
     /* The sheet, row by row: area, price, down payment, years, handover, beds,
@@ -3125,8 +3171,11 @@ try {
      Landscape frames only — the strip is a wide crop, and a portrait page put
      through it loses its top and bottom. */
   ck('lmd projects: each hero flips through its own photographs', (function(){
+    /* EastMed counted 4 until the duplicate sweep: its two chalets carry the
+       same two renders in opposite order, so two of the four files were the
+       other two again and the strip showed each picture twice. Two now. */
     var want = {'zoya':16, 'one-ninety':10, 'three-sixty':7,
-                'stei8ht-eastmed':4, 'stei8ht-there':3, 'stei8ht-eastside':2};
+                'stei8ht-eastmed':2, 'stei8ht-there':3, 'stei8ht-eastside':2};
     var fsx=require('fs'), pathx=require('path'), bad=[];
     Object.keys(want).forEach(function(slug){
       var g = api.PROJECT_GALLERY[slug] || [];

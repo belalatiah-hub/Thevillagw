@@ -5,7 +5,6 @@
 insert into cms.media_links (asset_id, unit_id, role, sort_order)
 select a.id, o.id, v.role::cms.media_role, v.sort_order
 from (values
-  ('/project-media/' || 'sodic/sodic-east/units/to2-se-02.webp','gallery',2,array['SE-02']),
   ('/project-media/' || 'sodic/sodic-east/units/to3-se-0.webp','gallery',0,array['SE-03']),
   ('/project-media/' || 'sodic/sodic-east/units/to3-se-0.webp','gallery',1,array['SE-04']),
   ('/project-media/' || 'sodic/sodic-east/units/to3-se-01.webp','gallery',0,array['SE-04']),
@@ -227,7 +226,8 @@ from (values
   ('/project-media/' || 'tatweer/f-0.webp','gallery',0,array['TM-FK-01']),
   ('/project-media/' || 'tatweer/f-01.webp','gallery',1,array['TM-FK-01']),
   ('/project-media/' || 'tatweer/f-02.webp','gallery',2,array['TM-FK-01']),
-  ('/project-media/' || 'tatweer/f2-0.webp','gallery',0,array['TM-FK-02'])
+  ('/project-media/' || 'tatweer/f2-0.webp','gallery',0,array['TM-FK-02']),
+  ('/project-media/' || 'tatweer/f2-01.webp','gallery',1,array['TM-FK-02'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path

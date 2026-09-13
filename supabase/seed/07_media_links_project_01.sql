@@ -169,8 +169,6 @@ from (values
   ('/project-media/' || 'lmd/one-ninety/w-view.webp','feature',11,array['one-ninety']),
   ('/project-media/' || 'lmd/sem-cl1-r1.webp','feature',2,array['stei8ht-eastmed']),
   ('/project-media/' || 'lmd/sem-cl1-r2.webp','feature',3,array['stei8ht-eastmed']),
-  ('/project-media/' || 'lmd/sem-cl2-r1.webp','feature',4,array['stei8ht-eastmed']),
-  ('/project-media/' || 'lmd/sem-cl2-r2.webp','feature',5,array['stei8ht-eastmed']),
   ('/project-media/' || 'lmd/ses-ad1-r1.webp','feature',2,array['stei8ht-eastside']),
   ('/project-media/' || 'lmd/ses-ad1-r2.webp','feature',3,array['stei8ht-eastside']),
   ('/project-media/' || 'lmd/sth-of1-r1.webp','feature',2,array['stei8ht-there']),
@@ -234,7 +232,8 @@ from (values
   ('/project-media/' || 'msquared/masyaf-ritsa-day.webp','feature',10,array['masyaf-ras-alhekma']),
   ('/project-media/' || 'msquared/masyaf-ritsa-night.webp','feature',9,array['masyaf-ras-alhekma']),
   ('/project-media/' || 'msquared/masyaf-ritsa.webp','feature',8,array['masyaf-ras-alhekma']),
-  ('/project-media/' || 'msquared/masyaf-shore.webp','feature',0,array['masyaf-ras-alhekma'])
+  ('/project-media/' || 'msquared/masyaf-shore.webp','feature',0,array['masyaf-ras-alhekma']),
+  ('/project-media/' || 'msquared/mist-apartments.webp','feature',1,array['mist-new-cairo'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path

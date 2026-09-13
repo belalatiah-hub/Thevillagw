@@ -115,7 +115,6 @@ from (values
   ('/project-media/' || 'hassan-allam/pc-ap1-r3.webp','gallery',2,array['PC-AP1']),
   ('/project-media/' || 'hassan-allam/pc-ap2-r1.webp','gallery',0,array['PC-AP2']),
   ('/project-media/' || 'hassan-allam/pc-ap2-r2.webp','gallery',1,array['PC-AP2']),
-  ('/project-media/' || 'hassan-allam/pc-ap2-r3.webp','gallery',2,array['PC-AP2']),
   ('/project-media/' || 'hassan-allam/pc-ap3-r1.webp','gallery',0,array['PC-AP3']),
   ('/project-media/' || 'hassan-allam/pc-ap3-r2.webp','gallery',1,array['PC-AP3']),
   ('/project-media/' || 'hassan-allam/pc-ap4-r1.webp','gallery',0,array['PC-AP4']),
@@ -237,7 +236,8 @@ from (values
   ('/project-media/' || 'lmd/zy-sv1-r1.webp','gallery',0,array['ZY-SV1']),
   ('/project-media/' || 'lmd/zy-sv1-r2.webp','gallery',1,array['ZY-SV1']),
   ('/project-media/' || 'lmd/zy-sv1-r3.webp','gallery',2,array['ZY-SV1']),
-  ('/project-media/' || 'lmd/zy-tw3-r1.webp','gallery',0,array['ZY-TW3'])
+  ('/project-media/' || 'lmd/zy-tw3-r1.webp','gallery',0,array['ZY-TW3']),
+  ('/project-media/' || 'lmd/zy-tw3-r2.webp','gallery',1,array['ZY-TW3'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path

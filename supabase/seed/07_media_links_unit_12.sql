@@ -5,7 +5,6 @@
 insert into cms.media_links (asset_id, unit_id, role, sort_order)
 select a.id, o.id, v.role::cms.media_role, v.sort_order
 from (values
-  ('/project-media/' || 'tatweer/f2-01.webp','gallery',1,array['TM-FK-02']),
   ('/project-media/' || 'tatweer/f2-02.webp','gallery',2,array['TM-FK-02']),
   ('/project-media/' || 'tatweer/f4-0.webp','gallery',0,array['TM-FK-04']),
   ('/project-media/' || 'tatweer/f4-01.webp','gallery',1,array['TM-FK-04']),
@@ -88,7 +87,6 @@ from (values
   ('/project-media/' || 'tatweer/tm-pe1-il-02.webp','gallery',2,array['TM-IM-17']),
   ('/project-media/' || 'tatweer/tm-st-il-0.webp','gallery',0,array['TM-IM-02']),
   ('/project-media/' || 'tatweer/tm-st-il-01.webp','gallery',1,array['TM-IM-02']),
-  ('/project-media/' || 'tatweer/tm-st-il-02.webp','gallery',2,array['TM-IM-02']),
   ('/project-media/' || 'tatweer/tm-st2-il-01.webp','gallery',0,array['TM-IM-18']),
   ('/project-media/' || 'tatweer/tm-sv-il-0.webp','gallery',0,array['TM-IM-01']),
   ('/project-media/' || 'tatweer/tm-sv-il-01.webp','gallery',1,array['TM-IM-01']),
@@ -206,7 +204,9 @@ from (values
   ('/project-media/' || 'sodic/the-estates-zayed/units/location-the-estates.webp','location',0,array['ES-01','ES-02','ES-03']),
   ('/project-media/' || 'sodic/villette/units/location-villette.webp','location',0,array['VL-01','VL-02','VL-03','VL-04','VL-05']),
   ('/project-media/' || 'sodic/westown-medical-center/units/location-westown.webp','location',0,array['WM-01','WM-02','WM-03','WM-04','WM-05','WM-06','WM-07','WM-08','WM-09','WM-10','WM-11']),
-  ('/project-media/' || 'sumou/lo-s.webp','location',0,array['SB-ST-01','SB-SP-01','SB-AP-01','SB-AP-02','SB-AP-03','SB-AP-04','SB-OF-01','SB-OF-02'])
+  ('/project-media/' || 'sumou/lo-s.webp','location',0,array['SB-ST-01','SB-SP-01','SB-AP-01','SB-AP-02','SB-AP-03','SB-AP-04','SB-OF-01','SB-OF-02']),
+  ('/project-media/' || 'tatweer/lo-bloom.webp','location',0,array['TM-BL-01','TM-BL-02','TM-BL-03','TM-BL-04','TM-BL-05','TM-BL-06','TM-BL-07','TM-BL-08']),
+  ('/project-media/' || 'tatweer/lo-dbay.webp','location',0,array['TM-DB-01','TM-DB-02','TM-DB-03'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path

@@ -5,7 +5,6 @@
 insert into cms.media_links (asset_id, unit_id, role, sort_order)
 select a.id, o.id, v.role::cms.media_role, v.sort_order
 from (values
-  ('/project-media/' || 'modon/ap2-bpl-02.webp','gallery',2,array['MD-BPL-02']),
   ('/project-media/' || 'modon/ap2-bpl-03.webp','gallery',3,array['MD-BPL-02']),
   ('/project-media/' || 'modon/ap2-bpl-04.webp','gallery',4,array['MD-BPL-02']),
   ('/project-media/' || 'modon/ap2-lh-0.webp','gallery',0,array['MD-LH-02']),
@@ -243,7 +242,8 @@ from (values
   ('/project-media/' || 'ogami/units/tw1-ogami-01.webp','gallery',1,array['OG-02']),
   ('/project-media/' || 'ogami/units/tw1-ogami-02.webp','gallery',2,array['OG-02']),
   ('/project-media/' || 'ogami/units/tw1-ogami-03.webp','gallery',3,array['OG-02']),
-  ('/project-media/' || 'ogami/units/v1-ogami-0.webp','gallery',0,array['OG-01'])
+  ('/project-media/' || 'ogami/units/v1-ogami-0.webp','gallery',0,array['OG-01']),
+  ('/project-media/' || 'ogami/units/v1-ogami-01.webp','gallery',1,array['OG-01'])
 ) as v(path, role, sort_order, owners)
 cross join lateral unnest(v.owners) as owner_code
 join cms.media_assets a on a.path = v.path

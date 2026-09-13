@@ -385,9 +385,9 @@ insert into cms.media_assets (path) values
   ('/project-media/hassan-allam/pc-ap2-mp1.webp'),
   ('/project-media/hassan-allam/pc-ap2-r1.webp'),
   ('/project-media/hassan-allam/pc-ap2-r2.webp'),
-  ('/project-media/hassan-allam/pc-ap2-r3.webp'),
   ('/project-media/hassan-allam/pc-ap3-loc1.webp'),
   ('/project-media/hassan-allam/pc-ap3-mp1.webp'),
   ('/project-media/hassan-allam/pc-ap3-r1.webp'),
-  ('/project-media/hassan-allam/pc-ap3-r2.webp')
+  ('/project-media/hassan-allam/pc-ap3-r2.webp'),
+  ('/project-media/hassan-allam/pc-ap4-fp1.webp')
 on conflict (path) do nothing;

@@ -2330,7 +2330,7 @@ var UNIT_GALLERY = {
 'MD-BL-02':["/project-media/modon/ap2-bl-0.webp", "/project-media/modon/ap2-bl-01.webp", "/project-media/modon/ap2-bl-02.webp", "/project-media/modon/ap2-bl-03.webp"],
 'MD-BL-03':["/project-media/modon/ap3-bl-0.webp", "/project-media/modon/ap3-bl-01.webp", "/project-media/modon/ap3-bl-03.webp", "/project-media/modon/ap3-bl-02.webp"],
 'TM-IM-01':["/project-media/tatweer/tm-sv-il-0.webp", "/project-media/tatweer/tm-sv-il-01.webp", "/project-media/tatweer/tm-sv-il-02.webp"],
-'TM-IM-02':["/project-media/tatweer/tm-st-il-0.webp", "/project-media/tatweer/tm-st-il-01.webp", "/project-media/tatweer/tm-st-il-02.webp"],
+'TM-IM-02':["/project-media/tatweer/tm-st-il-0.webp", "/project-media/tatweer/tm-st-il-01.webp"],
 'TM-IM-03':["/project-media/tatweer/tm-ch1-il-0.webp", "/project-media/tatweer/tm-ch1-il-01.webp", "/project-media/tatweer/tm-ch1-il-02.webp"],
 'TM-IM-04':["/project-media/tatweer/tm-ap1-il-0.webp", "/project-media/tatweer/tm-ap1-il-01.webp"],
 'TM-IM-05':["/project-media/tatweer/tm-ap2-il-0.webp", "/project-media/tatweer/tm-ap2-il-01.webp", "/project-media/tatweer/tm-ap2-il-02.webp"],
@@ -2407,7 +2407,7 @@ var UNIT_GALLERY = {
 'VL-SV3':["/project-media/hassan-allam/vl-sv3-r1.webp", "/project-media/hassan-allam/vl-sv3-r2.webp"],
 'VL-SV4':["/project-media/hassan-allam/vl-sv4-r1.webp", "/project-media/hassan-allam/vl-sv4-r2.webp", "/project-media/hassan-allam/vl-sv4-r3.webp", "/project-media/hassan-allam/vl-sv4-r4.webp"],
 'PC-AP1':["/project-media/hassan-allam/pc-ap1-r1.webp", "/project-media/hassan-allam/pc-ap1-r2.webp", "/project-media/hassan-allam/pc-ap1-r3.webp"],
-'PC-AP2':["/project-media/hassan-allam/pc-ap2-r1.webp", "/project-media/hassan-allam/pc-ap2-r2.webp", "/project-media/hassan-allam/pc-ap2-r3.webp"],
+'PC-AP2':["/project-media/hassan-allam/pc-ap2-r1.webp", "/project-media/hassan-allam/pc-ap2-r2.webp"],
 'PC-AP3':["/project-media/hassan-allam/pc-ap3-r1.webp", "/project-media/hassan-allam/pc-ap3-r2.webp"],
 'PC-AP4':["/project-media/hassan-allam/pc-ap4-r1.webp", "/project-media/hassan-allam/pc-ap4-r2.webp", "/project-media/hassan-allam/pc-ap4-r3.webp"],
 'PC-AP5':["/project-media/hassan-allam/pc-ap5-r1.webp", "/project-media/hassan-allam/pc-ap5-r2.webp"],
@@ -4320,9 +4320,7 @@ var PROJECT_GALLERY = {
 '/project-media/lmd/three-sixty/clinic-interior.webp'],
 'stei8ht-eastmed': [
 '/project-media/lmd/sem-cl1-r1.webp',
-'/project-media/lmd/sem-cl1-r2.webp',
-'/project-media/lmd/sem-cl2-r1.webp',
-'/project-media/lmd/sem-cl2-r2.webp'],
+'/project-media/lmd/sem-cl1-r2.webp'],
 'stei8ht-there': [
 '/project-media/lmd/sth-of1-r1.webp',
 '/project-media/lmd/sth-of1-r2.webp',
@@ -4382,8 +4380,8 @@ var PROJECT_GALLERY = {
 '41-business-district': ['b41-hero','b41-landmark','b41-interiors','b41-construction']
 .map(function(f){ return MSQ+f+'.webp'; }),
 'badya-october': ['p30', 'units/ap1-bad-0', 'units/ap1-bad-01',
-'p06', 'p14', 'p22', 'p38', 'p46',
-'p07', 'p15', 'p23', 'p31', 'p39', 'p44', 'p47', 'p52']
+'p06', 'p22', 'p38',
+'p07', 'p15', 'p23', 'p31', 'p39', 'p44', 'p52']
 .map(function(f){ return '/project-media/palmhills/badya/'+f+'.webp'; }),
 };
 function projectGalleryItems(p){
@@ -5968,15 +5966,15 @@ var PROJECT_FEATURES = {
 masterplan: {en:'Badya anchors key map', ar:'خريطة معالم بادية', icon:'masterplan', src:PHB+'units/mp-bad.webp'},
 cards: [
 {en:'The apartment families', ar:'نماذج الشقق', icon:'ty_apartment',
-imgs:[PHB+'p04.webp', PHB+'p08.webp', PHB+'p06.webp', PHB+'p14.webp',
-PHB+'p22.webp', PHB+'p30.webp', PHB+'p38.webp', PHB+'p46.webp'],
+imgs:[PHB+'p04.webp', PHB+'p08.webp', PHB+'p06.webp',
+PHB+'p22.webp', PHB+'p30.webp', PHB+'p38.webp'],
 copy:{
 lead:{en:'The brochure opens on the apartments district drawn from the air, then on a Unit Typology key that colours every building on it. The key names twelve apartment types.', ar:'يفتح البروشور على حي الشقق مرسوماً من الجو، ثم على مفتاح «Unit Typology» يلوّن كل مبنى فيه. ويسمّي المفتاح اثني عشر نوعاً من الشقق.'},
 list:[
 {en:'Duo A · Duo A-M · Duo B · Duo B-M', ar:'ديو A · ديو A-M · ديو B · ديو B-M'},
 {en:'Trio · Trio-M · Corner Unit · Corner Unit-M', ar:'تريو · تريو-M · كورنر يونت · كورنر يونت-M'},
 {en:'The Park A · The Park B · Boulevard C · Boulevard D', ar:'ذا بارك A · ذا بارك B · بوليفارد C · بوليفارد D'}],
-more:{en:'The key footnotes -M as a mirrored building, so the twelve are six plans and their mirrors, plus Boulevard C and D. Six have pages of their own — Duo A, Duo B, Trio, Corner Unit, The Park A and The Park B — and those are the six whose renders, plans and areas follow. The same key marks eleven villa and house types beside the apartments; they are set at a size this file cannot resolve, so their names are not repeated here.', ar:'ويوضّح المفتاح أن -M تعني مبنى معكوساً، فالاثنا عشر هي ستة مخططات ونظائرها المعكوسة، ومعها بوليفارد C وD. وستة منها لها صفحاتها الخاصة — ديو A وديو B وتريو وكورنر يونت وذا بارك A وذا بارك B — وهي التي تتبعها الرندرات والمخططات والمساحات هنا. ويؤشّر المفتاح نفسه على أحد عشر نوعاً من الفيلات والمنازل إلى جانب الشقق، لكنها مطبوعة بحجم لا يسمح الملف بقراءته، فلم تُنقل أسماؤها.'}
+more:{en:'The key footnotes -M as a mirrored building, so the twelve are six plans and their mirrors, plus Boulevard C and D. Six have pages of their own — Duo A, Duo B, Trio, Corner Unit, The Park A and The Park B — and those are the six whose plans and areas follow. Their exteriors are four, not six: the brochure prints one render over both Duo pages and one over both Park pages, so neither is captioned as a particular family and neither is shown twice. The same key marks eleven villa and house types beside the apartments; they are set at a size this file cannot resolve, so their names are not repeated here.', ar:'ويوضّح المفتاح أن -M تعني مبنى معكوساً، فالاثنا عشر هي ستة مخططات ونظائرها المعكوسة، ومعها بوليفارد C وD. وستة منها لها صفحاتها الخاصة — ديو A وديو B وتريو وكورنر يونت وذا بارك A وذا بارك B — وهي التي تتبعها المخططات والمساحات هنا. أما واجهاتها فأربع لا ست: يطبع البروشور رندراً واحداً فوق صفحتَي ديو، وآخر فوق صفحتَي بارك، فلا يُنسب أيٌّ منهما إلى نموذج بعينه ولا يظهر مرتين.  ويؤشّر المفتاح نفسه على أحد عشر نوعاً من الفيلات والمنازل إلى جانب الشقق، لكنها مطبوعة بحجم لا يسمح الملف بقراءته، فلم تُنقل أسماؤها.'}
 }},
 {en:'The homes', ar:'المساحات', icon:'area',
 imgs:[PHB+'p09.webp', PHB+'p17.webp', PHB+'p25.webp', PHB+'p33.webp',
@@ -6012,9 +6010,9 @@ more:{en:'Each of the six is drawn as Apartment 51, on the penthouse floor of it
 }},
 {en:'Inside', ar:'من الداخل', icon:'home',
 imgs:[PHB+'p07.webp', PHB+'p15.webp', PHB+'p23.webp', PHB+'p31.webp',
-PHB+'p39.webp', PHB+'p44.webp', PHB+'p47.webp', PHB+'p52.webp'],
+PHB+'p39.webp', PHB+'p44.webp', PHB+'p52.webp'],
 copy:{
-lead:{en:'One interior for each of the six families, and two more the brochure closes on.', ar:'تشطيبة من الداخل لكلٍّ من النماذج الستة، واثنتان أخريان يُختتم بهما البروشور.'},
+lead:{en:'The interiors the brochure draws — five between the six families, since it prints the same room under The Park A and The Park B, and two more it closes on.', ar:'التشطيبات التي يرسمها البروشور — خمسٌ بين النماذج الستة، إذ يطبع الغرفة نفسها تحت ذا بارك A وذا بارك B، واثنتان أخريان يُختتم بهما.'},
 more:{en:'The brochure states that the landscaping, pools and furniture in these frames are not included in the property and are there for illustration only.', ar:'ويذكر البروشور أن اللاندسكيب وحمّامات السباحة والأثاث في هذه الصور غير مشمولة في الوحدة وأنها للتوضيح فقط.'}
 }},
 {en:'The villas', ar:'الفيلات', icon:'ty_villa',
@@ -6391,7 +6389,7 @@ groups:[
 ]
 }},
 {en:'A state of wellbeing', ar:'حالة العافية', icon:'am_clinic',
-imgs:['/project-media/lmd/sem-cl1-r1.webp', '/project-media/lmd/sem-cl1-r2.webp', '/project-media/lmd/sem-cl2-r1.webp', '/project-media/lmd/sem-cl2-r2.webp'],
+imgs:['/project-media/lmd/sem-cl1-r1.webp', '/project-media/lmd/sem-cl1-r2.webp'],
 copy:{
 lead:{en:'Here you find your center, as the state of wellness encircles a significant space at Stei8ht \u2014 the medical and wellness centers the brochure names among its eight states.', ar:'هنا تجد مركزك، فحالة العافية تحيط بمساحة كبيرة في Stei8ht — المراكز الطبية ومراكز العافية التي يسمّيها البروشور ضمن حالاته الثماني.'},
 list:[

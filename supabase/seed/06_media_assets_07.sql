@@ -1,7 +1,5 @@
 -- Every image path the site references, stored once.
 insert into cms.media_assets (path) values
-  ('/project-media/sodic/the-estates-residence/units/fp-ap11-caesar.webp'),
-  ('/project-media/sodic/the-estates-residence/units/fp-ap12-caesar.webp'),
   ('/project-media/sodic/the-estates-residence/units/fp-ap13-caesar.webp'),
   ('/project-media/sodic/the-estates-residence/units/fp-ap14-caesar.webp'),
   ('/project-media/sodic/the-estates-residence/units/fp-ap15-caesar.webp'),
@@ -383,7 +381,6 @@ insert into cms.media_assets (path) values
   ('/project-media/tatweer/tm-pe1-il-02.webp'),
   ('/project-media/tatweer/tm-st-il-0.webp'),
   ('/project-media/tatweer/tm-st-il-01.webp'),
-  ('/project-media/tatweer/tm-st-il-02.webp'),
   ('/project-media/tatweer/tm-st2-il-01.webp'),
   ('/project-media/tatweer/tm-sv-il-0.webp'),
   ('/project-media/tatweer/tm-sv-il-01.webp'),
@@ -406,5 +403,9 @@ insert into cms.media_assets (path) values
   ('/project-media/travco/makadina/p17.webp'),
   ('/project-media/travco/makadina/p18.webp'),
   ('/project-media/travco/makadina/p19.webp'),
-  ('/project-media/travco/makadina/p20.webp')
+  ('/project-media/travco/makadina/p20.webp'),
+  ('/project-media/travco/makadina/p21.webp'),
+  ('/project-media/travco/makadina/p24.webp'),
+  ('/project-media/travco/makadina/p27.webp'),
+  ('/project-media/travco/makadina/units/ap1-makadaina-0.webp')
 on conflict (path) do nothing;
