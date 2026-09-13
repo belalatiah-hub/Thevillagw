@@ -955,7 +955,7 @@ var UNITS = [
 {id:'BD-04', project:'badya-october', type:'Apartment', label:{en:'Apartment',ar:'شقة'}, beds:3, baths:3, area:152, price:15297811, dp:3, years:12, handover:'2030'},
 {id:'BD-05', project:'badya-october', type:'Apartment', label:{en:'Apartment',ar:'شقة'}, beds:3, baths:4, area:160, price:14500000, dp:3, years:12, handover:'2030'},
 {id:'BD-06', project:'badya-october', type:'Villa', label:{en:'villa',ar:'فيلا'}, beds:3, baths:4, area:180, price:23600000, dp:3, years:12, handover:'2030'},
-{id:'BD-07', project:'badya-october', type:'Villa', label:{en:'villa',ar:'فيلا'}, beds:4, baths:6, area:280, price:30000000, dp:3, years:12, handover:'2030'},
+{id:'BD-07', project:'badya-october', type:'Villa', label:{en:'villa',ar:'فيلا'}, beds:4, baths:5, area:280, price:30000000, dp:3, years:12, handover:'2030'},
 {id:'BD-08', project:'badya-october', type:'Villa', label:{en:'villa',ar:'فيلا'}, beds:5, baths:8, area:365, price:30000000, dp:3, years:12, handover:'2030'},
 {id:'BD-09', project:'badya-october', type:'Apartment', label:{en:'Apartment',ar:'شقة'}, beds:2, baths:3, area:171, price:17700000, dp:15, years:8, handover:'Ready'},
 {id:'BD-10', project:'badya-october', type:'Apartment', label:{en:'Apartment',ar:'شقة'}, beds:3, baths:3, area:195, price:19300000, dp:15, years:8, handover:'Ready'},

@@ -2719,10 +2719,13 @@ try {
        baths. Written out rather than derived, so a typo in the data fails here
        instead of shipping.
 
-       One figure here is NOT the sheet's, and is marked where it sits: BD-01's
-       bathroom count. The sheet says two; the owner says one, and fp-ap1-bad —
-       the plan that unit's own page opens — draws a single Bath 1 in a 61 m²
-       one-bedroom.
+       Two figures here are NOT the sheet's, and each is marked where it sits.
+       BD-01's bathrooms: the sheet says two, the owner says one, and
+       fp-ap1-bad — the plan that unit's own page opens — draws a single Bath 1
+       in a 61 m² one-bedroom. BD-07's: the sheet says six, the owner says
+       five, and nothing adjudicates, because 280 m² is the one Badya villa
+       with no plan in any archive and it matches neither type sheet. That one
+       rests on the owner's word, and this comment is the record of it.
 
        Ten rows, not eleven. BD-02 was the same case — 63 m², one bedroom, two
        baths on the sheet and one on its plan — but that plan is the cyan
@@ -2734,7 +2737,7 @@ try {
       'BD-04':[152, 15297811,  3, 12, '2030', 3, 3],
       'BD-05':[160, 14500000,  3, 12, '2030', 3, 4],
       'BD-06':[180, 23600000,  3, 12, '2030', 3, 4],
-      'BD-07':[280, 30000000,  3, 12, '2030', 4, 6],
+      'BD-07':[280, 30000000,  3, 12, '2030', 4, 5],   // baths: owner's correction
       'BD-08':[365, 30000000,  3, 12, '2030', 5, 8],
       'BD-09':[171, 17700000, 15,  8, 'Ready', 2, 3],
       'BD-10':[195, 19300000, 15,  8, 'Ready', 3, 3],

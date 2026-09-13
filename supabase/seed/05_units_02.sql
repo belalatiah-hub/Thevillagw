@@ -179,7 +179,7 @@ from (values
   ('BD-04','badya-october','Apartment','Apartment','شقة',3,3,152,null,15297811,3,12,'2030',null,'available'),
   ('BD-05','badya-october','Apartment','Apartment','شقة',3,4,160,null,14500000,3,12,'2030',null,'available'),
   ('BD-06','badya-october','Villa','villa','فيلا',3,4,180,null,23600000,3,12,'2030',null,'available'),
-  ('BD-07','badya-october','Villa','villa','فيلا',4,6,280,null,30000000,3,12,'2030',null,'available'),
+  ('BD-07','badya-october','Villa','villa','فيلا',4,5,280,null,30000000,3,12,'2030',null,'available'),
   ('BD-08','badya-october','Villa','villa','فيلا',5,8,365,null,30000000,3,12,'2030',null,'available'),
   ('BD-09','badya-october','Apartment','Apartment','شقة',2,3,171,null,17700000,15,8,'Ready',null,'available'),
   ('BD-10','badya-october','Apartment','Apartment','شقة',3,3,195,null,19300000,15,8,'Ready',null,'available'),
