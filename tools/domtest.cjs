@@ -2776,6 +2776,116 @@ try {
       bad.push('a drive time or distance (ar)');
     return bad.length === 0 || bad.join('; ');
   })(), true);
+  ck('hacienda waters: the sheet’s six rows, and each row’s own frames in its own order', (function(){
+    var bad = [];
+    /* area, price, dp, years, handover, beds, baths, and the brochure figure
+       that confirms the area. Five of the six are confirmed. The sixth, the
+       two-bedroom chalet, is the sheet's 103 against the brochure's 106-114,
+       so what is asserted there is that the card says both. */
+    var SHEET = {
+      'HW-01':[375,   107000000, 10, 9.5, '2030', 6, 9, '374 m² built-up'],
+      'HW-02':[320,    72100000, 10, 9.5, '2030', 5, 8, '278 m² built-up · 46 m² penthouse'],
+      'HW-03':[ 65,    14500000,  5,  12, '2030', 1, 2, '1 bed 65–72.5 m²'],
+      'HW-04':[103,    16900000,  5,  12, '2030', 2, 3, '2 beds 106–114 m²'],
+      'HW-05':[141,    20400000,  5,  12, '2030', 3, 4, '3 beds 123–146.5 m²'],
+      'HW-06':[41.5,   18500000, 10, 9.5, '2030', 1, 1, '41.5 m²']
+    };
+    /* The sheet's Image ID column, read down each row: the lead frame is the
+       one on the row itself and the rest are the continuation rows under it.
+       This is the order a visitor flips through, so it is asserted exactly. */
+    var FRAMES = {
+      'HW-01':['v1-water-0', 'v1-water-1', 'v1-water-2', 'v1-water-3'],
+      'HW-02':['v1-water-1', 'v1-water-2', 'v1-water-3', 'v1-water-0'],
+      'HW-03':['v1-water-2', 'v1-water-3', 'v1-water-1'],
+      'HW-04':['ch-water-0', 'ch-water-1'],
+      'HW-05':['ch-water-1', 'ch-water-0'],
+      'HW-06':['v1-water-1', 'v1-water-2', 'v1-water-3']
+    };
+    /* The sheet's Floor Plan column. Each drawing says on its own face which
+       building it is, which is why these pairings are assertable. */
+    var PLANS = {
+      'HW-01':'fp-water-v1', 'HW-02':'fp-water-v2', 'HW-03':'fp-ch1-water',
+      'HW-04':'fp-ch2-water', 'HW-05':'fp-ch3-water', 'HW-06':'ca-water-fp'
+    };
+    var own = '/project-media/palmhills/hacienda-waters/';
+    var flat = JSON.stringify(api.projFeatures('hacienda-waters'));
+    Object.keys(SHEET).forEach(function(id){
+      var u = api.unitById(id), w = SHEET[id];
+      if(!u) { bad.push(id+' missing'); return; }
+      ['area','price','dp','years','handover','beds','baths'].forEach(function(k, i){
+        if(u[k] !== w[i]) bad.push(id+'.'+k+'='+u[k]+' want '+w[i]); });
+      if(flat.indexOf(w[7]) < 0) bad.push(id+': the brochure figure "'+w[7]+'" is not on the page');
+      if(!u.label || !u.label.ar) bad.push(id+' label not bilingual');
+      var want = FRAMES[id].map(function(f){ return own+'units/'+f+'.webp'; });
+      var got = (api.UNIT_GALLERY[id] || []);
+      if(JSON.stringify(got) !== JSON.stringify(want))
+        bad.push(id+' frames '+JSON.stringify(got)+' want '+JSON.stringify(want));
+      if(api.UNIT_IMAGES[id] !== want[0]) bad.push(id+' cover is not its lead frame');
+      var fp = JSON.stringify(api.UNIT_FLOORPLANS[id] || []);
+      if(fp !== JSON.stringify([own+'units/'+PLANS[id]+'.webp']))
+        bad.push(id+' floor plan '+fp);
+      if(JSON.stringify(api.UNIT_MASTERPLANS[id] || []) !== JSON.stringify([own+'units/mp-water.webp']))
+        bad.push(id+' master plan is not mp-water');
+      if(JSON.stringify(api.UNIT_LOCATIONS[id] || []) !== JSON.stringify([own+'units/location-water.webp']))
+        bad.push(id+' location map is not location-water');
+    });
+    var mine = api.UNITS.filter(function(u){ return u.project === 'hacienda-waters'; });
+    if(mine.length !== 6) bad.push(mine.length+' units, not 6');
+    ['HWT-C1','HWT-C2','HWT-V1'].forEach(function(id){
+      if(api.unitById(id)) bad.push(id+' is back'); });
+    /* v1-water-0 is the archive's only render of a particular home — a villa
+       with its own pool — and the sheet puts it on the two villa rows only.
+       The lagoons and the interior are everyone's; that house is not. */
+    Object.keys(FRAMES).forEach(function(id){
+      if(id !== 'HW-01' && id !== 'HW-02' && FRAMES[id].indexOf('v1-water-0') > -1)
+        bad.push('the villa render is on '+id);
+      if((api.UNIT_GALLERY[id]||[]).join().indexOf('v1-water-0') > -1 && id !== 'HW-01' && id !== 'HW-02')
+        bad.push('the villa render reached '+id);
+    });
+    var p = api.projBySlug('hacienda-waters');
+    if(p.area !== 'raselhekma') bad.push('area='+p.area);
+    if(p.price !== 14500000 || p.dp !== 5 || p.years !== 12 || p.delivery !== '2030')
+      bad.push('headline '+p.price+'/'+p.dp+'/'+p.years+'/'+p.delivery);
+    /* Page 21 says AREA: 161.7 FDS. The card used to say "161-acre" and
+       "Km 191", and no page anywhere prints a kilometre marker. */
+    var card = JSON.stringify(p);
+    if(card.indexOf('161.7') < 0) bad.push('161.7 feddans is gone');
+    if(/161[- ]acre|km\s*191|كيلو\s*١٩١|400\s*m/i.test(card)) bad.push('an unsourced figure is back');
+    /* The two-bedroom chalet is the one row no page confirms. Both readings
+       must be on the card, or the 103 is passing itself off as sourced. */
+    if(flat.indexOf('103') < 0) bad.push('the sheet’s 103 m² is not reconciled on the card');
+    var all = flat + JSON.stringify(api.PROJECT_GALLERY['hacienda-waters'])
+                   + JSON.stringify(api.PROJECT_COVERS['hacienda-waters']);
+    mine.forEach(function(u){
+      all += JSON.stringify([api.UNIT_IMAGES[u.id], api.UNIT_GALLERY[u.id],
+                             api.UNIT_FLOORPLANS[u.id], api.UNIT_MASTERPLANS[u.id],
+                             api.UNIT_LOCATIONS[u.id]]);
+    });
+    var fsp = require('fs'), pathp = require('path'), root = pathp.join(__dirname, '..');
+    var refs = all.match(/\/project-media\/[A-Za-z0-9._\/-]+\.webp/g) || [];
+    refs.forEach(function(src){
+      if(src.indexOf(own) !== 0) bad.push('foreign image '+src);
+      if(!fsp.existsSync(pathp.join(root, src.slice(1)))) bad.push('missing file '+src);
+    });
+    /* Page 11 is the LOCATION page: "20 kilometers before Hacienda West, and
+       30 kilometers away from Ras El Hikma". It is the only page of the 41
+       that prints a distance, and it is nowhere on this site. */
+    if(all.indexOf(own+'p11.webp') > -1) bad.push('p11, the distances page, is on the site');
+    /* Ten pages are stock photographs of other places and other people. */
+    ['p03','p04','p05','p06','p07','p08','p10','p13','p14','p15','p16','p17','p18','p19','p20']
+      .forEach(function(pg){
+        if(all.indexOf(own+pg+'.webp') > -1) bad.push(pg+', a stock photograph, is on the page'); });
+    /* And these four are the drawings the archive already holds, which the
+       units carry. Publishing the brochure's copies too would put the same
+       drawing on a card and on a listing. */
+    ['p25','p26','p35','p36'].forEach(function(pg){
+      if(all.indexOf(own+pg+'.webp') > -1) bad.push(pg+' duplicates a drawing on a unit'); });
+    if(/\b\d+(\.\d+)?\s*(min|mins|minutes|hr|hrs|hours|km|kilomet)/i.test(all + card))
+      bad.push('a drive time or distance');
+    if(/\d+\s*(دقيقة|دقائق|ساعة|ساعات|كم|كيلو)/.test(all + card))
+      bad.push('a drive time or distance (ar)');
+    return bad.length === 0 || bad.join('; ');
+  })(), true);
   ck('hacienda blue: the sheet’s five rows, every area printed in the brochure', (function(){
     var bad = [];
     /* area, price, dp, years, handover, beds, baths — and the brochure page

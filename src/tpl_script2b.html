@@ -98,6 +98,8 @@
     'palm-hills-new-cairo':'/project-media/palmhills/ph-new-cairo/p01.webp',
     // P/X: the DUSK block, the brochure's richest apartment render.
     'px-new-cairo':'/project-media/palmhills/px/p43.webp',
+    // Hacienda Waters: the lagoon the chalets sit on, which is the project.
+    'hacienda-waters':'/project-media/palmhills/hacienda-waters/p30.webp',
     'ledge-valley':'/project-media/orascom/ledge-valley/hero.webp',
     'makadi-heights':'/project-media/orascom/makadi-heights/renders/lagoon.webp',
     // Marassi Red Sea: the marina from the air, looking out to open sea. The
@@ -835,6 +837,17 @@
     'PX-05':'/project-media/palmhills/px/units/ap5-px-0.webp',
     'PX-06':'/project-media/palmhills/px/units/to1-px-0.webp',
     'PX-07':'/project-media/palmhills/px/units/to1-px-01.webp',
+    /* Hacienda Waters — Palm Hills, Ras El Hekma. The sheet lists each row's
+       frames down the Image ID column, and the cover is the one it names
+       first. v1-water-0 is the only render in the archive of a particular home
+       — a two-storey villa with its own pool — and the sheet puts it on the
+       two villa rows and on nothing else. */
+    'HW-01':'/project-media/palmhills/hacienda-waters/units/v1-water-0.webp',
+    'HW-02':'/project-media/palmhills/hacienda-waters/units/v1-water-1.webp',
+    'HW-03':'/project-media/palmhills/hacienda-waters/units/v1-water-2.webp',
+    'HW-04':'/project-media/palmhills/hacienda-waters/units/ch-water-0.webp',
+    'HW-05':'/project-media/palmhills/hacienda-waters/units/ch-water-1.webp',
+    'HW-06':'/project-media/palmhills/hacienda-waters/units/v1-water-1.webp',
   };
   /* Per-unit render galleries (all photos for a unit) — opened as a numbered
      carousel from the unit hero and the "Photos" chip. LMD-populated. */
@@ -1441,6 +1454,18 @@
     'PX-05':['/project-media/palmhills/px/units/ap5-px-0.webp', '/project-media/palmhills/px/units/ap5-px-01.webp', '/project-media/palmhills/px/units/ap5-px-02.webp'],
     'PX-06':['/project-media/palmhills/px/units/to1-px-0.webp', '/project-media/palmhills/px/units/to1-px-01.webp', '/project-media/palmhills/px/units/to1-px-02.webp'],
     'PX-07':['/project-media/palmhills/px/units/to1-px-01.webp', '/project-media/palmhills/px/units/to1-px-0.webp', '/project-media/palmhills/px/units/to1-px-02.webp'],
+    /* Hacienda Waters — Palm Hills, Ras El Hekma. Each row of the sheet lists
+       its frames down the Image ID column and these are those lists, in that
+       order. The sheet is careful about it: v1-water-0 is the one render of a
+       particular home, and it appears on the two villa rows only — the
+       one-bedroom chalet and the cabin are given the lagoon and the interior
+       and not the villa. */
+    'HW-01':['/project-media/palmhills/hacienda-waters/units/v1-water-0.webp', '/project-media/palmhills/hacienda-waters/units/v1-water-1.webp', '/project-media/palmhills/hacienda-waters/units/v1-water-2.webp', '/project-media/palmhills/hacienda-waters/units/v1-water-3.webp'],
+    'HW-02':['/project-media/palmhills/hacienda-waters/units/v1-water-1.webp', '/project-media/palmhills/hacienda-waters/units/v1-water-2.webp', '/project-media/palmhills/hacienda-waters/units/v1-water-3.webp', '/project-media/palmhills/hacienda-waters/units/v1-water-0.webp'],
+    'HW-03':['/project-media/palmhills/hacienda-waters/units/v1-water-2.webp', '/project-media/palmhills/hacienda-waters/units/v1-water-3.webp', '/project-media/palmhills/hacienda-waters/units/v1-water-1.webp'],
+    'HW-04':['/project-media/palmhills/hacienda-waters/units/ch-water-0.webp', '/project-media/palmhills/hacienda-waters/units/ch-water-1.webp'],
+    'HW-05':['/project-media/palmhills/hacienda-waters/units/ch-water-1.webp', '/project-media/palmhills/hacienda-waters/units/ch-water-0.webp'],
+    'HW-06':['/project-media/palmhills/hacienda-waters/units/v1-water-1.webp', '/project-media/palmhills/hacienda-waters/units/v1-water-2.webp', '/project-media/palmhills/hacienda-waters/units/v1-water-3.webp'],
   };
   /* Location aerials (per area) — reused as the unit "Location" viewer image and
      the Top-Locations card art. Drop <area-key>.webp into /project-media/locations. */
@@ -2057,6 +2082,13 @@
     'PX-05':['/project-media/palmhills/px/units/mp-px.webp'],
     'PX-06':['/project-media/palmhills/px/units/mp-px.webp'],
     'PX-07':['/project-media/palmhills/px/units/mp-px.webp'],
+    /* Hacienda Waters — every row of the sheet names mp water. */
+    'HW-01':['/project-media/palmhills/hacienda-waters/units/mp-water.webp'],
+    'HW-02':['/project-media/palmhills/hacienda-waters/units/mp-water.webp'],
+    'HW-03':['/project-media/palmhills/hacienda-waters/units/mp-water.webp'],
+    'HW-04':['/project-media/palmhills/hacienda-waters/units/mp-water.webp'],
+    'HW-05':['/project-media/palmhills/hacienda-waters/units/mp-water.webp'],
+    'HW-06':['/project-media/palmhills/hacienda-waters/units/mp-water.webp'],
   };
   var UNIT_FLOORPLANS = {
     /* El Masria's two ISOLA projects. Each unit carries the four pictures
@@ -2650,6 +2682,21 @@
     'PX-05':['/project-media/palmhills/px/units/fp-ap4-px.webp', '/project-media/palmhills/px/units/fp-ap4-px1.webp'],
     'PX-06':['/project-media/palmhills/px/units/fp-to1-px.webp', '/project-media/palmhills/px/units/fp-to1-px0.webp', '/project-media/palmhills/px/units/fp-to1-px01.webp', '/project-media/palmhills/px/units/fp-to1-px02.webp'],
     'PX-07':['/project-media/palmhills/px/units/to2-px-0.webp', '/project-media/palmhills/px/units/fp-to2-px-01.webp', '/project-media/palmhills/px/units/fp-to2-px-02.webp', '/project-media/palmhills/px/units/fp-to2-px-03.webp'],
+    /* Hacienda Waters. One drawing each, the one the sheet's Floor Plan column
+       names, and each one says on its own face which building it is: fp-ch1
+       and fp-ch2 are both headed WATER CONDO 3 and fp-ch3 WATER CONDO 2, which
+       is why the two Condo 3 rows can share a building and still be two
+       different homes in it. fp-water-v1 draws a ground and a first floor with
+       six master bedrooms and no penthouse, which is the 1st Row Villa; v2
+       draws a ground, a first and a penthouse with five, which is the 2nd Row.
+       The brochure's own copies of these four pages are not published for that
+       reason — they would be the same drawing twice. */
+    'HW-01':['/project-media/palmhills/hacienda-waters/units/fp-water-v1.webp'],
+    'HW-02':['/project-media/palmhills/hacienda-waters/units/fp-water-v2.webp'],
+    'HW-03':['/project-media/palmhills/hacienda-waters/units/fp-ch1-water.webp'],
+    'HW-04':['/project-media/palmhills/hacienda-waters/units/fp-ch2-water.webp'],
+    'HW-05':['/project-media/palmhills/hacienda-waters/units/fp-ch3-water.webp'],
+    'HW-06':['/project-media/palmhills/hacienda-waters/units/ca-water-fp.webp'],
   };
   /* Per-unit location renders (LMD). When present, the Location viewer shows the
      unit-specific aerial; otherwise it falls back to the area aerial. */
@@ -3176,6 +3223,17 @@
     'PX-05':['/project-media/palmhills/px/units/location-px.webp'],
     'PX-06':['/project-media/palmhills/px/units/location-px.webp'],
     'PX-07':['/project-media/palmhills/px/units/location-px.webp'],
+    /* Hacienda Waters. Every row names location water, and that map draws the
+       coast from Marsa Matrouh to El Alamein with the project between Hacienda
+       West and Hacienda White. It carries no distance and no drive time, which
+       the brochure's own location page does — which is why that page is not
+       anywhere on this site. */
+    'HW-01':['/project-media/palmhills/hacienda-waters/units/location-water.webp'],
+    'HW-02':['/project-media/palmhills/hacienda-waters/units/location-water.webp'],
+    'HW-03':['/project-media/palmhills/hacienda-waters/units/location-water.webp'],
+    'HW-04':['/project-media/palmhills/hacienda-waters/units/location-water.webp'],
+    'HW-05':['/project-media/palmhills/hacienda-waters/units/location-water.webp'],
+    'HW-06':['/project-media/palmhills/hacienda-waters/units/location-water.webp'],
   };
   function planUrl(f){ return f.charAt(0)==='/' ? f : PLANS_BASE+f; }
   /* A master plan and a location map describe the whole project — every unit in
@@ -3786,6 +3844,19 @@
        what this project actually lists. */
     'px-new-cairo': ['p27','p32','p33','p37','p38','p42','p43','p48','p49','p54','p55']
       .map(function(f){ return '/project-media/palmhills/px/'+f+'.webp'; }),
+    /* Hacienda Waters: the four renders the brochure draws of the place — a
+       villa, the villas-and-town-houses street, the chalets on their lagoon,
+       the condos on their pool — then the interior, which is the one picture
+       in the archive that no brochure page carries.
+
+       Four and not more, because the brochure's other pictures are stock
+       photographs of a water park, an arcade, a playground and a cinema that
+       are not this project. And the archive's own renders are not here: three
+       of the six are the narrower crop of a frame already in this list, and
+       one strip showing the same view twice is the thing this gallery is
+       tested against. */
+    'hacienda-waters': ['p30','p33','p12','p24','units/v1-water-3']
+      .map(function(f){ return '/project-media/palmhills/hacienda-waters/'+f+'.webp'; }),
   };
   function projectGalleryItems(p){
     var g = PROJECT_GALLERY[p.slug]; if(!g || !g.length) return [];
@@ -5517,6 +5588,7 @@
   var PHH = '/project-media/palmhills/hacienda-blue/';
   var PHC = '/project-media/palmhills/ph-new-cairo/';
   var PXB = '/project-media/palmhills/px/';
+  var PHW = '/project-media/palmhills/hacienda-waters/';
   var PROJECT_FEATURES = {
     /* P/X — Palm Hills, 6th of October. Sixty-six brochure pages, of which the
        first twenty-three are editorial: a logo, slogans over abstract art, four
@@ -5585,6 +5657,114 @@
                {k:{en:'SKYE 2', ar:'SKYE 2'}, v:{en:'60.41 – 171.17 m² · the smallest home in the brochure, and a three-bedroom with a nanny’s room', ar:'٦٠٫٤١ – ١٧١٫١٧ م² · أصغر وحدة في البروشور، وثلاث غرف وغرفة نانية'}}]}
            ],
            more:{en:'The five apartments this site lists are each one of those figures: 77 m² is SKYE 1 and SKYE 2’s Apartment 12 at 77.84, 138 is DAWN’s Apartment 12 at 138.19, 157 and 164 are DUSK’s Apartment 11 and 12 at 156.56 and 164.48, and 171 is DAWN’s Apartment 11 at 171.80. Its two town house rows are the exception: both say 231 m², and no page here prints 231 — the nearest are 213.61 built-up for the corner and 200.72 for the middle. That figure is carried as the sheet has it and is not reconciled.', ar:'والشقق الخمس المعروضة هنا كلٌّ منها واحد من تلك الأرقام: ٧٧ م² هي الشقة ١٢ في SKYE 1 وSKYE 2 بـ ٧٧٫٨٤، و١٣٨ هي الشقة ١٢ في DAWN بـ ١٣٨٫١٩، و١٥٧ و١٦٤ هما الشقتان ١١ و١٢ في DUSK بـ ١٥٦٫٥٦ و١٦٤٫٤٨، و١٧١ هي الشقة ١١ في DAWN بـ ١٧١٫٨٠. أما صفّا التاون هاوس فاستثناء: كلاهما ٢٣١ م²، ولا تطبع أي صفحة هنا ٢٣١ — وأقرب ما فيها ٢١٣٫٦١ بناءً للركنية و٢٠٠٫٧٢ للوسطى. ونُقل الرقم كما هو في الشيت دون توفيق.'}
+         }}
+      ]
+    },
+    /* Hacienda Waters — Palm Hills, Ras El Hekma. Its own 41-page brochure,
+       read against the sheet's six rows.
+
+       Ten of its pages are stock photographs and are not on disk: a water
+       park, a child on a float, a man in the sea, children splashing, a slide,
+       an arcade, two people doing push-ups, a playground, a group at a bar,
+       children in a cinema. None shows any part of this project. Their words
+       are quoted here; their pictures were never extracted. The render on p30
+       has a woman in it, which is a different thing.
+
+       Page 11 is the LOCATION page and it is nowhere on this site, on purpose.
+       It prints "20 kilometers before Hacienda West, and 30 kilometers away
+       from Ras El Hikma". All 41 pages were swept and it is the only one that
+       prints a distance.
+
+       Four of the brochure's plan pages are absent for a different reason: the
+       archive holds the same four drawings — the two villas and Water Condo 2
+       and 3 — and this site attaches those to the units the sheet prices.
+       Their area tables are quoted below, which is the half the archive's
+       crops do not carry. */
+    'hacienda-waters': {
+      masterplan: {en:'Master plan', ar:'الماستر بلان', icon:'masterplan', src:PHW+'units/mp-water.webp'},
+      cards: [
+        {en:'The master plan in numbers', ar:'الماستر بلان بالأرقام', icon:'info',
+         imgs:[PHW+'p21.webp', PHW+'p22.webp', PHW+'p23.webp'],
+         copy:{
+           lead:{en:'The brochure draws the master plan three times: once with the project’s own figures beside it, once with every home type keyed to a colour, and once with the site marked zone by zone.', ar:'يرسم البروشور الماستر بلان ثلاث مرات: مرة بأرقام المشروع إلى جواره، ومرة بترميز كل نوع وحدة بلون، ومرة بتأشير الأرض منطقةً منطقة.'},
+           groups:[
+             {label:{en:'As page 21 prints them', ar:'كما تطبعها الصفحة ٢١'}, rows:[
+               {k:{en:'Area', ar:'المساحة'}, v:{en:'161.7 feddans', ar:'١٦١٫٧ فداناً'}},
+               {k:{en:'Lagoons', ar:'البحيرات'}, v:{en:'18 feddans', ar:'١٨ فداناً'}},
+               {k:{en:'Footprint', ar:'نسبة البناء'}, v:{en:'12.5%', ar:'١٢٫٥٪'}},
+               {k:{en:'Landscape & hardscape', ar:'اللاندسكيب والهاردسكيب'}, v:{en:'40.5%', ar:'٤٠٫٥٪'}},
+               {k:{en:'Commercial & recreational', ar:'التجاري والترفيهي'}, v:{en:'15%', ar:'١٥٪'}}]}
+           ],
+           list:[
+             {en:'Pieds Dans L’Eau · Lagoon Cabins', ar:'وحدات على الماء · كبائن على البحيرات'},
+             {en:'1st Row Villa · 2nd Row Villa · Water Villa', ar:'فيلا الصف الأول · فيلا الصف الثاني · الفيلا المائية'},
+             {en:'Water Town House', ar:'التاون هاوس المائي'},
+             {en:'Water Senior Chalet · Water Junior Chalet', ar:'شاليه سينيور مائي · شاليه جونيور مائي'},
+             {en:'Water Condo 1 · 2 · 3 · 4', ar:'ووتر كوندو ١ · ٢ · ٣ · ٤'}],
+           more:{en:'Page 23 repeats the plan with a set of figures against PDL, the cabins, the first and second rows and the villas and towns — printed as a bare +4, +7, +11, +18 and +25 beside a dotted leader, with G+5 and two large numerals on the drawing itself. They can be read as counts or as levels, and a number that can be read two ways is not a number, so they are not restated here.', ar:'وتعيد الصفحة ٢٣ رسم المخطط ومعه أرقام أمام الوحدات على الماء والكبائن والصفّين الأول والثاني والفيلات والتاون هاوس — مطبوعة هكذا: +٤ و+٧ و+١١ و+١٨ و+٢٥ إلى جوار خط منقّط، مع G+5 ورقمين كبيرين على الرسم نفسه. وتحتمل القراءة كأعداد أو كمناسيب، والرقم الذي يُقرأ بوجهين ليس رقماً، فلم يُعد ذكره هنا.'}
+         }},
+        {en:'Waves of fun', ar:'موج من المتعة', icon:'am_lagoon',
+         imgs:[PHW+'p30.webp', PHW+'p33.webp'],
+         copy:{
+           lead:{en:'The brochure’s own description: a dazzling new jewel in the Palm Hills crown, an aquatic wonderland of water-based marvels — an extravagant water park, serene lagoons and a one-of-a-kind beach — whose allure extends to a myriad of family-friendly amenities.', ar:'وصف البروشور نفسه: جوهرة جديدة لامعة في تاج بالم هيلز، وعالم مائي من العجائب — ووتر بارك فخم وبحيرات هادئة وشاطئ فريد — يمتدّ سحره إلى باقة من المرافق العائلية.'},
+           list:[
+             {en:'World-class water park', ar:'ووتر بارك عالمي المستوى'},
+             {en:'Exciting arcade hub', ar:'صالة ألعاب'},
+             {en:'Palm Hills Sports Club', ar:'نادي بالم هيلز الرياضي'},
+             {en:'Innovative kids zone', ar:'منطقة أطفال مبتكرة'},
+             {en:'Kids cinema', ar:'سينما أطفال'}],
+           groups:[
+             {label:{en:'What each page claims for it', ar:'ما تدّعيه كل صفحة'}, rows:[
+               {k:{en:'The water park', ar:'الووتر بارك'}, v:{en:'the largest in the North Coast, with slides for children, teenagers and grownups', ar:'الأكبر في الساحل الشمالي، بمنزلقات للأطفال والمراهقين والكبار'}},
+               {k:{en:'Palm Hills Sports Club', ar:'نادي بالم هيلز الرياضي'}, v:{en:'the club’s first expansion to the North Coast', ar:'أول توسّع للنادي في الساحل الشمالي'}},
+               {k:{en:'Dining', ar:'المطاعم'}, v:{en:'F&B outlets all child-friendly, with kids’ menus even in the high-end restaurants', ar:'منافذ مأكولات كلها مناسبة للأطفال، بقوائم أطفال حتى في المطاعم الراقية'}},
+               {k:{en:'The beach', ar:'الشاطئ'}, v:{en:'called Crystal Beach — gold sand and clear water; the brochure gives it no length', ar:'يسمّيه كريستال بيتش — رمل ذهبي ومياه صافية؛ ولا يذكر له البروشور طولاً'}}]}
+           ],
+           more:{en:'The pages for the water park, the arcade, the sports club, the kids’ area, the dining and the cinema are illustrated with stock photographs of other places and other people, so none of those pictures is on this site. The two renders here are the brochure’s own of Hacienda Waters: the chalets on their lagoon, and the condos on their pool.', ar:'وصفحات الووتر بارك وصالة الألعاب والنادي الرياضي ومنطقة الأطفال والمطاعم والسينما مصوّرة بصور أرشيفية لأماكن وأشخاص آخرين، فلا شيء منها على هذا الموقع. والرندران هنا من رسم البروشور لهاسيندا ووترز نفسها: الشاليهات على بحيرتها، والكوندو على حمّام السباحة.'}
+         }},
+        {en:'The homes', ar:'النماذج', icon:'ty_villa',
+         imgs:[PHW+'p12.webp', PHW+'p24.webp', PHW+'p27.webp', PHW+'p28.webp',
+               PHW+'p29.webp', PHW+'p31.webp', PHW+'p32.webp'],
+         copy:{
+           lead:{en:'Nine house types, each drawn floor by floor with an area table beside it. These are the figures printed on those tables.', ar:'تسعة نماذج، كلٌّ مرسوم دوراً بدور بجدول مساحاته إلى جواره. وهذه هي الأرقام المطبوعة في تلك الجداول.'},
+           groups:[
+             {label:{en:'Land or garden · built-up · penthouse · roof', ar:'الأرض أو الحديقة · البناء · البنتهاوس · الروف'}, rows:[
+               {k:{en:'1st Row Villa', ar:'فيلا الصف الأول'}, v:{en:'549 m² land · 374 m² built-up, ground and first · 6 master beds, nanny, kitchenette, driver', ar:'أرض ٥٤٩ م² · بناء ٣٧٤ م² أرضي وأول · ٦ غرف ماستر ونانية وكيتشينيت وسائق'}},
+               {k:{en:'2nd Row Villa', ar:'فيلا الصف الثاني'}, v:{en:'420.5 m² land · 278 m² built-up · 46 m² penthouse · 88.5 m² roof · 5 master beds, nanny, kitchenette, driver', ar:'أرض ٤٢٠٫٥ م² · بناء ٢٧٨ م² · بنتهاوس ٤٦ م² · روف ٨٨٫٥ م² · ٥ غرف ماستر ونانية وكيتشينيت وسائق'}},
+               {k:{en:'Water Villa', ar:'الفيلا المائية'}, v:{en:'449–452 m² land · 278 m² built-up · 46 m² penthouse · 88.5 m² roof · 5 master beds, nanny, kitchenette, driver', ar:'أرض ٤٤٩–٤٥٢ م² · بناء ٢٧٨ م² · بنتهاوس ٤٦ م² · روف ٨٨٫٥ م² · ٥ غرف ماستر ونانية وكيتشينيت وسائق'}},
+               {k:{en:'Water Town House 1 & 2, corner', ar:'التاون هاوس المائي ١ و٢ — ركنية'}, v:{en:'190.5 m² land · 198.5 m² built-up · 38 m² penthouse · 57 m² roof · 4 beds (3 master), nanny, kitchenette', ar:'أرض ١٩٠٫٥ م² · بناء ١٩٨٫٥ م² · بنتهاوس ٣٨ م² · روف ٥٧ م² · ٤ غرف (٣ ماستر) ونانية وكيتشينيت'}},
+               {k:{en:'Water Town House 1 & 2, middle', ar:'التاون هاوس المائي ١ و٢ — وسطى'}, v:{en:'187 m² land · 196 m² built-up · 38 m² penthouse · 55 m² roof · 4 beds (3 master), nanny, kitchenette', ar:'أرض ١٨٧ م² · بناء ١٩٦ م² · بنتهاوس ٣٨ م² · روف ٥٥ م² · ٤ غرف (٣ ماستر) ونانية وكيتشينيت'}},
+               {k:{en:'Water Senior Chalet, ground', ar:'شاليه سينيور مائي — أرضي'}, v:{en:'243.5 m² garden · 164 m² built-up · 4 beds (2 master), nanny', ar:'حديقة ٢٤٣٫٥ م² · بناء ١٦٤ م² · ٤ غرف (٢ ماستر) ونانية'}},
+               {k:{en:'Water Senior Chalet, first & penthouse', ar:'شاليه سينيور مائي — أول وبنتهاوس'}, v:{en:'154.5 m² built-up · 41 m² penthouse · 104.5 m² roof · 4 beds (3 master), nanny', ar:'بناء ١٥٤٫٥ م² · بنتهاوس ٤١ م² · روف ١٠٤٫٥ م² · ٤ غرف (٣ ماستر) ونانية'}},
+               {k:{en:'Water Junior Chalet, ground', ar:'شاليه جونيور مائي — أرضي'}, v:{en:'222.5 m² garden · 116 m² built-up · 3 beds (1 master)', ar:'حديقة ٢٢٢٫٥ م² · بناء ١١٦ م² · ٣ غرف (١ ماستر)'}},
+               {k:{en:'Water Junior Chalet, first & penthouse', ar:'شاليه جونيور مائي — أول وبنتهاوس'}, v:{en:'114.5 m² built-up · 36.5 m² penthouse · 67 m² roof · 3 beds (2 master), nanny', ar:'بناء ١١٤٫٥ م² · بنتهاوس ٣٦٫٥ م² · روف ٦٧ م² · ٣ غرف (٢ ماستر) ونانية'}}]}
+           ],
+           more:{en:'The two villas this site prices are the first two rows, and the Water Villa’s table is the 2nd Row’s figures again — what separates them is where they sit. Their plan pages are not published here because the archive holds the same two drawings and this site attaches those to the villas themselves; the same is true of two of the four condo buildings. Every page repeats the same line: all renders and plans are for visual purposes and subject to change as per design development.', ar:'والفيلتان اللتان يسعّرهما الموقع هما الصفّان الأولان، وجدول الفيلا المائية هو أرقام الصف الثاني نفسها — والفارق بينهما موقعهما. ولا تُنشر صفحتا مخططيهما هنا لأن الأرشيف يحمل الرسمين نفسيهما، ويضعهما الموقع على الفيلتين مباشرة؛ والأمر نفسه في اثنتين من عمارات الكوندو الأربع. وتكرّر كل صفحة العبارة نفسها: كل الرندرات والمخططات لأغراض بصرية وقابلة للتغيير وفق تطوير التصميم.'}
+         }},
+        {en:'The condo buildings', ar:'عمارات الكوندو', icon:'ty_apartment',
+         imgs:[PHW+'p34.webp', PHW+'p37.webp'],
+         copy:{
+           lead:{en:'Four of them, each drawn ground, typical and penthouse floor, each offered as G+1 or G+5, each with its own product mix.', ar:'أربع عمارات، كلٌّ مرسومة بالدور الأرضي والمتكرّر والبنتهاوس، وكلٌّ معروضة أرضي+١ أو أرضي+٥، ولكلٍّ تشكيلتها.'},
+           groups:[
+             {label:{en:'Product mix, as each building prints it', ar:'التشكيلة كما تطبعها كل عمارة'}, rows:[
+               {k:{en:'Water Condo 1', ar:'ووتر كوندو ١'}, v:{en:'1 bed 58.5–65.5 m² · 2 beds 95–102.5 m²', ar:'غرفة ٥٨٫٥–٦٥٫٥ م² · غرفتان ٩٥–١٠٢٫٥ م²'}},
+               {k:{en:'Water Condo 2', ar:'ووتر كوندو ٢'}, v:{en:'2 beds 92–104.5 m² · 3 beds 123–146.5 m² · 3 beds with nanny’s room 151 m²', ar:'غرفتان ٩٢–١٠٤٫٥ م² · ثلاث غرف ١٢٣–١٤٦٫٥ م² · ثلاث غرف وغرفة نانية ١٥١ م²'}},
+               {k:{en:'Water Condo 3', ar:'ووتر كوندو ٣'}, v:{en:'1 bed 65–72.5 m² · 2 beds 106–114 m²', ar:'غرفة ٦٥–٧٢٫٥ م² · غرفتان ١٠٦–١١٤ م²'}},
+               {k:{en:'Water Condo 4', ar:'ووتر كوندو ٤'}, v:{en:'2 beds 93–108.5 m² · 3 beds 145 m²', ar:'غرفتان ٩٣–١٠٨٫٥ م² · ثلاث غرف ١٤٥ م²'}}]}
+           ],
+           more:{en:'The three chalets this site lists are apartments in two of these buildings: the one- and two-bedroom in Water Condo 3, the three-bedroom in Water Condo 2. Those two pages are not published here — the archive holds the same two drawings and they are attached to the units. One figure does not agree between the sources: the sheet prices the two-bedroom at 103–114 m², while both the building’s own page and the product brief print 106–114. Nothing anywhere prints 103, and the listing carries the sheet’s figure rather than a better guess.', ar:'والشاليهات الثلاثة المعروضة هنا شقق في اثنتين من هذه العمارات: الغرفة والغرفتان في ووتر كوندو ٣، والثلاث غرف في ووتر كوندو ٢. ولا تُنشر صفحتاهما هنا — فالأرشيف يحمل الرسمين نفسيهما وهما على الوحدتين مباشرة. ويختلف رقم واحد بين المصادر: يسعّر الشيت الغرفتين بـ ١٠٣–١١٤ م²، بينما تطبع صفحة العمارة نفسها وكذلك ملخّص المنتجات ١٠٦–١١٤. ولا يطبع أي مصدر ١٠٣، ويحمل العرض رقم الشيت لا تخميناً أفضل منه.'}
+         }},
+        {en:'Cabins and pieds-dans-l’eau', ar:'الكبائن والوحدات على الماء', icon:'ty_cabin',
+         imgs:[PHW+'p38.webp', PHW+'p39.webp'],
+         copy:{
+           lead:{en:'The two smallest things on the plan, and one of them is the only home in the brochure handed over furnished.', ar:'أصغر وحدتين في المخطط، وإحداهما الوحيدة في البروشور التي تُسلَّم مفروشة.'},
+           groups:[
+             {label:{en:'As the brochure prints them', ar:'كما يذكرها البروشور'}, rows:[
+               {k:{en:'Pieds Dans L’Eau, 2 beds', ar:'وحدة على الماء بغرفتين'}, v:{en:'54.5–55 m² garden · 91.5–93 m² built-up · 2 master beds, living', ar:'حديقة ٥٤٫٥–٥٥ م² · بناء ٩١٫٥–٩٣ م² · غرفتا ماستر ومعيشة'}},
+               {k:{en:'Cabin, 1 bed', ar:'كابينة بغرفة'}, v:{en:'41.5 m² · 1 bedroom, 1 bathroom, kitchenette & countertop, living', ar:'٤١٫٥ م² · غرفة نوم وحمّام وكيتشينيت وكاونتر ومعيشة'}},
+               {k:{en:'Cabin, 2 beds', ar:'كابينة بغرفتين'}, v:{en:'84 m² · 2 master beds, guest toilet, kitchenette, living & dining', ar:'٨٤ م² · غرفتا ماستر وتواليت ضيوف وكيتشينيت ومعيشة وسفرة'}}]}
+           ],
+           more:{en:'The finishing columns of the product brief mark every home here fully finished, and only Pieds Dans L’Eau also furnished, air-conditioned and fitted with kitchen cabinets — which is where this project’s finishing line comes from. One product carries three names in one brochure: page 39 heads the table CABANAS, the product brief calls them Cabins and the master plan’s legend calls them Lagoon Cabins. The one this site prices is the 41.5 m² one-bedroom, the only figure in the sheet that matches a brochure number exactly.', ar:'وتضع أعمدة التشطيب في ملخّص المنتجات كل وحدة هنا تحت «تشطيب كامل»، ووحدها الوحدات على الماء تُضاف لها الفرش والتكييف ودواليب المطبخ — ومن هنا جاء سطر التشطيب في هذا المشروع. ويحمل منتج واحد ثلاثة أسماء في بروشور واحد: تعنون الصفحة ٣٩ الجدول CABANAS، ويسمّيها ملخّص المنتجات Cabins، ويسمّيها مفتاح الماستر بلان Lagoon Cabins. والتي يسعّرها الموقع هي كابينة الغرفة الواحدة ٤١٫٥ م²، وهي الرقم الوحيد في الشيت المطابق لرقم البروشور تماماً.'}
          }}
       ]
     },
