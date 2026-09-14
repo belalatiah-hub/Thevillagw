@@ -2802,6 +2802,166 @@ try {
       bad.push('a drive time or distance (ar)');
     return bad.length === 0 || bad.join('; ');
   })(), true);
+  ck('o west: the sheet’s twenty-seven rows, and the ten units nobody drew', (function(){
+    var fsx = require('fs'), pathx = require('path'), crypto = require('crypto');
+    var root = pathx.join(__dirname, '..'), own = '/project-media/orascom/o-west/';
+    var bad = [];
+    /* area, price, beds, baths, handover, and the figure a drawing prints that
+       confirms the area — empty where no drawing does. Twenty-two of the
+       twenty-seven are confirmed; the three that are not are asserted to be
+       reconciled on the card further down. */
+    var SHEET = {
+      'OW-01':[ 82,  9821000, 1, 1, '2029', '1-bed 80, 81 and 82'],
+      'OW-02':[120, 13950000, 2, 2, '2029', '2-bed 116, 120 and 121'],
+      'OW-03':[176, 19542000, 3, 3, '2029', 'nanny’s room 176'],
+      'OW-04':[223, 25717000, 3, 3, '2029', '3-bed duplex 223'],
+      'OW-05':[226, 27836000, 3, 3, '2029', '3-bed loft 226'],
+      'OW-06':[158, 18807000, 2, 3, '2029', '2-bed loft 158'],
+      'OW-07':[ 77,  8580000, 1, 1, '2028', '1BR 77 and 84'],
+      'OW-08':[116, 11105000, 2, 2, '2028', '2BR 116, 117 and 121'],
+      'OW-09':[156, 15230000, 3, 3, '2028', '3BR 149, 155 and 156'],
+      'OW-10':[214, 18972000, 4, 3, '2028', '4BR+N 214'],
+      'OW-11':[222, 19500000, 3, 3, '2028', '3BR duplex 222'],
+      'OW-12':[125, 13903000, 2, 3, '2028', '2BR penthouse 125'],
+      'OW-13':[186, 25992000, 3, 3, '2027', '186 and 187'],
+      'OW-14':[179, 24209000, 3, 3, '2027', '177, 179'],
+      'OW-15':[153, 19850000, 2, 2, '2027', '2BR loft 153'],
+      'OW-16':[213, 23684000, 3, 4, '2027', '3BR loft 210, 213'],
+      'OW-17':[121, 11661000, 2, 3, '2030', ''],
+      'OW-18':[128, 12509000, 2, 3, '2030', '127, 128, 130 and 133'],
+      'OW-19':[148,  7291000, 3, 3, '2030', '148 and 149'],
+      'OW-20':[212, 33711000, 3, 3, '2030', '212–216 m² total'],
+      'OW-21':[216, 35968000, 3, 3, '2030', '212–216 m² total'],
+      'OW-22':[172, 24556000, 3, 4, '2030', 'corner 172 m²'],
+      'OW-23':[169, 25336000, 3, 4, '2030', 'corner 169–170 m²'],
+      'OW-24':[148, 14338000, 3, 5, '2030', '3-bed 148 and 137'],
+      'OW-25':[ 99,  9403000, 2, 4, '2030', '2-bed 99, 96 and 117'],
+      'OW-26':[117, 13990000, 2, 4, '2030', '2-bed 99, 96 and 117'],
+      'OW-27':[146, 16047000, 2, 4, '2030', '']
+    };
+    /* The sheet's Image ID column read down each row, with the eleven names no
+       archive holds dropped. The ten Core and Club Yard units are absent on
+       purpose: the sheet names ap1-core-0..3 and ap1-cy-0..3 for them and no
+       archive holds one, so they carry the branded artwork rather than another
+       neighbourhood's house. */
+    var MY = ['ap1-my-3','ap1-my-4','ap1-my-5','ap1-my-6','ap1-my-7'];
+    var PK = ['pk-0','pk-1','pk-2','pk-3','pk-4','pk-5','pk-6','pk-7'];
+    var FRAMES = {
+      'OW-01':MY, 'OW-02':MY, 'OW-03':MY, 'OW-04':MY,
+      'OW-05':['ap1-my-4','ap1-my-5','ap1-my-6','ap1-my-7','ap1-my-3'],
+      'OW-06':['ap1-my-5','ap1-my-6','ap1-my-7','ap1-my-3','ap1-my-4'],
+      'OW-17':['ov-0','ov-1','ov-2','ov-3','ov-4'],
+      'OW-18':['ov-1','ov-2','ov-3','ov-4','ov-0'],
+      'OW-19':['ov-2','ov-3','ov-4','ov-0','ov-1'],
+      'OW-20':['villa-pk-1','villa-pk-0'].concat(PK),
+      'OW-21':['villa-pk-0','villa-pk-1'].concat(PK),
+      'OW-22':['th-0','th-1'].concat(PK),
+      'OW-23':['th2-0','th2-1','th2-2','th2-3','th2-4'],
+      'OW-24':['ap1-ps-0','ap1-ps-1','ap1-ps-2'],
+      'OW-25':['ap1-ps-1','ap1-ps-2','ap1-ps-0'],
+      'OW-26':['ap1-ps-2','ap1-ps-0','ap1-ps-1'],
+      'OW-27':['ap1-ps-0','ap1-ps-1','ap1-ps-2']
+    };
+    var PLANS = {
+      'OW-01':['fp-ap1-my'], 'OW-02':['fp-ap1-my'], 'OW-03':['fp-ap2-my'],
+      'OW-04':['fp-du-my'], 'OW-05':['fp-lo-my'], 'OW-06':['fp-lo2-my'],
+      'OW-07':['fp-ap1-core'], 'OW-08':['fp-ap1-core'], 'OW-09':['fp-ap3-core'],
+      'OW-10':['fp-ap4-core'], 'OW-11':['fp-du1-core-0'], 'OW-12':['fp-pent-core'],
+      'OW-13':['fp-ap1-cy'], 'OW-14':['fp-ap2-cy'], 'OW-15':['fp-lo-cy'], 'OW-16':['fp-lo2-cy'],
+      'OW-17':['fp-ap1-ov'], 'OW-18':['fp-ap2-ov','fp-ap2-ov-0'], 'OW-19':['fp-ap3-ov'],
+      'OW-20':['fp-v-ps-0','fp-v-ps1'], 'OW-21':['fp-v-ps-0','fp-v-ps1'],
+      'OW-22':['fp-th-0','fp-th-1','fp-th-3','fp-th-2'],
+      'OW-23':['fp-th2-0','fp-th2-1','fp-th2-2','fp-th2-3'],
+      'OW-24':['fp-ap1-ps'], 'OW-25':['fp-ap2-ps'], 'OW-26':['fp-ap2-ps'], 'OW-27':['fp-pen1-ps']
+    };
+    function plan(i){
+      return i <= 6 ? 'mp-my' : i <= 12 ? 'mp-core' : i <= 16 ? 'mp-cyard'
+           : i <= 19 ? 'mp-o-views' : 'mp-ps';
+    }
+    var flat = JSON.stringify(api.projFeatures('o-west'));
+    Object.keys(SHEET).forEach(function(id, n){
+      var u = api.unitById(id), w = SHEET[id], i = n + 1;
+      if(!u) { bad.push(id + ' missing'); return; }
+      ['area','price','beds','baths','handover'].forEach(function(k, j){
+        if(u[k] !== w[j]) bad.push(id + '.' + k + '=' + u[k] + ' want ' + w[j]); });
+      if(u.dp !== 5 || u.years !== 9) bad.push(id + ' terms ' + u.dp + '/' + u.years);
+      if(!u.label || !u.label.ar) bad.push(id + ' label not bilingual');
+      if(w[5] && flat.indexOf(w[5]) < 0) bad.push(id + ': the drawing’s "' + w[5] + '" is not on the page');
+      var want = (FRAMES[id] || []).map(function(f){ return own + f + '.webp'; });
+      var got = api.UNIT_GALLERY[id] || [];
+      if(JSON.stringify(got) !== JSON.stringify(want)){
+        var at = 0;
+        while(at < Math.max(got.length, want.length) && got[at] === want[at]) at++;
+        bad.push(id + ' frame ' + at + ' is ' + (got[at] || 'nothing').split('/').pop()
+                 + ', want ' + (want[at] || 'nothing').split('/').pop());
+      }
+      if((api.UNIT_IMAGES[id] || '') !== (want[0] || ''))
+        bad.push(id + ' cover is not its lead frame');
+      var fp = JSON.stringify(api.UNIT_FLOORPLANS[id] || []);
+      if(fp !== JSON.stringify(PLANS[id].map(function(f){ return own + f + '.webp'; })))
+        bad.push(id + ' floor plan ' + fp);
+      if(JSON.stringify(api.UNIT_MASTERPLANS[id] || []) !== JSON.stringify([own + plan(i) + '.webp']))
+        bad.push(id + ' master plan is not ' + plan(i));
+      if(JSON.stringify(api.UNIT_LOCATIONS[id] || []) !== JSON.stringify([own + 'location-o-west.webp']))
+        bad.push(id + ' location map is not location-o-west');
+    });
+    var mine = api.UNITS.filter(function(u){ return u.project === 'o-west'; });
+    if(mine.length !== 27) bad.push(mine.length + ' units, not 27');
+    /* Core and Club Yard have no render in any of the three archives, and the
+       site says so by showing the branded artwork. If a frame ever appears on
+       one of these ten it came from another neighbourhood, which is a claim
+       about a home nobody has drawn. */
+    for(var i = 7; i <= 16; i++){
+      var id = 'OW-' + (i < 10 ? '0' : '') + i;
+      if((api.UNIT_GALLERY[id] || []).length) bad.push(id + ' has gained a render');
+      if(api.UNIT_IMAGES[id]) bad.push(id + ' has gained a cover');
+    }
+    var p = api.projBySlug('o-west');
+    if(!p) return 'the project is gone';
+    if(p.dev !== 'orascom' || p.area !== 'october') bad.push(p.dev + '/' + p.area);
+    if(p.price !== 8580000 || p.dp !== 5 || p.years !== 9 || p.delivery !== '2027–2030')
+      bad.push('headline ' + p.price + '/' + p.dp + '/' + p.years + '/' + p.delivery);
+    /* The three rows no drawing confirms have to be said out loud on the card,
+       or they are passing themselves off as sourced. The price is the one that
+       matters most: half what the two rows beside it in the same building imply. */
+    ['7,291,000', '127', '146'].forEach(function(w){
+      if(flat.indexOf(w) < 0) bad.push('the unreconciled ' + w + ' is not on the card'); });
+    var all = flat + JSON.stringify(api.PROJECT_GALLERY['o-west'])
+                   + JSON.stringify(api.PROJECT_COVERS['o-west']);
+    mine.forEach(function(u){
+      all += JSON.stringify([api.UNIT_IMAGES[u.id], api.UNIT_GALLERY[u.id],
+                             api.UNIT_FLOORPLANS[u.id], api.UNIT_MASTERPLANS[u.id],
+                             api.UNIT_LOCATIONS[u.id]]);
+    });
+    var refs = all.match(/\/project-media\/[A-Za-z0-9._\/-]+\.webp/g) || [];
+    refs.forEach(function(src){
+      if(src.indexOf(own) !== 0) bad.push('foreign image ' + src);
+      if(!fsx.existsSync(pathx.join(root, src.slice(1)))) bad.push('missing file ' + src);
+    });
+    /* The eight names the sheet gives Core and Club Yard were never written, so
+       they cannot be referenced even by accident. */
+    ['ap1-core-0','ap1-core-1','ap1-core-2','ap1-core-3',
+     'ap1-cy-0','ap1-cy-1','ap1-cy-2','ap1-cy-3',
+     'ap1-my-0','ap1-my-1','ap1-my-2'].forEach(function(f){
+      if(all.indexOf(own + f + '.webp') > -1) bad.push(f + ' is referenced and does not exist'); });
+    /* Eight community renders in the project strip, no two the same picture. */
+    var g = api.PROJECT_GALLERY['o-west'] || [], seen = {};
+    if(g.length !== 8) bad.push('project gallery ' + g.length + ', not 8');
+    g.forEach(function(src){
+      var f = pathx.join(root, String(src).replace(/^\//, ''));
+      if(!fsx.existsSync(f)) return;
+      var h = crypto.createHash('md5').update(fsx.readFileSync(f)).digest('hex');
+      if(seen[h]) bad.push(src + ' is byte-for-byte ' + seen[h]);
+      seen[h] = src;
+    });
+    /* Neither location map nor any of the six phase plans prints a minute or a
+       kilometre, and nothing written here may introduce one. */
+    if(/\b\d+(\.\d+)?\s*(min|mins|minutes|hr|hrs|hours|km|kilomet)\b/i.test(all + JSON.stringify(p)))
+      bad.push('a drive time or distance');
+    if(/\d+\s*(دقيقة|دقائق|ساعة|ساعات|كم|كيلو)/.test(all + JSON.stringify(p)))
+      bad.push('a drive time or distance (ar)');
+    return bad.length === 0 || bad.slice(0, 6).join('; ');
+  })(), true);
   ck('hacienda waters: the sheet’s six rows, and each row’s own frames in its own order', (function(){
     var bad = [];
     /* area, price, dp, years, handover, beds, baths, and the brochure figure

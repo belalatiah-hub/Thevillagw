@@ -276,6 +276,15 @@
        the blurb, because a bedroom count is not a unit type. */
     {slug:'ledge-valley', name:'Ledge Valley', name_ar:'ليدج فالي', dev:'orascom', area:'redsea', status:'primary', price:11410000, dp:10, years:7, delivery:'2030', types:{en:'Chalet · Penthouse',ar:'شاليه · بنتهاوس'}, tags:{en:['Red Sea','Makadi Bay','Lagoons','Waterfront'],ar:['البحر الأحمر','خليج مكادي','بحيرات','على الماء']}, blurb:{en:'A waterfront neighbourhood of 274 homes on 91,049 m² inside Makadi Heights, built around expansive lagoons and landscaped open space, with a mix of one to four bedroom residences.',ar:'حي على الماء من ٢٧٤ وحدة على ٩١٬٠٤٩ م² داخل مدن مكادي هايتس، مبني حول بحيرات واسعة ومساحات مفتوحة منسّقة، بوحدات من غرفة إلى أربع غرف.'}},
     {slug:'makadi-heights', name:'Makadi Heights', name_ar:'مكادي هايتس', dev:'orascom', area:'redsea', status:'primary', dp:10, years:7, delivery:'Ready – 2 years', types:{en:'Apartment · Townhouse · Twin house · Villa',ar:'شقة · تاون هاوس · توين هاوس · فيلا'}, tags:{en:['Makadi Bay','78 m above sea level'],ar:['خليج مكادي','٧٨ متراً فوق سطح البحر']}, blurb:{en:'Orascom Development’s town above Makadi Bay, in the heart of South Hurghada — 3.7 million m² of land, elevated 78 metres above sea level, released phase by phase from ready-to-move homes onward.',ar:'مدينة أوراسكوم للتطوير فوق خليج مكادي في قلب جنوب الغردقة — ٣٫٧ مليون م² من الأرض، على ارتفاع ٧٨ متراً فوق سطح البحر، تُطرح مرحلةً تلو الأخرى بدءاً من وحدات جاهزة للسكن.'}},
+    /* O West — Orascom Development's West Cairo town, built from three image
+       archives and twenty-seven rows in the units sheet. There is no brochure;
+       the land figures below are the ones Orascom's own corporate presentation
+       prints, which the developer page already carries.
+
+       Its handover runs 2027 to 2030 because its five neighbourhoods hand over
+       in different years: Club Yard 2027, Core 2028, Mid Yard 2029, O Views and
+       Park Side 2030. The headline is the cheapest row, which is Core's. */
+    {slug:'o-west', name:'O West', name_ar:'أو ويست', dev:'orascom', area:'october', status:'primary', price:8580000, dp:5, years:9, delivery:'2027–2030', types:{en:'Apartment · Duplex · Loft · Penthouse · Townhouse · Villa',ar:'شقة · دوبلكس · لوفت · بنتهاوس · تاون هاوس · فيلا'}, tags:{en:['6th of October','1,000 feddans'],ar:['٦ أكتوبر','١٬٠٠٠ فدان']}, blurb:{en:'Orascom Development’s town in West Cairo, off Wahat Road between Sheikh Zayed City and the Ring Road. Its own corporate presentation puts it at 4.2 million m² — a thousand feddans — with 3,197,880 m² of residential built-up area and 19,000 homes. This site prices twenty-seven of them across five neighbourhoods: Mid Yard, Core, Club Yard, O Views and Park Side, from a 77 m² one-bedroom to a 226 m² three-bedroom loft, with U-Villas, Townhouse M and Townhouse J and the Smart Apartments beside them. Developer-direct primary units, 5% down over 9 years.',ar:'مدينة أوراسكوم للتطوير بغرب القاهرة، على طريق الواحات بين مدينة الشيخ زايد والطريق الدائري. ويضعها عرضها المؤسسي على ٤٫٢ مليون م² — ألف فدان — بمسطح سكني ٣٬١٩٧٬٨٨٠ م² و١٩٬٠٠٠ وحدة. ويعرض هذا الموقع سبعاً وعشرين منها في خمسة أحياء: ميد يارد وكور وكلوب يارد وأو فيوز وبارك سايد، من غرفة واحدة ٧٧ م² إلى لوفت بثلاث غرف ٢٢٦ م²، ومعها اليو-فيلا وتاون هاوس M وJ والشقق الذكية. وحدات أولية من المطوّر مباشرة، مقدم ٥٪ وتقسيط ٩ سنوات.'}},
     /* El Masria's two ISOLA addresses in New Cairo, from the brochures the
        owner supplied — ISOLA Centra 2025 and ISOLA Quattro 2026.
 
@@ -921,6 +930,52 @@
     {id:'SY-05', project:'siyal', type:'Villa', label:{en:'Boutique Villa',ar:'بوتيك فيلا'}, beds:3, baths:4, area:160, price:31145000, dp:10, years:7, handover:'2030'},
     {id:'SY-06', project:'siyal', type:'Twin House', label:{en:'Twin Villa',ar:'توين فيلا'}, beds:3, baths:4, area:144, price:23735000, dp:10, years:7, handover:'2030'},
     {id:'SY-07', project:'siyal', type:'Townhouse', label:{en:'Town Villa',ar:'تاون فيلا'}, beds:3, baths:3, area:138, price:24000000, dp:10, years:7, handover:'2030'},
+    /* O West — the sheet's twenty-seven rows, in the sheet's own order, five
+       neighbourhoods deep. There is no brochure; the labels are the names the
+       archive's own floor plans are headed with, and twenty-two of the
+       twenty-seven areas are a figure printed on the plan the sheet names —
+       including both ranges: Townhouse J's corner band is 169-170 and
+       U-Villa's total is 212-216, which is where those two rows come from.
+
+       Three rows do not line up, and each is carried as the sheet has it:
+
+       OW-17, 121 m², names fp-ap1-ov, whose table prints 127 for both units it
+       draws; 121 appears in the sources only as Mid Yard's unit 0-4, which is
+       a different neighbourhood. OW-27, 146 m², names fp-pen1-ps, whose unit
+       23 is 146 m² exactly but is drawn as a three-bed penthouse against the
+       sheet's two. And OW-19 is the one to look at hardest: 148 m² is
+       confirmed exactly by fp-ap3-ov, but its price of 7,291,000 is about
+       49,000 a metre where the two rows beside it in the same building are
+       96,000 and 98,000. Nothing in any source supports it and nothing
+       contradicts it either, so it stands as the sheet wrote it and is
+       reported rather than corrected. */
+    {id:'OW-01', project:'o-west', type:'Apartment', label:{en:'Mid Yard · one bedroom',ar:'ميد يارد · غرفة واحدة'}, beds:1, baths:1, area:82, price:9821000, dp:5, years:9, handover:'2029'},
+    {id:'OW-02', project:'o-west', type:'Apartment', label:{en:'Mid Yard · two bedrooms',ar:'ميد يارد · غرفتان'}, beds:2, baths:2, area:120, price:13950000, dp:5, years:9, handover:'2029'},
+    {id:'OW-03', project:'o-west', type:'Apartment', label:{en:'Mid Yard · three bedrooms',ar:'ميد يارد · ثلاث غرف'}, beds:3, baths:3, area:176, price:19542000, dp:5, years:9, handover:'2029'},
+    {id:'OW-04', project:'o-west', type:'Duplex', label:{en:'Mid Yard · three-bedroom duplex',ar:'ميد يارد · دوبلكس بثلاث غرف'}, beds:3, baths:3, area:223, price:25717000, dp:5, years:9, handover:'2029'},
+    {id:'OW-05', project:'o-west', type:'Loft', label:{en:'Mid Yard · three-bedroom loft',ar:'ميد يارد · لوفت بثلاث غرف'}, beds:3, baths:3, area:226, price:27836000, dp:5, years:9, handover:'2029'},
+    {id:'OW-06', project:'o-west', type:'Loft', label:{en:'Mid Yard · two-bedroom loft',ar:'ميد يارد · لوفت بغرفتين'}, beds:2, baths:3, area:158, price:18807000, dp:5, years:9, handover:'2029'},
+    {id:'OW-07', project:'o-west', type:'Apartment', label:{en:'Core · one bedroom',ar:'كور · غرفة واحدة'}, beds:1, baths:1, area:77, price:8580000, dp:5, years:9, handover:'2028'},
+    {id:'OW-08', project:'o-west', type:'Apartment', label:{en:'Core · two bedrooms',ar:'كور · غرفتان'}, beds:2, baths:2, area:116, price:11105000, dp:5, years:9, handover:'2028'},
+    {id:'OW-09', project:'o-west', type:'Apartment', label:{en:'Core · three bedrooms',ar:'كور · ثلاث غرف'}, beds:3, baths:3, area:156, price:15230000, dp:5, years:9, handover:'2028'},
+    {id:'OW-10', project:'o-west', type:'Apartment', label:{en:'Core · four bedrooms',ar:'كور · أربع غرف'}, beds:4, baths:3, area:214, price:18972000, dp:5, years:9, handover:'2028'},
+    {id:'OW-11', project:'o-west', type:'Duplex', label:{en:'Core · three-bedroom duplex',ar:'كور · دوبلكس بثلاث غرف'}, beds:3, baths:3, area:222, price:19500000, dp:5, years:9, handover:'2028'},
+    {id:'OW-12', project:'o-west', type:'Penthouse', label:{en:'Core · two-bedroom penthouse',ar:'كور · بنتهاوس بغرفتين'}, beds:2, baths:3, area:125, price:13903000, dp:5, years:9, handover:'2028'},
+    {id:'OW-13', project:'o-west', type:'Apartment', label:{en:'Club Yard · three bedrooms',ar:'كلوب يارد · ثلاث غرف'}, beds:3, baths:3, area:186, price:25992000, dp:5, years:9, handover:'2027'},
+    {id:'OW-14', project:'o-west', type:'Apartment', label:{en:'Club Yard · three bedrooms',ar:'كلوب يارد · ثلاث غرف'}, beds:3, baths:3, area:179, price:24209000, dp:5, years:9, handover:'2027'},
+    {id:'OW-15', project:'o-west', type:'Loft', label:{en:'Club Yard · two-bedroom loft',ar:'كلوب يارد · لوفت بغرفتين'}, beds:2, baths:2, area:153, price:19850000, dp:5, years:9, handover:'2027'},
+    {id:'OW-16', project:'o-west', type:'Loft', label:{en:'Club Yard · three-bedroom loft',ar:'كلوب يارد · لوفت بثلاث غرف'}, beds:3, baths:4, area:213, price:23684000, dp:5, years:9, handover:'2027'},
+    {id:'OW-17', project:'o-west', type:'Apartment', label:{en:'O Views · Level Residences · two bedrooms',ar:'أو فيوز · ليفل ريزيدنسز · غرفتان'}, beds:2, baths:3, area:121, price:11661000, dp:5, years:9, handover:'2030'},
+    {id:'OW-18', project:'o-west', type:'Apartment', label:{en:'O Views · Level Residences · two bedrooms with garden',ar:'أو فيوز · ليفل ريزيدنسز · غرفتان بحديقة'}, beds:2, baths:3, area:128, price:12509000, dp:5, years:9, handover:'2030'},
+    {id:'OW-19', project:'o-west', type:'Apartment', label:{en:'O Views · Level Residences C · three bedrooms with garden',ar:'أو فيوز · ليفل ريزيدنسز C · ثلاث غرف بحديقة'}, beds:3, baths:3, area:148, price:7291000, dp:5, years:9, handover:'2030'},
+    {id:'OW-20', project:'o-west', type:'Villa', label:{en:'Park Side · U-Villa',ar:'بارك سايد · يو-فيلا'}, beds:3, baths:3, area:212, price:33711000, dp:5, years:9, handover:'2030'},
+    {id:'OW-21', project:'o-west', type:'Villa', label:{en:'Park Side · U-Villa',ar:'بارك سايد · يو-فيلا'}, beds:3, baths:3, area:216, price:35968000, dp:5, years:9, handover:'2030'},
+    {id:'OW-22', project:'o-west', type:'Townhouse', label:{en:'Park Side · Townhouse M · corner',ar:'بارك سايد · تاون هاوس M · ركنية'}, beds:3, baths:4, area:172, price:24556000, dp:5, years:9, handover:'2030'},
+    {id:'OW-23', project:'o-west', type:'Townhouse', label:{en:'Park Side · Townhouse J · corner',ar:'بارك سايد · تاون هاوس J · ركنية'}, beds:3, baths:4, area:169, price:25336000, dp:5, years:9, handover:'2030'},
+    {id:'OW-24', project:'o-west', type:'Apartment', label:{en:'Park Side · Smart Apartments · three bedrooms',ar:'بارك سايد · الشقق الذكية · ثلاث غرف'}, beds:3, baths:5, area:148, price:14338000, dp:5, years:9, handover:'2030'},
+    {id:'OW-25', project:'o-west', type:'Apartment', label:{en:'Park Side · Smart Apartments · two bedrooms',ar:'بارك سايد · الشقق الذكية · غرفتان'}, beds:2, baths:4, area:99, price:9403000, dp:5, years:9, handover:'2030'},
+    {id:'OW-26', project:'o-west', type:'Apartment', label:{en:'Park Side · Smart Apartments · two bedrooms',ar:'بارك سايد · الشقق الذكية · غرفتان'}, beds:2, baths:4, area:117, price:13990000, dp:5, years:9, handover:'2030'},
+    {id:'OW-27', project:'o-west', type:'Penthouse', label:{en:'Park Side · Smart Apartments · penthouse',ar:'بارك سايد · الشقق الذكية · بنتهاوس'}, beds:2, baths:4, area:146, price:16047000, dp:5, years:9, handover:'2030'},
     /* Marakez — Shams Soma, the twelve types on the client sheet, in the
        sheet's own row order. Every figure is the sheet's: area, bedrooms,
        bathrooms, price, the 10% down payment (stored 0.1 under a percent

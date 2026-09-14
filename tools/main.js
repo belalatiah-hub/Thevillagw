@@ -579,6 +579,7 @@ var PROJECTS = [
 {slug:'marina-gate', name:'Marina Gate', name_ar:'مارينا جيت', dev:'travco', area:'redsea', status:'launch', price:19000000, dp:10, years:8, delivery:'2030', types:{en:'Duplex · Penthouse · Townhouse · Twin house · Villa',ar:'دوبلكس · بنتهاوس · تاون هاوس · توين هاوس · فيلا'}, tags:{en:['Red Sea','Almaza Bay Ras Soma','Marina'],ar:['البحر الأحمر','ألماظة باي رأس سوما','مارينا']}, blurb:{en:'The gateway phase of Almaza Bay Ras Soma on the bay of Ras Abu Soma, positioned at the marina and bridging the coast with the town. Seven products, from a one storey villa to a penthouse, each with the kit\u2019s own floor plan; the destination around them carries a private marina, a village of dining and retail, a water sports centre and serviced homes.',ar:'المرحلة الافتتاحية من ألماظة باي رأس سوما على خليج رأس أبو سوما، تقع عند المارينا وتصل الساحل بالمدينة. سبعة منتجات من فيلا الدور الواحد إلى البنتهاوس، لكلٍّ منها مخطط أرضي في الكتيّب؛ وتضمّ الوجهة حولها مارينا خاصة وقرية للمطاعم والتجزئة ومركزاً للرياضات المائية ومنازل مخدومة.'}},
 {slug:'ledge-valley', name:'Ledge Valley', name_ar:'ليدج فالي', dev:'orascom', area:'redsea', status:'primary', price:11410000, dp:10, years:7, delivery:'2030', types:{en:'Chalet · Penthouse',ar:'شاليه · بنتهاوس'}, tags:{en:['Red Sea','Makadi Bay','Lagoons','Waterfront'],ar:['البحر الأحمر','خليج مكادي','بحيرات','على الماء']}, blurb:{en:'A waterfront neighbourhood of 274 homes on 91,049 m² inside Makadi Heights, built around expansive lagoons and landscaped open space, with a mix of one to four bedroom residences.',ar:'حي على الماء من ٢٧٤ وحدة على ٩١٬٠٤٩ م² داخل مدن مكادي هايتس، مبني حول بحيرات واسعة ومساحات مفتوحة منسّقة، بوحدات من غرفة إلى أربع غرف.'}},
 {slug:'makadi-heights', name:'Makadi Heights', name_ar:'مكادي هايتس', dev:'orascom', area:'redsea', status:'primary', dp:10, years:7, delivery:'Ready – 2 years', types:{en:'Apartment · Townhouse · Twin house · Villa',ar:'شقة · تاون هاوس · توين هاوس · فيلا'}, tags:{en:['Makadi Bay','78 m above sea level'],ar:['خليج مكادي','٧٨ متراً فوق سطح البحر']}, blurb:{en:'Orascom Development’s town above Makadi Bay, in the heart of South Hurghada — 3.7 million m² of land, elevated 78 metres above sea level, released phase by phase from ready-to-move homes onward.',ar:'مدينة أوراسكوم للتطوير فوق خليج مكادي في قلب جنوب الغردقة — ٣٫٧ مليون م² من الأرض، على ارتفاع ٧٨ متراً فوق سطح البحر، تُطرح مرحلةً تلو الأخرى بدءاً من وحدات جاهزة للسكن.'}},
+{slug:'o-west', name:'O West', name_ar:'أو ويست', dev:'orascom', area:'october', status:'primary', price:8580000, dp:5, years:9, delivery:'2027–2030', types:{en:'Apartment · Duplex · Loft · Penthouse · Townhouse · Villa',ar:'شقة · دوبلكس · لوفت · بنتهاوس · تاون هاوس · فيلا'}, tags:{en:['6th of October','1,000 feddans'],ar:['٦ أكتوبر','١٬٠٠٠ فدان']}, blurb:{en:'Orascom Development’s town in West Cairo, off Wahat Road between Sheikh Zayed City and the Ring Road. Its own corporate presentation puts it at 4.2 million m² — a thousand feddans — with 3,197,880 m² of residential built-up area and 19,000 homes. This site prices twenty-seven of them across five neighbourhoods: Mid Yard, Core, Club Yard, O Views and Park Side, from a 77 m² one-bedroom to a 226 m² three-bedroom loft, with U-Villas, Townhouse M and Townhouse J and the Smart Apartments beside them. Developer-direct primary units, 5% down over 9 years.',ar:'مدينة أوراسكوم للتطوير بغرب القاهرة، على طريق الواحات بين مدينة الشيخ زايد والطريق الدائري. ويضعها عرضها المؤسسي على ٤٫٢ مليون م² — ألف فدان — بمسطح سكني ٣٬١٩٧٬٨٨٠ م² و١٩٬٠٠٠ وحدة. ويعرض هذا الموقع سبعاً وعشرين منها في خمسة أحياء: ميد يارد وكور وكلوب يارد وأو فيوز وبارك سايد، من غرفة واحدة ٧٧ م² إلى لوفت بثلاث غرف ٢٢٦ م²، ومعها اليو-فيلا وتاون هاوس M وJ والشقق الذكية. وحدات أولية من المطوّر مباشرة، مقدم ٥٪ وتقسيط ٩ سنوات.'}},
 {slug:'isola-centra', name:'ISOLA Centra', name_ar:'إيزولا سنترا', dev:'elmasria', area:'newcairo', status:'primary', price:8560000, dp:8, years:8, delivery:'2030', types:{en:'Apartment · Loft · Administrative Office · Medical Unit · Retail',ar:'شقة · لوفت · مكتب إداري · وحدة طبية · محل تجاري'}, tags:{en:['New Cairo','25 acres','Mixed-use'],ar:['القاهرة الجديدة','٢٥ أكر','متعدد الاستخدامات']}, blurb:{en:'El Masria’s ISOLA Centra in the heart of New Cairo, between North 90 and South 90 and a few steps from the American University in Cairo — twenty-six residential buildings of up to five levels with apartments from 87 to 260 m², around a commercial, administrative and medical spine. Developer-direct primary units.',ar:'إيزولا سنترا من المصرية جروب في قلب القاهرة الجديدة، بين التسعين الشمالي والتسعين الجنوبي وعلى بعد خطوات من الجامعة الأمريكية بالقاهرة — ستة وعشرون مبنى سكنياً حتى خمسة أدوار بشقق من ٨٧ إلى ٢٦٠ م²، حول محور تجاري وإداري وطبي. وحدات أولية من المطوّر مباشرة.'}},
 {slug:'isola-quattro', name:'ISOLA Quattro', name_ar:'إيزولا كواترو', dev:'elmasria', area:'newcairo', status:'primary', price:4410000, dp:3, years:9, delivery:'2030', types:{en:'Apartment · Loft',ar:'شقة · لوفت'}, tags:{en:['New Cairo','Golden Square','15 acres'],ar:['القاهرة الجديدة','جولدن سكوير','١٥ أكر']}, blurb:{en:'El Masria’s ISOLA Quattro in New Cairo’s Golden Square, on Mohamed Ebn Zayed Road and close to the New Administrative Capital — thirteen buildings on 15 acres with only a quarter of the ground built on, and apartments from 89 to 232 m². Developer-direct primary units.',ar:'إيزولا كواترو من المصرية جروب في جولدن سكوير بالقاهرة الجديدة، على محور محمد بن زايد وقريباً من العاصمة الإدارية الجديدة — ثلاثة عشر مبنى على ١٥ أكر لا يشغل البناء منها سوى الربع، وشقق من ٨٩ إلى ٢٣٢ م². وحدات أولية من المطوّر مباشرة.'}},
 {slug:'ras-soma', name:'Ras Soma', name_ar:'رأس سوما', dev:'travco', area:'redsea', status:'launch', types:{en:'Apartment · Chalet · Villa',ar:'شقة · شاليه · فيلا'}, tags:{en:['Red Sea','Ras Abu Soma bay','Beachfront','Marina'],ar:['البحر الأحمر','خليج رأس أبو سوما','على الشاطئ','مارينا']}, blurb:{en:'Travco Properties’ Red Sea town on the bay of Ras Abu Soma, master planned by WATG — beachfront villas, quad chalets and garden apartments from 70 to 392 m², set around a marina, a town centre, two resort hotels and a green spine of parks that runs down to the sand.',ar:'مدينة ترافكو بروبرتيز على البحر الأحمر في خليج رأس أبو سوما، من تخطيط WATG — فيلات على الشاطئ وشاليهات رباعية وشقق بحدائق من ٧٠ إلى ٣٩٢ م²، حول مارينا ومركز للمدينة وفندقين منتجعيين وعمود أخضر من الحدائق ينزل حتى الرمال.'}},
@@ -1070,6 +1071,33 @@ var UNITS = [
 {id:'SY-05', project:'siyal', type:'Villa', label:{en:'Boutique Villa',ar:'بوتيك فيلا'}, beds:3, baths:4, area:160, price:31145000, dp:10, years:7, handover:'2030'},
 {id:'SY-06', project:'siyal', type:'Twin House', label:{en:'Twin Villa',ar:'توين فيلا'}, beds:3, baths:4, area:144, price:23735000, dp:10, years:7, handover:'2030'},
 {id:'SY-07', project:'siyal', type:'Townhouse', label:{en:'Town Villa',ar:'تاون فيلا'}, beds:3, baths:3, area:138, price:24000000, dp:10, years:7, handover:'2030'},
+{id:'OW-01', project:'o-west', type:'Apartment', label:{en:'Mid Yard · one bedroom',ar:'ميد يارد · غرفة واحدة'}, beds:1, baths:1, area:82, price:9821000, dp:5, years:9, handover:'2029'},
+{id:'OW-02', project:'o-west', type:'Apartment', label:{en:'Mid Yard · two bedrooms',ar:'ميد يارد · غرفتان'}, beds:2, baths:2, area:120, price:13950000, dp:5, years:9, handover:'2029'},
+{id:'OW-03', project:'o-west', type:'Apartment', label:{en:'Mid Yard · three bedrooms',ar:'ميد يارد · ثلاث غرف'}, beds:3, baths:3, area:176, price:19542000, dp:5, years:9, handover:'2029'},
+{id:'OW-04', project:'o-west', type:'Duplex', label:{en:'Mid Yard · three-bedroom duplex',ar:'ميد يارد · دوبلكس بثلاث غرف'}, beds:3, baths:3, area:223, price:25717000, dp:5, years:9, handover:'2029'},
+{id:'OW-05', project:'o-west', type:'Loft', label:{en:'Mid Yard · three-bedroom loft',ar:'ميد يارد · لوفت بثلاث غرف'}, beds:3, baths:3, area:226, price:27836000, dp:5, years:9, handover:'2029'},
+{id:'OW-06', project:'o-west', type:'Loft', label:{en:'Mid Yard · two-bedroom loft',ar:'ميد يارد · لوفت بغرفتين'}, beds:2, baths:3, area:158, price:18807000, dp:5, years:9, handover:'2029'},
+{id:'OW-07', project:'o-west', type:'Apartment', label:{en:'Core · one bedroom',ar:'كور · غرفة واحدة'}, beds:1, baths:1, area:77, price:8580000, dp:5, years:9, handover:'2028'},
+{id:'OW-08', project:'o-west', type:'Apartment', label:{en:'Core · two bedrooms',ar:'كور · غرفتان'}, beds:2, baths:2, area:116, price:11105000, dp:5, years:9, handover:'2028'},
+{id:'OW-09', project:'o-west', type:'Apartment', label:{en:'Core · three bedrooms',ar:'كور · ثلاث غرف'}, beds:3, baths:3, area:156, price:15230000, dp:5, years:9, handover:'2028'},
+{id:'OW-10', project:'o-west', type:'Apartment', label:{en:'Core · four bedrooms',ar:'كور · أربع غرف'}, beds:4, baths:3, area:214, price:18972000, dp:5, years:9, handover:'2028'},
+{id:'OW-11', project:'o-west', type:'Duplex', label:{en:'Core · three-bedroom duplex',ar:'كور · دوبلكس بثلاث غرف'}, beds:3, baths:3, area:222, price:19500000, dp:5, years:9, handover:'2028'},
+{id:'OW-12', project:'o-west', type:'Penthouse', label:{en:'Core · two-bedroom penthouse',ar:'كور · بنتهاوس بغرفتين'}, beds:2, baths:3, area:125, price:13903000, dp:5, years:9, handover:'2028'},
+{id:'OW-13', project:'o-west', type:'Apartment', label:{en:'Club Yard · three bedrooms',ar:'كلوب يارد · ثلاث غرف'}, beds:3, baths:3, area:186, price:25992000, dp:5, years:9, handover:'2027'},
+{id:'OW-14', project:'o-west', type:'Apartment', label:{en:'Club Yard · three bedrooms',ar:'كلوب يارد · ثلاث غرف'}, beds:3, baths:3, area:179, price:24209000, dp:5, years:9, handover:'2027'},
+{id:'OW-15', project:'o-west', type:'Loft', label:{en:'Club Yard · two-bedroom loft',ar:'كلوب يارد · لوفت بغرفتين'}, beds:2, baths:2, area:153, price:19850000, dp:5, years:9, handover:'2027'},
+{id:'OW-16', project:'o-west', type:'Loft', label:{en:'Club Yard · three-bedroom loft',ar:'كلوب يارد · لوفت بثلاث غرف'}, beds:3, baths:4, area:213, price:23684000, dp:5, years:9, handover:'2027'},
+{id:'OW-17', project:'o-west', type:'Apartment', label:{en:'O Views · Level Residences · two bedrooms',ar:'أو فيوز · ليفل ريزيدنسز · غرفتان'}, beds:2, baths:3, area:121, price:11661000, dp:5, years:9, handover:'2030'},
+{id:'OW-18', project:'o-west', type:'Apartment', label:{en:'O Views · Level Residences · two bedrooms with garden',ar:'أو فيوز · ليفل ريزيدنسز · غرفتان بحديقة'}, beds:2, baths:3, area:128, price:12509000, dp:5, years:9, handover:'2030'},
+{id:'OW-19', project:'o-west', type:'Apartment', label:{en:'O Views · Level Residences C · three bedrooms with garden',ar:'أو فيوز · ليفل ريزيدنسز C · ثلاث غرف بحديقة'}, beds:3, baths:3, area:148, price:7291000, dp:5, years:9, handover:'2030'},
+{id:'OW-20', project:'o-west', type:'Villa', label:{en:'Park Side · U-Villa',ar:'بارك سايد · يو-فيلا'}, beds:3, baths:3, area:212, price:33711000, dp:5, years:9, handover:'2030'},
+{id:'OW-21', project:'o-west', type:'Villa', label:{en:'Park Side · U-Villa',ar:'بارك سايد · يو-فيلا'}, beds:3, baths:3, area:216, price:35968000, dp:5, years:9, handover:'2030'},
+{id:'OW-22', project:'o-west', type:'Townhouse', label:{en:'Park Side · Townhouse M · corner',ar:'بارك سايد · تاون هاوس M · ركنية'}, beds:3, baths:4, area:172, price:24556000, dp:5, years:9, handover:'2030'},
+{id:'OW-23', project:'o-west', type:'Townhouse', label:{en:'Park Side · Townhouse J · corner',ar:'بارك سايد · تاون هاوس J · ركنية'}, beds:3, baths:4, area:169, price:25336000, dp:5, years:9, handover:'2030'},
+{id:'OW-24', project:'o-west', type:'Apartment', label:{en:'Park Side · Smart Apartments · three bedrooms',ar:'بارك سايد · الشقق الذكية · ثلاث غرف'}, beds:3, baths:5, area:148, price:14338000, dp:5, years:9, handover:'2030'},
+{id:'OW-25', project:'o-west', type:'Apartment', label:{en:'Park Side · Smart Apartments · two bedrooms',ar:'بارك سايد · الشقق الذكية · غرفتان'}, beds:2, baths:4, area:99, price:9403000, dp:5, years:9, handover:'2030'},
+{id:'OW-26', project:'o-west', type:'Apartment', label:{en:'Park Side · Smart Apartments · two bedrooms',ar:'بارك سايد · الشقق الذكية · غرفتان'}, beds:2, baths:4, area:117, price:13990000, dp:5, years:9, handover:'2030'},
+{id:'OW-27', project:'o-west', type:'Penthouse', label:{en:'Park Side · Smart Apartments · penthouse',ar:'بارك سايد · الشقق الذكية · بنتهاوس'}, beds:2, baths:4, area:146, price:16047000, dp:5, years:9, handover:'2030'},
 {id:'SS-01', project:'shams-soma', type:'Villa', label:{en:'VM1 Villa',ar:'VM1 فيلا'}, beds:3, baths:4, area:212, price:46000000, dp:10, years:8, handover:'2030'},
 {id:'SS-02', project:'shams-soma', type:'Villa', label:{en:'VM2 Villa',ar:'VM2 فيلا'}, beds:4, baths:5, area:247, price:55000000, dp:10, years:8, handover:'2030'},
 {id:'SS-03', project:'shams-soma', type:'Penthouse', label:{en:'PH1 A Penthouse',ar:'PH1 A بنتهاوس'}, beds:2, baths:2, area:133, price:22000000, dp:10, years:8, handover:'2030'},
@@ -1314,6 +1342,7 @@ var PROJECT_COVERS = {
 'palm-hills-new-cairo':'/project-media/palmhills/ph-new-cairo/p01.webp',
 'px-new-cairo':'/project-media/palmhills/px/p43.webp',
 'hacienda-waters':'/project-media/palmhills/hacienda-waters/p30.webp',
+'o-west':'/project-media/orascom/o-west/pk-6.webp',
 'ledge-valley':'/project-media/orascom/ledge-valley/hero.webp',
 'makadi-heights':'/project-media/orascom/makadi-heights/renders/lagoon.webp',
 'marassi-red-sea':'/project-media/emaarmisr/marassi-red-sea/hero.webp',
@@ -1958,6 +1987,23 @@ var UNIT_IMAGES = {
 'HW-04':'/project-media/palmhills/hacienda-waters/units/ch-water-0.webp',
 'HW-05':'/project-media/palmhills/hacienda-waters/units/ch-water-1.webp',
 'HW-06':'/project-media/palmhills/hacienda-waters/units/v1-water-1.webp',
+'OW-01':'/project-media/orascom/o-west/ap1-my-3.webp',
+'OW-02':'/project-media/orascom/o-west/ap1-my-3.webp',
+'OW-03':'/project-media/orascom/o-west/ap1-my-3.webp',
+'OW-04':'/project-media/orascom/o-west/ap1-my-3.webp',
+'OW-05':'/project-media/orascom/o-west/ap1-my-4.webp',
+'OW-06':'/project-media/orascom/o-west/ap1-my-5.webp',
+'OW-17':'/project-media/orascom/o-west/ov-0.webp',
+'OW-18':'/project-media/orascom/o-west/ov-1.webp',
+'OW-19':'/project-media/orascom/o-west/ov-2.webp',
+'OW-20':'/project-media/orascom/o-west/villa-pk-1.webp',
+'OW-21':'/project-media/orascom/o-west/villa-pk-0.webp',
+'OW-22':'/project-media/orascom/o-west/th-0.webp',
+'OW-23':'/project-media/orascom/o-west/th2-0.webp',
+'OW-24':'/project-media/orascom/o-west/ap1-ps-0.webp',
+'OW-25':'/project-media/orascom/o-west/ap1-ps-1.webp',
+'OW-26':'/project-media/orascom/o-west/ap1-ps-2.webp',
+'OW-27':'/project-media/orascom/o-west/ap1-ps-0.webp',
 };
 var UNIT_GALLERY = {
 'IQ-01':['/project-media/elmasria/isola-quattro/units/render-1.webp', '/project-media/elmasria/isola-quattro/units/render-2.webp', '/project-media/elmasria/isola-quattro/units/render-3.webp', '/project-media/elmasria/isola-quattro/units/render-4.webp', '/project-media/elmasria/isola-quattro/units/render-5.webp', '/project-media/elmasria/isola-quattro/units/render-6.webp', '/project-media/elmasria/isola-quattro/units/render-7.webp', '/project-media/elmasria/isola-quattro/units/render-8.webp'],
@@ -2506,6 +2552,23 @@ var UNIT_GALLERY = {
 'HW-04':['/project-media/palmhills/hacienda-waters/units/ch-water-0.webp', '/project-media/palmhills/hacienda-waters/units/ch-water-1.webp'],
 'HW-05':['/project-media/palmhills/hacienda-waters/units/ch-water-1.webp', '/project-media/palmhills/hacienda-waters/units/ch-water-0.webp'],
 'HW-06':['/project-media/palmhills/hacienda-waters/units/v1-water-1.webp', '/project-media/palmhills/hacienda-waters/units/v1-water-2.webp', '/project-media/palmhills/hacienda-waters/units/v1-water-3.webp'],
+'OW-01':['/project-media/orascom/o-west/ap1-my-3.webp', '/project-media/orascom/o-west/ap1-my-4.webp', '/project-media/orascom/o-west/ap1-my-5.webp', '/project-media/orascom/o-west/ap1-my-6.webp', '/project-media/orascom/o-west/ap1-my-7.webp'],
+'OW-02':['/project-media/orascom/o-west/ap1-my-3.webp', '/project-media/orascom/o-west/ap1-my-4.webp', '/project-media/orascom/o-west/ap1-my-5.webp', '/project-media/orascom/o-west/ap1-my-6.webp', '/project-media/orascom/o-west/ap1-my-7.webp'],
+'OW-03':['/project-media/orascom/o-west/ap1-my-3.webp', '/project-media/orascom/o-west/ap1-my-4.webp', '/project-media/orascom/o-west/ap1-my-5.webp', '/project-media/orascom/o-west/ap1-my-6.webp', '/project-media/orascom/o-west/ap1-my-7.webp'],
+'OW-04':['/project-media/orascom/o-west/ap1-my-3.webp', '/project-media/orascom/o-west/ap1-my-4.webp', '/project-media/orascom/o-west/ap1-my-5.webp', '/project-media/orascom/o-west/ap1-my-6.webp', '/project-media/orascom/o-west/ap1-my-7.webp'],
+'OW-05':['/project-media/orascom/o-west/ap1-my-4.webp', '/project-media/orascom/o-west/ap1-my-5.webp', '/project-media/orascom/o-west/ap1-my-6.webp', '/project-media/orascom/o-west/ap1-my-7.webp', '/project-media/orascom/o-west/ap1-my-3.webp'],
+'OW-06':['/project-media/orascom/o-west/ap1-my-5.webp', '/project-media/orascom/o-west/ap1-my-6.webp', '/project-media/orascom/o-west/ap1-my-7.webp', '/project-media/orascom/o-west/ap1-my-3.webp', '/project-media/orascom/o-west/ap1-my-4.webp'],
+'OW-17':['/project-media/orascom/o-west/ov-0.webp', '/project-media/orascom/o-west/ov-1.webp', '/project-media/orascom/o-west/ov-2.webp', '/project-media/orascom/o-west/ov-3.webp', '/project-media/orascom/o-west/ov-4.webp'],
+'OW-18':['/project-media/orascom/o-west/ov-1.webp', '/project-media/orascom/o-west/ov-2.webp', '/project-media/orascom/o-west/ov-3.webp', '/project-media/orascom/o-west/ov-4.webp', '/project-media/orascom/o-west/ov-0.webp'],
+'OW-19':['/project-media/orascom/o-west/ov-2.webp', '/project-media/orascom/o-west/ov-3.webp', '/project-media/orascom/o-west/ov-4.webp', '/project-media/orascom/o-west/ov-0.webp', '/project-media/orascom/o-west/ov-1.webp'],
+'OW-20':['/project-media/orascom/o-west/villa-pk-1.webp', '/project-media/orascom/o-west/villa-pk-0.webp', '/project-media/orascom/o-west/pk-0.webp', '/project-media/orascom/o-west/pk-1.webp', '/project-media/orascom/o-west/pk-2.webp', '/project-media/orascom/o-west/pk-3.webp', '/project-media/orascom/o-west/pk-4.webp', '/project-media/orascom/o-west/pk-5.webp', '/project-media/orascom/o-west/pk-6.webp', '/project-media/orascom/o-west/pk-7.webp'],
+'OW-21':['/project-media/orascom/o-west/villa-pk-0.webp', '/project-media/orascom/o-west/villa-pk-1.webp', '/project-media/orascom/o-west/pk-0.webp', '/project-media/orascom/o-west/pk-1.webp', '/project-media/orascom/o-west/pk-2.webp', '/project-media/orascom/o-west/pk-3.webp', '/project-media/orascom/o-west/pk-4.webp', '/project-media/orascom/o-west/pk-5.webp', '/project-media/orascom/o-west/pk-6.webp', '/project-media/orascom/o-west/pk-7.webp'],
+'OW-22':['/project-media/orascom/o-west/th-0.webp', '/project-media/orascom/o-west/th-1.webp', '/project-media/orascom/o-west/pk-0.webp', '/project-media/orascom/o-west/pk-1.webp', '/project-media/orascom/o-west/pk-2.webp', '/project-media/orascom/o-west/pk-3.webp', '/project-media/orascom/o-west/pk-4.webp', '/project-media/orascom/o-west/pk-5.webp', '/project-media/orascom/o-west/pk-6.webp', '/project-media/orascom/o-west/pk-7.webp'],
+'OW-23':['/project-media/orascom/o-west/th2-0.webp', '/project-media/orascom/o-west/th2-1.webp', '/project-media/orascom/o-west/th2-2.webp', '/project-media/orascom/o-west/th2-3.webp', '/project-media/orascom/o-west/th2-4.webp'],
+'OW-24':['/project-media/orascom/o-west/ap1-ps-0.webp', '/project-media/orascom/o-west/ap1-ps-1.webp', '/project-media/orascom/o-west/ap1-ps-2.webp'],
+'OW-25':['/project-media/orascom/o-west/ap1-ps-1.webp', '/project-media/orascom/o-west/ap1-ps-2.webp', '/project-media/orascom/o-west/ap1-ps-0.webp'],
+'OW-26':['/project-media/orascom/o-west/ap1-ps-2.webp', '/project-media/orascom/o-west/ap1-ps-0.webp', '/project-media/orascom/o-west/ap1-ps-1.webp'],
+'OW-27':['/project-media/orascom/o-west/ap1-ps-0.webp', '/project-media/orascom/o-west/ap1-ps-1.webp', '/project-media/orascom/o-west/ap1-ps-2.webp'],
 };
 var LOC_BASE = '/project-media/locations/';
 var AREA_IMAGES = {
@@ -3061,6 +3124,33 @@ var UNIT_MASTERPLANS = {
 'HW-04':['/project-media/palmhills/hacienda-waters/units/mp-water.webp'],
 'HW-05':['/project-media/palmhills/hacienda-waters/units/mp-water.webp'],
 'HW-06':['/project-media/palmhills/hacienda-waters/units/mp-water.webp'],
+'OW-01':['/project-media/orascom/o-west/mp-my.webp'],
+'OW-02':['/project-media/orascom/o-west/mp-my.webp'],
+'OW-03':['/project-media/orascom/o-west/mp-my.webp'],
+'OW-04':['/project-media/orascom/o-west/mp-my.webp'],
+'OW-05':['/project-media/orascom/o-west/mp-my.webp'],
+'OW-06':['/project-media/orascom/o-west/mp-my.webp'],
+'OW-07':['/project-media/orascom/o-west/mp-core.webp'],
+'OW-08':['/project-media/orascom/o-west/mp-core.webp'],
+'OW-09':['/project-media/orascom/o-west/mp-core.webp'],
+'OW-10':['/project-media/orascom/o-west/mp-core.webp'],
+'OW-11':['/project-media/orascom/o-west/mp-core.webp'],
+'OW-12':['/project-media/orascom/o-west/mp-core.webp'],
+'OW-13':['/project-media/orascom/o-west/mp-cyard.webp'],
+'OW-14':['/project-media/orascom/o-west/mp-cyard.webp'],
+'OW-15':['/project-media/orascom/o-west/mp-cyard.webp'],
+'OW-16':['/project-media/orascom/o-west/mp-cyard.webp'],
+'OW-17':['/project-media/orascom/o-west/mp-o-views.webp'],
+'OW-18':['/project-media/orascom/o-west/mp-o-views.webp'],
+'OW-19':['/project-media/orascom/o-west/mp-o-views.webp'],
+'OW-20':['/project-media/orascom/o-west/mp-ps.webp'],
+'OW-21':['/project-media/orascom/o-west/mp-ps.webp'],
+'OW-22':['/project-media/orascom/o-west/mp-ps.webp'],
+'OW-23':['/project-media/orascom/o-west/mp-ps.webp'],
+'OW-24':['/project-media/orascom/o-west/mp-ps.webp'],
+'OW-25':['/project-media/orascom/o-west/mp-ps.webp'],
+'OW-26':['/project-media/orascom/o-west/mp-ps.webp'],
+'OW-27':['/project-media/orascom/o-west/mp-ps.webp'],
 };
 var UNIT_FLOORPLANS = {
 'IQ-01':['/project-media/elmasria/isola-quattro/plans/floor-1-2-bed.webp'],
@@ -3591,6 +3681,33 @@ var UNIT_FLOORPLANS = {
 'HW-04':['/project-media/palmhills/hacienda-waters/units/fp-ch2-water.webp'],
 'HW-05':['/project-media/palmhills/hacienda-waters/units/fp-ch3-water.webp'],
 'HW-06':['/project-media/palmhills/hacienda-waters/units/ca-water-fp.webp'],
+'OW-01':['/project-media/orascom/o-west/fp-ap1-my.webp'],
+'OW-02':['/project-media/orascom/o-west/fp-ap1-my.webp'],
+'OW-03':['/project-media/orascom/o-west/fp-ap2-my.webp'],
+'OW-04':['/project-media/orascom/o-west/fp-du-my.webp'],
+'OW-05':['/project-media/orascom/o-west/fp-lo-my.webp'],
+'OW-06':['/project-media/orascom/o-west/fp-lo2-my.webp'],
+'OW-07':['/project-media/orascom/o-west/fp-ap1-core.webp'],
+'OW-08':['/project-media/orascom/o-west/fp-ap1-core.webp'],
+'OW-09':['/project-media/orascom/o-west/fp-ap3-core.webp'],
+'OW-10':['/project-media/orascom/o-west/fp-ap4-core.webp'],
+'OW-11':['/project-media/orascom/o-west/fp-du1-core-0.webp'],
+'OW-12':['/project-media/orascom/o-west/fp-pent-core.webp'],
+'OW-13':['/project-media/orascom/o-west/fp-ap1-cy.webp'],
+'OW-14':['/project-media/orascom/o-west/fp-ap2-cy.webp'],
+'OW-15':['/project-media/orascom/o-west/fp-lo-cy.webp'],
+'OW-16':['/project-media/orascom/o-west/fp-lo2-cy.webp'],
+'OW-17':['/project-media/orascom/o-west/fp-ap1-ov.webp'],
+'OW-18':['/project-media/orascom/o-west/fp-ap2-ov.webp', '/project-media/orascom/o-west/fp-ap2-ov-0.webp'],
+'OW-19':['/project-media/orascom/o-west/fp-ap3-ov.webp'],
+'OW-20':['/project-media/orascom/o-west/fp-v-ps-0.webp', '/project-media/orascom/o-west/fp-v-ps1.webp'],
+'OW-21':['/project-media/orascom/o-west/fp-v-ps-0.webp', '/project-media/orascom/o-west/fp-v-ps1.webp'],
+'OW-22':['/project-media/orascom/o-west/fp-th-0.webp', '/project-media/orascom/o-west/fp-th-1.webp', '/project-media/orascom/o-west/fp-th-3.webp', '/project-media/orascom/o-west/fp-th-2.webp'],
+'OW-23':['/project-media/orascom/o-west/fp-th2-0.webp', '/project-media/orascom/o-west/fp-th2-1.webp', '/project-media/orascom/o-west/fp-th2-2.webp', '/project-media/orascom/o-west/fp-th2-3.webp'],
+'OW-24':['/project-media/orascom/o-west/fp-ap1-ps.webp'],
+'OW-25':['/project-media/orascom/o-west/fp-ap2-ps.webp'],
+'OW-26':['/project-media/orascom/o-west/fp-ap2-ps.webp'],
+'OW-27':['/project-media/orascom/o-west/fp-pen1-ps.webp'],
 };
 var UNIT_LOCATIONS = {
 'IQ-01':['/project-media/elmasria/isola-quattro/location.webp'],
@@ -4078,6 +4195,33 @@ var UNIT_LOCATIONS = {
 'HW-04':['/project-media/palmhills/hacienda-waters/units/location-water.webp'],
 'HW-05':['/project-media/palmhills/hacienda-waters/units/location-water.webp'],
 'HW-06':['/project-media/palmhills/hacienda-waters/units/location-water.webp'],
+'OW-01':['/project-media/orascom/o-west/location-o-west.webp'],
+'OW-02':['/project-media/orascom/o-west/location-o-west.webp'],
+'OW-03':['/project-media/orascom/o-west/location-o-west.webp'],
+'OW-04':['/project-media/orascom/o-west/location-o-west.webp'],
+'OW-05':['/project-media/orascom/o-west/location-o-west.webp'],
+'OW-06':['/project-media/orascom/o-west/location-o-west.webp'],
+'OW-07':['/project-media/orascom/o-west/location-o-west.webp'],
+'OW-08':['/project-media/orascom/o-west/location-o-west.webp'],
+'OW-09':['/project-media/orascom/o-west/location-o-west.webp'],
+'OW-10':['/project-media/orascom/o-west/location-o-west.webp'],
+'OW-11':['/project-media/orascom/o-west/location-o-west.webp'],
+'OW-12':['/project-media/orascom/o-west/location-o-west.webp'],
+'OW-13':['/project-media/orascom/o-west/location-o-west.webp'],
+'OW-14':['/project-media/orascom/o-west/location-o-west.webp'],
+'OW-15':['/project-media/orascom/o-west/location-o-west.webp'],
+'OW-16':['/project-media/orascom/o-west/location-o-west.webp'],
+'OW-17':['/project-media/orascom/o-west/location-o-west.webp'],
+'OW-18':['/project-media/orascom/o-west/location-o-west.webp'],
+'OW-19':['/project-media/orascom/o-west/location-o-west.webp'],
+'OW-20':['/project-media/orascom/o-west/location-o-west.webp'],
+'OW-21':['/project-media/orascom/o-west/location-o-west.webp'],
+'OW-22':['/project-media/orascom/o-west/location-o-west.webp'],
+'OW-23':['/project-media/orascom/o-west/location-o-west.webp'],
+'OW-24':['/project-media/orascom/o-west/location-o-west.webp'],
+'OW-25':['/project-media/orascom/o-west/location-o-west.webp'],
+'OW-26':['/project-media/orascom/o-west/location-o-west.webp'],
+'OW-27':['/project-media/orascom/o-west/location-o-west.webp'],
 };
 function planUrl(f){ return f.charAt(0)==='/' ? f : PLANS_BASE+f; }
 var PROJECT_PLAN_FALLBACK = (function(){
@@ -4522,6 +4666,8 @@ var PROJECT_GALLERY = {
 .map(function(f){ return '/project-media/palmhills/px/'+f+'.webp'; }),
 'hacienda-waters': ['p30','p33','p12','p24','units/v1-water-3']
 .map(function(f){ return '/project-media/palmhills/hacienda-waters/'+f+'.webp'; }),
+'o-west': ['pk-0','pk-1','pk-2','pk-3','pk-4','pk-5','pk-6','pk-7']
+.map(function(f){ return '/project-media/orascom/o-west/'+f+'.webp'; }),
 };
 function projectGalleryItems(p){
 var g = PROJECT_GALLERY[p.slug]; if(!g || !g.length) return [];
@@ -6211,6 +6357,7 @@ var PHH = '/project-media/palmhills/hacienda-blue/';
 var PHC = '/project-media/palmhills/ph-new-cairo/';
 var PXB = '/project-media/palmhills/px/';
 var PHW = '/project-media/palmhills/hacienda-waters/';
+var OWB = '/project-media/orascom/o-west/';
 var PROJECT_FEATURES = {
 'px-new-cairo': {
 masterplan: {en:'Master plan', ar:'الماستر بلان', icon:'masterplan', src:PXB+'units/mp-px.webp'},
@@ -6267,6 +6414,72 @@ groups:[
 {k:{en:'SKYE 2', ar:'SKYE 2'}, v:{en:'60.41 – 171.17 m² · the smallest home in the brochure, and a three-bedroom with a nanny’s room', ar:'٦٠٫٤١ – ١٧١٫١٧ م² · أصغر وحدة في البروشور، وثلاث غرف وغرفة نانية'}}]}
 ],
 more:{en:'The five apartments this site lists are each one of those figures: 77 m² is SKYE 1 and SKYE 2’s Apartment 12 at 77.84, 138 is DAWN’s Apartment 12 at 138.19, 157 and 164 are DUSK’s Apartment 11 and 12 at 156.56 and 164.48, and 171 is DAWN’s Apartment 11 at 171.80. Its two town house rows are the exception: both say 231 m², and no page here prints 231 — the nearest are 213.61 built-up for the corner and 200.72 for the middle. That figure is carried as the sheet has it and is not reconciled.', ar:'والشقق الخمس المعروضة هنا كلٌّ منها واحد من تلك الأرقام: ٧٧ م² هي الشقة ١٢ في SKYE 1 وSKYE 2 بـ ٧٧٫٨٤، و١٣٨ هي الشقة ١٢ في DAWN بـ ١٣٨٫١٩، و١٥٧ و١٦٤ هما الشقتان ١١ و١٢ في DUSK بـ ١٥٦٫٥٦ و١٦٤٫٤٨، و١٧١ هي الشقة ١١ في DAWN بـ ١٧١٫٨٠. أما صفّا التاون هاوس فاستثناء: كلاهما ٢٣١ م²، ولا تطبع أي صفحة هنا ٢٣١ — وأقرب ما فيها ٢١٣٫٦١ بناءً للركنية و٢٠٠٫٧٢ للوسطى. ونُقل الرقم كما هو في الشيت دون توفيق.'}
+}}
+]
+},
+'o-west': {
+masterplan: {en:'Master plan', ar:'الماستر بلان', icon:'masterplan', src:OWB+'mp-o-west.webp'},
+cards: [
+{en:'The town', ar:'المدينة', icon:'info',
+imgs:[OWB+'mp-o-west.webp', OWB+'location-o-west.webp'],
+copy:{
+lead:{en:'O West is Orascom Development’s town in West Cairo. The figures below are the ones its own corporate presentation prints.', ar:'أو ويست هي مدينة أوراسكوم للتطوير بغرب القاهرة. والأرقام أدناه هي المطبوعة في عرضها المؤسسي.'},
+groups:[
+{label:{en:'As the presentation states them', ar:'كما يذكرها العرض'}, rows:[
+{k:{en:'Land area', ar:'مساحة الأرض'}, v:{en:'4.2 million m² — a thousand feddans', ar:'٤٫٢ مليون م² — ألف فدان'}},
+{k:{en:'Residential built-up area', ar:'المسطح السكني'}, v:{en:'3,197,880 m²', ar:'٣٬١٩٧٬٨٨٠ م²'}},
+{k:{en:'Homes', ar:'عدد الوحدات'}, v:{en:'19,000', ar:'١٩٬٠٠٠'}}]}
+],
+list:[
+{en:'Wahat Road · the Ring Road · the 26th of July Corridor', ar:'طريق الواحات · الطريق الدائري · محور ٢٦ يوليو'},
+{en:'Sheikh Zayed City · Juhayna Square · Arkan Plaza', ar:'مدينة الشيخ زايد · ميدان جهينة · أركان بلازا'},
+{en:'Mall of Egypt · the Egyptian Media Production City', ar:'مول مصر · مدينة الإنتاج الإعلامي'}],
+more:{en:'Those are the places the archive’s own location map names, and it prints no minutes and no kilometres against any of them, which is why it is the map on this site. The master plan draws a main gate, a secondary gate and four future gates. The presentation the land figures come from is dated 2019 on its cover; confirm anything current with an advisor.', ar:'وتلك هي الأماكن التي تسمّيها خريطة الموقع في الأرشيف نفسه، ولا تطبع أمام أيٍّ منها دقائق ولا كيلومترات، ولهذا هي الخريطة المعروضة هنا. ويرسم الماستر بلان بوابة رئيسية وأخرى فرعية وأربع بوابات مستقبلية. والعرض الذي جاءت منه أرقام الأرض مؤرَّخ ٢٠١٩ على غلافه؛ يُرجى تأكيد أي بيان حالي مع المستشار.'}
+}},
+{en:'Five neighbourhoods', ar:'خمسة أحياء', icon:'layers',
+imgs:[OWB+'mp-cyard.webp', OWB+'mp-core.webp', OWB+'mp-my.webp',
+OWB+'mp-o-views.webp', OWB+'mp-ps.webp', OWB+'location-o-views.webp'],
+copy:{
+lead:{en:'The sheet prices twenty-seven homes across five of them, and each neighbourhood hands over in its own year.', ar:'يسعّر الشيت سبعاً وعشرين وحدة في خمسة منها، ولكل حيٍّ سنة تسليمه.'},
+groups:[
+{label:{en:'What this site lists in each', ar:'ما يعرضه الموقع في كلٍّ منها'}, rows:[
+{k:{en:'Club Yard', ar:'كلوب يارد'}, v:{en:'4 homes · handover 2027 · Types A, B and D, from a 153 m² two-bedroom loft to a 213 m² three-bedroom loft', ar:'٤ وحدات · تسليم ٢٠٢٧ · أنواع A وB وD، من لوفت بغرفتين ١٥٣ م² إلى لوفت بثلاث غرف ٢١٣ م²'}},
+{k:{en:'Core', ar:'كور'}, v:{en:'6 homes · handover 2028 · Types A, B and C, from a 77 m² one-bedroom to a 222 m² three-bedroom duplex', ar:'٦ وحدات · تسليم ٢٠٢٨ · أنواع A وB وC، من غرفة واحدة ٧٧ م² إلى دوبلكس بثلاث غرف ٢٢٢ م²'}},
+{k:{en:'Mid Yard', ar:'ميد يارد'}, v:{en:'6 homes · handover 2029 · Types A and B, from an 82 m² one-bedroom to a 226 m² three-bedroom loft', ar:'٦ وحدات · تسليم ٢٠٢٩ · نوعا A وB، من غرفة واحدة ٨٢ م² إلى لوفت بثلاث غرف ٢٢٦ م²'}},
+{k:{en:'O Views', ar:'أو فيوز'}, v:{en:'3 homes · handover 2030 · Level Residences B and C, 121 to 148 m²', ar:'٣ وحدات · تسليم ٢٠٣٠ · ليفل ريزيدنسز B وC، من ١٢١ إلى ١٤٨ م²'}},
+{k:{en:'Park Side', ar:'بارك سايد'}, v:{en:'8 homes · handover 2030 · the U-Villas, Townhouse M, Townhouse J and the Smart Apartments', ar:'٨ وحدات · تسليم ٢٠٣٠ · اليو-فيلا وتاون هاوس M وتاون هاوس J والشقق الذكية'}}]}
+],
+more:{en:'Each neighbourhood has a phase plan of its own. Club Yard’s and Mid Yard’s key every plot by type and by whether it is standard or mirrored; the Core’s marks outdoor fitness areas, kids areas, chilling nooks and a pop cultural zone, and leaves a strip labelled future extension. O Views has a location page of its own, which places it inside O West beside Park Side.', ar:'ولكل حيٍّ مخطط مراحل خاص به. فمخططا كلوب يارد وميد يارد يرمّزان كل قطعة بنوعها وبما إذا كانت قياسية أو معكوسة؛ ويؤشّر مخطط كور على مناطق لياقة مفتوحة ومناطق أطفال وزوايا استرخاء ومنطقة ثقافية، ويترك شريطاً مكتوباً عليه توسعة مستقبلية. ولأو فيوز صفحة موقع خاصة تضعه داخل أو ويست بجوار بارك سايد.'}
+}},
+{en:'The homes', ar:'النماذج', icon:'ty_villa',
+imgs:[OWB+'villa-pk-0.webp', OWB+'th-0.webp', OWB+'th2-0.webp',
+OWB+'ap1-ps-0.webp', OWB+'ap1-my-3.webp', OWB+'ov-0.webp'],
+copy:{
+lead:{en:'The houses and the two apartment lines that carry their own name on the drawing, with the figures those drawings print.', ar:'المنازل وخطّا الشقق اللذان يحملان اسمهما على الرسم، بالأرقام المطبوعة على تلك الرسومات.'},
+groups:[
+{label:{en:'As each drawing heads itself', ar:'كما يعنون كل رسم نفسه'}, rows:[
+{k:{en:'U-Villa', ar:'يو-فيلا'}, v:{en:'212–216 m² total · 29 m² penthouse · 2 floors · 3 bedrooms', ar:'إجمالي ٢١٢–٢١٦ م² · بنتهاوس ٢٩ م² · دوران · ٣ غرف'}},
+{k:{en:'Townhouse M', ar:'تاون هاوس M'}, v:{en:'corner 172 m² · middle 164–167 · penthouse 39–41 · 2 floors · 3 bedrooms', ar:'ركنية ١٧٢ م² · وسطى ١٦٤–١٦٧ · بنتهاوس ٣٩–٤١ · دوران · ٣ غرف'}},
+{k:{en:'Townhouse J', ar:'تاون هاوس J'}, v:{en:'corner 169–170 m² · middle 164–167 · penthouse 38–39 · 2 floors · 3 bedrooms', ar:'ركنية ١٦٩–١٧٠ م² · وسطى ١٦٤–١٦٧ · بنتهاوس ٣٨–٣٩ · دوران · ٣ غرف'}},
+{k:{en:'Smart Apartments', ar:'الشقق الذكية'}, v:{en:'ground: 3-bed 148 and 137 · first: 2-bed 99, 96 and 117 · second: 2-bed 94 and three-bed penthouses at 122 and 146', ar:'أرضي: ثلاث غرف ١٤٨ و١٣٧ · أول: غرفتان ٩٩ و٩٦ و١١٧ · ثانٍ: غرفتان ٩٤ وبنتهاوس بثلاث غرف ١٢٢ و١٤٦'}},
+{k:{en:'Level Residences B and C', ar:'ليفل ريزيدنسز B وC'}, v:{en:'two-bedroom 127, 128, 130 and 133 m² · three-bedroom with garden 148 and 149', ar:'غرفتان ١٢٧ و١٢٨ و١٣٠ و١٣٣ م² · ثلاث غرف بحديقة ١٤٨ و١٤٩'}}]}
+],
+more:{en:'One name does not agree with itself: the villa renders are captioned U-Villa A and the villa plans are headed U-Villa B, and the sheet puts them on the same two rows. The listing says U-Villa without the letter, because the letter is the only thing the two sources differ on. Every plan page repeats the same line: the renders and layouts are for illustrative purposes, the drawings are not to scale, areas and dimensions may vary and are subject to change without prior notice, and private pools are illustrative.', ar:'واسم واحد لا يتفق مع نفسه: فرندرات الفيلا معنونة U-Villa A ومخططاتها معنونة U-VILLA B، والشيت يضعهما على الصفّين نفسيهما. ويكتب العرض «يو-فيلا» بلا حرف، لأن الحرف هو الشيء الوحيد الذي يختلف فيه المصدران. وتكرّر كل صفحة مخططات العبارة ذاتها: الرندرات والتصميمات لأغراض توضيحية، والرسومات ليست بمقياس، والمساحات والأبعاد قد تختلف وقابلة للتغيير دون إخطار، وحمّامات السباحة الخاصة للتوضيح.'}
+}},
+{en:'Floor by floor', ar:'دوراً بدور', icon:'floorplan',
+imgs:[OWB+'fp-v-ps-0.webp', OWB+'fp-th-0.webp', OWB+'fp-th2-0.webp',
+OWB+'fp-ap1-ps.webp', OWB+'fp-ap1-my.webp', OWB+'fp-ap2-my.webp',
+OWB+'fp-ap1-core.webp', OWB+'fp-ap1-cy.webp', OWB+'fp-ap1-ov.webp'],
+copy:{
+lead:{en:'Every apartment building is drawn floor by floor with each unit numbered and measured. Those tables are how twenty-two of the twenty-seven listings here were confirmed to the square metre.', ar:'كل عمارة مرسومة دوراً بدور بترقيم كل وحدة وقياسها. وبتلك الجداول تأكّدت اثنتان وعشرون من الوحدات السبع والعشرين المعروضة هنا بالمتر المربّع.'},
+groups:[
+{label:{en:'Gross area, as each type table prints it', ar:'المساحة الإجمالية كما يطبعها جدول كل نوع'}, rows:[
+{k:{en:'Mid Yard, Type A', ar:'ميد يارد — نوع A'}, v:{en:'1-bed 80, 81 and 82 · 2-bed 116, 120 and 121 · 2-bed loft 158 · 3-bed loft 226 · 3-bed 160', ar:'غرفة ٨٠ و٨١ و٨٢ · غرفتان ١١٦ و١٢٠ و١٢١ · لوفت بغرفتين ١٥٨ · لوفت بثلاث ٢٢٦ · ثلاث غرف ١٦٠'}},
+{k:{en:'Mid Yard, Type B', ar:'ميد يارد — نوع B'}, v:{en:'3-bed duplex 223 · 3-bed 150 · 3-bed with nanny’s room 176 · 2-bed 116 · 3-bed penthouse 163', ar:'دوبلكس بثلاث غرف ٢٢٣ · ثلاث غرف ١٥٠ · ثلاث غرف وغرفة نانية ١٧٦ · غرفتان ١١٦ · بنتهاوس بثلاث غرف ١٦٣'}},
+{k:{en:'Core, Types A, B and C', ar:'كور — أنواع A وB وC'}, v:{en:'1BR 77 and 84 · 2BR 116, 117 and 121 · 3BR 149, 155 and 156 · 3BR+N 179 and 180 · 4BR+N 214 · 3BR duplex 222 · 2BR penthouse 125', ar:'غرفة ٧٧ و٨٤ · غرفتان ١١٦ و١١٧ و١٢١ · ثلاث ١٤٩ و١٥٥ و١٥٦ · ثلاث ونانية ١٧٩ و١٨٠ · أربع ونانية ٢١٤ · دوبلكس ثلاث ٢٢٢ · بنتهاوس غرفتين ١٢٥'}},
+{k:{en:'Club Yard, Types A, B and D', ar:'كلوب يارد — أنواع A وB وD'}, v:{en:'1BR 77 and 79 · 2BR 117 and 153 · 2BR loft 153 · 3BR 149, 154 and 156 · 3BR+N 169, 172, 176, 177, 179, 186 and 187 · 3BR loft 210, 213, 216, 220 and 279', ar:'غرفة ٧٧ و٧٩ · غرفتان ١١٧ و١٥٣ · لوفت بغرفتين ١٥٣ · ثلاث ١٤٩ و١٥٤ و١٥٦ · ثلاث ونانية ١٦٩ و١٧٢ و١٧٦ و١٧٧ و١٧٩ و١٨٦ و١٨٧ · لوفت بثلاث ٢١٠ و٢١٣ و٢١٦ و٢٢٠ و٢٧٩'}}]}
+],
+more:{en:'Three listings are not confirmed by the plan they name, and each is carried as the sheet has it rather than swapped for a better guess. The 121 m² O Views apartment names a plan whose table prints 127 for both units it draws. The 146 m² Park Side penthouse names a plan whose unit 23 is 146 m² exactly but is drawn as a three-bedroom. And the 148 m² O Views apartment has its area confirmed exactly but is priced at 7,291,000 — about 49,000 a metre where the two rows beside it in the same building are 96,000 and 98,000.', ar:'وثلاث وحدات لا يؤكّدها المخطط الذي تسمّيه، وكلٌّ منها منقولة كما في الشيت لا مستبدلة بتخمين أفضل. فشقة أو فيوز ١٢١ م² تسمّي مخططاً يطبع جدوله ١٢٧ للوحدتين اللتين يرسمهما. وبنتهاوس بارك سايد ١٤٦ م² يسمّي مخططاً وحدته ٢٣ تساوي ١٤٦ م² بالضبط لكنها مرسومة بثلاث غرف. وشقة أو فيوز ١٤٨ م² مساحتها مؤكَّدة تماماً لكن سعرها ٧٬٢٩١٬٠٠٠ — نحو ٤٩ ألفاً للمتر حيث الصفّان المجاوران في العمارة نفسها ٩٦ و٩٨ ألفاً.'}
 }}
 ]
 },
