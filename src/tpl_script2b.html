@@ -4130,6 +4130,7 @@
      point, so a prefix defined later would resolve to undefined. */
   var MV = '/project-media/mountainview/';
   var SD = '/project-media/sodic/';
+  var PHP = '/project-media/palmhills/profile/';
   var DEV_GALLERY = {
     /* El Masria: the render the profile opens each ISOLA development with. */
     'elmasria': ['/project-media/elmasria/isola-october.webp',
@@ -4169,6 +4170,17 @@
                '/project-media/orascom/portfolio/uae.webp',
                '/project-media/orascom/portfolio/west-carclaze.webp',
                '/project-media/orascom/portfolio/chbika.webp'],
+    /* Palm Hills, from its own March 2021 company profile: the eight pictures
+       in it that show an identifiable Palm Hills place — Palm Hills October,
+       The Crown, Badya, Palm Hills New Cairo, then Hacienda Bay, Le Sidi,
+       Mazeej and Tawaya. Landscape frames only.
+
+       Page 35 is not here and not on disk: it is the same embedded image
+       object as page 34, xref 668, printed on two facing pages. Two of the
+       profile's photographs are left off too — a tree-lined avenue and a bare
+       rocky coast — because neither shows any part of a Palm Hills project. */
+    'palmhills':[PHP+'p01.webp', PHP+'p30.webp', PHP+'p34.webp', PHP+'p48.webp',
+                 PHP+'p64.webp', PHP+'p69.webp', PHP+'p76.webp', PHP+'p81.webp'],
     'marakez':['/project-media/marakez/crescent-park.webp','/project-media/marakez/mall-of-arabia.webp','/project-media/marakez/aeon-tower.webp','/project-media/marakez/d5-campus.webp','/project-media/marakez/the-park.webp'],
     'sumou':['/project-media/sumou/st-03.webp','/project-media/sumou/st-01.webp','/project-media/sumou/ap5-0.webp','/project-media/sumou/st-02.webp','/project-media/sumou/ap2-03.webp','/project-media/sumou/of4.webp'],
     'modon':['/project-media/modon/m1.webp','/project-media/modon/m2.webp','/project-media/modon/m3.webp',
@@ -4356,6 +4368,126 @@
                {k:{en:'ISOLA Centra', ar:'ISOLA Centra'}, v:{en:'New Cairo', ar:'القاهرة الجديدة'}},
                {k:{en:'ISOLA Quattro', ar:'ISOLA Quattro'}, v:{en:'New Cairo', ar:'القاهرة الجديدة'}}]}
            ]
+         }}
+      ]
+    },
+    /* Palm Hills Developments, read off its own company profile — "Palm Hills
+       Developments Synopsis: Into The Palm Hills Empire", 89 pages, dated
+       MARCH, 2021 on its cover.
+
+       That date governs everything below. Every figure is the company's own as
+       of March 2021, and the project list is the list of March 2021: eight of
+       the eleven Palm Hills projects this site sells today are not in the
+       profile at all, because they had not launched. The first card says so
+       rather than letting four-year-old numbers read as current ones — the
+       same treatment Orascom's 2019 deck gets.
+
+       Nothing from page 38 is here. It is Badya's Location and it prints a
+       drive-time table. Nor is a sentence of page 82 or page 84, which open
+       with "Only 18 kilometers south of the airport" and "A mere 120
+       kilometers east of the pulsating heart of Cairo". All 89 pages were
+       swept and those three are the only ones that print a distance. */
+    'palmhills': {
+      cards: [
+        {en:'About Palm Hills Developments', ar:'عن بالم هيلز للتطوير العقاري', icon:'shield',
+         imgs:[PHP+'p03.webp', PHP+'p01.webp'],
+         copy:{
+           lead:{en:'The profile’s own opening line: Palm Hills Developments commands a geographically diversified and balanced portfolio of projects.', ar:'السطر الافتتاحي لملف الشركة نفسه: تمتلك بالم هيلز للتطوير العقاري محفظة مشروعات متنوّعة جغرافياً ومتوازنة.'},
+           groups:[
+             {label:{en:'As the profile states them', ar:'كما يذكرها ملف الشركة'}, rows:[
+               {k:{en:'Founded', ar:'التأسيس'}, v:{en:'1997, as ETIHADEYA — the investment arm through which the company was established', ar:'١٩٩٧ باسم الاتحادية — الذراع الاستثمارية التي تأسّست الشركة من خلالها'}},
+               {k:{en:'Palm Hills Developments', ar:'بالم هيلز للتطوير العقاري'}, v:{en:'came to life in 2005, by acquiring all of those assets', ar:'وُلدت عام ٢٠٠٥ بالاستحواذ على تلك الأصول كلها'}},
+               {k:{en:'Portfolio', ar:'المحفظة'}, v:{en:'34 projects', ar:'٣٤ مشروعاً'}},
+               {k:{en:'Spreading over', ar:'تمتدّ على'}, v:{en:'42.5 million m²', ar:'٤٢٫٥ مليون م²'}}]}
+           ],
+           more:{en:'The file is dated March 2021 on its cover, and every figure on these cards is the company’s own as of then. Its project list is the list of March 2021 too: of the eleven Palm Hills projects this site sells today, only Badya, Palm Hills New Cairo and Hacienda West appear in it — the other eight had not launched when it was written. Confirm anything current with an advisor.', ar:'والملف مؤرَّخ مارس ٢٠٢١ على غلافه، وكل رقم في هذه الكروت هو رقم الشركة نفسها في ذلك التاريخ. وقائمة مشروعاته هي قائمة مارس ٢٠٢١ أيضاً: فمن بين أحد عشر مشروعاً لبالم هيلز يعرضها هذا الموقع اليوم، لا يرد فيه سوى بادية وبالم هيلز نيو كايرو وهاسيندا ويست — أما الثمانية الباقية فلم تكن قد أُطلقت وقت كتابته. يُرجى تأكيد أي بيان حالي مع المستشار.'}
+         }},
+        {en:'Achievements in numbers', ar:'الإنجازات بالأرقام', icon:'star',
+         imgs:[PHP+'p07.webp', PHP+'p08.webp'],
+         copy:{
+           lead:{en:'Two pages of the company’s own headline figures, printed side by side.', ar:'صفحتان من أرقام الشركة الرئيسية، مطبوعة جنباً إلى جنب.'},
+           groups:[
+             {label:{en:'As the two pages print them', ar:'كما تطبعها الصفحتان'}, rows:[
+               {k:{en:'Projects portfolio', ar:'محفظة المشروعات'}, v:{en:'34 projects', ar:'٣٤ مشروعاً'}},
+               {k:{en:'Cumulative achieved sales', ar:'المبيعات المحقّقة التراكمية'}, v:{en:'EGP 58.2 billion', ar:'٥٨٫٢ مليار جنيه'}},
+               {k:{en:'Growing families', ar:'الأسر'}, v:{en:'70,000 living within its developments', ar:'٧٠٬٠٠٠ أسرة تعيش داخل مشروعاته'}},
+               {k:{en:'Residents', ar:'السكّان'}, v:{en:'300,000', ar:'٣٠٠٬٠٠٠'}},
+               {k:{en:'Land bank in Egypt', ar:'رصيد الأراضي في مصر'}, v:{en:'42.5 million m²', ar:'٤٢٫٥ مليون م²'}},
+               {k:{en:'Under construction', ar:'تحت الإنشاء'}, v:{en:'13 projects', ar:'١٣ مشروعاً'}},
+               {k:{en:'Global awards', ar:'جوائز عالمية'}, v:{en:'9, in 2020', ar:'٩ جوائز في ٢٠٢٠'}},
+               {k:{en:'Years', ar:'سنوات العمل'}, v:{en:'21', ar:'٢١'}}]}
+           ],
+           more:{en:'The page sets its own words beside those figures: brand equity, track record, backed by strong shareholders.', ar:'وتضع الصفحة كلماتها إلى جوار تلك الأرقام: قيمة علامة، وسجلّ حافل، ومساهمون أقوياء.'}
+         }},
+        {en:'Where it builds', ar:'أين يبني', icon:'pin',
+         imgs:[PHP+'p04.webp', PHP+'p09.webp'],
+         copy:{
+           lead:{en:'Four regions, and the profile names every community in each of them.', ar:'أربع مناطق، ويسمّي ملف الشركة كل مجتمع في كلٍّ منها.'},
+           groups:[
+             {label:{en:'Its communities, region by region', ar:'مجتمعاته منطقةً منطقة'}, rows:[
+               {k:{en:'Cairo West', ar:'غرب القاهرة'}, v:{en:'Palm Hills October · October Extension · Badya · Bamboo · Bamboo Extension · Casa · Palm Parks · The Crown · Woodville · Palm Valley · Golf Views · Golf Extension', ar:'بالم هيلز أكتوبر · توسعة أكتوبر · بادية · بامبو · توسعة بامبو · كازا · بالم باركس · ذا كراون · وودفيل · بالم فالي · جولف فيوز · جولف إكستنشن'}},
+               {k:{en:'Cairo East', ar:'شرق القاهرة'}, v:{en:'Palm Hills New Cairo · Katameya · Katameya Extension · Capital Gardens · The Village · Village Avenue · Village Gardens Katameya · Village Gate', ar:'بالم هيلز نيو كايرو · قطامية · توسعة القطامية · كابيتال جاردنز · ذا فيلدج · فيلدج أفينيو · فيلدج جاردنز قطامية · فيلدج جيت'}},
+               {k:{en:'North', ar:'الشمال'}, v:{en:'Palm Hills Alexandria · Palm Hills New Alamein · Hacienda Bay · Hacienda White · Hacienda West', ar:'بالم هيلز الإسكندرية · بالم هيلز العلمين الجديدة · هاسيندا باي · هاسيندا وايت · هاسيندا ويست'}},
+               {k:{en:'Red Sea', ar:'البحر الأحمر'}, v:{en:'Tawaya Sahl Hasheesh · Palm Hills Sokhna at Laguna Bay', ar:'طوايا سهل حشيش · بالم هيلز السخنة في لاجونا باي'}}]},
+             {label:{en:'The land bank, by region', ar:'رصيد الأراضي حسب المنطقة'}, rows:[
+               {k:{en:'West Cairo', ar:'غرب القاهرة'}, v:{en:'66%', ar:'٦٦٪'}},
+               {k:{en:'East Cairo · Others', ar:'شرق القاهرة · أخرى'}, v:{en:'11% each', ar:'١١٪ لكلٍّ منهما'}},
+               {k:{en:'North Coast', ar:'الساحل الشمالي'}, v:{en:'9%', ar:'٩٪'}},
+               {k:{en:'Alexandria · Sokhna', ar:'الإسكندرية · السخنة'}, v:{en:'2% and 1%', ar:'٢٪ و١٪'}}]},
+             {label:{en:'The land bank, by status', ar:'رصيد الأراضي حسب الحالة'}, rows:[
+               {k:{en:'To be launched', ar:'لم يُطلق بعد'}, v:{en:'33%', ar:'٣٣٪'}},
+               {k:{en:'Raw land', ar:'أرضٍ خام'}, v:{en:'29% — Botanica, KSA and Red Sea plots, the page notes', ar:'٢٩٪ — وتذكر الصفحة أنها قطع بوتانيكا والسعودية والبحر الأحمر'}},
+               {k:{en:'Completed projects', ar:'مشروعات مكتملة'}, v:{en:'26%', ar:'٢٦٪'}},
+               {k:{en:'Under development', ar:'تحت التطوير'}, v:{en:'12%', ar:'١٢٪'}}]}
+           ],
+           more:{en:'Page 38 of the profile is Badya’s location map and it prints a drive-time table. It is not on this site, in a picture or in words, and neither are the two paragraphs elsewhere that open with a distance to an airport and to Cairo.', ar:'والصفحة ٣٨ من الملف هي خريطة موقع بادية وتطبع جدول أزمنة قيادة. وهي ليست على هذا الموقع لا صورةً ولا نصاً، وكذلك الفقرتان في موضعين آخرين اللتان تبدآن بمسافة إلى المطار وإلى القاهرة.'}
+         }},
+        {en:'The journey, 2004 to 2020', ar:'المسيرة من ٢٠٠٤ إلى ٢٠٢٠', icon:'layers',
+         imgs:[PHP+'p05.webp', PHP+'p06.webp'],
+         copy:{
+           lead:{en:'The profile dates what it has built, a polaroid a year, and these are the pairings printed on those two pages.', ar:'يؤرّخ ملف الشركة ما بناه بصورة لكل عام، وهذه هي الاقترانات المطبوعة على الصفحتين.'},
+           groups:[
+             {label:{en:'Year by year', ar:'عاماً بعد عام'}, rows:[
+               {k:{en:'2004 · 2005', ar:'٢٠٠٤ · ٢٠٠٥'}, v:{en:'Palm Hills October · Palm Hills Bamboo', ar:'بالم هيلز أكتوبر · بالم هيلز بامبو'}},
+               {k:{en:'2006', ar:'٢٠٠٦'}, v:{en:'Palm Hills Katameya · The Village', ar:'بالم هيلز قطامية · ذا فيلدج'}},
+               {k:{en:'2007', ar:'٢٠٠٧'}, v:{en:'Bamboo Extension · Casa Sheikh Zayed · Palm Parks · Hacienda Bay', ar:'توسعة بامبو · كازا الشيخ زايد · بالم باركس · هاسيندا باي'}},
+               {k:{en:'2008', ar:'٢٠٠٨'}, v:{en:'October Extension · Village Gate', ar:'توسعة أكتوبر · فيلدج جيت'}},
+               {k:{en:'2009 · 2010', ar:'٢٠٠٩ · ٢٠١٠'}, v:{en:'Village Gardens Katameya and Hacienda White 1 · Katameya Extension and Hacienda White 2', ar:'فيلدج جاردنز قطامية وهاسيندا وايت ١ · توسعة القطامية وهاسيندا وايت ٢'}},
+               {k:{en:'2013 · 2014', ar:'٢٠١٣ · ٢٠١٤'}, v:{en:'Village Avenue Katameya · Woodville', ar:'فيلدج أفينيو قطامية · وودفيل'}},
+               {k:{en:'2015', ar:'٢٠١٥'}, v:{en:'Tawaya Sahl Hasheesh · Capital Gardens New Cairo', ar:'طوايا سهل حشيش · كابيتال جاردنز نيو كايرو'}},
+               {k:{en:'2016', ar:'٢٠١٦'}, v:{en:'Palm Valley · Palm Hills New Cairo', ar:'بالم فالي · بالم هيلز نيو كايرو'}},
+               {k:{en:'2017', ar:'٢٠١٧'}, v:{en:'The Crown, at Palm Hills October Extension · Hacienda West', ar:'ذا كراون في توسعة بالم هيلز أكتوبر · هاسيندا ويست'}},
+               {k:{en:'2018 · 2019', ar:'٢٠١٨ · ٢٠١٩'}, v:{en:'Badya, The Creative City · Palm Hills Alexandria', ar:'بادية المدينة المبدعة · بالم هيلز الإسكندرية'}},
+               {k:{en:'2020', ar:'٢٠٢٠'}, v:{en:'Palm Hills Sokhna at Laguna Bay · Palm Hills New Alamein', ar:'بالم هيلز السخنة في لاجونا باي · بالم هيلز العلمين الجديدة'}}]}
+           ],
+           more:{en:'There is no 2011 and no 2012 on either page. The profile does not say why, and neither does this card.', ar:'ولا يظهر عاما ٢٠١١ و٢٠١٢ في أيٍّ من الصفحتين. ولا يقول ملف الشركة السبب، ولا يقوله هذا الكارت.'}
+         }},
+        {en:'First homes, second homes and commercial', ar:'السكن الأول والثاني والتجاري', icon:'home',
+         imgs:[PHP+'p10.webp', PHP+'p48.webp'],
+         copy:{
+           lead:{en:'The profile splits the company into three books of business and counts each one.', ar:'يقسّم ملف الشركة نشاطها إلى ثلاثة خطوط ويعدّ كلاً منها.'},
+           groups:[
+             {label:{en:'As page 10 counts them', ar:'كما تعدّها الصفحة ١٠'}, rows:[
+               {k:{en:'First homes', ar:'السكن الأول'}, v:{en:'13,323 units sold — in 26 projects across West and East Cairo since 1997, from middle to upper class', ar:'١٣٬٣٢٣ وحدة مباعة — في ٢٦ مشروعاً بغرب القاهرة وشرقها منذ ١٩٩٧، من الشريحة المتوسطة إلى العليا'}},
+               {k:{en:'Second homes', ar:'السكن الثاني'}, v:{en:'3,300 sold — 5 projects on the Mediterranean and the Red Sea', ar:'٣٬٣٠٠ وحدة مباعة — ٥ مشروعات على المتوسط والبحر الأحمر'}},
+               {k:{en:'Commercial', ar:'التجاري'}, v:{en:'approximately 2.9 million m² of land held for it', ar:'نحو ٢٫٩ مليون م² من الأراضي مخصّصة له'}},
+               {k:{en:'Completed', ar:'المكتمل'}, v:{en:'13 projects, with 8,350 units delivered in them', ar:'١٣ مشروعاً سُلّمت فيها ٨٬٣٥٠ وحدة'}}]}
+           ],
+           more:{en:'The page dates those counts to 9M2020, which is its own wording. Its commercial portfolio is three operating hotels managed by Accor and two boutique hotels on the North Coast, and the company says it had recently begun unlocking value from non-core commercial assets with The Lane Mall, the Palm Central office building, Hale Town, Golf Central and Westlane in West Cairo, VGK Mall in East Cairo and Lake Yard on the North Coast.', ar:'وتؤرّخ الصفحة تلك الأعداد بالتسعة أشهر الأولى من ٢٠٢٠، وهي صياغتها هي. ومحفظتها التجارية ثلاثة فنادق عاملة تديرها أكور وفندقان بوتيك على الساحل الشمالي، وتقول الشركة إنها كانت قد بدأت حديثاً في تحرير قيمة أصولها التجارية غير الأساسية بـ ذا لين مول ومبنى بالم سنترال الإداري وهيل تاون وجولف سنترال وويستلين بغرب القاهرة، وVGK مول بشرق القاهرة، وليك يارد بالساحل الشمالي.'}
+         }},
+        {en:'Hospitality', ar:'الضيافة', icon:'am_hotel',
+         imgs:[PHP+'p88.webp', PHP+'p76.webp', PHP+'p69.webp'],
+         copy:{
+           lead:{en:'Three city and resort hotels managed by Accor, and two boutique hotels the company built itself on the North Coast.', ar:'ثلاثة فنادق مدينية ومنتجعية تديرها أكور، وفندقان بوتيك بنتهما الشركة بنفسها على الساحل الشمالي.'},
+           groups:[
+             {label:{en:'Keys, and the year each opened', ar:'عدد الغرف وسنة التشغيل'}, rows:[
+               {k:{en:'Novotel Sharm El Sheikh', ar:'نوفوتيل شرم الشيخ'}, v:{en:'399 keys · operating since 1992', ar:'٣٩٩ غرفة · تعمل منذ ١٩٩٢'}},
+               {k:{en:'Novotel October', ar:'نوفوتيل أكتوبر'}, v:{en:'207 keys · operating since 2005', ar:'٢٠٧ غرف · تعمل منذ ٢٠٠٥'}},
+               {k:{en:'Mercure Ismailia', ar:'ميركيور الإسماعيلية'}, v:{en:'169 keys · operating since 1980', ar:'١٦٩ غرفة · تعمل منذ ١٩٨٠'}},
+               {k:{en:'Le Sidi, Hacienda Bay', ar:'لو سيدي — هاسيندا باي'}, v:{en:'28 keys and 32 serviced-apartment rooms · built 2019, operating 2020', ar:'٢٨ غرفة و٣٢ غرفة شقق فندقية · بُني ٢٠١٩ ويعمل منذ ٢٠٢٠'}},
+               {k:{en:'Mazeej, Hacienda White', ar:'مزيج — هاسيندا وايت'}, v:{en:'38 keys and 34 serviced-apartment rooms · built 2019, operating 2020', ar:'٣٨ غرفة و٣٤ غرفة شقق فندقية · بُني ٢٠١٩ ويعمل منذ ٢٠٢٠'}}]}
+           ],
+           more:{en:'The three Accor pages also print each hotel’s average room rate, occupancy and operating margins as of the profile’s date. Those are four years old, and a room rate that old misleads rather than informs, so they are not restated here.', ar:'وتطبع صفحات أكور الثلاث كذلك متوسط سعر الغرفة ونسبة الإشغال وهوامش التشغيل لكل فندق في تاريخ الملف. وهي أرقام عمرها أربع سنوات، وسعر غرفة بهذا العمر يضلّل لا يفيد، فلم يُعد ذكره هنا.'}
          }}
       ]
     },

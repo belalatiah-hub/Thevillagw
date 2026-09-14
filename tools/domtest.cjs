@@ -1210,11 +1210,37 @@ try {
     return n>=7 && list.slice(0,n).every(api.hasUnitImage);
   })(), 'ok');
   ck('rot: developers with no photography still appear, just later', (function(){
-    var list=api.sortUnits(api.UNITS.slice());
-    var devs=list.map(function(u){ var p=api.projBySlug(u.project); return p?p.dev:'~'; });
-    return devs.indexOf('palmhills')>-1 && devs.indexOf('palmhills')>=7
-      && devs.indexOf('ora')>-1 && devs.indexOf('hydepark')>-1;
-  })(), 'ok');
+    /* rotateByDev splits the developers in two — those with at least one unit
+       that has a picture lead, the rest follow one per developer behind them —
+       and a daily offset rotates the starting developer within each half.
+
+       This check used to read `devs.indexOf('palmhills') >= 7`. That was true
+       on the day it was written and false the next time the offset moved, so
+       the suite went red on its own overnight, twice, with nothing changed.
+       An assertion about one developer's index on one day is not the rule. The
+       rule is the split, and that is what is asserted now: nobody is dropped,
+       and no developer without photography comes before one that has it. */
+    var list = api.sortUnits(api.UNITS.slice());
+    var first = {}, shot = {}, bad = [];
+    list.forEach(function(u, i){
+      var p = api.projBySlug(u.project), k = p ? p.dev : '~';
+      if(!(k in first)) first[k] = i;
+      shot[k] = shot[k] || api.hasUnitImage(u);
+    });
+    var all = {};
+    api.UNITS.forEach(function(u){
+      var p = api.projBySlug(u.project); all[p ? p.dev : '~'] = 1; });
+    Object.keys(all).forEach(function(k){
+      if(!(k in first)) bad.push(k + ' was dropped'); });
+    var withPix = Object.keys(first).filter(function(k){ return shot[k]; });
+    var without = Object.keys(first).filter(function(k){ return !shot[k]; });
+    if(!withPix.length || !without.length)
+      return 'the split has nothing on one side: ' + withPix.length + '/' + without.length;
+    var last = Math.max.apply(null, withPix.map(function(k){ return first[k]; }));
+    without.forEach(function(k){
+      if(first[k] < last) bad.push(k + ' has no photography and still leads'); });
+    return bad.length === 0 || bad.join('; ');
+  })(), true);
   ck('rot: rotating keeps every unit — nothing dropped or duplicated', (function(){
     var out=api.rotateByDev(api.UNITS.slice());
     var ids={}; out.forEach(function(u){ ids[u.id]=(ids[u.id]||0)+1; });
@@ -3543,6 +3569,67 @@ try {
     ['1987','10,000','20 billion','ISOLA Quattro','Wathek Elzeneny'].forEach(function(w){
       if(t2.indexOf(w) === -1) bad.push('missing figure '+w); });
     return bad.length === 0 || bad.slice(0,4).join('; ');
+  })(), true);
+  ck('palmhills: the March 2021 profile, dated, and its three distance pages absent', (function(){
+    var fsx = require('fs'), pathx = require('path'), crypto = require('crypto');
+    var root = pathx.join(__dirname, '..'), own = '/project-media/palmhills/profile/';
+    var f = api.DEV_FEATURES.palmhills, g = api.DEV_GALLERY.palmhills || [], bad = [];
+    if(!f || f.cards.length !== 6) return 'cards=' + (f && f.cards.length);
+    if(g.length !== 8) return 'gallery=' + g.length;
+    if(f.masterplan) bad.push('a company profile has no master plan');
+    var srcs = g.concat([].concat.apply([], f.cards.map(function(c){ return c.imgs; })));
+    srcs.forEach(function(src){
+      if(String(src).indexOf(own) !== 0) bad.push('stray ' + src);
+      if(!fsx.existsSync(pathx.join(root, String(src).replace(/^\//, ''))))
+        bad.push('missing ' + src);
+    });
+    /* Page 35 is the same embedded image object as page 34 — xref 668, printed
+       on two facing pages — so it was never written. The rule the site is held
+       to is content, not name: no two frames in one strip may be the same
+       bytes, whatever they are called. */
+    var seen = {};
+    g.forEach(function(src){
+      var p = pathx.join(root, String(src).replace(/^\//, ''));
+      if(!fsx.existsSync(p)) return;
+      var h = crypto.createHash('md5').update(fsx.readFileSync(p)).digest('hex');
+      if(seen[h]) bad.push(src + ' is byte-for-byte ' + seen[h]);
+      seen[h] = src;
+    });
+    /* p38 is Badya's Location and prints a drive-time table; p82 opens "Only 18
+       kilometers south of the airport" and p84 "A mere 120 kilometers east of
+       the pulsating heart of Cairo". All 89 pages were swept and those three
+       are the only ones that print a distance. p56, p77 and p83 are the two
+       photographs that show no identifiable Palm Hills place and the piece of
+       brand artwork. None of the six may reach the page. */
+    ['p35','p38','p56','p77','p82','p83','p84'].forEach(function(pg){
+      if(srcs.indexOf(own + pg + '.webp') > -1) bad.push(pg + ' is on the page'); });
+    var t = txt(api.V.developer('palmhills').node);
+    /* The date is the point of the whole block: these are 2021 figures. */
+    ['March 2021','1997','2005','34 projects','42.5 million','58.2','70,000','300,000',
+     '13,323','3,300','2.9 million'].forEach(function(w){
+      if(t.indexOf(w) === -1) bad.push('missing figure ' + w); });
+    if(/\b\d+(\.\d+)?\s*(min|mins|minutes|hr|hrs|hours|kilomet)\b/i.test(t))
+      bad.push('a drive time or distance');
+    if(/\d+\s*(دقيقة|دقائق|ساعة|ساعات|كيلومتر)/.test(JSON.stringify(f)))
+      bad.push('a drive time or distance (ar)');
+    /* The first card tells the reader which of today's projects the 2021
+       profile predates, by name. If that set changes the sentence is wrong, so
+       the count is asserted rather than left to drift. */
+    var mine = api.PROJECTS.filter(function(p){ return p.dev === 'palmhills'; });
+    if(mine.length !== 11) bad.push(mine.length + ' palm hills projects, not 11 — the card names three');
+    ['badya-october','palm-hills-new-cairo','hacienda-west'].forEach(function(s){
+      if(!api.projBySlug(s)) bad.push(s + ' is gone but the card still names it'); });
+    f.cards.forEach(function(c){
+      if(!c.en || !c.ar || !c.copy || !c.copy.lead.en || !c.copy.lead.ar) bad.push('card ' + c.en);
+      if(!c.copy.more || !c.copy.more.en || !c.copy.more.ar) bad.push('more ' + c.en);
+      (c.copy.list || []).forEach(function(i){ if(!i.en || !i.ar) bad.push('list ' + c.en); });
+      (c.copy.groups || []).forEach(function(gr){
+        if(!gr.label.en || !gr.label.ar) bad.push('label ' + c.en);
+        gr.rows.forEach(function(r){
+          if(!r.k.en || !r.k.ar || !r.v.en || !r.v.ar) bad.push('row ' + c.en); });
+      });
+    });
+    return bad.length === 0 || bad.slice(0, 5).join('; ');
   })(), true);
   /* A big zero over "Projects by this developer" reads as an inventory claim.
      The empty state under it already says the projects are being added. */
