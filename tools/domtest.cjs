@@ -2802,7 +2802,7 @@ try {
       bad.push('a drive time or distance (ar)');
     return bad.length === 0 || bad.join('; ');
   })(), true);
-  ck('o west: the sheet’s twenty-seven rows, and the ten units nobody drew', (function(){
+  ck('o west: the sheet’s twenty-seven rows, and every frame each row names', (function(){
     var fsx = require('fs'), pathx = require('path'), crypto = require('crypto');
     var root = pathx.join(__dirname, '..'), own = '/project-media/orascom/o-west/';
     var bad = [];
@@ -2839,17 +2839,24 @@ try {
       'OW-26':[117, 13990000, 2, 4, '2030', '2-bed 99, 96 and 117'],
       'OW-27':[146, 16047000, 2, 4, '2030', '']
     };
-    /* The sheet's Image ID column read down each row, with the eleven names no
-       archive holds dropped. The ten Core and Club Yard units are absent on
-       purpose: the sheet names ap1-core-0..3 and ap1-cy-0..3 for them and no
-       archive holds one, so they carry the branded artwork rather than another
-       neighbourhood's house. */
-    var MY = ['ap1-my-3','ap1-my-4','ap1-my-5','ap1-my-6','ap1-my-7'];
+    /* The sheet's Image ID column read down each row, in full. The fourth
+       archive supplied the eleven renders the first three lacked, so nothing is
+       dropped any more: each row's set starts at its own frame and wraps. */
+    function rot(base, n, start){
+      var out = [];
+      for(var i = 0; i < n; i++) out.push(base + ((start + i) % n));
+      return out;
+    }
     var PK = ['pk-0','pk-1','pk-2','pk-3','pk-4','pk-5','pk-6','pk-7'];
     var FRAMES = {
-      'OW-01':MY, 'OW-02':MY, 'OW-03':MY, 'OW-04':MY,
-      'OW-05':['ap1-my-4','ap1-my-5','ap1-my-6','ap1-my-7','ap1-my-3'],
-      'OW-06':['ap1-my-5','ap1-my-6','ap1-my-7','ap1-my-3','ap1-my-4'],
+      'OW-01':rot('ap1-my-', 8, 0), 'OW-02':rot('ap1-my-', 8, 1),
+      'OW-03':rot('ap1-my-', 8, 2), 'OW-04':rot('ap1-my-', 8, 3),
+      'OW-05':rot('ap1-my-', 8, 4), 'OW-06':rot('ap1-my-', 8, 5),
+      'OW-07':rot('ap1-core-', 4, 0), 'OW-08':rot('ap1-core-', 4, 1),
+      'OW-09':rot('ap1-core-', 4, 2), 'OW-10':rot('ap1-core-', 4, 3),
+      'OW-11':rot('ap1-core-', 4, 0), 'OW-12':rot('ap1-core-', 4, 1),
+      'OW-13':rot('ap1-cy-', 4, 0), 'OW-14':rot('ap1-cy-', 4, 1),
+      'OW-15':rot('ap1-cy-', 4, 2), 'OW-16':rot('ap1-cy-', 4, 3),
       'OW-17':['ov-0','ov-1','ov-2','ov-3','ov-4'],
       'OW-18':['ov-1','ov-2','ov-3','ov-4','ov-0'],
       'OW-19':['ov-2','ov-3','ov-4','ov-0','ov-1'],
@@ -2907,15 +2914,22 @@ try {
     });
     var mine = api.UNITS.filter(function(u){ return u.project === 'o-west'; });
     if(mine.length !== 27) bad.push(mine.length + ' units, not 27');
-    /* Core and Club Yard have no render in any of the three archives, and the
-       site says so by showing the branded artwork. If a frame ever appears on
-       one of these ten it came from another neighbourhood, which is a claim
-       about a home nobody has drawn. */
-    for(var i = 7; i <= 16; i++){
-      var id = 'OW-' + (i < 10 ? '0' : '') + i;
-      if((api.UNIT_GALLERY[id] || []).length) bad.push(id + ' has gained a render');
-      if(api.UNIT_IMAGES[id]) bad.push(id + ' has gained a cover');
-    }
+    /* Every unit now has a render, and each neighbourhood's frames stay in it.
+       A Mid Yard render on a Core listing, or a Park Side one on Club Yard,
+       would be a claim about a home nobody drew — so each unit's frames are
+       checked to carry only its own neighbourhood's prefix. */
+    var HOME = {my:[1,6], core:[7,12], cy:[13,16]};
+    Object.keys(HOME).forEach(function(k){
+      for(var i = HOME[k][0]; i <= HOME[k][1]; i++){
+        var id = 'OW-' + (i < 10 ? '0' : '') + i;
+        var g = api.UNIT_GALLERY[id] || [];
+        if(!g.length) bad.push(id + ' lost its renders');
+        g.forEach(function(src){
+          if(src.indexOf(own + 'ap1-' + k + '-') !== 0)
+            bad.push(id + ' carries ' + src.split('/').pop() + ', not a ' + k + ' frame');
+        });
+      }
+    });
     var p = api.projBySlug('o-west');
     if(!p) return 'the project is gone';
     if(p.dev !== 'orascom' || p.area !== 'october') bad.push(p.dev + '/' + p.area);
@@ -2938,12 +2952,23 @@ try {
       if(src.indexOf(own) !== 0) bad.push('foreign image ' + src);
       if(!fsx.existsSync(pathx.join(root, src.slice(1)))) bad.push('missing file ' + src);
     });
-    /* The eight names the sheet gives Core and Club Yard were never written, so
-       they cannot be referenced even by accident. */
-    ['ap1-core-0','ap1-core-1','ap1-core-2','ap1-core-3',
-     'ap1-cy-0','ap1-cy-1','ap1-cy-2','ap1-cy-3',
-     'ap1-my-0','ap1-my-1','ap1-my-2'].forEach(function(f){
-      if(all.indexOf(own + f + '.webp') > -1) bad.push(f + ' is referenced and does not exist'); });
+    /* The sales kit's own pages. p09 prints six drive times over a sketch map
+       and p03 ends "is just minutes away from Mall of Egypt, Dahshour Road,
+       Juhayna Square, Arkan Plaza, the Ring Road, and Mehwar"; p59 and p62 are
+       the same image objects as p53 and p27; p10, p54 and p57 are drawings the
+       archive holds larger and the units already carry. None may reach a page. */
+    ['p03','p09','p10','p13','p16','p17','p54','p57','p59','p62','p65'].forEach(function(pg){
+      if(all.indexOf(own + 'kit/' + pg + '.webp') > -1)
+        bad.push('kit/' + pg + ' is on the page'); });
+    /* And the deck's own figures have to survive on the card, or the brochure
+       is on the site in pictures only. */
+    ['1,000 acres', '1,007 acres', '14,000', '635', 'HOK',
+     '9,054,000', '6,884,000', '425,000'].forEach(function(w){
+      if(flat.indexOf(w) < 0) bad.push('the sales kit’s ' + w + ' is not on the card'); });
+    /* A feddan is not an acre. The card gives both sources their own unit and
+       must not restate one as the other. */
+    if(/1,0(00|07) (feddan|acres \(a thousand feddan)/i.test(flat))
+      bad.push('an acre has been restated as a feddan');
     /* Eight community renders in the project strip, no two the same picture. */
     var g = api.PROJECT_GALLERY['o-west'] || [], seen = {};
     if(g.length !== 8) bad.push('project gallery ' + g.length + ', not 8');
