@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <!-- frame-ancestors/HSTS belong in HTTP response headers (see deploy runbook), not meta. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'sha256-0eB8s3A3aZQguW+SDJC/YssfCUQj66wY3V7A9qjdeKc=' 'sha256-yI6VCT38V7vjk7cAW7UM7qbGpBU7Ua/f8UOqpzWwxAc=' 'sha256-YvHevJmHHrhBzm9a+K1fYxwv5t1APr4XI8t4Am8p7D4=' 'sha256-RBNvo1WzZ4oRRq0W9+hknpT7T8If536DEMBg9hyq/4o=' 'sha256-TRKxPmB8xfXdKH6hVtW1pOLN3vsoTM9GrYvHWevpm8k=' https://static.cloudflareinsights.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://cloudflareinsights.com; base-uri 'self'; form-action 'self'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'sha256-0eB8s3A3aZQguW+SDJC/YssfCUQj66wY3V7A9qjdeKc=' 'sha256-yI6VCT38V7vjk7cAW7UM7qbGpBU7Ua/f8UOqpzWwxAc=' 'sha256-YvHevJmHHrhBzm9a+K1fYxwv5t1APr4XI8t4Am8p7D4=' 'sha256-RBNvo1WzZ4oRRq0W9+hknpT7T8If536DEMBg9hyq/4o=' 'sha256-OGcvW9U2+kOGfY/6wpQFKUlSk6fAWq2Ny8UrKXPRBjI=' https://static.cloudflareinsights.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://cloudflareinsights.com; base-uri 'self'; form-action 'self'" />
   <meta name="theme-color" content="#073D52" />
   <meta name="color-scheme" content="light" />
   <meta name="format-detection" content="telephone=no" />
@@ -5213,6 +5213,7 @@ return devMonogram(dev,px);
 var MV = '/project-media/mountainview/';
 var SD = '/project-media/sodic/';
 var PHP = '/project-media/palmhills/profile/';
+var QDP = '/project-media/qataridiar/profile/';
 var DEV_GALLERY = {
 'elmasria': ['/project-media/elmasria/isola-october.webp',
 '/project-media/elmasria/isola-sheraton.webp',
@@ -5272,6 +5273,8 @@ MV+'crysta.webp', MV+'hyde-park.webp'],
 'beitalbahr':['/project-media/beitalbahr/terrace.webp','/project-media/beitalbahr/living.webp',
 '/project-media/beitalbahr/interior.webp','/project-media/beitalbahr/landscape.webp',
 '/project-media/beitalbahr/lagoon.webp','/project-media/beitalbahr/hotel.webp'],
+'qataridiar':[QDP+'p09.webp', QDP+'p05.webp', QDP+'p10.webp', QDP+'p11.webp',
+QDP+'p25.webp', QDP+'p29.webp', QDP+'p31.webp', QDP+'p33.webp'],
 };
 function devGallery(key){ return DEV_GALLERY[key] || []; }
 function devGalleryItems(dev){
@@ -6609,6 +6612,104 @@ groups:[
 {k:{en:'Types of Units', ar:'أنواع الوحدات'}, v:{en:'Standalone Villas, One Story Villas, Twin Houses, Town Houses, Chalets & Cabanas', ar:'فيلات مستقلة، وفيلات بدور واحد، وتوين هاوس، وتاون هاوس، وشاليهات وكابانات'}},
 {k:{en:'Location', ar:'الموقع'}, v:{en:'Ghazala Bay, on the Alexandria\u2013Matrouh Road, between the Telal and Ghazala Bay Rixos projects', ar:'خليج غزالة، على طريق الإسكندرية — مطروح، بين مشروعي تلال وريكسوس خليج غزالة'}}]}
 ]
+}}
+]
+},
+'qataridiar': {
+cards: [
+{en:'Qatari Diar', ar:'الديار القطرية', icon:'shield',
+imgs:[QDP+'p05.webp', QDP+'p04.webp', QDP+'p02.webp'],
+copy:{
+lead:{en:'Qatari Diar Real Estate Company was established in 2005 by the Qatar Investment Authority, the sovereign wealth fund of the State of Qatar, and headquartered north-east of Doha on the coast of the Arabian Gulf. It was entrusted to support Qatar’s growing economy and to coordinate the country’s real estate development priorities.',
+ar:'تأسّست شركة الديار القطرية للاستثمار العقاري عام ٢٠٠٥ على يد جهاز قطر للاستثمار، صندوق الثروة السيادي لدولة قطر، ومقرّها شمال شرق الدوحة على ساحل الخليج العربي. وأُسندت إليها مهمة دعم الاقتصاد القطري النامي وتنسيق أولويات التطوير العقاري في البلاد.'},
+groups:[
+{label:{en:'As the profile prints them', ar:'كما يطبعها ملف الشركة'}, rows:[
+{k:{en:'Capital', ar:'رأس المال'}, v:{en:'US$4 billion', ar:'٤ مليارات دولار أمريكي'}},
+{k:{en:'Projects', ar:'المشروعات'}, v:{en:'More than 49, in 29 countries', ar:'أكثر من ٤٩ مشروعاً في ٢٩ دولة'}},
+{k:{en:'Combined value', ar:'القيمة الإجمالية'}, v:{en:'Over US$35 billion', ar:'أكثر من ٣٥ مليار دولار أمريكي'}},
+{k:{en:'First project', ar:'المشروع الأول'}, v:{en:'Lusail City, launched in December 2005', ar:'مدينة لوسيل، أُطلقت في ديسمبر ٢٠٠٥'}},
+{k:{en:'Its own words on art', ar:'كلماتها عن الفن'}, v:{en:'“At the heart of Qatari Diar’s philosophy … is a recognition of the value of art and architecture”', ar:'«في قلب فلسفة الديار القطرية … إدراك لقيمة الفن والعمارة»'}}]}
+],
+more:{en:'THE DATE, because none is printed. The profile carries no date on its cover or its colophon, but four things inside fix it between 2011 and mid-2013: the Shell Centre agreement is dated 2011; East Village’s homes are “ready for residents to move into in 2013”, in the future tense; the Hotel Schweizerhof reopened “in summer of 2011”; and Qatar Vision 2030 is credited to His Highness the Emir Sheikh Hamad Bin Khalifa Al-Thani with Sheikh Tamim Bin Hamad Al-Thani as Heir Apparent, which stopped being true in June 2013. So these are the company’s figures of about 2012, and its portfolio is that of about 2012: the one project it names in Egypt is the Nile Corniche in Cairo, and it does not mention Alam Al Roum, the Qatari Diar project this site sells.',
+ar:'التاريخ، لأنه غير مطبوع. لا يحمل الملف تاريخاً على غلافه ولا في بياناته، لكن أربعة أمور بداخله تحصره بين ٢٠١١ ومنتصف ٢٠١٣: اتفاقية Shell Centre مؤرّخة ٢٠١١؛ ومنازل East Village «جاهزة لانتقال السكان إليها في ٢٠١٣» بصيغة المستقبل؛ وفندق Schweizerhof أعاد افتتاحه «في صيف ٢٠١١»؛ ورؤية قطر ٢٠٣٠ منسوبة إلى حضرة صاحب السمو الأمير الشيخ حمد بن خليفة آل ثاني وسمو وليّ العهد الشيخ تميم بن حمد آل ثاني، وهو ما لم يعد صحيحاً منذ يونيو ٢٠١٣. فهذه أرقام الشركة في حدود ٢٠١٢، ومحفظتها محفظة ٢٠١٢: المشروع الوحيد الذي تسمّيه في مصر هو كورنيش النيل بالقاهرة، ولا تذكر علم الروم، وهو مشروع الديار القطرية الذي يعرضه هذا الموقع.'}
+}},
+{en:'Vision, mission, and where it builds', ar:'الرؤية والرسالة وأين تبني', icon:'globe',
+imgs:[QDP+'p06.webp'],
+copy:{
+lead:{en:'One page carries both statements and a world map of the countries the company was working in.',
+ar:'صفحة واحدة تحمل البيانين وخريطة عالم بالدول التي كانت الشركة تعمل فيها.'},
+groups:[
+{label:{en:'As the page prints them', ar:'كما تطبعهما الصفحة'}, rows:[
+{k:{en:'Vision', ar:'الرؤية'}, v:{en:'“To be the world’s premier real estate investment company dedicated to capturing the hearts and imaginations of the communities we enter by creating visionary beacons of friendship and prosperity”', ar:'«أن نكون شركة الاستثمار العقاري الأولى عالمياً، المكرّسة لأسر قلوب وخيال المجتمعات التي ندخلها بخلق منارات ملهمة للصداقة والازدهار»'}},
+{k:{en:'Mission', ar:'الرسالة'}, v:{en:'“To promote a better quality of life for the people of Qatar and around the world by creating distinguished developments on a grand scale incorporating best practice industry standards”', ar:'«الارتقاء بجودة حياة أهل قطر والعالم بخلق تطويرات متميّزة على نطاق واسع تتبنّى أفضل المعايير المهنية»'}},
+{k:{en:'The 22 countries it names', ar:'الدول الاثنتان والعشرون التي تسمّيها'}, v:{en:'Qatar · United Kingdom · Spain · France · Switzerland · Italy · Montenegro · Turkey · Tajikistan · Yemen · Oman · Palestine · Morocco · Sudan · Mauritania · Egypt · Eritrea · Tunisia · Libya · Cuba · USA · Panama', ar:'قطر · المملكة المتحدة · إسبانيا · فرنسا · سويسرا · إيطاليا · الجبل الأسود · تركيا · طاجيكستان · اليمن · عُمان · فلسطين · المغرب · السودان · موريتانيا · مصر · إريتريا · تونس · ليبيا · كوبا · الولايات المتحدة · بنما'}}]}
+],
+more:{en:'The profile opens on Qatar National Vision 2030, which it describes as providing for the long-term benefit of Qatar’s people and future generations by creating an advanced society capable of sustaining its development. Qatari Diar, it says, is “the organization proudly entrusted with realizing our country’s vision”.',
+ar:'ويفتتح الملف برؤية قطر الوطنية ٢٠٣٠، ويصفها بأنها تحقّق المنفعة طويلة الأمد لأهل قطر وأجيالها القادمة بخلق مجتمع متقدّم قادر على استدامة تنميته. ويقول إن الديار القطرية هي «المؤسسة المؤتمنة بفخر على تحقيق رؤية بلادنا».'}
+}},
+{en:'Qatar', ar:'قطر', icon:'pin',
+imgs:[QDP+'p09.webp', QDP+'p08.webp', QDP+'p10.webp', QDP+'p11.webp', QDP+'p12.webp'],
+copy:{
+lead:{en:'Lusail City is the company’s flagship and its first project — “not just another development” but a self-contained and comprehensively planned city.',
+ar:'مدينة لوسيل هي مشروع الشركة الرائد وأوّل مشروعاتها — «ليست مجرّد تطوير آخر» بل مدينة قائمة بذاتها ومخطّطة بالكامل.'},
+groups:[
+{label:{en:'As the profile prints them', ar:'كما يطبعها ملف الشركة'}, rows:[
+{k:{en:'Lusail City', ar:'مدينة لوسيل'}, v:{en:'38 sq km, mixed-use, at Lusail, Qatar — the size and classification its own data block gives', ar:'٣٨ كم²، متعدّدة الاستخدامات، في لوسيل بقطر — المساحة والتصنيف كما في بطاقة بياناتها'}},
+{k:{en:'Sheraton Park', ar:'حديقة شيراتون'}, v:{en:'A public green space from Doha Bay to the Sheraton Hotel, with a two-storey underground car park for around 2,000 vehicles, a tunnel to the convention centre, and a service warehouse and control tower for the Doha Metro', ar:'مساحة خضراء عامة من خليج الدوحة إلى فندق شيراتون، بجراج تحت الأرض من طابقين لنحو ٢٬٠٠٠ سيارة، ونفق إلى مركز المؤتمرات، ومخزن خدمات وبرج تحكّم لمترو الدوحة'}},
+{k:{en:'Doha Exhibition & Convention Centre', ar:'مركز الدوحة للمعارض والمؤتمرات'}, v:{en:'90,000 sqm with parking for nearly 5,000 vehicles and a multi-function hall, in West Bay, connected to Sheraton Park by an underground tunnel', ar:'٩٠٬٠٠٠ م² بمواقف لنحو ٥٬٠٠٠ سيارة وقاعة متعدّدة الاستخدامات، في الخليج الغربي، ومتصل بحديقة شيراتون عبر نفق'}},
+{k:{en:'Qutaifiya Lagoon', ar:'بحيرة قطيفية'}, v:{en:'Villas on a man-made lagoon with islands in West Bay, built, the profile says, without eroding the essence of the site', ar:'فيلات على بحيرة صناعية بجزر في الخليج الغربي، بُنيت — كما يقول الملف — دون المساس بجوهر الموقع'}}]}
+],
+more:{en:'Lusail City’s plan is keyed into eighteen districts, which the page names as: Marina District · Fox Hills North and South District · Qatar Entertainment City · Entertainment Island · Qetaifan Islands · Seef Lusail · Waterfront Residential · Waterfront Residential West · Villas & Northern Residential Villas · Al Kharaej · Towers Golf District · Al Erkyah · Education & Medical District · Commercial Boulevard · Lusail Towers – Lusail Plaza · Energy City Qatar Corporate · Energy City Qatar Residential · and two districts under planning study. They are listed in the page’s own order; the page numbers them 01 to 18 but does not print the numbers beside the names in a way that can be read back with certainty, so no name here is tied to a number.',
+ar:'ومخطط مدينة لوسيل مقسّم إلى ثمانية عشر ديستريكت تسمّيها الصفحة: ديستريكت المارينا · فوكس هيلز الشمالي والجنوبي · مدينة قطر للترفيه · جزيرة الترفيه · جزر قطيفان · سيف لوسيل · الواجهة البحرية السكنية · الواجهة البحرية السكنية غرب · الفيلات والفيلات السكنية الشمالية · الخرائج · ديستريكت أبراج الجولف · العركية · ديستريكت التعليم والطب · البوليفارد التجاري · أبراج لوسيل – بلازا لوسيل · مدينة الطاقة – الشركات · مدينة الطاقة – السكني · وديستريكتان قيد دراسة التخطيط. وهي بترتيب الصفحة نفسها؛ وترقّمها الصفحة من ٠١ إلى ١٨ دون أن تطبع الأرقام بجوار الأسماء بشكل يمكن قراءته بيقين، فلم يُربط اسم هنا برقم.'}
+}},
+{en:'Europe', ar:'أوروبا', icon:'layers',
+imgs:[QDP+'p14.webp', QDP+'p15.webp', QDP+'p17.webp', QDP+'p18.webp',
+QDP+'p19.webp', QDP+'p20.webp', QDP+'p21.webp', QDP+'p22.webp'],
+copy:{
+lead:{en:'“Qatari Diar’s projects in Europe span from the United Kingdom, home to the company’s largest number of projects, to the Swiss capital of Bern and the Mediterranean hotspot Montenegro.”',
+ar:'«تمتد مشروعات الديار القطرية في أوروبا من المملكة المتحدة، حيث أكبر عدد من مشروعات الشركة، إلى العاصمة السويسرية برن ووجهة المتوسط الجبل الأسود.»'},
+groups:[
+{label:{en:'As the profile prints them', ar:'كما يطبعها ملف الشركة'}, rows:[
+{k:{en:'Chelsea Barracks, London', ar:'ثكنات تشيلسي، لندن'}, v:{en:'Qatari Diar’s largest residential development in Europe by value — a street plan reminiscent of Georgian London with garden squares, merging the old military site with Belgravia', ar:'أكبر تطوير سكني للديار القطرية في أوروبا من حيث القيمة — مخطط شوارع يستحضر لندن الجورجية بميادين حدائق، يدمج الموقع العسكري القديم بحيّ بلجرافيا'}},
+{k:{en:'Shell Centre, London', ar:'شل سنتر، لندن'}, v:{en:'Agreed in 2011 with Canary Wharf Group and Shell International — offices, retail and residential beside the London Eye, with the 1950s 27-storey tower preserved and retained by Shell', ar:'اتفاقية ٢٠١١ مع Canary Wharf Group وShell International — مكاتب ومحال وسكن بجوار عين لندن، مع الإبقاء على البرج الخمسيني المكوّن من ٢٧ طابقاً لصالح شل'}},
+{k:{en:'Grosvenor Waterside, London', ar:'جروسفينور ووترسايد، لندن'}, v:{en:'25,000 sqm in west London — three buildings owned by Qatari Diar: Caro Point, Bramah House and Moore House. Caro Point is rated ‘Very Good’ under BREEAM EcoHomes', ar:'٢٥٬٠٠٠ م² في غرب لندن — ثلاثة مبانٍ تملكها الديار القطرية: Caro Point وBramah House وMoore House. وحاز Caro Point تصنيف «جيد جداً» في BREEAM EcoHomes'}},
+{k:{en:'The Peninsula Paris', ar:'ذا بينينسولا باريس'}, v:{en:'The late-19th-century Hotel Majestic, later the French foreign ministry — 200 rooms including 46 suites, three restaurants, a spa and a swimming pool', ar:'فندق ماجستيك من أواخر القرن التاسع عشر، ثم وزارة الخارجية الفرنسية — ٢٠٠ غرفة منها ٤٦ جناحاً، وثلاثة مطاعم وسبا وحمّام سباحة'}},
+{k:{en:'Le Royal Monceau, Paris', ar:'لو رويال مونسو، باريس'}, v:{en:'Re-opened in October 2010 after a refurbishment overseen by Philippe Starck — an art library, recording facilities, a screening room and a personal art concierge', ar:'أُعيد افتتاحه في أكتوبر ٢٠١٠ بعد تجديد أشرف عليه فيليب ستارك — مكتبة فنون واستوديو تسجيل وقاعة عرض وكونسيرج فني خاص'}},
+{k:{en:'Excelsior Hotel Gallia, Milan', ar:'إكسلسيور جاليا، ميلانو'}, v:{en:'238 rooms with Royal and Presidential suites, a conference centre and a roof-top bar — undertaken on behalf of the Qatar National Hotels Company', ar:'٢٣٨ غرفة بأجنحة ملكية ورئاسية ومركز مؤتمرات وبار على السطح — نُفّذ نيابةً عن الشركة القطرية للفنادق الوطنية'}},
+{k:{en:'Hotel Schweizerhof, Bern', ar:'فندق شفايتسرهوف، برن'}, v:{en:'Reopened in the summer of 2011 after two years — 99 rooms and suites, an 800 sqm conference and business centre, a ballroom and a wellness zone', ar:'أُعيد افتتاحه في صيف ٢٠١١ بعد عامين — ٩٩ غرفة وجناحاً، ومركز مؤتمرات وأعمال ٨٠٠ م²، وقاعة احتفالات ومنطقة وِلنِس'}},
+{k:{en:'Beyond Horizon, Montenegro', ar:'بيوند هورايزون، الجبل الأسود'}, v:{en:'A five-star hotel with mixed-use units across 34,000 sqm, managed by Qatari Diar Hotel and Property Investment, Montenegro', ar:'فندق خمس نجوم بوحدات متعددة الاستخدامات على ٣٤٬٠٠٠ م²، تديره الديار القطرية للفنادق والاستثمار العقاري بالجبل الأسود'}}]}
+],
+more:{en:'Two European projects are missing from this card on purpose. East Village in London and Port Tarraco Marina in Spain each have a page, and each page fixes the place by how far or how long it is from somewhere else — three travel times on one, a distance from Barcelona on the other. This site carries neither, so neither page is published and nothing from either is quoted.',
+ar:'ومشروعان أوروبيان غائبان عن هذا الكارت عن قصد. فلـEast Village في لندن وPort Tarraco Marina في إسبانيا صفحةٌ لكلٍّ، وكل صفحة تحدّد المكان بمدى بُعده أو زمن الوصول إليه — ثلاثة أزمنة في إحداهما، ومسافة من برشلونة في الأخرى. ولا يحمل هذا الموقع أياً منهما، فلم تُنشر الصفحتان ولم يُنقل منهما شيء.'}
+}},
+{en:'Asia and Africa', ar:'آسيا وأفريقيا', icon:'build',
+imgs:[QDP+'p25.webp', QDP+'p26.webp', QDP+'p29.webp', QDP+'p30.webp', QDP+'p31.webp'],
+copy:{
+lead:{en:'The Asia divider names four: Diar Dushanbe in Tajikistan, the first master-planned city of Rawabi in Palestine, Al Rayyan Hills on the cliff edges of Yemen, and the Atakoy coastal development on the Marmara Sea in Turkey. Of Africa the profile says only that it “passionately believes in the vibrancy and long term economic growth” of it.',
+ar:'يسمّي فاصل آسيا أربعة: ديار دوشنبه بطاجيكستان، ومدينة روابي أول مدينة مخطّطة في فلسطين، والريان هيلز على حافات اليمن الصخرية، وتطوير أتاكوي الساحلي على بحر مرمرة بتركيا. أما عن أفريقيا فلا يقول الملف إلا إنه «يؤمن بشغف بحيويتها ونموّها الاقتصادي طويل الأمد».'},
+groups:[
+{label:{en:'As the profile prints them', ar:'كما يطبعها ملف الشركة'}, rows:[
+{k:{en:'Diar Dushanbe, Tajikistan', ar:'ديار دوشنبه، طاجيكستان'}, v:{en:'68,000 sqm on the Gissar Canal overlooking Kuli Javonon Lake — five luxury residential buildings, hospitality, three commercial buildings, a shopping centre and a waterfront promenade', ar:'٦٨٬٠٠٠ م² على قناة جيسار بإطلالة على بحيرة كولي جافونون — خمسة مبانٍ سكنية فاخرة، وضيافة، وثلاثة مبانٍ تجارية، ومركز تسوّق، وبروميناد على الواجهة المائية'}},
+{k:{en:'Nile Corniche, Cairo', ar:'كورنيش النيل، القاهرة'}, v:{en:'The profile’s one named project in Egypt — a high-end complex on the banks of the Nile with two towers and a retail atrium, and the St. Regis Hotel with serviced apartments', ar:'المشروع الوحيد الذي يسمّيه الملف في مصر — مجمّع راقٍ على ضفاف النيل ببرجين وأتريوم تجاري، وفندق سانت ريجيس بشقق فندقية'}},
+{k:{en:'Mushaireb, Khartoum', ar:'المشيرب، الخرطوم'}, v:{en:'At the convergence of the Blue and White Nile — 206,000 sqm with around 500 residential units and over 6,000 sqm of retail across eight residential towers, a five-star hotel and a commercial arcade, for around 20,000 residents and visitors', ar:'عند ملتقى النيلين الأزرق والأبيض — ٢٠٦٬٠٠٠ م² بنحو ٥٠٠ وحدة سكنية وأكثر من ٦٬٠٠٠ م² محال، في ثمانية أبراج سكنية وفندق خمس نجوم وممشى تجاري، لنحو ٢٠٬٠٠٠ ساكن وزائر'}},
+{k:{en:'Al Houara, Tangier', ar:'الحوارة، طنجة'}, v:{en:'2,340,000 sqm of coastline overlooking the Atlantic — hotels, apartments, golf villas and town homes, an 18-hole signature golf course, a Moroccan spa, a country club and a convention centre', ar:'٢٬٣٤٠٬٠٠٠ م² من الساحل بإطلالة على الأطلسي — فنادق وشقق وفيلات جولف وتاون هومز، وملعب جولف ١٨ حفرة، وسبا مغربي، ونادٍ ريفي، ومركز مؤتمرات'}}]}
+],
+more:{en:'Rawabi is named on this card and nowhere illustrated: the profile’s Rawabi page locates the city by three distances, so the page is not published and none of its sentences is quoted. What the Asia divider says of it — the first master-planned city in the heart of Palestine — is not a distance, so it stands.',
+ar:'وروابي مسمّاة على هذا الكارت وغير مصوّرة في أي موضع: فصفحتها في الملف تحدّد المدينة بثلاث مسافات، فلم تُنشر ولم تُنقل منها جملة. أما ما يقوله فاصل آسيا عنها — أول مدينة مخطّطة في قلب فلسطين — فليس مسافة، فبقي.'}
+}},
+{en:'The Americas', ar:'الأمريكتان', icon:'star',
+imgs:[QDP+'p33.webp'],
+copy:{
+lead:{en:'“North and South America are important markets in Qatari Diar’s international portfolio, with key projects in the US capital, Washington D.C., Panama and Cuba.”',
+ar:'«الأمريكتان الشمالية والجنوبية سوقان مهمّتان في المحفظة الدولية للديار القطرية، بمشروعات رئيسية في العاصمة الأمريكية واشنطن وبنما وكوبا.»'},
+groups:[
+{label:{en:'Washington City Centre, as the profile prints it', ar:'واشنطن سيتي سنتر كما يطبعه الملف'}, rows:[
+{k:{en:'Size', ar:'المساحة'}, v:{en:'Over 148,000 sqm — the company’s first significant investment in the US property market, and the largest such development under way in the US', ar:'أكثر من ١٤٨٬٠٠٠ م² — أول استثمار كبير للشركة في السوق العقاري الأمريكي، وأكبر تطوير من نوعه قيد التنفيذ في الولايات المتحدة'}},
+{k:{en:'Architect', ar:'المعماري'}, v:{en:'Foster + Partners', ar:'Foster + Partners'}},
+{k:{en:'Phase one', ar:'المرحلة الأولى'}, v:{en:'Six buildings — 458 rental apartments, 216 condominiums, 48,000 sqm of office space and more than 17,000 sqm of retail', ar:'ستة مبانٍ — ٤٥٨ شقة للإيجار، و٢١٦ وحدة تمليك، و٤٨٬٠٠٠ م² مكاتب، وأكثر من ١٧٬٠٠٠ م² محال'}}]}
+],
+more:{en:'The profile’s Cuban project, Grand Paraiso on Cayo Largo del Sur, is not on this card: its page fixes the island by its distance from Cuba, so the page is not published and nothing from it is quoted. The profile closes on a line worth keeping — “Better living conditions produce brighter communities” — over an illustration of owls and insects in a tree, which is quoted here rather than published.',
+ar:'ومشروع الملف في كوبا، جراند بارايسو في كايو لارجو ديل سور، ليس على هذا الكارت: فصفحته تحدّد الجزيرة بمسافتها من كوبا، فلم تُنشر ولم يُنقل منها شيء. ويُغلق الملف على سطر يستحق البقاء — «ظروف معيشية أفضل تصنع مجتمعات أكثر إشراقاً» — فوق رسم لبوم وحشرات على غصن شجرة، نُقل هنا ولم يُنشر.'}
 }}
 ]
 }

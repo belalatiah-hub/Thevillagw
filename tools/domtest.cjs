@@ -3830,6 +3830,89 @@ try {
     });
     return bad.length === 0 || bad.slice(0, 5).join('; ');
   })(), true);
+  /* Qatari Diar's corporate profile, "The Art of Real Estate". Undated, and
+     dated: four things inside fix it between 2011 and mid-2013, and the card's
+     whole reason for existing is that a portfolio that old must not read as a
+     current one. So this check holds the dating evidence as tightly as it
+     holds the figures — and holds that the card still says the profile never
+     mentions Alam Al Roum, which is the only Qatari Diar project this site
+     sells. */
+  ck('qataridiar: the undated profile, dated, and its four distance pages absent', (function(){
+    var fsx = require('fs'), pathx = require('path'), crypto = require('crypto');
+    var root = pathx.join(__dirname, '..'), own = '/project-media/qataridiar/profile/';
+    var f = api.DEV_FEATURES.qataridiar, g = api.DEV_GALLERY.qataridiar || [], bad = [];
+    if(!f || f.cards.length !== 6) return 'cards=' + (f && f.cards.length);
+    if(g.length !== 8) return 'gallery=' + g.length;
+    if(f.masterplan) bad.push('a company profile has no master plan');
+    /* Exactly the 23 spreads that were published. */
+    var want = ('p02 p04 p05 p06 p08 p09 p10 p11 p12 p14 p15 p17 p18 p19 p20 p21 p22 ' +
+                'p25 p26 p29 p30 p31 p33').split(' ').map(function(p){ return p + '.webp'; }).sort();
+    var dir = pathx.join(root, own.slice(1));
+    var got = fsx.existsSync(dir) ? fsx.readdirSync(dir).sort() : [];
+    if(got.join(',') !== want.join(','))
+      bad.push('the folder holds ' + got.length + ' files, want ' + want.length);
+    var srcs = g.concat([].concat.apply([], f.cards.map(function(c){ return c.imgs; })));
+    srcs.forEach(function(src){
+      if(String(src).indexOf(own) !== 0) bad.push('stray ' + src);
+      if(!fsx.existsSync(pathx.join(root, String(src).replace(/^\//, ''))))
+        bad.push('missing ' + src);
+    });
+    var seen = {};
+    got.forEach(function(name){
+      var h = crypto.createHash('md5').update(fsx.readFileSync(pathx.join(dir, name))).digest('hex');
+      if(seen[h]) bad.push(name + ' is byte-for-byte ' + seen[h]);
+      seen[h] = name;
+    });
+    var instrip = {};
+    g.forEach(function(src){
+      if(instrip[src]) bad.push(src + ' is in the strip twice');
+      instrip[src] = 1;
+    });
+    /* p16 is East Village and prints three travel times; p23 is Port Tarraco
+       and "95 km south of Barcelona"; p27 is Rawabi and three distances; p34
+       is Grand Paraiso and "50 km southwest of Cuba". The text layer and OCR
+       at 170 dpi agree those four are the only ones of the 35, and none may
+       reach the page in a picture or in a sentence. */
+    ['p16','p23','p27','p34'].forEach(function(pg){
+      if(got.indexOf(pg + '.webp') > -1) bad.push(pg + ' is on disk');
+      if(srcs.indexOf(own + pg + '.webp') > -1) bad.push(pg + ' is on the page'); });
+    var flat = JSON.stringify(f) + JSON.stringify(g);
+    var t = txt(api.V.developer('qataridiar').node);
+    /* The company's own figures. */
+    ['US$4 billion','49','29 countries','US$35 billion','2005','Lusail City','38 sq km',
+     '90,000 sqm','2,340,000 sqm','206,000 sqm','148,000 sqm','Foster + Partners',
+     '238 rooms','99 rooms','Chelsea Barracks','Nile Corniche'].forEach(function(w){
+      if(t.indexOf(w) === -1) bad.push('missing figure ' + w); });
+    /* And the evidence that dates them. Take any one of these away and the
+       card starts presenting a 2012 portfolio as today's. */
+    ['2011','2013','June 2013','Hamad Bin Khalifa','Tamim','Alam Al Roum'].forEach(function(w){
+      if(t.indexOf(w) === -1) bad.push('the dating evidence lost ' + w); });
+    if(!/does not mention Alam Al Roum/i.test(flat))
+      bad.push('the card no longer says the profile omits Alam Al Roum');
+    /* "38 sq km" is an area and stays; a distance or a time may not appear. */
+    [[/\b\d+(\.\d+)?\s*(min|mins|minutes|hr|hrs|hours)\b/i, 'a time'],
+     [/\bminutes?\s+(away|from|drive)\b/i, 'minutes away'],
+     [/\b\d+(\.\d+)?\s*km\b/i, 'a distance'],
+     [/\breached in\b/i, 'a travel time'],
+     [/\d\s*(دقيقة|دقائق|ساعة|ساعات)/, 'a time (ar)']].forEach(function(r){
+      if(r[0].test(t)) bad.push(r[1]); });
+    f.cards.forEach(function(c){
+      if(!c.en || !c.ar || !c.copy || !c.copy.lead.en || !c.copy.lead.ar) bad.push('card ' + c.en);
+      if(c.copy.more && (!c.copy.more.en || !c.copy.more.ar)) bad.push('more ' + c.en);
+      (c.copy.list || []).forEach(function(i){ if(!i.en || !i.ar) bad.push('list ' + c.en); });
+      (c.copy.groups || []).forEach(function(gr){
+        if(!gr.label.en || !gr.label.ar) bad.push('label ' + c.en);
+        gr.rows.forEach(function(r){
+          if(!r.k.en || !r.k.ar || !r.v.en || !r.v.ar) bad.push('row ' + c.en); });
+      });
+    });
+    /* The sentence about Alam Al Roum is only true while Alam Al Roum is the
+       one Qatari Diar project on the site. */
+    var mine = api.PROJECTS.filter(function(p){ return p.dev === 'qataridiar'; });
+    if(mine.length !== 1 || mine[0].slug !== 'alam-al-roum')
+      bad.push(mine.length + ' qatari diar projects — the card names exactly one');
+    return bad.length === 0 || bad.slice(0, 6).join('; ');
+  })(), true);
   /* Five SODIC brochures, five cards. What this holds is the shape of the
      decision rather than the prose: the pictures OF each project reach its
      page, the pages that are bought editorial photography or that print a
