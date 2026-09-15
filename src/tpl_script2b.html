@@ -4067,6 +4067,28 @@
        interiors. */
     'ogami-north-coast': ['p03','p08','p16','p17','p19','p20','p22','p23','p25','p26','p28','p29','p32','p33']
       .map(function(f){ return '/project-media/ogami/kit/'+f+'.webp'; }),
+    /* ZED West — Park Side Residences, in the brochure's own order: the
+       buildings, the lagoon, the view, the tower over its pool, the aerial at
+       sunset, the dining interior, ZED Park and the commercial strip. */
+    'zed-west': ['p06','p09','p18','p20','p23','p29','p26','p54','p58']
+      .map(function(f){ return '/project-media/ora/zed-west/kit/'+f+'.webp'; }),
+    /* Solana East: the aerial, then one render of each of the six home
+       concepts in the order the brochure introduces them — the Gemini Villa,
+       the Villa on one floor, the Villa on two, the Twin Villa, the Twin House
+       and the Town House. */
+    'solana-east': ['p13','p24','p26','p36','p38','p43','p45','p51','p58','p63','p69','p75']
+      .map(function(f){ return '/project-media/ora/solana-east/kit/'+f+'.webp'; }),
+    /* Solana West: every render in the fourteen pages that arrived. */
+    'solana-west': ['p05','p06','p07','p09','p11','p14']
+      .map(function(f){ return '/project-media/ora/solana-west/kit/'+f+'.webp'; }),
+    /* The Emerald Collection: the lake, the villas, the park and the aerial,
+       with the architecture and one interior. */
+    'zed-east-emerald': ['p24','p30','p31','p34','p39','p12','p08']
+      .map(function(f){ return '/project-media/ora/zed-east-emerald/kit/'+f+'.webp'; }),
+    /* ZED East, from the Club Residence Phase 2 brochure: the buildings from
+       the park, the gate side, and Building C. */
+    'zed-east': ['p04','p07','p12','p14','p15','p22','p23','p24']
+      .map(function(f){ return '/project-media/ora/zed-east/kit/'+f+'.webp'; }),
   };
   function projectGalleryItems(p){
     var g = PROJECT_GALLERY[p.slug]; if(!g || !g.length) return [];
@@ -5938,6 +5960,11 @@
   var JNK = '/project-media/sodic/june-north-coast/kit/';
   var VLK = '/project-media/sodic/villette/kit/';
   var OGK = '/project-media/ogami/kit/';
+  var ZWK = '/project-media/ora/zed-west/kit/';
+  var SEK = '/project-media/ora/solana-east/kit/';
+  var SWK = '/project-media/ora/solana-west/kit/';
+  var EMK = '/project-media/ora/zed-east-emerald/kit/';
+  var ZEK = '/project-media/ora/zed-east/kit/';
   var PROJECT_FEATURES = {
     /* P/X — Palm Hills, 6th of October. Sixty-six brochure pages, of which the
        first twenty-three are editorial: a logo, slogans over abstract art, four
@@ -8392,6 +8419,408 @@
              {k:{en:'Garden House', ar:'جاردن هاوس'}, v:{en:'EGP 31 MN', ar:'٣١ مليون جنيه'}},
              {k:{en:'Horizon House', ar:'هورايزون هاوس'}, v:{en:'EGP 28 MN', ar:'٢٨ مليون جنيه'}}]}
          ]
+       }}
+    ]
+  };
+  /* ZED West — ORA, New Zayed. The Park Side Residences brochure, 64 pages.
+
+     The page furniture defeats the usual "largest image on the page" rule
+     here: a 4000x1683 paper texture is drawn behind twenty pages and hairline
+     rules behind fifty-two, all of them larger than the renders. The puller
+     names them and skips them; see tools/pull_ora_brochures.py.
+
+     NOT published: p05, p08 and p22, bought photographs of models; p55, p56
+     and p57, bought photographs of a gym, a clothes rail and a café standing
+     in for the ZED Sports Complex, Y Towers Mall and ZED Strip — whose words
+     are quoted on the last card; p60, a photograph of the chairman. And p15,
+     which prints a 10 MIN. DRIVE RADIUS. */
+  PROJECT_FEATURES['zed-west'] = {
+    masterplan: {en:'Master plan', ar:'الماستر بلان', icon:'masterplan', src:ZWK+'p16.webp'},
+    cards: [
+      {en:'Park Side Residences', ar:'بارك سايد ريزيدنسز', icon:'shield',
+       imgs:[ZWK+'p06.webp', ZWK+'p09.webp'],
+       copy:{
+         lead:{en:'The brochure’s own description: the premium green lifestyle development in ZED El Sheikh Zayed, a high-end intimate gated community inside the larger one.',
+               ar:'وصف البروشور نفسه: التطوير الأخضر المميّز داخل زيد الشيخ زايد، مجتمع مغلق راقٍ وحميم داخل المجتمع الأكبر.'},
+         groups:[
+           {label:{en:'As the brochure prints them', ar:'كما يطبعها البروشور'}, rows:[
+             {k:{en:'ZED Park', ar:'زيد بارك'}, v:{en:'65 acres of greenery, directly in front of the homes', ar:'٦٥ فداناً أمريكياً (acres) من الخضرة، أمام المنازل مباشرة'}},
+             {k:{en:'Interiors', ar:'التصميم الداخلي'}, v:{en:'Wimberly', ar:'Wimberly'}},
+             {k:{en:'Master planning and architecture', ar:'التخطيط العام والعمارة'}, v:{en:'WATG', ar:'WATG'}},
+             {k:{en:'The buildings', ar:'المباني'}, v:{en:'Seven, keyed 1 to 7 on the master plan. This brochure draws the plans of Building 4 and Building 7', ar:'سبعة، مرقّمة من ١ إلى ٧ على الماستر بلان. ويرسم هذا البروشور مخططات المبنى ٤ والمبنى ٧'}},
+             {k:{en:'The gate', ar:'البوابة'}, v:{en:'Nobody can enter Park Side Residences from outside it; residents reach ZED’s facilities whenever they choose', ar:'لا يدخل بارك سايد ريزيدنسز أحد من خارجه؛ ويصل السكان إلى مرافق زيد متى شاؤوا'}}]}
+         ],
+         more:{en:'Every home is placed amid connecting green courtyards, generously spread out so each keeps its privacy and its landscaping — the brochure’s phrase is that no home is ever interrupted by anyone else’s.',
+               ar:'ويقع كل منزل بين أفنية خضراء متصلة، متباعدة بسخاء ليحتفظ كلٌّ بخصوصيته وزراعته — وعبارة البروشور أن أي منزل لا يقطعه منزل آخر أبداً.'}
+       }},
+      {en:'A view to live for', ar:'إطلالة تستحق العيش', icon:'am_landscape',
+       imgs:[ZWK+'p18.webp', ZWK+'p20.webp', ZWK+'p23.webp', ZWK+'p29.webp'],
+       copy:{
+         lead:{en:'With ZED Park directly in front, the brochure’s claim for this project is the view and the spacing rather than the count of anything.',
+               ar:'مع زيد بارك أمامه مباشرة، فإن ما يدّعيه البروشور لهذا المشروع هو الإطلالة والتباعد لا عدد أي شيء.'},
+         list:[
+           {en:'Every building stands freely inside the gated community, spaced by the landscape design', ar:'كل مبنى قائم بذاته داخل المجتمع المغلق، يفصله تصميم اللاندسكيب'},
+           {en:'Connecting courtyards dispersed so homes stay generously apart from one another', ar:'أفنية متصلة موزّعة بحيث تبقى المنازل متباعدة بسخاء'},
+           {en:'Building textures with different facades, so the elevations differ from one another', ar:'ملامس مبانٍ بواجهات مختلفة، فتتمايز الارتفاعات بعضها عن بعض'}]
+       }},
+      {en:'Service apartments by Ora Property Management', ar:'شقق فندقية بإدارة Ora Property Management', icon:'am_concierge',
+       imgs:[ZWK+'p10.webp'],
+       copy:{
+         lead:{en:'Five services, as the page lists them.',
+               ar:'خمس خدمات، كما تذكرها الصفحة.'},
+         list:[
+           {en:'Concierge assistance', ar:'خدمة الكونسيرج'},
+           {en:'Pristine housekeeping', ar:'خدمة تنظيف'},
+           {en:'Seamless car care', ar:'العناية بالسيارة'},
+           {en:'Curated rental solutions', ar:'حلول تأجير'},
+           {en:'Elegant furnishing services', ar:'خدمات تأثيث'}]
+       }},
+      {en:'Finishing — The Powder Palette', ar:'التشطيب — ذا باودر باليت', icon:'am_finished',
+       imgs:[ZWK+'p25.webp', ZWK+'p12.webp', ZWK+'p13.webp', ZWK+'p26.webp'],
+       copy:{
+         lead:{en:'One page, five materials and three rooms. It is the only finishing specification this brochure prints, and it is printed as a swatch board rather than a table.',
+               ar:'صفحة واحدة، خمس مواد وثلاث مساحات. وهي كتيّب التشطيب الوحيد في هذا البروشور، ومطبوع كلوحة عيّنات لا كجدول.'},
+         groups:[
+           {label:{en:'As the palette prints them', ar:'كما تطبعها اللوحة'}, rows:[
+             {k:{en:'The materials', ar:'المواد'}, v:{en:'White paint · textured paint · porcelain tile · light marble floor · light HDF floor', ar:'دهان أبيض · دهان بملمس · بلاط بورسلين · أرضية رخام فاتح · أرضية HDF فاتحة'}},
+             {k:{en:'The rooms it names', ar:'المساحات التي تسمّيها'}, v:{en:'Reception and dining · bedrooms · toilets and kitchen', ar:'الريسبشن والسفرة · غرف النوم · الحمّامات والمطبخ'}},
+             {k:{en:'The one pairing it makes', ar:'الربط الوحيد الذي تصنعه'}, v:{en:'Light HDF floor is labelled “bedrooms” on the board itself; the other four materials are not tied to a room, so none is tied to one here', ar:'أرضية HDF الفاتحة موسومة «غرف النوم» على اللوحة نفسها؛ أما المواد الأربع الأخرى فغير مرتبطة بمساحة، فلم تُربط هنا بواحدة'}}]}
+         ]
+       }},
+      {en:'Building 4, floor by floor', ar:'المبنى ٤ طابقاً طابقاً', icon:'layers',
+       imgs:[ZWK+'p30.webp', ZWK+'p31.webp', ZWK+'p32.webp', ZWK+'p33.webp',
+             ZWK+'p34.webp', ZWK+'p35.webp', ZWK+'p36.webp', ZWK+'p37.webp',
+             ZWK+'p38.webp', ZWK+'p39.webp', ZWK+'p40.webp', ZWK+'p41.webp',
+             ZWK+'p42.webp', ZWK+'p43.webp', ZWK+'p44.webp'],
+       copy:{
+         lead:{en:'Ten floors, keyed unit by unit on each plate, with every home drawn again to its own room dimensions. Every plan is labelled PARK VIEW on one side and SHEIKH ZAYED VIEW on the other.',
+               ar:'عشرة طوابق، كل وحدة مرقّمة على المسقط، ثم كل منزل مرسوم من جديد بمقاسات غرفه. وكل مخطط موسوم PARK VIEW من جهة وSHEIKH ZAYED VIEW من الأخرى.'},
+         groups:[
+           {label:{en:'Total areas, as the plans print them', ar:'المساحات الإجمالية كما تطبعها المخططات'}, rows:[
+             {k:{en:'Studio', ar:'استوديو'}, v:{en:'Type 1A 60 m² · Type 1B 65 m² (terrace 5, garden 24) · Type 2 54 m² (terrace 6, garden 17)', ar:'تايب 1A ٦٠ م² · تايب 1B ٦٥ م² (تراس ٥، حديقة ٢٤) · تايب 2 ٥٤ م² (تراس ٦، حديقة ١٧)'}},
+             {k:{en:'1 bedroom', ar:'غرفة واحدة'}, v:{en:'Type 1B 85 m² (terrace 11, garden 132) · Type 2B 75 m² (terrace 10) · Type 3A 81 m² (terrace 7)', ar:'تايب 1B ٨٥ م² (تراس ١١، حديقة ١٣٢) · تايب 2B ٧٥ م² (تراس ١٠) · تايب 3A ٨١ م² (تراس ٧)'}},
+             {k:{en:'2 bedroom', ar:'غرفتان'}, v:{en:'Type 1 130 m² · Type 2A 121 m² · Type 2B 139 m² · Type 3A 96 m² · Type 3B 106 m² · Type 4A 144 m² · Type 5 146 m²', ar:'تايب 1 ١٣٠ م² · تايب 2A ١٢١ م² · تايب 2B ١٣٩ م² · تايب 3A ٩٦ م² · تايب 3B ١٠٦ م² · تايب 4A ١٤٤ م² · تايب 5 ١٤٦ م²'}},
+             {k:{en:'3 bedroom', ar:'ثلاث غرف'}, v:{en:'Type 1B 171 m² (terrace 19), on the ninth floor', ar:'تايب 1B ١٧١ م² (تراس ١٩)، في الطابق التاسع'}}]}
+         ]
+       }},
+      {en:'Building 7, floor by floor', ar:'المبنى ٧ طابقاً طابقاً', icon:'layers',
+       imgs:[ZWK+'p46.webp', ZWK+'p47.webp', ZWK+'p48.webp', ZWK+'p49.webp',
+             ZWK+'p50.webp', ZWK+'p51.webp', ZWK+'p52.webp'],
+       copy:{
+         lead:{en:'The second of the two buildings this brochure draws, on the same ten floors.',
+               ar:'ثاني المبنيين اللذين يرسمهما هذا البروشور، على الطوابق العشرة نفسها.'},
+         groups:[
+           {label:{en:'Total areas, as the plans print them', ar:'المساحات الإجمالية كما تطبعها المخططات'}, rows:[
+             {k:{en:'Studio', ar:'استوديو'}, v:{en:'Studio 1 55 m² · Studio 2 51 m²', ar:'استوديو ١ ٥٥ م² · استوديو ٢ ٥١ م²'}},
+             {k:{en:'1 bedroom', ar:'غرفة واحدة'}, v:{en:'Type 1A 73 m² · Type 1B 73 m²', ar:'تايب 1A ٧٣ م² · تايب 1B ٧٣ م²'}},
+             {k:{en:'2 bedroom', ar:'غرفتان'}, v:{en:'Type 1A 113 m² · Type 1B 121 m² · Type 2C 123 m² (terrace 11)', ar:'تايب 1A ١١٣ م² · تايب 1B ١٢١ م² · تايب 2C ١٢٣ م² (تراس ١١)'}}]}
+         ],
+         more:{en:'The seven rows this site lists for ZED West are 60, 74, 85, 106, 125, 171 and 219 m². Four of them — 60, 85, 106 and 171 — are printed on these plans exactly. The other three are not: 74 and 125 sit near Building 7’s 73 and 123 without matching them, and 219 appears nowhere in either building. They are carried as the client’s schedule gives them, and this brochure does not confirm them.',
+               ar:'وصفوف زيد ويست السبعة على هذا الموقع هي ٦٠ و٧٤ و٨٥ و١٠٦ و١٢٥ و١٧١ و٢١٩ م². أربعة منها — ٦٠ و٨٥ و١٠٦ و١٧١ — مطبوعة على هذه المخططات تماماً. أما الثلاثة الأخرى فلا: ٧٤ و١٢٥ قريبان من ٧٣ و١٢٣ في المبنى ٧ دون أن يطابقاهما، و٢١٩ لا يظهر في أي من المبنيين. وهي منقولة كما يعطيها جدول العميل، ولا يؤكّدها هذا البروشور.'}
+       }},
+      {en:'ZED Spaces', ar:'مساحات زيد', icon:'am_community',
+       imgs:[ZWK+'p54.webp', ZWK+'p58.webp'],
+       copy:{
+         lead:{en:'Four places the brochure names inside ZED El Sheikh Zayed, of which three are illustrated only by bought photography and so appear here in words alone.',
+               ar:'أربعة أماكن يسمّيها البروشور داخل زيد الشيخ زايد، ثلاثة منها لا تصوّرها إلا صور مشتراة، فوردت هنا بالكلمات وحدها.'},
+         groups:[
+           {label:{en:'As the brochure describes them', ar:'كما يصفها البروشور'}, rows:[
+             {k:{en:'ZED Park', ar:'زيد بارك'}, v:{en:'65 acres, directly in front of the homes', ar:'٦٥ فداناً أمريكياً (acres)، أمام المنازل مباشرة'}},
+             {k:{en:'ZED Sports Complex', ar:'مجمّع زيد الرياضي'}, v:{en:'A premium space to nurture bodies, minds and communities', ar:'مساحة راقية لرعاية الأجساد والعقول والمجتمعات'}},
+             {k:{en:'Y Towers Mall', ar:'واي تاورز مول'}, v:{en:'At the tip of ZED Park — two floors of shopping and international restaurants', ar:'عند طرف زيد بارك — طابقان من التسوّق والمطاعم العالمية'}},
+             {k:{en:'ZED Strip', ar:'زيد ستريب'}, v:{en:'Working spaces, clinics, banks, shops and dining', ar:'مساحات عمل وعيادات وبنوك ومحال ومطاعم'}}]}
+         ]
+       }}
+    ]
+  };
+  /* Solana East — ORA, New Cairo. Seventy-six pages and, unusually among the
+     brochures on this site, not one bought photograph in them: every picture
+     is a render of this project.
+
+     NOT published: p10, which prints three drive times. Its OTHER location
+     page, p09, is a plain map with pins and no times, so that one IS here.
+     p59 is not written — it repeats p44's two image objects exactly. */
+  PROJECT_FEATURES['solana-east'] = {
+    masterplan: {en:'Master plan', ar:'الماستر بلان', icon:'masterplan', src:SEK+'p18.webp'},
+    cards: [
+      {en:'A balanced approach to life', ar:'مقاربة متوازنة للحياة', icon:'shield',
+       imgs:[SEK+'p13.webp', SEK+'p14.webp', SEK+'p11.webp', SEK+'p17.webp'],
+       copy:{
+         lead:{en:'The brochure’s own summary: 174 acres with the homes around a lake, offices in the corner, greenways for the bikes and retail for convenience.',
+               ar:'ملخّص البروشور نفسه: ١٧٤ فداناً أمريكياً (acres) بالمنازل حول بحيرة، ومكاتب في الركن، وممرات خضراء للدراجات، ومحال للخدمة اليومية.'},
+         groups:[
+           {label:{en:'As the brochure prints them', ar:'كما يطبعها البروشور'}, rows:[
+             {k:{en:'The land', ar:'الأرض'}, v:{en:'174 acres', ar:'١٧٤ فداناً أمريكياً (acres)'}},
+             {k:{en:'The plan', ar:'المخطط'}, v:{en:'The lake at the centre, all homes surrounding it, and an elevated layout so each unit has a clear view of it', ar:'البحيرة في المركز وكل المنازل حولها، وتوزيع مرتفع ليكون لكل وحدة إطلالة واضحة عليها'}},
+             {k:{en:'Movement', ar:'الحركة'}, v:{en:'Green spines and corridors interconnect the homes and the amenities, for bikers and pedestrians', ar:'أعمدة وممرات خضراء تربط المنازل بالمرافق، للدراجات والمشاة'}},
+             {k:{en:'The three zones', ar:'المناطق الثلاث'}, v:{en:'SELF — spaces of solace and quiet · NATURE — spaces of sunlight and life · COMMUNITY — spaces of connection and expression', ar:'SELF — مساحات السكينة والهدوء · NATURE — مساحات الضوء والحياة · COMMUNITY — مساحات التواصل والتعبير'}}]}
+         ],
+         more:{en:'The brochure says the master plan was drawn around the idea of a state of nirvana, and calls its architecture award-winning without naming the practice or the award; neither is restated here as a fact this site can stand behind.',
+               ar:'ويقول البروشور إن الماستر بلان رُسم حول فكرة حالة من النيرفانا، ويصف عمارته بالحائزة على جوائز دون تسمية المكتب ولا الجائزة؛ ولم يُنقل أيٌّ منهما هنا كحقيقة يقف خلفها هذا الموقع.'}
+       }},
+      {en:'Where it sits', ar:'أين يقع', icon:'pin', imgs:[SEK+'p09.webp'],
+       copy:{
+         lead:{en:'The brochure’s own location page, which marks the plot and its neighbours and prints no time and no distance. The brochure’s other location page does print three, and is not on this site.',
+               ar:'صفحة الموقع في البروشور نفسه، تؤشّر على الأرض وجيرانها ولا تطبع زمناً ولا مسافة. أما صفحة الموقع الأخرى فتطبع ثلاثة، وليست على هذا الموقع.'}
+       }},
+      {en:'The nine amenities', ar:'المرافق التسعة', icon:'am_club',
+       imgs:[SEK+'p20.webp', SEK+'p21.webp', SEK+'p12.webp'],
+       copy:{
+         lead:{en:'Numbered 01 to 09 on one page.', ar:'مرقّمة من ٠١ إلى ٠٩ في صفحة واحدة.'},
+         list:[
+           {en:'01 · Lake', ar:'٠١ · البحيرة'},
+           {en:'02 · Commercial hub', ar:'٠٢ · المركز التجاري'},
+           {en:'03 · Club house', ar:'٠٣ · الكلوب هاوس'},
+           {en:'04 · Parks and water features', ar:'٠٤ · الحدائق والمسطحات المائية'},
+           {en:'05 · Bike lanes', ar:'٠٥ · مسارات الدراجات'},
+           {en:'06 · Sports facilities', ar:'٠٦ · المرافق الرياضية'},
+           {en:'07 · Offices', ar:'٠٧ · المكاتب'},
+           {en:'08 · Fine dining', ar:'٠٨ · المطاعم الراقية'},
+           {en:'09 · Clinics', ar:'٠٩ · العيادات'}],
+         more:{en:'The commercial hub sits at the edge of the project — the brochure calls it a curated blend of entertainment, dining and spaces for relaxation, and a place to innovate and refresh rather than only to shop.',
+               ar:'ويقع المركز التجاري على طرف المشروع — ويصفه البروشور بمزيج منتقى من الترفيه والمطاعم ومساحات الاسترخاء، ومكان للابتكار والتجديد لا للتسوّق وحده.'}
+       }},
+      {en:'The six home concepts', ar:'مفاهيم المنازل الستة', icon:'ty_villa',
+       imgs:[SEK+'p23.webp', SEK+'p24.webp', SEK+'p26.webp', SEK+'p36.webp',
+             SEK+'p38.webp', SEK+'p43.webp', SEK+'p45.webp', SEK+'p51.webp',
+             SEK+'p58.webp', SEK+'p63.webp', SEK+'p69.webp', SEK+'p75.webp'],
+       copy:{
+         lead:{en:'Six, named and numbered on one page, then drawn one at a time. The Gemini Villa is the brochure’s own headline: a single-storey home from one angle and a two-storey one from another, with an inner glass atrium, three gardens and a private pool.',
+               ar:'ستة، مسمّاة ومرقّمة في صفحة واحدة ثم مرسومة واحداً واحداً. وذا جيميني فيلا هو عنوان البروشور: منزل بطابق واحد من زاوية وبطابقين من أخرى، بفناء زجاجي داخلي وثلاث حدائق وحمّام سباحة خاص.'},
+         groups:[
+           {label:{en:'Total · internal · terrace, as the tables print them', ar:'الإجمالي · الداخلي · التراس، كما تطبعها الجداول'}, rows:[
+             {k:{en:'The Gemini Villa 1', ar:'ذا جيميني فيلا ١'}, v:{en:'388 · 369 · 19 m²', ar:'٣٨٨ · ٣٦٩ · ١٩ م²'}},
+             {k:{en:'The Gemini Villa 2', ar:'ذا جيميني فيلا ٢'}, v:{en:'337 · 309 · 22 m²', ar:'٣٣٧ · ٣٠٩ · ٢٢ م²'}},
+             {k:{en:'The Villa (one floor)', ar:'ذا فيلا (طابق واحد)'}, v:{en:'No total is printed; the options are a 67 m² roof annex with a 253 m² roof terrace, or a 360 m² basement', ar:'لا يُطبع إجمالي؛ والخياران ملحق روف ٦٧ م² بروف تراس ٢٥٣ م²، أو بدروم ٣٦٠ م²'}},
+             {k:{en:'The Villa (two floors) 1', ar:'ذا فيلا (طابقان) ١'}, v:{en:'383 · 364 · 19 m² · roof annex 45 with a 151 m² roof terrace · basement 212 m²', ar:'٣٨٣ · ٣٦٤ · ١٩ م² · ملحق روف ٤٥ بروف تراس ١٥١ م² · بدروم ٢١٢ م²'}},
+             {k:{en:'The Villa (two floors) 2', ar:'ذا فيلا (طابقان) ٢'}, v:{en:'240 · 229 · 11 m² · roof annex 26 with an 83 m² roof terrace · basement 144 m²', ar:'٢٤٠ · ٢٢٩ · ١١ م² · ملحق روف ٢٦ بروف تراس ٨٣ م² · بدروم ١٤٤ م²'}},
+             {k:{en:'The Twin Villa (one floor)', ar:'ذا توين فيلا (طابق واحد)'}, v:{en:'Described but not dimensioned — the brochure prints no area for it', ar:'موصوف دون أبعاد — لا يطبع البروشور له مساحة'}},
+             {k:{en:'The Twin House', ar:'ذا توين هاوس'}, v:{en:'240 · 221 · 19 m² · roof annex 29 with a 79 m² roof terrace · basement 133 m²', ar:'٢٤٠ · ٢٢١ · ١٩ م² · ملحق روف ٢٩ بروف تراس ٧٩ م² · بدروم ١٣٣ م²'}},
+             {k:{en:'The Town House, corner', ar:'ذا تاون هاوس — ركنية'}, v:{en:'249 · 237 · 12 m² · roof terrace 74 m²', ar:'٢٤٩ · ٢٣٧ · ١٢ م² · روف تراس ٧٤ م²'}},
+             {k:{en:'The Town House, middle', ar:'ذا تاون هاوس — وسطى'}, v:{en:'210 · 198 · 12 m²', ar:'٢١٠ · ١٩٨ · ١٢ م²'}}]}
+         ],
+         more:{en:'The five rows this site lists for Solana East are 99, 134, 181, 240 and 369 m². Two of them are on these tables: 240 is the Twin House’s total and 369 the Gemini Villa 1’s internal area. The three apartments are not drawn in this brochure at all, which draws villas, twins and town houses only. Worth recording: two section headers inside this Solana EAST book read SOLANA WEST TYPOLOGIES and SOLANA WEST UNIT TYPOLOGIES, so whether the two Solanas share these home types is not something the brochure settles — and nothing here is attached to Solana West.',
+               ar:'وصفوف سولانا إيست الخمسة على هذا الموقع هي ٩٩ و١٣٤ و١٨١ و٢٤٠ و٣٦٩ م². اثنان منها في هذه الجداول: ٢٤٠ إجمالي التوين هاوس، و٣٦٩ المساحة الداخلية لجيميني فيلا ١. أما الشقق الثلاث فلا يرسمها هذا البروشور أصلاً، فهو يرسم الفيلات والتوين والتاون هاوس فقط. وممّا يستحق التسجيل: عنوانان داخل كتاب سولانا إيست هذا يقولان SOLANA WEST TYPOLOGIES وSOLANA WEST UNIT TYPOLOGIES، فمسألة تشارُك السولانا في هذه النماذج لا يحسمها البروشور — ولم يُربط شيء هنا بسولانا ويست.'}
+       }},
+      {en:'The villas, plan by plan', ar:'الفيلات مخططاً مخططاً', icon:'layers',
+       imgs:[SEK+'p27.webp', SEK+'p28.webp', SEK+'p29.webp', SEK+'p32.webp',
+             SEK+'p33.webp', SEK+'p34.webp', SEK+'p39.webp', SEK+'p40.webp',
+             SEK+'p41.webp', SEK+'p46.webp', SEK+'p47.webp', SEK+'p48.webp',
+             SEK+'p49.webp', SEK+'p52.webp', SEK+'p53.webp', SEK+'p54.webp',
+             SEK+'p55.webp', SEK+'p56.webp'],
+       copy:{
+         lead:{en:'Every villa drawn room by room with its dimensions, and each with its roof-annex and basement options on their own pages.',
+               ar:'كل فيلا مرسومة غرفةً غرفة بأبعادها، ولكلٍّ خيارا ملحق الروف والبدروم في صفحتيهما.'}
+       }},
+      {en:'The twin house and the town house', ar:'التوين هاوس والتاون هاوس', icon:'ty_villa',
+       imgs:[SEK+'p64.webp', SEK+'p65.webp', SEK+'p66.webp', SEK+'p67.webp',
+             SEK+'p72.webp', SEK+'p73.webp', SEK+'p74.webp'],
+       copy:{
+         lead:{en:'The Twin House has two floors, wide windows, a shaded terrace with a pool, and parking for three cars. The Town House is four interconnected units over several levels, with a courtyard bringing light through the interiors and the choice of a garden or a roof.',
+               ar:'للتوين هاوس طابقان ونوافذ عريضة وتراس مظلّل بحمّام سباحة وموقف لثلاث سيارات. أما التاون هاوس فأربع وحدات متصلة على عدة مستويات، بفناء يُدخل الضوء إلى الداخل، وخيار بين حديقة أو سطح.'}
+       }}
+    ]
+  };
+  /* Solana West — ORA, New Zayed. Fourteen pages, numbered 26 to 55 in their
+     own footers: an excerpt of a longer book, and it contains no unit table at
+     all, so this card carries not one area.
+
+     NOT published: p03, the map, which prints four drive times down its side. */
+  PROJECT_FEATURES['solana-west'] = {
+    masterplan: {en:'Master plan', ar:'الماستر بلان', icon:'masterplan', src:SWK+'p06.webp'},
+    cards: [
+      {en:'The master plan, as a spectrum', ar:'الماستر بلان كطيف', icon:'masterplan',
+       imgs:[SWK+'p05.webp', SWK+'p06.webp', SWK+'p07.webp'],
+       copy:{
+         lead:{en:'“The best way to think of Solana’s master plan is to visualise a spectrum.” Three distinct character areas sit on it, with many shades in between.',
+               ar:'«أفضل طريقة للتفكير في ماستر بلان سولانا هي تخيّل طيف.» عليه ثلاث مناطق متمايزة الطابع، وبينها درجات كثيرة.'},
+         groups:[
+           {label:{en:'The core philosophy, in its own words', ar:'الفلسفة الأساسية بكلماته'}, rows:[
+             {k:{en:'What it sets out to create', ar:'ما يسعى إلى خلقه'}, v:{en:'Openness, mobility and connection; walkable areas and social opportunities', ar:'انفتاح وحركة وتواصل؛ مناطق صالحة للمشي وفرص اجتماعية'}},
+             {k:{en:'The green corridors', ar:'الممرات الخضراء'}, v:{en:'All connected to the main green, making pedestrian and cycling connections between the areas', ar:'كلها متصلة بالمساحة الخضراء الرئيسية، تصنع روابط للمشاة والدراجات بين المناطق'}},
+             {k:{en:'Who drew it', ar:'من رسمه'}, v:{en:'Award-winning architects and landscape artists, unnamed in these pages', ar:'معماريون وفنانو لاندسكيب حائزون على جوائز، لا تسمّيهم هذه الصفحات'}}]}
+         ]
+       }},
+      {en:'Solana’s sophisticated side', ar:'الوجه الراقي لسولانا', icon:'spark',
+       imgs:[SWK+'p10.webp', SWK+'p09.webp'],
+       copy:{
+         lead:{en:'Solana Living is the latest phase in Solana. Its hybrid multifamily homes blend the boundary between inside and outside, and each unit in the low-density, low-rise plan carries an accent feature of its own.',
+               ar:'سولانا ليفينج هي أحدث مراحل سولانا. ومنازلها متعدّدة الأسر الهجينة تُذيب الحدّ بين الداخل والخارج، ولكل وحدة في المخطط منخفض الكثافة والارتفاع عنصر مميّز خاص بها.'}
+       }},
+      {en:'Mastering livable designs', ar:'إتقان التصاميم الصالحة للعيش', icon:'home',
+       imgs:[SWK+'p12.webp', SWK+'p11.webp'],
+       copy:{
+         lead:{en:'Six headings on one page, and this is all six.',
+               ar:'ستة عناوين في صفحة واحدة، وهذه هي الستة.'},
+         groups:[
+           {label:{en:'As the page prints them', ar:'كما تطبعها الصفحة'}, rows:[
+             {k:{en:'A selected few', ar:'قلّة منتقاة'}, v:{en:'The beauty is the low-density plan — handpicked homeowners who will build the social connections. Less is always more', ar:'الجمال في المخطط منخفض الكثافة — ملّاك منتقون يبنون الروابط الاجتماعية. والأقل دائماً أكثر'}},
+             {k:{en:'Boundless walks', ar:'مشي بلا حدود'}, v:{en:'A full pathway into every corner of the master plan, an uninterrupted green walkway safe for children to play, run and gather in', ar:'ممر كامل إلى كل ركن من الماستر بلان، ممشى أخضر متصل آمن للأطفال للّعب والجري والتجمّع'}},
+             {k:{en:'Your home, your door', ar:'بيتك، بابك'}, v:{en:'Every home has its own private entrance, whatever building design it is in', ar:'لكل منزل مدخله الخاص، أياً كان تصميم المبنى الذي فيه'}},
+             {k:{en:'Grounded, with no head in the clouds', ar:'على الأرض بلا رأس في السحاب'}, v:{en:'All units low-height, for a homey villa-like feel rather than the skyscraper feeling of modern urban spaces', ar:'كل الوحدات منخفضة الارتفاع، لإحساس بيتي أقرب إلى الفيلا بدل إحساس ناطحات السحاب في المدن الحديثة'}},
+             {k:{en:'Close to what matters', ar:'قريب ممّا يهمّ'}, v:{en:'Surface parking of their own, or parking areas literally steps from home', ar:'مواقف سطحية خاصة، أو مواقف على بُعد خطوات من المنزل'}},
+             {k:{en:'Freedom above all', ar:'الحرية فوق كل شيء'}, v:{en:'Large terraces and open green spaces, so the design always reaches beyond the four walls', ar:'تراسات كبيرة ومساحات خضراء مفتوحة، فيمتد التصميم دائماً خارج الجدران الأربعة'}}]}
+         ]
+       }},
+      {en:'Innovative typologies', ar:'نماذج مبتكرة', icon:'ty_apartment',
+       imgs:[SWK+'p13.webp', SWK+'p14.webp'],
+       copy:{
+         lead:{en:'Solana Living introduces two new renditions of multifamily buildings, which the brochure says are unseen in any other development in the region. These fourteen pages name neither of them and dimension neither of them.',
+               ar:'تقدّم سولانا ليفينج صيغتين جديدتين لمبانٍ متعدّدة الأسر، يقول البروشور إنهما غير مسبوقتين في أي تطوير آخر بالمنطقة. وهذه الصفحات الأربع عشرة لا تسمّيهما ولا تعطيهما أبعاداً.'},
+         more:{en:'That is why this card carries no area: the sixteen rows this site lists for Solana West run from 126 to 337 m², and not one of them is confirmed or contradicted by anything in the pages that arrived.',
+               ar:'ولهذا لا يحمل هذا الكارت أي مساحة: فصفوف سولانا ويست الستة عشر على هذا الموقع تمتد من ١٢٦ إلى ٣٣٧ م²، ولا يؤكّد أو ينفي أياً منها شيء في الصفحات التي وصلت.'}
+       }}
+    ]
+  };
+  /* ZED East Emerald — ORA, New Cairo. Forty-one pages of a book whose own
+     contents page runs to 141. It ends at the master plan: the unit types
+     begin on its page 45 and the floor plans on page 65, so this card carries
+     no unit area at all, and says so.
+
+     NOT published: p25, p28 and p32, bought fashion photographs of a model;
+     and p19, which prints four drive times. */
+  PROJECT_FEATURES['zed-east-emerald'] = {
+    masterplan: {en:'Master plan', ar:'الماستر بلان', icon:'masterplan', src:EMK+'p21.webp'},
+    cards: [
+      {en:'About ZED East', ar:'عن زيد إيست', icon:'shield',
+       imgs:[EMK+'p13.webp', EMK+'p12.webp', EMK+'p08.webp'],
+       copy:{
+         lead:{en:'“Space is luxury” is the brand promise this book opens on, and the whole of ZED East is argued from it: generous layouts, and deliberate distances between the homes.',
+               ar:'«المساحة هي الرفاهية» هو وعد العلامة الذي يفتتح به هذا الكتاب، ومنه يُبنى زيد إيست كله: توزيعات سخية، ومسافات مقصودة بين المنازل.'},
+         groups:[
+           {label:{en:'As the chapter prints them', ar:'كما يطبعها الفصل'}, rows:[
+             {k:{en:'Where', ar:'الموقع'}, v:{en:'Between New Cairo and the New Capital, at the end of South Teseen Road, connected to the East Ring Road, Ain Al Sokhna Road and the Regional Ring Road', ar:'بين القاهرة الجديدة والعاصمة الإدارية، في نهاية طريق التسعين الجنوبي، متصل بالطريق الدائري الشرقي وطريق العين السخنة والدائري الإقليمي'}},
+             {k:{en:'The shape', ar:'الشكل'}, v:{en:'A triangular complex divided into circular clusters, each overlooking green space or the ZED Sports Club', ar:'مجمّع مثلّث مقسّم إلى كلاسترات دائرية، كلٌّ يطلّ على مساحة خضراء أو على نادي زيد الرياضي'}},
+             {k:{en:'The commercial', ar:'التجاري'}, v:{en:'Grouped at the heart of ZED East rather than spread along its edge', ar:'مجموع في قلب زيد إيست لا موزّع على أطرافه'}}]}
+         ]
+       }},
+      {en:'The eight phases, named', ar:'المراحل الثماني بأسمائها', icon:'layers',
+       imgs:[EMK+'p14.webp', EMK+'p15.webp'],
+       copy:{
+         lead:{en:'ZED East is built in phases the book names one by one, with a photograph of each.',
+               ar:'يُبنى زيد إيست على مراحل يسمّيها الكتاب واحدة واحدة، ومع كلٍّ صورتها.'},
+         list:[
+           {en:'01 · Sage Villa', ar:'٠١ · سيج فيلا'},
+           {en:'02 · Mint Duplex', ar:'٠٢ · مينت دوبلكس'},
+           {en:'03 · Lime Twinhouse', ar:'٠٣ · لايم توين هاوس'},
+           {en:'04 · Parsley Apartments', ar:'٠٤ · بارسلي أبارتمنتس'},
+           {en:'05 · 06 · Club Residence Apartments', ar:'٠٥ · ٠٦ · كلوب ريزيدنس أبارتمنتس'},
+           {en:'07 · Club Side Tower Apartments', ar:'٠٧ · كلوب سايد تاور أبارتمنتس'},
+           {en:'08 · Apartments', ar:'٠٨ · أبارتمنتس'}],
+         more:{en:'Two of those phases, Club Residence and Club Residence Phase Two, have a brochure of their own, and it is on this site under ZED East.',
+               ar:'ولاثنتين من تلك المراحل، كلوب ريزيدنس وكلوب ريزيدنس المرحلة الثانية، بروشور خاص، وهو على هذا الموقع تحت زيد إيست.'}
+       }},
+      {en:'The Emerald Collection', ar:'ذي إميرالد كوليكشن', icon:'spark',
+       imgs:[EMK+'p26.webp', EMK+'p29.webp', EMK+'p33.webp', EMK+'p24.webp', EMK+'p30.webp'],
+       copy:{
+         lead:{en:'The last collection of single-family homes ZED East will launch, set in a secluded area alongside the central park, around a crystal lake.',
+               ar:'آخر مجموعة منازل أسرة واحدة يطرحها زيد إيست، في منطقة منعزلة بمحاذاة الحديقة المركزية، حول بحيرة كريستالية.'},
+         groups:[
+           {label:{en:'What this launch changes, in its own words', ar:'ما يغيّره هذا الطرح بكلماته'}, rows:[
+             {k:{en:'The bedrooms', ar:'غرف النوم'}, v:{en:'All of them private master suites', ar:'كلها أجنحة ماستر خاصة'}},
+             {k:{en:'Dedicated rooms', ar:'غرف مخصّصة'}, v:{en:'For nannies and for drivers', ar:'للنانية وللسائق'}},
+             {k:{en:'The views', ar:'الإطلالات'}, v:{en:'Alongside the expansive central park, so the homes look out on open ground', ar:'بمحاذاة الحديقة المركزية الواسعة، فتطلّ المنازل على أرض مفتوحة'}},
+             {k:{en:'The planting', ar:'الزراعة'}, v:{en:'Fragrant orange groves and a community garden of edible plants', ar:'بساتين برتقال عطرية وحديقة مجتمعية بنباتات مأكولة'}}]}
+         ],
+         more:{en:'These forty-one pages are an excerpt: the book’s own contents page puts the unit types on page 45 and the floor plans on page 65, and neither is in what arrived. So this card carries no area for any of the six Emerald rows this site lists — 174, 188, 191, 215, 215 and 250 m² — and nothing here confirms them.',
+               ar:'وهذه الصفحات الإحدى والأربعون مقتطف: فصفحة المحتويات في الكتاب تضع أنواع الوحدات في الصفحة ٤٥ والمخططات في ٦٥، وليس أيٌّ منهما فيما وصل. لذا لا يحمل هذا الكارت مساحة لأيٍّ من صفوف إميرالد الستة على هذا الموقع — ١٧٤ و١٨٨ و١٩١ و٢١٥ و٢١٥ و٢٥٠ م² — ولا يؤكّدها شيء هنا.'}
+       }},
+      {en:'The eight amenities', ar:'المرافق الثمانية', icon:'am_lifestyle',
+       imgs:[EMK+'p27.webp', EMK+'p31.webp', EMK+'p34.webp'],
+       copy:{
+         lead:{en:'Numbered 01 to 08 on one page.', ar:'مرقّمة من ٠١ إلى ٠٨ في صفحة واحدة.'},
+         list:[
+           {en:'01 · Tranquil lake', ar:'٠١ · بحيرة هادئة'},
+           {en:'02 · Garden café', ar:'٠٢ · كافيه الحديقة'},
+           {en:'03 · Yoga platform', ar:'٠٣ · منصة يوجا'},
+           {en:'04 · BBQ and gathering areas', ar:'٠٤ · مناطق شواء وتجمّع'},
+           {en:'05 · Jogging and bicycle track', ar:'٠٥ · مسار جري ودراجات'},
+           {en:'06 · Open fitness area', ar:'٠٦ · منطقة لياقة مفتوحة'},
+           {en:'07 · Kids’ play area', ar:'٠٧ · منطقة لعب الأطفال'},
+           {en:'08 · Charging stations for electric scooters and bikes', ar:'٠٨ · محطات شحن للسكوترات والدراجات الكهربائية'}]
+       }},
+      {en:'The master plan and the five typologies', ar:'الماستر بلان والنماذج الخمسة', icon:'masterplan',
+       imgs:[EMK+'p21.webp', EMK+'p38.webp', EMK+'p40.webp', EMK+'p41.webp', EMK+'p39.webp'],
+       copy:{
+         lead:{en:'ZED East whole, then the Emerald Collection’s own plot, then the plot keyed by typology.',
+               ar:'زيد إيست كاملاً، ثم أرض إميرالد كوليكشن وحدها، ثم الأرض مفتاحها بالنموذج.'},
+         list:[
+           {en:'The Villa', ar:'ذا فيلا'},
+           {en:'Grand Villa', ar:'جراند فيلا'},
+           {en:'Town House', ar:'تاون هاوس'},
+           {en:'Fourplex', ar:'فوربلكس'},
+           {en:'Duplex', ar:'دوبلكس'}],
+         more:{en:'Five typologies are keyed on the plan; this site lists four of them and no Grand Villa. The master plan also marks a FUTURE EXTENSION, which is land and not a phase on sale.',
+               ar:'خمسة نماذج مفتاحها على المخطط؛ ويدرج هذا الموقع أربعة منها دون جراند فيلا. ويؤشّر الماستر بلان كذلك على FUTURE EXTENSION، وهي أرض لا مرحلة معروضة للبيع.'}
+       }}
+    ]
+  };
+  /* ZED East — ORA, New Cairo. The Club Residence Phase 2 brochure, 24 pages,
+     dated 2025 in its own footer. It is a phase brochure, not the project's:
+     what it draws is Building C Type 2, floor plate by floor plate.
+
+     NOT published: p09, a photograph of a man on a balcony that identifies no
+     part of this project, and p10, whose schematic map labels an arrow to
+     Mostakbal City 15 KM. Neither the text sweep nor OCR found that label —
+     it was found by looking at the page. */
+  PROJECT_FEATURES['zed-east'] = {
+    masterplan: {en:'Site plan', ar:'مخطط الموقع', icon:'masterplan', src:ZEK+'p13.webp'},
+    cards: [
+      {en:'Club Residence, Phase 2', ar:'كلوب ريزيدنس — المرحلة الثانية', icon:'shield',
+       imgs:[ZEK+'p06.webp', ZEK+'p04.webp', ZEK+'p07.webp'],
+       copy:{
+         lead:{en:'The Club Residence units are apartments and studios, and the brochure’s claim for them is the palette and the outlook rather than any figure.',
+               ar:'وحدات كلوب ريزيدنس شقق واستوديوهات، وما يدّعيه لها البروشور هو لوحة المواد والإطلالة لا رقم بعينه.'},
+         groups:[
+           {label:{en:'As the brochure prints them', ar:'كما يطبعها البروشور'}, rows:[
+             {k:{en:'The architecture', ar:'العمارة'}, v:{en:'A heterogenous palette — concise, clean materials used to establish 8 series of distinct languages', ar:'لوحة غير متجانسة — مواد محدّدة ونظيفة تُستخدم لإقامة ٨ سلاسل من لغات متمايزة'}},
+             {k:{en:'The outlook', ar:'الإطلالة'}, v:{en:'The apartments and studios overlook ZED Sports Club', ar:'تطلّ الشقق والاستوديوهات على نادي زيد الرياضي'}},
+             {k:{en:'The access', ar:'الوصول'}, v:{en:'Direct main gate access', ar:'وصول مباشر من البوابة الرئيسية'}}]}
+         ],
+         more:{en:'This is a phase brochure and not the project’s: the eight units this site lists under ZED East run from a 65 m² studio to a 300 m² loft, and none of those areas is printed anywhere in these twenty-four pages. What the brochure gives instead is the flat types by name, floor by floor, on the plates further down this page.',
+               ar:'وهذا بروشور مرحلة لا بروشور المشروع: فوحدات زيد إيست الثماني على هذا الموقع تمتد من استوديو ٦٥ م² إلى لوفت ٣٠٠ م²، ولا تُطبع أيٌّ من تلك المساحات في هذه الصفحات الأربع والعشرين. وما يعطيه البروشور بدلاً منها هو أنواع الشقق بأسمائها، طابقاً طابقاً، في المساقط أسفل هذه الصفحة.'}
+       }},
+      {en:'Service apartments by Ora Property Management', ar:'شقق فندقية بإدارة Ora Property Management', icon:'am_concierge',
+       imgs:[ZEK+'p08.webp'],
+       copy:{
+         lead:{en:'The same five services ORA prints for ZED West, numbered on one page.',
+               ar:'الخدمات الخمس نفسها التي تطبعها ORA لزيد ويست، مرقّمة في صفحة واحدة.'},
+         list:[
+           {en:'① Concierge service', ar:'① خدمة الكونسيرج'},
+           {en:'② Car cleaning', ar:'② غسيل السيارة'},
+           {en:'③ Housekeeping', ar:'③ خدمة التنظيف'},
+           {en:'④ Rental services', ar:'④ خدمات التأجير'},
+           {en:'⑤ Furnishing services', ar:'⑤ خدمات التأثيث'}]
+       }},
+      {en:'The site plan', ar:'مخطط الموقع', icon:'layers',
+       imgs:[ZEK+'p11.webp', ZEK+'p13.webp'],
+       copy:{
+         lead:{en:'ZED East with the Club Residence Phase 2 plot picked out, then the plot itself with every building coloured.',
+               ar:'زيد إيست وأرض كلوب ريزيدنس المرحلة الثانية مميّزة عليه، ثم الأرض نفسها وكل مبنى فيها بلونه.'},
+         more:{en:'Both plans carry the same line: landscaping and furniture are illustrative and not legally binding, architectural plans and perspectives may be modified to the final design and the authorities’ regulations.',
+               ar:'ويحمل المخططان السطر نفسه: اللاندسكيب والأثاث للتوضيح وغير ملزمين قانوناً، وقد تُعدَّل المخططات والمنظورات وفق التصميم النهائي ولوائح الجهات المختصة.'}
+       }},
+      {en:'Building C, Type 2', ar:'المبنى C — تايب ٢', icon:'ty_apartment',
+       imgs:[ZEK+'p18.webp', ZEK+'p19.webp', ZEK+'p20.webp', ZEK+'p21.webp',
+             ZEK+'p22.webp', ZEK+'p23.webp'],
+       copy:{
+         lead:{en:'Four floor plates, each colour-keyed to the flat types on it. The brochure prints the names and no areas.',
+               ar:'أربعة مساقط، كلٌّ مفتاحه بالألوان لأنواع الشقق فيه. ويطبع البروشور الأسماء دون مساحات.'},
+         groups:[
+           {label:{en:'The flat types on each plate', ar:'أنواع الشقق في كل مسقط'}, rows:[
+             {k:{en:'Ground floor', ar:'الطابق الأرضي'}, v:{en:'Studio A1 · Studio A2 · 1 Bed Flat A1 · 1 Bed Flat A2 · 1 Bed Flat B1 · 2 Bed Flat A1 · 2 Bed Flat B1 · 3 Bed Flat A1', ar:'استوديو A1 · استوديو A2 · شقة غرفة A1 · شقة غرفة A2 · شقة غرفة B1 · شقة غرفتين A1 · شقة غرفتين B1 · شقة ٣ غرف A1'}},
+             {k:{en:'First floor', ar:'الطابق الأول'}, v:{en:'Studio A3 · 1 Bed Flat B2 · 1 Bed Flat C1 · 2 Bed Flat A2 · 2 Bed Flat B2 · 2 Bed Flat C1 · 3 Bed Flat A2', ar:'استوديو A3 · شقة غرفة B2 · شقة غرفة C1 · شقة غرفتين A2 · شقة غرفتين B2 · شقة غرفتين C1 · شقة ٣ غرف A2'}},
+             {k:{en:'Second to fifth floors', ar:'من الثاني إلى الخامس'}, v:{en:'Studio A3 · 1 Bed Flat B3 · 1 Bed Flat C2 · 2 Bed Flat A3 · 2 Bed Flat B2 · 2 Bed Flat C2 · 3 Bed Flat A2', ar:'استوديو A3 · شقة غرفة B3 · شقة غرفة C2 · شقة غرفتين A3 · شقة غرفتين B2 · شقة غرفتين C2 · شقة ٣ غرف A2'}},
+             {k:{en:'Sixth floor', ar:'الطابق السادس'}, v:{en:'Studio A3 · 1 Bed Flat B2 · 1 Bed Flat C3 · 2 Bed Flat A3 · 2 Bed Flat B2 · 2 Bed Flat D1 · 3 Bed Flat A2', ar:'استوديو A3 · شقة غرفة B2 · شقة غرفة C3 · شقة غرفتين A3 · شقة غرفتين B2 · شقة غرفتين D1 · شقة ٣ غرف A2'}}]}
+         ],
+         more:{en:'One page in this brochure is titled BUILDING D [TYPE 2] and every plate after it is titled BUILDING C TYPE 2. The plates are published as they are labelled; which of the two the divider means is not something the brochure settles.',
+               ar:'وصفحة واحدة في هذا البروشور عنوانها BUILDING D [TYPE 2] وكل المساقط بعدها عنوانها BUILDING C TYPE 2. ونُشرت المساقط بأسمائها كما هي؛ وأيّ المبنيين يقصده الفاصل ليس ممّا يحسمه البروشور.'}
+       }},
+      {en:'From the park', ar:'من الحديقة', icon:'am_gardenpark',
+       imgs:[ZEK+'p14.webp', ZEK+'p15.webp', ZEK+'p24.webp', ZEK+'p12.webp'],
+       copy:{
+         lead:{en:'The Club Residence buildings seen across the planting that separates them.',
+               ar:'مباني كلوب ريزيدنس من خلف الزراعة التي تفصل بينها.'}
        }}
     ]
   };

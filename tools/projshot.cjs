@@ -1,7 +1,7 @@
-/* Look at the five SODIC project pages, both languages and a phone. */
+/* Look at a set of project pages, both languages and a phone. */
 const { chromium } = require('./pw.cjs');
 const OUT = process.argv[2] || '/tmp';
-const SLUGS = ['the-estates-zayed','the-estates-residence','june-north-coast','villette','ogami-north-coast'];
+const SLUGS = (process.argv[3] || 'the-estates-zayed,the-estates-residence,june-north-coast,villette,ogami-north-coast').split(',');
 (async () => {
   const b = await chromium.launch();
   for (const [tag, lang, w, h] of [['en','en',1280,2400], ['ar','ar',1280,2400], ['m','en',390,2000]]) {

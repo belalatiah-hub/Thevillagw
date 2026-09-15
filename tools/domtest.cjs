@@ -2169,10 +2169,20 @@ try {
     var bundle = fsx.readFileSync(pathx.join(__dirname,'main.js'),'utf8');
     var used = {}, m, re = /['"]\/project-media\/ora\/([^'"]+)['"]/g;
     while((m = re.exec(bundle))) used[m[1]] = 1;
-    // The brochure pages are built as ORB+'name.webp', so the literal scan
-    // above cannot see them.
-    re = /ORB\s*\+\s*'([^']+)'/g;
-    while((m = re.exec(bundle))) used['brochure/' + m[1]] = 1;
+    /* Most of this folder is reached through a prefix variable — ORB for the
+       developer brochure, and one per project kit since the five ORA brochures
+       arrived — so the literal scan above cannot see any of it. Rather than
+       list the variables here, where a new one would be forgotten and its
+       whole folder would read as orphaned, they are read out of the bundle:
+       every `var X = '/project-media/ora/…/';` becomes a prefix, and then
+       every `X+'name.webp'` becomes the path it builds. */
+    var pre = {};
+    re = /var\s+([A-Za-z_$][\w$]*)\s*=\s*'\/project-media\/ora\/([^']*)'/g;
+    while((m = re.exec(bundle))) pre[m[1]] = m[2];
+    Object.keys(pre).forEach(function(v){
+      var r = new RegExp('\\b' + v + "\\s*\\+\\s*'([^']+)'", 'g'), x;
+      while((x = r.exec(bundle))) used[pre[v] + x[1]] = 1;
+    });
     var refs = Object.keys(used);
     var broken = refs.filter(function(r){ return !fsx.existsSync(pathx.join(MED, r)); });
     var disk = [];
@@ -3947,6 +3957,133 @@ try {
       bad.push('the estates residence has no finishing line');
     else if(!/no kitchen cabinets/i.test(er.finishing.en) || !/air conditioning/i.test(er.finishing.en))
       bad.push('the finishing line no longer says what is left out: ' + er.finishing.en);
+    return bad.length === 0 || bad.slice(0, 6).join('; ');
+  })(), true);
+  /* Five ORA brochures, five cards, and three of the five are excerpts.
+
+     What this holds, beyond the shape the SODIC check holds: that the pages
+     which print a proximity claim stayed off, that the ZED West paper texture
+     never reached disk (it is larger than every render in that brochure, so
+     "the biggest image on the page" would have published wallpaper thirty-six
+     times over), and that where a brochure confirms none of a project's areas
+     the card says so rather than going quiet. */
+  ck('ora: five brochures on five cards, and the excerpts admit what they lack', (function(){
+    var fsx = require('fs'), pathx = require('path'), crypto = require('crypto');
+    var root = pathx.join(__dirname, '..'), bad = [];
+    var OWN = '/project-media/ora/';
+    var SHAPE = {                       // strip frames, cards
+      'zed-west':         [9, 7],
+      'solana-east':      [12, 6],
+      'solana-west':      [6, 4],
+      'zed-east-emerald': [7, 5],
+      'zed-east':         [8, 5]
+    };
+    /* Exactly the pages that were published. Written out so that re-running
+       the puller with a different selection fails here rather than quietly
+       changing what the site shows. */
+    var KIT = {
+      'zed-west': 'p06 p09 p10 p12 p13 p16 p18 p20 p23 p25 p26 p29 p30 p31 p32 p33 p34 ' +
+                  'p35 p36 p37 p38 p39 p40 p41 p42 p43 p44 p46 p47 p48 p49 p50 p51 p52 p54 p58',
+      'solana-east': 'p09 p11 p12 p13 p14 p17 p18 p20 p21 p23 p24 p26 p27 p28 p29 p32 p33 ' +
+                     'p34 p36 p38 p39 p40 p41 p43 p45 p46 p47 p48 p49 p51 p52 p53 p54 p55 ' +
+                     'p56 p58 p63 p64 p65 p66 p67 p69 p72 p73 p74 p75',
+      'solana-west': 'p05 p06 p07 p09 p10 p11 p12 p13 p14',
+      'zed-east-emerald': 'p08 p12 p13 p14 p15 p21 p24 p26 p27 p29 p30 p31 p33 p34 p38 p39 p40 p41',
+      'zed-east': 'p04 p06 p07 p08 p11 p12 p13 p14 p15 p18 p19 p20 p21 p22 p23 p24'
+    };
+    /* The page each brochure prints a proximity claim on. None may be on disk
+       and none may be reachable from a card. */
+    var OUT = {
+      'zed-west': ['p15'], 'solana-east': ['p10'], 'solana-west': ['p03'],
+      'zed-east-emerald': ['p19'], 'zed-east': ['p10']
+    };
+    /* Each brochure's own figures. If its pictures are on the site and these
+       are not, it has been published as a picture book. */
+    var SAYS = {
+      'zed-west': ['65 acres', 'Wimberly', 'WATG', 'Powder Palette', '171', '146',
+                   '123', '73', 'Y Towers Mall', 'ZED Strip'],
+      'solana-east': ['174 acres', 'Gemini', '388', '369', '337', '309', '383', '364',
+                      '240', '229', '249', '237', '210', '198'],
+      'solana-west': ['spectrum', 'A selected few', 'Boundless walks', 'Freedom above all'],
+      'zed-east-emerald': ['Space is luxury', 'Sage Villa', 'Mint Duplex', 'Lime Twinhouse',
+                           'Grand Villa', 'Fourplex'],
+      'zed-east': ['8 series', 'ZED Sports Club', 'Studio A1', '3 Bed Flat A2']
+    };
+    /* Where a brochure confirms none of the project's rows, the card has to
+       say which rows it is failing to confirm — the alternative is a page that
+       looks sourced and is not. */
+    var ADMITS = {
+      'zed-west': ['74', '125', '219'],
+      'solana-west': ['126', '337'],
+      'zed-east-emerald': ['174', '188', '191', '215', '250'],
+      'zed-east': ['65 m²', '300 m²']
+    };
+    Object.keys(SHAPE).forEach(function(slug){
+      var own = OWN + slug + '/', f = api.projFeatures(slug), g = api.PROJECT_GALLERY[slug] || [];
+      if(!f){ bad.push(slug + ' has no card'); return; }
+      if(g.length !== SHAPE[slug][0]) bad.push(slug + ' strip ' + g.length + ', not ' + SHAPE[slug][0]);
+      if(f.cards.length !== SHAPE[slug][1]) bad.push(slug + ' cards ' + f.cards.length + ', not ' + SHAPE[slug][1]);
+      var want = KIT[slug].split(' ').map(function(p){ return p + '.webp'; }).sort();
+      var dir = pathx.join(root, own.slice(1), 'kit');
+      var got = fsx.existsSync(dir) ? fsx.readdirSync(dir).sort() : [];
+      if(got.join(',') !== want.join(','))
+        bad.push(slug + ' kit holds ' + got.length + ' files, want ' + want.length +
+                 (got.length === want.length ? ' (different pages)' : ''));
+      /* No two files in the kit are the same bytes. This is what would catch
+         ZED West's 4000x1683 paper texture being lifted off twenty pages. */
+      var seen = {};
+      got.forEach(function(name){
+        var h = crypto.createHash('md5').update(fsx.readFileSync(pathx.join(dir, name))).digest('hex');
+        if(seen[h]) bad.push(slug + ': ' + name + ' is byte-for-byte ' + seen[h]);
+        seen[h] = name;
+      });
+      /* And no frame appears twice in one strip. The kit check above cannot
+         see this: a repeated frame is one file on disk listed twice, and the
+         strip keeps its length, so nothing else notices. */
+      var instrip = {};
+      g.forEach(function(src){
+        if(instrip[src]) bad.push(slug + ': ' + src + ' is in the strip twice');
+        instrip[src] = 1;
+      });
+      var srcs = g.concat([].concat.apply([], f.cards.map(function(c){ return c.imgs; })))
+                  .concat(f.masterplan ? [f.masterplan.src] : []);
+      srcs.forEach(function(src){
+        if(String(src).indexOf(own) !== 0) bad.push(slug + ': stray ' + src);
+        if(!fsx.existsSync(pathx.join(root, String(src).replace(/^\//, ''))))
+          bad.push(slug + ': missing ' + src);
+      });
+      OUT[slug].forEach(function(pg){
+        if(got.indexOf(pg + '.webp') > -1) bad.push(slug + ': ' + pg + ' is on disk');
+        if(srcs.indexOf(own + 'kit/' + pg + '.webp') > -1) bad.push(slug + ': ' + pg + ' is on the page');
+      });
+      var flat = JSON.stringify(f) + JSON.stringify(g);
+      SAYS[slug].forEach(function(w){
+        if(flat.indexOf(w) < 0) bad.push(slug + ': the brochure’s "' + w + '" is not on the card'); });
+      (ADMITS[slug] || []).forEach(function(w){
+        if(flat.indexOf(w) < 0) bad.push(slug + ': the unconfirmed ' + w + ' is not owned up to'); });
+      f.cards.forEach(function(c){
+        if(!c.en || !c.ar || !c.copy || !c.copy.lead || !c.copy.lead.en || !c.copy.lead.ar)
+          bad.push(slug + ': card ' + c.en + ' is not bilingual');
+        if(c.copy && c.copy.more && (!c.copy.more.en || !c.copy.more.ar))
+          bad.push(slug + ': more ' + c.en);
+        ((c.copy || {}).list || []).forEach(function(i){
+          if(!i.en || !i.ar) bad.push(slug + ': list ' + c.en); });
+        ((c.copy || {}).groups || []).forEach(function(gr){
+          if(!gr.label.en || !gr.label.ar) bad.push(slug + ': label ' + c.en);
+          gr.rows.forEach(function(r){
+            if(!r.k.en || !r.k.ar || !r.v.en || !r.v.ar) bad.push(slug + ': row ' + c.en); });
+        });
+      });
+      if(f.masterplan && (!f.masterplan.en || !f.masterplan.ar))
+        bad.push(slug + ': master plan label is not bilingual');
+      var t = flat + txt(api.V.project(slug).node);
+      [[/\b\d+(\.\d+)?\s*(min|mins|minutes|hr|hrs|hours)\b/i, 'a time'],
+       [/\bminutes?\s+(away|from|drive)\b/i, 'minutes away'],
+       [/\bdrive\s+radius\b/i, 'a drive radius'],
+       [/\b\d+(\.\d+)?\s*km\b/i, 'a distance'],
+       [/\d\s*(دقيقة|دقائق|ساعة|ساعات)/, 'a time (ar)']].forEach(function(r){
+        if(r[0].test(t)) bad.push(slug + ': ' + r[1]); });
+    });
     return bad.length === 0 || bad.slice(0, 6).join('; ');
   })(), true);
   /* A big zero over "Projects by this developer" reads as an inventory claim.
