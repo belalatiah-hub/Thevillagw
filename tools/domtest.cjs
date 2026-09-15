@@ -587,8 +587,12 @@ try {
   ck('covers: SODIC project shows a real WebP cover image', (function(){
     var n=api.V.project('villette').node; var c=qsa(n,'.proj-cover')[0];
     // Villette's cover was a stock placeholder until the client's own renders
-    // arrived; it now shows the first frame the sheet names for its first unit.
-    return !!c && /^\/project-media\/sodic\/villette\/units\/.+\.webp$/.test(c.getAttribute('src')||'') && (c.getAttribute('loading')==='lazy');
+    // arrived; it then showed the first frame the sheet names for its first
+    // unit, and now the first frame of its own gallery — the Type C pack's
+    // render of Building C. What the check is for has not changed: the cover
+    // is a real WebP out of Villette's own folder, lazily loaded, and never a
+    // placeholder or a picture belonging to some other project.
+    return !!c && /^\/project-media\/sodic\/villette\/(units|kit)\/.+\.webp$/.test(c.getAttribute('src')||'') && (c.getAttribute('loading')==='lazy');
   })(), 'ok');
   ck('covers: SODIC unit shows its own type render', (function(){
     var n=api.V.unit('VL-01').node; var c=qsa(n,'.proj-cover')[0];
@@ -3815,6 +3819,135 @@ try {
       });
     });
     return bad.length === 0 || bad.slice(0, 5).join('; ');
+  })(), true);
+  /* Five SODIC brochures, five cards. What this holds is the shape of the
+     decision rather than the prose: the pictures OF each project reach its
+     page, the pages that are bought editorial photography or that print a
+     distance do not, the folder on disk holds exactly the pages that were
+     chosen, and the figures each brochure prints survive in both languages.
+
+     Metres and kilometres are NOT barred here, because four of the five
+     projects measure themselves in them — June's "500 m from the sea",
+     Ogami's "+11 km lagoon shoreline", the Estates Residences' "2 km green
+     spine", The Estates' "2.4 km bike trail". A project stating its own size
+     is not a claim about how long it takes to drive somewhere. What is barred
+     is a minute, an hour, and the phrasings the five excluded location pages
+     actually use. */
+  ck('sodic: five brochures on five cards, and the pages left out stay out', (function(){
+    var fsx = require('fs'), pathx = require('path'), crypto = require('crypto');
+    var root = pathx.join(__dirname, '..'), bad = [];
+    var OWN = {
+      'the-estates-zayed':     '/project-media/sodic/the-estates-zayed/',
+      'the-estates-residence': '/project-media/sodic/the-estates-residence/',
+      'june-north-coast':      '/project-media/sodic/june-north-coast/',
+      'villette':              '/project-media/sodic/villette/',
+      'ogami-north-coast':     '/project-media/ogami/'
+    };
+    /* frames in the project strip, cards on the page. The Estates gets four
+       frames because four is every picture of the project its brochure holds;
+       Villette two, because its Type C pack draws the building twice. */
+    var SHAPE = {
+      'the-estates-zayed':     [4, 5],
+      'the-estates-residence': [11, 6],
+      'june-north-coast':      [5, 5],
+      'villette':              [2, 4],
+      'ogami-north-coast':     [14, 6]
+    };
+    /* Exactly the pages that were published, project by project. Written out
+       so that re-running the puller with a different selection fails here
+       rather than quietly changing what the site shows. */
+    var KIT = {
+      'the-estates-zayed':     'p03 p05 p08 p09 p18 p19 p20 p21',
+      'the-estates-residence': 'p05 p07 p14 p17 p18 p19 p20 p22 p23 p24 p26 p27 p28 p30 p31 ' +
+                               'p32 p33 p35 p36 p37 p38 p39 p40 p41 p42 p43 p44 p45 p46',
+      'june-north-coast':      'p07 p10 p12 p13 p14 p16 p17 p18 p21 p22 p23 p24 p25 p27 p31 ' +
+                               'p37 p41 p47 p51 r07 r16 r17 r18 r25',
+      'villette':              'p03 p04 p05 p11 p14 p15 p24 p26 p27 p29 p30 p31',
+      'ogami-north-coast':     'p03 p04 p05 p07 p08 p10 p11 p13 p16 p17 p18 p19 p20 p21 p22 ' +
+                               'p23 p24 p25 p26 p27 p28 p29 p30 p32 p33 p34 p35'
+    };
+    /* Each brochure's own figures. If its pictures are on the site and these
+       are not, it has been published as a picture book. */
+    var SAYS = {
+      'the-estates-zayed':     ['446','90%','150','2.4 km','127.3','308.4','314.00','141'],
+      'the-estates-residence': ['115 acres','16.5%','2 km','338.0','282.1','245.10','248.8',
+                                '248.5','214.8','210.8','209.6','216.4','Nobu'],
+      'june-north-coast':      ['280 acres','500 m','2,500 sqm','185','188','201','184','Miami'],
+      'villette':              ['137 – 201','43 – 48','89 – 177','Olympia','Scene','Aura','Hive'],
+      'ogami-north-coast':     ['15%','+11 km','+800 m','60%','+120,000','80%','+85%',
+                                '180','170','215','160','155','50 MN','45 MN','36 MN','31 MN','28 MN']
+    };
+    Object.keys(OWN).forEach(function(slug){
+      var own = OWN[slug], f = api.projFeatures(slug), g = api.PROJECT_GALLERY[slug] || [];
+      if(!f){ bad.push(slug + ' has no card'); return; }
+      if(g.length !== SHAPE[slug][0]) bad.push(slug + ' strip ' + g.length + ', not ' + SHAPE[slug][0]);
+      if(f.cards.length !== SHAPE[slug][1]) bad.push(slug + ' cards ' + f.cards.length + ', not ' + SHAPE[slug][1]);
+      /* The kit folder holds exactly the pages that were chosen — no more, so
+         a dropped page cannot creep back, and no fewer, so a published one
+         cannot silently vanish. */
+      var want = KIT[slug].split(' ').map(function(p){ return p + '.webp'; }).sort();
+      var dir = pathx.join(root, own.slice(1), 'kit');
+      var got = fsx.existsSync(dir) ? fsx.readdirSync(dir).sort() : [];
+      if(got.join(',') !== want.join(','))
+        bad.push(slug + ' kit holds ' + got.length + ' files, want ' + want.length +
+                 (got.length === want.length ? ' (different pages)' : ''));
+      /* Every picture on the page belongs to this project and exists. */
+      var srcs = g.concat([].concat.apply([], f.cards.map(function(c){ return c.imgs; })))
+                  .concat(f.masterplan ? [f.masterplan.src] : []);
+      srcs.forEach(function(src){
+        if(String(src).indexOf(own) !== 0) bad.push(slug + ': stray ' + src);
+        if(!fsx.existsSync(pathx.join(root, String(src).replace(/^\//, ''))))
+          bad.push(slug + ': missing ' + src);
+      });
+      /* No two frames in one strip are the same bytes, whatever they are
+         called — Ogami repeats one marble divider across six slides and June
+         prints the same water three times. */
+      var seen = {};
+      g.forEach(function(src){
+        var p = pathx.join(root, String(src).replace(/^\//, ''));
+        if(!fsx.existsSync(p)) return;
+        var h = crypto.createHash('md5').update(fsx.readFileSync(p)).digest('hex');
+        if(seen[h]) bad.push(slug + ': ' + src + ' is byte-for-byte ' + seen[h]);
+        seen[h] = src;
+      });
+      var flat = JSON.stringify(f) + JSON.stringify(g);
+      SAYS[slug].forEach(function(w){
+        if(flat.indexOf(w) < 0) bad.push(slug + ': the brochure’s "' + w + '" is not on the card'); });
+      /* Bilingual parity, every string on every card. */
+      f.cards.forEach(function(c){
+        if(!c.en || !c.ar || !c.copy || !c.copy.lead || !c.copy.lead.en || !c.copy.lead.ar)
+          bad.push(slug + ': card ' + c.en + ' is not bilingual');
+        if(c.copy && c.copy.more && (!c.copy.more.en || !c.copy.more.ar))
+          bad.push(slug + ': more ' + c.en);
+        ((c.copy || {}).list || []).forEach(function(i){
+          if(!i.en || !i.ar) bad.push(slug + ': list ' + c.en); });
+        ((c.copy || {}).groups || []).forEach(function(gr){
+          if(!gr.label.en || !gr.label.ar) bad.push(slug + ': label ' + c.en);
+          gr.rows.forEach(function(r){
+            if(!r.k.en || !r.k.ar || !r.v.en || !r.v.ar) bad.push(slug + ': row ' + c.en); });
+        });
+      });
+      if(f.masterplan && (!f.masterplan.en || !f.masterplan.ar))
+        bad.push(slug + ': master plan label is not bilingual');
+      /* No minute, no hour, and none of the phrasings the five excluded
+         location pages use. */
+      var t = flat + txt(api.V.project(slug).node);
+      [[/\b\d+(\.\d+)?\s*(min|mins|minutes|hr|hrs|hours)\b/i, 'a time'],
+       [/\bminutes?\s+(away|from|drive)\b/i, 'minutes away'],
+       [/\b\d+(\.\d+)?\s*km\s+from\b/i, 'km from'],
+       [/\bkm\s*90\b/i, 'KM90'],
+       [/\d\s*(دقيقة|دقائق|ساعة|ساعات)/, 'a time (ar)']].forEach(function(r){
+        if(r[0].test(t)) bad.push(slug + ': ' + r[1]); });
+    });
+    /* The Estates Residences had no finishing line at all until its brochure
+       arrived; the seventeen-point specification is where it comes from, and
+       the two things it leaves out are the two a buyer pays for. */
+    var er = api.projBySlug('the-estates-residence');
+    if(!er || !er.finishing || !er.finishing.en || !er.finishing.ar)
+      bad.push('the estates residence has no finishing line');
+    else if(!/no kitchen cabinets/i.test(er.finishing.en) || !/air conditioning/i.test(er.finishing.en))
+      bad.push('the finishing line no longer says what is left out: ' + er.finishing.en);
+    return bad.length === 0 || bad.slice(0, 6).join('; ');
   })(), true);
   /* A big zero over "Projects by this developer" reads as an inventory claim.
      The empty state under it already says the projects are being added. */

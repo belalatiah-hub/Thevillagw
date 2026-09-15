@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <!-- frame-ancestors/HSTS belong in HTTP response headers (see deploy runbook), not meta. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'sha256-0eB8s3A3aZQguW+SDJC/YssfCUQj66wY3V7A9qjdeKc=' 'sha256-yI6VCT38V7vjk7cAW7UM7qbGpBU7Ua/f8UOqpzWwxAc=' 'sha256-YvHevJmHHrhBzm9a+K1fYxwv5t1APr4XI8t4Am8p7D4=' 'sha256-RBNvo1WzZ4oRRq0W9+hknpT7T8If536DEMBg9hyq/4o=' 'sha256-aYLM9cx7Wa+s8Cz6ax8XBpGHFlciVTDkuuFTOL3jt7w=' https://static.cloudflareinsights.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://cloudflareinsights.com; base-uri 'self'; form-action 'self'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'sha256-0eB8s3A3aZQguW+SDJC/YssfCUQj66wY3V7A9qjdeKc=' 'sha256-yI6VCT38V7vjk7cAW7UM7qbGpBU7Ua/f8UOqpzWwxAc=' 'sha256-YvHevJmHHrhBzm9a+K1fYxwv5t1APr4XI8t4Am8p7D4=' 'sha256-RBNvo1WzZ4oRRq0W9+hknpT7T8If536DEMBg9hyq/4o=' 'sha256-jsUxfYsTx6RrE6hZJKHEdKoI84rN8wUJC5UJwvAt2qw=' https://static.cloudflareinsights.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://cloudflareinsights.com; base-uri 'self'; form-action 'self'" />
   <meta name="theme-color" content="#073D52" />
   <meta name="color-scheme" content="light" />
   <meta name="format-detection" content="telephone=no" />
@@ -823,7 +823,7 @@ var PROJECTS = [
 {slug:'badya-october', name:'Badya', name_ar:'بادية', dev:'palmhills', area:'october', status:'launch', price:6700000, dp:3, years:12, delivery:'2030', finishing:{en:'Fully finished / core & shell',ar:'تشطيب كامل / خرسانة'}, types:{en:'Apartment · Townhouse · Twin house · Villa',ar:'شقة · تاون هاوس · توين هاوس · فيلا'}, tags:{en:['6th of October','Master-planned city'],ar:['٦ أكتوبر','مدينة متكاملة']}, blurb:{en:'Palm Hills’ large master-planned city in West Cairo, organised into walkable districts with schools, parks and retail. Its apartments brochure draws six families — Duo A, Duo B, Trio, Corner Unit, The Park A and The Park B — from a 146 m² ground floor to a 295 m² penthouse with a 208 m² roof terrace. Developer-direct primary units, from 3% down over 12 years; delivered units are released at 15% down over 8 years.',ar:'مدينة بالم هيلز المتكاملة الكبرى بغرب القاهرة، مقسّمة إلى أحياء صديقة للمشاة بمدارس وحدائق ومحال. ويرسم بروشور الشقق ستة نماذج — ديو A وديو B وتريو وكورنر يونت وذا بارك A وذا بارك B — من دور أرضي ١٤٦ م² إلى بنتهاوس ٢٩٥ م² بروف ٢٠٨ م². وحدات أولية من المطوّر مباشرة، من مقدم ٣٪ وتقسيط ١٢ سنة؛ وتُطرح الوحدات المستلمة بمقدم ١٥٪ وتقسيط ٨ سنوات.'}},
 {slug:'the-estates-zayed', name:'The Estates', name_ar:'ذي إستيتس', dev:'sodic', area:'zayed', status:'primary', price:78063240, dp:5, years:10, delivery:'2026–2027', finishing:{en:'Semi-finished',ar:'نصف تشطيب'}, types:{en:'Villa',ar:'فيلا'}, tags:{en:['New Zayed','Low-density'],ar:['زايد الجديدة','كثافة منخفضة']}, blurb:{en:'A SODIC community in New Zayed, west of Cairo — low-density residences set among landscaped open space. Developer-direct primary units.',ar:'مجتمع من سوديك بزايد الجديدة غرب القاهرة — وحدات بكثافة منخفضة وسط مساحات خضراء منسّقة. وحدات أولية من المطوّر مباشرة.'}},
 {slug:'westown-medical-center', name:'Westown Medical Center', name_ar:'ويستاون ميديكال سنتر', dev:'sodic', area:'zayed', status:'primary', price:12275000, dp:10, years:5, delivery:'2026', types:{en:'Clinic',ar:'عيادة'}, tags:{en:['Sheikh Zayed','Medical'],ar:['الشيخ زايد','طبي']}, blurb:{en:'A medical building in SODIC’s Westown, Sheikh Zayed — clinics released directly by the developer, from 10% down over 5 years.',ar:'مبنى طبي داخل ويستاون من سوديك بالشيخ زايد — عيادات تُطرح من المطوّر مباشرة، من مقدم ١٠٪ وتقسيط ٥ سنوات.'}},
-{slug:'the-estates-residence', name:'The Estates Residence', name_ar:'ذي إستيتس ريزيدنس', dev:'sodic', area:'zayed', status:'primary', price:23879000, dp:5, years:10, delivery:'2026–2029', types:{en:'Apartment · Townhouse · Twin house · Villa',ar:'شقة · تاون هاوس · توين هاوس · فيلا'}, tags:{en:['New Zayed','Mixed unit types'],ar:['زايد الجديدة','أنواع وحدات متنوعة']}, blurb:{en:'The residential release within SODIC’s The Estates in New Zayed — apartments through to standalone villas, developer-direct, from 5% down over 10 years.',ar:'الطرح السكني داخل ذي إستيتس من سوديك بزايد الجديدة — من الشقق حتى الفيلات المستقلة، من المطوّر مباشرة، بمقدم ٥٪ وتقسيط ١٠ سنوات.'}},
+{slug:'the-estates-residence', name:'The Estates Residence', name_ar:'ذي إستيتس ريزيدنس', dev:'sodic', area:'zayed', status:'primary', price:23879000, dp:5, years:10, delivery:'2026–2029', finishing:{en:'Fully finished — no kitchen cabinets, air conditioning, heaters or shutters',ar:'تشطيب كامل — بدون دواليب مطبخ أو تكييف أو سخانات أو شيش'}, types:{en:'Apartment · Townhouse · Twin house · Villa',ar:'شقة · تاون هاوس · توين هاوس · فيلا'}, tags:{en:['New Zayed','115 acres','Nobu debut'],ar:['زايد الجديدة','١١٥ فداناً أمريكياً','افتتاح نوبو']}, blurb:{en:'The residential release within SODIC’s The Estates in New Zayed — apartments through to standalone villas, developer-direct, from 5% down over 10 years.',ar:'الطرح السكني داخل ذي إستيتس من سوديك بزايد الجديدة — من الشقق حتى الفيلات المستقلة، من المطوّر مباشرة، بمقدم ٥٪ وتقسيط ١٠ سنوات.'}},
 {slug:'aliva-mostakbal', name:'Aliva', name_ar:'أليفا', dev:'mountainview', area:'mostakbal', status:'launch', price:6000000, dp:5, years:9, delivery:'2029', finishing:{en:'Semi-finished',ar:'نصف تشطيب'}, types:{en:'Apartment · Townhouse · Villa',ar:'شقة · تاون هاوس · فيلا'}, tags:{en:['Mostakbal City','Parks & lifestyle'],ar:['مدينة المستقبل','حدائق ولايف ستايل']}, blurb:{en:'A Mountain View community in Mostakbal City built around the developer’s signature parks and lifestyle master plan. Developer-direct primary units.',ar:'مجتمع من ماونتن ڤيو بمدينة المستقبل مبني حول مخطط الحدائق واللايف ستايل المميّز للمطوّر. وحدات أولية من المطوّر مباشرة.'}},
 {slug:'mountain-view-11', name:'Mountain View 1.1', name_ar:'ماونتن ڤيو ١٫١', dev:'mountainview', area:'newcairo', status:'primary', tags:{en:['New Cairo','Launched 2022'],ar:['القاهرة الجديدة','أُطلق ٢٠٢٢']}, blurb:{en:'A Mountain View development in East Cairo, launched in 2022 and building in two phases the company kit names The Villas and The Park.',ar:'مشروع من ماونتن ڤيو بشرق القاهرة، أُطلق عام ٢٠٢٢ ويُبنى على مرحلتين يسمّيهما كتيّب الشركة «ذا فيلاز» و«ذا بارك».'}},
 {slug:'grand-valleys', name:'Grand Valleys', name_ar:'جراند فالييز', dev:'mountainview', area:'newcairo', status:'primary', tags:{en:['New Cairo','Launched 2025'],ar:['القاهرة الجديدة','أُطلق ٢٠٢٥']}, blurb:{en:'Mountain View’s East Cairo launch of 2025, already photographed under construction in the company kit.',ar:'إطلاق ماونتن ڤيو بشرق القاهرة لعام ٢٠٢٥، ويظهر في كتيّب الشركة قيد الإنشاء بالفعل.'}},
@@ -4973,6 +4973,16 @@ var PROJECT_GALLERY = {
 .map(function(f){ return '/project-media/palmhills/hacienda-waters/'+f+'.webp'; }),
 'o-west': ['pk-0','pk-1','pk-2','pk-3','pk-4','pk-5','pk-6','pk-7']
 .map(function(f){ return '/project-media/orascom/o-west/'+f+'.webp'; }),
+'the-estates-zayed': ['p03','p05','p08','p09']
+.map(function(f){ return '/project-media/sodic/the-estates-zayed/kit/'+f+'.webp'; }),
+'the-estates-residence': ['p05','p17','p20','p22','p24','p26','p28','p30','p33','p35','p40']
+.map(function(f){ return '/project-media/sodic/the-estates-residence/kit/'+f+'.webp'; }),
+'june-north-coast': ['r07','r16','r17','r25','r18']
+.map(function(f){ return '/project-media/sodic/june-north-coast/kit/'+f+'.webp'; }),
+'villette': ['p04','p14']
+.map(function(f){ return '/project-media/sodic/villette/kit/'+f+'.webp'; }),
+'ogami-north-coast': ['p03','p08','p16','p17','p19','p20','p22','p23','p25','p26','p28','p29','p32','p33']
+.map(function(f){ return '/project-media/ogami/kit/'+f+'.webp'; }),
 };
 function projectGalleryItems(p){
 var g = PROJECT_GALLERY[p.slug]; if(!g || !g.length) return [];
@@ -6664,6 +6674,11 @@ var PXB = '/project-media/palmhills/px/';
 var PHW = '/project-media/palmhills/hacienda-waters/';
 var OWB = '/project-media/orascom/o-west/';
 var OWK = '/project-media/orascom/o-west/kit/';
+var ESZ = '/project-media/sodic/the-estates-zayed/';
+var ESR = '/project-media/sodic/the-estates-residence/';
+var JNK = '/project-media/sodic/june-north-coast/kit/';
+var VLK = '/project-media/sodic/villette/kit/';
+var OGK = '/project-media/ogami/kit/';
 var PROJECT_FEATURES = {
 'px-new-cairo': {
 masterplan: {en:'Master plan', ar:'الماستر بلان', icon:'masterplan', src:PXB+'units/mp-px.webp'},
@@ -8467,6 +8482,385 @@ lead:{en:'Take your business and your life to the next level at the heart of Kat
 ar:'ارتقِ بعملك وحياتك في قلب الطريق الدائري بالقطامية، بحرية تنفيذ عملك بلا عوائق مع رفاهيات تجارية على بابك.'},
 more:{en:'Dynamic, detailed and more than a little dashing, 41 Business District rises to new contemporary heights. Its innovative, multipurpose concept blends cutting-edge office and clinic spaces with commercial luxuries in one iconic landmark. Strategically situated off the Kattameya Ring Road, it connects multiple districts of the city with seamless mobility and urban proximity.',
 ar:'ديناميكي ودقيق التفاصيل وأنيق بامتياز، يرتفع «٤١ بيزنس ديستريكت» إلى آفاق معاصرة جديدة. ويمزج مفهومه المبتكر متعدد الاستخدامات مساحات المكاتب والعيادات الحديثة مع رفاهيات تجارية في معلم أيقوني واحد. وبموقعه الاستراتيجي على الطريق الدائري بالقطامية، يربط عدة أحياء بالمدينة بتنقّل سلس وقرب حضري.'}
+}}
+]
+};
+PROJECT_FEATURES['the-estates-zayed'] = {
+masterplan: {en:'Master plan', ar:'الماستر بلان', icon:'masterplan', src:ESZ+'units/mp-the-estates.webp'},
+cards: [
+{en:'A villa-only community', ar:'مجتمع فيلات فقط', icon:'shield',
+imgs:[ESZ+'kit/p05.webp', ESZ+'kit/p03.webp'],
+copy:{
+lead:{en:'The Estates is the first launched project in New Zayed, and the brochure closes on a single line: a villa-only community.',
+ar:'«ذي إستيتس» أول مشروع يُطرح في زايد الجديدة، ويُغلق البروشور على سطر واحد: مجتمع فيلات فقط.'},
+groups:[
+{label:{en:'As the brochure prints them', ar:'كما يطبعها البروشور'}, rows:[
+{k:{en:'Green landscape', ar:'المسطحات الخضراء'}, v:{en:'90% of the project, with extra green outdoors and water bodies', ar:'٩٠٪ من المشروع، بمساحات خضراء إضافية ومسطحات مائية'}},
+{k:{en:'Homes', ar:'الوحدات'}, v:{en:'446 limited-edition home types', ar:'٤٤٦ نوع وحدة بإصدار محدود'}},
+{k:{en:'Gardens and lakes', ar:'الحدائق والبحيرات'}, v:{en:'Spaces up to 150 metres of meticulous gardens and lakes', ar:'مساحات تصل إلى ١٥٠ متراً من الحدائق والبحيرات المنسّقة'}},
+{k:{en:'Bike trail', ar:'مسار الدراجات'}, v:{en:'2.4 km, enclosing every cluster all the way to the central park', ar:'٢٫٤ كم، يحيط بكل كلاستر حتى الحديقة المركزية'}},
+{k:{en:'Planting', ar:'الزراعة'}, v:{en:'Each district has its own theme of original, dense planting around lakes at the centre of its clusters', ar:'لكل ديستريكت طابعه من زراعة أصلية كثيفة حول بحيرات في وسط كلاستراته'}},
+{k:{en:'Master planner', ar:'المخطّط العام'}, v:{en:'A world-renowned international architect, unnamed in the brochure', ar:'معماري عالمي، لا يسمّيه البروشور'}}]}
+],
+more:{en:'It is one of SODIC Signatures, which the brochure describes as the developer’s flagship line: integrated communities with their own exclusive community management alongside the spa, the retail and the education.',
+ar:'وهو ضمن «SODIC Signatures»، وهي كما يصفها البروشور خط المطوّر الرائد: مجتمعات متكاملة بإدارة مجتمعية حصرية إلى جانب السبا والريتيل والتعليم.'}
+}},
+{en:'The dual entrance', ar:'المدخلان', icon:'pin', imgs:[ESZ+'kit/p08.webp'],
+copy:{
+lead:{en:'Two distinct gates, each with its own job.',
+ar:'بوّابتان متمايزتان، لكلٍّ منهما دورها.'},
+list:[
+{en:'The first carries the basic needs of the residents — a supermarket and a pharmacy amongst others', ar:'الأولى تحمل الاحتياجات الأساسية للسكان — سوبر ماركت وصيدلية وغيرهما'},
+{en:'The second, on the Alexandria Desert Road, is a dedicated entrance for offices and community hall centres, mini-marts and other conveniences', ar:'والثانية على طريق إسكندرية الصحراوي، مدخل مخصّص للمكاتب وقاعات المجتمع والميني ماركت وغيرها من الخدمات'}]
+}},
+{en:'An urban retreat clubhouse', ar:'كلوب هاوس الملاذ الحضري', icon:'am_club',
+imgs:[ESZ+'kit/p09.webp'],
+copy:{
+lead:{en:'The brochure calls it the first urban retreat in Egypt.',
+ar:'يسمّيه البروشور أول ملاذ حضري في مصر.'},
+list:[
+{en:'Personalised wellness treatment plans', ar:'خطط علاج ووِلنِس مخصّصة'},
+{en:'Healthy eating options', ar:'خيارات أكل صحّي'},
+{en:'Relaxing spa days', ar:'أيام سبا للاسترخاء'},
+{en:'Wellness therapy styles including thermal and hydrotherapy', ar:'أساليب علاج وِلنِس تشمل العلاج الحراري والمائي'}],
+more:{en:'“This ultimate urban retreat is to become Egypt’s leading wellness lifestyle destination” — the brochure’s own sentence, and its own claim.',
+ar:'«وهذا الملاذ الحضري سيصبح وجهة الوِلنِس الأولى في مصر» — جملة البروشور نفسه، وادّعاؤه هو.'}
+}},
+{en:'Everything on the estate', ar:'كل شيء داخل المشروع', icon:'am_retail', imgs:[],
+copy:{
+lead:{en:'What the brochure lists as being on site. Not one of those pages carries a picture of The Estates, so none of them is published — only what they say.',
+ar:'ما يذكره البروشور من مرافق داخل المشروع. ولا تحمل تلك الصفحات صورة واحدة لـ«ذي إستيتس»، فلم يُنشر منها إلا ما تقوله.'},
+list:[
+{en:'An on-premise supermarket and a laundromat', ar:'سوبر ماركت ومغسلة داخل المشروع'},
+{en:'A medical centre and a veterinary clinic', ar:'مركز طبي وعيادة بيطرية'},
+{en:'A nursery, “dedicated to ensuring brighter horizons for our future generations”', ar:'حضانة «مخصّصة لضمان آفاق أرحب لأجيالنا القادمة»'},
+{en:'A storage yard, offering a place to clear the house of clutter', ar:'ساحة تخزين، تمنح مكاناً لإخلاء المنزل من الفائض'},
+{en:'Facility management and maintenance services', ar:'خدمات إدارة المرافق والصيانة'}]
+}},
+{en:'The Cottage and The Cottage 2', ar:'ذا كوتيج وذا كوتيج ٢', icon:'ty_villa',
+imgs:[ESZ+'kit/p18.webp', ESZ+'kit/p19.webp', ESZ+'kit/p20.webp', ESZ+'kit/p21.webp'],
+copy:{
+lead:{en:'This edition draws two homes, both 3 bedroom + living. Neither is a unit listed here — the three Estates listings on this site are 4-bedroom villas — so the plans are on the card and attached to nothing.',
+ar:'ترسم هذه النسخة منزلين، كلاهما ٣ غرف + ريسبشن. وليس أيٌّ منهما وحدة مدرجة هنا — فوحدات «ذي إستيتس» الثلاث على هذا الموقع فيلات بأربع غرف — لذا فالمخططات على الكارت غير مرتبطة بوحدة بعينها.'},
+groups:[
+{label:{en:'As the brochure prints them', ar:'كما يطبعها البروشور'}, rows:[
+{k:{en:'The Cottage', ar:'ذا كوتيج'}, v:{en:'Ground 127.3 m² · first 136.1 m² · roof terrace 70 m² · total 308.4 m² · basement 141 m² · roof annex 45 m²', ar:'أرضي ١٢٧٫٣ م² · أول ١٣٦٫١ م² · روف تراس ٧٠ م² · الإجمالي ٣٠٨٫٤ م² · بدروم ١٤١ م² · ملحق روف ٤٥ م²'}},
+{k:{en:'The Cottage 2', ar:'ذا كوتيج ٢'}, v:{en:'Ground 129.40 m² · first 139.60 m² · roof annex 45.00 m² · roof terrace 74.60 m² · total 314.00 m²', ar:'أرضي ١٢٩٫٤٠ م² · أول ١٣٩٫٦٠ م² · ملحق روف ٤٥٫٠٠ م² · روف تراس ٧٤٫٦٠ م² · الإجمالي ٣١٤٫٠٠ م²'}}]}
+],
+more:{en:'Life at The Cottage, as the brochure tells it: large windows and strategically placed terraces for natural light through the day, a private carport, and a roof for a refined dinner at sunset followed by a movie night in the roof’s living room. On the ground floor the nanny’s room and the kitchen are placed so that hosting is uninterrupted. Every plan page repeats SODIC’s disclaimer — the diagrams are not to scale and are illustrative, SODIC reserves the right to make minor alterations, and the finishing elements and sanitary fixtures may differ from those shown in the renders and specification sheets.',
+ar:'الحياة في «ذا كوتيج» كما يرويها البروشور: نوافذ كبيرة وتراسات موضوعة بعناية لضوء طبيعي طوال اليوم، وكاربورت خاص، وسطح لعشاء راقٍ عند الغروب تتبعه ليلة سينما في صالة السطح. وفي الأرضي وُضعت غرفة النانية والمطبخ بحيث لا تنقطع الضيافة. وتكرّر كل صفحة مخططات إخلاء مسؤولية سوديك — الرسومات ليست بمقياس رسم وهي للتوضيح، وتحتفظ سوديك بحق إجراء تعديلات طفيفة، وقد تختلف عناصر التشطيب والأطقم الصحية عمّا يظهر في الرندرز وكتيّبات المواصفات.'}
+}}
+]
+};
+PROJECT_FEATURES['the-estates-residence'] = {
+masterplan: {en:'Master plan', ar:'الماستر بلان', icon:'masterplan', src:ESR+'units/mp-the-eastates.webp'},
+cards: [
+{en:'A modern masterpiece', ar:'تحفة معاصرة', icon:'shield',
+imgs:[ESR+'kit/p05.webp', ESR+'kit/p07.webp', ESR+'kit/p14.webp'],
+copy:{
+lead:{en:'Designed by an international master-planner, and the vision behind it was a green design.',
+ar:'صمّمه مخطّط عام دولي، وكانت الرؤية وراءه تصميماً أخضر.'},
+groups:[
+{label:{en:'As the brochure prints them', ar:'كما يطبعها البروشور'}, rows:[
+{k:{en:'The land', ar:'الأرض'}, v:{en:'115 acres', ar:'١١٥ فداناً أمريكياً (acres)'}},
+{k:{en:'Footprint', ar:'نسبة البناء'}, v:{en:'16.5%, “creating a surreal outdoor experience”', ar:'١٦٫٥٪، «لتجربة خارجية سوريالية»'}},
+{k:{en:'The mix', ar:'المزيج'}, v:{en:'Apartments and villas, in one low-density, high-end, gated community', ar:'شقق وفيلات، في مجتمع واحد مغلق منخفض الكثافة وراقٍ'}},
+{k:{en:'The streets', ar:'الشوارع'}, v:{en:'No crossroads disrupt the interconnectivity of the whole community', ar:'لا تقاطعات طرق تقطع اتصال المجتمع بعضه ببعض'}},
+{k:{en:'The green spine', ar:'العمود الأخضر'}, v:{en:'2 km, connecting the apartments’ neighbourhood, with a ring road circling the property so vehicles never cross pedestrians', ar:'٢ كم، يربط حيّ الشقق، مع طريق دائري يحيط بالمشروع فلا تتقاطع السيارات مع المشاة'}}]}
+],
+more:{en:'Modern countryside architecture, in the brochure’s words: the non-symmetrical architecture is a nod to simpler times, each building distinct in look and feel and keeping a colour scheme suited to its surrounding natural environment, with large windows in every home.',
+ar:'عمارة ريفية عصرية بكلمات البروشور: عمارة غير متماثلة تحيي زمناً أبسط، كل مبنى متمايز في مظهره وإحساسه ويحتفظ بلوحة ألوان تناسب بيئته الطبيعية المحيطة، ونوافذ كبيرة في كل منزل.'}
+}},
+{en:'Nobu makes its Egyptian debut', ar:'نوبو تفتتح حضورها في مصر', icon:'am_hotel', imgs:[],
+copy:{
+lead:{en:'“Nobu Hotel and Residences are making their debut in Egypt at The Estates Residences” — the brochure’s headline, in its own capitals.',
+ar:'«فندق نوبو وريزيدنسز يفتتحان حضورهما في مصر داخل ذي إستيتس ريزيدنس» — عنوان البروشور، بحروفه الكبيرة.'},
+more:{en:'Blending contemporary luxury and subtle Japanese nuances into the concept of a luxury lifestyle experience: the hotel and residences are design-led, while the restaurants and bars are local and vibrant. That page’s two pictures are a press photograph of the signing and a photograph of a Nobu restaurant that is not this project, so neither of them is published.',
+ar:'مزج بين الفخامة المعاصرة ولمسات يابانية خفيّة في مفهوم تجربة لايف ستايل فاخرة: الفندق والريزيدنسز يقودهما التصميم، بينما المطاعم والبارات محلّية ونابضة. وصورتا تلك الصفحة هما صورة صحفية لتوقيع الاتفاق وصورة لمطعم نوبو ليس هذا المشروع، فلم تُنشر أيٌّ منهما.'}
+}},
+{en:'Parks, lakes and the sports arena', ar:'الحدائق والبحيرات وساحة الرياضة', icon:'am_sports', imgs:[],
+copy:{
+lead:{en:'What the brochure lists, on pages whose photographs are of models rather than of the place.',
+ar:'ما يذكره البروشور، في صفحات صورها لعارضين لا للمكان.'},
+list:[
+{en:'Tennis courts, paddle tennis courts and pickle ball courts', ar:'ملاعب تنس وبادل تنس وبيكل بول'},
+{en:'A 5-a-side football pitch and a skating arena', ar:'ملعب خماسي لكرة القدم وساحة تزلّج'},
+{en:'Jogging tracks surrounding the whole area', ar:'مسارات جري تحيط بالمنطقة كلها'},
+{en:'Multipurpose sports courts, an indoor gym and workout studios overlooking the leisure and kids’ pools', ar:'ملاعب متعددة الاستخدامات وجيم مغلق واستوديوهات تمرين تطل على حمّامات السباحة الترفيهية وحمّامات الأطفال'},
+{en:'Parks and green pathways with playgrounds and BBQ hangouts, and serene lakes across the landscape', ar:'حدائق وممرات خضراء بملاعب أطفال وأماكن شواء، وبحيرات هادئة في أنحاء اللاندسكيب'},
+{en:'A supermarket, a high-end laundromat, a medical centre, a pharmacy and a veterinary clinic', ar:'سوبر ماركت ومغسلة راقية ومركز طبي وصيدلية وعيادة بيطرية'},
+{en:'A social building with TV lounges, an outdoor kids’ area, food trucks and a dog park', ar:'مبنى اجتماعي بصالات تلفزيون ومنطقة أطفال مفتوحة وعربات طعام وحديقة للكلاب'}]
+}},
+{en:'The nine homes', ar:'المنازل التسعة', icon:'ty_villa',
+imgs:[ESR+'kit/p17.webp', ESR+'kit/p20.webp', ESR+'kit/p22.webp', ESR+'kit/p24.webp',
+ESR+'kit/p26.webp', ESR+'kit/p28.webp', ESR+'kit/p30.webp', ESR+'kit/p33.webp',
+ESR+'kit/p35.webp', ESR+'kit/p40.webp'],
+copy:{
+lead:{en:'Nine homes, each drawn floor by floor with its own area table. Villa 01 and Villa 01-1 are the same areas and differ only in how the bedrooms are described.',
+ar:'تسعة منازل، كلٌّ مرسوم طابقاً طابقاً بجدول مساحاته. وفيلا ٠١ وفيلا ٠١-١ بالمساحات نفسها، ولا تختلفان إلا في وصف الغرف.'},
+groups:[
+{label:{en:'Ground · first · roof annex · roof terrace · total', ar:'أرضي · أول · ملحق روف · روف تراس · الإجمالي'}, rows:[
+{k:{en:'Villa 01 — 4 bedrooms + guest room + nanny + penthouse', ar:'فيلا ٠١ — ٤ غرف + غرفة ضيوف + نانية + بنتهاوس'}, v:{en:'151.40 · 146.9 · 39.7 · 110.7 · 338.0 m²', ar:'١٥١٫٤٠ · ١٤٦٫٩ · ٣٩٫٧ · ١١٠٫٧ · ٣٣٨٫٠ م²'}},
+{k:{en:'Villa 01-1 — 1 master suite + 2 bedrooms + guest room + nanny + penthouse', ar:'فيلا ٠١-١ — جناح ماستر + غرفتان + غرفة ضيوف + نانية + بنتهاوس'}, v:{en:'151.40 · 146.9 · 39.7 · 110.7 · 338.0 m²', ar:'١٥١٫٤٠ · ١٤٦٫٩ · ٣٩٫٧ · ١١٠٫٧ · ٣٣٨٫٠ م²'}},
+{k:{en:'Villa 02 — 4 bedrooms + nanny + penthouse', ar:'فيلا ٠٢ — ٤ غرف + نانية + بنتهاوس'}, v:{en:'115.70 · 133.2 · 33.2 · 99.9 · 282.1 m²', ar:'١١٥٫٧٠ · ١٣٣٫٢ · ٣٣٫٢ · ٩٩٫٩ · ٢٨٢٫١ م²'}},
+{k:{en:'Villa 03 — 3 bedrooms + nanny + penthouse', ar:'فيلا ٠٣ — ٣ غرف + نانية + بنتهاوس'}, v:{en:'103.50 · 112.5 · 29.1 · 81.8 · 245.10 m²', ar:'١٠٣٫٥٠ · ١١٢٫٥ · ٢٩٫١ · ٨١٫٨ · ٢٤٥٫١٠ م²'}},
+{k:{en:'Twin Home, unit A — 4 bedrooms + nanny + penthouse', ar:'توين هوم، الوحدة A — ٤ غرف + نانية + بنتهاوس'}, v:{en:'101.6 · 117.8 · 29.4 · 82.3 · 248.8 m²', ar:'١٠١٫٦ · ١١٧٫٨ · ٢٩٫٤ · ٨٢٫٣ · ٢٤٨٫٨ م²'}},
+{k:{en:'Twin Home, unit B — 4 bedrooms + nanny + penthouse', ar:'توين هوم، الوحدة B — ٤ غرف + نانية + بنتهاوس'}, v:{en:'101.6 · 117.50 · 29.4 · 81.8 · 248.5 m²', ar:'١٠١٫٦ · ١١٧٫٥٠ · ٢٩٫٤ · ٨١٫٨ · ٢٤٨٫٥ م²'}},
+{k:{en:'Town Home, unit A — 3 bedrooms + nanny + penthouse', ar:'تاون هوم، الوحدة A — ٣ غرف + نانية + بنتهاوس'}, v:{en:'90.7 · 95.6 · 28.5 · 68.40 · 214.8 m²', ar:'٩٠٫٧ · ٩٥٫٦ · ٢٨٫٥ · ٦٨٫٤٠ · ٢١٤٫٨ م²'}},
+{k:{en:'Town Home, unit B', ar:'تاون هوم، الوحدة B'}, v:{en:'89.2 · 93.9 · 27.7 · 67.7 · 210.8 m²', ar:'٨٩٫٢ · ٩٣٫٩ · ٢٧٫٧ · ٦٧٫٧ · ٢١٠٫٨ م²'}},
+{k:{en:'Town Home, unit C', ar:'تاون هوم، الوحدة C'}, v:{en:'89.2 · 92.7 · 27.7 · 66.2 · 209.6 m²', ar:'٨٩٫٢ · ٩٢٫٧ · ٢٧٫٧ · ٦٦٫٢ · ٢٠٩٫٦ م²'}},
+{k:{en:'Town Home, unit D', ar:'تاون هوم، الوحدة D'}, v:{en:'91.1 · 96.8 · 28.5 · 69.8 · 216.4 m²', ar:'٩١٫١ · ٩٦٫٨ · ٢٨٫٥ · ٦٩٫٨ · ٢١٦٫٤ م²'}}]}
+]
+}},
+{en:'The plans', ar:'المخططات', icon:'layers',
+imgs:[ESR+'kit/p18.webp', ESR+'kit/p19.webp', ESR+'kit/p23.webp', ESR+'kit/p27.webp',
+ESR+'kit/p31.webp', ESR+'kit/p32.webp', ESR+'kit/p36.webp', ESR+'kit/p37.webp',
+ESR+'kit/p38.webp', ESR+'kit/p39.webp'],
+copy:{
+lead:{en:'Ground floor, first floor and roof for each of the nine, in the brochure’s own order.',
+ar:'الأرضي والأول والسطح لكلٍّ من التسعة، بترتيب البروشور نفسه.'}
+}},
+{en:'Finishing, as specified', ar:'التشطيب كما هو محدّد', icon:'am_finished',
+imgs:[ESR+'kit/p41.webp', ESR+'kit/p43.webp', ESR+'kit/p45.webp',
+ESR+'kit/p42.webp', ESR+'kit/p44.webp', ESR+'kit/p46.webp'],
+copy:{
+lead:{en:'Seventeen numbered points across three pages. This is where the card’s finishing line comes from — before this brochure the project had none.',
+ar:'سبع عشرة نقطة مرقّمة على ثلاث صفحات. ومن هنا يأتي سطر التشطيب على الكارت — فقبل هذا البروشور لم يكن للمشروع سطر تشطيب أصلاً.'},
+groups:[
+{label:{en:'As the specification prints them', ar:'كما يطبعها كتيّب المواصفات'}, rows:[
+{k:{en:'Reception, dining, entrances, corridors and staircase', ar:'الريسبشن والسفرة والمداخل والممرات والسلّم'}, v:{en:'Marble floors; walls painted, with marble on the entrances, corridors and staircase', ar:'أرضيات رخام؛ حوائط دهان، مع رخام في المداخل والممرات والسلّم'}},
+{k:{en:'Kitchen', ar:'المطبخ'}, v:{en:'Without cabinets. High quality porcelain floors, painted walls', ar:'بدون دواليب. أرضيات بورسلين عالي الجودة وحوائط دهان'}},
+{k:{en:'Bathrooms and guest toilet', ar:'الحمّامات وتواليت الضيوف'}, v:{en:'High quality porcelain; the guest toilet and powder room in marble', ar:'بورسلين عالي الجودة؛ وتواليت الضيوف والباودر روم رخام'}},
+{k:{en:'Bedrooms and living areas', ar:'غرف النوم وصالات المعيشة'}, v:{en:'HDF floors, painted walls and ceilings', ar:'أرضيات HDF وحوائط وأسقف دهان'}},
+{k:{en:'Nanny’s room and bathroom', ar:'غرفة النانية وحمّامها'}, v:{en:'High quality ceramic', ar:'سيراميك عالي الجودة'}},
+{k:{en:'Terraces and roof terraces', ar:'التراسات والروف تراس'}, v:{en:'Marble on the terraces, high quality ceramic on the roof terraces, high quality exterior paint on the walls', ar:'رخام في التراسات وسيراميك عالي الجودة في الروف تراس ودهان خارجي عالي الجودة للحوائط'}},
+{k:{en:'Doors and sanitary fittings', ar:'الأبواب والأطقم الصحية'}, v:{en:'Oak veneered MDF doors; high end local sanitary fixtures and fittings', ar:'أبواب MDF بقشرة سنديان؛ وأطقم صحية محلية من الفئة العليا'}},
+{k:{en:'Aluminium', ar:'الألوميتال'}, v:{en:'High quality single glazed aluminium frames', ar:'قطاعات ألومنيوم عالية الجودة بزجاج مفرد'}},
+{k:{en:'Air conditioning', ar:'التكييف'}, v:{en:'Not included — conduits only', ar:'غير مشمول — تأسيس مواسير فقط'}},
+{k:{en:'Heaters', ar:'السخانات'}, v:{en:'Not included — provisions only. Conventional water heater design, maximum electrical load 2 kW at 220 V', ar:'غير مشمولة — تأسيس فقط. تصميم سخان مياه تقليدي، وأقصى حمل كهربائي ٢ كيلوواط عند ٢٢٠ فولت'}},
+{k:{en:'Shutters', ar:'الشيش'}, v:{en:'Not included — conduits only', ar:'غير مشمول — تأسيس مواسير فقط'}}]}
+],
+more:{en:'The interior pages carry their own line: all furniture, fixtures and equipment shown in the renders are indicative and do not necessarily reflect the actual and final execution.',
+ar:'وتحمل صفحات الديكور سطرها الخاص: كل الأثاث والتجهيزات الظاهرة في الرندرز استرشادية ولا تعكس بالضرورة التنفيذ الفعلي النهائي.'}
+}}
+]
+};
+PROJECT_FEATURES['june-north-coast'] = {
+masterplan: {en:'Master plan', ar:'الماستر بلان', icon:'masterplan', src:JNK+'p22.webp'},
+cards: [
+{en:'An architectural revival', ar:'إحياء معماري', icon:'spark',
+imgs:[JNK+'p07.webp', JNK+'p25.webp'],
+copy:{
+lead:{en:'Borrowing from the vibrant and swirling styles of Miami’s famed South Beach, June is drawn with a circular portrayal and curvy corners — art deco in neon corner lighting, porthole windows and glass blocks.',
+ar:'استعارةً من أساليب ساوث بيتش الشهيرة في ميامي بحيويتها ودوّاماتها، رُسم «جون» بدوائر وزوايا منحنية — آرت ديكو بإضاءة نيون في الزوايا ونوافذ دائرية وبلوكات زجاجية.'},
+groups:[
+{label:{en:'As the brochure prints them', ar:'كما يطبعها البروشور'}, rows:[
+{k:{en:'The land', ar:'الأرض'}, v:{en:'More than 280 acres of scenic coastline', ar:'أكثر من ٢٨٠ فداناً أمريكياً (acres) من ساحل بديع'}},
+{k:{en:'Architecture', ar:'العمارة'}, v:{en:'A contemporary interpretation of Art Deco: graceful curves, refined proportions, vertical openings and curved roof features', ar:'قراءة معاصرة للآرت ديكو: انحناءات رشيقة ونِسَب مصقولة وفتحات رأسية وعناصر سقف منحنية'}}]}
+],
+more:{en:'Aqua Lagoons is the release this brochure is about. Its architecture, in the brochure’s words, blends timeless character with modern sophistication; vertical openings and curved roof features invite natural light into the interiors, creating dramatic patterns of light and shadow through the day.',
+ar:'و«أكوا لاجونز» هو الطرح الذي يتناوله هذا البروشور. وعمارته بكلماته تمزج طابعاً خالداً برقيّ الحداثة؛ وتدعو الفتحات الرأسية وعناصر السقف المنحنية الضوء الطبيعي إلى الداخل، فترسم أنماطاً درامية من الضوء والظل طوال اليوم.'}
+}},
+{en:'Aqua Lagoons', ar:'أكوا لاجونز', icon:'am_lagoon',
+imgs:[JNK+'p16.webp', JNK+'p17.webp', JNK+'p18.webp'],
+copy:{
+lead:{en:'Four lines is all the brochure prints about the lagoons, and they are printed as a list.',
+ar:'أربعة أسطر هي كل ما يطبعه البروشور عن البحيرات، ويطبعها قائمةً.'},
+list:[
+{en:'500 m from the sea', ar:'٥٠٠ متر من البحر'},
+{en:'2,500 sqm of water features', ar:'٢٬٥٠٠ م² من المسطحات المائية'},
+{en:'All units include a nanny’s room', ar:'كل الوحدات بغرفة نانية'},
+{en:'Zero south-facing residences', ar:'ولا وحدة واحدة موجّهة جنوباً'}],
+more:{en:'Every residence is oriented north, north-east or north-west to frame lagoon views and catch the summer breeze, and each is fully finished with air conditioning and elevator access — which is where this card’s finishing line comes from.',
+ar:'وكل وحدة موجّهة شمالاً أو شمالاً شرقياً أو شمالاً غربياً لتؤطّر إطلالة البحيرة وتلتقط نسمة الصيف، وكلٌّ كاملة التشطيب بتكييف ومصعد — ومن هنا يأتي سطر التشطيب على هذا الكارت.'}
+}},
+{en:'A destination ready for summer', ar:'وجهة جاهزة للصيف', icon:'am_beach',
+imgs:[JNK+'p10.webp', JNK+'p12.webp', JNK+'p13.webp', JNK+'p14.webp'],
+copy:{
+lead:{en:'“The homes are complete, the shoreline is alive, and the experiences that define life at June are already in motion.” Four pages of photographs of the built place, and these are what they show.',
+ar:'«المنازل اكتملت، والشاطئ نابض، والتجارب التي تصنع الحياة في جون قائمة بالفعل.» أربع صفحات من صور المكان المبني، وهذا ما تُظهره.'},
+groups:[
+{label:{en:'What the brochure names', ar:'ما يسمّيه البروشور'}, rows:[
+{k:{en:'Surf Club', ar:'سيرف كلوب'}, v:{en:'Where music, beats and seaside vibes set the mood for summer nights', ar:'حيث تصنع الموسيقى والإيقاع وأجواء البحر مزاج ليالي الصيف'}},
+{k:{en:'Le Pacha 1901', ar:'لو باشا ١٩٠١'}, v:{en:'Along the shoreline — food, relaxed coastal charm and sea views', ar:'على الشاطئ — طعام وسحر ساحلي هادئ وإطلالات بحرية'}},
+{k:{en:'The Clubhouse', ar:'الكلوب هاوس'}, v:{en:'Poolside lounging, dining, fitness and recreation in one coastal hub', ar:'استرخاء بجوار المسبح وطعام ولياقة وترفيه في مركز ساحلي واحد'}},
+{k:{en:'The sports facility', ar:'المرفق الرياضي'}, v:{en:'Sports academies, wellness and leisure, designed for world-class standards', ar:'أكاديميات رياضية ووِلنِس وترفيه، بمعايير عالمية'}},
+{k:{en:'The Beach Experience', ar:'تجربة الشاطئ'}, v:{en:'Saints · Dolato · JJ’s · What The Crust · sandwichroom · Lychee · F45 Training · Grab N Go · CIB · Care', ar:'Saints · Dolato · JJ’s · What The Crust · sandwichroom · Lychee · F45 Training · Grab N Go · CIB · Care'}}]}
+],
+more:{en:'The brochure also announces the North Coast’s first Tribute Portfolio Hotel by Marriott — a boutique destination drawing on the Mediterranean shoreline, desert landscapes and Art Deco design. Its page is four photographs of models and shows nothing of June, so the page is not published and only its sentence is.',
+ar:'ويعلن البروشور كذلك أول فندق Tribute Portfolio من ماريوت على الساحل الشمالي — وجهة بوتيكية تستلهم شاطئ المتوسط ومشاهد الصحراء وتصميم الآرت ديكو. وصفحته أربع صور لعارضين لا تُظهر شيئاً من «جون»، فلم تُنشر الصفحة ونُقلت جملتها وحدها.'}
+}},
+{en:'The master plan, phase by phase', ar:'الماستر بلان مرحلةً مرحلة', icon:'layers',
+imgs:[JNK+'p21.webp', JNK+'p22.webp', JNK+'p23.webp', JNK+'p24.webp'],
+copy:{
+lead:{en:'The launch phase from the air, then the plan keyed three ways.',
+ar:'مرحلة الإطلاق من الجو، ثم المخطط مفتاحاً بثلاث طرق.'}
+}},
+{en:'Type 1, Type 2 and Type 3', ar:'تايب ١ وتايب ٢ وتايب ٣', icon:'ty_apartment',
+imgs:[JNK+'p27.webp', JNK+'p31.webp', JNK+'p37.webp', JNK+'p41.webp',
+JNK+'p47.webp', JNK+'p51.webp'],
+copy:{
+lead:{en:'Three building types, each drawn ground floor to penthouse with its own component table. The ground floor and the penthouse of each are here; the floors between them repeat.',
+ar:'ثلاثة أنواع مبانٍ، كلٌّ مرسوم من الأرضي إلى البنتهاوس بجدول مكوّناته. والأرضي والبنتهاوس من كلٍّ هنا؛ أما الطوابق بينهما فتتكرّر.'},
+groups:[
+{label:{en:'Gross areas, as the tables print them', ar:'المساحات الإجمالية كما تطبعها الجداول'}, rows:[
+{k:{en:'Type 1 — 2 bedroom', ar:'تايب ١ — غرفتان'}, v:{en:'112 – 118 m² (indoor 97 – 105 m², terrace 13 – 17 m²)', ar:'١١٢ – ١١٨ م² (داخلي ٩٧ – ١٠٥ م²، تراس ١٣ – ١٧ م²)'}},
+{k:{en:'Type 1 — penthouse', ar:'تايب ١ — بنتهاوس'}, v:{en:'185 m², 3 bedroom (indoor 122 m², roof terrace 62 m²)', ar:'١٨٥ م²، ٣ غرف (داخلي ١٢٢ م²، روف تراس ٦٢ م²)'}},
+{k:{en:'Type 2 — 2 and 3 bedroom', ar:'تايب ٢ — غرفتان وثلاث'}, v:{en:'110 – 116 m² and 126 – 134 m²', ar:'١١٠ – ١١٦ م² و١٢٦ – ١٣٤ م²'}},
+{k:{en:'Type 2 — penthouse', ar:'تايب ٢ — بنتهاوس'}, v:{en:'188 m² and 201 m², 3 bedroom (roof terrace 70 and 83 m²)', ar:'١٨٨ م² و٢٠١ م²، ٣ غرف (روف تراس ٧٠ و٨٣ م²)'}},
+{k:{en:'Type 3 — 2 and 3 bedroom', ar:'تايب ٣ — غرفتان وثلاث'}, v:{en:'110 – 112 m² and 129 – 130 m²', ar:'١١٠ – ١١٢ م² و١٢٩ – ١٣٠ م²'}},
+{k:{en:'Type 3 — penthouse', ar:'تايب ٣ — بنتهاوس'}, v:{en:'184 m², 3 bedroom (indoor 117 m², roof terrace 67 m²)', ar:'١٨٤ م²، ٣ غرف (داخلي ١١٧ م²، روف تراس ٦٧ م²)'}}]}
+],
+more:{en:'Every plan page carries the same line: all rendering and other visual materials, designs and facades are for illustrative purposes only.',
+ar:'وتحمل كل صفحة مخططات السطر نفسه: كل الرندرز والمواد البصرية والتصاميم والواجهات للتوضيح فقط.'}
+}}
+]
+};
+PROJECT_FEATURES['villette'] = {
+masterplan: {en:'Master plan', ar:'الماستر بلان', icon:'masterplan', src:VLK+'p03.webp'},
+cards: [
+{en:'Building C', ar:'المبنى C', icon:'ty_apartment',
+imgs:[VLK+'p04.webp', VLK+'p14.webp'],
+copy:{
+lead:{en:'Two renders, from the pack’s three-unit and four-unit round-up pages. They are the only pictures of the buildings it contains.',
+ar:'رندران، من صفحتَي التجميع لثلاث وحدات وأربع وحدات في الملف. وهما الصورتان الوحيدتان للمباني فيه.'}
+}},
+{en:'The master plan and its parks', ar:'الماستر بلان وحدائقه', icon:'layers',
+imgs:[VLK+'p03.webp'],
+copy:{
+lead:{en:'Five home types are keyed on the plan — Type A, Type A Dash, Type B, Type B Dash and Type C — along with the private and public gardens, the bike trail, the building and parking entrances, and arrows for sunrise, sunset and the Mediterranean wind.',
+ar:'خمسة أنواع منازل مفتاحها على المخطط — تايب A وA Dash وB وB Dash وC — إلى جانب الحدائق الخاصة والعامة ومسار الدراجات ومداخل المباني والجراج، وأسهم للشروق والغروب ورياح المتوسط.'},
+groups:[
+{label:{en:'The four named parks', ar:'الحدائق الأربع المسمّاة'}, rows:[
+{k:{en:'The Olympia', ar:'ذي أوليمبيا'}, v:{en:'Sports & Activity Park', ar:'حديقة الرياضة والنشاط'}},
+{k:{en:'The Scene', ar:'ذا سين'}, v:{en:'Community Theatre Park', ar:'حديقة المسرح المجتمعي'}},
+{k:{en:'The Aura', ar:'ذي أورا'}, v:{en:'Meditative Park', ar:'حديقة التأمّل'}},
+{k:{en:'The Hive', ar:'ذا هايف'}, v:{en:'Social & Entertainment Park', ar:'حديقة التواصل والترفيه'}}]}
+],
+more:{en:'The plan’s own disclaimer: the green zone spanning between the north east and south west of the master plan is the Villette town centre, and the gate and transformer locations are subject to change pending government approvals and licences.',
+ar:'وإخلاء المسؤولية على المخطط نفسه: المنطقة الخضراء الممتدة بين الشمال الشرقي والجنوب الغربي هي مركز مدينة فيليت، ومواقع البوابات والمحوّلات قابلة للتغيير في انتظار الموافقات والتراخيص الحكومية.'}
+}},
+{en:'Type C, floor by floor', ar:'تايب C طابقاً طابقاً', icon:'home',
+imgs:[VLK+'p05.webp', VLK+'p11.webp', VLK+'p15.webp', VLK+'p24.webp',
+VLK+'p26.webp', VLK+'p27.webp'],
+copy:{
+lead:{en:'Type C is laid out two ways — three units to a floor, or four — over five floors each. The round-up table prints every unit on both.',
+ar:'يُوزَّع تايب C بطريقتين — ثلاث وحدات بالطابق أو أربع — على خمسة طوابق لكلٍّ. ويطبع جدول التجميع كل وحدة في الاثنين.'},
+groups:[
+{label:{en:'As the round-up table prints them', ar:'كما يطبعها جدول التجميع'}, rows:[
+{k:{en:'Three units to a floor', ar:'ثلاث وحدات بالطابق'}, v:{en:'137 – 201 m² · 2 bedroom and 3 bedroom + nanny', ar:'١٣٧ – ٢٠١ م² · غرفتان وثلاث غرف + نانية'}},
+{k:{en:'Four units to a floor', ar:'أربع وحدات بالطابق'}, v:{en:'137 – 201 m² · 2 bedroom, 2 bedroom + nanny and 3 bedroom + nanny', ar:'١٣٧ – ٢٠١ م² · غرفتان، وغرفتان + نانية، وثلاث غرف + نانية'}},
+{k:{en:'Fourth floor only', ar:'الطابق الرابع فقط'}, v:{en:'Roof annex 43 – 48 m², open roof deck 89 – 177 m²', ar:'ملحق روف ٤٣ – ٤٨ م²، وسطح مفتوح ٨٩ – ١٧٧ م²'}}]}
+]
+}},
+{en:'Three finishing palettes', ar:'ثلاث لوحات تشطيب', icon:'am_finished',
+imgs:[VLK+'p29.webp', VLK+'p30.webp', VLK+'p31.webp'],
+copy:{
+lead:{en:'The pack ends with three interior palettes, each shown as renders alongside its own material swatches.',
+ar:'ينتهي الملف بثلاث لوحات داخلية، كلٌّ معروضة برندرز إلى جانب عيّنات موادها.'},
+groups:[
+{label:{en:'As the pack describes them', ar:'كما يصفها الملف'}, rows:[
+{k:{en:'Avant-Garde', ar:'أفانت جارد'}, v:{en:'Daring and bold colours with sleek minimalistic geometries — a piece of modern bold art standing out in the surrounding greens', ar:'ألوان جريئة وهندسة بسيطة أنيقة — قطعة فن حديث جريء تبرز وسط الخضرة المحيطة'}},
+{k:{en:'Distingué', ar:'ديستانجيه'}, v:{en:'A neutral base that complements or contrasts with any addition, for an overall sense of elegance and serenity', ar:'قاعدة محايدة تكمّل أي إضافة أو تتباين معها، لإحساس عام بالأناقة والصفاء'}},
+{k:{en:'Contemporain', ar:'كونتومبوران'}, v:{en:'The third of the three, shown with its own renders and swatches', ar:'الثالثة من الثلاث، معروضة برندرزها وعيّناتها'}}]}
+]
+}}
+]
+};
+PROJECT_FEATURES['ogami-north-coast'] = {
+masterplan: {en:'Master plan', ar:'الماستر بلان', icon:'masterplan', src:OGK+'p05.webp'},
+cards: [
+{en:'Bloom Island, in eight figures', ar:'بلوم آيلاند في ثمانية أرقام', icon:'shield',
+imgs:[OGK+'p04.webp', OGK+'p03.webp', OGK+'p08.webp'],
+copy:{
+lead:{en:'The sales kit opens on one slide of eight figures, and these are all eight, as it prints them.',
+ar:'يفتتح الـsales kit بشريحة من ثمانية أرقام، وهذه هي الثمانية كما يطبعها.'},
+groups:[
+{label:{en:'As the sales kit prints them', ar:'كما يطبعها الـsales kit'}, rows:[
+{k:{en:'Footprint', ar:'نسبة البناء'}, v:{en:'15%', ar:'١٥٪'}},
+{k:{en:'Lagoon shoreline', ar:'شاطئ البحيرات'}, v:{en:'+11 km', ar:'+١١ كم'}},
+{k:{en:'Sea shoreline', ar:'شاطئ البحر'}, v:{en:'+800 m', ar:'+٨٠٠ متر'}},
+{k:{en:'Units with water views', ar:'وحدات بإطلالة مائية'}, v:{en:'60%', ar:'٦٠٪'}},
+{k:{en:'Swimmable lagoons', ar:'بحيرات قابلة للسباحة'}, v:{en:'+120,000 m²', ar:'+١٢٠٬٠٠٠ م²'}},
+{k:{en:'Single family', ar:'وحدات الأسرة الواحدة'}, v:{en:'80%', ar:'٨٠٪'}},
+{k:{en:'North, north-east and north-west orientation', ar:'التوجيه شمالاً وشمالاً شرقياً وغربياً'}, v:{en:'+85%', ar:'+٨٥٪'}},
+{k:{en:'Nobu', ar:'نوبو'}, v:{en:'Hotel, restaurant and residences', ar:'فندق ومطعم وريزيدنسز'}}]}
+],
+more:{en:'Bloom Island, in the kit’s own words, is surrounded by water in every direction, and introduces five new single-family home types, each with a character of its own.',
+ar:'و«بلوم آيلاند» بكلمات الـkit نفسه محاطة بالماء من كل اتجاه، وتقدّم خمسة أنواع جديدة من منازل الأسرة الواحدة، لكلٍّ طابعه.'}
+}},
+{en:'The island and its eight places', ar:'الجزيرة وأماكنها الثمانية', icon:'layers',
+imgs:[OGK+'p05.webp', OGK+'p10.webp', OGK+'p13.webp', OGK+'p07.webp', OGK+'p11.webp'],
+copy:{
+lead:{en:'The master plan is keyed 1 to 8, and this is the key.',
+ar:'الماستر بلان مفتاحه من ١ إلى ٨، وهذا هو المفتاح.'},
+list:[
+{en:'1 · Arrival & Gate', ar:'١ · الوصول والبوابة'},
+{en:'2 · Botanica Town', ar:'٢ · بوتانيكا تاون'},
+{en:'3 · Sports Clubhouse & Courts', ar:'٣ · الكلوب هاوس الرياضي والملاعب'},
+{en:'4 · Wellness Center & Yoga', ar:'٤ · مركز الوِلنِس واليوجا'},
+{en:'5 · Clubhouse & Restaurant', ar:'٥ · الكلوب هاوس والمطعم'},
+{en:'6 · Beach Town', ar:'٦ · بيتش تاون'},
+{en:'7 · Nobu Hotel, Restaurant & Residences', ar:'٧ · فندق نوبو ومطعمه وريزيدنسز'},
+{en:'8 · Cultural Area & Library', ar:'٨ · المنطقة الثقافية والمكتبة'}],
+more:{en:'A second plan marks the release islands, and a third keys the five home types across the plan. Nobu is a global partner on three counts, the kit says: branded villas, a hotel and restaurant, and branded residences.',
+ar:'ويؤشّر مخطط ثانٍ على جزر الطرح، ويضع ثالث مفتاح أنواع المنازل الخمسة على المخطط. ونوبو شريك عالمي في ثلاثة أوجه كما يقول الـkit: فيلات بعلامتها، وفندق ومطعم، وريزيدنسز بعلامتها.'}
+}},
+{en:'The five homes', ar:'المنازل الخمسة', icon:'ty_villa',
+imgs:[OGK+'p16.webp', OGK+'p17.webp', OGK+'p19.webp', OGK+'p20.webp',
+OGK+'p22.webp', OGK+'p23.webp', OGK+'p25.webp', OGK+'p26.webp',
+OGK+'p28.webp', OGK+'p29.webp'],
+copy:{
+lead:{en:'Entrance view and garden view of each, in the kit’s own order, then each one’s plan and its areas.',
+ar:'إطلالة المدخل وإطلالة الحديقة لكلٍّ منها بترتيب الـkit نفسه، ثم مخطط كلٍّ ومساحاته.'},
+groups:[
+{label:{en:'Enclosed · terraces · total gross · roof deck', ar:'مغلق · تراسات · الإجمالي · سطح مفتوح'}, rows:[
+{k:{en:'Sea Breeze Villa — 3 bedroom, one storey', ar:'سي بريز فيلا — ٣ غرف، طابق واحد'}, v:{en:'165 · 15 · 180 m² · roof deck 120 m²', ar:'١٦٥ · ١٥ · ١٨٠ م² · سطح ١٢٠ م²'}},
+{k:{en:'The Courtyard Villa — 3 bedroom, one-storey town villa', ar:'ذا كورتيارد فيلا — ٣ غرف، تاون فيلا بطابق واحد'}, v:{en:'158 · 12 · 170 m² · roof deck 110 m²', ar:'١٥٨ · ١٢ · ١٧٠ م² · سطح ١١٠ م²'}},
+{k:{en:'Oasis Twin Villa — 3 bedroom + guest suite', ar:'أوايسس توين فيلا — ٣ غرف + جناح ضيوف'}, v:{en:'200 · 15 · 215 m² · roof deck 60 m²', ar:'٢٠٠ · ١٥ · ٢١٥ م² · سطح ٦٠ م²'}},
+{k:{en:'The Houses, Type A — Garden House', ar:'ذا هاوسز، تايب A — جاردن هاوس'}, v:{en:'152 · 8 · 160 m²', ar:'١٥٢ · ٨ · ١٦٠ م²'}},
+{k:{en:'The Houses, Type A — Horizon House', ar:'ذا هاوسز، تايب A — هورايزون هاوس'}, v:{en:'140 · 30 · 170 m²', ar:'١٤٠ · ٣٠ · ١٧٠ م²'}},
+{k:{en:'The Houses, Type B — Garden Houses 01 & 02', ar:'ذا هاوسز، تايب B — جاردن هاوس ٠١ و٠٢'}, v:{en:'145 · 10 · 155 m²', ar:'١٤٥ · ١٠ · ١٥٥ م²'}},
+{k:{en:'The Houses, Type B — Horizon House', ar:'ذا هاوسز، تايب B — هورايزون هاوس'}, v:{en:'150 m² · roof deck 115 m²', ar:'١٥٠ م² · سطح ١١٥ م²'}}]}
+],
+more:{en:'Every slide repeats the same line: all rendering and other visual materials, designs and facades are for illustrative purposes only.',
+ar:'وتكرّر كل شريحة السطر نفسه: كل الرندرز والمواد البصرية والتصاميم والواجهات للتوضيح فقط.'}
+}},
+{en:'The plans', ar:'المخططات', icon:'masterplan',
+imgs:[OGK+'p18.webp', OGK+'p21.webp', OGK+'p24.webp', OGK+'p27.webp', OGK+'p30.webp'],
+copy:{
+lead:{en:'Ground floor and roof floor for each of the five, with the area table printed on the drawing.',
+ar:'الأرضي والسطح لكلٍّ من الخمسة، وجدول المساحات مطبوع على الرسم نفسه.'}
+}},
+{en:'Interiors and the sample board', ar:'الديكورات ولوحة العيّنات', icon:'am_finished',
+imgs:[OGK+'p32.webp', OGK+'p33.webp', OGK+'p34.webp'],
+copy:{
+lead:{en:'Two interior slides and the sample board, which names the materials one by one.',
+ar:'شريحتا ديكور ولوحة عيّنات تسمّي المواد واحدةً واحدة.'},
+list:[
+{en:'Textured paint finish', ar:'دهان بملمس'},
+{en:'Countertop imported marble', ar:'رخام مستورد للأسطح'},
+{en:'Oak veneered wood', ar:'خشب بقشرة سنديان'},
+{en:'Stairs imported marble', ar:'رخام مستورد للسلّم'},
+{en:'High quality wall porcelain', ar:'بورسلين حوائط عالي الجودة'},
+{en:'High quality floor porcelain', ar:'بورسلين أرضيات عالي الجودة'},
+{en:'High quality honed granite floor', ar:'أرضية جرانيت مصنفر عالي الجودة'}],
+more:{en:'The board carries its own disclaimer: materials, colours and design details shown are indicative and may vary based on availability and technical requirements, and SODIC reserves the right to make modifications or substitutions at its discretion.',
+ar:'وتحمل اللوحة إخلاء مسؤوليتها: المواد والألوان وتفاصيل التصميم المعروضة استرشادية وقد تتغيّر حسب التوافر والمتطلبات الفنية، وتحتفظ سوديك بحق التعديل أو الاستبدال وفق تقديرها.'}
+}},
+{en:'The starting prices it prints', ar:'أسعار البداية التي يطبعها', icon:'key',
+imgs:[OGK+'p35.webp'],
+copy:{
+lead:{en:'The sales kit prints its own starting prices on its last slide. They are the kit’s figures, not this site’s, and the unit rows below are priced from the client’s own schedule.',
+ar:'يطبع الـsales kit أسعار البداية على شريحته الأخيرة. وهي أرقامه هو لا أرقام هذا الموقع، أما صفوف الوحدات أدناه فأسعارها من جدول العميل نفسه.'},
+groups:[
+{label:{en:'Starting prices, as the sales kit prints them', ar:'أسعار البداية كما يطبعها الـsales kit'}, rows:[
+{k:{en:'Oasis Twin Villa', ar:'أوايسس توين فيلا'}, v:{en:'EGP 50 MN', ar:'٥٠ مليون جنيه'}},
+{k:{en:'Sea Breeze Villa', ar:'سي بريز فيلا'}, v:{en:'EGP 45 MN', ar:'٤٥ مليون جنيه'}},
+{k:{en:'The Courtyard Villa', ar:'ذا كورتيارد فيلا'}, v:{en:'EGP 36 MN', ar:'٣٦ مليون جنيه'}},
+{k:{en:'Garden House', ar:'جاردن هاوس'}, v:{en:'EGP 31 MN', ar:'٣١ مليون جنيه'}},
+{k:{en:'Horizon House', ar:'هورايزون هاوس'}, v:{en:'EGP 28 MN', ar:'٢٨ مليون جنيه'}}]}
+]
 }}
 ]
 };
