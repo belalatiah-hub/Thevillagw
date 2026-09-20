@@ -2609,31 +2609,29 @@ try {
       bad.push('giza terraces title='+api.csTitle(g));
     return bad.length === 0 || bad.join('; ');
   })(), true);
-  ck('cursor: the logo’s V replaces the arrow, and only the arrow', (function(){
+  /* The site used to draw the logo's V in place of the arrow. The owner asked
+     for the arrow back, so this check was turned around: it now fails if the
+     brand cursor ever returns, and keeps the half of the old check that was
+     never about branding — the shapes that tell you what a thing DOES. */
+  ck('cursor: the pointer is the visitor’s own, and only doing-shapes are set', (function(){
     var fsz = require('fs'), pathz = require('path');
     var css = (fsz.readFileSync(pathz.join(__dirname,'..','index.html'),'utf8')
                  .match(/<style[^>]*>[\s\S]*?<\/style>/g) || []).join('\n');
     if(!css) return 'no stylesheet in index.html';
     var bad = [];
-    var m = css.match(/:root\{cursor:url\("data:image\/png;base64,([A-Za-z0-9+/=]+)"\)\s*(\d+)\s+(\d+),\s*default\}/);
-    if(!m) return 'the rule is not there, or does not end in a fallback to default';
-    // A build that lost the asset would leave an empty data URI and a cursor
-    // that silently vanishes; the mark is ~4KB of base64.
-    if(m[1].length < 3000) bad.push('the image is only '+m[1].length+' base64 chars');
-    if(m[1].indexOf('__CURSOR') > -1) bad.push('the placeholder was never filled');
-    if(m[2] !== '5' || m[3] !== '5') bad.push('hotspot '+m[2]+' '+m[3]+', not the mark’s top-left');
-    // Only where there is a pointer to replace, and never over a text field.
-    var i = css.indexOf(m[0]);
-    var before = css.slice(Math.max(0, i - 400), i);
-    if(!/@media\s*\(hover:hover\)\s*and\s*\(pointer:fine\)\{\s*$/.test(before))
-      bad.push('not scoped to a device with a real pointer');
-    if(!/input,textarea,select,\[contenteditable\]\{cursor:auto\}/.test(css))
-      bad.push('a text field would inherit the mark instead of its I-beam');
-    if(!/@media\s*\(prefers-contrast:more\)\{:root\{cursor:auto\}\}/.test(css))
-      bad.push('no escape for a reader who asked for more contrast');
-    // The shapes that say what a thing does are left alone.
+    // Nothing repaints the arrow: no image cursor anywhere, and no rule that
+    // sets the cursor on the document root at all.
+    if(/cursor:\s*url\(/.test(css)) bad.push('an image cursor is back');
+    if(/:root\{[^}]*cursor:/.test(css)) bad.push('a :root cursor rule is back');
+    if(/__CURSOR/.test(css)) bad.push('an unfilled cursor placeholder shipped');
+    // The shapes that say what a thing does are still set, because those were
+    // never the brand — they are what tells you a thing is clickable.
     if(!/button\{font:inherit;cursor:pointer/.test(css)) bad.push('a button lost its hand');
     if(!/\.detail-media--gal\{cursor:zoom-in\}/.test(css)) bad.push('a zoomable picture lost its magnifier');
+    if(!/\.dev-rail\.is-drag\{cursor:grabbing/.test(css)) bad.push('the rail lost its grab');
+    // And the source no longer asks the build for an asset it will not use.
+    var build = fsz.readFileSync(pathz.join(__dirname,'build.py'),'utf8');
+    if(/replace\('__CURSOR_V__'/.test(build)) bad.push('the build still substitutes the mark');
     return bad.length === 0 || bad.join('; ');
   })(), true);
   ck('marina gate: the page carries the kit’s own figures and no borrowed ones', (function(){

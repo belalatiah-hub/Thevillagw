@@ -252,11 +252,12 @@ def main():
         with open(os.path.join(SRC, fname), encoding='utf-8') as f:
             doc = doc.replace(token, 'data:image/png;base64,' + f.read().strip())
 
-    # The cursor is the same mark, cut out and rimmed by tools/make_cursor.py.
-    # Bare base64 rather than a full data URI: the stylesheet writes the prefix
-    # itself, so the CSS reads as CSS.
-    with open(os.path.join(SRC, 'cursor_v.b64'), encoding='utf-8') as f:
-        doc = doc.replace('__CURSOR_V__', f.read().strip())
+    # The brand cursor is gone: the owner asked for the system arrow back, so
+    # the stylesheet no longer carries a :root{cursor:…} rule and nothing is
+    # substituted here. src/cursor_v.b64 and tools/make_cursor.py are kept, so
+    # putting the mark back is one rule and these four lines. __CURSOR is still
+    # counted below — if the rule ever returns without this substitution, the
+    # build must stop rather than ship a literal placeholder.
 
     left = (doc.count('__LOGO') + doc.count('__INTRO_VIDEO__')
             + doc.count('__FAVICON__') + doc.count('__CURSOR'))
