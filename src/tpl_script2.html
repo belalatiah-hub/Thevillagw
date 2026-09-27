@@ -153,8 +153,13 @@
        claimed here: the cards carry the name, the district and the launch year
        it prints, and the page says the price list has not been released.
        Everything the kit files under "Livable Communities" is left out — those
-       are handed over and lived in, not on primary sale. --- */
-    {slug:'mountain-view-11', name:'Mountain View 1.1', name_ar:'ماونتن ڤيو ١٫١', dev:'mountainview', area:'newcairo', status:'primary', tags:{en:['New Cairo','Launched 2022'],ar:['القاهرة الجديدة','أُطلق ٢٠٢٢']}, blurb:{en:'A Mountain View development in East Cairo, launched in 2022 and building in two phases the company kit names The Villas and The Park.',ar:'مشروع من ماونتن ڤيو بشرق القاهرة، أُطلق عام ٢٠٢٢ ويُبنى على مرحلتين يسمّيهما كتيّب الشركة «ذا فيلاز» و«ذا بارك».'}},
+       are handed over and lived in, not on primary sale.
+
+       Mountain View 1.1 has since left that group: the client sent The Park's
+       own 44-page brochure and eight priced rows, so its card carries a price,
+       a plan, a delivery date and a unit mix like any other. The seven that
+       follow it still have none, and still say so. --- */
+    {slug:'mountain-view-11', name:'Mountain View 1.1', name_ar:'ماونتن ڤيو ١٫١', dev:'mountainview', area:'newcairo', status:'primary', price:13500000, dp:15, years:8, delivery:'2027', types:{en:'Apartment · Duplex · Standalone Villa',ar:'شقة · دوبلكس · فيلا مستقلة'}, tags:{en:['New Cairo','Launched 2022','The Park'],ar:['القاهرة الجديدة','أُطلق ٢٠٢٢','ذا بارك']}, blurb:{en:'A Mountain View development in East Cairo, launched in 2022 and building in two phases the company kit names The Villas and The Park. The Park’s brochure draws sixteen iVilla layouts — Garden, Sky Garden and Roof, 215 to 265 m² — and three Millennial apartments at 140 m², around a master plan of valleys, lakes and a commercial hub, next to the delivered Mountain View 1. Developer-direct primary units, from 15% down over 8 years to 2027.',ar:'مشروع من ماونتن ڤيو بشرق القاهرة، أُطلق عام ٢٠٢٢ ويُبنى على مرحلتين يسمّيهما كتيّب الشركة «ذا فيلاز» و«ذا بارك». ويرسم بروشور «ذا بارك» ستة عشر تخطيطاً لآي فيلا — جاردن وسكاي جاردن وروف، من ٢١٥ إلى ٢٦٥ م² — وثلاث شقق ميلينيال ١٤٠ م²، حول ماستر بلان من الوديان والبحيرات ومنطقة تجارية، بجوار ماونتن ڤيو ١ المسلَّم. وحدات أولية من المطوّر مباشرة، بمقدم ١٥٪ وتقسيط ٨ سنوات حتى ٢٠٢٧.'}},
     {slug:'grand-valleys', name:'Grand Valleys', name_ar:'جراند فالييز', dev:'mountainview', area:'newcairo', status:'primary', tags:{en:['New Cairo','Launched 2025'],ar:['القاهرة الجديدة','أُطلق ٢٠٢٥']}, blurb:{en:'Mountain View’s East Cairo launch of 2025, already photographed under construction in the company kit.',ar:'إطلاق ماونتن ڤيو بشرق القاهرة لعام ٢٠٢٥، ويظهر في كتيّب الشركة قيد الإنشاء بالفعل.'}},
     {slug:'icity-october', name:'Mountain View iCity October', name_ar:'ماونتن ڤيو آي سيتي أكتوبر', dev:'mountainview', area:'october', status:'primary', tags:{en:['6th of October','Launched 2017'],ar:['٦ أكتوبر','أُطلق ٢٠١٧']}, blurb:{en:'The West Cairo iCity, launched in 2017. Club park Phase 1 and MV Park are handed over, while Mountain Park, Lagoon Beach Park and Club park Phase 2 have been building since 2022.',ar:'آي سيتي غرب القاهرة، أُطلقت عام ٢٠١٧. سُلّمت «كلوب بارك المرحلة ١» و«إم ڤي بارك»، بينما يجري بناء «ماونتن بارك» و«لاجون بيتش بارك» و«كلوب بارك المرحلة ٢» منذ ٢٠٢٢.'}},
     {slug:'kingsway-october', name:'Kingsway', name_ar:'كينجزواي', dev:'mountainview', area:'october', status:'primary', tags:{en:['6th of October','Mountain View Signature'],ar:['٦ أكتوبر','ماونتن ڤيو سيجنتشر']}, blurb:{en:'Launched in 2024 under the Mountain View Signature line, and on site in West Cairo since.',ar:'أُطلق عام ٢٠٢٤ ضمن خط «ماونتن ڤيو سيجنتشر»، والعمل جارٍ في موقعه بغرب القاهرة منذ ذلك الحين.'}},
@@ -1140,6 +1145,33 @@
     {id:'IC-12', project:'isola-centra', type:'Administrative Office', label:{en:'Administrative office',ar:'مكتب إداري'}, area:87, price:8800000, dp:8, years:8, handover:'2030'},
     {id:'IC-13', project:'isola-centra', type:'Administrative Office', label:{en:'Administrative office',ar:'مكتب إداري'}, area:108, price:10910000, dp:8, years:8, handover:'2030'},
     {id:'IC-14', project:'isola-centra', type:'Clinic', label:{en:'Clinic',ar:'عيادة'}, area:177, price:17890000, dp:8, years:8, handover:'2030'},
+    /* --- Mountain View 1.1, The Park — the client sheet's eight rows.
+       Areas, prices, 15% over 8 years and 2027 are the sheet's own; the type
+       names are the ones The Park's brochure prints on the plans, which is
+       also how each row was matched to its drawing.
+
+       The iVilla is a duplex stacked six storeys: the Garden takes the ground
+       and first floors with a garden, the Sky Garden the second and third, the
+       Roof the fourth and fifth. The brochure draws sixteen of them — six
+       Gardens (265, 250, 240, 240, 235, 235), three Sky Gardens (255, 240,
+       235) and six Roofs (255, 250, 245, 245, 220, 215) — plus three
+       Millennial layouts at 140. The sheet releases seven of the sixteen.
+
+       Row 8 is the odd one: a Luxury Villa, a standalone house with its own
+       pool, ready to move, on 25% over 7 years rather than 15% over 8. The
+       Park's brochure does not contain it — its plan came in the client's
+       archive instead — so nothing on its card is quoted from this book. At
+       55,000,000 for 255 m² it is 216k a metre where every other row here is
+       94k to 121k, which is a question for the client, not a correction to
+       make quietly. --- */
+    {id:'MV11-01', project:'mountain-view-11', type:'Duplex', label:{en:'iVilla Garden',ar:'آي فيلا جاردن'}, beds:3, baths:4, area:265, price:25000000, dp:15, years:8, handover:'2027'},
+    {id:'MV11-02', project:'mountain-view-11', type:'Duplex', label:{en:'iVilla Garden',ar:'آي فيلا جاردن'}, beds:3, baths:4, area:235, price:23500000, dp:15, years:8, handover:'2027'},
+    {id:'MV11-03', project:'mountain-view-11', type:'Duplex', label:{en:'iVilla Sky Garden',ar:'آي فيلا سكاي جاردن'}, beds:3, baths:4, area:235, price:23500000, dp:15, years:8, handover:'2027'},
+    {id:'MV11-04', project:'mountain-view-11', type:'Duplex', label:{en:'iVilla Sky Garden',ar:'آي فيلا سكاي جاردن'}, beds:3, baths:4, area:255, price:25500000, dp:15, years:8, handover:'2027'},
+    {id:'MV11-05', project:'mountain-view-11', type:'Duplex', label:{en:'iVilla Roof',ar:'آي فيلا روف'}, beds:3, baths:4, area:255, price:29500000, dp:15, years:8, handover:'2027'},
+    {id:'MV11-06', project:'mountain-view-11', type:'Duplex', label:{en:'iVilla Roof',ar:'آي فيلا روف'}, beds:3, baths:4, area:215, price:26000000, dp:15, years:8, handover:'2027'},
+    {id:'MV11-07', project:'mountain-view-11', type:'Apartment', label:{en:'Millennial',ar:'ميلينيال'}, beds:3, baths:3, area:140, price:13500000, dp:15, years:8, handover:'2027'},
+    {id:'MV11-08', project:'mountain-view-11', type:'Standalone Villa', label:{en:'Luxury Villa',ar:'لاكچري فيلا'}, beds:4, baths:4, area:255, price:55000000, dp:25, years:7, handover:'Ready'},
   ];
   // Floor / internal-level enrichment (illustrative). Units without a floor
   // remain "floor to confirm" and never pass a strict floor filter.

@@ -186,7 +186,9 @@
     // the Sales Kit 2026, so none falls back to generated artwork while its
     // price list is still outstanding. Literal paths: MV is declared later, and
     // declaration order is execution order.
-    'mountain-view-11':'/project-media/mountainview/mv11-villas.webp',
+    // 1.1 now fronts itself with The Park's own opening photograph instead of
+    // the Sales Kit thumbnail, which is 775px wide against this one's 1600.
+    'mountain-view-11':'/project-media/mountainview/mv11/g01.webp',
     'grand-valleys':'/project-media/mountainview/grand-valleys.webp',
     'icity-october':'/project-media/mountainview/icity-october-mountain-park.webp',
     'kingsway-october':'/project-media/mountainview/kingsway.webp',
@@ -885,6 +887,25 @@
     'OW-25':'/project-media/orascom/o-west/ap1-ps-1.webp',
     'OW-26':'/project-media/orascom/o-west/ap1-ps-2.webp',
     'OW-27':'/project-media/orascom/o-west/ap1-ps-0.webp',
+    /* Mountain View 1.1. The Park's brochure photographs no individual home,
+       so no unit here gets a picture of itself. What it does photograph is the
+       two home TYPES: p24 heads the iVilla section with the iVilla building,
+       p40 heads the Millennial section with the Millennial building. Those are
+       the developer's own pictures of exactly these products, so the six
+       iVillas take the first and the Millennial takes the second.
+
+       The Luxury Villa is the one row with a picture of its own kind of house
+       — a standalone with its own pool — and it came in the client's archive,
+       not in this book, which is why it sits under units/ rather than in the
+       gallery. Nothing here borrows a photograph from another home. */
+    'MV11-01':'/project-media/mountainview/mv11/g10.webp',
+    'MV11-02':'/project-media/mountainview/mv11/g10.webp',
+    'MV11-03':'/project-media/mountainview/mv11/g10.webp',
+    'MV11-04':'/project-media/mountainview/mv11/g10.webp',
+    'MV11-05':'/project-media/mountainview/mv11/g10.webp',
+    'MV11-06':'/project-media/mountainview/mv11/g10.webp',
+    'MV11-07':'/project-media/mountainview/mv11/units/millennial.webp',
+    'MV11-08':'/project-media/mountainview/mv11/units/luxury-villa-255.webp',
   };
   /* Per-unit render galleries (all photos for a unit) — opened as a numbered
      carousel from the unit hero and the "Photos" chip. LMD-populated. */
@@ -2835,6 +2856,28 @@
     'OW-25':['/project-media/orascom/o-west/fp-ap2-ps.webp'],
     'OW-26':['/project-media/orascom/o-west/fp-ap2-ps.webp'],
     'OW-27':['/project-media/orascom/o-west/fp-pen1-ps.webp'],
+    /* Mountain View 1.1, matched to each row by the title THE PARK's brochure
+       prints on the drawing — "iVilla Garden 265M2", "iVilla Sky Garden 235M2"
+       and so on — rather than by the file names in the client's archive.
+
+       That mattered once. The archive's fp-v3-1.1.PNG, which the sheet points
+       row 3 at, is pixel for pixel the same drawing as its fp-v2-1.10.PNG, and
+       both are the brochure's p30: a Ground-and-First-floor iVilla GARDEN.
+       Row 3 is a Sky Garden, which the brochure draws on p33 over the second
+       and third floors. The row keeps its own plan.
+
+       The two Garden 235 layouts are the only two the brochure draws at that
+       area, so row 2 carries both rather than one of them arbitrarily. Same
+       for the Millennial: three layouts at 140 m², all three on the row.
+       Row 8's plan is not in this book at all and comes from the archive. */
+    'MV11-01':['/project-media/mountainview/mv11/fp/garden-265.webp'],
+    'MV11-02':['/project-media/mountainview/mv11/fp/garden-235-a.webp', '/project-media/mountainview/mv11/fp/garden-235-b.webp'],
+    'MV11-03':['/project-media/mountainview/mv11/fp/sky-235.webp'],
+    'MV11-04':['/project-media/mountainview/mv11/fp/sky-255.webp'],
+    'MV11-05':['/project-media/mountainview/mv11/fp/roof-255.webp'],
+    'MV11-06':['/project-media/mountainview/mv11/fp/roof-215.webp'],
+    'MV11-07':['/project-media/mountainview/mv11/fp/millennial-140-a.webp', '/project-media/mountainview/mv11/fp/millennial-140-b.webp', '/project-media/mountainview/mv11/fp/millennial-140-c.webp'],
+    'MV11-08':['/project-media/mountainview/mv11/fp/luxury-villa-255.webp'],
   };
   /* Per-unit location renders (LMD). When present, the Location viewer shows the
      unit-specific aerial; otherwise it falls back to the area aerial. */
@@ -3460,7 +3503,18 @@
        project: it belongs to Ras Soma, and it is on the "Where it sits" card
        where the numbering is explained. The database agrees, having room for
        exactly one master plan per project. */
-    'marina-gate': {loc:['/project-media/travco/marina-gate/units/location-marina-gate.webp']}
+    'marina-gate': {loc:['/project-media/travco/marina-gate/units/location-marina-gate.webp']},
+    /* Mountain View 1.1 draws one master plan for the whole phase and one
+       location map, so both sit here and every unit inherits them rather than
+       carrying eight copies.
+
+       The map is a crop. The brochure's location spread prints four drive
+       times down its left column — 10 Mins AUC, 12 Mins Suez Road, 15 Mins
+       Ring Road, 20 Mins Cairo International Airport — which the site does not
+       carry. The block ends at x 978 and the drawing starts at x 1158, so the
+       crop takes the map and leaves the claims behind. */
+    'mountain-view-11': {mp:['/project-media/mountainview/mv11/masterplan.webp'],
+                         loc:['/project-media/mountainview/mv11/location.webp']}
   };
   function projectPlans(slug){
     var own = PROJECT_PLANS[slug], back = PROJECT_PLAN_FALLBACK[slug] || {};
@@ -3792,7 +3846,30 @@
   /* Photos of the whole project, for the hero. Keyed by slug: a project with
      renders of its own but no unit schedule has nowhere else to show them. */
   var MSQ = '/project-media/msquared/';
+  var MVK = '/project-media/mountainview/mv11/';
   var PROJECT_GALLERY = {
+    /* Mountain View 1.1, in the order the client numbered them. Their archive
+       held ten screenshots, 1.1-1 through 1.1-10, and every one was matched
+       back to the page of The Park's brochure it had been cut from — so the
+       selection and the order below are theirs, and the pixels are the book's,
+       which carries the same photographs at up to eight thousand pixels wide
+       instead of three hundred.
+
+       1.1-5 arrives drawn inside an arch on its page; an arch in a 16:10 frame
+       is two white corners, so it is cropped at the line where the curve ends,
+       which is also where the client's own screenshot cropped it. */
+    'mountain-view-11': [
+      MVK+'g01.webp',   // the clubhouse at sunset
+      MVK+'g02.webp',   // a roof and its gable
+      MVK+'g03.webp',   // the Crown Palace
+      MVK+'g04.webp',   // the hammock by the pool
+      MVK+'g05.webp',   // the creek through the gardens
+      MVK+'g06.webp',   // the pool and its island
+      MVK+'g07.webp',   // a house above the water
+      MVK+'g08.webp',   // the pool and its mosaic
+      MVK+'g09.webp',   // the coffee shop
+      MVK+'g10.webp'    // the iVilla, from below
+    ],
     /* Ras Soma, in the brochure's own order: the residences from the air,
        the bay, then the destinations along the green spine, then one
        render of each home the plans draw. Landscape frames only. */
@@ -8948,6 +9025,151 @@
        copy:{
          lead:{en:'The Club Residence buildings seen across the planting that separates them.',
                ar:'مباني كلوب ريزيدنس من خلف الزراعة التي تفصل بينها.'}
+       }}
+    ]
+  };
+  /* Mountain View 1.1 — THE PARK. Forty-four pages, of which two do not ship.
+
+     p13 carries "Confidential - Not for Public Consumption or Distribution",
+     set inside a sentence in the same type as the body text: "By integrating
+     natural Confidential - Not for Public Consumption or Distribution
+     topography with signature white-and-blue architectural motifs". It reads
+     as a controlled-copy marker. An OCR sweep of all forty-four found it on
+     that page and nowhere else. The photograph on it carries no marking and is
+     published on its own; the page is not.
+
+     p16 prints four drive times — 10 Mins AUC, 12 Mins Suez Road, 15 Mins Ring
+     Road, 20 Mins Cairo International Airport. The location map is cropped to
+     the drawing and the claims are left behind.
+
+     Pages 3 to 11 are not this project. The book opens with nine pages on
+     Mountain View 1, the delivered community next door, under the heading
+     "From the Success Story of Mountain View 1" — mature trees, lived-in
+     streets. 1.1 hands over in 2027. They are worth showing and they are shown
+     on one card that says whose they are, and nowhere else. */
+  PROJECT_FEATURES['mountain-view-11'] = {
+    masterplan: {en:'Master plan', ar:'الماستر بلان', icon:'masterplan', src:MVK+'masterplan.webp'},
+    cards: [
+      {en:'The Park', ar:'ذا بارك', icon:'spark',
+       imgs:[MVK+'g01.webp', MVK+'g02.webp'],
+       copy:{
+         lead:{en:'The brochure’s own description of the phase: “Mountain View 1.1 is the direct translation of our brand heritage into a modern, intimate, and elevated sanctuary. Building upon the proven success and established legacy of Mountain View 1, this expansion introduces a refined living experience in which natural topography, water features, valleys, greenery, landscapes, views and world-class architecture coexist in total harmony.”',
+               ar:'وصف البروشور نفسه للمرحلة: «ماونتن ڤيو ١٫١ هي الترجمة المباشرة لإرث علامتنا إلى ملاذ حديث وحميم ورفيع. وبناءً على النجاح المثبت والإرث الراسخ لماونتن ڤيو ١، يقدّم هذا التوسّع تجربة معيشة مصقولة تتعايش فيها التضاريس الطبيعية والعناصر المائية والوديان والخضرة والمناظر والإطلالات والعمارة عالمية الطراز في انسجام تام».'},
+         groups:[
+           {label:{en:'The founding principle it prints, in both languages', ar:'المبدأ التأسيسي الذي يطبعه، باللغتين'}, rows:[
+             {k:{en:'إعمار الأرض وإسعاد من حولنا', ar:'إعمار الأرض وإسعاد من حولنا'}, v:{en:'Bringing Life To Land And Creating Happiness', ar:'Bringing Life To Land And Creating Happiness'}}]}
+         ],
+         more:{en:'The book’s own disclaimer, printed three times: Mountain View reserves the right to make minor alterations without prior notice, and all numbers, renders, plans, visual materials, design and facades are for demonstrative purposes and subject to change.',
+               ar:'وإخلاء المسؤولية الذي يطبعه الكتيّب ثلاث مرات: تحتفظ ماونتن ڤيو بحق إجراء تعديلات طفيفة دون إخطار مسبق، وكل الأرقام والرندرز والمخططات والمواد البصرية والتصميم والواجهات لأغراض توضيحية وقابلة للتغيير.'}
+       }},
+      {en:'Home types, and the seven on release', ar:'أنواع الوحدات، والسبعة المطروحة', icon:'home',
+       imgs:[MVK+'g10.webp', MVK+'units/millennial.webp'],
+       copy:{
+         lead:{en:'The Park builds two products. The iVilla is a duplex stacked six storeys: the Garden takes the ground and first floors with a garden, the Sky Garden the second and third, the Roof the fourth and fifth. The Millennial is a single-floor apartment. The brochure draws nineteen layouts; the client’s price list releases seven of them.',
+               ar:'يبني «ذا بارك» منتجين. الآي فيلا دوبلكس مركّب على ستة أدوار: الجاردن تأخذ الأرضي والأول بحديقة، والسكاي جاردن الثاني والثالث، والروف الرابع والخامس. والميلينيال شقة بدور واحد. ويرسم البروشور تسعة عشر تخطيطاً، تطرح قائمة العميل سبعة منها.'},
+         groups:[
+           {label:{en:'Every layout the brochure draws', ar:'كل تخطيط يرسمه البروشور'}, rows:[
+             {k:{en:'iVilla Garden', ar:'آي فيلا جاردن'}, v:{en:'Six layouts — 265, 250, 240, 240, 235 and 235 m², ground and first floor', ar:'ستة تخطيطات — ٢٦٥ و٢٥٠ و٢٤٠ و٢٤٠ و٢٣٥ و٢٣٥ م²، الدور الأرضي والأول'}},
+             {k:{en:'iVilla Sky Garden', ar:'آي فيلا سكاي جاردن'}, v:{en:'Three layouts — 255, 240 and 235 m², second and third floor', ar:'ثلاثة تخطيطات — ٢٥٥ و٢٤٠ و٢٣٥ م²، الدور الثاني والثالث'}},
+             {k:{en:'iVilla Roof', ar:'آي فيلا روف'}, v:{en:'Six layouts — 255, 250, 245, 245, 220 and 215 m², fourth and fifth floor', ar:'ستة تخطيطات — ٢٥٥ و٢٥٠ و٢٤٥ و٢٤٥ و٢٢٠ و٢١٥ م²، الدور الرابع والخامس'}},
+             {k:{en:'Millennial', ar:'ميلينيال'}, v:{en:'Three layouts, all 140 m², one floor', ar:'ثلاثة تخطيطات، كلها ١٤٠ م²، بدور واحد'}}]},
+           {label:{en:'On the price list', ar:'المطروح في قائمة الأسعار'}, rows:[
+             {k:{en:'iVilla Garden', ar:'آي فيلا جاردن'}, v:{en:'265 m² and 235 m²', ar:'٢٦٥ م² و٢٣٥ م²'}},
+             {k:{en:'iVilla Sky Garden', ar:'آي فيلا سكاي جاردن'}, v:{en:'255 m² and 235 m²', ar:'٢٥٥ م² و٢٣٥ م²'}},
+             {k:{en:'iVilla Roof', ar:'آي فيلا روف'}, v:{en:'255 m² and 215 m²', ar:'٢٥٥ م² و٢١٥ م²'}},
+             {k:{en:'Millennial', ar:'ميلينيال'}, v:{en:'140 m²', ar:'١٤٠ م²'}},
+             {k:{en:'Luxury Villa', ar:'لاكچري فيلا'}, v:{en:'255 m², ready to move — a standalone house this brochure does not contain', ar:'٢٥٥ م²، استلام فوري — بيت مستقل لا يحتويه هذا البروشور'}}]}
+         ],
+         more:{en:'Every plan on this site carries the title the brochure prints on it, and each unit was matched to its drawing that way rather than by file name. The two pictures here are the only photographs in the book of a named home type: p24 heads the iVilla section, p40 the Millennial.',
+               ar:'كل مخطط على هذا الموقع يحمل العنوان الذي يطبعه البروشور عليه، وطوبقت كل وحدة بمخططها على هذا الأساس لا باسم الملف. والصورتان هنا هما الصورتان الوحيدتان في الكتيّب لنوع وحدة مسمّى: الصفحة ٢٤ تصدّر قسم الآي فيلا، والصفحة ٤٠ قسم الميلينيال.'}
+       }},
+      {en:'The Crown Palace', ar:'ذا كراون بالاس', icon:'ty_villa',
+       imgs:[MVK+'g03.webp'],
+       copy:{
+         lead:{en:'“Every landmark community features a masterpiece that defines its skyline, and Mountain View 1.1 is anchored by The Crown Palace. Crafted specifically for those who demand uncompromised scale, this flagship residence embodies the absolute height of Mountain View’s design legacy — majestic double-height entrances, expansive private grounds, and sweeping panoramic views over the surrounding landscape.”',
+               ar:'«كل مجتمع بارز يضم تحفة تحدّد أفقه، وماونتن ڤيو ١٫١ ترتكز على ذا كراون بالاس. صُمم خصيصاً لمن يطلبون الفخامة بلا مساومة، ويجسّد هذا المسكن الرائد ذروة إرث ماونتن ڤيو التصميمي — مداخل مهيبة بارتفاع مضاعف، وأراضٍ خاصة فسيحة، وإطلالات بانورامية ممتدة على المشهد المحيط».'},
+         more:{en:'The Crown Palace is not on the price list the client sent, so this site quotes no area, price or payment plan for it. It is here because the brochure names it as the anchor of the phase.',
+               ar:'ذا كراون بالاس ليس ضمن قائمة الأسعار التي أرسلها العميل، فلا يذكر هذا الموقع له مساحة ولا سعراً ولا نظام سداد. وهو هنا لأن البروشور يسمّيه مرتكز المرحلة.'}
+       }},
+      {en:'Where it sits', ar:'أين يقع', icon:'pin',
+       imgs:[MVK+'location.webp'],
+       copy:{
+         lead:{en:'“A true signature living experience starts with an address that puts everything within reach. Situated in a mature and fully realized neighborhood, Mountain View 1.1 offers effortless access to prime commercial centers, leading schools, and main arterial routes.”',
+               ar:'«تبدأ تجربة المعيشة المميّزة الحقيقية بعنوان يضع كل شيء في المتناول. وبوقوعها في حيّ ناضج ومكتمل، تتيح ماونتن ڤيو ١٫١ وصولاً سهلاً إلى المراكز التجارية الكبرى والمدارس الرائدة والمحاور الرئيسية».'},
+         groups:[
+           {label:{en:'What the map itself names', ar:'ما تسمّيه الخريطة نفسها'}, rows:[
+             {k:{en:'Next to', ar:'بجوار'}, v:{en:'Mountain View 1, Mountain View 2, iCity New Cairo and Al Rehab City', ar:'ماونتن ڤيو ١ وماونتن ڤيو ٢ وآي سيتي القاهرة الجديدة والرحاب'}},
+             {k:{en:'Clubs drawn on it', ar:'النوادي المرسومة عليها'}, v:{en:'Platinum Club, Al Ahly Club and El Gezira Club', ar:'نادي بلاتينيوم والنادي الأهلي ونادي الجزيرة'}},
+             {k:{en:'Roads drawn on it', ar:'الطرق المرسومة عليها'}, v:{en:'North 90, Southern 90, Suez Road and the Mohamed Naguib access', ar:'التسعين الشمالي والتسعين الجنوبي وطريق السويس ومحور محمد نجيب'}},
+             {k:{en:'Also on it', ar:'وعليها أيضاً'}, v:{en:'AUC and the Family Park', ar:'الجامعة الأمريكية والفاميلي بارك'}}]}
+         ],
+         more:{en:'The brochure prints four drive times beside this map. They are the developer’s claim, not a fact that survives a road, a year or the traffic, so the map is cropped to the drawing and this site carries none of them.',
+               ar:'يطبع البروشور أربعة أزمنة قيادة بجوار هذه الخريطة. وهي ادّعاء المطوّر لا حقيقة تصمد أمام طريق أو سنة أو زحام، فقُصّت الخريطة على الرسم ولا يحمل هذا الموقع أياً منها.'}
+       }},
+      {en:'Built around your life', ar:'مبني حول حياتك', icon:'star',
+       imgs:[MVK+'kit/amenities.webp', MVK+'g04.webp'],
+       copy:{
+         lead:{en:'The six things the master plan names for itself, each with its own icon on the page.',
+               ar:'الستة التي يسمّيها الماستر بلان لنفسه، لكلٍّ أيقونته على الصفحة.'},
+         groups:[
+           {label:{en:'As the page lists them', ar:'كما تسردها الصفحة'}, rows:[
+             {k:{en:'Valleys', ar:'الوديان'}, v:{en:'Event Lawn', ar:'ساحة الفعاليات'}},
+             {k:{en:'Water Features', ar:'العناصر المائية'}, v:{en:'Commercial Area', ar:'المنطقة التجارية'}},
+             {k:{en:'Kids Playground', ar:'ملعب الأطفال'}, v:{en:'Utilities', ar:'المرافق'}}]}
+         ]
+       }},
+      {en:'The Valleys', ar:'الوديان', icon:'am_landscape',
+       imgs:[MVK+'kit/valleys.webp', MVK+'g05.webp'],
+       copy:{
+         lead:{en:'“Built around the terrain’s natural contour, the masterplan places the valleys first so architecture naturally frames the landscape. The non-symmetrical layout features varied plant hierarchies, natural rock, and timber to deliver distinct views from every angle. Integrated walking tracks, sports courts, and shaded seating transform these green spaces into active outdoor corridors for the entire family.”',
+               ar:'«مبني حول كنتور الأرض الطبيعي، يضع الماستر بلان الوديان أولاً لتؤطّر العمارة المشهد بشكل طبيعي. ويضم التوزيع غير المتماثل تدرّجات نباتية متنوّعة وصخراً طبيعياً وخشباً لتقديم إطلالات مختلفة من كل زاوية. وتحوّل مسارات المشي والملاعب والجلسات المظلّلة هذه المساحات الخضراء إلى ممرّات خارجية نشطة للعائلة كلها».'}
+       }},
+      {en:'Water features', ar:'العناصر المائية', icon:'am_lagoon',
+       imgs:[MVK+'g06.webp', MVK+'g07.webp', MVK+'g08.webp', MVK+'kit/water-4.webp'],
+       copy:{
+         lead:{en:'“Lakes, active pools, and flowing creeks form restorative blue spaces that cool the local microclimate and elevate daily living. Designed as complete ecological systems with rocky beds and bank seating, these features encourage direct interaction. The movement and sound of open water turn everyday routines into moments of mental space, stress reduction, and quiet renewal.”',
+               ar:'«تشكّل البحيرات وحمّامات السباحة النشطة والجداول الجارية مساحات زرقاء مُنعشة تلطّف المناخ المحلي وترتقي بالمعيشة اليومية. ومصمّمة كأنظمة بيئية متكاملة بقيعان صخرية وجلسات على الضفاف، تشجّع هذه العناصر على التفاعل المباشر. وتحوّل حركة الماء المفتوح وصوته الروتين اليومي إلى لحظات صفاء ذهني وتخفيف توتر وتجدّد هادئ».'},
+         more:{en:'Four photographs, which is every one the page carries.',
+               ar:'أربع صور، وهي كل ما تحمله الصفحة.'}
+       }},
+      {en:'The commercial hub', ar:'المنطقة التجارية', icon:'am_retail',
+       imgs:[MVK+'g09.webp'],
+       copy:{
+         lead:{en:'“Seamlessly integrated into the masterplan, the commercial hub offers curated essential services, boutique retail, and dining right at your doorstep. Pedestrian-first plazas and shaded walkways turn daily errands into comfortable neighborhood strolls. Serving as a vibrant social anchor, it provides warm, inviting spaces for residents to gather, connect, and enjoy local street life.”',
+               ar:'«مدمجة بسلاسة في الماستر بلان، تقدّم المنطقة التجارية خدمات أساسية منتقاة ومحال بوتيك ومطاعم على عتبة بابك. وتحوّل الساحات التي تعطي الأولوية للمشاة والممرات المظلّلة قضاء الحاجات اليومية إلى تنزّه مريح في الحي. وبوصفها مرتكزاً اجتماعياً نابضاً، توفّر مساحات دافئة جاذبة للسكان للتجمّع والتواصل والاستمتاع بحياة الشارع المحلية».'}
+       }},
+      {en:'On-demand services', ar:'خدمات عند الطلب', icon:'am_concierge',
+       imgs:[MVK+'kit/services.webp'],
+       copy:{
+         lead:{en:'“Thoughtfully managed spaces, elevated security and on-demand services — from housekeeping to maintenance — ensure every day is defined by ease, comfort and peace of mind.”',
+               ar:'«مساحات مُدارة بعناية وأمن مرتفع المستوى وخدمات عند الطلب — من التدبير المنزلي إلى الصيانة — تضمن أن كل يوم يتحدّد بالسهولة والراحة وراحة البال».'},
+         groups:[
+           {label:{en:'The eight the page names', ar:'الثمانية التي تسمّيها الصفحة'}, rows:[
+             {k:{en:'Security', ar:'الأمن'}, v:{en:'Maintenance', ar:'الصيانة'}},
+             {k:{en:'On-demand housekeeping', ar:'تدبير منزلي عند الطلب'}, v:{en:'Swimming pool maintenance', ar:'صيانة حمّامات السباحة'}},
+             {k:{en:'Landscaping', ar:'تنسيق المساحات الخضراء'}, v:{en:'Civil works', ar:'الأعمال المدنية'}},
+             {k:{en:'Pest control', ar:'مكافحة الآفات'}, v:{en:'Firefighter', ar:'الإطفاء'}}]}
+         ]
+       }},
+      {en:'Mountain View 1, next door', ar:'ماونتن ڤيو ١، الجارة', icon:'am_community',
+       imgs:[MVK+'kit/mv1-board.webp', MVK+'kit/mv1-aerial.webp'],
+       copy:{
+         lead:{en:'Nine of the brochure’s forty-four pages are not about 1.1 at all. They are about Mountain View 1 — the community next door, handed over and lived in — under the heading “From the Success Story of Mountain View 1”. The photographs on them show grown trees and lived-in streets, which is why they are on this one card and on no other: 1.1 hands over in 2027.',
+               ar:'تسع من صفحات البروشور الأربع والأربعين ليست عن ١٫١ أصلاً. إنها عن ماونتن ڤيو ١ — المجتمع المجاور، المسلَّم والمأهول — تحت عنوان «من قصة نجاح ماونتن ڤيو ١». وصور تلك الصفحات تُظهر أشجاراً كبيرة وشوارع مأهولة، ولهذا هي على هذا الكارت وحده دون غيره: فـ١٫١ تُسلَّم عام ٢٠٢٧.'},
+         groups:[
+           {label:{en:'The details it names as Mountain View 1’s design language', ar:'التفاصيل التي يسمّيها لغة تصميم ماونتن ڤيو ١'}, rows:[
+             {k:{en:'Blue Roof', ar:'بلو روف'}, v:{en:'Brown Stones', ar:'براون ستونز'}},
+             {k:{en:'Private Back Yard', ar:'حديقة خلفية خاصة'}, v:{en:'Open Front Yard', ar:'فناء أمامي مفتوح'}},
+             {k:{en:'The Nook', ar:'ذا نوك'}, v:{en:'Mailboxes', ar:'صناديق البريد'}},
+             {k:{en:'Aplique', ar:'أبليك'}, v:{en:'—', ar:'—'}}]},
+           {label:{en:'The company figures the book opens with', ar:'أرقام الشركة التي يفتتح بها الكتيّب'}, rows:[
+             {k:{en:'21+ years', ar:'٢١+ سنة'}, v:{en:'of architectural innovation and industry leadership', ar:'من الابتكار المعماري وريادة القطاع'}},
+             {k:{en:'25 projects', ar:'٢٥ مشروعاً'}, v:{en:'strategically developed across Egypt', ar:'مطوّرة استراتيجياً في أنحاء مصر'}},
+             {k:{en:'19,000+ units', ar:'١٩٬٠٠٠+ وحدة'}, v:{en:'delivered to inhabited communities', ar:'مسلَّمة لمجتمعات مأهولة'}},
+             {k:{en:'15 neighborhoods', ar:'١٥ حيّاً'}, v:{en:'livable, thriving with everyday energy', ar:'صالحة للمعيشة ونابضة بالطاقة اليومية'}}]}
+         ],
+         more:{en:'Those are Mountain View’s own figures about Mountain View, printed in this brochure. They are quoted as the developer’s claim and are not verified here.',
+               ar:'تلك أرقام ماونتن ڤيو عن ماونتن ڤيو، مطبوعة في هذا البروشور. وهي منقولة بوصفها ادّعاء المطوّر ولم يجرِ التحقّق منها هنا.'}
        }}
     ]
   };

@@ -1941,14 +1941,34 @@ try {
     var bundle = fsx.readFileSync(pathx.join(__dirname,'main.js'),'utf8');
     var used = {}, m, re = /['"](\/project-media\/mountainview\/[^'"]+)['"]/g;
     while((m = re.exec(bundle))) used[m[1]] = 1;
-    re = /MV\s*\+\s*'([^']+)'/g;
-    while((m = re.exec(bundle))) used['/project-media/mountainview/' + m[1]] = 1;
+    // Every prefix var pointing into this folder, read out of the bundle rather
+    // than listed here: MV was hand-listed and MVK, added with The Park's
+    // brochure, fell straight through it and reported thirty live files as
+    // orphans. Whatever the next one is called, this finds it.
+    var pre = {};
+    re = /var\s+([A-Za-z_$][\w$]*)\s*=\s*'\/project-media\/mountainview\/([^']*)'/g;
+    while((m = re.exec(bundle))) pre[m[1]] = m[2];
+    Object.keys(pre).forEach(function(v){
+      var r = new RegExp('\\b' + v + "\\s*\\+\\s*'([^']+)'", 'g'), x;
+      while((x = r.exec(bundle))) used['/project-media/mountainview/' + pre[v] + x[1]] = 1;
+    });
     var refs = Object.keys(used);
     var broken = refs.filter(function(r){
       return r.indexOf('/project-media/mountainview/') !== 0 ||
              !fsx.existsSync(pathx.join(MED, r.replace('/project-media/mountainview/','')));
     });
-    var disk = fsx.readdirSync(MED).map(function(n){ return '/project-media/mountainview/'+n; });
+    // Walk the tree, not the top level. A flat readdir returned "mv11" — a
+    // folder, which nothing references and which is not a file — and said
+    // nothing at all about the thirty images inside it.
+    function walk(dir, rel, out){
+      fsx.readdirSync(dir, {withFileTypes:true}).forEach(function(e){
+        var r = rel ? rel + '/' + e.name : e.name;
+        if(e.isDirectory()) walk(pathx.join(dir, e.name), r, out);
+        else out.push('/project-media/mountainview/' + r);
+      });
+      return out;
+    }
+    var disk = walk(MED, '', []);
     var orphan = disk.filter(function(d){ return !used[d]; });
     ck('mountainview: every brochure image path exists on disk',
        refs.length >= 25 && broken.length === 0,
@@ -2000,16 +2020,22 @@ try {
     });
     return bad.length === 0 || bad;
   })() === true, 'ok');
-  /* The eight cards standing in until the price lists arrive. A card with no
-     sheet behind it must claim nothing — no price, no down payment, no
-     instalment period, no delivery date and no unit mix — and must not be one
-     of the communities the kit files as handed over. */
+  /* The cards standing in until the price lists arrive. A card with no sheet
+     behind it must claim nothing — no price, no down payment, no instalment
+     period, no delivery date and no unit mix — and must not be one of the
+     communities the kit files as handed over.
+
+     Mountain View 1.1 was the eighth of these until The Park's brochure and
+     eight priced rows arrived. It is now asserted the other way round, below,
+     so that leaving it in this list by accident fails just as loudly as
+     quoting terms for one of the seven that still have none. */
   ck('mountainview: a card with no price list claims no terms', (function(){
-    var awaiting = ['mountain-view-11','grand-valleys','icity-october','kingsway-october',
+    var awaiting = ['grand-valleys','icity-october','kingsway-october',
                     'jirian','lvls-north-coast','plage-north-coast','crysta-north-coast'];
     var ps = api.PROJECTS.filter(function(p){ return p.dev === 'mountainview'; });
-    if(ps.length !== awaiting.length + 2) return false;   // + iCity New Cairo and Aliva
+    if(ps.length !== awaiting.length + 3) return false;   // + iCity New Cairo, Aliva and 1.1
     var by = {}; ps.forEach(function(p){ by[p.slug] = p; });
+    if(awaiting.indexOf('mountain-view-11') > -1) return false;
     var silent = awaiting.every(function(s){
       var p = by[s];
       return p && p.price == null && p.dp == null && p.years == null &&
@@ -2026,6 +2052,145 @@ try {
     });
     return silent && noSold && covered;
   })(), 'ok');
+  /* Mountain View 1.1, the other way round: the card that DOES have a sheet.
+     Eight rows, their own plans, ten frames in the client's order, and the two
+     pages of the brochure that do not ship. */
+  ck('mountainview: 1.1 carries the sheet\'s eight rows and its own terms', (function(){
+    var p = api.PROJECTS.filter(function(x){ return x.slug === 'mountain-view-11'; })[0];
+    if(!p) return 'the project is gone';
+    var us = api.UNITS.filter(function(u){ return u.project === 'mountain-view-11'; });
+    var bad = [];
+    if(us.length !== 8) bad.push('rows=' + us.length);
+    if(p.price !== 13500000) bad.push('from-price ' + p.price);
+    if(p.dp !== 15 || p.years !== 8 || p.delivery !== '2027') bad.push('terms');
+    if(!p.types || !p.types.en || !p.types.ar) bad.push('no unit mix');
+    if(p.finishing) bad.push('a finishing spec the brochure never gives');
+    if(us.length && p.price !== Math.min.apply(null, us.map(function(u){ return u.price; })))
+      bad.push('the from-price is not its own cheapest row');
+    /* The sheet's own eight, area and price, in its own order. */
+    var want = [[265,25000000],[235,23500000],[235,23500000],[255,25500000],
+                [255,29500000],[215,26000000],[140,13500000],[255,55000000]];
+    us.forEach(function(u, i){
+      if(!want[i]) return;
+      if(u.area !== want[i][0] || u.price !== want[i][1])
+        bad.push(u.id + ' is ' + u.area + 'm²/' + u.price + ', sheet says ' + want[i].join('/'));
+      if(u.dp == null || u.years == null || !u.handover) bad.push(u.id + ' is missing terms');
+    });
+    /* Row 8 is the standalone, on its own terms and ready to move. */
+    var lux = us[7];
+    if(lux && (lux.dp !== 25 || lux.years !== 7 || lux.handover !== 'Ready'))
+      bad.push('the Luxury Villa lost its own terms');
+    return bad.length === 0 || bad.join('; ');
+  })(), true);
+  ck('mountainview: 1.1\'s plans are matched by the title the brochure prints', (function(){
+    var fsx = require('fs'), pathx = require('path');
+    var root = pathx.join(__dirname, '..'), own = '/project-media/mountainview/mv11/';
+    var bad = [];
+    /* The archive's fp-v3-1.1.PNG, which the sheet points row 3 at, is the same
+       drawing as its fp-v2-1.10.PNG: a Ground+First GARDEN, brochure p30. Row 3
+       is a Sky Garden, drawn on p33 over the second and third floors. So a
+       plan's file name has to agree with its row's type — which is the thing
+       that went wrong, and the only check that would have caught it. */
+    var kind = {'MV11-01':'garden','MV11-02':'garden','MV11-03':'sky','MV11-04':'sky',
+                'MV11-05':'roof','MV11-06':'roof','MV11-07':'millennial','MV11-08':'luxury'};
+    Object.keys(kind).forEach(function(id){
+      var fps = api.UNIT_FLOORPLANS[id] || [];
+      if(!fps.length) return bad.push(id + ' has no plan');
+      fps.forEach(function(f){
+        if(String(f).indexOf(own + 'fp/') !== 0) return bad.push(id + ' points outside: ' + f);
+        var base = String(f).split('/').pop();
+        if(base.indexOf(kind[id]) !== 0) bad.push(id + ' is a ' + kind[id] + ' but carries ' + base);
+        if(!fsx.existsSync(pathx.join(root, String(f).replace(/^\//, ''))))
+          bad.push('missing ' + f);
+      });
+    });
+    /* A Garden plan must never reach a Sky Garden row, and the reverse. */
+    var g = (api.UNIT_FLOORPLANS['MV11-02'] || []).concat(api.UNIT_FLOORPLANS['MV11-01'] || []);
+    (api.UNIT_FLOORPLANS['MV11-03'] || []).concat(api.UNIT_FLOORPLANS['MV11-04'] || [])
+      .forEach(function(f){ if(g.indexOf(f) > -1) bad.push('a Sky Garden row shares a Garden plan'); });
+    /* The brochure draws two Garden 235s and three Millennials; both rows take
+       all of theirs rather than one picked out of the set. */
+    if((api.UNIT_FLOORPLANS['MV11-02'] || []).length !== 2) bad.push('Garden 235 wants both layouts');
+    if((api.UNIT_FLOORPLANS['MV11-07'] || []).length !== 3) bad.push('Millennial wants all three');
+    return bad.length === 0 || bad.join('; ');
+  })(), true);
+  ck('mountainview: 1.1 shows the client\'s ten, in the client\'s order, and nothing else', (function(){
+    var fsx = require('fs'), pathx = require('path'), crypto = require('crypto');
+    var root = pathx.join(__dirname, '..'), own = '/project-media/mountainview/mv11/';
+    var g = api.PROJECT_GALLERY['mountain-view-11'] || [];
+    var f = api.PROJECT_FEATURES['mountain-view-11'];
+    var bad = [];
+    /* Ten frames, g01 through g10 — the archive's 1.1-1 through 1.1-10. */
+    var want = [];
+    for(var i = 1; i <= 10; i++) want.push(own + 'g' + (i < 10 ? '0' : '') + i + '.webp');
+    if(g.join(',') !== want.join(','))
+      bad.push('the strip is not the client\'s ten in order');
+    if(!f || !f.cards || f.cards.length !== 10) bad.push('cards=' + (f && f.cards && f.cards.length));
+    if(!f || !f.masterplan || f.masterplan.src !== own + 'masterplan.webp') bad.push('no master plan');
+    var plans = api.PROJECT_PLANS['mountain-view-11'] || {};
+    if(!plans.loc || plans.loc[0] !== own + 'location.webp') bad.push('no location map');
+    if(!plans.mp || plans.mp[0] !== own + 'masterplan.webp') bad.push('the units inherit no plan');
+    /* Every picture on the card exists and belongs to this project. */
+    var srcs = g.concat([].concat.apply([], (f && f.cards ? f.cards : []).map(function(c){ return c.imgs; })));
+    srcs.forEach(function(s){
+      if(String(s).indexOf(own) !== 0) bad.push('stray ' + s);
+      if(!fsx.existsSync(pathx.join(root, String(s).replace(/^\//, '')))) bad.push('missing ' + s);
+    });
+    /* No frame of the strip is the same picture twice, by bytes. */
+    var seen = {};
+    g.forEach(function(s){
+      var h = crypto.createHash('md5').update(fsx.readFileSync(pathx.join(root, String(s).replace(/^\//, '')))).digest('hex');
+      if(seen[h]) bad.push(s + ' is byte-for-byte ' + seen[h]);
+      seen[h] = s;
+    });
+    /* p13 carries "Confidential - Not for Public Consumption or Distribution"
+       and p16 prints four drive times. Neither page ships whole — only the
+       photograph lifted off p13, and only the map region of p16 — and the card
+       says so rather than dropping them silently.
+
+       The lists are parsed, not grepped. A first draft of this matched the
+       three-element shape ('name', 13, None) and a deliberate fault that added
+       p13 to the two-element whole-page list walked straight past it. */
+    var pullPath = pathx.join(__dirname, 'pull_mountainview_mv11.py');
+    // Deleting the puller must fail this check by name, not throw out of it and
+    // take the seventy-eight checks after it down with the run.
+    var pull = fsx.existsSync(pullPath) ? fsx.readFileSync(pullPath, 'utf8') : '';
+    if(!pull) bad.push('the puller is gone, so what it publishes cannot be checked');
+    function entries(list){
+      var m = new RegExp('^' + list + '\\s*=\\s*\\[([\\s\\S]*?)^\\]', 'm').exec(pull);
+      if(!m) return null;
+      var out = [], r = /\(\s*'[^']*'\s*,\s*(\d+)\s*(?:,\s*(None|\([^)]*\)))?/g, x;
+      while((x = r.exec(m[1]))) out.push({page: +x[1], clip: x[2] || ''});
+      return out;
+    }
+    ['PAGES', 'PLANS'].forEach(function(list){
+      var es = entries(list);
+      if(!es) return bad.push('cannot read ' + list + ' out of the puller');
+      es.forEach(function(e){
+        if(e.page === 13 || e.page === 16)
+          bad.push('p' + e.page + ' is published whole, in ' + list);
+      });
+    });
+    var clips = entries('CLIPS');
+    if(!clips) bad.push('cannot read CLIPS out of the puller');
+    else clips.forEach(function(e){
+      if(e.page === 13) bad.push('p13 is published, in CLIPS');
+      if(e.page === 16 && e.clip.indexOf('(') !== 0) bad.push('p16 is published uncropped');
+    });
+    var photos = entries('PHOTOS');
+    if(!photos) bad.push('cannot read PHOTOS out of the puller');
+    else photos.forEach(function(e){
+      // p13's photograph is lifted as an image object, which is what a bare
+      // None means here; a rectangle would be a crop of the marked page.
+      if(e.page === 13 && e.clip !== 'None') bad.push('p13 is rendered, not lifted');
+      if(e.page === 16) bad.push('p16 is in the photo strip');
+    });
+    var t = txt(api.V.project('mountain-view-11').node);
+    if(!/Mountain View 1/.test(t)) bad.push('the heritage pages are not attributed');
+    if(!/2027/.test(t)) bad.push('the handover year is missing');
+    if(/\d+\s*Mins/i.test(t)) bad.push('a drive time reached the page');
+    return bad.length === 0 || bad.join('; ');
+  })(), true);
   ck('mountainview: an awaiting project page says so instead of showing an empty band', (function(){
     var n = api.V.project('jirian').node, t = txt(n);
     // it names itself, states that no price list has been released, and shows
