@@ -17,7 +17,9 @@ Two pages of the brochure are deliberately not published:
        white-and-blue architectural motifs". It reads as a controlled-copy
        marker. An OCR sweep of all 44 pages found it on this page only. The
        photograph on that page carries no marking and is lifted on its own;
-       the page is not.
+       the page is not. The owner was shown the line before anything from this
+       brochure reached the live site and cleared the material on 27 Sep 2026;
+       the marked page itself still stays off.
   p16  prints drive times — 10 Mins AUC, 12 Mins Suez Road, 15 Mins Ring Road,
        20 Mins Cairo International Airport. The site carries no drive times, so
        the location map is cropped to the drawing: the block sits at x 188-978
