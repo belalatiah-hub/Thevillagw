@@ -4457,6 +4457,7 @@
   var SD = '/project-media/sodic/';
   var PHP = '/project-media/palmhills/profile/';
   var QDP = '/project-media/qataridiar/profile/';
+  var ICP = '/project-media/ilcazar/profile/';
   var DEV_GALLERY = {
     /* El Masria: the render the profile opens each ISOLA development with. */
     'elmasria': ['/project-media/elmasria/isola-october.webp',
@@ -4555,6 +4556,12 @@
        other across the gutter. */
     'qataridiar':[QDP+'p09.webp', QDP+'p05.webp', QDP+'p10.webp', QDP+'p11.webp',
                   QDP+'p25.webp', QDP+'p29.webp', QDP+'p31.webp', QDP+'p33.webp'],
+    /* IL Cazar, one frame per project in the profile's own order: The C, Safia,
+       The Crest, Westdays, Glen, Creek Town, Go Heliopolis, Stoda. Every one is
+       the developer's own render or photograph of that project, never a divider
+       and never a stock photograph. */
+    'ilcazar':[ICP+'p11.webp', ICP+'p19.webp', ICP+'p31.webp', ICP+'p38.webp',
+               ICP+'p49.webp', ICP+'p59.webp', ICP+'p68.webp', ICP+'p75.webp'],
   };
   function devGallery(key){ return DEV_GALLERY[key] || []; }
   function devGalleryItems(dev){
@@ -6094,6 +6101,188 @@
            ],
            more:{en:'The profile’s Cuban project, Grand Paraiso on Cayo Largo del Sur, is not on this card: its page fixes the island by its distance from Cuba, so the page is not published and nothing from it is quoted. The profile closes on a line worth keeping — “Better living conditions produce brighter communities” — over an illustration of owls and insects in a tree, which is quoted here rather than published.',
                  ar:'ومشروع الملف في كوبا، جراند بارايسو في كايو لارجو ديل سور، ليس على هذا الكارت: فصفحته تحدّد الجزيرة بمسافتها من كوبا، فلم تُنشر ولم يُنقل منها شيء. ويُغلق الملف على سطر يستحق البقاء — «ظروف معيشية أفضل تصنع مجتمعات أكثر إشراقاً» — فوق رسم لبوم وحشرات على غصن شجرة، نُقل هنا ولم يُنشر.'}
+         }}
+      ]
+    },
+    /* IL Cazar, from Company Profile 2025 — seventy-nine spreads, the company
+       and its eight projects. Each project runs about page, location map,
+       master plan, renders, amenities, so the pages here were chosen by role.
+
+       Sixteen are not published and tools/pull_ilcazar_profile.py names every
+       one with its reason. Eight carry a proximity claim, six of them titled
+       PROXIMITY MAP outright; seven are dividers, five of those over stock
+       people; one is a text-only portfolio spread whose content is on these
+       cards. What the site refuses is the claim, not the map: The C's, The
+       Crest's, Westdays', Glen's, Creek Town's and Go Heliopolis' LOCATION
+       maps name roads and neighbours without a single minute, and all six are
+       published.
+
+       The card below corrects the site's own record of this developer. It
+       carried "since 2016" and "New Cairo · North Coast"; the profile says
+       established 2019, twice, and names four districts. */
+    'ilcazar': {
+      cards: [
+        {en:'IL Cazar', ar:'إل كازار', icon:'shield',
+         imgs:[ICP+'p03.webp', ICP+'p02.webp'],
+         copy:{
+           lead:{en:'“Established in 2019, IL Cazar has quickly built a reputation for reliability and credibility, driven by rapid construction timelines and the acquisition of an extensive land bank that enables scalable and sustainable growth. This combination of swift development and strategically selected project locations has positioned IL Cazar as a trusted name in the industry. IL Cazar is committed to offering its clientele affordable luxury through a diverse portfolio and a truly distinctive living experience.”',
+                 ar:'«تأسّست إل كازار عام ٢٠١٩، وبنت سريعاً سمعة في الموثوقية والمصداقية، مدفوعةً بجداول إنشاء سريعة وباقتناء رصيد أراضٍ واسع يتيح نمواً قابلاً للتوسّع والاستدامة. وقد وضعها هذا الجمع بين التطوير السريع والمواقع المختارة استراتيجياً كاسم موثوق في القطاع. وإل كازار ملتزمة بتقديم رفاهية في المتناول لعملائها عبر محفظة متنوّعة وتجربة معيشة مميّزة حقاً».'},
+           groups:[
+             {label:{en:'As the profile prints them', ar:'كما يطبعها ملف الشركة'}, rows:[
+               {k:{en:'Established', ar:'التأسيس'}, v:{en:'2019', ar:'٢٠١٩'}},
+               {k:{en:'Portfolio', ar:'المحفظة'}, v:{en:'8 projects', ar:'٨ مشروعات'}},
+               {k:{en:'Where it builds', ar:'أين تبني'}, v:{en:'Heliopolis, New Cairo, Ras El Hekma and West Cairo', ar:'مصر الجديدة، والقاهرة الجديدة، ورأس الحكمة، وغرب القاهرة'}},
+               {k:{en:'Its own line', ar:'سطرها الخاص'}, v:{en:'“A real estate developer conquering the Egyptian real estate market since 2019”', ar:'«مطوّر عقاري يغزو السوق العقاري المصري منذ ٢٠١٩»'}},
+               {k:{en:'Its tagline', ar:'شعارها'}, v:{en:'more of life.', ar:'more of life.'}}]}
+           ],
+           more:{en:'This site had IL Cazar down as founded in 2016 and building in New Cairo and on the North Coast. The company’s own profile says 2019 — on the introduction page and again under About Us — and names four districts. Both were corrected against it. The figures on every card below are the profile’s own and are quoted as the developer’s claim.',
+                 ar:'كان هذا الموقع يسجّل تأسيس إل كازار عام ٢٠١٦ وبناءها في القاهرة الجديدة والساحل الشمالي. وملف الشركة نفسه يقول ٢٠١٩ — في صفحة المقدّمة ومرة أخرى تحت «من نحن» — ويسمّي أربع مناطق. وصُحّح الاثنان على أساسه. والأرقام على كل كارت أدناه هي أرقام الملف نفسه، منقولة بوصفها ادّعاء المطوّر.'}
+         }},
+        {en:'The C · Ras El Hekma', ar:'ذا سي · رأس الحكمة', icon:'am_beach',
+         imgs:[ICP+'p11.webp', ICP+'p12.webp', ICP+'p13.webp', ICP+'p08.webp',
+               ICP+'p09.webp', ICP+'p10.webp', ICP+'p14.webp', ICP+'p06.webp'],
+         copy:{
+           lead:{en:'“An exclusive beachfront community on the pristine shores of Ras El Hekma. Spanning 114 acres, the project offers a refined boutique living experience, where every unit enjoys a view of the sea and water features.”',
+                 ar:'«مجتمع شاطئي حصري على شواطئ رأس الحكمة البكر. يمتد على ١١٤ فداناً أمريكياً، ويقدّم المشروع تجربة معيشة بوتيك راقية، حيث تتمتّع كل وحدة بإطلالة على البحر وعلى العناصر المائية».'},
+           groups:[
+             {label:{en:'The seven zones its master plan keys', ar:'المناطق السبع التي يفتحها ماستر بلانه'}, rows:[
+               {k:{en:'C-CABANAS', ar:'سي-كابانا'}, v:{en:'C-WAVE — one-storey grand villas', ar:'سي-ويف — فيلات جراند بدور واحد'}},
+               {k:{en:'C-SIDE', ar:'سي-سايد'}, v:{en:'One-storey villas', ar:'فيلات بدور واحد'}},
+               {k:{en:'C-CORAL', ar:'سي-كورال'}, v:{en:'Standalone villas', ar:'فيلات مستقلة'}},
+               {k:{en:'C-REEF', ar:'سي-ريف'}, v:{en:'Standalone villas', ar:'فيلات مستقلة'}},
+               {k:{en:'C-BAY', ar:'سي-باي'}, v:{en:'Town houses', ar:'تاون هاوس'}},
+               {k:{en:'C-SAIL', ar:'سي-سيل'}, v:{en:'Beach houses', ar:'بيوت شاطئ'}}]},
+             {label:{en:'What the amenities page names', ar:'ما تسمّيه صفحة المرافق'}, rows:[
+               {k:{en:'Beach front', ar:'واجهة بحرية'}, v:{en:'Branded hotel', ar:'فندق بعلامة'}},
+               {k:{en:'Sea-view units', ar:'وحدات بإطلالة بحرية'}, v:{en:'Limited-key community', ar:'مجتمع محدود العدد'}},
+               {k:{en:'Luxury fully finished', ar:'تشطيب كامل فاخر'}, v:{en:'Club houses', ar:'كلوب هاوس'}},
+               {k:{en:'Water sports', ar:'رياضات مائية'}, v:{en:'Serviced units · sports area', ar:'وحدات فندقية · منطقة رياضية'}}]}
+           ],
+           more:{en:'The location map is published and the proximity page is not. The map draws the coastline and names the neighbours along it — Swan Lake, The Med, Katameya Coast, Safia, Soul and LVLS — with no travel time on it. The about page is withheld too, because it fixes the plot at a kilometre marker and the site’s drive-time gate reads that as a distance; the figures from it are quoted above instead.',
+                 ar:'خريطة الموقع منشورة وصفحة المسافات لا. ترسم الخريطة خط الساحل وتسمّي الجيران عليه — سوان ليك وذا ميد وكاتاميا كوست وصافيا وسول وإل في إل إس — دون أي زمن قيادة عليها. وصفحة «عن المشروع» محجوبة أيضاً لأنها تحدّد القطعة بعلامة كيلومترية، وبوابة أزمنة القيادة في الموقع تقرؤها كمسافة؛ ونُقلت أرقامها أعلاه بدلاً من ذلك.'}
+         }},
+        {en:'Safia · Ras El Hekma', ar:'صافيا · رأس الحكمة', icon:'am_lagoon',
+         imgs:[ICP+'p19.webp', ICP+'p20.webp', ICP+'p21.webp', ICP+'p22.webp',
+               ICP+'p23.webp', ICP+'p24.webp', ICP+'p18.webp', ICP+'p16.webp',
+               ICP+'p25.webp'],
+         copy:{
+           lead:{en:'“A beach front community launched in 2024 on KM 186 on the shores of Ras El Hekma. Spanning 180 acres with 750 m beach line. Offering all unit types from chalets to signature villas.”',
+                 ar:'«مجتمع شاطئي أُطلق عام ٢٠٢٤ عند الكيلو ١٨٦ على شواطئ رأس الحكمة. يمتد على ١٨٠ فداناً أمريكياً بواجهة شاطئ ٧٥٠ متراً. ويقدّم كل أنواع الوحدات من الشاليهات إلى الفيلات المميّزة».'},
+           groups:[
+             {label:{en:'As the profile prints them', ar:'كما يطبعها الملف'}, rows:[
+               {k:{en:'Launched', ar:'الإطلاق'}, v:{en:'2024', ar:'٢٠٢٤'}},
+               {k:{en:'Land', ar:'الأرض'}, v:{en:'180 acres', ar:'١٨٠ فداناً أمريكياً'}},
+               {k:{en:'Beach line', ar:'واجهة الشاطئ'}, v:{en:'750 m', ar:'٧٥٠ متراً'}},
+               {k:{en:'Unit types', ar:'أنواع الوحدات'}, v:{en:'Chalets through to signature villas', ar:'من الشاليهات حتى الفيلات المميّزة'}}]},
+             {label:{en:'What the amenities page names', ar:'ما تسمّيه صفحة المرافق'}, rows:[
+               {k:{en:'Private beach', ar:'شاطئ خاص'}, v:{en:'Hotel and serviced apartments', ar:'فندق وشقق فندقية'}},
+               {k:{en:'Swimming pool · gym', ar:'حمام سباحة · جيم'}, v:{en:'Restaurants and cafés', ar:'مطاعم وكافيهات'}},
+               {k:{en:'Water sports', ar:'رياضات مائية'}, v:{en:'Facility management', ar:'إدارة مرافق'}}]}
+           ],
+           more:{en:'Safia’s location page is the one page of the eight withheld that names real neighbours — Fouka Bay, Swanlake, Soul Emaar and The Waterway — but it is also the page that prints 20 minutes to El Dabaa Axis, 30 to Alamein International Airport and 2:30 hours to the Cairo–Alex desert road, both on the drawing and in the paragraph beside it. The page goes, neighbours and all. "KM 186" is an address, not a distance, so it stays in the words above.',
+                 ar:'صفحة موقع صافيا هي الصفحة الوحيدة بين الثماني المحجوبة التي تسمّي جيراناً حقيقيين — فوكا باي وسوان ليك وسول إعمار وذا ووتر واي — لكنها أيضاً الصفحة التي تطبع ٢٠ دقيقة لمحور الضبعة و٣٠ لمطار العلمين الدولي و٢:٣٠ ساعة لطريق القاهرة إسكندرية الصحراوي، على الرسم وفي الفقرة بجواره. فذهبت الصفحة بجيرانها. و«الكيلو ١٨٦» عنوان لا مسافة، فبقي في الكلام أعلاه.'}
+         }},
+        {en:'The Crest · New Cairo', ar:'ذا كريست · القاهرة الجديدة', icon:'am_community',
+         imgs:[ICP+'p31.webp', ICP+'p32.webp', ICP+'p30.webp', ICP+'p28.webp',
+               ICP+'p27.webp', ICP+'p33.webp'],
+         copy:{
+           lead:{en:'“A premium residential community launched in 2024, in the heart of New Cairo, 5th settlement. Spanning 158 acres. Where neighbors become friends and every day brings new opportunities for connection and growth. With state-of-the-art facilities including a fitness center, swimming pools, lakes, beautifully landscaped gardens and commercial hub.”',
+                 ar:'«مجتمع سكني متميّز أُطلق عام ٢٠٢٤ في قلب القاهرة الجديدة، التجمّع الخامس. يمتد على ١٥٨ فداناً أمريكياً. حيث يصير الجيران أصدقاء ويحمل كل يوم فرصاً جديدة للتواصل والنمو. بمرافق حديثة تشمل مركزاً رياضياً وحمّامات سباحة وبحيرات وحدائق منسّقة بعناية ومنطقة تجارية».'},
+           groups:[
+             {label:{en:'As the profile prints them', ar:'كما يطبعها الملف'}, rows:[
+               {k:{en:'Launched', ar:'الإطلاق'}, v:{en:'2024', ar:'٢٠٢٤'}},
+               {k:{en:'Land', ar:'الأرض'}, v:{en:'158 acres', ar:'١٥٨ فداناً أمريكياً'}},
+               {k:{en:'Where', ar:'الموقع'}, v:{en:'The intersection of South 90 St. and the E-Ring Road axis, 5th Settlement', ar:'تقاطع شارع التسعين الجنوبي مع محور الطريق الدائري الشرقي، التجمّع الخامس'}},
+               {k:{en:'Amenities it names', ar:'المرافق التي يسمّيها'}, v:{en:'Clubhouse, gym, sports facilities, hypermarkets, dining, nursery', ar:'كلوب هاوس، وجيم، ومرافق رياضية، وهايبر ماركت، ومطاعم، وحضانة'}}]}
+           ],
+           more:{en:'Its location map is published: a plain drawing naming Hyde Park, Point 90, the AUC, The Westin Hotel, the E-Ring Road, South 90 St., the New Capital and Glen, with no travel time anywhere on it. The separate proximity page, which prints three, is not.',
+                 ar:'خريطة موقعه منشورة: رسم بسيط يسمّي هايد بارك وبوينت ٩٠ والجامعة الأمريكية وفندق ويستن والطريق الدائري الشرقي وشارع التسعين الجنوبي والعاصمة الإدارية وجلين، دون أي زمن قيادة عليه. أما صفحة المسافات المنفصلة، التي تطبع ثلاثة، فلا.'}
+         }},
+        {en:'Westdays · West Cairo', ar:'ويست دايز · غرب القاهرة', icon:'am_gardenpark',
+         imgs:[ICP+'p38.webp', ICP+'p39.webp', ICP+'p40.webp', ICP+'p37.webp',
+               ICP+'p36.webp', ICP+'p35.webp', ICP+'p41.webp', ICP+'p34.webp'],
+         copy:{
+           lead:{en:'“Westdays is designed for an unparalleled living experience. IL Cazar’s masterfully planned community seamlessly blends nature, wellness, and modern luxury. Every detail has been thoughtfully curated to elevate daily life — from serene green spaces to vibrant social hubs.”',
+                 ar:'«صُمّمت ويست دايز لتجربة معيشة لا مثيل لها. ويمزج مجتمع إل كازار المخطَّط بإتقان بين الطبيعة والعافية والرفاهية الحديثة بسلاسة. وقد انتُقيت كل تفصيلة بعناية للارتقاء بالحياة اليومية — من المساحات الخضراء الهادئة إلى مراكز التواصل النابضة».'},
+           groups:[
+             {label:{en:'What the amenities page names', ar:'ما تسمّيه صفحة المرافق'}, rows:[
+               {k:{en:'Clubhouse', ar:'كلوب هاوس'}, v:{en:'Wellness centre', ar:'مركز عافية'}},
+               {k:{en:'Jogging and bicycle lanes', ar:'مسارات جري ودراجات'}, v:{en:'Sports courts', ar:'ملاعب رياضية'}},
+               {k:{en:'Outdoor yoga pavilion', ar:'جناح يوجا مفتوح'}, v:{en:'Family park', ar:'حديقة عائلية'}},
+               {k:{en:'Shaded seating areas', ar:'جلسات مظلّلة'}, v:{en:'Walkway passages', ar:'ممرات مشاة'}}]}
+           ],
+           more:{en:'Westdays is the one project of the eight the profile gives no launch year, no land area and no unit mix — it carries a description, a location map, a master plan, four renders and an amenity list, and no figures at all. Nothing is filled in for it here. Its location map names the Boulevard road, Mountain View iCity, the Shooting Club, the Gamal Abdel Nasser axis, the Mall of Arabia, the 26th of July corridor and the Wahat corridor, and prints no travel time.',
+                 ar:'ويست دايز هي المشروع الوحيد من الثمانية الذي لا يعطيه الملف سنة إطلاق ولا مساحة أرض ولا مزيج وحدات — يحمل وصفاً وخريطة موقع وماستر بلان وأربعة رندرز وقائمة مرافق، ولا أرقام على الإطلاق. ولم يُملأ له شيء هنا. وتسمّي خريطة موقعه طريق البولفار وماونتن ڤيو آي سيتي ونادي الصيد ومحور جمال عبد الناصر ومول العرب ومحور ٢٦ يوليو ومحور الواحات، ولا تطبع أي زمن قيادة.'}
+         }},
+        {en:'Glen · New Cairo', ar:'جلين · القاهرة الجديدة', icon:'ty_villa',
+         imgs:[ICP+'p49.webp', ICP+'p50.webp', ICP+'p51.webp', ICP+'p52.webp',
+               ICP+'p46.webp', ICP+'p47.webp', ICP+'p48.webp', ICP+'p44.webp',
+               ICP+'p43.webp', ICP+'p53.webp'],
+         copy:{
+           lead:{en:'“An all-villas community launched in 2025, in the heart of New Cairo, 6th settlement. Spanning 200 acres. GLEN is designed for those who seek privacy, exclusivity and a vibrant connection to their surroundings.”',
+                 ar:'«مجتمع فيلات بالكامل أُطلق عام ٢٠٢٥ في قلب القاهرة الجديدة، التجمّع السادس. يمتد على ٢٠٠ فدان أمريكي. وصُمّمت جلين لمن يبحثون عن الخصوصية والتميّز والاتصال النابض بمحيطهم».'},
+           groups:[
+             {label:{en:'The four zones its master plan keys', ar:'المناطق الأربع التي يفتحها ماستر بلانه'}, rows:[
+               {k:{en:'G-Haus', ar:'جي-هاوس'}, v:{en:'Drawn out on its own master plan page', ar:'مرسومة على صفحة ماستر بلان خاصة بها'}},
+               {k:{en:'G-Arc', ar:'جي-آرك'}, v:{en:'Keyed on the main plan', ar:'مفتاحها على المخطط الرئيسي'}},
+               {k:{en:'G-Meadow', ar:'جي-ميدو'}, v:{en:'Keyed on the main plan', ar:'مفتاحها على المخطط الرئيسي'}},
+               {k:{en:'G-Edge', ar:'جي-إيدج'}, v:{en:'Drawn out on its own master plan page', ar:'مرسومة على صفحة ماستر بلان خاصة بها'}}]},
+             {label:{en:'The homes it draws', ar:'المنازل التي يرسمها'}, rows:[
+               {k:{en:'Standalone Villa', ar:'فيلا مستقلة'}, v:{en:'One render page', ar:'صفحة رندر واحدة'}},
+               {k:{en:'Town Haus', ar:'تاون هاوس'}, v:{en:'One render page', ar:'صفحة رندر واحدة'}},
+               {k:{en:'Grand G-Haus', ar:'جراند جي-هاوس'}, v:{en:'One render page', ar:'صفحة رندر واحدة'}}]}
+           ],
+           more:{en:'Its location map is published and names Hyde Park, Zed East, Ora Developments, The Crest, Crescent Walk, Marakez, Garden Valleys, Mountain View, the E-Ring Road and South 90 — with no travel time. The proximity page, which prints four, is not. The profile prints no price, no unit area and no delivery date for Glen or for any of the eight, so none is claimed here.',
+                 ar:'خريطة موقعها منشورة وتسمّي هايد بارك وزيد إيست وأورا للتطوير وذا كريست وكريسنت ووك ومراكز وجاردن فالييز وماونتن ڤيو والطريق الدائري الشرقي والتسعين الجنوبي — دون أي زمن قيادة. أما صفحة المسافات، التي تطبع أربعة، فلا. ولا يطبع الملف سعراً ولا مساحة وحدة ولا تاريخ تسليم لجلين ولا لأيٍّ من الثمانية، فلم يُدَّعَ شيء من ذلك هنا.'}
+         }},
+        {en:'Creek Town · New Cairo', ar:'كريك تاون · القاهرة الجديدة', icon:'key',
+         imgs:[ICP+'p59.webp', ICP+'p60.webp', ICP+'p61.webp', ICP+'p58.webp',
+               ICP+'p56.webp', ICP+'p55.webp', ICP+'p54.webp', ICP+'p62.webp'],
+         copy:{
+           lead:{en:'“A Ready-to-Deliver mixed-use community that launched in 2020. Located directly on Suez road. Spanning 100 acres. Located on the Suez Road, a prime location in the First Settlement of New Cairo, Creek Town is a 100-acres complex including standalones, twin houses, apartments and unparalleled amenities.”',
+                 ar:'«مجتمع متعدّد الاستخدامات جاهز للتسليم أُطلق عام ٢٠٢٠. يقع مباشرة على طريق السويس. يمتد على ١٠٠ فدان أمريكي. وبموقعه على طريق السويس، وهو موقع متميّز في التجمّع الأول بالقاهرة الجديدة، فإن كريك تاون مجمّع على ١٠٠ فدان يضم فيلات مستقلة وتوين هاوس وشققاً ومرافق لا مثيل لها».'},
+           groups:[
+             {label:{en:'As the profile prints them', ar:'كما يطبعها الملف'}, rows:[
+               {k:{en:'Launched', ar:'الإطلاق'}, v:{en:'2020', ar:'٢٠٢٠'}},
+               {k:{en:'Land', ar:'الأرض'}, v:{en:'100 acres', ar:'١٠٠ فدان أمريكي'}},
+               {k:{en:'Status', ar:'الحالة'}, v:{en:'Ready to deliver', ar:'جاهز للتسليم'}},
+               {k:{en:'What it holds', ar:'ما يضمّه'}, v:{en:'Standalones, twin houses, apartments, villas, admin and commercial', ar:'فيلات مستقلة وتوين هاوس وشقق وفيلات ووحدات إدارية وتجارية'}}]}
+           ],
+           more:{en:'Three of its pages are headed LIVE FOOTAGE — photographs of the built project rather than renders, which is what a 2020 launch that is ready to deliver should be able to show. They are published as they are labelled.',
+                 ar:'ثلاث من صفحاته معنونة LIVE FOOTAGE — صور للمشروع المنفَّذ لا رندرز، وهو ما ينبغي أن يقدر عليه مشروع أُطلق ٢٠٢٠ وجاهز للتسليم. ونُشرت بأسمائها كما هي.'}
+         }},
+        {en:'Go Heliopolis', ar:'جو مصر الجديدة', icon:'ty_apartment',
+         imgs:[ICP+'p68.webp', ICP+'p69.webp', ICP+'p67.webp', ICP+'p65.webp',
+               ICP+'p64.webp', ICP+'p70.webp'],
+         copy:{
+           lead:{en:'“Go Heliopolis is the first compound in Heliopolis, located in El-Nozha street, promises an exciting, multi-functional, prime residential, commercial, and well-integrated community set on a land area of 18,000 SQM.”',
+                 ar:'«جو مصر الجديدة هي أول كمبوند في مصر الجديدة، ويقع في شارع النزهة، ويَعِد بمجتمع نابض متعدّد الوظائف، سكني وتجاري متميّز ومتكامل، على أرض مساحتها ١٨٬٠٠٠ م²».'},
+           groups:[
+             {label:{en:'As the profile prints them', ar:'كما يطبعها الملف'}, rows:[
+               {k:{en:'Land', ar:'الأرض'}, v:{en:'18,000 sqm', ar:'١٨٬٠٠٠ م²'}},
+               {k:{en:'Street', ar:'الشارع'}, v:{en:'El-Nozha street, Heliopolis', ar:'شارع النزهة، مصر الجديدة'}},
+               {k:{en:'Its master plan', ar:'ماستر بلانه'}, v:{en:'Five towers, numbered 01 to 05', ar:'خمسة أبراج مرقّمة من ٠١ إلى ٠٥'}},
+               {k:{en:'What it holds', ar:'ما يضمّه'}, v:{en:'Apartments, commercial, admin and clinics', ar:'شقق ووحدات تجارية وإدارية وعيادات'}},
+               {k:{en:'Amenities it names', ar:'المرافق التي يسمّيها'}, v:{en:'Gym and fitness area, restaurants and commercial facilities, hospitality service, kids area, 24/7 security', ar:'جيم ومنطقة لياقة، ومطاعم ومرافق تجارية، وخدمة ضيافة، ومنطقة أطفال، وأمن ٢٤/٧'}}]}
+           ],
+           more:{en:'Two of its pages are headed LIVE FOOTAGE and show the building standing, which is worth more than a render for a compound described as the first in its district. Its location map names El-Nozha Street and the Nasr Road and prints no travel time; the proximity page, which prints five, is not published.',
+                 ar:'صفحتان منه معنونتان LIVE FOOTAGE وتُظهران المبنى قائماً، وهو أثمن من رندر لكمبوند يوصف بأنه الأول في حيّه. وخريطة موقعه تسمّي شارع النزهة وطريق النصر ولا تطبع أي زمن قيادة؛ أما صفحة المسافات، التي تطبع خمسة، فغير منشورة.'}
+         }},
+        {en:'Stoda · on the Suez road', ar:'ستودا · على طريق السويس', icon:'am_office',
+         imgs:[ICP+'p75.webp', ICP+'p76.webp', ICP+'p77.webp', ICP+'p73.webp',
+               ICP+'p72.webp', ICP+'p78.webp'],
+         copy:{
+           lead:{en:'“A mixed-use community launched in 2024, on Suez road. Offering Ready-to-Deliver apartments, commercial and admin spaces.”',
+                 ar:'«مجتمع متعدّد الاستخدامات أُطلق عام ٢٠٢٤ على طريق السويس. يقدّم شققاً ووحدات تجارية وإدارية جاهزة للتسليم».'},
+           groups:[
+             {label:{en:'As the profile prints them', ar:'كما يطبعها الملف'}, rows:[
+               {k:{en:'Launched', ar:'الإطلاق'}, v:{en:'2024', ar:'٢٠٢٤'}},
+               {k:{en:'Status', ar:'الحالة'}, v:{en:'Ready to deliver', ar:'جاهز للتسليم'}},
+               {k:{en:'What its plan keys', ar:'ما يفتحه مخططه'}, v:{en:'Apartments, retail, a business park and a mosque', ar:'شقق ومحال وبيزنس بارك ومسجد'}},
+               {k:{en:'Amenities it names', ar:'المرافق التي يسمّيها'}, v:{en:'Strategic location, pedestrian promenade, underground parking, cycling track, water feature, gated community, distinguished landscape, ready to handover, integrated community, fully finished, multiple plazas, club house', ar:'موقع استراتيجي، وممشى للمشاة، وجراج تحت الأرض، ومسار دراجات، وعنصر مائي، ومجتمع مسوّر، ولاندسكيب مميّز، وجاهز للتسليم، ومجتمع متكامل، وتشطيب كامل، وبلازات متعدّدة، وكلوب هاوس'}}]}
+           ],
+           more:{en:'Stoda’s pages carry a second wordmark, “stm”, in the corner where every other project carries IL Cazar’s. The profile does not explain it and nothing is inferred from it here. The sentence quoted above is shorter than the profile’s: its last clause states how long the drive to Cairo International Airport takes, which is the developer’s claim rather than a fact this site can stand behind, so the clause is cut and not repeated even to explain itself.',
+                 ar:'تحمل صفحات ستودا علامة ثانية، «stm»، في الركن الذي يحمل فيه كل مشروع آخر علامة إل كازار. ولا يشرح الملف ذلك ولم يُستنتج منه شيء هنا. والجملة المقتبسة أعلاه أقصر من جملة الملف: فآخر شقٍّ فيها يذكر كم تستغرق القيادة إلى مطار القاهرة الدولي، وهو ادّعاء المطوّر لا حقيقة يمكن لهذا الموقع أن يقف خلفها، فحُذف الشق ولم يُكرَّر ولو للشرح.'}
          }}
       ]
     }

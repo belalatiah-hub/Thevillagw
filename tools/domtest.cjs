@@ -4118,6 +4118,96 @@ try {
       bad.push(mine.length + ' qatari diar projects — the card names exactly one');
     return bad.length === 0 || bad.slice(0, 6).join('; ');
   })(), true);
+  /* IL Cazar's Company Profile 2025 — 79 spreads, of which 63 ship. What this
+     holds is the boundary: eight pages carry a proximity claim and seven are
+     dividers over stock photography, and none of the fifteen may reach disk or
+     page. It also holds the two facts the profile corrected on this site's own
+     record of the developer, because a record corrected once drifts back. */
+  ck('ilcazar: the profile, its eight projects, and the sixteen pages left off', (function(){
+    var fsx = require('fs'), pathx = require('path'), crypto = require('crypto');
+    var root = pathx.join(__dirname, '..'), own = '/project-media/ilcazar/profile/';
+    var f = api.DEV_FEATURES.ilcazar, g = api.DEV_GALLERY.ilcazar || [], bad = [];
+    if(!f || !f.cards || f.cards.length !== 9) return 'cards=' + (f && f.cards && f.cards.length);
+    if(g.length !== 8) return 'gallery=' + g.length;
+    if(f.masterplan) bad.push('a company profile has no master plan of its own');
+    /* Exactly the 63 spreads the puller publishes. */
+    var withheld = [1,4,5,7,15,17,26,29,42,45,57,63,66,71,74,79];
+    var want = [];
+    for(var i = 1; i <= 79; i++)
+      if(withheld.indexOf(i) < 0) want.push('p' + (i < 10 ? '0' : '') + i + '.webp');
+    want.sort();
+    var dir = pathx.join(root, own.slice(1));
+    var got = fsx.existsSync(dir) ? fsx.readdirSync(dir).sort() : [];
+    if(got.join(',') !== want.join(','))
+      bad.push('the folder holds ' + got.length + ' files, want ' + want.length);
+    /* Every picture on the page is one of them, and exists. */
+    var srcs = g.concat([].concat.apply([], f.cards.map(function(c){ return c.imgs; })));
+    srcs.forEach(function(src){
+      if(String(src).indexOf(own) !== 0) bad.push('stray ' + src);
+      if(!fsx.existsSync(pathx.join(root, String(src).replace(/^\//, ''))))
+        bad.push('missing ' + src);
+    });
+    /* No page is the same bytes as another, and no frame repeats in the strip. */
+    var seen = {};
+    got.forEach(function(name){
+      var h = crypto.createHash('md5').update(fsx.readFileSync(pathx.join(dir, name))).digest('hex');
+      if(seen[h]) bad.push(name + ' is byte-for-byte ' + seen[h]);
+      seen[h] = name;
+    });
+    var instrip = {};
+    g.forEach(function(src){
+      if(instrip[src]) bad.push(src + ' is in the strip twice');
+      instrip[src] = 1;
+    });
+    /* The eight proximity pages and seven stock dividers, by number. p17 is
+       Safia's, p29 The Crest's, p45 Glen's, p57 Creek Town's, p66 Go
+       Heliopolis' and p74 Stoda's; p05 and p07 carry one inside a paragraph. */
+    withheld.forEach(function(n){
+      var nm = 'p' + (n < 10 ? '0' : '') + n + '.webp';
+      if(got.indexOf(nm) > -1) bad.push(nm + ' is on disk');
+      if(srcs.indexOf(own + nm) > -1) bad.push(nm + ' is on the page');
+    });
+    /* And no travel claim survives into the copy. */
+    var flat = JSON.stringify(f) + JSON.stringify(g);
+    var t = txt(api.V.developer('ilcazar').node);
+    [/\d+\s*Mins\b/i, /\d+\s*Hrs\b/i, /minutes away/i].forEach(function(re){
+      if(re.test(flat)) bad.push('a travel claim is in the cards: ' + re);
+      if(re.test(t)) bad.push('a travel claim reached the page: ' + re);
+    });
+    /* The record this profile corrected. 2016 and "North Coast" were wrong. */
+    var dev = api.devByKey('ilcazar');
+    if(!dev) return 'the developer is gone';
+    if(dev.since !== 2019) bad.push('founded ' + dev.since + ', the profile says 2019');
+    ['Heliopolis','New Cairo','Ras El Hekma','West Cairo'].forEach(function(a){
+      if(dev.areas.en.indexOf(a) < 0) bad.push('the districts lost ' + a);
+    });
+    if(/North Coast/.test(dev.areas.en)) bad.push('"North Coast" is back');
+    /* The company's own figures. Checked PER CARD and as a complete set, not
+       by searching the whole blob: every project's acreage is printed twice —
+       once in the quoted description and once in its table — so a blob search
+       still passes when one of the two is edited, which is exactly what a
+       deliberate 180 -> 175 got away with the first time this was written.
+       A card must name one land area, and it must be the profile's. */
+    var acres = {'The C':114, 'Safia':180, 'The Crest':158, 'Glen':200, 'Creek Town':100};
+    f.cards.forEach(function(c){
+      // Split on the separator rather than matching a prefix: "The Crest" also
+      // starts with "The C", so a prefix match checked The Crest's card against
+      // The C's acreage and reported a fault in the data that was in the test.
+      var name = String(c.en).split(' · ')[0].trim();
+      if(!(name in acres)) return;
+      var found = {}, m, re = /(\d[\d,]*)[\s-]acres?\b/gi, blob = JSON.stringify(c);
+      while((m = re.exec(blob))) found[m[1].replace(/,/g, '')] = 1;
+      var list = Object.keys(found).sort();
+      if(list.join(',') !== String(acres[name]))
+        bad.push(name + ' names ' + (list.join('/') || 'no') + ' acres, the profile says ' + acres[name]);
+    });
+    [['established 2019', /2019/], ['8 projects', /8 projects/],
+     ['750 m beach line', /750 m/], ['18,000 sqm', /18,000 sqm/],
+     ['five towers', /[Ff]ive towers/]].forEach(function(r){
+      if(!r[1].test(flat)) bad.push('the profile’s "' + r[0] + '" is gone');
+    });
+    return bad.length === 0 || bad.slice(0, 6).join('; ');
+  })(), true);
   /* Five SODIC brochures, five cards. What this holds is the shape of the
      decision rather than the prose: the pictures OF each project reach its
      page, the pages that are bought editorial photography or that print a
