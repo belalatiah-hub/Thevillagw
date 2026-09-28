@@ -4127,9 +4127,35 @@ try {
     var fsx = require('fs'), pathx = require('path'), crypto = require('crypto');
     var root = pathx.join(__dirname, '..'), own = '/project-media/ilcazar/profile/';
     var f = api.DEV_FEATURES.ilcazar, g = api.DEV_GALLERY.ilcazar || [], bad = [];
-    if(!f || !f.cards || f.cards.length !== 9) return 'cards=' + (f && f.cards && f.cards.length);
+    if(!f || !f.cards || f.cards.length !== 11) return 'cards=' + (f && f.cards && f.cards.length);
     if(g.length !== 8) return 'gallery=' + g.length;
+    // A developer has no single master plan, so the slot that draws one
+    // "View master plan" button stays empty. The eleven drawings are on their
+    // own card instead, each named, because eight projects cannot share a slot
+    // built for one.
     if(f.masterplan) bad.push('a company profile has no master plan of its own');
+    /* Every master plan and location map in the book reaches the card that
+       collects it. These two cards are the reason a visitor can find them at
+       all — inside a project's strip they are unlabelled pictures. */
+    var plansCard = f.cards.filter(function(c){ return /^Master plans/.test(c.en); })[0];
+    var locsCard = f.cards.filter(function(c){ return /^Location maps/.test(c.en); })[0];
+    if(!plansCard) bad.push('the master plans card is gone');
+    if(!locsCard) bad.push('the location maps card is gone');
+    if(plansCard){
+      var wantMp = [9,10,18,30,37,46,47,48,58,67,73].map(function(n){
+        return own + 'p' + (n < 10 ? '0' : '') + n + '.webp'; });
+      if(plansCard.imgs.join(',') !== wantMp.join(','))
+        bad.push('the master plans card holds ' + plansCard.imgs.length + ', want ' + wantMp.length);
+    }
+    if(locsCard){
+      /* Six, not eight. Safia's only location page prints three travel times
+         and Stoda has no location page at all — just a proximity one. If a
+         seventh ever appears here it is one of those two coming back. */
+      var wantLoc = [8,28,36,44,56,65].map(function(n){
+        return own + 'p' + (n < 10 ? '0' : '') + n + '.webp'; });
+      if(locsCard.imgs.join(',') !== wantLoc.join(','))
+        bad.push('the location maps card holds ' + locsCard.imgs.length + ', want 6');
+    }
     /* Exactly the 63 spreads the puller publishes. */
     var withheld = [1,4,5,7,15,17,26,29,42,45,57,63,66,71,74,79];
     var want = [];
