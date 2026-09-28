@@ -887,24 +887,26 @@
     'OW-25':'/project-media/orascom/o-west/ap1-ps-1.webp',
     'OW-26':'/project-media/orascom/o-west/ap1-ps-2.webp',
     'OW-27':'/project-media/orascom/o-west/ap1-ps-0.webp',
-    /* Mountain View 1.1. The Park's brochure photographs no individual home,
-       so no unit here gets a picture of itself. What it does photograph is the
-       two home TYPES: p24 heads the iVilla section with the iVilla building,
-       p40 heads the Millennial section with the Millennial building. Those are
-       the developer's own pictures of exactly these products, so the six
-       iVillas take the first and the Millennial takes the second.
+    /* Mountain View 1.1, straight off the sheet's "كود الصور — Image ID"
+       column: row 1 carries 1.1-1, row 2 carries 1.1-2, and so on down to the
+       Luxury Villa's `luxury`. g01…g10 are those ten files, republished from
+       the brochure pages they were screenshotted from.
 
-       The Luxury Villa is the one row with a picture of its own kind of house
-       — a standalone with its own pool — and it came in the client's archive,
-       not in this book, which is why it sits under units/ rather than in the
-       gallery. Nothing here borrows a photograph from another home. */
-    'MV11-01':'/project-media/mountainview/mv11/g10.webp',
-    'MV11-02':'/project-media/mountainview/mv11/g10.webp',
-    'MV11-03':'/project-media/mountainview/mv11/g10.webp',
-    'MV11-04':'/project-media/mountainview/mv11/g10.webp',
-    'MV11-05':'/project-media/mountainview/mv11/g10.webp',
-    'MV11-06':'/project-media/mountainview/mv11/g10.webp',
-    'MV11-07':'/project-media/mountainview/mv11/units/millennial.webp',
+       This shipped once the other way and it was wrong. The reasoning was that
+       The Park's book photographs no individual home — it photographs the two
+       home TYPES, on p24 and p40 — so all six iVillas were given the iVilla
+       building and the Millennial the Millennial building. That is defensible
+       about what a photograph depicts and indefensible about what it produced:
+       seven cards in a row showing one identical picture, on a sales site,
+       against a sheet that had already said which picture goes where. The
+       column is the client's own instruction and it is followed. */
+    'MV11-01':'/project-media/mountainview/mv11/g01.webp',
+    'MV11-02':'/project-media/mountainview/mv11/g02.webp',
+    'MV11-03':'/project-media/mountainview/mv11/g03.webp',
+    'MV11-04':'/project-media/mountainview/mv11/g04.webp',
+    'MV11-05':'/project-media/mountainview/mv11/g05.webp',
+    'MV11-06':'/project-media/mountainview/mv11/g06.webp',
+    'MV11-07':'/project-media/mountainview/mv11/g07.webp',
     'MV11-08':'/project-media/mountainview/mv11/units/luxury-villa-255.webp',
   };
   /* Per-unit render galleries (all photos for a unit) — opened as a numbered
@@ -1557,6 +1559,20 @@
     'OW-25':['/project-media/orascom/o-west/ap1-ps-1.webp', '/project-media/orascom/o-west/ap1-ps-2.webp', '/project-media/orascom/o-west/ap1-ps-0.webp'],
     'OW-26':['/project-media/orascom/o-west/ap1-ps-2.webp', '/project-media/orascom/o-west/ap1-ps-0.webp', '/project-media/orascom/o-west/ap1-ps-1.webp'],
     'OW-27':['/project-media/orascom/o-west/ap1-ps-0.webp', '/project-media/orascom/o-west/ap1-ps-1.webp', '/project-media/orascom/o-west/ap1-ps-2.webp'],
+    /* Mountain View 1.1. Each unit opens on the photograph its own sheet row
+       names, then the rest of the client's ten in their own order — the same
+       shape the ISOLA units use. The Millennial also carries the brochure's
+       photograph of the Millennial building, which heads that section on p40
+       and belongs to no other row; the Luxury Villa opens on the only picture
+       in any of the sources of a standalone house with its own pool. */
+    'MV11-01':['/project-media/mountainview/mv11/g01.webp', '/project-media/mountainview/mv11/g02.webp', '/project-media/mountainview/mv11/g03.webp', '/project-media/mountainview/mv11/g04.webp', '/project-media/mountainview/mv11/g05.webp', '/project-media/mountainview/mv11/g06.webp', '/project-media/mountainview/mv11/g07.webp', '/project-media/mountainview/mv11/g08.webp', '/project-media/mountainview/mv11/g09.webp', '/project-media/mountainview/mv11/g10.webp'],
+    'MV11-02':['/project-media/mountainview/mv11/g02.webp', '/project-media/mountainview/mv11/g01.webp', '/project-media/mountainview/mv11/g03.webp', '/project-media/mountainview/mv11/g04.webp', '/project-media/mountainview/mv11/g05.webp', '/project-media/mountainview/mv11/g06.webp', '/project-media/mountainview/mv11/g07.webp', '/project-media/mountainview/mv11/g08.webp', '/project-media/mountainview/mv11/g09.webp', '/project-media/mountainview/mv11/g10.webp'],
+    'MV11-03':['/project-media/mountainview/mv11/g03.webp', '/project-media/mountainview/mv11/g01.webp', '/project-media/mountainview/mv11/g02.webp', '/project-media/mountainview/mv11/g04.webp', '/project-media/mountainview/mv11/g05.webp', '/project-media/mountainview/mv11/g06.webp', '/project-media/mountainview/mv11/g07.webp', '/project-media/mountainview/mv11/g08.webp', '/project-media/mountainview/mv11/g09.webp', '/project-media/mountainview/mv11/g10.webp'],
+    'MV11-04':['/project-media/mountainview/mv11/g04.webp', '/project-media/mountainview/mv11/g01.webp', '/project-media/mountainview/mv11/g02.webp', '/project-media/mountainview/mv11/g03.webp', '/project-media/mountainview/mv11/g05.webp', '/project-media/mountainview/mv11/g06.webp', '/project-media/mountainview/mv11/g07.webp', '/project-media/mountainview/mv11/g08.webp', '/project-media/mountainview/mv11/g09.webp', '/project-media/mountainview/mv11/g10.webp'],
+    'MV11-05':['/project-media/mountainview/mv11/g05.webp', '/project-media/mountainview/mv11/g01.webp', '/project-media/mountainview/mv11/g02.webp', '/project-media/mountainview/mv11/g03.webp', '/project-media/mountainview/mv11/g04.webp', '/project-media/mountainview/mv11/g06.webp', '/project-media/mountainview/mv11/g07.webp', '/project-media/mountainview/mv11/g08.webp', '/project-media/mountainview/mv11/g09.webp', '/project-media/mountainview/mv11/g10.webp'],
+    'MV11-06':['/project-media/mountainview/mv11/g06.webp', '/project-media/mountainview/mv11/g01.webp', '/project-media/mountainview/mv11/g02.webp', '/project-media/mountainview/mv11/g03.webp', '/project-media/mountainview/mv11/g04.webp', '/project-media/mountainview/mv11/g05.webp', '/project-media/mountainview/mv11/g07.webp', '/project-media/mountainview/mv11/g08.webp', '/project-media/mountainview/mv11/g09.webp', '/project-media/mountainview/mv11/g10.webp'],
+    'MV11-07':['/project-media/mountainview/mv11/g07.webp', '/project-media/mountainview/mv11/units/millennial.webp', '/project-media/mountainview/mv11/g01.webp', '/project-media/mountainview/mv11/g02.webp', '/project-media/mountainview/mv11/g03.webp', '/project-media/mountainview/mv11/g04.webp', '/project-media/mountainview/mv11/g05.webp', '/project-media/mountainview/mv11/g06.webp', '/project-media/mountainview/mv11/g08.webp', '/project-media/mountainview/mv11/g09.webp', '/project-media/mountainview/mv11/g10.webp'],
+    'MV11-08':['/project-media/mountainview/mv11/units/luxury-villa-255.webp', '/project-media/mountainview/mv11/g01.webp', '/project-media/mountainview/mv11/g02.webp', '/project-media/mountainview/mv11/g03.webp', '/project-media/mountainview/mv11/g04.webp', '/project-media/mountainview/mv11/g05.webp', '/project-media/mountainview/mv11/g06.webp', '/project-media/mountainview/mv11/g07.webp', '/project-media/mountainview/mv11/g08.webp', '/project-media/mountainview/mv11/g09.webp', '/project-media/mountainview/mv11/g10.webp'],
   };
   /* Location aerials (per area) — reused as the unit "Location" viewer image and
      the Top-Locations card art. Drop <area-key>.webp into /project-media/locations. */

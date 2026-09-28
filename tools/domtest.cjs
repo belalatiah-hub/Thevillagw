@@ -2114,6 +2114,48 @@ try {
     if((api.UNIT_FLOORPLANS['MV11-07'] || []).length !== 3) bad.push('Millennial wants all three');
     return bad.length === 0 || bad.join('; ');
   })(), true);
+  /* The sheet's "كود الصور — Image ID" column names one file per row. This
+     shipped once ignoring it: all six iVillas were given the same photograph
+     of the iVilla building, on the reasoning that the book photographs the
+     home TYPE and not the individual home. Defensible about what a picture
+     depicts, indefensible about what it produced — seven cards in a row
+     showing one identical image on a sales site, against a column that had
+     already said which picture goes where. The owner spotted it on the live
+     site; nothing here did.
+
+     Units sharing a cover is NOT wrong in general — 22 projects on this site
+     do it, usually two or three of one type sharing one render — so this is
+     not a blanket rule. It is the specific one that applies when the client
+     has named a file per row: use the file they named. */
+  ck('mountainview: 1.1\'s covers are the sheet\'s Image ID column, one per row', (function(){
+    var own = '/project-media/mountainview/mv11/', bad = [];
+    var want = {
+      'MV11-01': own + 'g01.webp', 'MV11-02': own + 'g02.webp',
+      'MV11-03': own + 'g03.webp', 'MV11-04': own + 'g04.webp',
+      'MV11-05': own + 'g05.webp', 'MV11-06': own + 'g06.webp',
+      'MV11-07': own + 'g07.webp', 'MV11-08': own + 'units/luxury-villa-255.webp'
+    };
+    var seen = {};
+    Object.keys(want).sort().forEach(function(id){
+      var got = api.UNIT_IMAGES[id];
+      if(got !== want[id])
+        bad.push(id + ' shows ' + (got ? got.split('/').pop() : 'nothing') +
+                 ', the sheet says ' + want[id].split('/').pop());
+      if(got && seen[got]) bad.push(id + ' repeats ' + seen[got] + '’s picture');
+      if(got) seen[got] = id;
+      // and the unit's own carousel opens on the same picture, with no repeats
+      var g = api.UNIT_GALLERY[id] || [];
+      if(!g.length) return bad.push(id + ' has no gallery');
+      if(g[0] !== want[id]) bad.push(id + ' opens its gallery on ' + g[0].split('/').pop());
+      var dup = {};
+      g.forEach(function(s){
+        if(dup[s]) bad.push(id + ' lists ' + s.split('/').pop() + ' twice');
+        dup[s] = 1;
+        if(String(s).indexOf(own) !== 0) bad.push(id + ' reaches outside the project: ' + s);
+      });
+    });
+    return bad.length === 0 || bad.join('; ');
+  })(), true);
   ck('mountainview: 1.1 shows the client\'s ten, in the client\'s order, and nothing else', (function(){
     var fsx = require('fs'), pathx = require('path'), crypto = require('crypto');
     var root = pathx.join(__dirname, '..'), own = '/project-media/mountainview/mv11/';
