@@ -86,7 +86,7 @@ sandbox.globalThis = sandbox; sandbox.self = sandbox;
 
 let src = fs.readFileSync(require('path').join(__dirname,'..','index.html'),'utf8');
 src = src.match(/<script>\s*"use strict"[\s\S]*?<\/script>/)[0].replace(/^<script>/,'').replace(/<\/script>$/,'');
-src += "\n;globalThis.__api={h:h,V:V,unitCard:unitCard,projectArt:projectArt,projectMedia:projectMedia,projectCoverSrc:projectCoverSrc,chatRespond:chatRespond,offerText:offerText,money:money,num:num,cmpPrice:cmpPrice,planLine:planLine,projectOffer:projectOffer,bestNameMatch:bestNameMatch,unitDisplayName:unitDisplayName,PROJECTS:PROJECTS,UNITS:UNITS,DEVELOPERS:DEVELOPERS,TYPES:TYPES,lang:lang,filterUnits:filterUnits,defaultFilter:defaultFilter,normalizeUnitType:normalizeUnitType,reconcileFilter:reconcileFilter,filterToQuery:filterToQuery,filterFromQuery:filterFromQuery,areaFacets:areaFacets,devFacets:devFacets,typeFacets:typeFacets,bedFacets:bedFacets,floorFacets:floorFacets,usesFloorBands:usesFloorBands,recommendUnits:recommendUnits,scoreUnit:scoreUnit,relaxationPlan:relaxationPlan,matchHard:matchHard,hasSelection:hasSelection,selectionSummary:selectionSummary,chatRecommend:chatRecommend,chatBriefText:chatBriefText,projBySlug:projBySlug,unitCanon:unitCanon,setFilter:function(f){FILTER=f;},getFilter:function(){return FILTER;},searchAll:searchAll,arNorm:arNorm,buildSearchIndex:buildSearchIndex,setSearch:function(s){CUR.search=s;},paymentCalc:paymentCalc,printFactsheet:printFactsheet,projFloorplan:projFloorplan,installmentCount:installmentCount,projectCoverSrc:projectCoverSrc,printUnitFactsheet:printUnitFactsheet,openFactsheet:openFactsheet,closeFactsheet:closeFactsheet,track:track,render:render,parse:parse,buildPath:buildPath,navigateTo:navigateTo,getRoute:function(){return currentRoute;},searchLabel:searchLabel,saveCurrentSearch:saveCurrentSearch,savedSearches:savedSearches,removeSearch:removeSearch,leadSubmit:leadSubmit,leadArm:leadArm,leadReset:function(){LEAD.shown=0;LEAD.armed=false;LEAD.open=false;},leadState:function(){return LEAD;},isExternalLink:isExternalLink,CONFIG:CONFIG,devLogoSrc:devLogoSrc,projectLogoSrc:projectLogoSrc,devBadge:devBadge,devByKey:devByKey,DEV_LOGOS:DEV_LOGOS,DEV_GALLERY:DEV_GALLERY,devGallery:devGallery,PROJECT_LOGOS:PROJECT_LOGOS,unitMasterplans:unitMasterplans,unitFloorplans:unitFloorplans,unitAmenities:unitAmenities,unitLocationImg:unitLocationImg,unitGallery:unitGallery,unitGalleryItems:unitGalleryItems,unitFeatureRow:unitFeatureRow,amenitiesSection:amenitiesSection,areaImageSrc:areaImageSrc,AMENITY_CAT:AMENITY_CAT,unitById:unitById,unitIsCommercial:unitIsCommercial,typeFamily:typeFamily,releaseBySlug:releaseBySlug,RELEASES:RELEASES,rotateByDev:rotateByDev,devRotationOffset:devRotationOffset,areaByKey:areaByKey,hasUnitImage:hasUnitImage,sortUnits:sortUnits,searchAll:searchAll,searchTypeOne:searchTypeOne,buildSearchIndex:buildSearchIndex,releaseMasterplan:releaseMasterplan,spreadByDev:spreadByDev,isNewLaunch:isNewLaunch,newLaunchProjects:newLaunchProjects,NEW_LAUNCH_SLUGS:NEW_LAUNCH_SLUGS,PROJECT_GROUPS:PROJECT_GROUPS,groupBySlug:groupBySlug,groupsByDev:groupsByDev,groupMembers:groupMembers,GROUPED_PROJECT:GROUPED_PROJECT,setCompare:function(a){compare.length=0;for(var i=0;i<a.length;i++)compare.push(a[i]);},getCompare:function(){return compare;},toggleCompare:toggleCompare,HERO_SLIDES:HERO_SLIDES,heroSrc:heroSrc,AREAS:AREAS,RESEARCH:RESEARCH,areaText:areaText,areaValue:areaValue,DEV_AMENITIES:DEV_AMENITIES,AMENITY_CAT:AMENITY_CAT,ICON:ICON,devAmenitiesSection:devAmenitiesSection,DEV_FEATURES:DEV_FEATURES,UNIT_GALLERY:UNIT_GALLERY,unitMasterplans:unitMasterplans,unitLocationImg:unitLocationImg,unitFloorplans:unitFloorplans,PROJECT_AMENITIES:PROJECT_AMENITIES,unitAmenities:unitAmenities,projectGalleryItems:projectGalleryItems,projFeatures:projFeatures,projectPlans:projectPlans,projectPlanSection:projectPlanSection,unitMedia:unitMedia,UNIT_IMAGES:UNIT_IMAGES,PROJECT_COVERS:PROJECT_COVERS,PROJECT_GALLERY:PROJECT_GALLERY,projectPhases:projectPhases,phaseOf:phaseOf,PROJECT_BROCHURE:PROJECT_BROCHURE,PROJECT_FEATURES:PROJECT_FEATURES,PROJECT_PLANS:PROJECT_PLANS,UNIT_EXTRA:UNIT_EXTRA,UNIT_MASTERPLANS:UNIT_MASTERPLANS,UNIT_FLOORPLANS:UNIT_FLOORPLANS,UNIT_LOCATIONS:UNIT_LOCATIONS,COMING_SOON_LAUNCHES:COMING_SOON_LAUNCHES,comingSoonFor:comingSoonFor,comingSoonForDev:comingSoonForDev,comingSoonCard:comingSoonCard,csHref:csHref,csTitle:csTitle,setLang:function(l){var p=lang;lang=l;return p;}};";
+src += "\n;globalThis.__api={h:h,V:V,unitCard:unitCard,projectArt:projectArt,projectMedia:projectMedia,projectCoverSrc:projectCoverSrc,chatRespond:chatRespond,offerText:offerText,money:money,num:num,cmpPrice:cmpPrice,planLine:planLine,projectOffer:projectOffer,bestNameMatch:bestNameMatch,unitDisplayName:unitDisplayName,PROJECTS:PROJECTS,UNITS:UNITS,DEVELOPERS:DEVELOPERS,TYPES:TYPES,lang:lang,filterUnits:filterUnits,defaultFilter:defaultFilter,normalizeUnitType:normalizeUnitType,reconcileFilter:reconcileFilter,filterToQuery:filterToQuery,filterFromQuery:filterFromQuery,areaFacets:areaFacets,devFacets:devFacets,typeFacets:typeFacets,bedFacets:bedFacets,floorFacets:floorFacets,usesFloorBands:usesFloorBands,recommendUnits:recommendUnits,scoreUnit:scoreUnit,relaxationPlan:relaxationPlan,matchHard:matchHard,hasSelection:hasSelection,selectionSummary:selectionSummary,chatRecommend:chatRecommend,chatBriefText:chatBriefText,projBySlug:projBySlug,unitCanon:unitCanon,setFilter:function(f){FILTER=f;},getFilter:function(){return FILTER;},searchAll:searchAll,arNorm:arNorm,buildSearchIndex:buildSearchIndex,setSearch:function(s){CUR.search=s;},paymentCalc:paymentCalc,printFactsheet:printFactsheet,projFloorplan:projFloorplan,installmentCount:installmentCount,projectCoverSrc:projectCoverSrc,printUnitFactsheet:printUnitFactsheet,openFactsheet:openFactsheet,closeFactsheet:closeFactsheet,track:track,render:render,parse:parse,buildPath:buildPath,navigateTo:navigateTo,getRoute:function(){return currentRoute;},searchLabel:searchLabel,saveCurrentSearch:saveCurrentSearch,savedSearches:savedSearches,removeSearch:removeSearch,leadSubmit:leadSubmit,leadArm:leadArm,leadReset:function(){LEAD.shown=0;LEAD.armed=false;LEAD.open=false;},leadState:function(){return LEAD;},isExternalLink:isExternalLink,CONFIG:CONFIG,devLogoSrc:devLogoSrc,projectLogoSrc:projectLogoSrc,devBadge:devBadge,devByKey:devByKey,DEV_LOGOS:DEV_LOGOS,DEV_GALLERY:DEV_GALLERY,DEV_PLANS:DEV_PLANS,devGallery:devGallery,PROJECT_LOGOS:PROJECT_LOGOS,unitMasterplans:unitMasterplans,unitFloorplans:unitFloorplans,unitAmenities:unitAmenities,unitLocationImg:unitLocationImg,unitGallery:unitGallery,unitGalleryItems:unitGalleryItems,unitFeatureRow:unitFeatureRow,amenitiesSection:amenitiesSection,areaImageSrc:areaImageSrc,AMENITY_CAT:AMENITY_CAT,unitById:unitById,unitIsCommercial:unitIsCommercial,typeFamily:typeFamily,releaseBySlug:releaseBySlug,RELEASES:RELEASES,rotateByDev:rotateByDev,devRotationOffset:devRotationOffset,areaByKey:areaByKey,hasUnitImage:hasUnitImage,sortUnits:sortUnits,searchAll:searchAll,searchTypeOne:searchTypeOne,buildSearchIndex:buildSearchIndex,releaseMasterplan:releaseMasterplan,spreadByDev:spreadByDev,isNewLaunch:isNewLaunch,newLaunchProjects:newLaunchProjects,NEW_LAUNCH_SLUGS:NEW_LAUNCH_SLUGS,PROJECT_GROUPS:PROJECT_GROUPS,groupBySlug:groupBySlug,groupsByDev:groupsByDev,groupMembers:groupMembers,GROUPED_PROJECT:GROUPED_PROJECT,setCompare:function(a){compare.length=0;for(var i=0;i<a.length;i++)compare.push(a[i]);},getCompare:function(){return compare;},toggleCompare:toggleCompare,HERO_SLIDES:HERO_SLIDES,heroSrc:heroSrc,AREAS:AREAS,RESEARCH:RESEARCH,areaText:areaText,areaValue:areaValue,DEV_AMENITIES:DEV_AMENITIES,AMENITY_CAT:AMENITY_CAT,ICON:ICON,devAmenitiesSection:devAmenitiesSection,DEV_FEATURES:DEV_FEATURES,UNIT_GALLERY:UNIT_GALLERY,unitMasterplans:unitMasterplans,unitLocationImg:unitLocationImg,unitFloorplans:unitFloorplans,PROJECT_AMENITIES:PROJECT_AMENITIES,unitAmenities:unitAmenities,projectGalleryItems:projectGalleryItems,projFeatures:projFeatures,projectPlans:projectPlans,projectPlanSection:projectPlanSection,unitMedia:unitMedia,UNIT_IMAGES:UNIT_IMAGES,PROJECT_COVERS:PROJECT_COVERS,PROJECT_GALLERY:PROJECT_GALLERY,projectPhases:projectPhases,phaseOf:phaseOf,PROJECT_BROCHURE:PROJECT_BROCHURE,PROJECT_FEATURES:PROJECT_FEATURES,PROJECT_PLANS:PROJECT_PLANS,UNIT_EXTRA:UNIT_EXTRA,UNIT_MASTERPLANS:UNIT_MASTERPLANS,UNIT_FLOORPLANS:UNIT_FLOORPLANS,UNIT_LOCATIONS:UNIT_LOCATIONS,COMING_SOON_LAUNCHES:COMING_SOON_LAUNCHES,comingSoonFor:comingSoonFor,comingSoonForDev:comingSoonForDev,comingSoonCard:comingSoonCard,csHref:csHref,csTitle:csTitle,setLang:function(l){var p=lang;lang=l;return p;}};";
 
 /* A check passes on `true` and fails on a string, which is its own message.
    `ok:!!c` used to be the rule, and a string is truthy — so every check written
@@ -4127,34 +4127,36 @@ try {
     var fsx = require('fs'), pathx = require('path'), crypto = require('crypto');
     var root = pathx.join(__dirname, '..'), own = '/project-media/ilcazar/profile/';
     var f = api.DEV_FEATURES.ilcazar, g = api.DEV_GALLERY.ilcazar || [], bad = [];
-    if(!f || !f.cards || f.cards.length !== 11) return 'cards=' + (f && f.cards && f.cards.length);
+    var plans = api.DEV_PLANS && api.DEV_PLANS.ilcazar;
+    if(!f || !f.cards || f.cards.length !== 9) return 'cards=' + (f && f.cards && f.cards.length);
     if(g.length !== 8) return 'gallery=' + g.length;
     // A developer has no single master plan, so the slot that draws one
-    // "View master plan" button stays empty. The eleven drawings are on their
-    // own card instead, each named, because eight projects cannot share a slot
-    // built for one.
+    // "View master plan" button stays empty. Eight projects' plans go in the
+    // band instead, which holds a list and captions each entry.
     if(f.masterplan) bad.push('a company profile has no master plan of its own');
-    /* Every master plan and location map in the book reaches the card that
-       collects it. These two cards are the reason a visitor can find them at
-       all — inside a project's strip they are unlabelled pictures. */
-    var plansCard = f.cards.filter(function(c){ return /^Master plans/.test(c.en); })[0];
-    var locsCard = f.cards.filter(function(c){ return /^Location maps/.test(c.en); })[0];
-    if(!plansCard) bad.push('the master plans card is gone');
-    if(!locsCard) bad.push('the location maps card is gone');
-    if(plansCard){
-      var wantMp = [9,10,18,30,37,46,47,48,58,67,73].map(function(n){
+    /* The band: "Master plan & location", one button each, the way a project
+       page draws it. Inside a project card's strip these are unlabelled
+       pictures and a reader cannot tell a plan from a render; here each is a
+       named entry in its own viewer. */
+    if(!plans) bad.push('the plan band is gone');
+    else {
+      var mpWant = [9,10,18,30,37,46,47,48,58,67,73].map(function(n){
         return own + 'p' + (n < 10 ? '0' : '') + n + '.webp'; });
-      if(plansCard.imgs.join(',') !== wantMp.join(','))
-        bad.push('the master plans card holds ' + plansCard.imgs.length + ', want ' + wantMp.length);
-    }
-    if(locsCard){
-      /* Six, not eight. Safia's only location page prints three travel times
-         and Stoda has no location page at all — just a proximity one. If a
-         seventh ever appears here it is one of those two coming back. */
-      var wantLoc = [8,28,36,44,56,65].map(function(n){
+      /* Six maps, not eight. Safia's only location page prints three travel
+         times and Stoda has no location page at all — just a proximity one. A
+         seventh entry here is one of those two coming back. */
+      var locWant = [8,28,36,44,56,65].map(function(n){
         return own + 'p' + (n < 10 ? '0' : '') + n + '.webp'; });
-      if(locsCard.imgs.join(',') !== wantLoc.join(','))
-        bad.push('the location maps card holds ' + locsCard.imgs.length + ', want 6');
+      [['master plan', plans.mp, mpWant], ['location', plans.loc, locWant]].forEach(function(r){
+        var got = (r[1] || []).map(function(e){ return e && e.src ? e.src : e; });
+        if(got.join(',') !== r[2].join(','))
+          bad.push('the ' + r[0] + ' band holds ' + got.length + ', want ' + r[2].length);
+        // Every entry names the project it belongs to, in both languages.
+        (r[1] || []).forEach(function(e){
+          if(!e || !e.cap || !e.cap.en || !e.cap.ar)
+            bad.push('a ' + r[0] + ' entry has no bilingual caption');
+        });
+      });
     }
     /* Exactly the 63 spreads the puller publishes. */
     var withheld = [1,4,5,7,15,17,26,29,42,45,57,63,66,71,74,79];
@@ -4167,7 +4169,13 @@ try {
     if(got.join(',') !== want.join(','))
       bad.push('the folder holds ' + got.length + ' files, want ' + want.length);
     /* Every picture on the page is one of them, and exists. */
-    var srcs = g.concat([].concat.apply([], f.cards.map(function(c){ return c.imgs; })));
+    /* The strip, the cards AND the plan band. The band was left out of this
+       list at first, so slipping Safia's withheld proximity map into it was
+       caught only by the entry count — the withheld-page check below never saw
+       it. Every surface that can put a picture on this page is listed here. */
+    var bandSrcs = [].concat.apply([], [(plans && plans.mp) || [], (plans && plans.loc) || []])
+      .map(function(e){ return e && e.src ? e.src : e; });
+    var srcs = g.concat([].concat.apply([], f.cards.map(function(c){ return c.imgs; })), bandSrcs);
     srcs.forEach(function(src){
       if(String(src).indexOf(own) !== 0) bad.push('stray ' + src);
       if(!fsx.existsSync(pathx.join(root, String(src).replace(/^\//, ''))))

@@ -6496,45 +6496,6 @@ groups:[
 more:{en:'This site had IL Cazar down as founded in 2016 and building in New Cairo and on the North Coast. The company’s own profile says 2019 — on the introduction page and again under About Us — and names four districts. Both were corrected against it. The figures on every card below are the profile’s own and are quoted as the developer’s claim.',
 ar:'كان هذا الموقع يسجّل تأسيس إل كازار عام ٢٠١٦ وبناءها في القاهرة الجديدة والساحل الشمالي. وملف الشركة نفسه يقول ٢٠١٩ — في صفحة المقدّمة ومرة أخرى تحت «من نحن» — ويسمّي أربع مناطق. وصُحّح الاثنان على أساسه. والأرقام على كل كارت أدناه هي أرقام الملف نفسه، منقولة بوصفها ادّعاء المطوّر.'}
 }},
-{en:'Master plans, project by project', ar:'الماستر بلان، مشروعاً مشروعاً', icon:'masterplan',
-imgs:[ICP+'p09.webp', ICP+'p10.webp', ICP+'p18.webp', ICP+'p30.webp',
-ICP+'p37.webp', ICP+'p46.webp', ICP+'p47.webp', ICP+'p48.webp',
-ICP+'p58.webp', ICP+'p67.webp', ICP+'p73.webp'],
-copy:{
-lead:{en:'Eleven drawings: a master plan for each of the eight projects, plus The C’s zoning plan and the two Glen zones the profile draws out on their own pages. Every one is the developer’s own drawing, at the full width of the page it came from.',
-ar:'أحد عشر رسماً: ماستر بلان لكل مشروع من الثمانية، بالإضافة إلى مخطط تقسيم مناطق ذا سي ومنطقتَي جلين اللتين يرسمهما الملف على صفحتين خاصتين. وكلها رسوم المطوّر نفسه، بعرض الصفحة التي جاءت منها كاملاً.'},
-groups:[
-{label:{en:'In the order they open', ar:'بالترتيب الذي تُفتح به'}, rows:[
-{k:{en:'The C', ar:'ذا سي'}, v:{en:'Master plan, then the zoning plan keying its seven zones', ar:'الماستر بلان، ثم مخطط تقسيم المناطق الذي يفتح مناطقه السبع'}},
-{k:{en:'Safia', ar:'صافيا'}, v:{en:'Master plan', ar:'الماستر بلان'}},
-{k:{en:'The Crest', ar:'ذا كريست'}, v:{en:'Master plan', ar:'الماستر بلان'}},
-{k:{en:'Westdays', ar:'ويست دايز'}, v:{en:'Master plan', ar:'الماستر بلان'}},
-{k:{en:'Glen', ar:'جلين'}, v:{en:'Master plan, then G-Haus and G-Edge drawn out on their own', ar:'الماستر بلان، ثم جي-هاوس وجي-إيدج مرسومتان على حدة'}},
-{k:{en:'Creek Town', ar:'كريك تاون'}, v:{en:'Master plan', ar:'الماستر بلان'}},
-{k:{en:'Go Heliopolis', ar:'جو مصر الجديدة'}, v:{en:'Master plan, five towers numbered 01 to 05', ar:'الماستر بلان، خمسة أبراج مرقّمة من ٠١ إلى ٠٥'}},
-{k:{en:'Stoda', ar:'ستودا'}, v:{en:'Residential and non-residential master plan, keying apartments, retail, a business park and a mosque', ar:'ماستر بلان سكني وغير سكني، يفتح الشقق والمحال والبيزنس بارك والمسجد'}}]}
-],
-more:{en:'Glen’s two extra pages are G-Haus and G-Edge. The profile keys four zones on Glen’s main plan — G-Haus, G-Arc, G-Meadow and G-Edge — and draws only those two out at size, which is why the other two are not here.',
-ar:'صفحتا جلين الإضافيتان هما جي-هاوس وجي-إيدج. ويفتح الملف أربع مناطق على مخطط جلين الرئيسي — جي-هاوس وجي-آرك وجي-ميدو وجي-إيدج — ولا يرسم بحجم كبير سوى هاتين، ولهذا لا توجد الأخريان هنا.'}
-}},
-{en:'Location maps, project by project', ar:'خرائط المواقع، مشروعاً مشروعاً', icon:'pin',
-imgs:[ICP+'p08.webp', ICP+'p28.webp', ICP+'p36.webp', ICP+'p44.webp',
-ICP+'p56.webp', ICP+'p65.webp'],
-copy:{
-lead:{en:'Six maps, one per project that has one without a travel claim printed on it. Each names real roads and real neighbours and no minutes at all.',
-ar:'ست خرائط، واحدة لكل مشروع له خريطة بلا ادّعاء عن زمن الوصول مطبوع عليها. وكلٌّ منها تسمّي طرقاً حقيقية وجيراناً حقيقيين ولا تذكر دقائق على الإطلاق.'},
-groups:[
-{label:{en:'What each one draws', ar:'ما ترسمه كلٌّ منها'}, rows:[
-{k:{en:'The C', ar:'ذا سي'}, v:{en:'The Ras El Hekma coastline with Swan Lake, The Med, Katameya Coast, Safia, Soul and LVLS along it', ar:'ساحل رأس الحكمة وعليه سوان ليك وذا ميد وكاتاميا كوست وصافيا وسول وإل في إل إس'}},
-{k:{en:'The Crest', ar:'ذا كريست'}, v:{en:'Hyde Park, Point 90, the AUC, The Westin Hotel, the E-Ring Road, South 90 St., the New Capital and Glen', ar:'هايد بارك وبوينت ٩٠ والجامعة الأمريكية وفندق ويستن والطريق الدائري الشرقي وشارع التسعين الجنوبي والعاصمة الإدارية وجلين'}},
-{k:{en:'Westdays', ar:'ويست دايز'}, v:{en:'The Boulevard road, Mountain View iCity, the Shooting Club, the Gamal Abdel Nasser axis, the Mall of Arabia, the 26th of July and Wahat corridors', ar:'طريق البولفار وماونتن ڤيو آي سيتي ونادي الصيد ومحور جمال عبد الناصر ومول العرب ومحورا ٢٦ يوليو والواحات'}},
-{k:{en:'Glen', ar:'جلين'}, v:{en:'Hyde Park, Zed East, Ora Developments, The Crest, Crescent Walk, Marakez, Garden Valleys, Mountain View, the E-Ring Road and South 90', ar:'هايد بارك وزيد إيست وأورا للتطوير وذا كريست وكريسنت ووك ومراكز وجاردن فالييز وماونتن ڤيو والطريق الدائري الشرقي والتسعين الجنوبي'}},
-{k:{en:'Creek Town', ar:'كريك تاون'}, v:{en:'The Suez Road, Family Park, El Rehab, TMG, Sadaa New Cairo, Mirage Mall, Oro Plaza Hotel, Stei8ht and LMD', ar:'طريق السويس والفاميلي بارك والرحاب وطلعت مصطفى وسعادة القاهرة الجديدة وميراج مول وفندق أورو بلازا وستيت وإل إم دي'}},
-{k:{en:'Go Heliopolis', ar:'جو مصر الجديدة'}, v:{en:'El-Nozha Street and the Nasr Road, with the plot marked', ar:'شارع النزهة وطريق النصر، والقطعة معلّمة عليهما'}}]}
-],
-more:{en:'Safia and Stoda are not here, and that is the whole reason this card is six and not eight. Safia’s only location page is titled LOCATION & PROXIMITY MAP and prints 20 minutes to El Dabaa Axis, 30 to Alamein International Airport and 2:30 hours to the Cairo–Alex desert road, on the drawing and in the paragraph beside it; Stoda has no location page at all, only a proximity one. Neither is published, so neither project has a map here. Where each of them sits is written out in words on its own card instead.',
-ar:'صافيا وستودا ليستا هنا، وهذا وحده سبب أن الكارت ست لا ثماني. فصفحة موقع صافيا الوحيدة عنوانها LOCATION & PROXIMITY MAP وتطبع ٢٠ دقيقة لمحور الضبعة و٣٠ لمطار العلمين الدولي و٢:٣٠ ساعة لطريق القاهرة إسكندرية الصحراوي، على الرسم وفي الفقرة بجواره؛ وستودا ليس لها صفحة موقع أصلاً، بل صفحة مسافات فقط. ولم تُنشر أيٌّ منهما، فلا خريطة لأيٍّ من المشروعين هنا. وحُرّر موقع كلٍّ منهما بالكلمات على كارته الخاص بدلاً من ذلك.'}
-}},
 {en:'The C · Ras El Hekma', ar:'ذا سي · رأس الحكمة', icon:'am_beach',
 imgs:[ICP+'p11.webp', ICP+'p12.webp', ICP+'p13.webp', ICP+'p08.webp',
 ICP+'p09.webp', ICP+'p10.webp', ICP+'p14.webp', ICP+'p06.webp'],
@@ -9463,7 +9424,33 @@ img.addEventListener('error', function(){ if(img.parentNode) img.parentNode.remo
 img.addEventListener('click', function(){ mediaViewer(items, alt, i); });
 return img;
 }
-function devMasterplanSection(dev){ return masterplanSection(devFeatures(dev.key), L(dev.name)); }
+var DEV_PLANS = {
+'ilcazar': {
+mp: [{src:ICP+'p09.webp', cap:{en:'The C', ar:'ذا سي'}},
+{src:ICP+'p10.webp', cap:{en:'The C — zoning', ar:'ذا سي — تقسيم المناطق'}},
+{src:ICP+'p18.webp', cap:{en:'Safia', ar:'صافيا'}},
+{src:ICP+'p30.webp', cap:{en:'The Crest', ar:'ذا كريست'}},
+{src:ICP+'p37.webp', cap:{en:'Westdays', ar:'ويست دايز'}},
+{src:ICP+'p46.webp', cap:{en:'Glen', ar:'جلين'}},
+{src:ICP+'p47.webp', cap:{en:'Glen — G-Haus', ar:'جلين — جي-هاوس'}},
+{src:ICP+'p48.webp', cap:{en:'Glen — G-Edge', ar:'جلين — جي-إيدج'}},
+{src:ICP+'p58.webp', cap:{en:'Creek Town', ar:'كريك تاون'}},
+{src:ICP+'p67.webp', cap:{en:'Go Heliopolis', ar:'جو مصر الجديدة'}},
+{src:ICP+'p73.webp', cap:{en:'Stoda', ar:'ستودا'}}],
+loc:[{src:ICP+'p08.webp', cap:{en:'The C', ar:'ذا سي'}},
+{src:ICP+'p28.webp', cap:{en:'The Crest', ar:'ذا كريست'}},
+{src:ICP+'p36.webp', cap:{en:'Westdays', ar:'ويست دايز'}},
+{src:ICP+'p44.webp', cap:{en:'Glen', ar:'جلين'}},
+{src:ICP+'p56.webp', cap:{en:'Creek Town', ar:'كريك تاون'}},
+{src:ICP+'p65.webp', cap:{en:'Go Heliopolis', ar:'جو مصر الجديدة'}}]
+}
+};
+function devPlans(key){ return DEV_PLANS[key] || {}; }
+function devMasterplanSection(dev){
+var g = devPlans(dev.key);
+if(g.mp || g.loc) return planBand(L(dev.name), g.mp || null, g.loc || null);
+return masterplanSection(devFeatures(dev.key), L(dev.name));
+}
 function masterplanSection(f, nm){
 if(!f || !f.masterplan) return null;
 var m = f.masterplan, label = L({en:m.en, ar:m.ar});
@@ -9497,7 +9484,11 @@ var label = (mp && loc) ? (lang==='ar' ? 'الماستر بلان والموقع
 var row = h('div',{class:'dev-mp'});
 function btn(list, title, icon, text){
 var items = list.map(function(s,i){
-return {src:planUrl(s), cap:nm+' · '+title+(list.length>1?(' ('+(i+1)+'/'+list.length+')'):'')};
+var src = (s && s.src) ? s.src : s;
+var own = (s && s.cap) ? L(s.cap) : '';
+return {src:planUrl(src),
+cap:nm+' · '+title+(own ? ' — '+own : '')+
+(list.length>1?(' ('+(i+1)+'/'+list.length+')'):'')};
 });
 var b = h('button',{class:'ufeat', type:'button'}, ic(icon,'ufeat__ic'), h('span',null,text));
 b.addEventListener('click', function(){ mediaViewer(items, nm+' · '+title, 0); });
