@@ -583,6 +583,9 @@ var PROJECTS = [
 {slug:'isola-centra', name:'ISOLA Centra', name_ar:'إيزولا سنترا', dev:'elmasria', area:'newcairo', status:'primary', price:8560000, dp:8, years:8, delivery:'2030', types:{en:'Apartment · Loft · Administrative Office · Medical Unit · Retail',ar:'شقة · لوفت · مكتب إداري · وحدة طبية · محل تجاري'}, tags:{en:['New Cairo','25 acres','Mixed-use'],ar:['القاهرة الجديدة','٢٥ أكر','متعدد الاستخدامات']}, blurb:{en:'El Masria’s ISOLA Centra in the heart of New Cairo, between North 90 and South 90 and a few steps from the American University in Cairo — twenty-six residential buildings of up to five levels with apartments from 87 to 260 m², around a commercial, administrative and medical spine. Developer-direct primary units.',ar:'إيزولا سنترا من المصرية جروب في قلب القاهرة الجديدة، بين التسعين الشمالي والتسعين الجنوبي وعلى بعد خطوات من الجامعة الأمريكية بالقاهرة — ستة وعشرون مبنى سكنياً حتى خمسة أدوار بشقق من ٨٧ إلى ٢٦٠ م²، حول محور تجاري وإداري وطبي. وحدات أولية من المطوّر مباشرة.'}},
 {slug:'isola-quattro', name:'ISOLA Quattro', name_ar:'إيزولا كواترو', dev:'elmasria', area:'newcairo', status:'primary', price:4410000, dp:3, years:9, delivery:'2030', types:{en:'Apartment · Loft',ar:'شقة · لوفت'}, tags:{en:['New Cairo','Golden Square','15 acres'],ar:['القاهرة الجديدة','جولدن سكوير','١٥ أكر']}, blurb:{en:'El Masria’s ISOLA Quattro in New Cairo’s Golden Square, on Mohamed Ebn Zayed Road and close to the New Administrative Capital — thirteen buildings on 15 acres with only a quarter of the ground built on, and apartments from 89 to 232 m². Developer-direct primary units.',ar:'إيزولا كواترو من المصرية جروب في جولدن سكوير بالقاهرة الجديدة، على محور محمد بن زايد وقريباً من العاصمة الإدارية الجديدة — ثلاثة عشر مبنى على ١٥ أكر لا يشغل البناء منها سوى الربع، وشقق من ٨٩ إلى ٢٣٢ م². وحدات أولية من المطوّر مباشرة.'}},
 {slug:'ras-soma', name:'Ras Soma', name_ar:'رأس سوما', dev:'travco', area:'redsea', status:'launch', types:{en:'Apartment · Chalet · Villa',ar:'شقة · شاليه · فيلا'}, tags:{en:['Red Sea','Ras Abu Soma bay','Beachfront','Marina'],ar:['البحر الأحمر','خليج رأس أبو سوما','على الشاطئ','مارينا']}, blurb:{en:'Travco Properties’ Red Sea town on the bay of Ras Abu Soma, master planned by WATG — beachfront villas, quad chalets and garden apartments from 70 to 392 m², set around a marina, a town centre, two resort hotels and a green spine of parks that runs down to the sand.',ar:'مدينة ترافكو بروبرتيز على البحر الأحمر في خليج رأس أبو سوما، من تخطيط WATG — فيلات على الشاطئ وشاليهات رباعية وشقق بحدائق من ٧٠ إلى ٣٩٢ م²، حول مارينا ومركز للمدينة وفندقين منتجعيين وعمود أخضر من الحدائق ينزل حتى الرمال.'}},
+{slug:'the-crest', name:'The Crest', name_ar:'ذا كريست', dev:'ilcazar', area:'newcairo', status:'primary', price:4977000, dp:10, years:10, delivery:'2030', types:{en:'Apartment · Penthouse · Townhouse · Standalone Villa',ar:'شقة · بنتهاوس · تاون هاوس · فيلا مستقلة'}, tags:{en:['New Cairo','158 acres','Five districts'],ar:['القاهرة الجديدة','١٥٨ أكر','خمسة أحياء']}, blurb:{en:'IL Cazar’s New Cairo compound, at the intersection of South 90 Street and the ring-road axis, spanning 158 acres across five districts — Signature Ville for one-storey villas, CrestVille for standalones, Crestonia for quads and standalones, Crestside for townhouses and Crestfield for apartments and duplexes. The brochure draws a clubhouse and commercial area, hypermarkets, a gym and wellness centre, paddle tennis and football courts, a nursery and a dining restaurant, with the architecture by Raef Fahmi Architects, established 1991. Developer-direct primary units, from 10% down over 10 years.',ar:'كمبوند إل كازار بالقاهرة الجديدة، عند تقاطع شارع التسعين الجنوبي مع محور الطريق الدائري، على ١٥٨ أكر موزّعة على خمسة أحياء — سيجنتشر ڤيل لفيلات الدور الواحد، وكريست ڤيل للفيلات المستقلة، وكريستونيا للكواد والمستقلة، وكريست سايد للتاون هاوس، وكريست فيلد للشقق والدوبلكس. ويرسم البروشور كلوب هاوس ومنطقة تجارية وهايبر ماركت وجيم ومركز عافية وملاعب بادل وكرة قدم وحضانة ومطعماً، والتصميم المعماري لمكتب رائف فهمي المؤسَّس عام ١٩٩١. وحدات أولية من المطوّر مباشرة، بمقدم ١٠٪ وتقسيط ١٠ سنوات.'}},
+{slug:'creek-town', name:'Creek Town', name_ar:'كريك تاون', dev:'ilcazar', area:'newcairo', status:'primary', price:10933000, dp:10, years:10, delivery:'Ready', types:{en:'Apartment · Town Villa · Standalone Villa',ar:'شقة · تاون ڤيلا · فيلا مستقلة'}, tags:{en:['New Cairo','Launched 2020','Ready to move'],ar:['القاهرة الجديدة','أُطلق ٢٠٢٠','جاهز للسكن']}, blurb:{en:'A ready-to-deliver mixed-use community on the Suez Road in the First Settlement of New Cairo, launched in 2020 and spanning 100 acres of standalones, twin houses, town houses and apartments, with a commercial area, fitness areas, bicycle lanes and a concierge service. The company profile’s own live footage shows the houses standing and the landscaping grown in. Developer-direct primary units, from 10% down over up to 10 years, ready to move.',ar:'مجتمع متعدّد الاستخدامات جاهز للتسليم على طريق السويس بالتجمّع الأول في القاهرة الجديدة، أُطلق عام ٢٠٢٠ على ١٠٠ أكر من الفيلات المستقلة والتوين هاوس والتاون هاوس والشقق، مع منطقة تجارية ومناطق لياقة ومسارات دراجات وخدمة كونسيرج. وتُظهر صور «لايڤ فوتيج» في بروفايل الشركة البيوت قائمة والتنسيق مكتملاً. وحدات أولية من المطوّر مباشرة، بمقدم ١٠٪ وتقسيط حتى ١٠ سنوات، جاهزة للسكن.'}},
+{slug:'safia', name:'Safia', name_ar:'صافيا', dev:'ilcazar', area:'raselhekma', status:'primary', price:6913000, dp:10, years:10, delivery:'2030', types:{en:'Chalet · Cabana · Twin Villa · Town House · Villa · Serviced Apartment',ar:'شاليه · كابانا · توين ڤيلا · تاون هاوس · فيلا · شقة فندقية'}, tags:{en:['Ras El Hekma','180 acres','750 m beachfront'],ar:['رأس الحكمة','١٨٠ أكر','٧٥٠ م واجهة بحرية']}, blurb:{en:'IL Cazar’s Ras El Hekma flagship at km 186 — 180 acres of which only 15% is built, laid out in nine rows that step from 3 to 40 metres above sea level across a project depth of 1,500 metres, behind a 750-metre beachfront. The master plan numbers nine zones: cabanas, villas, town houses, senior chalets, twin villas, chalets, serviced apartments, a kids’ area and sports courts, and a sales office and commercial area, among lagoons and pools. Developer-direct primary units, from 10% down over 10 years to 2030.',ar:'مشروع إل كازار الرئيسي برأس الحكمة عند الكيلو ١٨٦ — ١٨٠ أكر لم يُبنَ منها سوى ١٥٪، مرصوفة في تسعة صفوف تتدرّج من ٣ إلى ٤٠ متراً فوق سطح البحر على عمق ١٬٥٠٠ متر، خلف واجهة بحرية طولها ٧٥٠ متراً. ويرقّم الماستر بلان تسع مناطق: كابانات وفيلات وتاون هاوس وشاليهات سينيور وتوين ڤيلا وشاليهات وشقق فندقية ومنطقة أطفال وملاعب ومكتب مبيعات ومنطقة تجارية، بين البحيرات وحمامات السباحة. وحدات أولية من المطوّر مباشرة، بمقدم ١٠٪ وتقسيط ١٠ سنوات حتى ٢٠٣٠.'}},
 ];
 var UNITS = [
 {id:'SB-ST-01', project:'sumou-boulevard', type:'Studio', beds:1, baths:1, area:31, areaTo:33, price:2480000},
@@ -1199,6 +1202,20 @@ var UNITS = [
 {id:'MV11-06', project:'mountain-view-11', type:'Duplex', label:{en:'iVilla Roof',ar:'آي فيلا روف'}, beds:3, baths:4, area:215, price:26000000, dp:15, years:8, handover:'2027'},
 {id:'MV11-07', project:'mountain-view-11', type:'Apartment', label:{en:'Millennial',ar:'ميلينيال'}, beds:3, baths:3, area:140, price:13500000, dp:15, years:8, handover:'2027'},
 {id:'MV11-08', project:'mountain-view-11', type:'Standalone Villa', label:{en:'Luxury Villa',ar:'لاكچري فيلا'}, beds:4, baths:4, area:255, price:55000000, dp:25, years:7, handover:'Ready'},
+{id:'TCR-01', project:'the-crest', type:'Apartment', label:{en:'Crestfield Apartment · Type D',ar:'شقة كريست فيلد · نوع D'}, beds:2, baths:3, area:115, price:6510207, dp:10, years:10, handover:'2030'},
+{id:'TCR-02', project:'the-crest', type:'Apartment', label:{en:'Crestfield Apartment · Type D',ar:'شقة كريست فيلد · نوع D'}, beds:2, baths:3, area:135, price:8700000, dp:10, years:10, handover:'2030'},
+{id:'TCR-03', project:'the-crest', type:'Apartment', label:{en:'Crestfield Apartment · Type D',ar:'شقة كريست فيلد · نوع D'}, beds:1, baths:2, area:80, price:4977000, dp:10, years:10, handover:'2030'},
+{id:'TCR-04', project:'the-crest', type:'Penthouse', label:{en:'Crestfield Penthouse',ar:'بنتهاوس كريست فيلد'}, beds:3, baths:3, area:196, price:16962505, dp:10, years:10, handover:'2030'},
+{id:'TCR-05', project:'the-crest', type:'Townhouse', label:{en:'Crestside Town House',ar:'تاون هاوس كريست سايد'}, beds:3, baths:3, area:180, price:21070216, dp:10, years:10, handover:'2030'},
+{id:'TCR-06', project:'the-crest', type:'Standalone Villa', label:{en:'CrestVille Standalone · Type D',ar:'فيلا مستقلة كريست ڤيل · نوع D'}, beds:4, baths:4, area:220, price:28624000, dp:10, years:10, handover:'2028'},
+{id:'CKT-01', project:'creek-town', type:'Standalone Villa', label:{en:'Standalone Villa',ar:'فيلا مستقلة'}, beds:4, baths:5, area:420, price:75000000, dp:15, years:5, handover:'Ready'},
+{id:'CKT-02', project:'creek-town', type:'Townhouse', label:{en:'Town Villa',ar:'تاون ڤيلا'}, beds:4, baths:4, area:210, price:28712000, dp:10, years:10, handover:'Ready'},
+{id:'CKT-03', project:'creek-town', type:'Townhouse', label:{en:'Town Villa',ar:'تاون ڤيلا'}, beds:3, baths:4, area:185, price:25445000, dp:10, years:10, handover:'Ready'},
+{id:'CKT-04', project:'creek-town', type:'Apartment', label:{en:'Apartment',ar:'شقة'}, beds:2, baths:3, area:128, price:10933000, dp:10, years:8, handover:'Ready'},
+{id:'CKT-05', project:'creek-town', type:'Apartment', label:{en:'Apartment',ar:'شقة'}, beds:3, baths:4, area:170, price:12240000, dp:10, years:8, handover:'Ready'},
+{id:'SFA-01', project:'safia', type:'Chalet', label:{en:'Senior Chalet · Type G',ar:'شاليه سينيور · نوع G'}, beds:2, baths:2, area:105, price:10925000, dp:10, years:10, handover:'2030'},
+{id:'SFA-02', project:'safia', type:'Chalet', label:{en:'Chalet · Type B',ar:'شاليه · نوع B'}, beds:1, baths:2, area:72, price:6913000, dp:10, years:10, handover:'2030'},
+{id:'SFA-03', project:'safia', type:'Chalet', label:{en:'Chalet · Type D',ar:'شاليه · نوع D'}, beds:3, baths:2, area:138, price:11039000, dp:10, years:10, handover:'2030'},
 ];
 var UNIT_EXTRA={'MV-D14':{floor:'low',lvl:2},'FS-A18':{floor:'high'},'IB-V05':{lvl:2},'IB-S02':{floor:'low'},'HP-P03':{floor:'top',roof:true},'CG-A05':{floor:'middle'}};
 UNITS.forEach(function(u){ var e=UNIT_EXTRA[u.id]; if(e){ for(var k in e){ u[k]=e[k]; } } });
@@ -1339,7 +1356,13 @@ sEl('rect',{x:x-2,y:y-13,width:'4',height:'15',fill:'#093a4c'}),
 sEl('circle',{cx:x,cy:y-19,r:'12',fill:'#1e7a5a'}),
 sEl('circle',{cx:x-7,cy:y-13,r:'8',fill:'#20855f'}),
 sEl('circle',{cx:x+7,cy:y-13,r:'8',fill:'#20855f'})); }
+var ICC = '/project-media/ilcazar/the-crest/';
+var ICS = '/project-media/ilcazar/safia/';
+var ICP = '/project-media/ilcazar/profile/';
 var PROJECT_COVERS = {
+'the-crest':ICC+'kit/p16.webp',
+'safia':ICS+'kit/p11.webp',
+'creek-town':ICP+'p59.webp',
 'ras-soma':'/project-media/travco/ras-soma/cover.webp',
 'isola-centra':'/project-media/elmasria/isola-centra/cover.webp',
 'isola-quattro':'/project-media/elmasria/isola-quattro/cover.webp',
@@ -2030,6 +2053,15 @@ var UNIT_IMAGES = {
 'MV11-06':'/project-media/mountainview/mv11/g06.webp',
 'MV11-07':'/project-media/mountainview/mv11/g07.webp',
 'MV11-08':'/project-media/mountainview/mv11/units/luxury-villa-255.webp',
+'TCR-01':ICC+'units/crest1.webp',
+'TCR-02':ICC+'units/crest2.webp',
+'TCR-03':ICC+'units/crest3.webp',
+'TCR-04':ICC+'units/crest4.webp',
+'TCR-05':ICC+'units/th1-crest1.webp',
+'TCR-06':ICC+'units/v-crest1.webp',
+'SFA-01':ICS+'units/ch1.webp',
+'SFA-02':ICS+'units/ch2-0.webp',
+'SFA-03':ICS+'units/ch3-0.webp',
 };
 var UNIT_GALLERY = {
 'IQ-01':['/project-media/elmasria/isola-quattro/units/render-1.webp', '/project-media/elmasria/isola-quattro/units/render-2.webp', '/project-media/elmasria/isola-quattro/units/render-3.webp', '/project-media/elmasria/isola-quattro/units/render-4.webp', '/project-media/elmasria/isola-quattro/units/render-5.webp', '/project-media/elmasria/isola-quattro/units/render-6.webp', '/project-media/elmasria/isola-quattro/units/render-7.webp', '/project-media/elmasria/isola-quattro/units/render-8.webp'],
@@ -2613,6 +2645,15 @@ var UNIT_GALLERY = {
 'MV11-06':['/project-media/mountainview/mv11/g06.webp', '/project-media/mountainview/mv11/g01.webp', '/project-media/mountainview/mv11/g02.webp', '/project-media/mountainview/mv11/g03.webp', '/project-media/mountainview/mv11/g04.webp', '/project-media/mountainview/mv11/g05.webp', '/project-media/mountainview/mv11/g07.webp', '/project-media/mountainview/mv11/g08.webp', '/project-media/mountainview/mv11/g09.webp', '/project-media/mountainview/mv11/g10.webp'],
 'MV11-07':['/project-media/mountainview/mv11/g07.webp', '/project-media/mountainview/mv11/units/millennial.webp', '/project-media/mountainview/mv11/g01.webp', '/project-media/mountainview/mv11/g02.webp', '/project-media/mountainview/mv11/g03.webp', '/project-media/mountainview/mv11/g04.webp', '/project-media/mountainview/mv11/g05.webp', '/project-media/mountainview/mv11/g06.webp', '/project-media/mountainview/mv11/g08.webp', '/project-media/mountainview/mv11/g09.webp', '/project-media/mountainview/mv11/g10.webp'],
 'MV11-08':['/project-media/mountainview/mv11/units/luxury-villa-255.webp', '/project-media/mountainview/mv11/g01.webp', '/project-media/mountainview/mv11/g02.webp', '/project-media/mountainview/mv11/g03.webp', '/project-media/mountainview/mv11/g04.webp', '/project-media/mountainview/mv11/g05.webp', '/project-media/mountainview/mv11/g06.webp', '/project-media/mountainview/mv11/g07.webp', '/project-media/mountainview/mv11/g08.webp', '/project-media/mountainview/mv11/g09.webp', '/project-media/mountainview/mv11/g10.webp'],
+'TCR-01':[ICC+'units/crest1.webp', ICC+'units/crest2.webp', ICC+'units/crest3.webp', ICC+'units/crest4.webp'],
+'TCR-02':[ICC+'units/crest2.webp', ICC+'units/crest1.webp', ICC+'units/crest3.webp', ICC+'units/crest4.webp'],
+'TCR-03':[ICC+'units/crest3.webp', ICC+'units/crest1.webp', ICC+'units/crest2.webp', ICC+'units/crest4.webp'],
+'TCR-04':[ICC+'units/crest4.webp', ICC+'units/crest1.webp', ICC+'units/crest2.webp', ICC+'units/crest3.webp'],
+'TCR-05':[ICC+'units/th1-crest1.webp', ICC+'units/th1-crest2.webp'],
+'TCR-06':[ICC+'units/v-crest1.webp', ICC+'units/v-crest2.webp', ICC+'units/v-crest3.webp', ICC+'units/v-crest4.webp'],
+'SFA-01':[ICS+'units/ch1.webp'],
+'SFA-02':[ICS+'units/ch2-0.webp', ICS+'units/ch2-1.webp', ICS+'units/ch2.webp'],
+'SFA-03':[ICS+'units/ch3-0.webp', ICS+'units/ch3-1.webp', ICS+'units/ch3.webp'],
 };
 var LOC_BASE = '/project-media/locations/';
 var AREA_IMAGES = {
@@ -3760,6 +3801,15 @@ var UNIT_FLOORPLANS = {
 'MV11-06':['/project-media/mountainview/mv11/fp/roof-215.webp'],
 'MV11-07':['/project-media/mountainview/mv11/fp/millennial-140-a.webp', '/project-media/mountainview/mv11/fp/millennial-140-b.webp', '/project-media/mountainview/mv11/fp/millennial-140-c.webp'],
 'MV11-08':['/project-media/mountainview/mv11/fp/luxury-villa-255.webp'],
+'TCR-01':[ICC+'fp/crest1.webp'],
+'TCR-02':[ICC+'fp/crest2.webp'],
+'TCR-03':[ICC+'fp/crest3.webp'],
+'TCR-04':[ICC+'fp/penthouse.webp'],
+'TCR-05':[ICC+'fp/th1-ground.webp', ICC+'fp/th1-first.webp', ICC+'fp/th1-roof.webp'],
+'TCR-06':[ICC+'fp/v1-plans.webp', ICC+'fp/v1-roof.webp'],
+'SFA-01':[ICS+'fp/ch1.webp'],
+'SFA-02':[ICS+'fp/ch2.webp'],
+'SFA-03':[ICS+'fp/ch3.webp'],
 };
 var UNIT_LOCATIONS = {
 'IQ-01':['/project-media/elmasria/isola-quattro/location.webp'],
@@ -4275,7 +4325,7 @@ var UNIT_LOCATIONS = {
 'OW-26':['/project-media/orascom/o-west/location-o-west.webp'],
 'OW-27':['/project-media/orascom/o-west/location-o-west.webp'],
 };
-function planUrl(f){ return f.charAt(0)==='/' ? f : PLANS_BASE+f; }
+function planUrl(f){ var p = (f && f.src) ? f.src : f; return p.charAt(0)==='/' ? p : PLANS_BASE+p; }
 var PROJECT_PLAN_FALLBACK = (function(){
 var out = {};
 for(var i=0;i<UNITS.length;i++){
@@ -4295,7 +4345,12 @@ var PROJECT_PLANS = {
 'ras-soma': {loc:['/project-media/travco/ras-soma/location.webp']},
 'marina-gate': {loc:['/project-media/travco/marina-gate/units/location-marina-gate.webp']},
 'mountain-view-11': {mp:['/project-media/mountainview/mv11/masterplan.webp'],
-loc:['/project-media/mountainview/mv11/location.webp']}
+loc:['/project-media/mountainview/mv11/location.webp']},
+'the-crest': {mp:[{src:ICC+'kit/p05.webp', cap:{en:'The master plan', ar:'الماستر بلان'}},
+{src:ICC+'kit/p06.webp', cap:{en:'The five districts', ar:'الأحياء الخمسة'}}],
+loc:[ICC+'kit/p04.webp']},
+'safia': {mp:[ICS+'kit/p09.webp'], loc:[ICS+'location.webp']},
+'creek-town': {mp:[ICP+'p58.webp'], loc:[ICP+'p56.webp']}
 };
 function projectPlans(slug){
 var own = PROJECT_PLANS[slug], back = PROJECT_PLAN_FALLBACK[slug] || {};
@@ -4588,6 +4643,34 @@ MVK+'g07.webp',
 MVK+'g08.webp',
 MVK+'g09.webp',
 MVK+'g10.webp'
+],
+'the-crest': [
+ICC+'kit/p07.webp',
+ICC+'kit/p16.webp',
+ICC+'kit/p21.webp',
+ICC+'kit/p20.webp',
+ICC+'kit/p27.webp',
+ICC+'kit/p33.webp',
+ICC+'kit/p15.webp',
+ICC+'clubhouse.webp',
+ICC+'kit/p13.webp'
+],
+'safia': [
+ICS+'kit/p11.webp',
+ICS+'kit/p12.webp',
+ICS+'kit/p13.webp',
+ICS+'kit/p14.webp',
+ICS+'kit/p10.webp',
+ICS+'kit/p15.webp',
+ICS+'kit/p22.webp',
+ICS+'kit/p47.webp'
+],
+'creek-town': [
+ICP+'p59.webp',
+ICP+'p60.webp',
+ICP+'p61.webp',
+ICP+'p55.webp',
+ICP+'p54.webp'
 ],
 'ras-soma': [
 '/project-media/travco/ras-soma/cover.webp',
@@ -4976,7 +5059,6 @@ var MV = '/project-media/mountainview/';
 var SD = '/project-media/sodic/';
 var PHP = '/project-media/palmhills/profile/';
 var QDP = '/project-media/qataridiar/profile/';
-var ICP = '/project-media/ilcazar/profile/';
 var DEV_GALLERY = {
 'elmasria': ['/project-media/elmasria/isola-october.webp',
 '/project-media/elmasria/isola-sheraton.webp',
@@ -9400,6 +9482,251 @@ ar:'تلك أرقام ماونتن ڤيو عن ماونتن ڤيو، مطبوع�
 }}
 ]
 };
+PROJECT_FEATURES['the-crest'] = {
+masterplan: {en:'Master plan', ar:'الماستر بلان', icon:'masterplan', src:ICC+'kit/p05.webp'},
+cards: [
+{en:'158 acres, five districts', ar:'١٥٨ أكر وخمسة أحياء', icon:'area',
+imgs:[ICC+'kit/p07.webp', ICC+'kit/p06.webp'],
+copy:{
+lead:{en:'The brochure divides the compound into two segments — villas and apartments — and names five districts inside them. The master plan is drawn twice, plain and then keyed by colour.',
+ar:'يقسّم البروشور الكمبوند إلى قطاعين — فيلات وشقق — ويسمّي خمسة أحياء بداخلهما. والماستر بلان مرسوم مرتين، مجرّداً ثم مفتاحاً بالألوان.'},
+groups:[
+{label:{en:'As the brochure prints them', ar:'كما يطبعها البروشور'}, rows:[
+{k:{en:'Land', ar:'المساحة'}, v:{en:'158 acres', ar:'١٥٨ أكر'}},
+{k:{en:'Signature Ville', ar:'سيجنتشر ڤيل'}, v:{en:'The one-storey villa zone', ar:'منطقة فيلات الدور الواحد'}},
+{k:{en:'CrestVille', ar:'كريست ڤيل'}, v:{en:'The standalone villa zone', ar:'منطقة الفيلات المستقلة'}},
+{k:{en:'Crestonia', ar:'كريستونيا'}, v:{en:'Quads and standalone', ar:'الكواد والفيلات المستقلة'}},
+{k:{en:'Crestside', ar:'كريست سايد'}, v:{en:'The townhouse zone', ar:'منطقة التاون هاوس'}},
+{k:{en:'Crestfield', ar:'كريست فيلد'}, v:{en:'Apartments and duplexes', ar:'الشقق والدوبلكس'}}
+]}
+],
+more:{en:'The location page names South 90 Street, the E-Ring Road, Point 90, the AUC, The Westin Hotel and the New Capital, and prints no time or distance to any of them.',
+ar:'وتسمّي صفحة الموقع شارع التسعين الجنوبي والطريق الدائري الأوسطي وبوينت ٩٠ والجامعة الأمريكية وفندق ذا ويستن والعاصمة الإدارية، ولا تطبع زمناً ولا مسافة إلى أيٍّ منها.'}
+}},
+{en:'The compound', ar:'الكمبوند', icon:'am_centralpark',
+imgs:[ICC+'kit/p16.webp', ICC+'kit/p21.webp', ICC+'clubhouse.webp'],
+copy:{
+lead:{en:'The brochure’s concept page calls it the essence of two mini cities converging in one urban landscape, laid out around water features, greenery and the clubhouse.',
+ar:'تصف صفحة الفكرة في البروشور المشروع بأنه التقاء مدينتين صغيرتين في مشهد عمراني واحد، منسوق حول العناصر المائية والخضرة والكلوب هاوس.'},
+list:[
+{en:'Designed for families, singles and young married couples alike, in the brochure’s own words', ar:'مصمَّم للعائلات والأفراد والأزواج الشباب على السواء، بعبارة البروشور نفسه'},
+{en:'Water features, lush greenery and scenic landscapes between the two segments', ar:'عناصر مائية وخضرة وافرة ومشاهد طبيعية بين القطاعين'},
+{en:'The clubhouse is the social hub, drawn on the master plan with the commercial area', ar:'الكلوب هاوس هو المركز الاجتماعي، مرسوم على الماستر بلان مع المنطقة التجارية'}
+]
+}},
+{en:'Facilities', ar:'الخدمات', icon:'am_club',
+imgs:[ICC+'clubhouse.webp'],
+copy:{
+lead:{en:'Six, as the brochure lists them across two pages. The photographs beside them are bought stock — a pomegranate, a restaurant, a gym, a café and a child — so only the words are carried here.',
+ar:'ستٌّ، كما يعدّدها البروشور على صفحتين. والصور المجاورة لها مشتراة جاهزة — رمّانة ومطعم وجيم ومقهى وطفلة — فلم يُنقل هنا سوى النص.'},
+list:[
+{en:'Hypermarkets inside the compound', ar:'هايبر ماركت داخل الكمبوند'},
+{en:'Paddle tennis and football courts', ar:'ملاعب بادل تنس وكرة قدم'},
+{en:'The clubhouse, for gatherings and relaxation', ar:'الكلوب هاوس، للتجمّعات والاسترخاء'},
+{en:'A fully equipped gym and wellness centre', ar:'جيم مجهّز بالكامل ومركز عافية'},
+{en:'A nursery, with educational programmes and daycare', ar:'حضانة، ببرامج تعليمية ورعاية نهارية'},
+{en:'An on-site dining restaurant', ar:'مطعم داخل المشروع'}
+]
+}},
+{en:'Raef Fahmi Architects', ar:'مكتب رائف فهمي للعمارة', icon:'build',
+imgs:[ICC+'kit/p13.webp'],
+copy:{
+lead:{en:'The brochure names its architect and the year the practice was founded.',
+ar:'يذكر البروشور اسم المعماري وسنة تأسيس المكتب.'},
+groups:[
+{label:{en:'As the brochure prints them', ar:'كما يطبعها البروشور'}, rows:[
+{k:{en:'Architect', ar:'المعماري'}, v:{en:'Raef Fahmi Architects', ar:'Raef Fahmi Architects'}},
+{k:{en:'Established', ar:'التأسيس'}, v:{en:'1991', ar:'١٩٩١'}},
+{k:{en:'Approach', ar:'المنهج'}, v:{en:'A community-sensitive practice that takes the initiative from the urban planning perspective', ar:'مكتب حسّاس تجاه المجتمع يبدأ من منظور التخطيط العمراني'}}
+]}
+]
+}},
+{en:'The Duplex Building — 215, 210 and 250 m²', ar:'مبنى الدوبلكس — ٢١٥ و٢١٠ و٢٥٠ م²', icon:'ty_penthouse',
+imgs:[ICC+'kit/p15.webp', ICC+'kit/p17.webp', ICC+'kit/p18.webp', ICC+'kit/p19.webp'],
+copy:{
+lead:{en:'The first of the four buildings the brochure draws: the render, then three plan sheets keyed Duplex G01 at 215 m², Duplex 101 at 210 m² and Duplex 201 at 250 m².',
+ar:'أول المباني الأربعة التي يرسمها البروشور: اللقطة ثم ثلاث لوحات مخططات باسم دوبلكس G01 بمساحة ٢١٥ م²، ودوبلكس ١٠١ بمساحة ٢١٠ م²، ودوبلكس ٢٠١ بمساحة ٢٥٠ م².'},
+more:{en:'No duplex is on the client’s price list for this project, so none appears among the units below. The plans are here because the brochure draws them.',
+ar:'ولا يوجد دوبلكس في قائمة أسعار العميل لهذا المشروع، فلا يظهر أيٌّ منها بين الوحدات أدناه. والمخططات هنا لأن البروشور يرسمها.'}
+}},
+{en:'Apartments Building Type A', ar:'مبنى الشقق نوع A', icon:'ty_apartment',
+imgs:[ICC+'kit/p20.webp', ICC+'kit/p22.webp', ICC+'kit/p23.webp',
+ICC+'kit/p24.webp', ICC+'kit/p25.webp', ICC+'kit/p26.webp'],
+copy:{
+lead:{en:'The render and five plan sheets: ground, first, second, third, fourth, fifth and the penthouse floor, which draws Apartment 01 at 196 m² and Apartment 02 at 198 m².',
+ar:'اللقطة وخمس لوحات مخططات: الأرضي والأول والثاني والثالث والرابع والخامس ودور البنتهاوس، الذي يرسم الشقة ٠١ بمساحة ١٩٦ م² والشقة ٠٢ بمساحة ١٩٨ م².'}
+}},
+{en:'Apartments Building Type B', ar:'مبنى الشقق نوع B', icon:'ty_apartment',
+imgs:[ICC+'kit/p27.webp', ICC+'kit/p28.webp', ICC+'kit/p29.webp',
+ICC+'kit/p30.webp', ICC+'kit/p31.webp', ICC+'kit/p32.webp'],
+copy:{
+lead:{en:'The render and five plan sheets, ground to fifth plus the penthouse floor, whose two apartments are drawn at 196 m² and 199 m².',
+ar:'اللقطة وخمس لوحات مخططات، من الأرضي إلى الخامس ودور البنتهاوس، وشقتاه مرسومتان بمساحة ١٩٦ م² و١٩٩ م².'}
+}},
+{en:'Apartments Building Type C', ar:'مبنى الشقق نوع C', icon:'ty_apartment',
+imgs:[ICC+'kit/p33.webp', ICC+'kit/p34.webp', ICC+'kit/p35.webp',
+ICC+'kit/p36.webp', ICC+'kit/p37.webp', ICC+'kit/p38.webp'],
+copy:{
+lead:{en:'The render and five plan sheets, ground to fifth.',
+ar:'اللقطة وخمس لوحات مخططات، من الأرضي إلى الخامس.'},
+more:{en:'This book draws Types A, B and C and the Duplex Building. The six units on the client’s price list for The Crest are drawn on their own sheets, headed BUILDING TYPE D, which this brochure does not contain — each is attached to its unit below.',
+ar:'يرسم هذا الكتاب الأنواع A وB وC ومبنى الدوبلكس. أما الوحدات الست في قائمة أسعار العميل لذا كريست فمرسومة على لوحاتها الخاصة بعنوان BUILDING TYPE D، وهو ما لا يحتويه هذا البروشور — وكلٌّ منها مرفق بوحدته أدناه.'}
+}}
+]
+};
+PROJECT_FEATURES['safia'] = {
+masterplan: {en:'Master plan', ar:'الماستر بلان', icon:'masterplan', src:ICS+'kit/p09.webp'},
+cards: [
+{en:'180 acres at km 186', ar:'١٨٠ أكر عند الكيلو ١٨٦', icon:'area',
+imgs:[ICS+'kit/p11.webp', ICS+'kit/p12.webp'],
+copy:{
+lead:{en:'The brochure’s own page of figures for the site, quoted as it prints them.',
+ar:'صفحة أرقام الموقع في البروشور نفسه، منقولة كما يطبعها.'},
+groups:[
+{label:{en:'As the brochure prints them', ar:'كما يطبعها البروشور'}, rows:[
+{k:{en:'Land', ar:'المساحة'}, v:{en:'Over 180 acres', ar:'أكثر من ١٨٠ أكر'}},
+{k:{en:'Developed', ar:'المبنيّ'}, v:{en:'Only 15% of the area', ar:'١٥٪ فقط من المساحة'}},
+{k:{en:'Rows', ar:'الصفوف'}, v:{en:'Nine, each built across multiple levels', ar:'تسعة، كلٌّ منها على مناسيب متعددة'}},
+{k:{en:'Beachfront', ar:'الواجهة البحرية'}, v:{en:'750 metres', ar:'٧٥٠ متراً'}},
+{k:{en:'Elevations', ar:'المناسيب'}, v:{en:'3 to 40 metres above sea level', ar:'من ٣ إلى ٤٠ متراً فوق سطح البحر'}},
+{k:{en:'Project depth', ar:'عمق المشروع'}, v:{en:'1,500 metres', ar:'١٬٥٠٠ متر'}}
+]}
+],
+more:{en:'The master plan’s own elevation ladder runs from +3.20 to +37.50, which is where those figures come from.',
+ar:'ويمتد سلّم المناسيب على الماستر بلان من +٣٫٢٠ إلى +٣٧٫٥٠، ومن هناك تأتي تلك الأرقام.'}
+}},
+{en:'Nine zones', ar:'تسع مناطق', icon:'layers',
+imgs:[ICS+'kit/p09.webp'],
+copy:{
+lead:{en:'The master plan’s legend, numbered 01 to 09 in its own order.',
+ar:'مفتاح الماستر بلان، مرقّماً من ٠١ إلى ٠٩ بترتيبه نفسه.'},
+list:[
+{en:'Cabanas', ar:'الكابانات'},
+{en:'Villas', ar:'الفيلات'},
+{en:'Town Houses', ar:'التاون هاوس'},
+{en:'Senior Chalets', ar:'الشاليهات السينيور'},
+{en:'Twin Villas', ar:'التوين ڤيلا'},
+{en:'Chalets', ar:'الشاليهات'},
+{en:'Serviced Apartments', ar:'الشقق الفندقية'},
+{en:'Kids Area & Sports Courts', ar:'منطقة أطفال وملاعب'},
+{en:'Sales Office & Commercial Area', ar:'مكتب المبيعات والمنطقة التجارية'}
+]
+}},
+{en:'The living experience', ar:'تجربة المعيشة', icon:'am_beach',
+imgs:[ICS+'kit/p13.webp', ICS+'kit/p14.webp', ICS+'kit/p10.webp', ICS+'kit/p15.webp', ICS+'kit/p21.webp'],
+copy:{
+lead:{en:'The brochure’s own account of the shore and what sits on it: lagoons and pools threaded through the landscape, and a private sandy beach along the Mediterranean.',
+ar:'رواية البروشور نفسه عن الشاطئ وما عليه: بحيرات وحمامات سباحة منسوجة في التنسيق، وشاطئ رملي خاص على المتوسط.'},
+list:[
+{en:'Tranquil lagoons and swimming pools among the landscape', ar:'بحيرات هادئة وحمامات سباحة بين التنسيق'},
+{en:'A private sandy beach along the Mediterranean shoreline', ar:'شاطئ رملي خاص على ساحل المتوسط'},
+{en:'Commercial and shopping areas set among the water features', ar:'مناطق تجارية وتسوّق بين العناصر المائية'},
+{en:'Eateries surrounded by landscape, for a meal or a coffee by the sea', ar:'مطاعم تحيط بها المساحات الخضراء، لوجبة أو قهوة بجوار البحر'}
+],
+more:{en:'The brochure also prints a hotel “located 51 meters above sea level”, restaurants, water sports, tennis and padel courts. Their pages are bought stock photography — a plate of food, a beach ball, a jet ski, a tennis ball — so those pages are not published and only what they say is here.',
+ar:'ويطبع البروشور أيضاً فندقاً «يقع على ارتفاع ٥١ متراً فوق سطح البحر»، ومطاعم ورياضات مائية وملاعب تنس وبادل. وصفحاتها صور جاهزة مشتراة — طبق طعام وكرة شاطئ وجت سكي وكرة تنس — فلم تُنشر تلك الصفحات، وما هنا هو ما تقوله فقط.'}
+}},
+{en:'The gym', ar:'الجيم', icon:'am_gym',
+imgs:[ICS+'kit/p20.webp'],
+copy:{
+lead:{en:'One of the few facility pages in this book whose picture is a render of the room itself rather than bought photography, so it is published.',
+ar:'واحدة من صفحات الخدمات القليلة في هذا الكتاب التي تكون صورتها لقطة للمكان نفسه لا صورة مشتراة، فنُشرت.'}
+}},
+{en:'Cabana — 60 m²', ar:'كابانا — ٦٠ م²', icon:'ty_cabin',
+imgs:[ICS+'kit/p22.webp', ICS+'kit/p23.webp'],
+copy:{lead:{en:'The render and the plan. One bedroom, a bathroom, a kitchen and dining, and a living room.',
+ar:'اللقطة والمخطط. غرفة نوم وحمّام ومطبخ وصالة طعام وغرفة معيشة.'}}},
+{en:'One Storey Villa Type A — 330 m²', ar:'فيلا دور واحد نوع A — ٣٣٠ م²', icon:'ty_villa',
+imgs:[ICS+'kit/p25.webp', ICS+'kit/p26.webp', ICS+'kit/p27.webp', ICS+'kit/p24.webp'],
+copy:{lead:{en:'Two renders and the plan. The brochure draws a reception and dining of 7.70 × 7.75 m, a 14-metre terrace, a kitchen and a maid’s room.',
+ar:'لقطتان والمخطط. ويرسم البروشور ريسبشن وصالة طعام ٧٫٧٠ × ٧٫٧٥ م، وتراس بطول ١٤ متراً، ومطبخاً وغرفة خادمة.'}}},
+{en:'Standalone Villa Type B — 255 m²', ar:'فيلا مستقلة نوع B — ٢٥٥ م²', icon:'ty_villa',
+imgs:[ICS+'kit/p29.webp', ICS+'kit/p30.webp', ICS+'kit/p31.webp', ICS+'kit/p28.webp'],
+copy:{lead:{en:'Two renders and two plan sheets, ground and first floor.',
+ar:'لقطتان ولوحتا مخططات، الدور الأرضي والأول.'}}},
+{en:'Standalone Villa Type C — 225 m²', ar:'فيلا مستقلة نوع C — ٢٢٥ م²', icon:'ty_villa',
+imgs:[ICS+'kit/p33.webp', ICS+'kit/p34.webp', ICS+'kit/p35.webp', ICS+'kit/p32.webp'],
+copy:{lead:{en:'Two renders, the ground floor, and the first floor with its roof.',
+ar:'لقطتان، والدور الأرضي، والدور الأول بسطحه.'}}},
+{en:'Twin Villa — 225 m²', ar:'توين ڤيلا — ٢٢٥ م²', icon:'ty_villa',
+imgs:[ICS+'kit/p37.webp', ICS+'kit/p38.webp', ICS+'kit/p39.webp', ICS+'kit/p36.webp'],
+copy:{lead:{en:'Two renders and two plan sheets.',
+ar:'لقطتان ولوحتا مخططات.'}}},
+{en:'Townhouse — 220 m²', ar:'تاون هاوس — ٢٢٠ م²', icon:'home',
+imgs:[ICS+'kit/p41.webp', ICS+'kit/p42.webp', ICS+'kit/p43.webp', ICS+'kit/p40.webp'],
+copy:{lead:{en:'Two renders, the ground floor, and the first floor with its roof.',
+ar:'لقطتان، والدور الأرضي، والدور الأول بسطحه.'}}},
+{en:'Townhouse — 200 m²', ar:'تاون هاوس — ٢٠٠ م²', icon:'home',
+imgs:[ICS+'kit/p45.webp', ICS+'kit/p46.webp', ICS+'kit/p44.webp'],
+copy:{lead:{en:'Two renders and one sheet carrying both floors.',
+ar:'لقطتان ولوحة واحدة تحمل الدورين.'}}},
+{en:'Senior Chalets G — 90 to 155 m²', ar:'شاليهات سينيور G — من ٩٠ إلى ١٥٥ م²', icon:'ty_apartment',
+imgs:[ICS+'kit/p47.webp', ICS+'kit/p48.webp', ICS+'kit/p49.webp', ICS+'kit/p50.webp',
+ICS+'kit/p51.webp', ICS+'kit/p52.webp', ICS+'kit/p53.webp', ICS+'kit/p54.webp',
+ICS+'kit/p55.webp', ICS+'kit/p56.webp', ICS+'kit/p57.webp', ICS+'kit/p58.webp'],
+copy:{lead:{en:'The longest section in the book: five renders, then the ground, first and roof floors drawn twice each. The client’s price list takes one of these, a two-bedroom at 105 m².',
+ar:'أطول أقسام الكتاب: خمس لقطات، ثم الأدوار الأرضي والأول والسطح مرسوماً كلٌّ منها مرتين. وتأخذ قائمة أسعار العميل واحدةً منها، بغرفتَي نوم بمساحة ١٠٥ م².'}}},
+{en:'Chalet B — 72 to 110 m²', ar:'شاليه B — من ٧٢ إلى ١١٠ م²', icon:'ty_apartment',
+imgs:[ICS+'kit/p59.webp', ICS+'kit/p60.webp', ICS+'kit/p61.webp', ICS+'kit/p62.webp'],
+copy:{lead:{en:'The ground floor draws two sizes: units 01, 03, 04 and 06 as one-bedrooms at 72 m², and units 02 and 05 as two-bedrooms at 110 m². The price list takes the 72.',
+ar:'يرسم الدور الأرضي مساحتين: الوحدات ٠١ و٠٣ و٠٤ و٠٦ بغرفة نوم واحدة ٧٢ م²، والوحدتان ٠٢ و٠٥ بغرفتَي نوم ١١٠ م². وتأخذ قائمة الأسعار الـ٧٢.'}}},
+{en:'Chalet D — 105 to 138 m²', ar:'شاليه D — من ١٠٥ إلى ١٣٨ م²', icon:'ty_apartment',
+imgs:[ICS+'kit/p63.webp', ICS+'kit/p64.webp', ICS+'kit/p65.webp', ICS+'kit/p66.webp'],
+copy:{lead:{en:'Units 01 and 04 are three-bedrooms at 138 m², units 02 and 03 two-bedrooms at 105 m². The price list takes the 138.',
+ar:'الوحدتان ٠١ و٠٤ بثلاث غرف نوم ١٣٨ م²، والوحدتان ٠٢ و٠٣ بغرفتَي نوم ١٠٥ م². وتأخذ قائمة الأسعار الـ١٣٨.'}}},
+{en:'Chalet E — 120 m²', ar:'شاليه E — ١٢٠ م²', icon:'ty_apartment',
+imgs:[ICS+'kit/p67.webp', ICS+'kit/p68.webp', ICS+'kit/p69.webp'],
+copy:{lead:{en:'The last type the book draws. It is not on the client’s price list, so no unit below carries it.',
+ar:'آخر نوع يرسمه الكتاب. وهو ليس في قائمة أسعار العميل، فلا تحمله أيّ وحدة أدناه.'}}}
+]
+};
+PROJECT_FEATURES['creek-town'] = {
+masterplan: {en:'Master plan', ar:'الماستر بلان', icon:'masterplan', src:ICP+'p58.webp'},
+cards: [
+{en:'100 acres on the Suez Road', ar:'١٠٠ أكر على طريق السويس', icon:'area',
+imgs:[ICP+'p55.webp', ICP+'p54.webp'],
+copy:{
+lead:{en:'The company profile’s own description, quoted as it prints it.',
+ar:'وصف بروفايل الشركة نفسه، منقولاً كما يطبعه.'},
+groups:[
+{label:{en:'As the profile prints them', ar:'كما يطبعها البروفايل'}, rows:[
+{k:{en:'Land', ar:'المساحة'}, v:{en:'100 acres', ar:'١٠٠ أكر'}},
+{k:{en:'Launched', ar:'الإطلاق'}, v:{en:'2020', ar:'٢٠٢٠'}},
+{k:{en:'Status', ar:'الحالة'}, v:{en:'Ready to deliver', ar:'جاهز للتسليم'}},
+{k:{en:'Location', ar:'الموقع'}, v:{en:'Directly on the Suez Road, in the First Settlement of New Cairo', ar:'على طريق السويس مباشرة، بالتجمّع الأول في القاهرة الجديدة'}},
+{k:{en:'Mix', ar:'المكوّنات'}, v:{en:'Standalones, twin houses, apartments and a commercial and administrative area', ar:'فيلات مستقلة وتوين هاوس وشقق ومنطقة تجارية وإدارية'}}
+]}
+]
+}},
+{en:'Built and standing', ar:'مبنيّ وقائم', icon:'key',
+imgs:[ICP+'p59.webp', ICP+'p60.webp', ICP+'p61.webp'],
+copy:{
+lead:{en:'Three pages of the profile are headed LIVE FOOTAGE — photographs of Creek Town as built, with the houses finished and the landscaping grown in. Every other project in this batch is drawn; this one is photographed.',
+ar:'ثلاث صفحات من البروفايل بعنوان LIVE FOOTAGE — صور فوتوغرافية لكريك تاون كما بُني، بالبيوت مكتملة والتنسيق ناميا. وكل مشروع آخر في هذه الدفعة مرسوم، أما هذا فمصوَّر.'}
+}},
+{en:'Amenities', ar:'الخدمات', icon:'am_concierge',
+imgs:[ICP+'p62.webp'],
+copy:{
+lead:{en:'The five the profile’s own icon set names.',
+ar:'الخمس التي تسمّيها أيقونات البروفايل نفسه.'},
+list:[
+{en:'Prime location', ar:'موقع متميّز'},
+{en:'Fitness areas', ar:'مناطق لياقة'},
+{en:'Bicycle lanes', ar:'مسارات دراجات'},
+{en:'Commercial area', ar:'منطقة تجارية'},
+{en:'Concierge service', ar:'خدمة كونسيرج'}
+]
+}},
+{en:'What is not here yet', ar:'ما لم يصل بعد', icon:'info',
+imgs:[ICP+'p56.webp'],
+copy:{
+lead:{en:'Creek Town’s five priced rows arrived on the client sheet with image and floor-plan codes like every other project’s, but the files those codes name were not sent and there is no Creek Town brochure in this batch.',
+ar:'وصلت صفوف كريك تاون الخمسة المسعّرة في شيت العميل بأكواد صور ومخططات كغيرها من المشروعات، لكن الملفات التي تسمّيها تلك الأكواد لم تُرسل ولا يوجد بروشور لكريك تاون في هذه الدفعة.'},
+more:{en:'So the five units below carry their type, area, price and terms, and no picture of their own. None was taken from another project to fill the gap. Send the archive and they will have one.',
+ar:'ولذلك تحمل الوحدات الخمس أدناه نوعها ومساحتها وسعرها وشروطها، دون صورة خاصة بها. ولم تُؤخذ أيٌّ من مشروع آخر لسدّ الفراغ. أرسل الأرشيف وستحصل عليها.'}
+}}
+]
+};
 function projBrochure(slug){ return PROJECT_BROCHURE[slug] || null; }
 function projFeatures(slug){ return PROJECT_FEATURES[slug] || null; }
 function projectBrochureSection(p){
@@ -9788,11 +10115,11 @@ var TYPES = [
 {c:'standalone-villa', en:'Standalone Villa', ar:'فيلا مستقلة', icon:'ty_villa', fam:'house', al:['standalone villa','stand-alone villa','stand alone','فيلا مستقلة']},
 {c:'town-villa', en:'Town Villa', ar:'تاون فيلا', icon:'ty_villa', fam:'house', al:['town villa','تاون فيلا']},
 {c:'townhouse', en:'Townhouse', ar:'تاون هاوس', icon:'ty_townhouse', fam:'house', al:['townhouse','town house','town home','تاون هاوس']},
-{c:'twin-house', en:'Twin House', ar:'توين هاوس', icon:'ty_twinhouse', fam:'house', al:['twin house','twinhouse','توين هاوس']},
+{c:'twin-house', en:'Twin House', ar:'توين هاوس', icon:'ty_twinhouse', fam:'house', al:['twin house','twinhouse','twin villa','twin villas','توين هاوس','توين ڤيلا']},
 {c:'bungalow', en:'Bungalow', ar:'بنجلو', icon:'ty_villa', fam:'house', al:['bungalow','بنجلو']},
 {c:'estate', en:'Estate', ar:'قصر', icon:'ty_villa', fam:'house', al:['estate','estates','قصر','قصور']},
 {c:'chalet', en:'Chalet', ar:'شاليه', icon:'ty_chalet', fam:'flat', al:['chalet','شاليه']},
-{c:'cabin', en:'Cabin', ar:'كابين', icon:'ty_cabin', fam:'house', al:['cabin','كابين']},
+{c:'cabin', en:'Cabin', ar:'كابين', icon:'ty_cabin', fam:'house', al:['cabin','cabana','cabanas','كابين','كابانا']},
 {c:'office', en:'Office', ar:'مكتب', icon:'ty_office', fam:'commercial', al:['office','offices','smart office','smart offices','loft office','مكتب','مكاتب']},
 {c:'administrative-office', en:'Administrative Office', ar:'مكتب إداري', icon:'ty_office', fam:'commercial', al:['administrative office','admin office','مكتب اداري','مكتب إداري']},
 {c:'clinic', en:'Clinic', ar:'عيادة', icon:'ty_office', fam:'commercial', al:['clinic','clinics','عيادة','عيادات']},

@@ -82,7 +82,24 @@
      one line below. */
   // Marakez Ramla renders are now self-hosted (extracted from the official Ramla
   // "Sacred Summers" renders deck) under /project-media/ramla — no external hotlinking.
+
+  /* IL Cazar's folders, declared here rather than beside the first table that
+     uses them: a `var` assigned further down this file is hoisted but not yet
+     given its value, so any table above the assignment would build paths out
+     of `undefined`. ICP moved up here from PROJECT_GALLERY for that reason —
+     Creek Town's only pictures are the company profile's own pages, and its
+     cover is set in PROJECT_COVERS, which is the very next statement. */
+  var ICC = '/project-media/ilcazar/the-crest/';
+  var ICS = '/project-media/ilcazar/safia/';
+  var ICP = '/project-media/ilcazar/profile/';
+
   var PROJECT_COVERS = {
+    /* IL Cazar. The Crest opens on the park and its lake, Safia on the beach
+       from the air, and Creek Town on the live footage of its delivered
+       street — the only photograph in this batch of a house that is built. */
+    'the-crest':ICC+'kit/p16.webp',
+    'safia':ICS+'kit/p11.webp',
+    'creek-town':ICP+'p59.webp',
     'ras-soma':'/project-media/travco/ras-soma/cover.webp',
     'isola-centra':'/project-media/elmasria/isola-centra/cover.webp',
     'isola-quattro':'/project-media/elmasria/isola-quattro/cover.webp',
@@ -908,6 +925,25 @@
     'MV11-06':'/project-media/mountainview/mv11/g06.webp',
     'MV11-07':'/project-media/mountainview/mv11/g07.webp',
     'MV11-08':'/project-media/mountainview/mv11/units/luxury-villa-255.webp',
+    /* IL Cazar. The sheet's "كود الصور" column, row by row, exactly as it
+       names them — the same rule the Mountain View note above was rewritten
+       to follow. The Crest's four apartment renders are four different
+       buildings, not four frames of one, so each row keeps its own.
+
+       Creek Town's five rows name v-creek-0, th-creek-0, th-creek-1,
+       ap1-creek-0 and ap1-creek-2. Not one of those files arrived, and no
+       Creek Town brochure did either, so those five have no entry here. They
+       fall back to the branded illustration rather than borrow a picture from
+       The Crest or from Safia. */
+    'TCR-01':ICC+'units/crest1.webp',
+    'TCR-02':ICC+'units/crest2.webp',
+    'TCR-03':ICC+'units/crest3.webp',
+    'TCR-04':ICC+'units/crest4.webp',
+    'TCR-05':ICC+'units/th1-crest1.webp',
+    'TCR-06':ICC+'units/v-crest1.webp',
+    'SFA-01':ICS+'units/ch1.webp',
+    'SFA-02':ICS+'units/ch2-0.webp',
+    'SFA-03':ICS+'units/ch3-0.webp',
   };
   /* Per-unit render galleries (all photos for a unit) — opened as a numbered
      carousel from the unit hero and the "Photos" chip. LMD-populated. */
@@ -1573,6 +1609,24 @@
     'MV11-06':['/project-media/mountainview/mv11/g06.webp', '/project-media/mountainview/mv11/g01.webp', '/project-media/mountainview/mv11/g02.webp', '/project-media/mountainview/mv11/g03.webp', '/project-media/mountainview/mv11/g04.webp', '/project-media/mountainview/mv11/g05.webp', '/project-media/mountainview/mv11/g07.webp', '/project-media/mountainview/mv11/g08.webp', '/project-media/mountainview/mv11/g09.webp', '/project-media/mountainview/mv11/g10.webp'],
     'MV11-07':['/project-media/mountainview/mv11/g07.webp', '/project-media/mountainview/mv11/units/millennial.webp', '/project-media/mountainview/mv11/g01.webp', '/project-media/mountainview/mv11/g02.webp', '/project-media/mountainview/mv11/g03.webp', '/project-media/mountainview/mv11/g04.webp', '/project-media/mountainview/mv11/g05.webp', '/project-media/mountainview/mv11/g06.webp', '/project-media/mountainview/mv11/g08.webp', '/project-media/mountainview/mv11/g09.webp', '/project-media/mountainview/mv11/g10.webp'],
     'MV11-08':['/project-media/mountainview/mv11/units/luxury-villa-255.webp', '/project-media/mountainview/mv11/g01.webp', '/project-media/mountainview/mv11/g02.webp', '/project-media/mountainview/mv11/g03.webp', '/project-media/mountainview/mv11/g04.webp', '/project-media/mountainview/mv11/g05.webp', '/project-media/mountainview/mv11/g06.webp', '/project-media/mountainview/mv11/g07.webp', '/project-media/mountainview/mv11/g08.webp', '/project-media/mountainview/mv11/g09.webp', '/project-media/mountainview/mv11/g10.webp'],
+    /* IL Cazar. Each unit opens on the frame its sheet row names and then
+       shows the rest of the set it belongs to. The Crest's four apartment
+       renders are four buildings, so each of those four rows leads with its
+       own and then carries the other three; the town house has two frames and
+       the standalone villa four, and those stay with their own row. Safia's
+       chalets came in three sets — one frame for the Senior Chalet, three
+       each for Chalet B and Chalet D — and no set is lent to another row.
+
+       Creek Town has no set at all; see the note in UNIT_IMAGES. */
+    'TCR-01':[ICC+'units/crest1.webp', ICC+'units/crest2.webp', ICC+'units/crest3.webp', ICC+'units/crest4.webp'],
+    'TCR-02':[ICC+'units/crest2.webp', ICC+'units/crest1.webp', ICC+'units/crest3.webp', ICC+'units/crest4.webp'],
+    'TCR-03':[ICC+'units/crest3.webp', ICC+'units/crest1.webp', ICC+'units/crest2.webp', ICC+'units/crest4.webp'],
+    'TCR-04':[ICC+'units/crest4.webp', ICC+'units/crest1.webp', ICC+'units/crest2.webp', ICC+'units/crest3.webp'],
+    'TCR-05':[ICC+'units/th1-crest1.webp', ICC+'units/th1-crest2.webp'],
+    'TCR-06':[ICC+'units/v-crest1.webp', ICC+'units/v-crest2.webp', ICC+'units/v-crest3.webp', ICC+'units/v-crest4.webp'],
+    'SFA-01':[ICS+'units/ch1.webp'],
+    'SFA-02':[ICS+'units/ch2-0.webp', ICS+'units/ch2-1.webp', ICS+'units/ch2.webp'],
+    'SFA-03':[ICS+'units/ch3-0.webp', ICS+'units/ch3-1.webp', ICS+'units/ch3.webp'],
   };
   /* Location aerials (per area) — reused as the unit "Location" viewer image and
      the Top-Locations card art. Drop <area-key>.webp into /project-media/locations. */
@@ -2894,6 +2948,30 @@
     'MV11-06':['/project-media/mountainview/mv11/fp/roof-215.webp'],
     'MV11-07':['/project-media/mountainview/mv11/fp/millennial-140-a.webp', '/project-media/mountainview/mv11/fp/millennial-140-b.webp', '/project-media/mountainview/mv11/fp/millennial-140-c.webp'],
     'MV11-08':['/project-media/mountainview/mv11/fp/luxury-villa-255.webp'],
+    /* IL Cazar. Each row's plan is the file its sheet row names, and every
+       one of them prints the area that row claims: 115, 135 and 80 M2 on the
+       three "BUILDING TYPE D TYPICAL FLOOR" sheets, 196 M2 on the penthouse
+       floor, 180M2 on the town house and 220M2 on the Type D standalone.
+
+       The town house and the villa arrived as several floors. The town house
+       has three — ground, first and roof — of which the ground and the first
+       came twice, once titled at 2717px and once cropped small and untitled;
+       the small pair is dropped, and the three titled drawings are listed in
+       the order the house is built. The villa's first file carries its ground
+       and first floors on one sheet and the second its roof.
+
+       Safia's three are one sheet each, and each draws two unit sizes: the
+       Senior Chalet G at 105 and 115 M2, Chalet B at 72 and 110, Chalet D at
+       138 and 105. The sheet prices the first of each pair. */
+    'TCR-01':[ICC+'fp/crest1.webp'],
+    'TCR-02':[ICC+'fp/crest2.webp'],
+    'TCR-03':[ICC+'fp/crest3.webp'],
+    'TCR-04':[ICC+'fp/penthouse.webp'],
+    'TCR-05':[ICC+'fp/th1-ground.webp', ICC+'fp/th1-first.webp', ICC+'fp/th1-roof.webp'],
+    'TCR-06':[ICC+'fp/v1-plans.webp', ICC+'fp/v1-roof.webp'],
+    'SFA-01':[ICS+'fp/ch1.webp'],
+    'SFA-02':[ICS+'fp/ch2.webp'],
+    'SFA-03':[ICS+'fp/ch3.webp'],
   };
   /* Per-unit location renders (LMD). When present, the Location viewer shows the
      unit-specific aerial; otherwise it falls back to the area aerial. */
@@ -3464,7 +3542,13 @@
     'OW-26':['/project-media/orascom/o-west/location-o-west.webp'],
     'OW-27':['/project-media/orascom/o-west/location-o-west.webp'],
   };
-  function planUrl(f){ return f.charAt(0)==='/' ? f : PLANS_BASE+f; }
+  /* A PROJECT_PLANS entry may be a bare path or a {src, cap} pair, so that a
+     band carrying several plans can label each one — The Crest's does, because
+     its brochure draws the master plan twice. planBand reads the caption
+     itself; every other caller wants only the path, and a unit that falls back
+     to its project's plans lands here with the object form. Unwrap it once,
+     here, rather than at each call site. */
+  function planUrl(f){ var p = (f && f.src) ? f.src : f; return p.charAt(0)==='/' ? p : PLANS_BASE+p; }
   /* A master plan and a location map describe the whole project — every unit in
      it shares the same drawing — so a unit that names neither falls back to
      what its own project's other units name. Eight Solana West apartments
@@ -3530,7 +3614,27 @@
        carry. The block ends at x 978 and the drawing starts at x 1158, so the
        crop takes the map and leaves the claims behind. */
     'mountain-view-11': {mp:['/project-media/mountainview/mv11/masterplan.webp'],
-                         loc:['/project-media/mountainview/mv11/location.webp']}
+                         loc:['/project-media/mountainview/mv11/location.webp']},
+    /* IL Cazar's three. The Crest's band carries two plans, because the
+       brochure draws the master plan twice: p05 plain, and p06 again with the
+       five districts coloured and keyed. Its location map is p04, which names
+       four landmarks and prints no time or distance beside any of them, so it
+       ships whole — the site's own gate agrees.
+
+       Safia's master plan is p09, legend and elevation ladder together. Its
+       location map is NOT the brochure's, because the brochure's p07 prints
+       2:30 hours, 30 minutes and 20 minutes in a paragraph and again as a
+       list. The client's archive holds the same drawing, and it is published
+       cropped below that text: every pin survives — Almaza Bay, Sidi Heniesh,
+       Ras El Hekma, Fouka Bay, Swanlake, KM 186, Soul Emaar, Waterway — and
+       the travel claims do not.
+
+       Creek Town's two are the company profile's own pages, p58 and p56. */
+    'the-crest': {mp:[{src:ICC+'kit/p05.webp', cap:{en:'The master plan', ar:'الماستر بلان'}},
+                      {src:ICC+'kit/p06.webp', cap:{en:'The five districts', ar:'الأحياء الخمسة'}}],
+                  loc:[ICC+'kit/p04.webp']},
+    'safia': {mp:[ICS+'kit/p09.webp'], loc:[ICS+'location.webp']},
+    'creek-town': {mp:[ICP+'p58.webp'], loc:[ICP+'p56.webp']}
   };
   function projectPlans(slug){
     var own = PROJECT_PLANS[slug], back = PROJECT_PLAN_FALLBACK[slug] || {};
@@ -3885,6 +3989,44 @@
       MVK+'g08.webp',   // the pool and its mosaic
       MVK+'g09.webp',   // the coffee shop
       MVK+'g10.webp'    // the iVilla, from below
+    ],
+    /* The Crest, in the brochure's own order: the compound from the air, the
+       park and its lake, the street, then one render of each building the
+       book draws — Apartments Type A, Type B, Type C and the Duplex — the
+       clubhouse at dusk, and the architecture page. */
+    'the-crest': [
+      ICC+'kit/p07.webp',   // the compound from the air
+      ICC+'kit/p16.webp',   // the park and its lake
+      ICC+'kit/p21.webp',   // the street
+      ICC+'kit/p20.webp',   // Apartments Building Type A
+      ICC+'kit/p27.webp',   // Apartments Building Type B
+      ICC+'kit/p33.webp',   // Apartments Building Type C
+      ICC+'kit/p15.webp',   // the Duplex Building
+      ICC+'clubhouse.webp', // the clubhouse at dusk, cropped off its page
+      ICC+'kit/p13.webp'    // the architecture, by Raef Fahmi Architects
+    ],
+    /* Safia: the beach from the air, the boulevard, the pool, a terrace and
+       its view, the beach club, the sandy beach, the cabanas and the senior
+       chalets. Landscape frames only, all from the e-brochure. */
+    'safia': [
+      ICS+'kit/p11.webp',   // the beach from the air
+      ICS+'kit/p12.webp',   // the boulevard down to the sea
+      ICS+'kit/p13.webp',   // the pool above the beach
+      ICS+'kit/p14.webp',   // a terrace and its view
+      ICS+'kit/p10.webp',   // the beach club
+      ICS+'kit/p15.webp',   // the sandy beach
+      ICS+'kit/p22.webp',   // the cabanas
+      ICS+'kit/p47.webp'    // the senior chalets
+    ],
+    /* Creek Town, from IL Cazar's company profile — the only pictures of it
+       that arrived. Three of them are marked LIVE FOOTAGE: photographs of the
+       houses as built, which is what a ready-to-move project should show. */
+    'creek-town': [
+      ICP+'p59.webp',       // the delivered street
+      ICP+'p60.webp',       // the houses, and one gable
+      ICP+'p61.webp',       // the water feature and the terraces
+      ICP+'p55.webp',       // a standalone, from the profile's about page
+      ICP+'p54.webp'        // the project's own title page
     ],
     /* Ras Soma, in the brochure's own order: the residences from the air,
        the bay, then the destinations along the green spine, then one
@@ -4457,7 +4599,8 @@
   var SD = '/project-media/sodic/';
   var PHP = '/project-media/palmhills/profile/';
   var QDP = '/project-media/qataridiar/profile/';
-  var ICP = '/project-media/ilcazar/profile/';
+  // ICP is declared at the top of this file, beside ICC and ICS, because
+  // PROJECT_COVERS needs it for Creek Town.
   var DEV_GALLERY = {
     /* El Masria: the render the profile opens each ISOLA development with. */
     'elmasria': ['/project-media/elmasria/isola-october.webp',
@@ -9384,6 +9527,285 @@
        }}
     ]
   };
+  /* THE CREST — from its own 40-page apartments brochure. Every figure on
+     these cards is printed on a page of that book: the 158 acres and the five
+     district names on p08, the architect and the year on p13, the facility
+     list on p11 and p12, the building types and their areas on the plan
+     sheets themselves. The cards quote; they do not compute.
+
+     The pictures those four pages carry are not published — p08 puts a woman
+     in a field beside the acreage, p11 a pomegranate and a restaurant beside
+     the hypermarkets and clubhouse, p12 a gym, a café and a child beside the
+     gym, the dining and the nursery. A photograph standing in for a facility
+     is exactly what cost ORA's kit the same pages. The words survive here;
+     the pictures do not. */
+  PROJECT_FEATURES['the-crest'] = {
+    masterplan: {en:'Master plan', ar:'الماستر بلان', icon:'masterplan', src:ICC+'kit/p05.webp'},
+    cards: [
+      {en:'158 acres, five districts', ar:'١٥٨ أكر وخمسة أحياء', icon:'area',
+       imgs:[ICC+'kit/p07.webp', ICC+'kit/p06.webp'],
+       copy:{
+         lead:{en:'The brochure divides the compound into two segments — villas and apartments — and names five districts inside them. The master plan is drawn twice, plain and then keyed by colour.',
+               ar:'يقسّم البروشور الكمبوند إلى قطاعين — فيلات وشقق — ويسمّي خمسة أحياء بداخلهما. والماستر بلان مرسوم مرتين، مجرّداً ثم مفتاحاً بالألوان.'},
+         groups:[
+           {label:{en:'As the brochure prints them', ar:'كما يطبعها البروشور'}, rows:[
+             {k:{en:'Land', ar:'المساحة'}, v:{en:'158 acres', ar:'١٥٨ أكر'}},
+             {k:{en:'Signature Ville', ar:'سيجنتشر ڤيل'}, v:{en:'The one-storey villa zone', ar:'منطقة فيلات الدور الواحد'}},
+             {k:{en:'CrestVille', ar:'كريست ڤيل'}, v:{en:'The standalone villa zone', ar:'منطقة الفيلات المستقلة'}},
+             {k:{en:'Crestonia', ar:'كريستونيا'}, v:{en:'Quads and standalone', ar:'الكواد والفيلات المستقلة'}},
+             {k:{en:'Crestside', ar:'كريست سايد'}, v:{en:'The townhouse zone', ar:'منطقة التاون هاوس'}},
+             {k:{en:'Crestfield', ar:'كريست فيلد'}, v:{en:'Apartments and duplexes', ar:'الشقق والدوبلكس'}}
+           ]}
+         ],
+         more:{en:'The location page names South 90 Street, the E-Ring Road, Point 90, the AUC, The Westin Hotel and the New Capital, and prints no time or distance to any of them.',
+               ar:'وتسمّي صفحة الموقع شارع التسعين الجنوبي والطريق الدائري الأوسطي وبوينت ٩٠ والجامعة الأمريكية وفندق ذا ويستن والعاصمة الإدارية، ولا تطبع زمناً ولا مسافة إلى أيٍّ منها.'}
+       }},
+      {en:'The compound', ar:'الكمبوند', icon:'am_centralpark',
+       imgs:[ICC+'kit/p16.webp', ICC+'kit/p21.webp', ICC+'clubhouse.webp'],
+       copy:{
+         lead:{en:'The brochure’s concept page calls it the essence of two mini cities converging in one urban landscape, laid out around water features, greenery and the clubhouse.',
+               ar:'تصف صفحة الفكرة في البروشور المشروع بأنه التقاء مدينتين صغيرتين في مشهد عمراني واحد، منسوق حول العناصر المائية والخضرة والكلوب هاوس.'},
+         list:[
+           {en:'Designed for families, singles and young married couples alike, in the brochure’s own words', ar:'مصمَّم للعائلات والأفراد والأزواج الشباب على السواء، بعبارة البروشور نفسه'},
+           {en:'Water features, lush greenery and scenic landscapes between the two segments', ar:'عناصر مائية وخضرة وافرة ومشاهد طبيعية بين القطاعين'},
+           {en:'The clubhouse is the social hub, drawn on the master plan with the commercial area', ar:'الكلوب هاوس هو المركز الاجتماعي، مرسوم على الماستر بلان مع المنطقة التجارية'}
+         ]
+       }},
+      {en:'Facilities', ar:'الخدمات', icon:'am_club',
+       imgs:[ICC+'clubhouse.webp'],
+       copy:{
+         lead:{en:'Six, as the brochure lists them across two pages. The photographs beside them are bought stock — a pomegranate, a restaurant, a gym, a café and a child — so only the words are carried here.',
+               ar:'ستٌّ، كما يعدّدها البروشور على صفحتين. والصور المجاورة لها مشتراة جاهزة — رمّانة ومطعم وجيم ومقهى وطفلة — فلم يُنقل هنا سوى النص.'},
+         list:[
+           {en:'Hypermarkets inside the compound', ar:'هايبر ماركت داخل الكمبوند'},
+           {en:'Paddle tennis and football courts', ar:'ملاعب بادل تنس وكرة قدم'},
+           {en:'The clubhouse, for gatherings and relaxation', ar:'الكلوب هاوس، للتجمّعات والاسترخاء'},
+           {en:'A fully equipped gym and wellness centre', ar:'جيم مجهّز بالكامل ومركز عافية'},
+           {en:'A nursery, with educational programmes and daycare', ar:'حضانة، ببرامج تعليمية ورعاية نهارية'},
+           {en:'An on-site dining restaurant', ar:'مطعم داخل المشروع'}
+         ]
+       }},
+      {en:'Raef Fahmi Architects', ar:'مكتب رائف فهمي للعمارة', icon:'build',
+       imgs:[ICC+'kit/p13.webp'],
+       copy:{
+         lead:{en:'The brochure names its architect and the year the practice was founded.',
+               ar:'يذكر البروشور اسم المعماري وسنة تأسيس المكتب.'},
+         groups:[
+           {label:{en:'As the brochure prints them', ar:'كما يطبعها البروشور'}, rows:[
+             {k:{en:'Architect', ar:'المعماري'}, v:{en:'Raef Fahmi Architects', ar:'Raef Fahmi Architects'}},
+             {k:{en:'Established', ar:'التأسيس'}, v:{en:'1991', ar:'١٩٩١'}},
+             {k:{en:'Approach', ar:'المنهج'}, v:{en:'A community-sensitive practice that takes the initiative from the urban planning perspective', ar:'مكتب حسّاس تجاه المجتمع يبدأ من منظور التخطيط العمراني'}}
+           ]}
+         ]
+       }},
+      {en:'The Duplex Building — 215, 210 and 250 m²', ar:'مبنى الدوبلكس — ٢١٥ و٢١٠ و٢٥٠ م²', icon:'ty_penthouse',
+       imgs:[ICC+'kit/p15.webp', ICC+'kit/p17.webp', ICC+'kit/p18.webp', ICC+'kit/p19.webp'],
+       copy:{
+         lead:{en:'The first of the four buildings the brochure draws: the render, then three plan sheets keyed Duplex G01 at 215 m², Duplex 101 at 210 m² and Duplex 201 at 250 m².',
+               ar:'أول المباني الأربعة التي يرسمها البروشور: اللقطة ثم ثلاث لوحات مخططات باسم دوبلكس G01 بمساحة ٢١٥ م²، ودوبلكس ١٠١ بمساحة ٢١٠ م²، ودوبلكس ٢٠١ بمساحة ٢٥٠ م².'},
+         more:{en:'No duplex is on the client’s price list for this project, so none appears among the units below. The plans are here because the brochure draws them.',
+               ar:'ولا يوجد دوبلكس في قائمة أسعار العميل لهذا المشروع، فلا يظهر أيٌّ منها بين الوحدات أدناه. والمخططات هنا لأن البروشور يرسمها.'}
+       }},
+      {en:'Apartments Building Type A', ar:'مبنى الشقق نوع A', icon:'ty_apartment',
+       imgs:[ICC+'kit/p20.webp', ICC+'kit/p22.webp', ICC+'kit/p23.webp',
+             ICC+'kit/p24.webp', ICC+'kit/p25.webp', ICC+'kit/p26.webp'],
+       copy:{
+         lead:{en:'The render and five plan sheets: ground, first, second, third, fourth, fifth and the penthouse floor, which draws Apartment 01 at 196 m² and Apartment 02 at 198 m².',
+               ar:'اللقطة وخمس لوحات مخططات: الأرضي والأول والثاني والثالث والرابع والخامس ودور البنتهاوس، الذي يرسم الشقة ٠١ بمساحة ١٩٦ م² والشقة ٠٢ بمساحة ١٩٨ م².'}
+       }},
+      {en:'Apartments Building Type B', ar:'مبنى الشقق نوع B', icon:'ty_apartment',
+       imgs:[ICC+'kit/p27.webp', ICC+'kit/p28.webp', ICC+'kit/p29.webp',
+             ICC+'kit/p30.webp', ICC+'kit/p31.webp', ICC+'kit/p32.webp'],
+       copy:{
+         lead:{en:'The render and five plan sheets, ground to fifth plus the penthouse floor, whose two apartments are drawn at 196 m² and 199 m².',
+               ar:'اللقطة وخمس لوحات مخططات، من الأرضي إلى الخامس ودور البنتهاوس، وشقتاه مرسومتان بمساحة ١٩٦ م² و١٩٩ م².'}
+       }},
+      {en:'Apartments Building Type C', ar:'مبنى الشقق نوع C', icon:'ty_apartment',
+       imgs:[ICC+'kit/p33.webp', ICC+'kit/p34.webp', ICC+'kit/p35.webp',
+             ICC+'kit/p36.webp', ICC+'kit/p37.webp', ICC+'kit/p38.webp'],
+       copy:{
+         lead:{en:'The render and five plan sheets, ground to fifth.',
+               ar:'اللقطة وخمس لوحات مخططات، من الأرضي إلى الخامس.'},
+         more:{en:'This book draws Types A, B and C and the Duplex Building. The six units on the client’s price list for The Crest are drawn on their own sheets, headed BUILDING TYPE D, which this brochure does not contain — each is attached to its unit below.',
+               ar:'يرسم هذا الكتاب الأنواع A وB وC ومبنى الدوبلكس. أما الوحدات الست في قائمة أسعار العميل لذا كريست فمرسومة على لوحاتها الخاصة بعنوان BUILDING TYPE D، وهو ما لا يحتويه هذا البروشور — وكلٌّ منها مرفق بوحدته أدناه.'}
+       }}
+    ]
+  };
+
+  /* SAFIA — from its own 71-page e-brochure. The land, the ratio, the rows,
+     the elevations, the depth and the beachfront are all on p05; the nine
+     master-plan zones on p09; every unit type's area is printed on its own
+     title page. The cards below follow the book's own section order.
+
+     Its p07, the LOCATION MAP, is not published: it prints 2:30 hours,
+     30 minutes and 20 minutes. The archive's copy of the same drawing is
+     published cropped below that text and carries the band instead. */
+  PROJECT_FEATURES['safia'] = {
+    masterplan: {en:'Master plan', ar:'الماستر بلان', icon:'masterplan', src:ICS+'kit/p09.webp'},
+    cards: [
+      {en:'180 acres at km 186', ar:'١٨٠ أكر عند الكيلو ١٨٦', icon:'area',
+       imgs:[ICS+'kit/p11.webp', ICS+'kit/p12.webp'],
+       copy:{
+         lead:{en:'The brochure’s own page of figures for the site, quoted as it prints them.',
+               ar:'صفحة أرقام الموقع في البروشور نفسه، منقولة كما يطبعها.'},
+         groups:[
+           {label:{en:'As the brochure prints them', ar:'كما يطبعها البروشور'}, rows:[
+             {k:{en:'Land', ar:'المساحة'}, v:{en:'Over 180 acres', ar:'أكثر من ١٨٠ أكر'}},
+             {k:{en:'Developed', ar:'المبنيّ'}, v:{en:'Only 15% of the area', ar:'١٥٪ فقط من المساحة'}},
+             {k:{en:'Rows', ar:'الصفوف'}, v:{en:'Nine, each built across multiple levels', ar:'تسعة، كلٌّ منها على مناسيب متعددة'}},
+             {k:{en:'Beachfront', ar:'الواجهة البحرية'}, v:{en:'750 metres', ar:'٧٥٠ متراً'}},
+             {k:{en:'Elevations', ar:'المناسيب'}, v:{en:'3 to 40 metres above sea level', ar:'من ٣ إلى ٤٠ متراً فوق سطح البحر'}},
+             {k:{en:'Project depth', ar:'عمق المشروع'}, v:{en:'1,500 metres', ar:'١٬٥٠٠ متر'}}
+           ]}
+         ],
+         more:{en:'The master plan’s own elevation ladder runs from +3.20 to +37.50, which is where those figures come from.',
+               ar:'ويمتد سلّم المناسيب على الماستر بلان من +٣٫٢٠ إلى +٣٧٫٥٠، ومن هناك تأتي تلك الأرقام.'}
+       }},
+      {en:'Nine zones', ar:'تسع مناطق', icon:'layers',
+       imgs:[ICS+'kit/p09.webp'],
+       copy:{
+         lead:{en:'The master plan’s legend, numbered 01 to 09 in its own order.',
+               ar:'مفتاح الماستر بلان، مرقّماً من ٠١ إلى ٠٩ بترتيبه نفسه.'},
+         list:[
+           {en:'Cabanas', ar:'الكابانات'},
+           {en:'Villas', ar:'الفيلات'},
+           {en:'Town Houses', ar:'التاون هاوس'},
+           {en:'Senior Chalets', ar:'الشاليهات السينيور'},
+           {en:'Twin Villas', ar:'التوين ڤيلا'},
+           {en:'Chalets', ar:'الشاليهات'},
+           {en:'Serviced Apartments', ar:'الشقق الفندقية'},
+           {en:'Kids Area & Sports Courts', ar:'منطقة أطفال وملاعب'},
+           {en:'Sales Office & Commercial Area', ar:'مكتب المبيعات والمنطقة التجارية'}
+         ]
+       }},
+      {en:'The living experience', ar:'تجربة المعيشة', icon:'am_beach',
+       imgs:[ICS+'kit/p13.webp', ICS+'kit/p14.webp', ICS+'kit/p10.webp', ICS+'kit/p15.webp', ICS+'kit/p21.webp'],
+       copy:{
+         lead:{en:'The brochure’s own account of the shore and what sits on it: lagoons and pools threaded through the landscape, and a private sandy beach along the Mediterranean.',
+               ar:'رواية البروشور نفسه عن الشاطئ وما عليه: بحيرات وحمامات سباحة منسوجة في التنسيق، وشاطئ رملي خاص على المتوسط.'},
+         list:[
+           {en:'Tranquil lagoons and swimming pools among the landscape', ar:'بحيرات هادئة وحمامات سباحة بين التنسيق'},
+           {en:'A private sandy beach along the Mediterranean shoreline', ar:'شاطئ رملي خاص على ساحل المتوسط'},
+           {en:'Commercial and shopping areas set among the water features', ar:'مناطق تجارية وتسوّق بين العناصر المائية'},
+           {en:'Eateries surrounded by landscape, for a meal or a coffee by the sea', ar:'مطاعم تحيط بها المساحات الخضراء، لوجبة أو قهوة بجوار البحر'}
+         ],
+         more:{en:'The brochure also prints a hotel “located 51 meters above sea level”, restaurants, water sports, tennis and padel courts. Their pages are bought stock photography — a plate of food, a beach ball, a jet ski, a tennis ball — so those pages are not published and only what they say is here.',
+               ar:'ويطبع البروشور أيضاً فندقاً «يقع على ارتفاع ٥١ متراً فوق سطح البحر»، ومطاعم ورياضات مائية وملاعب تنس وبادل. وصفحاتها صور جاهزة مشتراة — طبق طعام وكرة شاطئ وجت سكي وكرة تنس — فلم تُنشر تلك الصفحات، وما هنا هو ما تقوله فقط.'}
+       }},
+      {en:'The gym', ar:'الجيم', icon:'am_gym',
+       imgs:[ICS+'kit/p20.webp'],
+       copy:{
+         lead:{en:'One of the few facility pages in this book whose picture is a render of the room itself rather than bought photography, so it is published.',
+               ar:'واحدة من صفحات الخدمات القليلة في هذا الكتاب التي تكون صورتها لقطة للمكان نفسه لا صورة مشتراة، فنُشرت.'}
+       }},
+      {en:'Cabana — 60 m²', ar:'كابانا — ٦٠ م²', icon:'ty_cabin',
+       imgs:[ICS+'kit/p22.webp', ICS+'kit/p23.webp'],
+       copy:{lead:{en:'The render and the plan. One bedroom, a bathroom, a kitchen and dining, and a living room.',
+                   ar:'اللقطة والمخطط. غرفة نوم وحمّام ومطبخ وصالة طعام وغرفة معيشة.'}}},
+      {en:'One Storey Villa Type A — 330 m²', ar:'فيلا دور واحد نوع A — ٣٣٠ م²', icon:'ty_villa',
+       imgs:[ICS+'kit/p25.webp', ICS+'kit/p26.webp', ICS+'kit/p27.webp', ICS+'kit/p24.webp'],
+       copy:{lead:{en:'Two renders and the plan. The brochure draws a reception and dining of 7.70 × 7.75 m, a 14-metre terrace, a kitchen and a maid’s room.',
+                   ar:'لقطتان والمخطط. ويرسم البروشور ريسبشن وصالة طعام ٧٫٧٠ × ٧٫٧٥ م، وتراس بطول ١٤ متراً، ومطبخاً وغرفة خادمة.'}}},
+      {en:'Standalone Villa Type B — 255 m²', ar:'فيلا مستقلة نوع B — ٢٥٥ م²', icon:'ty_villa',
+       imgs:[ICS+'kit/p29.webp', ICS+'kit/p30.webp', ICS+'kit/p31.webp', ICS+'kit/p28.webp'],
+       copy:{lead:{en:'Two renders and two plan sheets, ground and first floor.',
+                   ar:'لقطتان ولوحتا مخططات، الدور الأرضي والأول.'}}},
+      {en:'Standalone Villa Type C — 225 m²', ar:'فيلا مستقلة نوع C — ٢٢٥ م²', icon:'ty_villa',
+       imgs:[ICS+'kit/p33.webp', ICS+'kit/p34.webp', ICS+'kit/p35.webp', ICS+'kit/p32.webp'],
+       copy:{lead:{en:'Two renders, the ground floor, and the first floor with its roof.',
+                   ar:'لقطتان، والدور الأرضي، والدور الأول بسطحه.'}}},
+      {en:'Twin Villa — 225 m²', ar:'توين ڤيلا — ٢٢٥ م²', icon:'ty_villa',
+       imgs:[ICS+'kit/p37.webp', ICS+'kit/p38.webp', ICS+'kit/p39.webp', ICS+'kit/p36.webp'],
+       copy:{lead:{en:'Two renders and two plan sheets.',
+                   ar:'لقطتان ولوحتا مخططات.'}}},
+      {en:'Townhouse — 220 m²', ar:'تاون هاوس — ٢٢٠ م²', icon:'home',
+       imgs:[ICS+'kit/p41.webp', ICS+'kit/p42.webp', ICS+'kit/p43.webp', ICS+'kit/p40.webp'],
+       copy:{lead:{en:'Two renders, the ground floor, and the first floor with its roof.',
+                   ar:'لقطتان، والدور الأرضي، والدور الأول بسطحه.'}}},
+      {en:'Townhouse — 200 m²', ar:'تاون هاوس — ٢٠٠ م²', icon:'home',
+       imgs:[ICS+'kit/p45.webp', ICS+'kit/p46.webp', ICS+'kit/p44.webp'],
+       copy:{lead:{en:'Two renders and one sheet carrying both floors.',
+                   ar:'لقطتان ولوحة واحدة تحمل الدورين.'}}},
+      {en:'Senior Chalets G — 90 to 155 m²', ar:'شاليهات سينيور G — من ٩٠ إلى ١٥٥ م²', icon:'ty_apartment',
+       imgs:[ICS+'kit/p47.webp', ICS+'kit/p48.webp', ICS+'kit/p49.webp', ICS+'kit/p50.webp',
+             ICS+'kit/p51.webp', ICS+'kit/p52.webp', ICS+'kit/p53.webp', ICS+'kit/p54.webp',
+             ICS+'kit/p55.webp', ICS+'kit/p56.webp', ICS+'kit/p57.webp', ICS+'kit/p58.webp'],
+       copy:{lead:{en:'The longest section in the book: five renders, then the ground, first and roof floors drawn twice each. The client’s price list takes one of these, a two-bedroom at 105 m².',
+                   ar:'أطول أقسام الكتاب: خمس لقطات، ثم الأدوار الأرضي والأول والسطح مرسوماً كلٌّ منها مرتين. وتأخذ قائمة أسعار العميل واحدةً منها، بغرفتَي نوم بمساحة ١٠٥ م².'}}},
+      {en:'Chalet B — 72 to 110 m²', ar:'شاليه B — من ٧٢ إلى ١١٠ م²', icon:'ty_apartment',
+       imgs:[ICS+'kit/p59.webp', ICS+'kit/p60.webp', ICS+'kit/p61.webp', ICS+'kit/p62.webp'],
+       copy:{lead:{en:'The ground floor draws two sizes: units 01, 03, 04 and 06 as one-bedrooms at 72 m², and units 02 and 05 as two-bedrooms at 110 m². The price list takes the 72.',
+                   ar:'يرسم الدور الأرضي مساحتين: الوحدات ٠١ و٠٣ و٠٤ و٠٦ بغرفة نوم واحدة ٧٢ م²، والوحدتان ٠٢ و٠٥ بغرفتَي نوم ١١٠ م². وتأخذ قائمة الأسعار الـ٧٢.'}}},
+      {en:'Chalet D — 105 to 138 m²', ar:'شاليه D — من ١٠٥ إلى ١٣٨ م²', icon:'ty_apartment',
+       imgs:[ICS+'kit/p63.webp', ICS+'kit/p64.webp', ICS+'kit/p65.webp', ICS+'kit/p66.webp'],
+       copy:{lead:{en:'Units 01 and 04 are three-bedrooms at 138 m², units 02 and 03 two-bedrooms at 105 m². The price list takes the 138.',
+                   ar:'الوحدتان ٠١ و٠٤ بثلاث غرف نوم ١٣٨ م²، والوحدتان ٠٢ و٠٣ بغرفتَي نوم ١٠٥ م². وتأخذ قائمة الأسعار الـ١٣٨.'}}},
+      {en:'Chalet E — 120 m²', ar:'شاليه E — ١٢٠ م²', icon:'ty_apartment',
+       imgs:[ICS+'kit/p67.webp', ICS+'kit/p68.webp', ICS+'kit/p69.webp'],
+       copy:{lead:{en:'The last type the book draws. It is not on the client’s price list, so no unit below carries it.',
+                   ar:'آخر نوع يرسمه الكتاب. وهو ليس في قائمة أسعار العميل، فلا تحمله أيّ وحدة أدناه.'}}}
+    ]
+  };
+
+  /* CREEK TOWN — no brochure and no image archive arrived for it. Everything
+     here is from IL Cazar's own company profile, pages 54 to 62: its about
+     page, its location map, its master plan, three pages marked LIVE FOOTAGE
+     and its amenity list. That is the company's own material about its own
+     project, which is why it is used; nothing is borrowed from The Crest or
+     from Safia.
+
+     What is missing is any picture of a single unit. The client sheet names
+     v-creek-0, th-creek-0, th-creek-1, ap1-creek-0, ap1-creek-2 and five
+     fp-*-creek plans, and none of those files was sent. The five units below
+     therefore have no render and no floor plan. */
+  PROJECT_FEATURES['creek-town'] = {
+    masterplan: {en:'Master plan', ar:'الماستر بلان', icon:'masterplan', src:ICP+'p58.webp'},
+    cards: [
+      {en:'100 acres on the Suez Road', ar:'١٠٠ أكر على طريق السويس', icon:'area',
+       imgs:[ICP+'p55.webp', ICP+'p54.webp'],
+       copy:{
+         lead:{en:'The company profile’s own description, quoted as it prints it.',
+               ar:'وصف بروفايل الشركة نفسه، منقولاً كما يطبعه.'},
+         groups:[
+           {label:{en:'As the profile prints them', ar:'كما يطبعها البروفايل'}, rows:[
+             {k:{en:'Land', ar:'المساحة'}, v:{en:'100 acres', ar:'١٠٠ أكر'}},
+             {k:{en:'Launched', ar:'الإطلاق'}, v:{en:'2020', ar:'٢٠٢٠'}},
+             {k:{en:'Status', ar:'الحالة'}, v:{en:'Ready to deliver', ar:'جاهز للتسليم'}},
+             {k:{en:'Location', ar:'الموقع'}, v:{en:'Directly on the Suez Road, in the First Settlement of New Cairo', ar:'على طريق السويس مباشرة، بالتجمّع الأول في القاهرة الجديدة'}},
+             {k:{en:'Mix', ar:'المكوّنات'}, v:{en:'Standalones, twin houses, apartments and a commercial and administrative area', ar:'فيلات مستقلة وتوين هاوس وشقق ومنطقة تجارية وإدارية'}}
+           ]}
+         ]
+       }},
+      {en:'Built and standing', ar:'مبنيّ وقائم', icon:'key',
+       imgs:[ICP+'p59.webp', ICP+'p60.webp', ICP+'p61.webp'],
+       copy:{
+         lead:{en:'Three pages of the profile are headed LIVE FOOTAGE — photographs of Creek Town as built, with the houses finished and the landscaping grown in. Every other project in this batch is drawn; this one is photographed.',
+               ar:'ثلاث صفحات من البروفايل بعنوان LIVE FOOTAGE — صور فوتوغرافية لكريك تاون كما بُني، بالبيوت مكتملة والتنسيق ناميا. وكل مشروع آخر في هذه الدفعة مرسوم، أما هذا فمصوَّر.'}
+       }},
+      {en:'Amenities', ar:'الخدمات', icon:'am_concierge',
+       imgs:[ICP+'p62.webp'],
+       copy:{
+         lead:{en:'The five the profile’s own icon set names.',
+               ar:'الخمس التي تسمّيها أيقونات البروفايل نفسه.'},
+         list:[
+           {en:'Prime location', ar:'موقع متميّز'},
+           {en:'Fitness areas', ar:'مناطق لياقة'},
+           {en:'Bicycle lanes', ar:'مسارات دراجات'},
+           {en:'Commercial area', ar:'منطقة تجارية'},
+           {en:'Concierge service', ar:'خدمة كونسيرج'}
+         ]
+       }},
+      {en:'What is not here yet', ar:'ما لم يصل بعد', icon:'info',
+       imgs:[ICP+'p56.webp'],
+       copy:{
+         lead:{en:'Creek Town’s five priced rows arrived on the client sheet with image and floor-plan codes like every other project’s, but the files those codes name were not sent and there is no Creek Town brochure in this batch.',
+               ar:'وصلت صفوف كريك تاون الخمسة المسعّرة في شيت العميل بأكواد صور ومخططات كغيرها من المشروعات، لكن الملفات التي تسمّيها تلك الأكواد لم تُرسل ولا يوجد بروشور لكريك تاون في هذه الدفعة.'},
+         more:{en:'So the five units below carry their type, area, price and terms, and no picture of their own. None was taken from another project to fill the gap. Send the archive and they will have one.',
+               ar:'ولذلك تحمل الوحدات الخمس أدناه نوعها ومساحتها وسعرها وشروطها، دون صورة خاصة بها. ولم تُؤخذ أيٌّ من مشروع آخر لسدّ الفراغ. أرسل الأرشيف وستحصل عليها.'}
+       }}
+    ]
+  };
+
   function projBrochure(slug){ return PROJECT_BROCHURE[slug] || null; }
   function projFeatures(slug){ return PROJECT_FEATURES[slug] || null; }
 
