@@ -4305,6 +4305,7 @@ try {
      each unit's plan is its own row's plan. */
   ck('ilcazar: each unit’s cover and plan is the file its sheet row names', (function(){
     var bad = [], C = '/project-media/ilcazar/the-crest/', S = '/project-media/ilcazar/safia/';
+    var K = '/project-media/ilcazar/creek-town/';
     var WANT = {
       'TCR-01':[C+'units/crest1.webp',     C+'fp/crest1.webp'],
       'TCR-02':[C+'units/crest2.webp',     C+'fp/crest2.webp'],
@@ -4314,7 +4315,15 @@ try {
       'TCR-06':[C+'units/v-crest1.webp',   C+'fp/v1-plans.webp'],
       'SFA-01':[S+'units/ch1.webp',        S+'fp/ch1.webp'],
       'SFA-02':[S+'units/ch2-0.webp',      S+'fp/ch2.webp'],
-      'SFA-03':[S+'units/ch3-0.webp',      S+'fp/ch3.webp']
+      'SFA-03':[S+'units/ch3-0.webp',      S+'fp/ch3.webp'],
+      /* Creek Town's archive arrived a round after its card, which shipped
+         saying these five had no picture of their own. They do now, and these
+         are the files its rows name. */
+      'CKT-01':[K+'units/v-creek-0.webp',   K+'fp/v-floors.webp'],
+      'CKT-02':[K+'units/th-creek-0.webp',  K+'fp/th1-floors.webp'],
+      'CKT-03':[K+'units/th-creek-1.webp',  K+'fp/th2-floors.webp'],
+      'CKT-04':[K+'units/ap1-creek-0.webp', K+'fp/ap-128.webp'],
+      'CKT-05':[K+'units/ap1-creek-2.webp', K+'fp/ap-170.webp']
     };
     var seen = {};
     Object.keys(WANT).forEach(function(id){
@@ -4327,24 +4336,31 @@ try {
       var g = api.UNIT_GALLERY[id] || [];
       if(g[0] !== WANT[id][0]) bad.push(id + '’s gallery opens on ' + g[0]);
     });
-    /* Creek Town's five name files that never arrived. None may be given a
-       picture, and above all not one of the other two projects'. */
-    api.UNITS.filter(function(u){ return u.project === 'creek-town'; }).forEach(function(u){
-      if(api.UNIT_IMAGES[u.id]) bad.push(u.id + ' has a picture it was never sent: ' + api.UNIT_IMAGES[u.id]);
-      if(api.UNIT_GALLERY[u.id]) bad.push(u.id + ' has a gallery it was never sent');
-      if(api.UNIT_FLOORPLANS[u.id]) bad.push(u.id + ' has a plan it was never sent');
+    /* No unit of any of the three may show a picture out of another of them.
+       This is what stopped Creek Town borrowing while its archive was missing,
+       and it still holds now that all three have their own. */
+    var FOLDER = {'the-crest':C, 'creek-town':K, 'safia':S};
+    api.UNITS.forEach(function(u){
+      var mine = FOLDER[u.project];
+      if(!mine) return;
+      var srcs = [api.UNIT_IMAGES[u.id]]
+        .concat(api.UNIT_GALLERY[u.id] || [], api.UNIT_FLOORPLANS[u.id] || []);
+      srcs.filter(Boolean).forEach(function(f){
+        if(f.indexOf('/project-media/ilcazar/') === 0 && f.indexOf(mine) !== 0)
+          bad.push(u.id + ' shows another project\u2019s picture: ' + f);
+      });
     });
     return bad.length === 0 || bad.slice(0, 6).join('; ');
   })(), true);
 
   /* What each brochure prints, and what it does not.
 
-     The page lists are read out of tools/pull_ilcazar_projects.py rather than
-     copied here, so that moving a page between published and withheld has to
-     be done once and shows up in both places. The puller asserts the two sets
-     are disjoint and together cover every page of each book; this asserts the
-     published set is what is on disk, and that not one withheld page is. */
-  ck('ilcazar: the pages both brochures leave off', (function(){
+     The page lists are read out of the pullers rather than copied here, so
+     that moving a page between published and withheld has to be done once and
+     shows up in both places. Each puller asserts its two sets are disjoint and
+     together cover every page of its book; this asserts the published set is
+     what is on disk, and that not one withheld page is. */
+  ck('ilcazar: the pages the three brochures leave off', (function(){
     var fsx=require('fs'), pathx=require('path');
     var bad = [], root = pathx.join(__dirname, '..');
     var src = pathx.join(__dirname, 'pull_ilcazar_projects.py');
@@ -4370,8 +4386,19 @@ try {
       while((r = re.exec(m[1]))) out.push(+r[2]);
       return out;
     }
-    [['CREST', 'the-crest', 40], ['SAFIA', 'safia', 71]].forEach(function(b){
-      var shown = list(b[0] + '_PAGES'), hidden = keys(b[0] + '_OUT');
+    /* Creek Town's brochure arrived a round later and has its own puller, so
+       its two lists are read out of that file instead, under the plain names
+       PAGES and WITHHELD. */
+    var ck = pathx.join(__dirname, 'pull_ilcazar_creek.py');
+    var cpy = fsx.existsSync(ck) ? fsx.readFileSync(ck, 'utf8') : '';
+    if(!cpy) bad.push('the Creek Town puller is gone');
+    [['CREST', 'the-crest', 40], ['SAFIA', 'safia', 71],
+     ['', 'creek-town', 62]].forEach(function(b){
+      var src2 = b[0] ? py : cpy;
+      var saved = py; py = src2;
+      var shown = list(b[0] + '_PAGES'), hidden = keys(b[0] + '_OUT' || '');
+      if(!b[0]) { shown = list('PAGES'); hidden = keys('WITHHELD'); }
+      py = saved;
       if(!shown || !hidden) { bad.push(b[0] + ': the puller’s lists could not be read'); return; }
       if(shown.length + hidden.length !== b[2])
         bad.push(b[0] + ': ' + shown.length + ' + ' + hidden.length + ' pages, the book has ' + b[2]);
@@ -4388,16 +4415,40 @@ try {
       if(disk.length !== shown.length)
         bad.push(b[1] + '/kit holds ' + disk.length + ' pages, the puller chose ' + shown.length);
     });
-    /* Safia p07 is the one page withheld for a travel claim, and its drawing
-       is published instead from the archive, cropped below that text. The
-       crop is what makes the difference, so its shape is pinned: the source
-       is 1397x651 and the published file must be shorter than it is wide by
-       the amount the crop takes. */
-    var loc = pathx.join(root, 'project-media', 'ilcazar', 'safia', 'location.webp');
-    if(!fsx.existsSync(loc)) bad.push('Safia’s cropped location map is gone');
+    /* Three pictures here are crops, and each crop is the only thing keeping
+       something off the site: Safia p07 and Creek Town p05 both print travel
+       claims above the line their archive copy is cut at, and The Crest p09 is
+       half a bought photograph of a couple.
+
+       Pinning the tuple in the puller catches an edit to the script. It does
+       not catch the published file being replaced by the whole page, which is
+       how an uncropped Creek Town map got past an earlier version of this
+       check, so the shipped size is pinned as well — a crop fixes it exactly,
+       and these are lossy WebP, whose width and height sit in the VP8 header
+       at bytes 26 and 28, fourteen bits each. */
+    function wh(rel){
+      var f = pathx.join(root, 'project-media', 'ilcazar', rel);
+      if(!fsx.existsSync(f)) return null;
+      var b = fsx.readFileSync(f);
+      if(b.slice(0, 4).toString() !== 'RIFF' || b.slice(8, 12).toString() !== 'WEBP') return 'not webp';
+      if(b.slice(12, 16).toString() !== 'VP8 ') return 'not lossy webp';
+      return (b.readUInt16LE(26) & 0x3fff) + 'x' + (b.readUInt16LE(28) & 0x3fff);
+    }
+    [['safia/location.webp', '1397x321', 'Safia’s location map'],
+     ['creek-town/location.webp', '799x414', 'Creek Town’s location map'],
+     ['the-crest/clubhouse.webp', '1000x1125', 'The Crest’s clubhouse']
+    ].forEach(function(c){
+      var got = wh(c[0]);
+      if(got === null) bad.push(c[2] + ' is gone');
+      else if(got !== c[1]) bad.push(c[2] + ' is ' + got + ', the crop makes it ' + c[1]);
+    });
     if(!/SAFIA_LOC\s*=\s*\('location safia\.PNG',\s*'location',\s*\(0,\s*330,\s*1397,\s*651\)\)/.test(py))
       bad.push('the crop that removes Safia’s travel claims has moved');
-    /* And no travel claim from either book reached either page. */
+    if(!/CREST_CLUB\s*=\s*\(9,\s*'clubhouse',\s*\(0,\s*0,\s*1000,\s*1125\)\)/.test(py))
+      bad.push('the crop that takes The Crest’s clubhouse off its page has moved');
+    if(!/LOC\s*=\s*\('location creek town\.PNG',\s*'location',\s*\(402,\s*176,\s*1201,\s*590\)\)/.test(cpy))
+      bad.push('the crop that removes Creek Town’s travel claims has moved');
+    /* And no travel claim from any of the three books reached any page. */
     ['the-crest','safia','creek-town'].forEach(function(sl){
       var t = txt(api.V.project(sl).node);
       [/\d+\s*mins?\b/i, /\d+\s*minutes\b/i, /\d+:\d+\s*hrs?\b/i, /\d+\s*hours? (away|from)/i].forEach(function(re){
@@ -4447,20 +4498,51 @@ try {
                     'Rows':/^Nine\b/, 'Beachfront':/^750 metres$/,
                     'Elevations':/^3 to 40 metres above sea level$/,
                     'Project depth':/^1,500 metres$/},
+      /* Creek Town's brochure breaks three houses down floor by floor, and
+         every one of them uses the same five row names, so these keys are
+         scoped by the card they sit on. Unscoped, the last card silently won
+         and the other two went unchecked. */
       'creek-town':{'Land':/^100 acres$/, 'Launched':/^2020$/,
                     'Status':/^Ready to deliver$/, 'Location':/Suez Road/,
-                    'Mix':/Standalones/}
+                    'Mix':/Standalones/,
+                    'Designed by':/^Hany Saad Innovations$/,
+                    'Landscaping by':/^OKOPLAN$/,
+                    'Prime Villas 420 m\u00b2 \u00b7 Type K >> Total':/^420 m\u00b2$/,
+                    'Prime Villas 420 m\u00b2 \u00b7 Type K >> Ground floor':/^168 m\u00b2$/,
+                    'Prime Villas 420 m\u00b2 \u00b7 Type K >> First floor':/^182 m\u00b2$/,
+                    'Prime Villas 420 m\u00b2 \u00b7 Type K >> Penthouse':/^70 m\u00b2$/,
+                    'Prime Villas 420 m\u00b2 \u00b7 Type K >> Terrace':/^80 m\u00b2$/,
+                    'Town Villas 210 m\u00b2 \u00b7 Type R >> Total':/^210 m\u00b2$/,
+                    'Town Villas 210 m\u00b2 \u00b7 Type R >> Ground floor':/^85 m\u00b2$/,
+                    'Town Villas 210 m\u00b2 \u00b7 Type R >> First floor':/^90 m\u00b2$/,
+                    'Town Villas 210 m\u00b2 \u00b7 Type R >> Penthouse':/^35 m\u00b2$/,
+                    'Town Villas 210 m\u00b2 \u00b7 Type R >> Terrace':/^45 m\u00b2$/,
+                    'Town Villas 185 m\u00b2 \u00b7 Type T >> Total':/^185 m\u00b2$/,
+                    'Town Villas 185 m\u00b2 \u00b7 Type T >> Ground floor':/^76\.6 m\u00b2$/,
+                    'Town Villas 185 m\u00b2 \u00b7 Type T >> First floor':/^76\.6 m\u00b2$/,
+                    'Town Villas 185 m\u00b2 \u00b7 Type T >> Penthouse':/^32\.1 m\u00b2$/,
+                    'Town Villas 185 m\u00b2 \u00b7 Type T >> Terrace':/^55 m\u00b2$/}
     };
     Object.keys(ROWS).forEach(function(sl){
       var f = api.PROJECT_FEATURES[sl];
       if(!f) return;
-      var cell = {};
+      /* Every row is filed twice: bare, and again under "<card> >> <key>".
+         A key that repeats across cards must be asked for the scoped way. */
+      var cell = {}, dup = {};
       (f.cards || []).forEach(function(c){
         ((c.copy && c.copy.groups) || []).forEach(function(g){
-          (g.rows || []).forEach(function(r){ cell[r.k.en] = r.v.en; });
+          (g.rows || []).forEach(function(r){
+            if(r.k.en in cell) dup[r.k.en] = 1;
+            cell[r.k.en] = r.v.en;
+            cell[c.en + ' >> ' + r.k.en] = r.v.en;
+          });
         });
       });
       Object.keys(ROWS[sl]).forEach(function(k){
+        if(k.indexOf(' >> ') < 0 && dup[k]) {
+          bad.push(sl + ': "' + k + '" is on more than one card and must be asked for by card');
+          return;
+        }
         if(!(k in cell)) { bad.push(sl + ' lost the row "' + k + '"'); return; }
         if(!ROWS[sl][k].test(cell[k]))
           bad.push(sl + '.' + k + ' reads "' + cell[k] + '"');
@@ -4491,7 +4573,7 @@ try {
 
   /* Nothing delivered under /project-media/ilcazar may sit unused. The scan
      reads prefix variables out of the bundle the way ORA's does, because all
-     three folders are reached through ICC, ICS and ICP rather than by a
+     four folders are reached through ICC, ICS, ICK and ICP rather than by a
      literal path. */
   ck('ilcazar: every delivered image is reachable in the UI', (function(){
     var fsx=require('fs'), pathx=require('path');
@@ -4520,7 +4602,7 @@ try {
     var bad = [];
     if(broken.length) bad.push('broken: ' + broken.slice(0, 3));
     if(orphan.length) bad.push('orphaned: ' + orphan.slice(0, 3));
-    if(disk.length < 170) bad.push('only ' + disk.length + ' files, the three folders held 180');
+    if(disk.length < 240) bad.push('only ' + disk.length + ' files, the four folders held 247');
     return bad.length === 0 || bad.join('; ');
   })(), true);
   /* Five SODIC brochures, five cards. What this holds is the shape of the
