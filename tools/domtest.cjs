@@ -4571,6 +4571,277 @@ try {
     return bad.length === 0 || bad.slice(0, 6).join('; ');
   })(), true);
 
+  /* PALM HILLS' THREE NEWEST KITS — 97 Hills, Village de la Capitale and
+     Jirian. The master sheet that arrived with them carries a "كود الصور"
+     column, so every cover and every plan below is the file its own row
+     names, and the table is written out in full rather than derived.
+
+     The down-payment column is a FRACTION again — 0.05, 0.03, 0.1 — and the
+     delivery column reads 2030 where all three cards had said 2029. */
+  ck('palmhills: the master sheet’s fourteen rows, its own figures and terms', (function(){
+    var bad = [];
+    //  id        project  type        beds baths area  areaTo price    dp yrs
+    var SHEET = [
+      ['97H-A1','97-hills','Apartment',       3,4, 180,null, 27500000, 5,10],
+      ['97H-P1','97-hills','Penthouse',       4,5, 240,null, 26700000, 5,10],
+      ['97H-T1','97-hills','Townhouse',       5,5, 250,null, 32500000, 5,10],
+      ['97H-W1','97-hills','Twin House',      5,5, 250,null, 38100000, 5,10],
+      ['97H-V1','97-hills','Villa',           6,8, 467,null, 62556000, 5,10],
+      ['97H-V2','97-hills','Villa',           5,6, 295,null, 49000000, 5,10],
+      ['97H-V3','97-hills','Villa',           3,5, 250,null, 38500000, 5,10],
+      ['VDC-A1','village-de-la-capitale','Apartment', 3,3, 146, 150, 13500000, 3,12],
+      ['VDC-A2','village-de-la-capitale','Apartment', 1,1,  60,null,  7394000, 3,12],
+      ['VDC-V1','village-de-la-capitale','Villa',     3,4, 185,null, 29100000, 3,12],
+      ['VDC-V2','village-de-la-capitale','Villa',     5,6, 371,null, 41200000, 3,12],
+      ['JRN-A1','jirian-zayed','Apartment',  1,1,  62,null,  8000000,10, 8],
+      ['JRN-A2','jirian-zayed','Apartment',  2,3,  99,null, 12000000,10, 8],
+      ['JRN-A3','jirian-zayed','Apartment',  2,3, 126,null, 16500000,10, 8]
+    ];
+    var by = {};
+    api.UNITS.forEach(function(u){ by[u.id] = u; });
+    SHEET.forEach(function(r){
+      var u = by[r[0]];
+      if(!u) { bad.push(r[0] + ' is gone'); return; }
+      [['project',1],['type',2],['beds',3],['baths',4],['area',5],
+       ['price',7],['dp',8],['years',9]].forEach(function(f){
+        if(u[f[0]] !== r[f[1]]) bad.push(r[0] + '.' + f[0] + ' is ' + u[f[0]] + ', the sheet says ' + r[f[1]]);
+      });
+      if((u.areaTo || null) !== r[6]) bad.push(r[0] + '.areaTo is ' + u.areaTo + ', the sheet says ' + r[6]);
+      if(u.handover !== '2030') bad.push(r[0] + ' hands over ' + u.handover + ', the sheet says 2030');
+    });
+    ['97-hills','village-de-la-capitale','jirian-zayed'].forEach(function(sl){
+      var mine = api.UNITS.filter(function(u){ return u.project === sl; });
+      var want = SHEET.filter(function(r){ return r[1] === sl; }).length;
+      if(mine.length !== want) bad.push(sl + ' has ' + mine.length + ' units, the sheet has ' + want);
+      var p = api.PROJECTS.filter(function(x){ return x.slug === sl; })[0];
+      if(!p) { bad.push(sl + ' is gone'); return; }
+      if(p.delivery !== '2030') bad.push(sl + ' delivers ' + p.delivery + ', the sheet says 2030');
+      /* The card's headline figures must be the cheapest row's. */
+      var lo = Math.min.apply(null, mine.map(function(u){ return u.price; }));
+      if(p.price !== lo) bad.push(sl + ' starts from ' + p.price + ', its cheapest row is ' + lo);
+      mine.forEach(function(u){
+        if(u.dp < 1) bad.push(u.id + ' carries the sheet’s raw fraction as a percentage: ' + u.dp);
+      });
+    });
+    /* 97 Hills is delivered fully finished — the brochure says so twice, and
+       the card used to offer core and shell as well. */
+    var h = api.PROJECTS.filter(function(x){ return x.slug === '97-hills'; })[0];
+    if(h && /[Cc]ore/.test(JSON.stringify(h.finishing || {})))
+      bad.push('97 Hills offers core and shell again; its brochure offers only fully finished');
+    return bad.length === 0 || bad.slice(0, 6).join('; ');
+  })(), true);
+
+  /* The "كود الصور" column, row by row. Both halves matter: the cover is the
+     file the row names, and the plan is the file the row names — including
+     97H-V1's, whose plan code is villa2-97-0 and carries no fp- prefix.
+
+     Two rows SHARE a picture here, and that is the sheet's doing rather than
+     this table's: ap1-97-0 and ap2-97-0 are byte-for-byte identical, and the
+     sheet gives one to the Apartment and the other to the Penthouse. The
+     check below asserts the collision stays visible — if someone quietly
+     repoints one of them at a different file to make the page look better,
+     this fails, because that would be inventing an assignment the client
+     never made. */
+  ck('palmhills: each unit’s cover and plan is the file its sheet row names', (function(){
+    var fsx = require('fs'), pathx = require('path'), crypto = require('crypto');
+    var bad = [], root = pathx.join(__dirname, '..');
+    var H = '/project-media/palmhills/97-hills/img/',
+        V = '/project-media/palmhills/village-de-la-capitale/img/',
+        J = '/project-media/palmhills/jirian-zayed/img/';
+    var WANT = {
+      '97H-A1':[H+'ap1-97-0.webp',    H+'fp-ap1.webp'],
+      '97H-P1':[H+'ap2-97-0.webp',    H+'fp-ap2-0.webp'],
+      '97H-T1':[H+'to1-97-0.webp',    H+'fp-to1-0.webp'],
+      '97H-W1':[H+'tw1-97-0.webp',    H+'fp-tw-97.webp'],
+      '97H-V1':[H+'villa1-97-0.webp', H+'villa2-97-0.webp'],
+      '97H-V2':[H+'villa3-97-0.webp', H+'fp-villa3-97-0.webp'],
+      '97H-V3':[H+'villa4-97-0.webp', H+'fp-villa4-97-0.webp'],
+      'VDC-A1':[V+'ap1-vdl-0.webp',   V+'fp-vdl-0.webp'],
+      'VDC-A2':[V+'ap1-vdl-01.webp',  V+'fp-vdl-0.webp'],
+      'VDC-V1':[V+'villa1-vdl-0.webp',V+'fp-villa-vdl.webp'],
+      'VDC-V2':[V+'villa2-vdl-0.webp',V+'fp-villa2-vdl.webp'],
+      'JRN-A1':[J+'ap1-j-0.webp',     J+'fp-ap1-j-0.webp'],
+      'JRN-A2':[J+'ap2-j-0.webp',     J+'fp-ap2.webp'],
+      'JRN-A3':[J+'ap3-j-0.webp',     J+'fp-ap3-j.webp']
+    };
+    Object.keys(WANT).forEach(function(id){
+      var img = api.UNIT_IMAGES[id], fp = (api.UNIT_FLOORPLANS[id] || [])[0];
+      if(img !== WANT[id][0]) bad.push(id + ' shows ' + img + ', its row names ' + WANT[id][0]);
+      if(fp  !== WANT[id][1]) bad.push(id + ' plans ' + fp + ', its row names ' + WANT[id][1]);
+      /* And a unit never shows a picture out of another project's folder. */
+      var mine = '/project-media/palmhills/' + (api.UNITS.filter(function(u){ return u.id===id; })[0]||{}).project + '/';
+      [].concat(img || [], api.UNIT_GALLERY[id] || [], api.UNIT_FLOORPLANS[id] || [])
+        .forEach(function(f){
+          if(f.indexOf('/project-media/palmhills/') === 0 && f.indexOf(mine) !== 0)
+            bad.push(id + ' shows another project’s picture: ' + f);
+        });
+    });
+    /* The collision the sheet creates, asserted as a fact rather than hidden. */
+    function sha(rel){
+      var f = pathx.join(root, rel.replace(/^\//, ''));
+      return fsx.existsSync(f) ? crypto.createHash('sha256').update(fsx.readFileSync(f)).digest('hex') : null;
+    }
+    var a = sha(H+'ap1-97-0.webp'), b = sha(H+'ap2-97-0.webp');
+    if(a === null || b === null) bad.push('97 Hills’ two apartment covers are not on disk');
+    else if(a !== b) bad.push('ap1-97-0 and ap2-97-0 are no longer the same file — the note in '
+                              + 'UNIT_IMAGES about the Apartment and the Penthouse sharing a frame is stale');
+    return bad.length === 0 || bad.slice(0, 6).join('; ');
+  })(), true);
+
+  /* Every page these three publish is in its card's brochure, and every page
+     withheld is on neither the card nor the disk. The lists are read out of
+     tools/pull_palmhills_three.py so the folder and the book cannot drift. */
+  ck('palmhills: the pages the three kits leave off', (function(){
+    var fsx = require('fs'), pathx = require('path');
+    var bad = [], root = pathx.join(__dirname, '..');
+    var src = pathx.join(__dirname, 'pull_palmhills_three.py');
+    if(!fsx.existsSync(src)) return 'the puller is gone';
+    var py = fsx.readFileSync(src, 'utf8');
+    function list(name){
+      var m = new RegExp(name + '\\s*=\\s*([\\s\\S]*?)\\n[A-Z_]+ *=').exec(py);
+      if(!m) return null;
+      var body = m[1], out = [], r, rng = /range\((\d+),\s*(\d+)\)/g;
+      while((r = rng.exec(body))) for(var i = +r[1]; i < +r[2]; i++) out.push(i);
+      body.replace(/range\(\d+,\s*\d+\)/g, '').replace(/\[([\s\S]*?)\]/g, function(_, inner){
+        inner.split(',').forEach(function(t){ t = t.trim(); if(/^\d+$/.test(t)) out.push(+t); });
+        return '';
+      });
+      return out;
+    }
+    function keys(name){
+      var m = new RegExp(name + '\\s*=\\s*\\{([\\s\\S]*?)\\n\\}').exec(py);
+      if(!m) return null;
+      var out = [], r, re = /(^|\n)\s*(\d+):/g;
+      while((r = re.exec(m[1]))) out.push(+r[2]);
+      return out;
+    }
+    [['H97', '97-hills', 35], ['VDC', 'village-de-la-capitale', 34],
+     ['JIR', 'jirian-zayed', 64]].forEach(function(b){
+      var shown = list(b[0] + '_PAGES'), hidden = keys(b[0] + '_OUT');
+      if(!shown || !hidden) { bad.push(b[0] + ': the puller’s lists could not be read'); return; }
+      /* The two lists must COVER the book, not merely add up to its length.
+         Renumbering a withheld page to one that does not exist keeps the sum
+         right and leaves a real page accounted for by neither list, which is
+         how an edit to the puller slipped past an earlier version of this. */
+      var seen = {}, miss = [], twice = [];
+      shown.concat(hidden).forEach(function(n){
+        if(seen[n]) twice.push(n); seen[n] = 1;
+        if(n < 1 || n > b[2]) miss.push('p' + n + ' is outside the book');
+      });
+      for(var n = 1; n <= b[2]; n++) if(!seen[n]) miss.push('p' + n + ' is in neither list');
+      if(twice.length) bad.push(b[0] + ': listed twice — ' + twice.slice(0, 3));
+      if(miss.length) bad.push(b[0] + ': ' + miss.slice(0, 3).join(', '));
+      var dir = pathx.join(root, 'project-media', 'palmhills', b[1], 'kit');
+      var disk = fsx.existsSync(dir) ? fsx.readdirSync(dir) : [];
+      if(disk.length !== shown.length)
+        bad.push(b[1] + '/kit holds ' + disk.length + ' pages, the puller chose ' + shown.length);
+      var br = api.PROJECT_BROCHURE[b[1]];
+      if(!br) { bad.push(b[1] + ' has no brochure on its card'); return; }
+      if(br.pages.length !== shown.length)
+        bad.push(b[1] + '’s brochure shows ' + br.pages.length + ' of ' + shown.length + ' pages');
+      hidden.forEach(function(n){
+        var nm = 'p' + (n < 10 ? '0' : '') + n + '.webp';
+        if(disk.indexOf(nm) > -1) bad.push(b[1] + '/' + nm + ' is withheld and shipped anyway');
+        if(br.pages.join('|').indexOf('kit/' + nm) > -1)
+          bad.push(b[1] + '/' + nm + ' is withheld and is in the brochure');
+      });
+    });
+    /* And no travel claim reached any of the three pages. Village de la
+       Capitale's slide 5 is the only one in these books that prints any. */
+    ['97-hills','village-de-la-capitale','jirian-zayed'].forEach(function(sl){
+      var t = txt(api.V.project(sl).node);
+      [/\d+\s*mins?\b/i, /\d+\s*minutes\b/i, /\d+\s*hrs?\b/i].forEach(function(re){
+        if(re.test(t)) bad.push(sl + ' prints a travel claim: ' + re);
+      });
+    });
+    return bad.length === 0 || bad.slice(0, 6).join('; ');
+  })(), true);
+
+  /* The figures each document prints, checked in the cell they live in. */
+  ck('palmhills: the three cards carry their documents’ own figures', (function(){
+    var bad = [];
+    var ROWS = {
+      '97-hills': {'Land':/^Ninety-seven feddans/, 'Buildings':/^Three hundred and twenty-five$/,
+                   'Homes':/six hundred/, 'Address':/Middle Ring Road/,
+                   'Finishing':/^Delivered fully finished$/,
+                   'Villa A — 416.50 m² built up >> Average land area':/^566\.00 m²$/,
+                   'Villa A — 416.50 m² built up >> Built-up area':/^416\.50 m²$/,
+                   'Villa B — 251.50 m² built up >> Built-up area':/^251\.50 m²$/,
+                   'Villa C — 206.00 m² built up >> Built-up area':/^206\.00 m²$/},
+      'village-de-la-capitale': {'Project area':/^290 feddans$/, 'Phase one':/^88 feddans$/,
+                                 'Master planner':/^SWA$/}
+    };
+    Object.keys(ROWS).forEach(function(sl){
+      var f = api.PROJECT_FEATURES[sl];
+      if(!f) { bad.push(sl + ' has no cards'); return; }
+      var cell = {}, dup = {};
+      (f.cards || []).forEach(function(c){
+        ((c.copy && c.copy.groups) || []).forEach(function(g){
+          (g.rows || []).forEach(function(r){
+            if(r.k.en in cell) dup[r.k.en] = 1;
+            cell[r.k.en] = r.v.en;
+            cell[c.en + ' >> ' + r.k.en] = r.v.en;
+          });
+        });
+      });
+      Object.keys(ROWS[sl]).forEach(function(k){
+        if(k.indexOf(' >> ') < 0 && dup[k]) {
+          bad.push(sl + ': "' + k + '" is on more than one card and must be asked for by card');
+          return;
+        }
+        if(!(k in cell)) { bad.push(sl + ' lost the row "' + k + '"'); return; }
+        if(!ROWS[sl][k].test(cell[k])) bad.push(sl + '.' + k + ' reads "' + cell[k] + '"');
+      });
+    });
+    /* Jirian's kit is Palm Hills' own, and its card says which products it
+       draws; Mountain View's separate Jirian must stay untouched by it. */
+    var j = api.PROJECTS.filter(function(x){ return x.slug === 'jirian'; })[0];
+    if(!j) bad.push('Mountain View’s Jirian is gone');
+    else if(j.dev !== 'mountainview') bad.push('Mountain View’s Jirian changed developer to ' + j.dev);
+    else if(j.price) bad.push('Mountain View’s Jirian gained a price it was never sent');
+    var blob = JSON.stringify(api.PROJECT_FEATURES['jirian-zayed'] || {});
+    ['Nile Front Twenty','Maison Du Nil','Nile Town','Nile Pair Twin','Nile Horizon','Nile Rise']
+      .forEach(function(n){ if(blob.indexOf(n) < 0) bad.push('Jirian lost ' + n); });
+    return bad.length === 0 || bad.slice(0, 6).join('; ');
+  })(), true);
+
+  /* Nothing delivered under these three folders may sit unused. */
+  ck('palmhills: every delivered image is reachable in the UI', (function(){
+    var fsx = require('fs'), pathx = require('path');
+    var MED = pathx.join(__dirname, '..', 'project-media', 'palmhills');
+    var bundle = fsx.readFileSync(pathx.join(__dirname, 'main.js'), 'utf8');
+    var mine = ['97-hills', 'village-de-la-capitale', 'jirian-zayed'];
+    var used = {}, m, re = /['"]\/project-media\/palmhills\/([^'"]+)['"]/g;
+    while((m = re.exec(bundle))) used[m[1]] = 1;
+    var pre = {};
+    re = /var\s+([A-Za-z_$][\w$]*)\s*=\s*'\/project-media\/palmhills\/([^']*)'/g;
+    while((m = re.exec(bundle))) pre[m[1]] = m[2];
+    Object.keys(pre).forEach(function(v){
+      var r = new RegExp('\\b' + v + "\\s*\\+\\s*'([^']+)'", 'g'), x;
+      while((x = r.exec(bundle))) used[pre[v] + x[1]] = 1;
+    });
+    var disk = [], bad = [];
+    mine.forEach(function(d){
+      (function walk(dir, p){
+        if(!fsx.existsSync(dir)) { bad.push(d + ' is not on disk'); return; }
+        fsx.readdirSync(dir).forEach(function(f){
+          var full = pathx.join(dir, f);
+          if(fsx.statSync(full).isDirectory()) walk(full, p + f + '/');
+          else disk.push(p + f);
+        });
+      })(pathx.join(MED, d), d + '/');
+    });
+    var orphan = disk.filter(function(x){ return !used[x]; });
+    var broken = Object.keys(used).filter(function(x){
+      return mine.some(function(d){ return x.indexOf(d + '/') === 0; })
+             && !fsx.existsSync(pathx.join(MED, x));
+    });
+    if(broken.length) bad.push('broken: ' + broken.slice(0, 3));
+    if(orphan.length) bad.push('orphaned: ' + orphan.slice(0, 3));
+    if(disk.length < 195) bad.push('only ' + disk.length + ' files, the three kits held 205');
+    return bad.length === 0 || bad.join('; ');
+  })(), true);
+
   /* Nothing delivered under /project-media/ilcazar may sit unused. The scan
      reads prefix variables out of the bundle the way ORA's does, because all
      four folders are reached through ICC, ICS, ICK and ICP rather than by a

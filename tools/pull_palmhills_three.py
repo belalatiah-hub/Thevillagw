@@ -140,74 +140,114 @@ JIR_OUT = {
 # out — it keys six types, Villa A, B and C, Town House, TWIN HOUSE and Family
 # Home, and the brochure draws only five. The twin house exists; its pages
 # just are not in this book.
-H97_ARCH = [
-    ('villa1-97-0.png', 'renders/villa1-0'), ('villa1-97-01.png', 'renders/villa1-1'),
-    ('villa1-97-02.png', 'renders/villa1-2'), ('villa1-97-03.png', 'renders/villa1-3'),
-    ('villa3-97-0.png', 'renders/villa3-0'), ('villa3-97-01.png', 'renders/villa3-1'),
-    ('villa3-97-02.png', 'renders/villa3-2'),
-    ('villa4-97-0.png', 'renders/villa4-0'), ('villa4-97-01.png', 'renders/villa4-1'),
-    ('to1-97-0.png', 'renders/to1-0'), ('to1-97-01.png', 'renders/to1-1'),
-    ('tw1-97-0.png', 'renders/tw1-0'), ('tw1-97-01.png', 'renders/tw1-1'),
-    ('ap1-97-0.png', 'renders/ap1-0'), ('ap1-97-01.png', 'renders/ap1-1'),
-    ('ap2-97-0.png', 'renders/ap2-0'),
-    ('mp-97.PNG', 'masterplan'), ('location 97.PNG', 'location'),
-]
-H97_DUP = {
-    'villa2-97-0.png':  "Villa A's title page and its area table — brochure p15",
-    'villa2-97-01.png': "Villa A's first floor — brochure p17, hamming 24",
-    'villa2-97-02.png': "Villa A's penthouse — brochure p18, hamming 25",
-    'villa2-97-03.png': "Villa A's penthouse again — brochure p18, hamming 33",
-    'fp-villa3-97-0.png':  'a plan crop of the Villa B section',
-    'fp-villa3-97-01.png': "Villa B's penthouse — brochure p22, hamming 17",
-    'fp-villa3-97-02.png': "Villa B's penthouse again — brochure p22, hamming 27",
-    'fp-villa3-97-03.png': "Villa B's penthouse again — brochure p22, hamming 27",
-    'fp-villa4-97-0.png':  'a plan crop of the Villa A section',
-    'fp-villa4-97-01.png': "Villa A's first floor — brochure p17, hamming 19",
-    'fp-villa4-97-02.png': 'a plan crop of the Villa C section — brochure p25, hamming 31',
-    'fp-villa4-97-03.png': "Villa A's penthouse — brochure p18, hamming 24",
-    'fp-to1-0.png':  'a plan crop of the Town House section',
-    'fp-to1-01.png': "the FAMILY HOME first floor — brochure p33, hamming 15, "
-                     "despite the town-house filename",
-    'fp-to1-02.png': 'the Family Home first floor again — brochure p33, hamming 16',
-    'fp-tw-97.png':  "the TOWN HOUSE ground floor — brochure p28, hamming 14, "
-                     "despite the twin-house filename",
-    'fp-ap1.png': 'an unlabelled apartment plan crop, too small to read and '
-                  'matching no page this book draws',
-    'fp-ap2-0.png': 'a second unlabelled apartment plan crop',
-}
-# Village de la Capitale's archive splits the other way: its nine renders match
-# no slide (hamming 87 and up) and are genuinely additional, while its six
-# plan files are crops of slides that are already published — fp-villa-vdl is
-# VILLA C (p21, hamming 4) and fp-villa2-vdl is VILLA A (p17, 5), so their
-# filenames point at the wrong villa, and fp-vdl-01 is Building C (p33, 3).
-VDC_ARCH = [
-    ('villa1-vdl-0.png', 'renders/villa1-0'), ('villa1-vdl-01.png', 'renders/villa1-1'),
-    ('villa1-vdl-02.png', 'renders/villa1-2'),
-    ('villa2-vdl-0.png', 'renders/villa2-0'), ('villa2-vdl-01.png', 'renders/villa2-1'),
-    ('villa2-vdl-02.png', 'renders/villa2-2'),
-    ('ap1-vdl-0.png', 'renders/ap1-0'), ('ap1-vdl-01.png', 'renders/ap1-1'),
-    ('ap1-vdl-02.png', 'renders/ap1-2'),
-    ('mp-vdl.PNG', 'masterplan'), ('loc-vdl.PNG', 'location'),
-]
+# Every archive file ships under the name the client sheet calls it, because
+# that sheet's "كود الصور" column is what ties a picture to a unit, and it
+# names these files exactly. An earlier pass renamed them and dropped most of
+# them on the strength of a perceptual hash; that was wrong twice over and is
+# undone here. The hash matched pages that share a template — fp-tw-97 came
+# back as the brochure's Town House ground floor at a distance of 14 when it
+# is the FAMILY HOUSE ground floor, two plans drawn the same way on the same
+# green field — and the sheet, which arrived afterwards, maps every code to a
+# row directly, so no inference was needed in the first place.
+#
+# What a byte-for-byte check does show, and what no renaming can fix, is that
+# some of these filenames are the same picture:
+#
+#   ap1-97-0   = ap2-97-0        <- the sheet gives one to the Apartment and
+#                                   the other to the Penthouse, so those two
+#                                   rows show the same frame. Reported, not
+#                                   worked around.
+#   to1-97-01  = tw1-97-0        <- harmless: the sheet uses to1-97-0 for the
+#                                   town house and tw1-97-0 for the twin, and
+#                                   those two are different pictures.
+#   ap1-97-01  = tw1-97-01
+#   villa1-97-01 = villa3-97-02 = villa4-97-0
+#   villa1-97-03 = villa3-97-0  = villa4-97-01
+#   villa1-97-02 = villa3-97-01
+#   villa1-vdl-0  = villa2-vdl-02
+#   villa1-vdl-02 = villa2-vdl-0
+#
+# The three cover codes the sheet gives the three 97 Hills villa rows —
+# villa1-97-0, villa3-97-0, villa4-97-0 — are three different pictures, so
+# those rows do not collide.
+
+
+def arch(names):
+    """Publish each archive file under its own sheet code, lowercased."""
+    return [(n, 'img/' + os.path.splitext(n)[0].replace(' ', '-').lower())
+            for n in names]
+
+
+H97_ARCH = arch([
+    'ap1-97-0.png', 'ap1-97-01.png', 'ap2-97-0.png',
+    'to1-97-0.png', 'to1-97-01.png', 'tw1-97-0.png', 'tw1-97-01.png',
+    'villa1-97-0.png', 'villa1-97-01.png', 'villa1-97-02.png', 'villa1-97-03.png',
+    'villa2-97-0.png', 'villa2-97-01.png', 'villa2-97-02.png', 'villa2-97-03.png',
+    'villa3-97-0.png', 'villa3-97-01.png', 'villa3-97-02.png',
+    'villa4-97-0.png', 'villa4-97-01.png',
+    'fp-ap1.png', 'fp-ap2-0.png',
+    'fp-to1-0.png', 'fp-to1-01.png', 'fp-to1-02.png', 'fp-tw-97.png',
+    'fp-villa3-97-0.png', 'fp-villa3-97-01.png', 'fp-villa3-97-02.png',
+    'fp-villa3-97-03.png',
+    'fp-villa4-97-0.png', 'fp-villa4-97-01.png', 'fp-villa4-97-02.png',
+    'fp-villa4-97-03.png',
+    'mp-97.PNG', 'location 97.PNG',
+])
+# 97 Hills' archive duplicates are all NAMED BY THE PRICE LIST, so every one
+# of them is published even where two codes are the same picture: dropping an
+# alias would break the row that points at it. The collisions are recorded in
+# UNIT_IMAGES, where they are visible.
+H97_DUP = {}
+
+VDC_ARCH = arch([
+    'ap1-vdl-0.png', 'ap1-vdl-01.png', 'ap1-vdl-02.png',
+    'villa1-vdl-0.png', 'villa1-vdl-01.png', 'villa1-vdl-02.png',
+    'villa2-vdl-0.png', 'villa2-vdl-01.png',
+    'fp-vdl-0.png', 'fp-vdl-01.png', 'fp-vdl-02.png', 'fp-vdl-03.png',
+    'fp-villa-vdl.png', 'fp-villa2-vdl.png',
+    'mp-vdl.PNG', 'loc-vdl.PNG',
+])
 VDC_DUP = {
-    'fp-villa-vdl.png':  'VILLA C ground and first floor — slide p21, hamming 4, '
-                         'despite a filename that names no type',
-    'fp-villa2-vdl.png': 'VILLA A ground, first and penthouse — slide p17, '
-                         'hamming 5, despite the "villa2" filename',
-    'fp-vdl-0.png':  'an apartment plan crop',
-    'fp-vdl-01.png': 'Building C ground and typical floor — slide p33, hamming 3',
-    'fp-vdl-02.png': 'Building B ground and typical floor — slide p32, hamming 45',
-    'fp-vdl-03.png': 'a fourth apartment plan crop',
+    'villa2-vdl-02.png': 'the same bytes as villa1-vdl-0.png, and the price '
+                         'list names neither',
+}
+
+# Jirian arrived in two archives; they are unpacked into one folder.
+JIR_ARCH = arch([
+    'ap1-j-0.png', 'ap1-j-01.png', 'ap1-j-02.png', 'ap1-j-03.png', 'ap1-j-04.png',
+    'ap2-j-0.png', 'ap2-j-01.png', 'ap2-j-02.png', 'ap2-j-03.png', 'ap2-j-04.png',
+    'ap3-j-0.png', 'ap3-j-01.png', 'ap3-j-02.png', 'ap3-j-03.png',
+    'v1-ji-0.png', 'v1-ji-01.png', 'v1-ji-02.png', 'v1-ji-03.png', 'v1-ji-04.png',
+        'v2-ji-04.png',
+    'v1-jirian-0.PNG', 'v1-jirian-01.PNG', 'v1-jirian-2.PNG', 'v1-jirian-3.PNG',
+    'v2-jirian-0.PNG', 'v2-jirian-1.PNG',
+    'to-jirian-0.PNG', 'to-jirian-1.PNG', 'to-jirian-2.PNG',
+    'fp-ap1-j-0.png', 'fp-ap1-j-01.png', 'fp-ap1-j-02.png', 'fp-ap1-j-03.png',
+    'fp-ap1-j-04.png', 'fp-ap1-j-05.png',
+    'fp-ap2.png', 'fp-ap3-j.png', 'fp-to-jirian.PNG',
+    'fp-v1-j-0.png', 'fp-v1-jirian.PNG', 'fp-v2-j.png', 'fp-v2-jirian.PNG',
+    'fp-v3-jirian.PNG',
+    'mp-j.PNG', 'location-j.PNG',
+])
+JIR_DUP = {
+    # Four aliases the price list never names and nothing can reference: each
+    # is byte-for-byte a file already published under another name, so they
+    # are not published at all rather than left on disk unused.
+    'v2-ji-0.png':  'the same bytes as v1-ji-01.png',
+    'v2-ji-01.png': 'the same bytes as v1-ji-0.png',
+    'v2-ji-02.png': 'the same bytes as v1-ji-03.png',
+    'v2-ji-03.png': 'the same bytes as v1-ji-04.png',
 }
 
 JOBS = [
     ('97-hills', '6347a21b-97_Hills_Final_Brochure_.pdf', 35,
-     H97_PAGES, H97_OUT, '9d111149-97_hills.rar', H97_ARCH, H97_DUP),
+     H97_PAGES, H97_OUT, ['9d111149-97_hills.rar'], H97_ARCH, H97_DUP),
     ('village-de-la-capitale',
      '117753ad-VILLAGE_DE_LA_CAPITALE_Capitale_Sales_Orientation_.pdf', 34,
-     VDC_PAGES, VDC_OUT, '758304f7-Village_de_la_Capitale.rar', VDC_ARCH, VDC_DUP),
+     VDC_PAGES, VDC_OUT, ['758304f7-Village_de_la_Capitale.rar'], VDC_ARCH, VDC_DUP),
     ('jirian-zayed', '47b664b7-Jirian_Sales_Kit.pdf', 64,
-     JIR_PAGES, JIR_OUT, None, [], {}),
+     JIR_PAGES, JIR_OUT,
+     ['da520bf6-jirian.rar', '654c19b7-jirian2.rar'], JIR_ARCH, JIR_DUP),
 ]
 
 
@@ -255,7 +295,8 @@ def main():
 
         if rar:
             tmp = tempfile.mkdtemp(prefix='ph-')
-            subprocess.run(['bsdtar', '-xf', UP + rar, '-C', tmp], check=True)
+            for one in rar:
+                subprocess.run(['bsdtar', '-xf', UP + one, '-C', tmp], check=True)
             had = set(os.listdir(tmp))
             used = {s for s, _ in arch} | set(dup)
             if sorted(used - had):

@@ -562,12 +562,12 @@ var PROJECTS = [
 {slug:'solana-east', name:'Solana East', name_ar:'سولانا إيست', dev:'ora', area:'newcairo', status:'launch', price:13900000, dp:10, years:8, delivery:'2030', types:{en:'Apartment · Twin House · Villa',ar:'شقة · توين هاوس · فيلا'}, tags:{en:['New Cairo','5 units','99–369 m²'],ar:['القاهرة الجديدة','٥ وحدات','٩٩–٣٦٩ م²']}, blurb:{en:'Solana East by ORA in New Cairo — 5 primary unit types from the developer\'s own price list: apartment, twin house, villa. From 99 m² and EGP 13,900,000, on a 10% down payment over 8 years, handover 2030.',ar:'سولانا إيست من أورا في القاهرة الجديدة — ٥ أنواع وحدات أولية من قائمة أسعار المطوّر نفسه: شقة، توين هاوس، فيلا. من ٩٩ م² و١٣٬٩٠٠٬٠٠٠ جنيه، بمقدم ١٠٪ على ٨ سنوات، والتسليم ٢٠٣٠.'}},
 {slug:'silversands-crystalline', name:'Silversands Crystalline', name_ar:'سيلفر ساندز كريستالين', dev:'ora', area:'sahel', status:'launch', price:27000000, dp:15, years:8, delivery:'2030', types:{en:'Duplex · Chalet · Twin House · Villa',ar:'دوبلكس · شاليه · توين هاوس · فيلا'}, tags:{en:['Sidi Heneish','9 units','160–380 m²'],ar:['سيدي حنيش','٩ وحدات','١٦٠–٣٨٠ م²']}, blurb:{en:'Silversands Crystalline by ORA in Sidi Heneish — 9 primary unit types from the developer\'s own price list: duplex, chalet, twin house, villa. From 160 m² and EGP 27,000,000, on a 15% down payment over 8 years, handover 2030.',ar:'سيلفر ساندز كريستالين من أورا في سيدي حنيش — ٩ أنواع وحدات أولية من قائمة أسعار المطوّر نفسه: دوبلكس، شاليه، توين هاوس، فيلا. من ١٦٠ م² و٢٧٬٠٠٠٬٠٠٠ جنيه، بمقدم ١٥٪ على ٨ سنوات، والتسليم ٢٠٣٠.'}},
 {slug:'silversands-silvertown', name:'Silversands Silvertown', name_ar:'سيلفر ساندز سيلفر تاون', dev:'ora', area:'sahel', status:'launch', price:27000000, dp:10, years:10, delivery:'2030', types:{en:'Chalet · Townhouse · Villa',ar:'شاليه · تاون هاوس · فيلا'}, tags:{en:['Sidi Heneish','7 units','150–250 m²'],ar:['سيدي حنيش','٧ وحدات','١٥٠–٢٥٠ م²']}, blurb:{en:'Silversands Silvertown by ORA in Sidi Heneish — 7 primary unit types from the developer\'s own price list: chalet, townhouse, villa. From 150 m² and EGP 27,000,000, on a 10% down payment over 10 years, handover 2030.',ar:'سيلفر ساندز سيلفر تاون من أورا في سيدي حنيش — ٧ أنواع وحدات أولية من قائمة أسعار المطوّر نفسه: شاليه، تاون هاوس، فيلا. من ١٥٠ م² و٢٧٬٠٠٠٬٠٠٠ جنيه، بمقدم ١٠٪ على ١٠ سنوات، والتسليم ٢٠٣٠.'}},
-{slug:'village-de-la-capitale', name:'Village de la Capitale', name_ar:'فيلاج دي لا كابيتال', dev:'palmhills', area:'capital', status:'primary', price:6400000, dp:1.5, years:12, delivery:'2029', finishing:{en:'Core & shell',ar:'خرسانة على المحارة'}, types:{en:'Apartment · Townhouse · Villa',ar:'شقة · تاون هاوس · فيلا'}, tags:{en:['New Capital','290 feddans','Phase 1: 88'],ar:['العاصمة الإدارية','٢٩٠ فداناً','المرحلة الأولى ٨٨']}, blurb:{en:'Palm Hills’ first residential destination in the New Capital — 290 feddans, of which phase one is 88, master planned with SWA and laid out along the land’s existing contours rather than against them. Its product brief draws Villa A, B and C, the corner and middle Town House, and one-, two- and three-bedroom apartments in three buildings of 32, 48 and 64 units, with landscaped parks, pools, a gym, tennis, padel and football courts, jogging and cycling tracks, and a commercial district with a school. Developer-direct primary units on a 12-year plan.',ar:'أول وجهة سكنية لبالم هيلز في العاصمة الإدارية — ٢٩٠ فداناً، منها ٨٨ للمرحلة الأولى، بتخطيط عام بالتعاون مع SWA ومرسوم على تضاريس الأرض القائمة لا ضدها. ويرسم موجز المنتجات ڤيلا A وB وC، والتاون هاوس الركنية والوسطى، وشققاً بغرفة وغرفتين وثلاث في ثلاثة مبانٍ من ٣٢ و٤٨ و٦٤ وحدة، مع حدائق منسّقة وحمامات سباحة وجيم وملاعب تنس وبادل وكرة قدم ومسارات جري ودراجات ومنطقة تجارية بها مدرسة. وحدات أولية من المطوّر مباشرة بتقسيط ١٢ سنة.'}},
+{slug:'village-de-la-capitale', name:'Village de la Capitale', name_ar:'فيلاج دي لا كابيتال', dev:'palmhills', area:'capital', status:'primary', price:7394000, dp:3, years:12, delivery:'2030', finishing:{en:'Core & shell',ar:'خرسانة على المحارة'}, types:{en:'Apartment · Townhouse · Villa',ar:'شقة · تاون هاوس · فيلا'}, tags:{en:['New Capital','290 feddans','Phase 1: 88'],ar:['العاصمة الإدارية','٢٩٠ فداناً','المرحلة الأولى ٨٨']}, blurb:{en:'Palm Hills’ first residential destination in the New Capital — 290 feddans, of which phase one is 88, master planned with SWA and laid out along the land’s existing contours rather than against them. Its product brief draws Villa A, B and C, the corner and middle Town House, and one-, two- and three-bedroom apartments in three buildings of 32, 48 and 64 units, with landscaped parks, pools, a gym, tennis, padel and football courts, jogging and cycling tracks, and a commercial district with a school. Developer-direct primary units on a 12-year plan.',ar:'أول وجهة سكنية لبالم هيلز في العاصمة الإدارية — ٢٩٠ فداناً، منها ٨٨ للمرحلة الأولى، بتخطيط عام بالتعاون مع SWA ومرسوم على تضاريس الأرض القائمة لا ضدها. ويرسم موجز المنتجات ڤيلا A وB وC، والتاون هاوس الركنية والوسطى، وشققاً بغرفة وغرفتين وثلاث في ثلاثة مبانٍ من ٣٢ و٤٨ و٦٤ وحدة، مع حدائق منسّقة وحمامات سباحة وجيم وملاعب تنس وبادل وكرة قدم ومسارات جري ودراجات ومنطقة تجارية بها مدرسة. وحدات أولية من المطوّر مباشرة بتقسيط ١٢ سنة.'}},
 {slug:'palm-hills-new-cairo', name:'Palm Hills New Cairo', name_ar:'بالم هيلز القاهرة الجديدة', dev:'palmhills', area:'newcairo', status:'primary', price:11549000, dp:3, years:10, delivery:'2030', finishing:{en:'Core & shell / fully finished',ar:'خرسانة / تشطيب كامل'}, types:{en:'Apartment · Twin house · Villa',ar:'شقة · توين هاوس · فيلا'}, tags:{en:['New Cairo','500 feddans'],ar:['القاهرة الجديدة','٥٠٠ فدان']}, blurb:{en:'Palm Hills’ 500-feddan New Cairo community, 80% residential and facilities to 20% commercial, laid out around an interconnected park network — the Quarry Gardens, the Ridge Park, the Lifestyle Park and the Linear Parks. The brochure draws seven house types from a 296 m² twin house to a 689 m² Type A villa; the apartments are a separate building, drawn floor by floor. Developer-direct primary units, from 3% down over 10 years.',ar:'مجتمع بالم هيلز على ٥٠٠ فدان بالقاهرة الجديدة، بنسبة ٨٠٪ سكني ومرافق إلى ٢٠٪ تجاري، موزّع حول شبكة حدائق متصلة — كواري جاردنز وريدج بارك ولايف ستايل بارك والحدائق الخطية. ويرسم البروشور سبعة نماذج من توين هاوس ٢٩٦ م² إلى فيلا Type A بمساحة بناء ٦٨٩ م²؛ أما الشقق فمبنى مستقل مرسوم دوراً بدور. وحدات أولية من المطوّر مباشرة، من مقدم ٣٪ وتقسيط ١٠ سنوات.'}},
-{slug:'97-hills', name:'97 Hills', name_ar:'٩٧ هيلز', dev:'palmhills', area:'newcairo', status:'primary', price:25800000, dp:5, years:10, delivery:'2029', finishing:{en:'Fully finished',ar:'تشطيب كامل'}, types:{en:'Townhouse · Twin house · Villa',ar:'تاون هاوس · توين هاوس · فيلا'}, tags:{en:['New Cairo','97 feddans','325 buildings'],ar:['القاهرة الجديدة','٩٧ فداناً','٣٢٥ مبنى']}, blurb:{en:'Ninety-seven feddans of elevated land on the Middle Ring Road, which the brochure calls a boutique development: three hundred and twenty-five buildings holding just over six hundred homes, laid out around an exclusive clubhouse and a commercial promenade. Its own pages draw five products — Villa A, B and C, the corner and middle Town House, and the Family Home — and state twice that every home is delivered fully finished. Developer-direct primary units over 10 years.',ar:'سبعة وتسعون فداناً من الأرض المرتفعة على الطريق الدائري الأوسطي، ويصفه البروشور بأنه تطوير بوتيك: ثلاثمائة وخمسة وعشرون مبنى تضم ما يزيد قليلاً على ستمائة منزل، حول كلوب هاوس خاص وممشى تجاري. وترسم صفحاته خمسة منتجات — ڤيلا A وB وC، والتاون هاوس الركنية والوسطى، والفاميلي هوم — وتذكر مرتين أن كل منزل يُسلَّم كامل التشطيب. وحدات أولية من المطوّر مباشرة بتقسيط ١٠ سنوات.'}},
+{slug:'97-hills', name:'97 Hills', name_ar:'٩٧ هيلز', dev:'palmhills', area:'newcairo', status:'primary', price:26700000, dp:5, years:10, delivery:'2030', finishing:{en:'Fully finished',ar:'تشطيب كامل'}, types:{en:'Apartment · Penthouse · Townhouse · Twin House · Villa',ar:'شقة · بنتهاوس · تاون هاوس · توين هاوس · فيلا'}, tags:{en:['New Cairo','97 feddans','325 buildings'],ar:['القاهرة الجديدة','٩٧ فداناً','٣٢٥ مبنى']}, blurb:{en:'Ninety-seven feddans of elevated land on the Middle Ring Road, which the brochure calls a boutique development: three hundred and twenty-five buildings holding just over six hundred homes, laid out around an exclusive clubhouse and a commercial promenade. Its own pages draw five products — Villa A, B and C, the corner and middle Town House, and the Family Home — and state twice that every home is delivered fully finished. Developer-direct primary units over 10 years.',ar:'سبعة وتسعون فداناً من الأرض المرتفعة على الطريق الدائري الأوسطي، ويصفه البروشور بأنه تطوير بوتيك: ثلاثمائة وخمسة وعشرون مبنى تضم ما يزيد قليلاً على ستمائة منزل، حول كلوب هاوس خاص وممشى تجاري. وترسم صفحاته خمسة منتجات — ڤيلا A وB وC، والتاون هاوس الركنية والوسطى، والفاميلي هوم — وتذكر مرتين أن كل منزل يُسلَّم كامل التشطيب. وحدات أولية من المطوّر مباشرة بتقسيط ١٠ سنوات.'}},
 {slug:'palmet-new-cairo', name:'Palmet New Cairo', name_ar:'بالمت القاهرة الجديدة', dev:'palmhills', area:'newcairo', status:'primary', price:13000000, dp:5, years:8, delivery:'2027', finishing:{en:'Core & shell',ar:'خرسانة على المحارة'}, types:{en:'Retail · Offices · Clinics',ar:'محلات · مكاتب · عيادات'}, tags:{en:['New Cairo','Commercial'],ar:['القاهرة الجديدة','تجاري']}, blurb:{en:'A 100-feddan Palm Hills commercial destination in New Cairo on Palm Hills Drive — retail, offices, banks, clinics and pharmacies. Developer-direct primary units.',ar:'وجهة بالم هيلز التجارية على ١٠٠ فدان بالقاهرة الجديدة على Palm Hills Drive — محلات ومكاتب وبنوك وعيادات وصيدليات. وحدات أولية من المطوّر مباشرة.'}},
 {slug:'px-new-cairo', name:'PX', name_ar:'بي إكس', dev:'palmhills', area:'october', status:'primary', price:14000000, dp:5, years:10, delivery:'2030', finishing:{en:'Core & shell / fully finished',ar:'خرسانة / تشطيب كامل'}, types:{en:'Apartment · Townhouse · Villa',ar:'شقة · تاون هاوس · فيلا'}, tags:{en:['6th of October','373 feddans'],ar:['٦ أكتوبر','٣٧٣ فداناً']}, blurb:{en:'Palm Hills’ P/X — 373 feddans on the highest hill point of its West Cairo neighbourhood, master-planned by Chapman Taylor. Phase 1 is 120 feddans across eight named zones, and the brochure draws seven buildings: Villa 1 and Villa 2, Town House X, and the DUSK, DAWN, SKYE 1 and SKYE 2 apartment blocks, from a 60 m² one-bedroom to a 258 m² four-bedroom with a nanny’s room. Developer-direct primary units, from 5% down; handover 2030.',ar:'مشروع P/X من بالم هيلز — ٣٧٣ فداناً على أعلى نقطة في حيّه بغرب القاهرة، بتخطيط عام من Chapman Taylor. المرحلة الأولى ١٢٠ فداناً في ثماني مناطق مسمّاة، ويرسم البروشور سبعة مبانٍ: فيلا ١ وفيلا ٢، وتاون هاوس X، وعمارات DUSK وDAWN وSKYE 1 وSKYE 2، من شقة بغرفة ٦٠ م² إلى أربع غرف وغرفة نانية ٢٥٨ م². وحدات أولية من المطوّر مباشرة، من مقدم ٥٪؛ التسليم ٢٠٣٠.'}},
-{slug:'jirian-zayed', name:'Palm Hills Jirian', name_ar:'بالم هيلز جيريان', dev:'palmhills', area:'zayed', status:'primary', price:7800000, dp:5, years:8, delivery:'2029', finishing:{en:'Fully finished',ar:'تشطيب كامل'}, types:{en:'Apartment · Townhouse · Villa',ar:'شقة · تاون هاوس · فيلا'}, tags:{en:['Sheikh Zayed','Nile views'],ar:['الشيخ زايد','إطلالة على النيل']}, blurb:{en:'A 360-feddan Palm Hills community in West Cairo on the Nile. Its sales kit draws six products: the Nile Front Twenty mansions on 1,100, 840 and 705 m² of land, the Maison Du Nil houses from 604 down to 268, Nile Town, the Nile Pair Twin, the Nile Horizon buildings A, B, C and E, and the nineteen-storey Nile Rise — with five-metre ceilings, a choice of exterior finish, and a floor-by-floor unit matrix for the two apartment lines. Fully finished, developer-direct primary units.',ar:'مجتمع بالم هيلز على ٣٦٠ فداناً بغرب القاهرة على النيل. ويرسم الكتيّب البيعي ستة منتجات: قصور «نايل فرونت توينتي» على أراضٍ ١٬١٠٠ و٨٤٠ و٧٠٥ م²، وبيوت «ميزون دو نيل» من ٦٠٤ نزولاً إلى ٢٦٨، و«نايل تاون»، و«نايل بير توين»، ومباني «نايل هورايزون» A وB وC وE، وبرج «نايل رايز» المكوّن من تسعة عشر دوراً — بأسقف ارتفاعها خمسة أمتار، واختيار للتشطيب الخارجي، ومصفوفة وحدات دوراً بدور للخطين السكنيين. وحدات أولية كاملة التشطيب من المطوّر مباشرة.'}},
+{slug:'jirian-zayed', name:'Palm Hills Jirian', name_ar:'بالم هيلز جيريان', dev:'palmhills', area:'zayed', status:'primary', price:8000000, dp:10, years:8, delivery:'2030', finishing:{en:'Fully finished',ar:'تشطيب كامل'}, types:{en:'Apartment · Townhouse · Villa',ar:'شقة · تاون هاوس · فيلا'}, tags:{en:['Sheikh Zayed','Nile views'],ar:['الشيخ زايد','إطلالة على النيل']}, blurb:{en:'A 360-feddan Palm Hills community in West Cairo on the Nile. Its sales kit draws six products: the Nile Front Twenty mansions on 1,100, 840 and 705 m² of land, the Maison Du Nil houses from 604 down to 268, Nile Town, the Nile Pair Twin, the Nile Horizon buildings A, B, C and E, and the nineteen-storey Nile Rise — with five-metre ceilings, a choice of exterior finish, and a floor-by-floor unit matrix for the two apartment lines. Fully finished, developer-direct primary units.',ar:'مجتمع بالم هيلز على ٣٦٠ فداناً بغرب القاهرة على النيل. ويرسم الكتيّب البيعي ستة منتجات: قصور «نايل فرونت توينتي» على أراضٍ ١٬١٠٠ و٨٤٠ و٧٠٥ م²، وبيوت «ميزون دو نيل» من ٦٠٤ نزولاً إلى ٢٦٨، و«نايل تاون»، و«نايل بير توين»، ومباني «نايل هورايزون» A وB وC وE، وبرج «نايل رايز» المكوّن من تسعة عشر دوراً — بأسقف ارتفاعها خمسة أمتار، واختيار للتشطيب الخارجي، ومصفوفة وحدات دوراً بدور للخطين السكنيين. وحدات أولية كاملة التشطيب من المطوّر مباشرة.'}},
 {slug:'hacienda-blue', name:'Hacienda Blue', name_ar:'هاسيندا بلو', dev:'palmhills', area:'sahel', status:'primary', price:22400000, dp:5, years:12, delivery:'2031', finishing:{en:'Fully finished (no kitchen/AC)',ar:'تشطيب كامل (بدون مطبخ وتكييف)'}, types:{en:'Cabin · Chalet · Townhouse · Villa',ar:'كابين · شاليه · تاون هاوس · فيلا'}, tags:{en:['North Coast','24-acre lagoon'],ar:['الساحل الشمالي','بحيرة ٢٤ فداناً']}, blurb:{en:'Palm Hills’ boutique North Coast development, 118.5 acres with 60% given to landscape and a 24-acre freshwater lagoon winding through it. Villas, water villas, town houses, senior and junior chalets, beach cabanas and one- and two-bed cabins, with lagoons, courts, a playground, water activities, dining and a wellness centre. Developer-direct primary units, from 5% down over 12 years.',ar:'مشروع بالم هيلز البوتيك على الساحل الشمالي، ١١٨٫٥ فداناً منها ٦٠٪ مخصّصة للاندسكيب، وبحيرة عذبة ٢٤ فداناً تتخلّله. فيلات وفيلات مائية وتاون هاوس وشاليهات سينيور وجونيور وكابانات شاطئ وكابينات بغرفة وغرفتين، مع بحيرات وملاعب ومنطقة أطفال وأنشطة مائية ومطاعم ومركز عافية. وحدات أولية من المطوّر مباشرة، من مقدم ٥٪ وتقسيط ١٢ سنة.'}},
 {slug:'hacienda-waters', name:'Hacienda Waters', name_ar:'هاسيندا ووترز', dev:'palmhills', area:'raselhekma', status:'primary', price:14500000, dp:5, years:12, delivery:'2030', finishing:{en:'Fully finished — no furniture, air-conditioning or kitchen cabinets',ar:'تشطيب كامل — بدون فرش ولا تكييف ولا دواليب مطبخ'}, types:{en:'Chalet · Cabin · Villa',ar:'شاليه · كابين · فيلا'}, tags:{en:['Ras El Hekma','161.7 feddans'],ar:['رأس الحكمة','١٦١٫٧ فداناً']}, blurb:{en:'Palm Hills’ Hacienda Waters at Ras El Hekma — 161.7 feddans on the North Coast with 18 feddans of lagoons, built around what the brochure calls the biggest water park on the coast. First- and second-row villas, water villas and town houses, senior and junior chalets, four condo buildings, lagoon cabins and pieds-dans-l’eau, from a 41.5 m² one-bedroom cabin to a 374 m² six-bedroom villa. Developer-direct primary units, from 5% down; handover 2030.',ar:'هاسيندا ووترز من بالم هيلز برأس الحكمة — ١٦١٫٧ فداناً على الساحل الشمالي منها ١٨ فداناً بحيرات، حول ما يسمّيه البروشور أكبر ووتر بارك على الساحل. فيلات الصف الأول والثاني وفيلات وتاون هاوس مائية وشاليهات سينيور وجونيور وأربع عمارات كوندو وكبائن على البحيرات ووحدات على الماء مباشرة، من كابينة بغرفة ٤١٫٥ م² إلى فيلا بستّ غرف ٣٧٤ م². وحدات أولية من المطوّر مباشرة، من مقدم ٥٪؛ التسليم ٢٠٣٠.'}},
 {slug:'hacienda-heneish', name:'Hacienda Heneish', name_ar:'هاسيندا حنيش', dev:'palmhills', area:'raselhekma', status:'primary', price:16000000, dp:5, years:8, delivery:'2029', finishing:{en:'Fully finished',ar:'تشطيب كامل'}, types:{en:'Apartment · Chalet · Townhouse · Villa',ar:'شقة · شاليه · تاون هاوس · فيلا'}, tags:{en:['Ras El Hekma','Marriott hotel'],ar:['رأس الحكمة','فندق ماريوت']}, blurb:{en:'A 420-feddan Palm Hills resort on the North Coast with a Marriott hotel, strip mall and 1.1km of beachfront — G+3 apartments, chalets, townhouses and standalone villas. Developer-direct primary units.',ar:'منتجع بالم هيلز على ٤٢٠ فداناً بالساحل الشمالي بفندق ماريوت وممشى تجاري وواجهة بحرية ١٫١ كم — شقق أرضي+٣ وشاليهات وتاون هاوس وفيلات مستقلة. وحدات أولية من المطوّر مباشرة.'}},
@@ -1016,18 +1016,23 @@ var UNITS = [
 {id:'AL-VL1', project:'aliva-mostakbal', type:'Villa', beds:4, baths:4, area:260, price:15500000, avail:'limited'},
 {id:'VC-AP1', project:'vinci-capital', type:'Apartment', beds:3, baths:2, area:165, price:6500000},
 {id:'VC-VL1', project:'vinci-capital', type:'Villa', beds:4, baths:4, area:280, price:16000000, avail:'limited'},
-{id:'VDC-A1', project:'village-de-la-capitale', type:'Apartment', beds:1, baths:1, area:60, price:6400000},
-{id:'VDC-T1', project:'village-de-la-capitale', type:'Townhouse', beds:3, baths:3, area:176, price:24100000},
-{id:'VDC-V1', project:'village-de-la-capitale', type:'Villa', beds:4, baths:4, area:185, price:28700000, avail:'limited'},
+{id:'VDC-A1', project:'village-de-la-capitale', type:'Apartment', beds:3, baths:3, area:146, areaTo:150, price:13500000, dp:3, years:12, handover:'2030'},
+{id:'VDC-A2', project:'village-de-la-capitale', type:'Apartment', beds:1, baths:1, area:60, price:7394000, dp:3, years:12, handover:'2030'},
+{id:'VDC-V1', project:'village-de-la-capitale', type:'Villa', beds:3, baths:4, area:185, price:29100000, dp:3, years:12, handover:'2030'},
+{id:'VDC-V2', project:'village-de-la-capitale', type:'Villa', beds:5, baths:6, area:371, price:41200000, dp:3, years:12, handover:'2030'},
 {id:'PHN-01', project:'palm-hills-new-cairo', type:'Apartment', label:{en:'Apartment',ar:'شقة'}, beds:1, baths:1, area:70, price:11549000, dp:3, years:10, handover:'2030'},
 {id:'PHN-02', project:'palm-hills-new-cairo', type:'Apartment', label:{en:'Apartment',ar:'شقة'}, beds:2, baths:3, area:131, price:19337000, dp:3, years:10, handover:'2030'},
 {id:'PHN-03', project:'palm-hills-new-cairo', type:'Apartment', label:{en:'Apartment',ar:'شقة'}, beds:2, baths:3, area:114, price:14600000, dp:3, years:10, handover:'2030'},
 {id:'PHN-04', project:'palm-hills-new-cairo', type:'Apartment', label:{en:'Apartment',ar:'شقة'}, beds:3, baths:3, area:172, price:26500000, dp:3, years:10, handover:'2030'},
 {id:'PHN-05', project:'palm-hills-new-cairo', type:'Apartment', label:{en:'Apartment',ar:'شقة'}, beds:3, baths:3, area:200, price:28000000, dp:3, years:10, handover:'2030'},
 {id:'PHN-06', project:'palm-hills-new-cairo', type:'Apartment', label:{en:'Apartment',ar:'شقة'}, beds:3, baths:3, area:154, price:24100000, dp:3, years:10, handover:'2030'},
-{id:'97H-T1', project:'97-hills', type:'Townhouse', beds:5, baths:5, area:250, price:31200000},
-{id:'97H-W1', project:'97-hills', type:'Twin house', beds:5, baths:5, area:250, price:36500000},
-{id:'97H-V1', project:'97-hills', type:'Villa', beds:4, baths:5, area:250, price:37400000, avail:'limited'},
+{id:'97H-A1', project:'97-hills', type:'Apartment', beds:3, baths:4, area:180, price:27500000, dp:5, years:10, handover:'2030'},
+{id:'97H-P1', project:'97-hills', type:'Penthouse', beds:4, baths:5, area:240, price:26700000, dp:5, years:10, handover:'2030'},
+{id:'97H-T1', project:'97-hills', type:'Townhouse', beds:5, baths:5, area:250, price:32500000, dp:5, years:10, handover:'2030'},
+{id:'97H-W1', project:'97-hills', type:'Twin House', beds:5, baths:5, area:250, price:38100000, dp:5, years:10, handover:'2030'},
+{id:'97H-V1', project:'97-hills', type:'Villa', beds:6, baths:8, area:467, price:62556000, dp:5, years:10, handover:'2030'},
+{id:'97H-V2', project:'97-hills', type:'Villa', beds:5, baths:6, area:295, price:49000000, dp:5, years:10, handover:'2030'},
+{id:'97H-V3', project:'97-hills', type:'Villa', beds:3, baths:5, area:250, price:38500000, dp:5, years:10, handover:'2030'},
 {id:'PMT-O1', project:'palmet-new-cairo', type:'Office', baths:1, area:68, price:13000000},
 {id:'PMT-O2', project:'palmet-new-cairo', type:'Administrative Office', baths:2, area:150, price:25000000},
 {id:'PX-01', project:'px-new-cairo', type:'Apartment', label:{en:'Apartment',ar:'شقة'}, beds:1, baths:2, area:77, price:14000000, dp:5, years:10, handover:'2030'},
@@ -1037,9 +1042,9 @@ var UNITS = [
 {id:'PX-05', project:'px-new-cairo', type:'Apartment', label:{en:'Apartment',ar:'شقة'}, beds:3, baths:3, area:171, price:30400000, dp:5, years:10, handover:'2030'},
 {id:'PX-06', project:'px-new-cairo', type:'Townhouse', label:{en:'Town House X · middle unit',ar:'تاون هاوس X · وحدة وسطى'}, beds:3, baths:4, area:231, price:27000000, dp:5, years:8, handover:'2030'},
 {id:'PX-07', project:'px-new-cairo', type:'Townhouse', label:{en:'Town House X · corner unit',ar:'تاون هاوس X · وحدة ركنية'}, beds:3, baths:4, area:231, price:30500000, dp:5, years:8, handover:'2030'},
-{id:'JRN-A1', project:'jirian-zayed', type:'Apartment', beds:1, baths:1, area:62, price:7800000},
-{id:'JRN-A2', project:'jirian-zayed', type:'Apartment', beds:3, baths:3, area:150, price:16500000},
-{id:'JRN-V1', project:'jirian-zayed', type:'Villa', beds:3, baths:4, area:196, price:34400000, avail:'limited'},
+{id:'JRN-A1', project:'jirian-zayed', type:'Apartment', beds:1, baths:1, area:62, price:8000000, dp:10, years:8, handover:'2030'},
+{id:'JRN-A2', project:'jirian-zayed', type:'Apartment', beds:2, baths:3, area:99, price:12000000, dp:10, years:8, handover:'2030'},
+{id:'JRN-A3', project:'jirian-zayed', type:'Apartment', beds:2, baths:3, area:126, price:16500000, dp:10, years:8, handover:'2030'},
 {id:'HB-01', project:'hacienda-blue', type:'Chalet', label:{en:'Senior Chalet · ground floor',ar:'شاليه سينيور · الدور الأرضي'}, beds:4, baths:4, area:164, price:29000000, dp:5, years:12, handover:'2031'},
 {id:'HB-02', project:'hacienda-blue', type:'Chalet', label:{en:'Senior Chalet · upper floor',ar:'شاليه سينيور · الدور العلوي'}, beds:4, baths:5, area:195, price:30000000, dp:5, years:12, handover:'2031'},
 {id:'HB-03', project:'hacienda-blue', type:'Chalet', label:{en:'Junior Chalet · ground floor',ar:'شاليه جونيور · الدور الأرضي'}, beds:3, baths:3, area:116, price:24300000, dp:5, years:12, handover:'2031'},
@@ -1360,10 +1365,16 @@ var ICC = '/project-media/ilcazar/the-crest/';
 var ICS = '/project-media/ilcazar/safia/';
 var ICK = '/project-media/ilcazar/creek-town/';
 var ICP = '/project-media/ilcazar/profile/';
+var PH9 = '/project-media/palmhills/97-hills/';
+var PHV = '/project-media/palmhills/village-de-la-capitale/';
+var PHJ = '/project-media/palmhills/jirian-zayed/';
 var PROJECT_COVERS = {
 'the-crest':ICC+'kit/p16.webp',
 'safia':ICS+'kit/p11.webp',
 'creek-town':ICP+'p59.webp',
+'97-hills':PH9+'kit/p14.webp',
+'village-de-la-capitale':PHV+'kit/p14.webp',
+'jirian-zayed':PHJ+'kit/p06.webp',
 'ras-soma':'/project-media/travco/ras-soma/cover.webp',
 'isola-centra':'/project-media/elmasria/isola-centra/cover.webp',
 'isola-quattro':'/project-media/elmasria/isola-quattro/cover.webp',
@@ -2068,6 +2079,20 @@ var UNIT_IMAGES = {
 'CKT-03':ICK+'units/th-creek-1.webp',
 'CKT-04':ICK+'units/ap1-creek-0.webp',
 'CKT-05':ICK+'units/ap1-creek-2.webp',
+'97H-A1':PH9+'img/ap1-97-0.webp',
+'97H-P1':PH9+'img/ap2-97-0.webp',
+'97H-T1':PH9+'img/to1-97-0.webp',
+'97H-W1':PH9+'img/tw1-97-0.webp',
+'97H-V1':PH9+'img/villa1-97-0.webp',
+'97H-V2':PH9+'img/villa3-97-0.webp',
+'97H-V3':PH9+'img/villa4-97-0.webp',
+'VDC-A1':PHV+'img/ap1-vdl-0.webp',
+'VDC-A2':PHV+'img/ap1-vdl-01.webp',
+'VDC-V1':PHV+'img/villa1-vdl-0.webp',
+'VDC-V2':PHV+'img/villa2-vdl-0.webp',
+'JRN-A1':PHJ+'img/ap1-j-0.webp',
+'JRN-A2':PHJ+'img/ap2-j-0.webp',
+'JRN-A3':PHJ+'img/ap3-j-0.webp',
 };
 var UNIT_GALLERY = {
 'IQ-01':['/project-media/elmasria/isola-quattro/units/render-1.webp', '/project-media/elmasria/isola-quattro/units/render-2.webp', '/project-media/elmasria/isola-quattro/units/render-3.webp', '/project-media/elmasria/isola-quattro/units/render-4.webp', '/project-media/elmasria/isola-quattro/units/render-5.webp', '/project-media/elmasria/isola-quattro/units/render-6.webp', '/project-media/elmasria/isola-quattro/units/render-7.webp', '/project-media/elmasria/isola-quattro/units/render-8.webp'],
@@ -2665,6 +2690,25 @@ var UNIT_GALLERY = {
 'CKT-03':[ICK+'units/th-creek-1.webp', ICK+'units/th-creek-0.webp'],
 'CKT-04':[ICK+'units/ap1-creek-0.webp', ICK+'units/ap1-creek-1.webp', ICK+'units/ap1-creek-2.webp'],
 'CKT-05':[ICK+'units/ap1-creek-2.webp', ICK+'units/ap1-creek-0.webp', ICK+'units/ap1-creek-1.webp'],
+'97H-A1':[PH9+'img/ap1-97-0.webp', PH9+'img/ap1-97-01.webp'],
+'97H-P1':[PH9+'img/ap2-97-0.webp'],
+'97H-T1':[PH9+'img/to1-97-0.webp', PH9+'img/to1-97-01.webp'],
+'97H-W1':[PH9+'img/tw1-97-0.webp', PH9+'img/tw1-97-01.webp'],
+'97H-V1':[PH9+'img/villa1-97-0.webp', PH9+'img/villa1-97-01.webp',
+PH9+'img/villa1-97-02.webp', PH9+'img/villa1-97-03.webp'],
+'97H-V2':[PH9+'img/villa3-97-0.webp', PH9+'img/villa3-97-01.webp',
+PH9+'img/villa3-97-02.webp'],
+'97H-V3':[PH9+'img/villa4-97-0.webp', PH9+'img/villa4-97-01.webp'],
+'VDC-A1':[PHV+'img/ap1-vdl-0.webp', PHV+'img/ap1-vdl-01.webp', PHV+'img/ap1-vdl-02.webp'],
+'VDC-A2':[PHV+'img/ap1-vdl-01.webp', PHV+'img/ap1-vdl-0.webp', PHV+'img/ap1-vdl-02.webp'],
+'VDC-V1':[PHV+'img/villa1-vdl-0.webp', PHV+'img/villa1-vdl-01.webp', PHV+'img/villa1-vdl-02.webp'],
+'VDC-V2':[PHV+'img/villa2-vdl-0.webp', PHV+'img/villa2-vdl-01.webp'],
+'JRN-A1':[PHJ+'img/ap1-j-0.webp', PHJ+'img/ap1-j-01.webp', PHJ+'img/ap1-j-02.webp',
+PHJ+'img/ap1-j-03.webp', PHJ+'img/ap1-j-04.webp'],
+'JRN-A2':[PHJ+'img/ap2-j-0.webp', PHJ+'img/ap2-j-01.webp', PHJ+'img/ap2-j-02.webp',
+PHJ+'img/ap2-j-03.webp', PHJ+'img/ap2-j-04.webp'],
+'JRN-A3':[PHJ+'img/ap3-j-0.webp', PHJ+'img/ap3-j-01.webp', PHJ+'img/ap3-j-02.webp',
+PHJ+'img/ap3-j-03.webp'],
 };
 var LOC_BASE = '/project-media/locations/';
 var AREA_IMAGES = {
@@ -3826,6 +3870,26 @@ var UNIT_FLOORPLANS = {
 'CKT-03':[ICK+'fp/th2-floors.webp', ICK+'fp/th2-penthouse.webp'],
 'CKT-04':[ICK+'fp/ap-128.webp'],
 'CKT-05':[ICK+'fp/ap-170.webp'],
+'97H-A1':[PH9+'img/fp-ap1.webp'],
+'97H-P1':[PH9+'img/fp-ap2-0.webp'],
+'97H-T1':[PH9+'img/fp-to1-0.webp', PH9+'img/fp-to1-01.webp', PH9+'img/fp-to1-02.webp'],
+'97H-W1':[PH9+'img/fp-tw-97.webp'],
+'97H-V1':[PH9+'img/villa2-97-0.webp', PH9+'img/villa2-97-01.webp',
+PH9+'img/villa2-97-02.webp', PH9+'img/villa2-97-03.webp'],
+'97H-V2':[PH9+'img/fp-villa3-97-0.webp', PH9+'img/fp-villa3-97-01.webp',
+PH9+'img/fp-villa3-97-02.webp', PH9+'img/fp-villa3-97-03.webp'],
+'97H-V3':[PH9+'img/fp-villa4-97-0.webp', PH9+'img/fp-villa4-97-01.webp',
+PH9+'img/fp-villa4-97-02.webp', PH9+'img/fp-villa4-97-03.webp'],
+'VDC-A1':[PHV+'img/fp-vdl-0.webp', PHV+'img/fp-vdl-01.webp',
+PHV+'img/fp-vdl-02.webp', PHV+'img/fp-vdl-03.webp'],
+'VDC-A2':[PHV+'img/fp-vdl-0.webp'],
+'VDC-V1':[PHV+'img/fp-villa-vdl.webp'],
+'VDC-V2':[PHV+'img/fp-villa2-vdl.webp'],
+'JRN-A1':[PHJ+'img/fp-ap1-j-0.webp', PHJ+'img/fp-ap1-j-01.webp',
+PHJ+'img/fp-ap1-j-02.webp', PHJ+'img/fp-ap1-j-03.webp',
+PHJ+'img/fp-ap1-j-04.webp', PHJ+'img/fp-ap1-j-05.webp'],
+'JRN-A2':[PHJ+'img/fp-ap2.webp'],
+'JRN-A3':[PHJ+'img/fp-ap3-j.webp'],
 };
 var UNIT_LOCATIONS = {
 'IQ-01':['/project-media/elmasria/isola-quattro/location.webp'],
@@ -4366,6 +4430,20 @@ loc:['/project-media/mountainview/mv11/location.webp']},
 {src:ICC+'kit/p06.webp', cap:{en:'The five districts', ar:'الأحياء الخمسة'}}],
 loc:[ICC+'kit/p04.webp']},
 'safia': {mp:[ICS+'kit/p09.webp'], loc:[ICS+'location.webp']},
+'97-hills': {mp:[{src:PH9+'img/mp-97.webp', cap:{en:'Keyed by type', ar:'مفتاح الأنواع'}},
+{src:PH9+'kit/p11.webp', cap:{en:'From the air', ar:'من الجو'}},
+{src:PH9+'kit/p12.webp', cap:{en:'The layout', ar:'التخطيط'}},
+{src:PH9+'kit/p13.webp', cap:{en:'Types distribution', ar:'توزيع الأنواع'}}],
+loc:[{src:PH9+'img/location-97.webp', cap:{en:'On the 2nd Ring Road', ar:'على الطريق الدائري الأوسطي'}},
+{src:PH9+'kit/p06.webp', cap:{en:'From the brochure', ar:'من البروشور'}}]},
+'village-de-la-capitale':
+{mp:[{src:PHV+'img/mp-vdl.webp', cap:{en:'Keyed by type', ar:'مفتاح الأنواع'}},
+{src:PHV+'kit/p08.webp', cap:{en:'From the air', ar:'من الجو'}},
+{src:PHV+'kit/p09.webp', cap:{en:'290 feddans, phase one 88', ar:'٢٩٠ فداناً، المرحلة الأولى ٨٨'}},
+{src:PHV+'kit/p10.webp', cap:{en:'Key distribution', ar:'توزيع المفتاح'}}],
+loc:[{src:PHV+'img/loc-vdl.webp', cap:{en:'New Cairo to the New Capital', ar:'من القاهرة الجديدة إلى العاصمة'}},
+{src:PHV+'kit/p06.webp', cap:{en:'The Capital corridor', ar:'محور العاصمة'}}]},
+'jirian-zayed': {mp:[PHJ+'img/mp-j.webp'], loc:[PHJ+'img/location-j.webp']},
 'creek-town': {mp:[{src:ICK+'kit/p07.webp', cap:{en:'The master plan', ar:'الماستر بلان'}},
 {src:ICP+'p58.webp', cap:{en:'From the company profile', ar:'من بروفايل الشركة'}}],
 loc:[{src:ICK+'location.webp', cap:{en:'On the New Suez Road', ar:'على طريق السويس الجديد'}},
@@ -4693,6 +4771,43 @@ ICK+'units/v-creek-0.webp',
 ICK+'units/th-creek-1.webp',
 ICK+'units/ap1-creek-0.webp',
 ICK+'kit/p45.webp'
+],
+'97-hills': [
+PH9+'kit/p14.webp',
+PH9+'img/villa1-97-0.webp',
+PH9+'img/villa1-97-01.webp',
+PH9+'img/villa1-97-02.webp',
+PH9+'img/villa1-97-03.webp',
+PH9+'img/to1-97-0.webp',
+PH9+'img/tw1-97-0.webp',
+PH9+'img/ap1-97-0.webp',
+PH9+'kit/p10.webp'
+],
+'village-de-la-capitale': [
+PHV+'kit/p14.webp',
+PHV+'kit/p15.webp',
+PHV+'kit/p22.webp',
+PHV+'kit/p25.webp',
+PHV+'kit/p26.webp',
+PHV+'kit/p27.webp',
+PHV+'img/villa1-vdl-0.webp',
+PHV+'img/villa1-vdl-01.webp',
+PHV+'img/villa2-vdl-01.webp',
+PHV+'img/ap1-vdl-0.webp',
+PHV+'img/ap1-vdl-02.webp'
+],
+'jirian-zayed': [
+PHJ+'kit/p06.webp',
+PHJ+'kit/p07.webp',
+PHJ+'kit/p02.webp',
+PHJ+'kit/p03.webp',
+PHJ+'kit/p19.webp',
+PHJ+'kit/p24.webp',
+PHJ+'kit/p47.webp',
+PHJ+'img/v1-jirian-0.webp',
+PHJ+'img/v2-jirian-0.webp',
+PHJ+'img/to-jirian-0.webp',
+PHJ+'img/v1-ji-0.webp'
 ],
 'ras-soma': [
 '/project-media/travco/ras-soma/cover.webp',
@@ -6756,6 +6871,41 @@ var SIY = '/project-media/orascom/siyal/';
 var LDV = '/project-media/orascom/ledge-valley/';
 var SHS = '/project-media/marakez/shams-soma/';
 var PROJECT_BROCHURE = {
+'97-hills': {
+title: {en:'Digital Brochure', ar:'البروشور الرقمي'},
+pages: [
+PH9+'kit/p06.webp', PH9+'kit/p10.webp', PH9+'kit/p11.webp', PH9+'kit/p12.webp', PH9+'kit/p13.webp', PH9+'kit/p14.webp',
+PH9+'kit/p15.webp', PH9+'kit/p16.webp', PH9+'kit/p17.webp', PH9+'kit/p18.webp', PH9+'kit/p19.webp', PH9+'kit/p20.webp',
+PH9+'kit/p21.webp', PH9+'kit/p22.webp', PH9+'kit/p23.webp', PH9+'kit/p24.webp', PH9+'kit/p25.webp', PH9+'kit/p26.webp',
+PH9+'kit/p27.webp', PH9+'kit/p28.webp', PH9+'kit/p29.webp', PH9+'kit/p30.webp', PH9+'kit/p31.webp', PH9+'kit/p32.webp',
+PH9+'kit/p33.webp', PH9+'kit/p34.webp'
+]
+},
+'village-de-la-capitale': {
+title: {en:'Sales Orientation', ar:'العرض البيعي'},
+pages: [
+PHV+'kit/p04.webp', PHV+'kit/p06.webp', PHV+'kit/p08.webp', PHV+'kit/p09.webp', PHV+'kit/p10.webp', PHV+'kit/p12.webp',
+PHV+'kit/p13.webp', PHV+'kit/p14.webp', PHV+'kit/p15.webp', PHV+'kit/p16.webp', PHV+'kit/p17.webp', PHV+'kit/p18.webp',
+PHV+'kit/p19.webp', PHV+'kit/p20.webp', PHV+'kit/p21.webp', PHV+'kit/p22.webp', PHV+'kit/p23.webp', PHV+'kit/p24.webp',
+PHV+'kit/p25.webp', PHV+'kit/p26.webp', PHV+'kit/p27.webp', PHV+'kit/p28.webp', PHV+'kit/p29.webp', PHV+'kit/p30.webp',
+PHV+'kit/p31.webp', PHV+'kit/p32.webp', PHV+'kit/p33.webp'
+]
+},
+'jirian-zayed': {
+title: {en:'Sales Kit', ar:'الكتيّب البيعي'},
+pages: [
+PHJ+'kit/p02.webp', PHJ+'kit/p03.webp', PHJ+'kit/p04.webp', PHJ+'kit/p06.webp', PHJ+'kit/p07.webp', PHJ+'kit/p08.webp',
+PHJ+'kit/p09.webp', PHJ+'kit/p10.webp', PHJ+'kit/p11.webp', PHJ+'kit/p13.webp', PHJ+'kit/p14.webp', PHJ+'kit/p15.webp',
+PHJ+'kit/p16.webp', PHJ+'kit/p17.webp', PHJ+'kit/p19.webp', PHJ+'kit/p20.webp', PHJ+'kit/p22.webp', PHJ+'kit/p23.webp',
+PHJ+'kit/p24.webp', PHJ+'kit/p26.webp', PHJ+'kit/p27.webp', PHJ+'kit/p28.webp', PHJ+'kit/p29.webp', PHJ+'kit/p30.webp',
+PHJ+'kit/p31.webp', PHJ+'kit/p32.webp', PHJ+'kit/p33.webp', PHJ+'kit/p34.webp', PHJ+'kit/p35.webp', PHJ+'kit/p36.webp',
+PHJ+'kit/p37.webp', PHJ+'kit/p38.webp', PHJ+'kit/p39.webp', PHJ+'kit/p40.webp', PHJ+'kit/p41.webp', PHJ+'kit/p42.webp',
+PHJ+'kit/p43.webp', PHJ+'kit/p44.webp', PHJ+'kit/p45.webp', PHJ+'kit/p46.webp', PHJ+'kit/p47.webp', PHJ+'kit/p49.webp',
+PHJ+'kit/p50.webp', PHJ+'kit/p52.webp', PHJ+'kit/p53.webp', PHJ+'kit/p54.webp', PHJ+'kit/p55.webp', PHJ+'kit/p56.webp',
+PHJ+'kit/p57.webp', PHJ+'kit/p58.webp', PHJ+'kit/p59.webp', PHJ+'kit/p60.webp', PHJ+'kit/p61.webp', PHJ+'kit/p62.webp',
+PHJ+'kit/p63.webp'
+]
+},
 'alam-al-roum': {
 title: {en:'Digital Brochure', ar:'البروشور الرقمي'},
 file:  AAR+'alam-al-roum-brochure.pdf',
@@ -9860,6 +10010,228 @@ list:[
 {en:'Penthouse 220 m² with a 100 m² terrace', ar:'بنتهاوس ٢٢٠ م² بتراس ١٠٠ م²'}
 ]
 }}
+]
+};
+PROJECT_FEATURES['97-hills'] = {
+masterplan: {en:'Master plan', ar:'الماستر بلان', icon:'masterplan', src:PH9+'img/mp-97.webp'},
+cards: [
+{en:'97 feddans, 325 buildings', ar:'٩٧ فداناً و٣٢٥ مبنى', icon:'area',
+imgs:[PH9+'kit/p11.webp', PH9+'kit/p12.webp', PH9+'kit/p13.webp', PH9+'img/mp-97.webp'],
+copy:{
+lead:{en:'The brochure calls it a boutique development conceived for the very few, and gives its scale in one sentence.',
+ar:'يصفه البروشور بأنه تطوير بوتيك صُمّم لقلّة قليلة، ويعطي حجمه في جملة واحدة.'},
+groups:[
+{label:{en:'As the brochure prints them', ar:'كما يطبعها البروشور'}, rows:[
+{k:{en:'Land', ar:'المساحة'}, v:{en:'Ninety-seven feddans of elevated land', ar:'سبعة وتسعون فداناً من الأرض المرتفعة'}},
+{k:{en:'Buildings', ar:'المباني'}, v:{en:'Three hundred and twenty-five', ar:'ثلاثمائة وخمسة وعشرون'}},
+{k:{en:'Homes', ar:'المنازل'}, v:{en:'Just over six hundred villas and family residences', ar:'ما يزيد قليلاً على ستمائة فيلا ومسكن عائلي'}},
+{k:{en:'Address', ar:'العنوان'}, v:{en:'On the Middle Ring Road, at the core of Palm Hills’ New Cairo footprint', ar:'على الطريق الدائري الأوسطي، في قلب تواجد بالم هيلز بالقاهرة الجديدة'}},
+{k:{en:'Finishing', ar:'التشطيب'}, v:{en:'Delivered fully finished', ar:'تُسلَّم كاملة التشطيب'}}
+]}
+],
+more:{en:'The master plan keys six types — Villa A, B and C, Town House, Twin House and Family Home. The brochure draws five of them; the twin house has a key on the plan and no pages in the book.',
+ar:'ويرقّم الماستر بلان ستة أنواع — ڤيلا A وB وC، وتاون هاوس، وتوين هاوس، وفاميلي هوم. ويرسم البروشور خمسة منها؛ أما التوين هاوس فله مفتاح على المخطط ولا صفحات له في الكتاب.'}
+}},
+{en:'Design and architecture', ar:'التصميم والعمارة', icon:'build',
+imgs:[PH9+'kit/p10.webp', PH9+'kit/p14.webp'],
+copy:{
+lead:{en:'Contemporary villas in clean geometric lines and bold volumes, built from stone, wood and concrete, with expansive glazing and warm textured facades.',
+ar:'ڤيلات معاصرة بخطوط هندسية نقية وكتل جريئة، من الحجر والخشب والخرسانة، بزجاج واسع وواجهات دافئة الملمس.'},
+more:{en:'The brochure’s own phrase for the result: each villa is a sculptural statement of modern living, and each residence a private world of its own.',
+ar:'وعبارة البروشور نفسه عن النتيجة: كل ڤيلا بيان نحتي للعيش الحديث، وكل مسكن عالم خاص بذاته.'}
+}},
+{en:'Amenities and the promenade', ar:'الخدمات والممشى', icon:'am_club',
+imgs:[PH9+'img/villa1-97-02.webp', PH9+'img/villa1-97-03.webp'],
+copy:{
+lead:{en:'An exclusive clubhouse, reflective pools and cascading waterscapes, and a boutique commercial promenade of curated retail, fine dining and daily essentials. The pages that carry these are photographs of places that are not 97 Hills, so only their words are here.',
+ar:'كلوب هاوس خاص، وبرك عاكسة ومسطحات مائية متدرّجة، وممشى تجاري بوتيك من متاجر مختارة ومطاعم راقية واحتياجات يومية. والصفحات التي تحملها صور لأماكن ليست ٩٧ هيلز، فلم يُنقل منها سوى النص.'}
+}},
+{en:'Villa A — 416.50 m² built up', ar:'ڤيلا A — ٤١٦٫٥٠ م² مسطح', icon:'ty_villa',
+imgs:[PH9+'kit/p15.webp', PH9+'kit/p16.webp', PH9+'kit/p17.webp', PH9+'kit/p18.webp'],
+copy:{groups:[{label:{en:'As the brochure prints them', ar:'كما يطبعها البروشور'}, rows:[
+{k:{en:'Average land area', ar:'متوسط مساحة الأرض'}, v:{en:'566.00 m²', ar:'٥٦٦٫٠٠ م²'}},
+{k:{en:'Built-up area', ar:'المسطح المبني'}, v:{en:'416.50 m²', ar:'٤١٦٫٥٠ م²'}},
+{k:{en:'Penthouse', ar:'البنتهاوس'}, v:{en:'50.50 m²', ar:'٥٠٫٥٠ م²'}},
+{k:{en:'Roof', ar:'السطح'}, v:{en:'123.00 m²', ar:'١٢٣٫٠٠ م²'}},
+{k:{en:'Semi-covered roof', ar:'السطح نصف المغطّى'}, v:{en:'14.00 m²', ar:'١٤٫٠٠ م²'}}
+]}]}},
+{en:'Villa B — 251.50 m² built up', ar:'ڤيلا B — ٢٥١٫٥٠ م² مسطح', icon:'ty_villa',
+imgs:[PH9+'kit/p19.webp', PH9+'kit/p20.webp', PH9+'kit/p21.webp', PH9+'kit/p22.webp'],
+copy:{groups:[{label:{en:'As the brochure prints them', ar:'كما يطبعها البروشور'}, rows:[
+{k:{en:'Average land area', ar:'متوسط مساحة الأرض'}, v:{en:'384.50 m²', ar:'٣٨٤٫٥٠ م²'}},
+{k:{en:'Built-up area', ar:'المسطح المبني'}, v:{en:'251.50 m²', ar:'٢٥١٫٥٠ م²'}},
+{k:{en:'Penthouse', ar:'البنتهاوس'}, v:{en:'43.00 m²', ar:'٤٣٫٠٠ م²'}},
+{k:{en:'Roof', ar:'السطح'}, v:{en:'61.50 m²', ar:'٦١٫٥٠ م²'}},
+{k:{en:'Semi-covered roof', ar:'السطح نصف المغطّى'}, v:{en:'14.00 m²', ar:'١٤٫٠٠ م²'}}
+]}]}},
+{en:'Villa C — 206.00 m² built up', ar:'ڤيلا C — ٢٠٦٫٠٠ م² مسطح', icon:'ty_villa',
+imgs:[PH9+'kit/p23.webp', PH9+'kit/p24.webp', PH9+'kit/p25.webp', PH9+'kit/p26.webp'],
+copy:{groups:[{label:{en:'As the brochure prints them', ar:'كما يطبعها البروشور'}, rows:[
+{k:{en:'Average land area', ar:'متوسط مساحة الأرض'}, v:{en:'287.50 m²', ar:'٢٨٧٫٥٠ م²'}},
+{k:{en:'Built-up area', ar:'المسطح المبني'}, v:{en:'206.00 m²', ar:'٢٠٦٫٠٠ م²'}},
+{k:{en:'Penthouse', ar:'البنتهاوس'}, v:{en:'40.50 m²', ar:'٤٠٫٥٠ م²'}},
+{k:{en:'Roof', ar:'السطح'}, v:{en:'48.50 m²', ar:'٤٨٫٥٠ م²'}},
+{k:{en:'Pergola', ar:'البرجولا'}, v:{en:'18.50 m²', ar:'١٨٫٥٠ م²'}}
+]}]}},
+{en:'Town House — corner and middle', ar:'تاون هاوس — ركنية ووسطى', icon:'home',
+imgs:[PH9+'kit/p27.webp', PH9+'kit/p28.webp', PH9+'kit/p29.webp', PH9+'kit/p30.webp'],
+copy:{groups:[{label:{en:'As the brochure prints them', ar:'كما يطبعها البروشور'}, rows:[
+{k:{en:'Corner — land and built up', ar:'الركنية — الأرض والمسطح'}, v:{en:'264.50 m² and 226.50 m²', ar:'٢٦٤٫٥٠ م² و٢٢٦٫٥٠ م²'}},
+{k:{en:'Middle — land and built up', ar:'الوسطى — الأرض والمسطح'}, v:{en:'260.00 m² and 224.00 m²', ar:'٢٦٠٫٠٠ م² و٢٢٤٫٠٠ م²'}},
+{k:{en:'Penthouse', ar:'البنتهاوس'}, v:{en:'28.00 m², both', ar:'٢٨٫٠٠ م² لكليهما'}},
+{k:{en:'Roof', ar:'السطح'}, v:{en:'74.00 m² corner, 73.00 m² middle', ar:'٧٤٫٠٠ م² للركنية و٧٣٫٠٠ م² للوسطى'}}
+]}]}},
+{en:'Family Home', ar:'الفاميلي هوم', icon:'home',
+imgs:[PH9+'kit/p31.webp', PH9+'kit/p32.webp', PH9+'kit/p33.webp', PH9+'kit/p34.webp'],
+copy:{groups:[{label:{en:'As the brochure prints them', ar:'كما يطبعها البروشور'}, rows:[
+{k:{en:'Ground floor', ar:'الدور الأرضي'}, v:{en:'183.00 m² built up, with a 100.50 m² garden and a 30.50 m² garage', ar:'١٨٣٫٠٠ م² مسطح، بحديقة ١٠٠٫٥٠ م² وجراج ٣٠٫٥٠ م²'}},
+{k:{en:'First floor', ar:'الدور الأول'}, v:{en:'193.00 m² built up, a 45.00 m² penthouse and a 100.50 m² roof', ar:'١٩٣٫٠٠ م² مسطح، وبنتهاوس ٤٥٫٠٠ م² وسطح ١٠٠٫٥٠ م²'}}
+]}]}},
+{en:'The twin house', ar:'التوين هاوس', icon:'ty_twinhouse',
+imgs:[PH9+'img/tw1-97-0.webp', PH9+'img/tw1-97-01.webp', PH9+'img/fp-tw-97.webp'],
+copy:{
+lead:{en:'The master plan keys a twin house and the brochure draws none. Its renders and its plan come from the client’s own image archive, which is also where the price list points for this row.',
+ar:'يرقّم الماستر بلان توين هاوس ولا يرسمه البروشور. ولقطاته ومخططه من أرشيف صور العميل نفسه، وهو أيضاً ما تشير إليه قائمة الأسعار لهذا الصف.'}
+}}
+]
+};
+PROJECT_FEATURES['village-de-la-capitale'] = {
+masterplan: {en:'Master plan', ar:'الماستر بلان', icon:'masterplan', src:PHV+'img/mp-vdl.webp'},
+cards: [
+{en:'290 feddans, master planned with SWA', ar:'٢٩٠ فداناً بتخطيط SWA', icon:'area',
+imgs:[PHV+'kit/p08.webp', PHV+'kit/p09.webp', PHV+'kit/p10.webp'],
+copy:{
+lead:{en:'Palm Hills’ first residential destination in the New Capital, laid out along the land’s existing contours rather than against them.',
+ar:'أول وجهة سكنية لبالم هيلز في العاصمة الإدارية، مرسومة على تضاريس الأرض القائمة لا ضدها.'},
+groups:[
+{label:{en:'As the deck prints them', ar:'كما يطبعها العرض'}, rows:[
+{k:{en:'Project area', ar:'مساحة المشروع'}, v:{en:'290 feddans', ar:'٢٩٠ فداناً'}},
+{k:{en:'Phase one', ar:'المرحلة الأولى'}, v:{en:'88 feddans', ar:'٨٨ فداناً'}},
+{k:{en:'Master planner', ar:'التخطيط العام'}, v:{en:'SWA', ar:'SWA'}},
+{k:{en:'Amenities', ar:'الخدمات'}, v:{en:'A commercial G+2, a community centre and a club house', ar:'تجاري أرضي+٢، ومركز مجتمعي، وكلوب هاوس'}}
+]}
+]
+}},
+{en:'Facilities and community service', ar:'المرافق وخدمة المجتمع', icon:'am_community',
+imgs:[PHV+'kit/p04.webp'],
+copy:{
+lead:{en:'The deck lists these in full; the icons are its own.',
+ar:'يعدّدها العرض بالكامل، والأيقونات أيقوناته.'},
+list:[
+{en:'Landscaped gardens and parks', ar:'حدائق ومتنزهات منسّقة'},
+{en:'Water features and swimming pools', ar:'عناصر مائية وحمامات سباحة'},
+{en:'A fully equipped gym and fitness areas', ar:'جيم مجهّز بالكامل ومناطق لياقة'},
+{en:'Tennis, padel and football courts', ar:'ملاعب تنس وبادل وكرة قدم'},
+{en:'Jogging and cycling tracks across the community', ar:'مسارات جري ودراجات عبر المجتمع'},
+{en:'Children’s playgrounds, bike and scooter lanes', ar:'ملاعب أطفال ومسارات دراجات وسكوتر'},
+{en:'Multipurpose halls for events, sports and social activities', ar:'قاعات متعددة الأغراض للفعاليات والرياضة والأنشطة'},
+{en:'A commercial district with curated retail, dining and a dedicated school', ar:'منطقة تجارية بمتاجر مختارة ومطاعم ومدرسة مخصّصة'}
+]
+}},
+{en:'The product brief', ar:'موجز المنتجات', icon:'layers',
+imgs:[PHV+'kit/p12.webp', PHV+'kit/p13.webp'],
+copy:{
+lead:{en:'One table gives every type at once, and a second gives the three apartment buildings.',
+ar:'جدول واحد يعطي كل الأنواع دفعة واحدة، وثانٍ يعطي مباني الشقق الثلاثة.'},
+list:[
+{en:'Villa A / 5B — 292 m² built up on 371 m², G+1+Pent', ar:'ڤيلا A / ٥ غرف — ٢٩٢ م² مسطح على ٣٧١ م²، أرضي+١+بنتهاوس'},
+{en:'Villa B / 4B — 257 m² on 300 m², G+1+Pent', ar:'ڤيلا B / ٤ غرف — ٢٥٧ م² على ٣٠٠ م²، أرضي+١+بنتهاوس'},
+{en:'Villa C / 3B — 185 m² on 282 m², G+1', ar:'ڤيلا C / ٣ غرف — ١٨٥ م² على ٢٨٢ م²، أرضي+١'},
+{en:'Town House corner and middle / 3B — 196 m² on 186 m²', ar:'تاون هاوس ركنية ووسطى / ٣ غرف — ١٩٦ م² على ١٨٦ م²'},
+{en:'Apartments at 60, 91 and 141 m²', ar:'شقق بمساحات ٦٠ و٩١ و١٤١ م²'},
+{en:'Building A, 32 apartments · Building B, 48 · Building C, 64', ar:'مبنى A ٣٢ شقة · مبنى B ٤٨ · مبنى C ٦٤'}
+]
+}},
+{en:'The villas', ar:'الڤيلات', icon:'ty_villa',
+imgs:[PHV+'kit/p14.webp', PHV+'kit/p15.webp', PHV+'kit/p16.webp', PHV+'kit/p17.webp',
+PHV+'kit/p18.webp', PHV+'kit/p19.webp', PHV+'kit/p20.webp', PHV+'kit/p21.webp'],
+copy:{lead:{en:'Villa Type A, B and C, each with a render and its ground, first and penthouse floors.',
+ar:'ڤيلا نوع A وB وC، لكل منها لقطة وأدوارها الأرضي والأول والبنتهاوس.'}}},
+{en:'The townhouses', ar:'التاون هاوس', icon:'home',
+imgs:[PHV+'kit/p22.webp', PHV+'kit/p23.webp', PHV+'kit/p24.webp'],
+copy:{lead:{en:'Drawn as a run of six units and again as a run of four, each with its ground, first and penthouse floor.',
+ar:'مرسومة كصفّ من ست وحدات ومرة أخرى كصفّ من أربع، لكل منهما الأرضي والأول والبنتهاوس.'}}},
+{en:'The apartments', ar:'الشقق', icon:'ty_apartment',
+imgs:[PHV+'kit/p25.webp', PHV+'kit/p26.webp', PHV+'kit/p27.webp', PHV+'kit/p28.webp',
+PHV+'kit/p29.webp', PHV+'kit/p30.webp', PHV+'kit/p31.webp', PHV+'kit/p32.webp',
+PHV+'kit/p33.webp'],
+copy:{lead:{en:'Three renders of the apartments in their landscape, then Buildings A, B and C — each with its look and feel, its ground floor and its typical floor.',
+ar:'ثلاث لقطات للشقق في تنسيقها، ثم مباني A وB وC — لكل منها مظهره العام ودوره الأرضي ودوره المتكرر.'}}}
+]
+};
+PROJECT_FEATURES['jirian-zayed'] = {
+masterplan: {en:'Master plan', ar:'الماستر بلان', icon:'masterplan', src:PHJ+'img/mp-j.webp'},
+cards: [
+{en:'The architecture', ar:'العمارة', icon:'build',
+imgs:[PHJ+'kit/p02.webp', PHJ+'kit/p03.webp', PHJ+'kit/p04.webp'],
+copy:{
+lead:{en:'The kit’s own two claims for the homes: five-metre ceilings, and a curated palette of architectural styles and finishes that residents choose their exterior from.',
+ar:'ما يدّعيه الكتيّب للمنازل: أسقف بارتفاع خمسة أمتار، ومجموعة مختارة من الطُرز والتشطيبات يختار منها الساكن واجهته.'}
+}},
+{en:'Nile Front Twenty', ar:'نايل فرونت توينتي', icon:'ty_villa',
+imgs:[PHJ+'kit/p06.webp', PHJ+'kit/p07.webp', PHJ+'kit/p08.webp',
+PHJ+'kit/p09.webp', PHJ+'kit/p10.webp', PHJ+'kit/p11.webp'],
+copy:{
+lead:{en:'The Nile Mansions, each on its own private deck.',
+ar:'قصور النيل، كلٌّ على رصيفه الخاص.'},
+list:[
+{en:'A, 7 bedrooms — 1,100 m² of land, 445 m² built up, 6 master and 1 bedroom, living room, nanny’s and driver’s rooms', ar:'A بسبع غرف — ١٬١٠٠ م² أرض و٤٤٥ م² مسطح، ٦ ماستر وغرفة، وغرفة معيشة، وغرفتا خادمة وسائق'},
+{en:'B, 5 bedrooms — 840 m² of land, 338 m² built up', ar:'B بخمس غرف — ٨٤٠ م² أرض و٣٣٨ م² مسطح'},
+{en:'C, 4 bedrooms — 705 m² of land, 283 m² built up', ar:'C بأربع غرف — ٧٠٥ م² أرض و٢٨٣ م² مسطح'}
+]
+}},
+{en:'Maison Du Nil', ar:'ميزون دو نيل', icon:'ty_villa',
+imgs:[PHJ+'kit/p13.webp', PHJ+'kit/p14.webp', PHJ+'kit/p15.webp',
+PHJ+'kit/p16.webp', PHJ+'kit/p17.webp'],
+copy:{
+lead:{en:'Four sizes, each with its land, built-up, penthouse and roof-terrace areas.',
+ar:'أربع مساحات، لكلٍّ أرضه ومسطحه وبنتهاوسه وتراس سطحه.'},
+list:[
+{en:'6 bedrooms — 604 m² of land, 405 m² built up, a 47 m² penthouse and a 137 m² roof terrace', ar:'ست غرف — ٦٠٤ م² أرض و٤٠٥ م² مسطح، وبنتهاوس ٤٧ م² وتراس سطح ١٣٧ م²'},
+{en:'E, 5 bedrooms — 413 m² of land, 294 m² built up, a 47 m² penthouse and an 89 m² roof terrace', ar:'E بخمس غرف — ٤١٣ م² أرض و٢٩٤ م² مسطح، وبنتهاوس ٤٧ م² وتراس سطح ٨٩ م²'},
+{en:'3 masters — 338 m² of land, 196 m² built up, a 41 m² penthouse, a 48 m² roof terrace and 11 m² semi-covered', ar:'ثلاث ماستر — ٣٣٨ م² أرض و١٩٦ م² مسطح، وبنتهاوس ٤١ م² وتراس سطح ٤٨ م² و١١ م² نصف مغطّى'},
+{en:'H, 3 bedrooms — 268 m² of land, 196 m² built up', ar:'H بثلاث غرف — ٢٦٨ م² أرض و١٩٦ م² مسطح'}
+]
+}},
+{en:'Nile Town', ar:'نايل تاون', icon:'home',
+imgs:[PHJ+'kit/p19.webp', PHJ+'kit/p20.webp', PHJ+'img/to-jirian-0.webp',
+PHJ+'img/to-jirian-1.webp', PHJ+'img/to-jirian-2.webp', PHJ+'img/fp-to-jirian.webp'],
+copy:{lead:{en:'Three bedrooms over ground and first, on an average 191 m² of land on a corner and 187 m² in the middle, with an average 174 m² built up.',
+ar:'ثلاث غرف على الأرضي والأول، على متوسط ١٩١ م² أرض في الركنية و١٨٧ م² في الوسطى، بمتوسط مسطح ١٧٤ م².'}}},
+{en:'Nile Pair Twin', ar:'نايل بير توين', icon:'ty_twinhouse',
+imgs:[PHJ+'kit/p22.webp', PHJ+'kit/p23.webp', PHJ+'img/v2-jirian-0.webp',
+PHJ+'img/v2-jirian-1.webp', PHJ+'img/fp-v2-jirian.webp', PHJ+'img/fp-v2-j.webp'],
+copy:{lead:{en:'Three bedrooms, one of them master, over ground and first, on an average 270 m² of land with an average 202 m² built up.',
+ar:'ثلاث غرف إحداها ماستر، على الأرضي والأول، على متوسط ٢٧٠ م² أرض بمتوسط مسطح ٢٠٢ م².'}}},
+{en:'The archive’s villas', ar:'ڤيلات الأرشيف', icon:'ty_villa',
+imgs:[
+PHJ+'img/v1-jirian-0.webp', PHJ+'img/v1-jirian-01.webp',
+PHJ+'img/v1-jirian-2.webp', PHJ+'img/v1-jirian-3.webp', PHJ+'img/v1-ji-0.webp',
+PHJ+'img/v1-ji-01.webp', PHJ+'img/v1-ji-02.webp', PHJ+'img/v1-ji-03.webp',
+PHJ+'img/v1-ji-04.webp', PHJ+'img/v2-ji-04.webp', PHJ+'img/fp-v1-jirian.webp',
+PHJ+'img/fp-v1-j-0.webp', PHJ+'img/fp-v3-jirian.webp'],
+copy:{
+lead:{en:'Two villa sets and three plans that came in the client’s image archive and are drawn nowhere in the sales kit. The price list does not name them either, so no unit here claims to be one of them — they are shown as what they are, Jirian villas without a row.',
+ar:'مجموعتا ڤيلات وثلاثة مخططات وصلت في أرشيف صور العميل ولا يرسمها الكتيّب البيعي في أي صفحة. ولا تسمّيها قائمة الأسعار أيضاً، فلا تدّعي أيّ وحدة هنا أنها واحدة منها — تُعرض على ما هي عليه، ڤيلات جيريان بلا صفّ.'}
+}},
+{en:'Nile Horizon', ar:'نايل هورايزون', icon:'ty_apartment',
+imgs:[
+PHJ+'kit/p24.webp', PHJ+'kit/p26.webp', PHJ+'kit/p27.webp', PHJ+'kit/p28.webp',
+PHJ+'kit/p29.webp', PHJ+'kit/p30.webp', PHJ+'kit/p31.webp', PHJ+'kit/p32.webp',
+PHJ+'kit/p33.webp', PHJ+'kit/p34.webp', PHJ+'kit/p35.webp', PHJ+'kit/p36.webp',
+PHJ+'kit/p37.webp', PHJ+'kit/p38.webp', PHJ+'kit/p39.webp', PHJ+'kit/p40.webp',
+PHJ+'kit/p41.webp', PHJ+'kit/p42.webp', PHJ+'kit/p43.webp', PHJ+'kit/p44.webp',
+PHJ+'kit/p45.webp', PHJ+'kit/p46.webp'],
+copy:{lead:{en:'Four buildings — A, B, C and E — each drawn ground, first, typical, sixth and penthouse, and closed by a floor-by-floor matrix of which layout sits where.',
+ar:'أربعة مبانٍ — A وB وC وE — كلٌّ مرسوم أرضياً وأولاً ومتكرراً وسادساً وبنتهاوس، ويختتمها جدول دوراً بدور يبيّن أي تخطيط في أي مكان.'}}},
+{en:'Nile Rise', ar:'نايل رايز', icon:'ty_apartment',
+imgs:[
+PHJ+'kit/p47.webp', PHJ+'kit/p49.webp', PHJ+'kit/p50.webp', PHJ+'kit/p52.webp',
+PHJ+'kit/p53.webp', PHJ+'kit/p54.webp', PHJ+'kit/p55.webp', PHJ+'kit/p56.webp',
+PHJ+'kit/p57.webp', PHJ+'kit/p58.webp', PHJ+'kit/p59.webp', PHJ+'kit/p60.webp',
+PHJ+'kit/p61.webp', PHJ+'kit/p62.webp', PHJ+'kit/p63.webp'],
+copy:{lead:{en:'The nineteen-storey tower, drawn floor by floor from the first to the nineteenth, and closed by its own unit matrix.',
+ar:'البرج المكوّن من تسعة عشر دوراً، مرسوم دوراً بدور من الأول إلى التاسع عشر، ويختتمه جدول وحداته.'}}}
 ]
 };
 function projBrochure(slug){ return PROJECT_BROCHURE[slug] || null; }
