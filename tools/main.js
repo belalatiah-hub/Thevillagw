@@ -11976,7 +11976,7 @@ var lbl=compareFabEl.querySelector('.compare-fab__lbl'); if(lbl) lbl.textContent
 var badge=compareFabEl.querySelector('.compare-fab__badge'); if(badge) badge.textContent=n?num(n):'';
 compareFabEl.classList.toggle('is-visible', n>0);
 }
-function chatOpen(){ if(!chatEls) return; chatEls.panel.classList.add('open'); chatEls.panel.setAttribute('aria-hidden','false'); chatEls.fab.style.display='none'; if(compareFabEl) compareFabEl.classList.add('is-hidden-by-chat'); chatRefresh(); track('ai_advisor_open'); setTimeout(function(){ chatEls.input.focus(); },50); }
+function chatOpen(){ if(!chatEls) return; chatEls.panel.classList.add('open'); chatEls.panel.setAttribute('aria-hidden','false'); chatEls.fab.style.display='none'; if(compareFabEl) compareFabEl.classList.add('is-hidden-by-chat'); chatRefresh(); track('village_chat_open'); setTimeout(function(){ chatEls.input.focus(); },50); }
 function chatClose(){ if(!chatEls) return; chatEls.panel.classList.remove('open'); chatEls.panel.setAttribute('aria-hidden','true'); chatEls.fab.style.display=''; if(compareFabEl) compareFabEl.classList.remove('is-hidden-by-chat'); try{ chatEls.fab.focus(); }catch(e){} }
 function chatRefresh(){
 if(!chatEls) return;

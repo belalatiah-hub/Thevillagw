@@ -4983,6 +4983,40 @@ try {
     return bad.length === 0 || bad.slice(0, 3).join('; ');
   })(), true);
 
+  /* What a turn reports, and what it must never report. The intent is the
+     useful signal; the question itself is the visitor's own words and has no
+     business in an analytics queue. */
+  ck('village chat: a turn is measured by intent, never by what was typed', (function(){
+    var bad = [], was = api.setLang('en');
+    var els = api.chatEls(); if(!els){ api.chatBuild(); els = api.chatEls(); }
+    /* track() pushes to window.dataLayer inside the sandbox, which is `win`
+       here. The queue has to exist before the mark is taken, or track creates
+       a different array and the mark points at nothing. */
+    win.dataLayer = win.dataLayer || [];
+    var dl = win.dataLayer, mark = dl.length;
+    var secret = 'my number is 01000000000 and I want Beach Plaza Premium';
+    api.chatClear(); els.busy = false;
+    api.chatUserSend(secret);
+    var sent = dl.slice(mark);
+    var ask = sent.filter(function(e){ return e.event === 'village_chat_ask'; });
+    if(ask.length !== 1) bad.push('expected one village_chat_ask, saw '+ask.length);
+    sent.forEach(function(e){
+      Object.keys(e).forEach(function(k){
+        var v = e[k];
+        if(typeof v === 'string' && (v.indexOf('01000000000') > -1 || v.indexOf(secret) > -1))
+          bad.push(e.event+'.'+k+' carries the visitor’s own words');
+      });
+    });
+    if(ask.length && !ask[0].intent) bad.push('the ask event does not carry an intent');
+    // Every event this panel emits is named for the panel
+    sent.forEach(function(e){
+      if(e.event.indexOf('village_chat_') !== 0) bad.push('stray event name: '+e.event);
+    });
+    api.chatClear();
+    api.setLang(was);
+    return bad.length === 0 || bad.slice(0, 3).join('; ');
+  })(), true);
+
   ck('village chat: the transcript is announced to a screen reader', (function(){
     var bad = [];
     var els = api.chatEls(); if(!els){ api.chatBuild(); els = api.chatEls(); }
