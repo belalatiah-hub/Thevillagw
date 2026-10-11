@@ -155,8 +155,10 @@ JIR_OUT = {
 #
 #   ap1-97-0   = ap2-97-0        <- the sheet gives one to the Apartment and
 #                                   the other to the Penthouse, so those two
-#                                   rows show the same frame. Reported, not
-#                                   worked around.
+#                                   rows show the same frame. The owner has
+#                                   seen this and left it: it stays. A guard
+#                                   asserts the two files remain identical,
+#                                   so repointing a cover to hide it fails.
 #   to1-97-01  = tw1-97-0        <- harmless: the sheet uses to1-97-0 for the
 #                                   town house and tw1-97-0 for the twin, and
 #                                   those two are different pictures.
