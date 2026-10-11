@@ -1,0 +1,426 @@
+  /* ==================================================================
+     VILLAGE CHAT — ENGINE
+     Your intelligent real estate assistant by The Village Investment.
+
+     WHAT THIS IS, AND WHAT IT IS NOT
+
+     This file holds the parts of Village Chat that can be built and proved
+     on a static site: decimal-safe money arithmetic, a typed read-only tool
+     layer over this site's own records, a query router, lexical retrieval
+     with citations, and the seam an LLM would plug into.
+
+     It holds no language model, because this site cannot host one. The site
+     is a single static file served by GitHub Pages — there is no server, no
+     API route, and nowhere to keep a provider key that the browser cannot
+     read. Putting one in the bundle would publish it. The only backend this
+     project has is a Supabase project that is currently PAUSED.
+
+     So `vcProvider` below is an integration boundary, not an integration:
+     it defines the request and response an LLM turn would use, reports that
+     no provider is configured, and lets the deterministic router answer.
+     When a server exists, implement `vcProvider.send` against it and the
+     router will prefer it. Nothing here needs to change for that to work,
+     and no key ever reaches this file.
+
+     EVERY FIGURE COMES FROM THIS SITE'S OWN RECORDS. The tools read PROJECTS,
+     UNITS, DEVELOPERS and AREAS and nothing else. They cannot reach the
+     network, cannot write, and cannot be handed a free-text query to run.
+     ================================================================== */
+
+  /* ------------------------------------------------------------------
+     MONEY — integer piastres, because floats lose money.
+
+     0.1 + 0.2 is not 0.3 in binary floating point, and a payment schedule
+     that sums its own rows will drift by piastres over forty quarters and
+     then disagree with the contract total. Everything below works in whole
+     piastres (1 EGP = 100) and converts once, at the edge.
+     ------------------------------------------------------------------ */
+  function vcToP(egp){            // EGP -> piastres, half-up
+    if(egp == null || !isFinite(egp)) return null;
+    return Math.round(Number(egp) * 100);
+  }
+  function vcToE(p){ return p == null ? null : p / 100; }
+  function vcPct(p, pct){         // a percentage OF piastres, half-up
+    if(p == null || pct == null) return null;
+    return Math.round(p * Number(pct) / 100);
+  }
+
+  /* ------------------------------------------------------------------
+     PAYMENT SCHEDULE
+
+     Egyptian primary plans here are quarterly, which is what the factsheet
+     already assumes via installmentCount(). The schedule is built so that
+     it RECONCILES: down payment + every instalment === the total, exactly.
+     Any rounding remainder is carried onto the final instalment rather than
+     spread, so the last row absorbs it and the sum is provably the total.
+
+     It returns `reconciles:true` only when that holds. A caller that prints
+     a schedule without checking it is printing numbers it has not verified.
+     ------------------------------------------------------------------ */
+  function vcSchedule(opts){
+    var o = opts || {};
+    var totalP = vcToP(o.price);
+    if(totalP == null || totalP <= 0) return {ok:false, why:'no-price'};
+    var years = Number(o.years);
+    if(!years || years <= 0) return {ok:false, why:'no-term'};
+    var perYear = o.perYear ? Number(o.perYear) : 4;      // quarterly by default
+    var n = Math.round(years * perYear);
+    if(!n || n <= 0) return {ok:false, why:'no-instalments'};
+
+    var dpPct = (o.dp == null) ? null : Number(o.dp);
+    var downP = dpPct == null ? 0 : vcPct(totalP, dpPct);
+    if(downP > totalP) return {ok:false, why:'down-exceeds-total'};
+
+    var financedP = totalP - downP;
+    var each = Math.floor(financedP / n);
+    var rows = [], acc = 0;
+    for(var i = 0; i < n; i++){
+      var amt = (i === n - 1) ? (financedP - acc) : each;   // last row absorbs the remainder
+      acc += amt;
+      rows.push({no:i + 1, piastres:amt, egp:vcToE(amt)});
+    }
+    var sum = downP + rows.reduce(function(a, r){ return a + r.piastres; }, 0);
+    return {
+      ok: true,
+      totalEgp: vcToE(totalP),
+      downEgp: vcToE(downP),
+      downPct: dpPct,
+      financedEgp: vcToE(financedP),
+      count: n,
+      perYear: perYear,
+      years: years,
+      everyMonths: Math.round(12 / perYear),
+      instalmentEgp: vcToE(each),
+      finalEgp: rows.length ? rows[rows.length - 1].egp : null,
+      rows: rows,
+      reconciles: sum === totalP,
+      sumEgp: vcToE(sum)
+    };
+  }
+
+  /* A unit's own terms beat its project's; a project's beat nothing. Returns
+     null rather than a guess when neither carries a term. */
+  function vcTerms(unit, proj){
+    var u = unit || {}, p = proj || {};
+    var price = (u.price != null) ? u.price : (p.price != null ? p.price : null);
+    var dp    = (u.dp    != null) ? u.dp    : (p.dp    != null ? p.dp    : null);
+    var years = (u.years != null) ? u.years : (p.years != null ? p.years : null);
+    return {price:price, dp:dp, years:years,
+            from:(u.price != null ? 'unit' : (p.price != null ? 'project' : null))};
+  }
+
+  /* ------------------------------------------------------------------
+     TOOLS — read-only, validated, typed.
+
+     Each returns {ok, data} or {ok:false, why}. None of them throws on bad
+     input and none of them invents a value: a field this site does not hold
+     comes back null, and the caller must say "to confirm" rather than fill
+     it in. This is the surface an LLM would be given, and it is deliberately
+     narrow — no free-text query, no write, no network, no id it cannot
+     resolve against a real record.
+     ------------------------------------------------------------------ */
+  var VC_LIMIT = 8;                       // never flood a chat bubble
+
+  function vcInt(v){ var n = parseInt(v, 10); return isFinite(n) ? n : null; }
+  function vcStr(v){ return (typeof v === 'string' && v.trim()) ? v.trim() : null; }
+
+  function vcProjectUrl(slug){
+    var p = projBySlug(slug);
+    return p ? buildPath('project', {slug:p.slug}) : null;
+  }
+
+  function vcCite(p){
+    return {slug:p.slug, label:(lang === 'ar' ? p.name_ar : p.name),
+            href:buildPath('project', {slug:p.slug})};
+  }
+
+  /* search_projects — filter the site's own project list. Every argument is
+     optional; an argument this site has no field for is ignored rather than
+     silently matched. */
+  function vcSearchProjects(args){
+    var a = args || {}, out = PROJECTS.slice();
+    var area = vcStr(a.area), dev = vcStr(a.developer), type = vcStr(a.type);
+    var maxP = a.maxPrice == null ? null : vcInt(a.maxPrice);
+    var minP = a.minPrice == null ? null : vcInt(a.minPrice);
+    var maxDp = a.maxDownPct == null ? null : Number(a.maxDownPct);
+    var minY = a.minYears == null ? null : Number(a.minYears);
+    if(area) out = out.filter(function(p){ return p.area === area; });
+    if(dev)  out = out.filter(function(p){ return p.dev === dev; });
+    if(type) out = out.filter(function(p){
+      return (p.types && p.types.en || '').toLowerCase().indexOf(type.toLowerCase()) > -1; });
+    if(maxP != null) out = out.filter(function(p){ return p.price != null && p.price <= maxP; });
+    if(minP != null) out = out.filter(function(p){ return p.price != null && p.price >= minP; });
+    if(maxDp != null) out = out.filter(function(p){ return p.dp != null && p.dp <= maxDp; });
+    if(minY != null)  out = out.filter(function(p){ return p.years != null && p.years >= minY; });
+    out.sort(function(x, y){
+      if(x.price == null) return 1; if(y.price == null) return -1;
+      return x.price - y.price; });
+    return {ok:true, total:out.length,
+            data:out.slice(0, a.limit ? Math.min(vcInt(a.limit) || VC_LIMIT, 24) : VC_LIMIT)
+                    .map(function(p){
+              return {slug:p.slug, name:(lang === 'ar' ? p.name_ar : p.name),
+                      developer:L(devByKey(p.dev).name), area:L(areaByKey(p.area).name),
+                      priceFrom:p.price == null ? null : p.price,
+                      downPct:p.dp == null ? null : p.dp,
+                      years:p.years == null ? null : p.years,
+                      delivery:p.delivery || null,
+                      href:buildPath('project', {slug:p.slug})};
+            })};
+  }
+
+  /* get_project_details — one project, with its own units attached. */
+  function vcGetProject(slug){
+    var p = projBySlug(vcStr(slug) || '');
+    if(!p) return {ok:false, why:'no-such-project'};
+    var units = UNITS.filter(function(u){ return u.project === p.slug; });
+    return {ok:true, data:{
+      slug:p.slug, name:(lang === 'ar' ? p.name_ar : p.name),
+      developer:L(devByKey(p.dev).name), area:L(areaByKey(p.area).name),
+      priceFrom:p.price == null ? null : p.price,
+      downPct:p.dp == null ? null : p.dp,
+      years:p.years == null ? null : p.years,
+      delivery:p.delivery || null,
+      finishing:p.finishing ? L(p.finishing) : null,
+      types:p.types ? L(p.types) : null,
+      unitCount:units.length,
+      hasBrochure:!!(typeof PROJECT_BROCHURE !== 'undefined' && PROJECT_BROCHURE[p.slug]),
+      href:buildPath('project', {slug:p.slug})
+    }};
+  }
+
+  /* search_units — the priced rows themselves, which is what a buyer asks
+     about. `type` is matched through the site's own type vocabulary so that
+     "تاون هاوس" and "townhouse" reach the same rows. */
+  function vcSearchUnits(args){
+    var a = args || {}, out = UNITS.slice();
+    var slug = vcStr(a.project), canon = a.type ? normalizeUnitType(a.type) : null;
+    var beds = a.beds == null ? null : vcInt(a.beds);
+    var maxP = a.maxPrice == null ? null : vcInt(a.maxPrice);
+    var minA = a.minArea == null ? null : vcInt(a.minArea);
+    if(slug) out = out.filter(function(u){ return u.project === slug; });
+    if(canon && canon !== 'other') out = out.filter(function(u){ return unitCanon(u) === canon; });
+    if(beds != null) out = out.filter(function(u){ return u.beds === beds; });
+    if(maxP != null) out = out.filter(function(u){ return u.price != null && u.price <= maxP; });
+    if(minA != null) out = out.filter(function(u){ return u.area != null && u.area >= minA; });
+    out.sort(function(x, y){
+      if(x.price == null) return 1; if(y.price == null) return -1;
+      return x.price - y.price; });
+    return {ok:true, total:out.length,
+            data:out.slice(0, a.limit ? Math.min(vcInt(a.limit) || VC_LIMIT, 24) : VC_LIMIT)
+                    .map(function(u){
+              var p = projBySlug(u.project) || {};
+              return {id:u.id, project:u.project,
+                      projectName:(lang === 'ar' ? p.name_ar : p.name) || u.project,
+                      type:typeLabel(u.type), beds:u.beds == null ? null : u.beds,
+                      baths:u.baths == null ? null : u.baths,
+                      area:u.area == null ? null : u.area,
+                      areaTo:u.areaTo == null ? null : u.areaTo,
+                      price:u.price == null ? null : u.price,
+                      href:buildPath('project', {slug:u.project})};
+            })};
+  }
+
+  /* calculate_installments — the schedule for one unit or one project, built
+     on the terms that record actually carries. */
+  function vcCalculateInstallments(args){
+    var a = args || {};
+    var unit = a.unitId ? UNITS.filter(function(u){ return u.id === a.unitId; })[0] : null;
+    if(a.unitId && !unit) return {ok:false, why:'no-such-unit'};
+    var proj = projBySlug(vcStr(a.project) || (unit ? unit.project : '') || '');
+    if(!unit && !proj) return {ok:false, why:'no-such-project'};
+    var tm = vcTerms(unit, proj);
+    if(tm.price == null) return {ok:false, why:'no-price'};
+    if(tm.years == null) return {ok:false, why:'no-term'};
+    var s = vcSchedule({price:tm.price, dp:tm.dp, years:tm.years});
+    if(!s.ok) return {ok:false, why:s.why};
+    if(!s.reconciles) return {ok:false, why:'does-not-reconcile'};
+    s.source = tm.from;
+    s.subject = unit ? unit.id : proj.slug;
+    s.href = proj ? buildPath('project', {slug:proj.slug}) : null;
+    return {ok:true, data:s};
+  }
+
+  /* compare_projects — the same fields for each, side by side, with nulls
+     left as nulls so a gap reads as a gap. */
+  function vcCompareProjects(slugs){
+    var list = (slugs || []).map(function(s){ return projBySlug(vcStr(s) || ''); })
+                            .filter(Boolean);
+    if(list.length < 2) return {ok:false, why:'need-two'};
+    return {ok:true, data:list.slice(0, 4).map(function(p){
+      var d = vcGetProject(p.slug).data;
+      var s = (p.price != null && p.years != null)
+            ? vcSchedule({price:p.price, dp:p.dp, years:p.years}) : null;
+      d.instalmentEgp = (s && s.ok) ? s.instalmentEgp : null;
+      d.instalmentCount = (s && s.ok) ? s.count : null;
+      return d;
+    })};
+  }
+
+  /* ------------------------------------------------------------------
+     RETRIEVAL — lexical, over this site's own records.
+
+     No embeddings: a vector index needs a server to build and refresh, and
+     an index that goes stale against a price list is worse than no index.
+     This scores the fields the records actually carry, in both languages,
+     through the site's own Arabic normaliser. It is honest about what it is.
+     ------------------------------------------------------------------ */
+  /* Function words carry no signal, and left in they do real harm: "in" is a
+     substring of half the vocabulary, so "do you sell flats in Tokyo" would
+     score against every record and come back looking like an answer. */
+  var VC_STOP = {the:1, a:1, an:1, of:1, in:1, on:1, at:1, to:1, for:1, and:1, or:1, is:1, are:1,
+    do:1, does:1, did:1, you:1, your:1, me:1, my:1, mine:1, we:1, our:1, us:1, it:1, its:1,
+    what:1, which:1, who:1, how:1, any:1, some:1, all:1, about:1, with:1, have:1, has:1,
+    can:1, could:1, would:1, will:1, tell:1, show:1, give:1, want:1, need:1, looking:1,
+    'هل':1, 'ما':1, 'ماذا':1, 'ايه':1, 'عن':1, 'في':1, 'من':1, 'على':1, 'الى':1, 'مع':1,
+    'عايز':1, 'عاوز':1, 'اريد':1, 'ممكن':1, 'لي':1, 'لك':1, 'هو':1, 'هي':1, 'ده':1, 'دي':1,
+    'كل':1, 'اي':1, 'عندكم':1, 'عندك':1, 'فيه':1, 'وي':1};
+  function vcTokens(q){
+    return arNorm(String(q || '')).toLowerCase()
+      .replace(/[^\p{L}\p{N}\s]/gu, ' ').split(/\s+/)
+      .filter(function(w){ return w.length > 1 && !VC_STOP[w]; });
+  }
+  function vcScore(hay, toks){
+    var h = arNorm(String(hay || '')).toLowerCase();
+    if(!h) return 0;
+    var words = h.replace(/[^\p{L}\p{N}\s]/gu, ' ').split(/\s+/).filter(Boolean), s = 0;
+    toks.forEach(function(w){
+      if(words[0] === w){ s += 2; return; }             // the field leads with it
+      if(words.indexOf(w) > -1){ s += 1; return; }      // a whole word of it
+      /* Inside a word counts only for a token long enough to mean something,
+         so "hekma" still reaches "El Hekma" and a half-typed name retrieves,
+         while "in" and "el" match nothing on their own. */
+      if(w.length >= 4 && h.indexOf(w) > -1) s += 1;
+    });
+    return s;
+  }
+  /* A hit has to clear one whole word of a project's own name, which is the
+     x3 field below. Under that it is noise, and noise returned as a list of
+     projects reads to the user as an answer. */
+  var VC_FLOOR = 3;
+  function vcRetrieve(q, limit){
+    var toks = vcTokens(q);
+    if(!toks.length) return [];
+    return PROJECTS.map(function(p){
+      var dev = devByKey(p.dev) || {name:{en:'',ar:''}};
+      var area = areaByKey(p.area) || {name:{en:'',ar:''}};
+      var s = vcScore(p.name, toks) * 3 + vcScore(p.name_ar, toks) * 3
+            + vcScore(L(dev.name), toks) * 2 + vcScore(L(area.name), toks) * 2
+            + vcScore(p.types ? L(p.types) : '', toks)
+            + vcScore(p.blurb ? L(p.blurb) : '', toks);
+      return {p:p, s:s};
+    }).filter(function(r){ return r.s >= VC_FLOOR; })
+      .sort(function(a, b){ return b.s - a.s; })
+      .slice(0, limit || 5)
+      .map(function(r){ return {project:r.p, score:r.s, cite:vcCite(r.p)}; });
+  }
+
+  /* ------------------------------------------------------------------
+     QUERY ROUTER — classify before retrieving.
+
+     Exact questions go to a structured lookup, descriptive ones to
+     retrieval, arithmetic to the validated schedule above. The point is to
+     avoid asking a model for something the data already answers exactly.
+     ------------------------------------------------------------------ */
+  var VC_PAT = [
+    ['handoff',    /(advisor|agent|human|call me|whatsapp|contact|مستشار|اتصال|تواصل|واتساب|واتس|كلمني|مندوب)/i],
+    ['compare',    /(compare|versus|\bvs\b|difference between|قارن|مقارنة|الفرق بين|ايهما افضل|أيهما أفضل)/i],
+    ['payment',    /(instal|instalment|installment|payment plan|down ?payment|deposit|monthly|quarterly|قسط|تقسيط|سداد|دفعة|مقدم|شهري|ربع ?سنوي)/i],
+    ['budget',     /(budget|afford|under|cheaper|cheapest|ميزانية|ميزانيتي|ارخص|أرخص|اقل من|أقل من|في حدود)/i],
+    ['recommend',  /(recommend|suggest|shortlist|best fit|advise|رشح|رشّح|اقترح|الانسب|الأنسب|المناسب|ساعدني اختار|ساعدني أختار)/i],
+    ['unitsearch', /(unit|apartment|villa|townhouse|chalet|duplex|penthouse|وحدة|وحدات|شقة|شقق|فيلا|فيلات|تاون|شاليه|دوبلكس|بنتهاوس)/i],
+    ['launch',     /(launch|new launch|newly|إطلاق|اطلاق|جديد|الجديدة)/i],
+    ['area',       /(area|location|where|district|منطقة|مناطق|مكان|فين|وين|في اي)/i],
+    ['developer',  /(developer|who built|مطور|مطوّر|مطورين|المطوّرين)/i]
+  ];
+  /* A query that names one of the site's own areas is an area question even
+     when it uses no word like "area" — "\u0645\u0634\u0631\u0648\u0639\u0627\u062a \u0641\u064a \u0627\u0644\u062a\u062c\u0645\u0639" names a place and
+     nothing else. Checked against AREAS rather than a word list, so it
+     follows the data instead of needing to be kept in step with it. */
+  function vcNamedArea(q){
+    var nq = arNorm(String(q || '')).toLowerCase();
+    if(!nq) return null;
+    var best = null;
+    AREAS.forEach(function(a){
+      [a.name.en, a.name.ar].forEach(function(nm){
+        var n = arNorm(String(nm || '')).toLowerCase();
+        if(!n) return;
+        /* The whole name wins outright. Failing that, a distinctive word of
+           it counts: a user who types "\u0645\u0634\u0631\u0648\u0639\u0627\u062a \u0641\u064a \u0627\u0644\u062a\u062c\u0645\u0639" has named
+           "\u0627\u0644\u062a\u062c\u0645\u0639 \u0627\u0644\u062e\u0627\u0645\u0633" without typing all of it. Four characters is the
+           floor, which keeps "new", "el" and "\u0641\u064a" out of it. */
+        var hit = 0;
+        if(n.length > 2 && nq.indexOf(n) > -1) hit = n.length + 10;
+        else n.split(/\s+/).forEach(function(w){
+          if(w.length >= 4 && nq.indexOf(w) > -1 && w.length > hit) hit = w.length;
+        });
+        if(hit && (!best || hit > best.len)) best = {key:a.key, len:hit};
+      });
+    });
+    return best ? best.key : null;
+  }
+  function vcRoute(q){
+    var s = String(q || '');
+    for(var i = 0; i < VC_PAT.length; i++) if(VC_PAT[i][1].test(s)) return VC_PAT[i][0];
+    if(vcNamedArea(s)) return 'area';
+    if(vcRetrieve(s, 1).length) return 'lookup';
+    return 'unsupported';
+  }
+
+  /* ------------------------------------------------------------------
+     CONVERSATION STATE — enough to resolve "المشروع ده" and "قارنلي بالتاني".
+
+     Held in memory for the session only. Nothing is written to storage, so
+     there is no conversation to leak and nothing to retain; when a server
+     exists and history is wanted, that is a decision with a privacy policy
+     attached, not a default.
+     ------------------------------------------------------------------ */
+  var VC_CTX = {lastProject:null, lastProjects:[], lastIntent:null, turns:0};
+  function vcRemember(slug){
+    if(!slug) return;
+    VC_CTX.lastProject = slug;
+    if(VC_CTX.lastProjects[0] !== slug) VC_CTX.lastProjects.unshift(slug);
+    VC_CTX.lastProjects = VC_CTX.lastProjects.slice(0, 4);
+  }
+  function vcResolveRef(q){
+    // "this project", "it", "المشروع ده", "التاني" — only ever resolves to
+    // something already named in this conversation, never to a guess.
+    if(/(this project|that one|it\b|المشروع ده|ده|دي|هو|هي)/i.test(String(q || '')) && VC_CTX.lastProject)
+      return VC_CTX.lastProject;
+    return null;
+  }
+  function vcReset(){ VC_CTX = {lastProject:null, lastProjects:[], lastIntent:null, turns:0}; }
+
+  /* ------------------------------------------------------------------
+     PROVIDER BOUNDARY — defined, not implemented, and deliberately so.
+
+     `send` must be implemented server-side. Until it is, `configured` is
+     false and the router answers deterministically. No key, no endpoint and
+     no system prompt lives in this file, because this file ships to every
+     browser that opens the site.
+     ------------------------------------------------------------------ */
+  var vcProvider = {
+    configured: false,
+    endpoint: null,          // set by a server build; never a provider URL
+    model: null,
+    /* The shape a turn would take. Kept here so the contract is reviewable
+       before anything is wired, and so the tool surface below is the only
+       thing a model is ever offered. */
+    tools: ['search_projects', 'get_project_details', 'search_units',
+            'compare_projects', 'calculate_installments', 'get_project_page_url'],
+    send: function(){ return Promise.reject(new Error('village-chat: no provider configured')); }
+  };
+  /* The dispatcher a server-side model would call back into. It accepts only
+     the names above and validates every argument through the tools, so a
+     model cannot reach a record the tools do not expose. */
+  function vcCallTool(name, args){
+    switch(name){
+      case 'search_projects':        return vcSearchProjects(args);
+      case 'get_project_details':    return vcGetProject(args && args.slug);
+      case 'search_units':           return vcSearchUnits(args);
+      case 'compare_projects':       return vcCompareProjects(args && args.slugs);
+      case 'calculate_installments': return vcCalculateInstallments(args);
+      case 'get_project_page_url':   var u = vcProjectUrl(args && args.slug);
+                                     return u ? {ok:true, data:{href:u}} : {ok:false, why:'no-such-project'};
+      default:                       return {ok:false, why:'no-such-tool'};
+    }
+  }

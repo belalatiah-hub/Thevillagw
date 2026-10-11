@@ -1,10 +1,14 @@
   /* ==================================================================
-     GUIDED SITE ASSISTANT
-     A deterministic assistant grounded ONLY in this site's real content
-     (projects, developers, areas, units, payment info, FAQs). It never
-     invents facts; when it can't answer it hands off to WhatsApp or the
-     client registration form. (A real LLM would need a backend + the AI
-     governance in the contract; this is the approved guided fallback.)
+     VILLAGE CHAT — the interface
+     Grounded ONLY in this site's own records (projects, developers, areas,
+     units, published payment terms, FAQs). Classification and every figure
+     come from the engine in tpl_script_vchat.html: this file renders, it
+     does not decide and it does not calculate. When there is no verified
+     answer it says so and hands off to WhatsApp or the registration form.
+
+     No provider key and no system prompt live here, because this file ships
+     to every browser that opens the site. vcProvider.configured is false
+     until a server exists to hold them; see that file's own header.
      ================================================================== */
   var chatEls = null;
   function chatBuild(){
@@ -14,21 +18,40 @@
     var panel=h('aside',{class:'chat-panel', role:'dialog','aria-label':t('chat_title'),'aria-hidden':'true'});
     var titleEl=h('h3',null,t('chat_title')), subEl=h('p',null,t('chat_sub'));
     var closeB=h('button',{class:'x', type:'button','aria-label':t('a_close')}, svg('M6 6l12 12M18 6L6 18'));
-    var head=h('div',{class:'chat-head'}, h('div',{class:'av'}, svg(ICON.spark)), h('div',null, titleEl, subEl), closeB);
-    var body=h('div',{class:'chat-body'});
+    var clearB=h('button',{class:'chat-head__clear', type:'button','aria-label':t('chat_clear'), title:t('chat_clear')},
+      svg('M4 7h16M9 7V5h6v2M7 7l1 13h8l1-13'));
+    var head=h('div',{class:'chat-head'}, h('div',{class:'av'}, svg(ICON.spark)),
+      h('div',{class:'chat-head__id'}, titleEl, subEl), clearB, closeB);
+    /* The transcript is a live region so a screen reader hears each answer
+       as it lands, and polite so it does not interrupt the user typing. */
+    var body=h('div',{class:'chat-body', role:'log','aria-live':'polite','aria-relevant':'additions text'});
     var chips=h('div',{class:'chat-chips'});
     var input=h('input',{type:'text','aria-label':t('chat_ph'), placeholder:t('chat_ph'), autocomplete:'off'});
     var sendB=h('button',{type:'submit','aria-label':t('a_send')}, svg(ICON.send));
     var form=h('form',{class:'chat-input'}, input, sendB);
-    panel.appendChild(head); panel.appendChild(body); panel.appendChild(chips); panel.appendChild(form);
+    var note=h('p',{class:'chat-foot'}, t('chat_ai'));
+    panel.appendChild(head); panel.appendChild(body); panel.appendChild(chips);
+    panel.appendChild(form); panel.appendChild(note);
     document.body.appendChild(fab); document.body.appendChild(panel);
-    chatEls={fab:fab, fabLbl:fab.querySelector('.lbl'), panel:panel, title:titleEl, sub:subEl, body:body, chips:chips, input:input, closeB:closeB, sendB:sendB};
+    chatEls={fab:fab, fabLbl:fab.querySelector('.lbl'), panel:panel, title:titleEl, sub:subEl,
+             body:body, chips:chips, input:input, closeB:closeB, sendB:sendB, clearB:clearB,
+             note:note, busy:false, lastQ:null};
     fab.addEventListener('click', chatOpen);
     closeB.addEventListener('click', chatClose);
+    clearB.addEventListener('click', chatClear);
     form.addEventListener('submit', function(e){ e.preventDefault(); chatUserSend(input.value); });
     panel.addEventListener('click', function(e){ if(e.target.closest('a')) chatClose(); });
     document.addEventListener('keydown', function(e){ if(e.key==='Escape' && panel.classList.contains('open')) chatClose(); });
     chatRefresh();
+  }
+  /* Clearing drops the conversation memory too, so a reference like
+     "المشروع ده" cannot survive into a conversation that never named it. */
+  function chatClear(){
+    if(!chatEls) return;
+    vcReset(); clear(chatEls.body); chatEls.lastQ=null;
+    chatRefresh();
+    chatEls.input.focus();
+    track('village_chat_clear');
   }
   /* Floating "Compare" pill — sits above the Ask-us FAB, hidden until at least
      one unit is in the compare tray, then fades/slides in (glass + hover lift). */
@@ -56,18 +79,34 @@
     chatEls.sub.textContent=t('chat_sub'); chatEls.input.setAttribute('placeholder', t('chat_ph'));
     chatEls.fab.setAttribute('aria-label', t('chat_open')); chatEls.closeB.setAttribute('aria-label', t('a_close')); chatEls.sendB.setAttribute('aria-label', t('a_send'));
     chatEls.input.setAttribute('aria-label', t('chat_ph'));
+    chatEls.clearB.setAttribute('aria-label', t('chat_clear'));
+    chatEls.clearB.setAttribute('title', t('chat_clear'));
+    chatEls.note.textContent=t('chat_ai');
     clear(chatEls.chips);
     if(hasSelection(FILTER)){
       var rb=h('button',{type:'button', class:'chip-key'}, t('chat_reco'));
       rb.addEventListener('click', function(){ chatPush(h('div',{class:'msg user'}, t('chat_reco'))); chatPush(chatRecommend()); });
       chatEls.chips.appendChild(rb);
     }
-    ['chat_c1','chat_c2','chat_c3','chat_c4'].forEach(function(k){
+    // Six suggested prompts, each one a question the engine can actually answer.
+    ['chat_c1','chat_c2','chat_c3','chat_c4','chat_c5','chat_c6'].forEach(function(k){
       var b=h('button',{type:'button'}, t(k)); b.addEventListener('click', function(){ chatUserSend(t(k)); }); chatEls.chips.appendChild(b); });
     if(!chatEls.body.children.length){
-      chatPush(chatMsg(t('chat_hello')));
+      chatPush(chatWelcome());
       if(hasSelection(FILTER)) chatPush(chatMsg((lang==='ar'?'أرى أنك تبحث عن: ':'I can see you’re looking at: ')+selectionSummary(FILTER)+(lang==='ar'?' — اضغط «رشّح من اختياري».':' — tap “Recommend from my selection”.')));
     }
+  }
+  /* The welcome names what the assistant is and what it is grounded in,
+     with the dataset's real size rather than a claim about its abilities. */
+  function chatWelcome(){
+    var w=h('div',{class:'chat-welcome'},
+      h('div',{class:'chat-welcome__av'}, svg(ICON.spark)),
+      h('p',{class:'chat-welcome__t'}, t('chat_hello')));
+    w.appendChild(h('p',{class:'chat-welcome__n'},
+      num(PROJECTS.length)+' '+(lang==='ar'?'مشروع':'projects')+' · '+
+      num(UNITS.length)+' '+(lang==='ar'?'وحدة':'units')+' · '+
+      num(DEVELOPERS.length)+' '+(lang==='ar'?'مطوّر':'developers')));
+    return w;
   }
   function chatPush(node){ chatEls.body.appendChild(node); chatEls.body.scrollTop=chatEls.body.scrollHeight; }
   function chatMsg(){ var m=h('div',{class:'msg bot'}); for(var i=0;i<arguments.length;i++){ if(arguments[i]!=null && arguments[i]!==false) append(m, arguments[i]); } return m; }
@@ -132,11 +171,73 @@
     row.appendChild(h('a',{class:'btn btn--primary btn--sm', href:U(buildPath('contact'))}, t('chat_leave')));
     return row;
   }
+  /* ---- Turn-taking -----------------------------------------------------
+     The indicator marks the one asynchronous boundary in a turn: the point
+     where vcProvider.send would be awaited once a server holds the key. The
+     delay is short and fixed, it is not a simulation of thinking, and the
+     answer underneath it is composed synchronously from this site's records. */
+  function chatTyping(){
+    var dots=h('div',{class:'chat-typing', role:'status','aria-label':t('vc_typing')},
+      h('span'), h('span'), h('span'));
+    return dots;
+  }
   function chatUserSend(text){
-    text=(text||'').trim(); if(!text || !chatEls) return;
+    text=(text||'').trim(); if(!text || !chatEls || chatEls.busy) return;
+    var first=!chatEls.body.querySelector('.msg.user');
     chatPush(h('div',{class:'msg user'}, text));
-    chatEls.input.value='';
-    chatPush(chatRespond(text) || chatActions(t('chat_noanswer')));
+    chatEls.input.value=''; chatEls.lastQ=text;
+    chatEls.busy=true; chatEls.sendB.disabled=true;
+    var dots=chatTyping(); chatPush(dots);
+    track('village_chat_ask', {intent:vcRoute(text), first:first});
+    setTimeout(function(){
+      var node;
+      try{ node=chatRespond(text); }
+      catch(e){ node=null; if(window.console) console.error('village-chat', e); }
+      if(dots.parentNode) dots.parentNode.removeChild(dots);
+      chatPush(chatTools(node || chatActions(t('chat_noanswer'))));
+      chatEls.busy=false; chatEls.sendB.disabled=false;
+    }, 260);
+  }
+  /* Copy, retry and feedback, attached to the answer they belong to. The
+     feedback is counted through the existing analytics call and is not
+     stored with the message, so there is no transcript being retained. */
+  function chatTools(node){
+    if(!node || !node.appendChild) return node;
+    var bar=h('div',{class:'chat-tools'});
+    var copyB=h('button',{type:'button', class:'chat-tools__b'}, t('chat_copy'));
+    copyB.addEventListener('click', function(){
+      // The bar itself is inside the bubble, so it is stripped before copying.
+      var cl=node.cloneNode(true), b=cl.querySelector('.chat-tools');
+      if(b) b.parentNode.removeChild(b);
+      var txt=(cl.innerText || cl.textContent || '').replace(/\n{3,}/g,'\n\n').trim();
+      var mark=function(){ copyB.textContent=t('chat_copied');
+        setTimeout(function(){ copyB.textContent=t('chat_copy'); }, 1600); };
+      try{
+        if(navigator.clipboard && navigator.clipboard.writeText)
+          navigator.clipboard.writeText(txt).then(mark, function(){ copyFallback(txt, mark); });
+        else copyFallback(txt, mark);
+      }catch(e){ copyFallback(txt, mark); }
+    });
+    bar.appendChild(copyB);
+    if(chatEls && chatEls.lastQ){
+      var q=chatEls.lastQ;
+      var retryB=h('button',{type:'button', class:'chat-tools__b'}, t('chat_retry'));
+      retryB.addEventListener('click', function(){ chatUserSend(q); });
+      bar.appendChild(retryB);
+    }
+    var up=h('button',{type:'button', class:'chat-tools__b chat-tools__b--ic','aria-label':t('chat_useful'), title:t('chat_useful')}, svg('M7 11v9H4v-9h3m0 0 4-8a2 2 0 0 1 3 2l-1 6h4a2 2 0 0 1 2 2.4l-1.3 6A2 2 0 0 1 14 21H7'));
+    var dn=h('button',{type:'button', class:'chat-tools__b chat-tools__b--ic','aria-label':t('chat_notuseful'), title:t('chat_notuseful')}, svg('M17 13V4h3v9h-3m0 0-4 8a2 2 0 0 1-3-2l1-6H6a2 2 0 0 1-2-2.4l1.3-6A2 2 0 0 1 10 3h7'));
+    function vote(v){
+      return function(){
+        track('village_chat_feedback', {useful:v, intent:VC_CTX.lastIntent});
+        up.disabled=true; dn.disabled=true;
+        bar.appendChild(h('span',{class:'chat-tools__ok'}, t('chat_thanks')));
+      };
+    }
+    up.addEventListener('click', vote(true)); dn.addEventListener('click', vote(false));
+    bar.appendChild(up); bar.appendChild(dn);
+    node.appendChild(bar);
+    return node;
   }
   /* ==================================================================
      INSTANT OFFER
@@ -289,44 +390,259 @@
     });
     return best;
   }
+  /* ---- Named-entity resolution over the question ---------------------
+     The router says what *kind* of question it is; these say *which record*
+     it is about. Kept separate so an intent can ask for the project without
+     re-implementing the matching. */
+  function vcProjIn(q){
+    var p=bestNameMatch(arNorm(q), PROJECTS, function(x){ return [x.name, x.name_ar]; });
+    if(p) return p;
+    var slug=vcResolveRef(q);                      // "المشروع ده" / "this project"
+    return slug ? projBySlug(slug) : null;
+  }
+  /* Every project the question names, longest-match first, for "compare X and Y".
+     Matched by stripping each hit out and looking again, so two names in one
+     sentence both land instead of the longer one hiding the shorter. */
+  function vcProjsIn(q){
+    var nq=arNorm(q), found=[], guard=0;
+    while(guard++ < 4){
+      var p=bestNameMatch(nq, PROJECTS, function(x){ return [x.name, x.name_ar]; });
+      if(!p) break;
+      if(found.indexOf(p)<0) found.push(p);
+      var cut=[p.name, p.name_ar].map(arNorm).filter(function(n){ return n && nq.indexOf(n)>-1; })
+                                 .sort(function(a,b){ return b.length-a.length; })[0];
+      if(!cut) break;
+      nq=nq.split(cut).join(' ');
+    }
+    return found;
+  }
+  // A budget written as a bare number: "٣ مليون" and "3000000" both count.
+  function vcBudgetIn(q){
+    var s=String(q).replace(/[٠-٩]/g, function(d){ return String(d.charCodeAt(0)-1632); });
+    var mn=s.match(/(\d+(?:\.\d+)?)\s*(million|mn|m\b|مليون)/i);
+    if(mn) return Math.round(parseFloat(mn[1])*1000000);
+    var n=(s.replace(/[,\s]/g,'').match(/(\d{5,})/)||[])[1];
+    return n ? parseInt(n,10) : null;
+  }
+  function vcTypeIn(q){
+    var ql=q.toLowerCase();
+    return Object.keys(TYPE_META).filter(function(k){
+      return ql.indexOf(k.toLowerCase())>-1 || q.indexOf(TYPE_META[k].ar)>-1; })[0] || null;
+  }
+
+  /* ---- A real payment schedule, not a sentence about payment schedules.
+     vcCalculateInstallments reconciles to the piastre or refuses; this only
+     renders what it returns, and prints its refusal when it refuses. */
+  function vcSchedMsg(p, unit){
+    var r=vcCallTool('calculate_installments', unit?{unitId:unit.id}:{project:p.slug});
+    if(!r.ok){
+      var why=r.why==='no-price' ? t('vc_noprice') : t('vc_noterms');
+      var box=chatMsg(L({en:p.name, ar:p.name_ar})+' — '+why);
+      box.appendChild(h('div',{style:'margin-top:8px'}, chatLink(L({en:p.name, ar:p.name_ar}), buildPath('project',{slug:p.slug}))));
+      return box;
+    }
+    var s=r.data, rows=h('div',{class:'vc-sched'});
+    function row(k,v){ rows.appendChild(h('div',{class:'vc-sched__r'}, h('span',null,k), h('b',null,v))); }
+    row(t('dp'), money(s.downEgp)+(s.downPct?(' · '+num(s.downPct)+'%'):''));
+    row(t('vc_instal'), money(s.instalmentEgp)+' × '+num(s.count)+' '+
+        (s.perYear===4?t('vc_quarter'):s.perYear===12?t('vc_month'):t('vc_instals')));
+    if(s.finalEgp!==s.instalmentEgp) row(t('vc_final'), money(s.finalEgp));
+    row(t('calc_total'), money(s.financedEgp));
+    var box=chatMsg(t('vc_sched')+' — '+L({en:p.name, ar:p.name_ar})+
+      ' · '+num(s.years)+' '+(lang==='ar'?'سنوات':'years'));
+    box.appendChild(rows);
+    box.appendChild(h('div',{class:'chat-illus',style:'margin-top:7px'},
+      (s.source==='unit'?t('vc_src_unit'):t('vc_src_proj'))+' · '+t('calc_note')));
+    box.appendChild(h('div',{style:'margin-top:8px'}, chatLink(L({en:p.name, ar:p.name_ar}), buildPath('project',{slug:p.slug}))));
+    vcRemember(p.slug);
+    return box;
+  }
+
+  /* ---- Side by side, with gaps left as gaps ---- */
+  function vcCompareMsg(list){
+    var r=vcCallTool('compare_projects', {slugs:list.map(function(p){ return p.slug; })});
+    if(!r.ok) return null;
+    var box=chatMsg(t('nav_compare')+' — '+r.data.map(function(d){ return d.name; }).join(' · '));
+    var tbl=h('div',{class:'vc-cmp'});
+    function line(label, pick){
+      var rw=h('div',{class:'vc-cmp__r'}, h('span',{class:'vc-cmp__k'}, label));
+      r.data.forEach(function(d){ rw.appendChild(h('span',{class:'vc-cmp__v'}, pick(d)||'—')); });
+      tbl.appendChild(rw);
+    }
+    line(t('from'),     function(d){ return d.priceFrom!=null?money(d.priceFrom):null; });
+    line(t('dp'),       function(d){ return d.downPct!=null?num(d.downPct)+'%':null; });
+    line(t('years'),    function(d){ return d.years!=null?num(d.years)+' '+(lang==='ar'?'سنوات':'years'):null; });
+    line(t('vc_instal'),function(d){ return d.instalmentEgp!=null?money(d.instalmentEgp):null; });
+    line(t('delivery'), function(d){ return d.delivery!=null?num(d.delivery):null; });
+    line(t('nav_areas'),function(d){ return d.area; });
+    box.appendChild(tbl);
+    box.appendChild(h('div',{class:'chat-illus',style:'margin-top:7px'}, t('calc_note')));
+    var row=h('div',{style:'display:flex;gap:6px;flex-wrap:wrap;margin-top:9px'});
+    r.data.forEach(function(d){ row.appendChild(h('a',{class:'btn btn--ghost btn--sm', href:U(d.href)}, d.name)); });
+    box.appendChild(row);
+    r.data.forEach(function(d){ vcRemember(d.slug); });
+    return box;
+  }
+
+  // The site's own records, cited. Used when retrieval answered rather than a rule.
+  function vcCiteRow(hits){
+    if(!hits.length) return null;
+    var row=h('div',{class:'vc-cites'}, h('span',{class:'vc-cites__k'}, t('vc_src')+':'));
+    hits.slice(0,3).forEach(function(hit){
+      row.appendChild(h('a',{class:'vc-cites__a', href:U(hit.cite.href)}, hit.cite.label)); });
+    return row;
+  }
+
+  /* ==================================================================
+     THE ANSWER PATH
+     vcRoute classifies, the tool layer answers, this renders. Every branch
+     ends in a record the site publishes or in an honest refusal — there is
+     no branch that writes a number of its own.
+     ================================================================== */
   function chatRespond(raw){
-    var q=raw.trim(), ql=q.toLowerCase(), nq=arNorm(q);
-    if(/(recommend|suggest|shortlist|best fit|match me|for me|رشّ?ح|اقترح|الأنسب|المناسب|قائمة مختارة)/.test(ql)) return chatRecommend();
-    if(/(advisor|agent|human|call|phone|whatsapp|contact|register|مستشار|اتصال|تواصل|واتساب|واتس|كلم|سجل|بيانات)/.test(ql)) return chatActions(lang==='ar'?'يسعدنا مساعدتك مباشرة:':'Happy to help you directly:');
-    if(/(payment|install|plan|deposit|قسط|تقسيط|سداد|دفعة|مقدم)/.test(ql)){
-      var maxY=Math.max.apply(null, PROJECTS.map(function(p){ return p.years||0; }))||7;   // derived from data, never overstated
-      return chatMsg((lang==='ar'
-        ? ('توفّر The Village خطط سداد مرنة تصل حتى '+num(maxY)+' سنوات على وحدات مختارة، ويختلف المقدم والمدة حسب المشروع والمطوّر. ')
-        : ('The Village offers flexible payment plans up to '+maxY+' years on selected units; the down payment and duration vary by project and developer. ')),
+    var q=raw.trim(), ql=q.toLowerCase();
+    var intent=vcRoute(q);
+    VC_CTX.lastIntent=intent; VC_CTX.turns++;
+
+    if(intent==='handoff') return chatActions(lang==='ar'?'يسعدنا مساعدتك مباشرة:':'Happy to help you directly:');
+
+    if(intent==='compare'){
+      var two=vcProjsIn(q);
+      if(two.length<2 && VC_CTX.lastProjects.length>=2)
+        two=VC_CTX.lastProjects.slice(0,2).map(projBySlug).filter(Boolean);
+      if(two.length>=2){ var cmp=vcCompareMsg(two); if(cmp) return cmp; }
+      /* Only one of the two names landed. Answer on the one it did recognise,
+         then say plainly that it needs the other — rather than comparing it
+         against a project the user never named. */
+      if(two.length===1){
+        var one=vcSchedMsg(two[0], null);
+        one.appendChild(h('div',{style:'margin-top:8px;font-weight:600'}, t('vc_which')));
+        return one;
+      }
+      return chatMsg(t('vc_which'));
+    }
+
+    if(intent==='payment'){
+      var pp=vcProjIn(q);
+      if(pp) return vcSchedMsg(pp, null);
+      // No project named: answer with the range the data actually carries,
+      // then offer the cheapest published plans rather than a vague promise.
+      var yrs=PROJECTS.map(function(p){ return p.years||0; });
+      var maxY=Math.max.apply(null, yrs)||0;
+      var low=vcCallTool('search_projects', {maxDownPct:10, minYears:Math.min(8,maxY)||1, limit:5});
+      var box=chatMsg(lang==='ar'
+        ? ('خطط السداد تختلف حسب المشروع والمطوّر، وأطول مدة معلنة عندنا '+num(maxY)+' سنوات. اسألني عن مشروع بالاسم وأعطيك جدول السداد بالتفصيل.')
+        : ('Payment plans vary by project and developer; the longest published here is '+num(maxY)+' years. Name a project and I’ll give you its schedule in full.'));
+      if(low.ok && low.data.length){
+        var ul=h('div',{style:'margin-top:8px;display:flex;flex-direction:column;gap:5px'});
+        low.data.forEach(function(d){ ul.appendChild(h('a',{class:'unit-mini', href:U(d.href)},
+          d.name+' · '+(d.downPct!=null?num(d.downPct)+'% '+t('dp'):'')+(d.years!=null?' · '+num(d.years)+' '+(lang==='ar'?'سنوات':'years'):''))); });
+        box.appendChild(ul);
+      }
+      box.appendChild(h('div',{style:'margin-top:7px'},
         h('em',{class:'chat-illus'}, t('illustrative_short')), ' ',
-        chatLink(t('nav_faqs'), buildPath('faqs')));
+        chatLink(t('nav_faqs'), buildPath('faqs'))));
+      return box;
     }
-    // Most specific first: a project name beats the developer or area it sits in.
-    var proj=bestNameMatch(nq, PROJECTS, function(p){ return [p.name, p.name_ar]; });
-    if(proj) return projectOffer(proj);
-    var dev=bestNameMatch(nq, DEVELOPERS, function(d){ return [d.name.en, d.name.ar]; });
-    if(dev){
-      var dl=projByDev(dev.key);
-      var off=listOffer('dev', L(dev.name), num(dl.length)+' '+(lang==='ar'?'مشروعات':'projects'),
-        dl, buildPath('developer',{slug:dev.key}));
-      if(off) return off;
+
+    if(intent==='budget'){
+      var b=vcBudgetIn(q);
+      if(b==null) return chatRecommend();
+      var res=vcCallTool('search_projects', {maxPrice:b, limit:6});
+      if(!res.ok || !res.data.length)
+        return chatActions(lang==='ar'
+          ? ('لا يوجد مشروع بسعر معلن حتى '+money(b)+'. يمكن للمستشار اقتراح البديل الأقرب.')
+          : ('No project here publishes a price at or under '+money(b)+'. An advisor can suggest the nearest alternative.'));
+      var bbox=chatMsg((lang==='ar'?'ضمن ':'Within ')+money(b)+' — '+
+        num(res.total)+' '+(lang==='ar'?'مشروع':'projects')+':');
+      var bul=h('div',{style:'margin-top:8px;display:flex;flex-direction:column;gap:5px'});
+      res.data.forEach(function(d){ bul.appendChild(h('a',{class:'unit-mini', href:U(d.href)},
+        d.name+' · '+t('from')+' '+money(d.priceFrom)+' · '+t('conf_illustrative'))); vcRemember(d.slug); });
+      bbox.appendChild(bul);
+      return bbox;
     }
-    var area=bestNameMatch(nq, AREAS, function(a){ return [a.name.en, a.name.ar]; });
-    if(area){
-      var al=projInArea(area.key);
-      var aoff=listOffer('area', L(area.name), num(al.length)+' '+(lang==='ar'?'مشروعات':'projects'),
-        al, buildPath('area',{slug:area.key}));
-      if(aoff) return aoff;
+
+    if(intent==='recommend') return chatRecommend();
+
+    // A named project outranks a generic list: "units in Creek Town" is about
+    // Creek Town, not about units in general.
+    var named=vcProjIn(q);
+    if(intent==='unitsearch'){
+      var tk=vcTypeIn(q);
+      var ures=vcCallTool('search_units', {project:named?named.slug:null, type:tk, limit:6});
+      if(ures.ok && ures.data.length){
+        var ubox=chatMsg((named?L({en:named.name, ar:named.name_ar})+' — ':'')+
+          (tk?typeLabel(tk)+' · ':'')+num(ures.total)+' '+(lang==='ar'?'وحدة':'units')+':');
+        var uul=h('div',{style:'margin-top:8px;display:flex;flex-direction:column;gap:5px'});
+        ures.data.forEach(function(d){ uul.appendChild(h('a',{class:'unit-mini', href:U(d.href)},
+          d.type+(d.beds!=null?' · '+num(d.beds)+' '+(lang==='ar'?'غرف':'beds'):'')+
+          (d.area!=null?' · '+num(d.area)+' m²':'')+
+          (d.price!=null?' · '+money(d.price):'')+' — '+d.projectName)); });
+        ubox.appendChild(uul);
+        ubox.appendChild(h('div',{class:'chat-illus',style:'margin-top:6px'}, t('conf_illustrative')));
+        if(named) vcRemember(named.slug);
+        return ubox;
+      }
+      if(named) return projectOffer(named);
+      if(tk){ var toff=typeOffer(tk); if(toff) return toff; }
     }
-    var tk=Object.keys(TYPE_META).filter(function(k){ return ql.indexOf(k.toLowerCase())>-1 || q.indexOf(TYPE_META[k].ar)>-1; })[0];
-    if(tk){ var toff=typeOffer(tk); if(toff) return toff; }
-    if(/(launch|new launch|newly|إطلاق|اطلاق|جديد)/.test(ql)) return chatList(t('chat_found'), newLaunchProjects().map(function(p){ return {label:(lang==='ar'?p.name_ar:p.name), href:buildPath('project',{slug:p.slug})}; }));
-    var m=(ql.replace(/[,\s]/g,'').match(/(\d{5,})/)||[])[1];
-    if(m){ var b=parseInt(m,10); var under=PROJECTS.filter(function(p){return p.price!=null && p.price<=b;}); if(under.length) return chatList(lang==='ar'?'مشروعات ضمن ميزانيتك:':'Projects within your budget:', under.map(function(p){ return {label:(lang==='ar'?p.name_ar:p.name)+' · '+t('from')+' '+money(p.price)+' · '+t('conf_illustrative'), href:buildPath('project',{slug:p.slug})}; })); }
+
+    if(intent==='launch') return chatList(t('chat_found'), newLaunchProjects().map(function(p){ return {label:(lang==='ar'?p.name_ar:p.name), href:buildPath('project',{slug:p.slug})}; }));
+
+    if(intent==='area'){
+      if(named) return projectOffer(named);
+      var ak=vcNamedArea(q) || (bestNameMatch(arNorm(q), AREAS, function(a){ return [a.name.en, a.name.ar]; })||{}).key;
+      if(ak){
+        var ao=areaByKey(ak), al=projInArea(ak);
+        var aoff=listOffer('area', L(ao.name), num(al.length)+' '+(lang==='ar'?'مشروعات':'projects'),
+          al, buildPath('area',{slug:ak}));
+        if(aoff){ al.slice(0,4).forEach(function(p){ vcRemember(p.slug); }); return aoff; }
+      }
+      return chatList(t('chat_found'), AREAS.map(function(a){ return {label:L(a.name), href:buildPath('area',{slug:a.key})}; }));
+    }
+
+    if(intent==='developer'){
+      var dv=bestNameMatch(arNorm(q), DEVELOPERS, function(d){ return [d.name.en, d.name.ar]; });
+      if(dv){
+        var dl=projByDev(dv.key);
+        var off=listOffer('dev', L(dv.name), num(dl.length)+' '+(lang==='ar'?'مشروعات':'projects'),
+          dl, buildPath('developer',{slug:dv.key}));
+        if(off) return off;
+      }
+      return chatList(t('chat_found'), DEVELOPERS.map(function(d){ return {label:L(d.name), href:buildPath('developer',{slug:d.key})}; }));
+    }
+
+    /* lookup — most specific record first. A project name beats the developer
+       and the area it sits inside, and all three beat the generic "who are
+       you" rule: "tell me about Modon" is a question about Modon. */
+    if(named){ vcRemember(named.slug); return projectOffer(named); }
+    var dvl=bestNameMatch(arNorm(q), DEVELOPERS, function(d){ return [d.name.en, d.name.ar]; });
+    if(dvl){
+      var dll=projByDev(dvl.key);
+      var doff=listOffer('dev', L(dvl.name), num(dll.length)+' '+(lang==='ar'?'مشروعات':'projects'),
+        dll, buildPath('developer',{slug:dvl.key}));
+      if(doff) return doff;
+    }
+    var arl=bestNameMatch(arNorm(q), AREAS, function(a){ return [a.name.en, a.name.ar]; });
+    if(arl){
+      var all=projInArea(arl.key);
+      var aoff2=listOffer('area', L(arl.name), num(all.length)+' '+(lang==='ar'?'مشروعات':'projects'),
+        all, buildPath('area',{slug:arl.key}));
+      if(aoff2) return aoff2;
+    }
+    var tkl=vcTypeIn(q);
+    if(tkl){ var toff2=typeOffer(tkl); if(toff2) return toff2; }
     if(/(who|about|company|من نحن|من انتم|عنكم|شركة)/.test(ql)) return chatMsg(ABOUT[lang][0]+' ', chatLink(t('nav_about'), buildPath('about')));
-    if(/(area|location|where|مناطق|منطقة|مكان|فين|وين)/.test(ql)) return chatList(t('chat_found'), AREAS.map(function(a){ return {label:L(a.name), href:buildPath('area',{slug:a.key})}; }));
-    if(/(unit|units|apartment|villa|وحدات|وحدة|شقق|شقة)/.test(ql)) return chatList(t('chat_found'), UNITS.slice(0,6).map(function(u){ var p=projBySlug(u.project); return {label:typeLabel(u.type)+' — '+(lang==='ar'?p.name_ar:p.name)+' · '+money(u.price)+' · '+t('conf_illustrative'), href:buildPath('project',{slug:p.slug})}; }));
-    if(/(developer|مطور|مطوّر|مطورين)/.test(ql)) return chatList(t('chat_found'), DEVELOPERS.map(function(d){ return {label:L(d.name), href:buildPath('developer',{slug:d.key})}; }));
+    var hits=vcRetrieve(q, 5);
+    if(hits.length){
+      if(hits.length===1){ vcRemember(hits[0].project.slug); return projectOffer(hits[0].project); }
+      var box2=chatList(t('chat_found'), hits.map(function(hit){
+        vcRemember(hit.project.slug);
+        return {label:hit.cite.label+(hit.project.price!=null?' · '+t('from')+' '+money(hit.project.price):''),
+                href:hit.cite.href}; }));
+      var cr=vcCiteRow(hits); if(cr) box2.appendChild(cr);
+      return box2;
+    }
     return chatActions(t('chat_noanswer'));
   }
 

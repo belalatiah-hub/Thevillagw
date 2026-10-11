@@ -29,7 +29,11 @@ OUT = os.path.join(ROOT, 'index.html')
 PARTS = [
     'tpl_head.html', 'tpl_style.html', 'tpl_body.html',
     'tpl_script1.html', 'tpl_script2.html', 'tpl_script2b.html',
-    'tpl_script_finder.html', 'tpl_script3.html', 'tpl_script_chat.html',
+    'tpl_script_finder.html', 'tpl_script3.html',
+    # The Village Chat engine ships before the chat UI that calls it: money
+    # arithmetic, the read-only tool layer, the router and the provider
+    # boundary. It holds no model and no key — see its own header.
+    'tpl_script_vchat.html', 'tpl_script_chat.html',
     'tpl_script_search.html', 'tpl_script4.html',
 ]
 
@@ -182,8 +186,8 @@ def pin_script_hashes(doc):
     return out
 
 
-# Two keys whose Arabic value is Latin on purpose. Listed with the reason, so
-# the exception is a decision on the record rather than a hole in the check.
+# The few keys whose Arabic value is Latin on purpose. Listed with the reason,
+# so each exception is a decision on the record rather than a hole in the check.
 LATIN_ON_PURPOSE = {
     # The language switch names the language you would switch *to*, so the
     # Arabic page's label reads "English". Translating it would be the bug.
@@ -191,6 +195,13 @@ LATIN_ON_PURPOSE = {
     # "EOI" is how an expression of interest is written in the Egyptian
     # market, in both languages. eoi_note carries the Arabic explanation.
     'eoi',
+    # "Village Chat" is the assistant's name, and a name is not translated.
+    # The owner wrote it in Latin inside his own Arabic copy -- "أهلاً بيك في
+    # Village Chat" -- so inventing an Arabic spelling would contradict the
+    # brief. Only the name itself is exempt: chat_sub, the welcome and all
+    # six prompts are Arabic, and the check still holds them to it.
+    'chat_open',
+    'chat_title',
 }
 
 

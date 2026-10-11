@@ -272,11 +272,23 @@ home_units_h:"Featured units", home_units_p:"Illustrative sample units across ou
 units_h:"Units", units_p:"Browse sample units by type. Figures are illustrative — confirm current availability and prices with an advisor.",
 filter_type:"Type", all_types:"All types",
 social_h:"Follow us",
-chat_open:"Ask us", chat_title:"Village Assistant", chat_sub:"Answers from this site",
+chat_open:"Village Chat", chat_title:"Village Chat", chat_sub:"Your intelligent real estate assistant",
 a_close:"Close", a_send:"Send", chat_reco:"Recommend from my selection",
-chat_hello:"Hi! I’m the Village assistant. Name any project, developer or area and I’ll build the price list from our data — ready to send to your client on WhatsApp.",
+chat_hello:"Welcome to Village Chat 👋 I’m your intelligent real estate assistant from The Village Investment. I can help you discover projects, compare units, understand payment plans and reach the choice that suits you — based on the information we hold.",
 chat_ph:"Type your question…",
-chat_c1:"New launches", chat_c2:"Payment plans", chat_c3:"Browse areas", chat_c4:"Talk to an advisor",
+chat_c1:"Recommend projects for my budget", chat_c2:"Compare two projects",
+chat_c3:"A low down payment, a long plan", chat_c4:"Projects in Fifth Settlement",
+chat_c5:"Unit types and payment systems", chat_c6:"Help me choose for investment",
+chat_clear:"Clear chat", chat_copy:"Copy", chat_copied:"Copied", chat_retry:"Try again",
+chat_useful:"Useful", chat_notuseful:"Not useful", chat_thanks:"Thank you — noted.",
+chat_ai:"AI assistant · answers from this site’s own records",
+vc_sched:"Payment schedule", vc_instal:"Instalment", vc_final:"Final instalment",
+vc_quarter:"quarterly", vc_month:"monthly", vc_instals:"instalments",
+vc_src_unit:"from this unit’s own terms", vc_src_proj:"from the project’s published plan",
+vc_noterms:"The payment plan for this one is not published on the site, so I will not estimate it. An advisor can confirm the developer’s current terms.",
+vc_noprice:"No price is published for this one, so there is nothing for me to calculate from.",
+vc_src:"Source", vc_which:"Which two? Name them and I’ll put them side by side.",
+vc_typing:"Village Chat is typing",
 chat_noanswer:"I don’t have a verified answer to that from the site. Would you like to leave your details so an advisor can help?",
 chat_leave:"Leave your details", chat_send_wa:"Ask on WhatsApp",
 offer_send:"Send offer on WhatsApp", offer_copy:"Copy offer", offer_open:"Open page", offer_units:"Available units", offer_projects:"Projects in this offer",
@@ -398,11 +410,23 @@ home_units_h:"وحدات مميّزة", home_units_p:"وحدات نموذجية 
 units_h:"الوحدات", units_p:"تصفّح وحدات نموذجية حسب النوع. الأرقام استرشادية — أكّد الإتاحة والأسعار الحالية مع المستشار.",
 filter_type:"النوع", all_types:"كل الأنواع",
 social_h:"تابعنا",
-chat_open:"اسألنا", chat_title:"مساعد The Village", chat_sub:"إجابات من محتوى الموقع",
+chat_open:"Village Chat", chat_title:"Village Chat", chat_sub:"مساعدك العقاري الذكي",
 a_close:"إغلاق", a_send:"إرسال", chat_reco:"رشّح من اختياري",
-chat_hello:"أهلاً! أنا مساعد The Village. اكتب اسم أي مشروع أو مطوّر أو منطقة وأجهّز لك قائمة الأسعار من بياناتنا — جاهزة تبعتها لعميلك على واتساب.",
+chat_hello:"أهلاً بيك في Village Chat 👋 أنا مساعدك العقاري الذكي من The Village Investment. أقدر أساعدك تكتشف المشروعات، تقارن الوحدات، تفهم أنظمة السداد، وتوصل للاختيار الأنسب ليك بناءً على المعلومات المتاحة عندنا.",
 chat_ph:"اكتب سؤالك…",
-chat_c1:"إطلاقات جديدة", chat_c2:"خطط السداد", chat_c3:"تصفّح المناطق", chat_c4:"تحدّث إلى مستشار",
+chat_c1:"رشحلي مشروعات لميزانيتي", chat_c2:"قارنلي بين مشروعين",
+chat_c3:"وحدة بمقدم قليل وتقسيط طويل", chat_c4:"المشروعات في التجمع الخامس",
+chat_c5:"الفرق بين أنواع الوحدات وأنظمة السداد", chat_c6:"ساعدني أختار وحدة للاستثمار",
+chat_clear:"مسح المحادثة", chat_copy:"نسخ", chat_copied:"تم النسخ", chat_retry:"حاول تاني",
+chat_useful:"مفيد", chat_notuseful:"مش مفيد", chat_thanks:"شكراً — اتسجّل.",
+chat_ai:"مساعد ذكاء اصطناعي · إجابات من سجلات الموقع نفسه",
+vc_sched:"جدول السداد", vc_instal:"القسط", vc_final:"القسط الأخير",
+vc_quarter:"ربع سنوي", vc_month:"شهري", vc_instals:"قسط",
+vc_src_unit:"حسب شروط الوحدة نفسها", vc_src_proj:"حسب خطة المشروع المعلنة",
+vc_noterms:"خطة السداد لهذه الوحدة غير معلنة على الموقع، ولن أقدّرها من عندي. يمكن للمستشار تأكيد شروط المطوّر الحالية.",
+vc_noprice:"لا يوجد سعر معلن لهذه الوحدة، فليس هناك ما أحسب عليه.",
+vc_src:"المصدر", vc_which:"أي مشروعين؟ اذكرهما وأضعهما جانب بعض.",
+vc_typing:"Village Chat يكتب الآن",
 chat_noanswer:"لا أملك إجابة مؤكّدة لذلك من الموقع. هل تحب ترك بياناتك ليتواصل معك مستشار؟",
 chat_leave:"سجّل بياناتك", chat_send_wa:"اسأل عبر واتساب",
 offer_send:"أرسل العرض على واتساب", offer_copy:"نسخ العرض", offer_open:"فتح الصفحة", offer_units:"الوحدات المتاحة", offer_projects:"مشروعات هذا العرض",
@@ -11616,6 +11640,287 @@ function opt(v,l,sel){ return h('option', sel?{value:v,selected:true}:{value:v},
 function areaOptions(sel){ return [opt('',t('any'))].concat(AREAS.map(function(a){return opt(a.key,L(a.name),sel===a.key);})); }
 function devOptions(sel){ return [opt('',t('any'))].concat(DEVELOPERS.map(function(d){return opt(d.key,L(d.name),sel===d.key);})); }
 function statusOptions(sel){ return [opt('',t('any')),opt('launch',t('launch'),sel==='launch'),opt('primary',t('primary'),sel==='primary'),opt('ready',t('ready'),sel==='ready')]; }
+function vcToP(egp){
+if(egp == null || !isFinite(egp)) return null;
+return Math.round(Number(egp) * 100);
+}
+function vcToE(p){ return p == null ? null : p / 100; }
+function vcPct(p, pct){
+if(p == null || pct == null) return null;
+return Math.round(p * Number(pct) / 100);
+}
+function vcSchedule(opts){
+var o = opts || {};
+var totalP = vcToP(o.price);
+if(totalP == null || totalP <= 0) return {ok:false, why:'no-price'};
+var years = Number(o.years);
+if(!years || years <= 0) return {ok:false, why:'no-term'};
+var perYear = o.perYear ? Number(o.perYear) : 4;
+var n = Math.round(years * perYear);
+if(!n || n <= 0) return {ok:false, why:'no-instalments'};
+var dpPct = (o.dp == null) ? null : Number(o.dp);
+var downP = dpPct == null ? 0 : vcPct(totalP, dpPct);
+if(downP > totalP) return {ok:false, why:'down-exceeds-total'};
+var financedP = totalP - downP;
+var each = Math.floor(financedP / n);
+var rows = [], acc = 0;
+for(var i = 0; i < n; i++){
+var amt = (i === n - 1) ? (financedP - acc) : each;
+acc += amt;
+rows.push({no:i + 1, piastres:amt, egp:vcToE(amt)});
+}
+var sum = downP + rows.reduce(function(a, r){ return a + r.piastres; }, 0);
+return {
+ok: true,
+totalEgp: vcToE(totalP),
+downEgp: vcToE(downP),
+downPct: dpPct,
+financedEgp: vcToE(financedP),
+count: n,
+perYear: perYear,
+years: years,
+everyMonths: Math.round(12 / perYear),
+instalmentEgp: vcToE(each),
+finalEgp: rows.length ? rows[rows.length - 1].egp : null,
+rows: rows,
+reconciles: sum === totalP,
+sumEgp: vcToE(sum)
+};
+}
+function vcTerms(unit, proj){
+var u = unit || {}, p = proj || {};
+var price = (u.price != null) ? u.price : (p.price != null ? p.price : null);
+var dp    = (u.dp    != null) ? u.dp    : (p.dp    != null ? p.dp    : null);
+var years = (u.years != null) ? u.years : (p.years != null ? p.years : null);
+return {price:price, dp:dp, years:years,
+from:(u.price != null ? 'unit' : (p.price != null ? 'project' : null))};
+}
+var VC_LIMIT = 8;
+function vcInt(v){ var n = parseInt(v, 10); return isFinite(n) ? n : null; }
+function vcStr(v){ return (typeof v === 'string' && v.trim()) ? v.trim() : null; }
+function vcProjectUrl(slug){
+var p = projBySlug(slug);
+return p ? buildPath('project', {slug:p.slug}) : null;
+}
+function vcCite(p){
+return {slug:p.slug, label:(lang === 'ar' ? p.name_ar : p.name),
+href:buildPath('project', {slug:p.slug})};
+}
+function vcSearchProjects(args){
+var a = args || {}, out = PROJECTS.slice();
+var area = vcStr(a.area), dev = vcStr(a.developer), type = vcStr(a.type);
+var maxP = a.maxPrice == null ? null : vcInt(a.maxPrice);
+var minP = a.minPrice == null ? null : vcInt(a.minPrice);
+var maxDp = a.maxDownPct == null ? null : Number(a.maxDownPct);
+var minY = a.minYears == null ? null : Number(a.minYears);
+if(area) out = out.filter(function(p){ return p.area === area; });
+if(dev)  out = out.filter(function(p){ return p.dev === dev; });
+if(type) out = out.filter(function(p){
+return (p.types && p.types.en || '').toLowerCase().indexOf(type.toLowerCase()) > -1; });
+if(maxP != null) out = out.filter(function(p){ return p.price != null && p.price <= maxP; });
+if(minP != null) out = out.filter(function(p){ return p.price != null && p.price >= minP; });
+if(maxDp != null) out = out.filter(function(p){ return p.dp != null && p.dp <= maxDp; });
+if(minY != null)  out = out.filter(function(p){ return p.years != null && p.years >= minY; });
+out.sort(function(x, y){
+if(x.price == null) return 1; if(y.price == null) return -1;
+return x.price - y.price; });
+return {ok:true, total:out.length,
+data:out.slice(0, a.limit ? Math.min(vcInt(a.limit) || VC_LIMIT, 24) : VC_LIMIT)
+.map(function(p){
+return {slug:p.slug, name:(lang === 'ar' ? p.name_ar : p.name),
+developer:L(devByKey(p.dev).name), area:L(areaByKey(p.area).name),
+priceFrom:p.price == null ? null : p.price,
+downPct:p.dp == null ? null : p.dp,
+years:p.years == null ? null : p.years,
+delivery:p.delivery || null,
+href:buildPath('project', {slug:p.slug})};
+})};
+}
+function vcGetProject(slug){
+var p = projBySlug(vcStr(slug) || '');
+if(!p) return {ok:false, why:'no-such-project'};
+var units = UNITS.filter(function(u){ return u.project === p.slug; });
+return {ok:true, data:{
+slug:p.slug, name:(lang === 'ar' ? p.name_ar : p.name),
+developer:L(devByKey(p.dev).name), area:L(areaByKey(p.area).name),
+priceFrom:p.price == null ? null : p.price,
+downPct:p.dp == null ? null : p.dp,
+years:p.years == null ? null : p.years,
+delivery:p.delivery || null,
+finishing:p.finishing ? L(p.finishing) : null,
+types:p.types ? L(p.types) : null,
+unitCount:units.length,
+hasBrochure:!!(typeof PROJECT_BROCHURE !== 'undefined' && PROJECT_BROCHURE[p.slug]),
+href:buildPath('project', {slug:p.slug})
+}};
+}
+function vcSearchUnits(args){
+var a = args || {}, out = UNITS.slice();
+var slug = vcStr(a.project), canon = a.type ? normalizeUnitType(a.type) : null;
+var beds = a.beds == null ? null : vcInt(a.beds);
+var maxP = a.maxPrice == null ? null : vcInt(a.maxPrice);
+var minA = a.minArea == null ? null : vcInt(a.minArea);
+if(slug) out = out.filter(function(u){ return u.project === slug; });
+if(canon && canon !== 'other') out = out.filter(function(u){ return unitCanon(u) === canon; });
+if(beds != null) out = out.filter(function(u){ return u.beds === beds; });
+if(maxP != null) out = out.filter(function(u){ return u.price != null && u.price <= maxP; });
+if(minA != null) out = out.filter(function(u){ return u.area != null && u.area >= minA; });
+out.sort(function(x, y){
+if(x.price == null) return 1; if(y.price == null) return -1;
+return x.price - y.price; });
+return {ok:true, total:out.length,
+data:out.slice(0, a.limit ? Math.min(vcInt(a.limit) || VC_LIMIT, 24) : VC_LIMIT)
+.map(function(u){
+var p = projBySlug(u.project) || {};
+return {id:u.id, project:u.project,
+projectName:(lang === 'ar' ? p.name_ar : p.name) || u.project,
+type:typeLabel(u.type), beds:u.beds == null ? null : u.beds,
+baths:u.baths == null ? null : u.baths,
+area:u.area == null ? null : u.area,
+areaTo:u.areaTo == null ? null : u.areaTo,
+price:u.price == null ? null : u.price,
+href:buildPath('project', {slug:u.project})};
+})};
+}
+function vcCalculateInstallments(args){
+var a = args || {};
+var unit = a.unitId ? UNITS.filter(function(u){ return u.id === a.unitId; })[0] : null;
+if(a.unitId && !unit) return {ok:false, why:'no-such-unit'};
+var proj = projBySlug(vcStr(a.project) || (unit ? unit.project : '') || '');
+if(!unit && !proj) return {ok:false, why:'no-such-project'};
+var tm = vcTerms(unit, proj);
+if(tm.price == null) return {ok:false, why:'no-price'};
+if(tm.years == null) return {ok:false, why:'no-term'};
+var s = vcSchedule({price:tm.price, dp:tm.dp, years:tm.years});
+if(!s.ok) return {ok:false, why:s.why};
+if(!s.reconciles) return {ok:false, why:'does-not-reconcile'};
+s.source = tm.from;
+s.subject = unit ? unit.id : proj.slug;
+s.href = proj ? buildPath('project', {slug:proj.slug}) : null;
+return {ok:true, data:s};
+}
+function vcCompareProjects(slugs){
+var list = (slugs || []).map(function(s){ return projBySlug(vcStr(s) || ''); })
+.filter(Boolean);
+if(list.length < 2) return {ok:false, why:'need-two'};
+return {ok:true, data:list.slice(0, 4).map(function(p){
+var d = vcGetProject(p.slug).data;
+var s = (p.price != null && p.years != null)
+? vcSchedule({price:p.price, dp:p.dp, years:p.years}) : null;
+d.instalmentEgp = (s && s.ok) ? s.instalmentEgp : null;
+d.instalmentCount = (s && s.ok) ? s.count : null;
+return d;
+})};
+}
+var VC_STOP = {the:1, a:1, an:1, of:1, in:1, on:1, at:1, to:1, for:1, and:1, or:1, is:1, are:1,
+do:1, does:1, did:1, you:1, your:1, me:1, my:1, mine:1, we:1, our:1, us:1, it:1, its:1,
+what:1, which:1, who:1, how:1, any:1, some:1, all:1, about:1, with:1, have:1, has:1,
+can:1, could:1, would:1, will:1, tell:1, show:1, give:1, want:1, need:1, looking:1,
+'هل':1, 'ما':1, 'ماذا':1, 'ايه':1, 'عن':1, 'في':1, 'من':1, 'على':1, 'الى':1, 'مع':1,
+'عايز':1, 'عاوز':1, 'اريد':1, 'ممكن':1, 'لي':1, 'لك':1, 'هو':1, 'هي':1, 'ده':1, 'دي':1,
+'كل':1, 'اي':1, 'عندكم':1, 'عندك':1, 'فيه':1, 'وي':1};
+function vcTokens(q){
+return arNorm(String(q || '')).toLowerCase()
+.replace(/[^\p{L}\p{N}\s]/gu, ' ').split(/\s+/)
+.filter(function(w){ return w.length > 1 && !VC_STOP[w]; });
+}
+function vcScore(hay, toks){
+var h = arNorm(String(hay || '')).toLowerCase();
+if(!h) return 0;
+var words = h.replace(/[^\p{L}\p{N}\s]/gu, ' ').split(/\s+/).filter(Boolean), s = 0;
+toks.forEach(function(w){
+if(words[0] === w){ s += 2; return; }
+if(words.indexOf(w) > -1){ s += 1; return; }
+if(w.length >= 4 && h.indexOf(w) > -1) s += 1;
+});
+return s;
+}
+var VC_FLOOR = 3;
+function vcRetrieve(q, limit){
+var toks = vcTokens(q);
+if(!toks.length) return [];
+return PROJECTS.map(function(p){
+var dev = devByKey(p.dev) || {name:{en:'',ar:''}};
+var area = areaByKey(p.area) || {name:{en:'',ar:''}};
+var s = vcScore(p.name, toks) * 3 + vcScore(p.name_ar, toks) * 3
++ vcScore(L(dev.name), toks) * 2 + vcScore(L(area.name), toks) * 2
++ vcScore(p.types ? L(p.types) : '', toks)
++ vcScore(p.blurb ? L(p.blurb) : '', toks);
+return {p:p, s:s};
+}).filter(function(r){ return r.s >= VC_FLOOR; })
+.sort(function(a, b){ return b.s - a.s; })
+.slice(0, limit || 5)
+.map(function(r){ return {project:r.p, score:r.s, cite:vcCite(r.p)}; });
+}
+var VC_PAT = [
+['handoff',    /(advisor|agent|human|call me|whatsapp|contact|مستشار|اتصال|تواصل|واتساب|واتس|كلمني|مندوب)/i],
+['compare',    /(compare|versus|\bvs\b|difference between|قارن|مقارنة|الفرق بين|ايهما افضل|أيهما أفضل)/i],
+['payment',    /(instal|instalment|installment|payment plan|down ?payment|deposit|monthly|quarterly|قسط|تقسيط|سداد|دفعة|مقدم|شهري|ربع ?سنوي)/i],
+['budget',     /(budget|afford|under|cheaper|cheapest|ميزانية|ميزانيتي|ارخص|أرخص|اقل من|أقل من|في حدود)/i],
+['recommend',  /(recommend|suggest|shortlist|best fit|advise|رشح|رشّح|اقترح|الانسب|الأنسب|المناسب|ساعدني اختار|ساعدني أختار)/i],
+['unitsearch', /(unit|apartment|villa|townhouse|chalet|duplex|penthouse|وحدة|وحدات|شقة|شقق|فيلا|فيلات|تاون|شاليه|دوبلكس|بنتهاوس)/i],
+['launch',     /(launch|new launch|newly|إطلاق|اطلاق|جديد|الجديدة)/i],
+['area',       /(area|location|where|district|منطقة|مناطق|مكان|فين|وين|في اي)/i],
+['developer',  /(developer|who built|مطور|مطوّر|مطورين|المطوّرين)/i]
+];
+function vcNamedArea(q){
+var nq = arNorm(String(q || '')).toLowerCase();
+if(!nq) return null;
+var best = null;
+AREAS.forEach(function(a){
+[a.name.en, a.name.ar].forEach(function(nm){
+var n = arNorm(String(nm || '')).toLowerCase();
+if(!n) return;
+var hit = 0;
+if(n.length > 2 && nq.indexOf(n) > -1) hit = n.length + 10;
+else n.split(/\s+/).forEach(function(w){
+if(w.length >= 4 && nq.indexOf(w) > -1 && w.length > hit) hit = w.length;
+});
+if(hit && (!best || hit > best.len)) best = {key:a.key, len:hit};
+});
+});
+return best ? best.key : null;
+}
+function vcRoute(q){
+var s = String(q || '');
+for(var i = 0; i < VC_PAT.length; i++) if(VC_PAT[i][1].test(s)) return VC_PAT[i][0];
+if(vcNamedArea(s)) return 'area';
+if(vcRetrieve(s, 1).length) return 'lookup';
+return 'unsupported';
+}
+var VC_CTX = {lastProject:null, lastProjects:[], lastIntent:null, turns:0};
+function vcRemember(slug){
+if(!slug) return;
+VC_CTX.lastProject = slug;
+if(VC_CTX.lastProjects[0] !== slug) VC_CTX.lastProjects.unshift(slug);
+VC_CTX.lastProjects = VC_CTX.lastProjects.slice(0, 4);
+}
+function vcResolveRef(q){
+if(/(this project|that one|it\b|المشروع ده|ده|دي|هو|هي)/i.test(String(q || '')) && VC_CTX.lastProject)
+return VC_CTX.lastProject;
+return null;
+}
+function vcReset(){ VC_CTX = {lastProject:null, lastProjects:[], lastIntent:null, turns:0}; }
+var vcProvider = {
+configured: false,
+endpoint: null,
+model: null,
+tools: ['search_projects', 'get_project_details', 'search_units',
+'compare_projects', 'calculate_installments', 'get_project_page_url'],
+send: function(){ return Promise.reject(new Error('village-chat: no provider configured')); }
+};
+function vcCallTool(name, args){
+switch(name){
+case 'search_projects':        return vcSearchProjects(args);
+case 'get_project_details':    return vcGetProject(args && args.slug);
+case 'search_units':           return vcSearchUnits(args);
+case 'compare_projects':       return vcCompareProjects(args && args.slugs);
+case 'calculate_installments': return vcCalculateInstallments(args);
+case 'get_project_page_url':   var u = vcProjectUrl(args && args.slug);
+return u ? {ok:true, data:{href:u}} : {ok:false, why:'no-such-project'};
+default:                       return {ok:false, why:'no-such-tool'};
+}
+}
 var chatEls = null;
 function chatBuild(){
 if(chatEls) return;
@@ -11624,21 +11929,36 @@ svg(ICON.chat), h('span',{class:'lbl'}, t('chat_open')));
 var panel=h('aside',{class:'chat-panel', role:'dialog','aria-label':t('chat_title'),'aria-hidden':'true'});
 var titleEl=h('h3',null,t('chat_title')), subEl=h('p',null,t('chat_sub'));
 var closeB=h('button',{class:'x', type:'button','aria-label':t('a_close')}, svg('M6 6l12 12M18 6L6 18'));
-var head=h('div',{class:'chat-head'}, h('div',{class:'av'}, svg(ICON.spark)), h('div',null, titleEl, subEl), closeB);
-var body=h('div',{class:'chat-body'});
+var clearB=h('button',{class:'chat-head__clear', type:'button','aria-label':t('chat_clear'), title:t('chat_clear')},
+svg('M4 7h16M9 7V5h6v2M7 7l1 13h8l1-13'));
+var head=h('div',{class:'chat-head'}, h('div',{class:'av'}, svg(ICON.spark)),
+h('div',{class:'chat-head__id'}, titleEl, subEl), clearB, closeB);
+var body=h('div',{class:'chat-body', role:'log','aria-live':'polite','aria-relevant':'additions text'});
 var chips=h('div',{class:'chat-chips'});
 var input=h('input',{type:'text','aria-label':t('chat_ph'), placeholder:t('chat_ph'), autocomplete:'off'});
 var sendB=h('button',{type:'submit','aria-label':t('a_send')}, svg(ICON.send));
 var form=h('form',{class:'chat-input'}, input, sendB);
-panel.appendChild(head); panel.appendChild(body); panel.appendChild(chips); panel.appendChild(form);
+var note=h('p',{class:'chat-foot'}, t('chat_ai'));
+panel.appendChild(head); panel.appendChild(body); panel.appendChild(chips);
+panel.appendChild(form); panel.appendChild(note);
 document.body.appendChild(fab); document.body.appendChild(panel);
-chatEls={fab:fab, fabLbl:fab.querySelector('.lbl'), panel:panel, title:titleEl, sub:subEl, body:body, chips:chips, input:input, closeB:closeB, sendB:sendB};
+chatEls={fab:fab, fabLbl:fab.querySelector('.lbl'), panel:panel, title:titleEl, sub:subEl,
+body:body, chips:chips, input:input, closeB:closeB, sendB:sendB, clearB:clearB,
+note:note, busy:false, lastQ:null};
 fab.addEventListener('click', chatOpen);
 closeB.addEventListener('click', chatClose);
+clearB.addEventListener('click', chatClear);
 form.addEventListener('submit', function(e){ e.preventDefault(); chatUserSend(input.value); });
 panel.addEventListener('click', function(e){ if(e.target.closest('a')) chatClose(); });
 document.addEventListener('keydown', function(e){ if(e.key==='Escape' && panel.classList.contains('open')) chatClose(); });
 chatRefresh();
+}
+function chatClear(){
+if(!chatEls) return;
+vcReset(); clear(chatEls.body); chatEls.lastQ=null;
+chatRefresh();
+chatEls.input.focus();
+track('village_chat_clear');
 }
 var compareFabEl=null;
 function updateCompareFab(){
@@ -11664,18 +11984,31 @@ chatEls.fabLbl.textContent=t('chat_open'); chatEls.title.textContent=t('chat_tit
 chatEls.sub.textContent=t('chat_sub'); chatEls.input.setAttribute('placeholder', t('chat_ph'));
 chatEls.fab.setAttribute('aria-label', t('chat_open')); chatEls.closeB.setAttribute('aria-label', t('a_close')); chatEls.sendB.setAttribute('aria-label', t('a_send'));
 chatEls.input.setAttribute('aria-label', t('chat_ph'));
+chatEls.clearB.setAttribute('aria-label', t('chat_clear'));
+chatEls.clearB.setAttribute('title', t('chat_clear'));
+chatEls.note.textContent=t('chat_ai');
 clear(chatEls.chips);
 if(hasSelection(FILTER)){
 var rb=h('button',{type:'button', class:'chip-key'}, t('chat_reco'));
 rb.addEventListener('click', function(){ chatPush(h('div',{class:'msg user'}, t('chat_reco'))); chatPush(chatRecommend()); });
 chatEls.chips.appendChild(rb);
 }
-['chat_c1','chat_c2','chat_c3','chat_c4'].forEach(function(k){
+['chat_c1','chat_c2','chat_c3','chat_c4','chat_c5','chat_c6'].forEach(function(k){
 var b=h('button',{type:'button'}, t(k)); b.addEventListener('click', function(){ chatUserSend(t(k)); }); chatEls.chips.appendChild(b); });
 if(!chatEls.body.children.length){
-chatPush(chatMsg(t('chat_hello')));
+chatPush(chatWelcome());
 if(hasSelection(FILTER)) chatPush(chatMsg((lang==='ar'?'أرى أنك تبحث عن: ':'I can see you’re looking at: ')+selectionSummary(FILTER)+(lang==='ar'?' — اضغط «رشّح من اختياري».':' — tap “Recommend from my selection”.')));
 }
+}
+function chatWelcome(){
+var w=h('div',{class:'chat-welcome'},
+h('div',{class:'chat-welcome__av'}, svg(ICON.spark)),
+h('p',{class:'chat-welcome__t'}, t('chat_hello')));
+w.appendChild(h('p',{class:'chat-welcome__n'},
+num(PROJECTS.length)+' '+(lang==='ar'?'مشروع':'projects')+' · '+
+num(UNITS.length)+' '+(lang==='ar'?'وحدة':'units')+' · '+
+num(DEVELOPERS.length)+' '+(lang==='ar'?'مطوّر':'developers')));
+return w;
 }
 function chatPush(node){ chatEls.body.appendChild(node); chatEls.body.scrollTop=chatEls.body.scrollHeight; }
 function chatMsg(){ var m=h('div',{class:'msg bot'}); for(var i=0;i<arguments.length;i++){ if(arguments[i]!=null && arguments[i]!==false) append(m, arguments[i]); } return m; }
@@ -11739,11 +12072,64 @@ if(CONFIG.whatsapp) row.appendChild(h('a',{class:'btn btn--wa btn--sm', href:waL
 row.appendChild(h('a',{class:'btn btn--primary btn--sm', href:U(buildPath('contact'))}, t('chat_leave')));
 return row;
 }
+function chatTyping(){
+var dots=h('div',{class:'chat-typing', role:'status','aria-label':t('vc_typing')},
+h('span'), h('span'), h('span'));
+return dots;
+}
 function chatUserSend(text){
-text=(text||'').trim(); if(!text || !chatEls) return;
+text=(text||'').trim(); if(!text || !chatEls || chatEls.busy) return;
+var first=!chatEls.body.querySelector('.msg.user');
 chatPush(h('div',{class:'msg user'}, text));
-chatEls.input.value='';
-chatPush(chatRespond(text) || chatActions(t('chat_noanswer')));
+chatEls.input.value=''; chatEls.lastQ=text;
+chatEls.busy=true; chatEls.sendB.disabled=true;
+var dots=chatTyping(); chatPush(dots);
+track('village_chat_ask', {intent:vcRoute(text), first:first});
+setTimeout(function(){
+var node;
+try{ node=chatRespond(text); }
+catch(e){ node=null; if(window.console) console.error('village-chat', e); }
+if(dots.parentNode) dots.parentNode.removeChild(dots);
+chatPush(chatTools(node || chatActions(t('chat_noanswer'))));
+chatEls.busy=false; chatEls.sendB.disabled=false;
+}, 260);
+}
+function chatTools(node){
+if(!node || !node.appendChild) return node;
+var bar=h('div',{class:'chat-tools'});
+var copyB=h('button',{type:'button', class:'chat-tools__b'}, t('chat_copy'));
+copyB.addEventListener('click', function(){
+var cl=node.cloneNode(true), b=cl.querySelector('.chat-tools');
+if(b) b.parentNode.removeChild(b);
+var txt=(cl.innerText || cl.textContent || '').replace(/\n{3,}/g,'\n\n').trim();
+var mark=function(){ copyB.textContent=t('chat_copied');
+setTimeout(function(){ copyB.textContent=t('chat_copy'); }, 1600); };
+try{
+if(navigator.clipboard && navigator.clipboard.writeText)
+navigator.clipboard.writeText(txt).then(mark, function(){ copyFallback(txt, mark); });
+else copyFallback(txt, mark);
+}catch(e){ copyFallback(txt, mark); }
+});
+bar.appendChild(copyB);
+if(chatEls && chatEls.lastQ){
+var q=chatEls.lastQ;
+var retryB=h('button',{type:'button', class:'chat-tools__b'}, t('chat_retry'));
+retryB.addEventListener('click', function(){ chatUserSend(q); });
+bar.appendChild(retryB);
+}
+var up=h('button',{type:'button', class:'chat-tools__b chat-tools__b--ic','aria-label':t('chat_useful'), title:t('chat_useful')}, svg('M7 11v9H4v-9h3m0 0 4-8a2 2 0 0 1 3 2l-1 6h4a2 2 0 0 1 2 2.4l-1.3 6A2 2 0 0 1 14 21H7'));
+var dn=h('button',{type:'button', class:'chat-tools__b chat-tools__b--ic','aria-label':t('chat_notuseful'), title:t('chat_notuseful')}, svg('M17 13V4h3v9h-3m0 0-4 8a2 2 0 0 1-3-2l1-6H6a2 2 0 0 1-2-2.4l1.3-6A2 2 0 0 1 10 3h7'));
+function vote(v){
+return function(){
+track('village_chat_feedback', {useful:v, intent:VC_CTX.lastIntent});
+up.disabled=true; dn.disabled=true;
+bar.appendChild(h('span',{class:'chat-tools__ok'}, t('chat_thanks')));
+};
+}
+up.addEventListener('click', vote(true)); dn.addEventListener('click', vote(false));
+bar.appendChild(up); bar.appendChild(dn);
+node.appendChild(bar);
+return node;
 }
 function offerUrl(path){ return (CONFIG.origin||'') + U(path); }
 function planLine(p){
@@ -11880,43 +12266,216 @@ if(nq.indexOf(n)>-1 && n.length>bestLen){ best=o; bestLen=n.length; }
 });
 return best;
 }
-function chatRespond(raw){
-var q=raw.trim(), ql=q.toLowerCase(), nq=arNorm(q);
-if(/(recommend|suggest|shortlist|best fit|match me|for me|رشّ?ح|اقترح|الأنسب|المناسب|قائمة مختارة)/.test(ql)) return chatRecommend();
-if(/(advisor|agent|human|call|phone|whatsapp|contact|register|مستشار|اتصال|تواصل|واتساب|واتس|كلم|سجل|بيانات)/.test(ql)) return chatActions(lang==='ar'?'يسعدنا مساعدتك مباشرة:':'Happy to help you directly:');
-if(/(payment|install|plan|deposit|قسط|تقسيط|سداد|دفعة|مقدم)/.test(ql)){
-var maxY=Math.max.apply(null, PROJECTS.map(function(p){ return p.years||0; }))||7;
-return chatMsg((lang==='ar'
-? ('توفّر The Village خطط سداد مرنة تصل حتى '+num(maxY)+' سنوات على وحدات مختارة، ويختلف المقدم والمدة حسب المشروع والمطوّر. ')
-: ('The Village offers flexible payment plans up to '+maxY+' years on selected units; the down payment and duration vary by project and developer. ')),
-h('em',{class:'chat-illus'}, t('illustrative_short')), ' ',
-chatLink(t('nav_faqs'), buildPath('faqs')));
+function vcProjIn(q){
+var p=bestNameMatch(arNorm(q), PROJECTS, function(x){ return [x.name, x.name_ar]; });
+if(p) return p;
+var slug=vcResolveRef(q);
+return slug ? projBySlug(slug) : null;
 }
-var proj=bestNameMatch(nq, PROJECTS, function(p){ return [p.name, p.name_ar]; });
-if(proj) return projectOffer(proj);
-var dev=bestNameMatch(nq, DEVELOPERS, function(d){ return [d.name.en, d.name.ar]; });
-if(dev){
-var dl=projByDev(dev.key);
-var off=listOffer('dev', L(dev.name), num(dl.length)+' '+(lang==='ar'?'مشروعات':'projects'),
-dl, buildPath('developer',{slug:dev.key}));
+function vcProjsIn(q){
+var nq=arNorm(q), found=[], guard=0;
+while(guard++ < 4){
+var p=bestNameMatch(nq, PROJECTS, function(x){ return [x.name, x.name_ar]; });
+if(!p) break;
+if(found.indexOf(p)<0) found.push(p);
+var cut=[p.name, p.name_ar].map(arNorm).filter(function(n){ return n && nq.indexOf(n)>-1; })
+.sort(function(a,b){ return b.length-a.length; })[0];
+if(!cut) break;
+nq=nq.split(cut).join(' ');
+}
+return found;
+}
+function vcBudgetIn(q){
+var s=String(q).replace(/[٠-٩]/g, function(d){ return String(d.charCodeAt(0)-1632); });
+var mn=s.match(/(\d+(?:\.\d+)?)\s*(million|mn|m\b|مليون)/i);
+if(mn) return Math.round(parseFloat(mn[1])*1000000);
+var n=(s.replace(/[,\s]/g,'').match(/(\d{5,})/)||[])[1];
+return n ? parseInt(n,10) : null;
+}
+function vcTypeIn(q){
+var ql=q.toLowerCase();
+return Object.keys(TYPE_META).filter(function(k){
+return ql.indexOf(k.toLowerCase())>-1 || q.indexOf(TYPE_META[k].ar)>-1; })[0] || null;
+}
+function vcSchedMsg(p, unit){
+var r=vcCallTool('calculate_installments', unit?{unitId:unit.id}:{project:p.slug});
+if(!r.ok){
+var why=r.why==='no-price' ? t('vc_noprice') : t('vc_noterms');
+var box=chatMsg(L({en:p.name, ar:p.name_ar})+' — '+why);
+box.appendChild(h('div',{style:'margin-top:8px'}, chatLink(L({en:p.name, ar:p.name_ar}), buildPath('project',{slug:p.slug}))));
+return box;
+}
+var s=r.data, rows=h('div',{class:'vc-sched'});
+function row(k,v){ rows.appendChild(h('div',{class:'vc-sched__r'}, h('span',null,k), h('b',null,v))); }
+row(t('dp'), money(s.downEgp)+(s.downPct?(' · '+num(s.downPct)+'%'):''));
+row(t('vc_instal'), money(s.instalmentEgp)+' × '+num(s.count)+' '+
+(s.perYear===4?t('vc_quarter'):s.perYear===12?t('vc_month'):t('vc_instals')));
+if(s.finalEgp!==s.instalmentEgp) row(t('vc_final'), money(s.finalEgp));
+row(t('calc_total'), money(s.financedEgp));
+var box=chatMsg(t('vc_sched')+' — '+L({en:p.name, ar:p.name_ar})+
+' · '+num(s.years)+' '+(lang==='ar'?'سنوات':'years'));
+box.appendChild(rows);
+box.appendChild(h('div',{class:'chat-illus',style:'margin-top:7px'},
+(s.source==='unit'?t('vc_src_unit'):t('vc_src_proj'))+' · '+t('calc_note')));
+box.appendChild(h('div',{style:'margin-top:8px'}, chatLink(L({en:p.name, ar:p.name_ar}), buildPath('project',{slug:p.slug}))));
+vcRemember(p.slug);
+return box;
+}
+function vcCompareMsg(list){
+var r=vcCallTool('compare_projects', {slugs:list.map(function(p){ return p.slug; })});
+if(!r.ok) return null;
+var box=chatMsg(t('nav_compare')+' — '+r.data.map(function(d){ return d.name; }).join(' · '));
+var tbl=h('div',{class:'vc-cmp'});
+function line(label, pick){
+var rw=h('div',{class:'vc-cmp__r'}, h('span',{class:'vc-cmp__k'}, label));
+r.data.forEach(function(d){ rw.appendChild(h('span',{class:'vc-cmp__v'}, pick(d)||'—')); });
+tbl.appendChild(rw);
+}
+line(t('from'),     function(d){ return d.priceFrom!=null?money(d.priceFrom):null; });
+line(t('dp'),       function(d){ return d.downPct!=null?num(d.downPct)+'%':null; });
+line(t('years'),    function(d){ return d.years!=null?num(d.years)+' '+(lang==='ar'?'سنوات':'years'):null; });
+line(t('vc_instal'),function(d){ return d.instalmentEgp!=null?money(d.instalmentEgp):null; });
+line(t('delivery'), function(d){ return d.delivery!=null?num(d.delivery):null; });
+line(t('nav_areas'),function(d){ return d.area; });
+box.appendChild(tbl);
+box.appendChild(h('div',{class:'chat-illus',style:'margin-top:7px'}, t('calc_note')));
+var row=h('div',{style:'display:flex;gap:6px;flex-wrap:wrap;margin-top:9px'});
+r.data.forEach(function(d){ row.appendChild(h('a',{class:'btn btn--ghost btn--sm', href:U(d.href)}, d.name)); });
+box.appendChild(row);
+r.data.forEach(function(d){ vcRemember(d.slug); });
+return box;
+}
+function vcCiteRow(hits){
+if(!hits.length) return null;
+var row=h('div',{class:'vc-cites'}, h('span',{class:'vc-cites__k'}, t('vc_src')+':'));
+hits.slice(0,3).forEach(function(hit){
+row.appendChild(h('a',{class:'vc-cites__a', href:U(hit.cite.href)}, hit.cite.label)); });
+return row;
+}
+function chatRespond(raw){
+var q=raw.trim(), ql=q.toLowerCase();
+var intent=vcRoute(q);
+VC_CTX.lastIntent=intent; VC_CTX.turns++;
+if(intent==='handoff') return chatActions(lang==='ar'?'يسعدنا مساعدتك مباشرة:':'Happy to help you directly:');
+if(intent==='compare'){
+var two=vcProjsIn(q);
+if(two.length<2 && VC_CTX.lastProjects.length>=2)
+two=VC_CTX.lastProjects.slice(0,2).map(projBySlug).filter(Boolean);
+if(two.length>=2){ var cmp=vcCompareMsg(two); if(cmp) return cmp; }
+if(two.length===1){
+var one=vcSchedMsg(two[0], null);
+one.appendChild(h('div',{style:'margin-top:8px;font-weight:600'}, t('vc_which')));
+return one;
+}
+return chatMsg(t('vc_which'));
+}
+if(intent==='payment'){
+var pp=vcProjIn(q);
+if(pp) return vcSchedMsg(pp, null);
+var yrs=PROJECTS.map(function(p){ return p.years||0; });
+var maxY=Math.max.apply(null, yrs)||0;
+var low=vcCallTool('search_projects', {maxDownPct:10, minYears:Math.min(8,maxY)||1, limit:5});
+var box=chatMsg(lang==='ar'
+? ('خطط السداد تختلف حسب المشروع والمطوّر، وأطول مدة معلنة عندنا '+num(maxY)+' سنوات. اسألني عن مشروع بالاسم وأعطيك جدول السداد بالتفصيل.')
+: ('Payment plans vary by project and developer; the longest published here is '+num(maxY)+' years. Name a project and I’ll give you its schedule in full.'));
+if(low.ok && low.data.length){
+var ul=h('div',{style:'margin-top:8px;display:flex;flex-direction:column;gap:5px'});
+low.data.forEach(function(d){ ul.appendChild(h('a',{class:'unit-mini', href:U(d.href)},
+d.name+' · '+(d.downPct!=null?num(d.downPct)+'% '+t('dp'):'')+(d.years!=null?' · '+num(d.years)+' '+(lang==='ar'?'سنوات':'years'):''))); });
+box.appendChild(ul);
+}
+box.appendChild(h('div',{style:'margin-top:7px'},
+h('em',{class:'chat-illus'}, t('illustrative_short')), ' ',
+chatLink(t('nav_faqs'), buildPath('faqs'))));
+return box;
+}
+if(intent==='budget'){
+var b=vcBudgetIn(q);
+if(b==null) return chatRecommend();
+var res=vcCallTool('search_projects', {maxPrice:b, limit:6});
+if(!res.ok || !res.data.length)
+return chatActions(lang==='ar'
+? ('لا يوجد مشروع بسعر معلن حتى '+money(b)+'. يمكن للمستشار اقتراح البديل الأقرب.')
+: ('No project here publishes a price at or under '+money(b)+'. An advisor can suggest the nearest alternative.'));
+var bbox=chatMsg((lang==='ar'?'ضمن ':'Within ')+money(b)+' — '+
+num(res.total)+' '+(lang==='ar'?'مشروع':'projects')+':');
+var bul=h('div',{style:'margin-top:8px;display:flex;flex-direction:column;gap:5px'});
+res.data.forEach(function(d){ bul.appendChild(h('a',{class:'unit-mini', href:U(d.href)},
+d.name+' · '+t('from')+' '+money(d.priceFrom)+' · '+t('conf_illustrative'))); vcRemember(d.slug); });
+bbox.appendChild(bul);
+return bbox;
+}
+if(intent==='recommend') return chatRecommend();
+var named=vcProjIn(q);
+if(intent==='unitsearch'){
+var tk=vcTypeIn(q);
+var ures=vcCallTool('search_units', {project:named?named.slug:null, type:tk, limit:6});
+if(ures.ok && ures.data.length){
+var ubox=chatMsg((named?L({en:named.name, ar:named.name_ar})+' — ':'')+
+(tk?typeLabel(tk)+' · ':'')+num(ures.total)+' '+(lang==='ar'?'وحدة':'units')+':');
+var uul=h('div',{style:'margin-top:8px;display:flex;flex-direction:column;gap:5px'});
+ures.data.forEach(function(d){ uul.appendChild(h('a',{class:'unit-mini', href:U(d.href)},
+d.type+(d.beds!=null?' · '+num(d.beds)+' '+(lang==='ar'?'غرف':'beds'):'')+
+(d.area!=null?' · '+num(d.area)+' m²':'')+
+(d.price!=null?' · '+money(d.price):'')+' — '+d.projectName)); });
+ubox.appendChild(uul);
+ubox.appendChild(h('div',{class:'chat-illus',style:'margin-top:6px'}, t('conf_illustrative')));
+if(named) vcRemember(named.slug);
+return ubox;
+}
+if(named) return projectOffer(named);
+if(tk){ var toff=typeOffer(tk); if(toff) return toff; }
+}
+if(intent==='launch') return chatList(t('chat_found'), newLaunchProjects().map(function(p){ return {label:(lang==='ar'?p.name_ar:p.name), href:buildPath('project',{slug:p.slug})}; }));
+if(intent==='area'){
+if(named) return projectOffer(named);
+var ak=vcNamedArea(q) || (bestNameMatch(arNorm(q), AREAS, function(a){ return [a.name.en, a.name.ar]; })||{}).key;
+if(ak){
+var ao=areaByKey(ak), al=projInArea(ak);
+var aoff=listOffer('area', L(ao.name), num(al.length)+' '+(lang==='ar'?'مشروعات':'projects'),
+al, buildPath('area',{slug:ak}));
+if(aoff){ al.slice(0,4).forEach(function(p){ vcRemember(p.slug); }); return aoff; }
+}
+return chatList(t('chat_found'), AREAS.map(function(a){ return {label:L(a.name), href:buildPath('area',{slug:a.key})}; }));
+}
+if(intent==='developer'){
+var dv=bestNameMatch(arNorm(q), DEVELOPERS, function(d){ return [d.name.en, d.name.ar]; });
+if(dv){
+var dl=projByDev(dv.key);
+var off=listOffer('dev', L(dv.name), num(dl.length)+' '+(lang==='ar'?'مشروعات':'projects'),
+dl, buildPath('developer',{slug:dv.key}));
 if(off) return off;
 }
-var area=bestNameMatch(nq, AREAS, function(a){ return [a.name.en, a.name.ar]; });
-if(area){
-var al=projInArea(area.key);
-var aoff=listOffer('area', L(area.name), num(al.length)+' '+(lang==='ar'?'مشروعات':'projects'),
-al, buildPath('area',{slug:area.key}));
-if(aoff) return aoff;
+return chatList(t('chat_found'), DEVELOPERS.map(function(d){ return {label:L(d.name), href:buildPath('developer',{slug:d.key})}; }));
 }
-var tk=Object.keys(TYPE_META).filter(function(k){ return ql.indexOf(k.toLowerCase())>-1 || q.indexOf(TYPE_META[k].ar)>-1; })[0];
-if(tk){ var toff=typeOffer(tk); if(toff) return toff; }
-if(/(launch|new launch|newly|إطلاق|اطلاق|جديد)/.test(ql)) return chatList(t('chat_found'), newLaunchProjects().map(function(p){ return {label:(lang==='ar'?p.name_ar:p.name), href:buildPath('project',{slug:p.slug})}; }));
-var m=(ql.replace(/[,\s]/g,'').match(/(\d{5,})/)||[])[1];
-if(m){ var b=parseInt(m,10); var under=PROJECTS.filter(function(p){return p.price!=null && p.price<=b;}); if(under.length) return chatList(lang==='ar'?'مشروعات ضمن ميزانيتك:':'Projects within your budget:', under.map(function(p){ return {label:(lang==='ar'?p.name_ar:p.name)+' · '+t('from')+' '+money(p.price)+' · '+t('conf_illustrative'), href:buildPath('project',{slug:p.slug})}; })); }
+if(named){ vcRemember(named.slug); return projectOffer(named); }
+var dvl=bestNameMatch(arNorm(q), DEVELOPERS, function(d){ return [d.name.en, d.name.ar]; });
+if(dvl){
+var dll=projByDev(dvl.key);
+var doff=listOffer('dev', L(dvl.name), num(dll.length)+' '+(lang==='ar'?'مشروعات':'projects'),
+dll, buildPath('developer',{slug:dvl.key}));
+if(doff) return doff;
+}
+var arl=bestNameMatch(arNorm(q), AREAS, function(a){ return [a.name.en, a.name.ar]; });
+if(arl){
+var all=projInArea(arl.key);
+var aoff2=listOffer('area', L(arl.name), num(all.length)+' '+(lang==='ar'?'مشروعات':'projects'),
+all, buildPath('area',{slug:arl.key}));
+if(aoff2) return aoff2;
+}
+var tkl=vcTypeIn(q);
+if(tkl){ var toff2=typeOffer(tkl); if(toff2) return toff2; }
 if(/(who|about|company|من نحن|من انتم|عنكم|شركة)/.test(ql)) return chatMsg(ABOUT[lang][0]+' ', chatLink(t('nav_about'), buildPath('about')));
-if(/(area|location|where|مناطق|منطقة|مكان|فين|وين)/.test(ql)) return chatList(t('chat_found'), AREAS.map(function(a){ return {label:L(a.name), href:buildPath('area',{slug:a.key})}; }));
-if(/(unit|units|apartment|villa|وحدات|وحدة|شقق|شقة)/.test(ql)) return chatList(t('chat_found'), UNITS.slice(0,6).map(function(u){ var p=projBySlug(u.project); return {label:typeLabel(u.type)+' — '+(lang==='ar'?p.name_ar:p.name)+' · '+money(u.price)+' · '+t('conf_illustrative'), href:buildPath('project',{slug:p.slug})}; }));
-if(/(developer|مطور|مطوّر|مطورين)/.test(ql)) return chatList(t('chat_found'), DEVELOPERS.map(function(d){ return {label:L(d.name), href:buildPath('developer',{slug:d.key})}; }));
+var hits=vcRetrieve(q, 5);
+if(hits.length){
+if(hits.length===1){ vcRemember(hits[0].project.slug); return projectOffer(hits[0].project); }
+var box2=chatList(t('chat_found'), hits.map(function(hit){
+vcRemember(hit.project.slug);
+return {label:hit.cite.label+(hit.project.price!=null?' · '+t('from')+' '+money(hit.project.price):''),
+href:hit.cite.href}; }));
+var cr=vcCiteRow(hits); if(cr) box2.appendChild(cr);
+return box2;
+}
 return chatActions(t('chat_noanswer'));
 }
 var railEls=null, railNudge={el:null, dismissed:false, timer:null, hideT:null};
