@@ -1,0 +1,78 @@
+REAL ESTATE AD EDIT - EDITING REPORT
+Source: IMG_2801.mov (untouched copy kept in output/original/)
+
+SOURCE ANALYSIS
+- iPhone HEVC 10-bit, Dolby Vision 8.4 / HLG HDR (BT.2020), 1920x1080 stored with -90 deg rotation = 1080x1920 portrait
+- 60 fps, 14.46 s, AAC stereo 48 kHz
+- Content: ONE continuous handheld take. A presenter walks toward camera speaking, in front of a
+  villa that is an unfinished concrete/plaster shell (open window/door openings, sand ground, rubble piles).
+- Audio: continuous speech for the full clip, plus heavy wind rumble under ~150 Hz; integrated loudness -11.7 LUFS.
+
+EDITING DECISIONS
+- No shot selection or reordering: the clip is a single take with continuous speech, so cutting would
+  break the presenter's sentences. The full take is kept. The hook (presenter already moving and talking
+  from frame 1, speech starts at 0.4 s) is kept as-is; there is no slow intro or fade-in.
+- 0.5 s video+audio fade-out at the end (after the speech ends).
+
+VIDEO PROCESSING ACTUALLY APPLIED (all versions)
+1. HDR(HLG) -> SDR BT.709 tonemapping (zscale + Hable), so colors display correctly on Meta/phones
+   (uploading raw HLG often looks washed out or oversaturated).
+2. Stabilization: vidstab 2-pass, smoothing 20, small static zoom. Measured residual shake was already
+   low (~1 px/frame, iPhone OIS/EIS), so this only removes micro-jitter.
+3. Light temporal/spatial denoise (hqdn3d 1.2/3).
+4. Color grade: +6% contrast, gentle S-curve, slight cool shift in shadows/mids/highlights to neutralize
+   the orange cast, -22% saturation in reds/yellows (over-orange sand), +25% saturation in cyan/blue
+   (sky slivers), clean whites on the facade and wardrobe.
+5. Subtle sharpening (unsharp 0.45).
+
+AUDIO PROCESSING ACTUALLY APPLIED
+- Two-stage 95 Hz high-pass (wind rumble reduced ~25-30 dB below 100 Hz), FFT noise reduction,
+  -2 dB at 250 Hz (mud), +2.5 dB at 3.2 kHz (speech clarity), 3:1 compression, loudness normalized to
+  -14 LUFS / -1.5 dBTP (a good level for Meta).
+
+LANDSCAPE / VFX ENHANCEMENT - NOT APPLIED (deliberate)
+- The property is visibly under construction. Adding lawns, palms, pools, finished facades or a sky
+  replacement would misrepresent the project's current state, and the footage contains no existing
+  landscaping to enhance. Per the brief ("do not invent amenities / misleading completion claims"),
+  no shot received landscape or VFX compositing. Only global color/sky-blue saturation was applied.
+- If approved landscape renders or masterplan visuals exist, they should be added as clearly
+  labelled "artist's impression" inserts, not composited into this live footage.
+
+REFRAMING
+- 9:16 (1080x1920): native portrait, full frame.
+- 4:5 (1080x1350): crop y=380..1730. Checked across the take: keeps the building's 2nd-floor windows,
+  the presenter's head, and his feet with a margin as he walks forward (subject spans approx. y 880-1680).
+- 16:9 (1920x1080): portrait footage can't fill landscape without losing the building and subject, so
+  it uses the 4:5 framing scaled to 864x1080, centered on a blurred, darkened, extended background.
+
+MUSIC / BRANDING / TEXT
+- No licensed music was provided and no music library is reachable from this environment. The exports
+  carry the cleaned voice only, with no music. Add licensed music at about -24 to -28 LUFS under the voice
+  (ducked), or use Meta's in-app licensed audio.
+- No branding, project name, logo or approved copy was provided, so no text or graphics were added.
+  Nothing was fabricated.
+
+EXPORTS (H.264 High@4.2, yuv420p, BT.709-tagged, 60 fps CFR, AAC 192k 48 kHz, faststart)
+- real_estate_vertical_9x16.mp4   1080x1920  14.46 s
+- real_estate_feed_4x5.mp4        1080x1350  14.46 s
+- real_estate_landscape_16x9.mp4  1920x1080  14.46 s
+- preview.mp4                     1080x960 side-by-side ORIGINAL vs EDITED, 30 fps
+QC: all files fully decoded with ffmpeg with zero errors. Dimensions, durations and frame rates were
+verified with ffprobe. Audio and video durations match (single uncut take, so sync is preserved). Frames at
+0.5 s / 7 s / 14 s were visually checked in every version for cropping and artifacts.
+
+LIMITATIONS
+- No speech transcription (the model download was blocked), so no captions were burned in. Recommended:
+  add captions in Meta Ads Manager or provide the script; most feed viewers watch muted.
+- Some wind noise remains in the low-mids where it overlaps the voice; removing more would damage the voice.
+- Sky is only small slivers at the top of frame; no sky replacement was done (it would require rotoscoping
+  around a moving handheld frame and would add little).
+
+META ADS - HOOK & CTA SUGGESTIONS (not in the video; fill in only with verified facts)
+Hooks (primary text / on-screen caption):
+ 1. "Walk the site with us - see the villa taking shape."
+ 2. "Before it's finished, it's still yours to choose." (only if units are actually available off-plan)
+ 3. "This is what real construction progress looks like."
+ 4. "Get in early: [Project name], [Location]."  <- insert approved name/location
+CTAs: "Learn More", "Send Message" (WhatsApp/Messenger), "Get Quote", "Book a site visit".
+Construction-stage footage works best positioned honestly as "progress / early access", not as a finished lifestyle.
