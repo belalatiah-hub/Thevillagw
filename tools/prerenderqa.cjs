@@ -184,6 +184,16 @@ ck('no viewport-dependent value is frozen into the markup', frozen.length === 0,
    frozen.length ? frozen.length + ' pages carry an inline background-image, e.g. ' + frozen[0].url
                  : 'checked ' + pages.length);
 
+/* Well-formedness: exactly one doctype and one <html>. A second doctype
+   inside the document is ignored by browsers and reported by validators, and
+   it is the shape a shell-splicing bug produces. */
+const malformed = pages.filter(p =>
+  (p.html.match(/<!DOCTYPE/gi) || []).length !== 1 ||
+  (p.html.match(/<html[\s>]/gi) || []).length !== 1);
+ck('each file is one well-formed document', malformed.length === 0,
+   malformed.length ? malformed.length + ' malformed, e.g. ' + malformed[0].url
+                    : 'one doctype and one <html> in ' + pages.length);
+
 // ---- size ----
 const sizes = pages.map(p => Buffer.byteLength(p.html));
 const total = sizes.reduce((a, b) => a + b, 0);

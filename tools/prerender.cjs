@@ -207,9 +207,14 @@ function stripPerRouteHead(head){
       continue;
     }
 
+    /* headBase is index.html up to </head>, so it opens with its own doctype
+       and <html lang="en" dir="ltr">. Both are replaced here, because the
+       language and direction belong to this route, not to the shell. Stripping
+       only the <html> left a second doctype inside every file -- browsers
+       ignore it, validators do not. */
     const doc = '<!DOCTYPE html>\n'
       + `<html lang="${data.lang}" dir="${data.dir}" data-lang="${data.lang}">`
-      + headBase.replace(/<html[^>]*>/, '')          // headBase still carries <!DOCTYPE><html>
+      + headBase.replace(/^\s*<!DOCTYPE[^>]*>\s*/i, '').replace(/<html[^>]*>/, '')
       + '\n  ' + data.head + '\n'
       + parts.betweenHeadAndMain
       + data.main
