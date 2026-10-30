@@ -84,8 +84,22 @@ const sandbox = { document:doc, window:win, location:win.location, history:win.h
   Intl:Intl, URLSearchParams:URLSearchParams, Set:Set, Math:Math, Date:Date, JSON:JSON, console:console, encodeURIComponent:encodeURIComponent };
 sandbox.globalThis = sandbox; sandbox.self = sandbox;
 
-let src = fs.readFileSync(require('path').join(__dirname,'..','index.html'),'utf8');
-src = src.match(/<script>\s*"use strict"[\s\S]*?<\/script>/)[0].replace(/^<script>/,'').replace(/<\/script>$/,'');
+// The app bundle is a file now, not an inline block: the page had to shed it
+// so every URL could have its own HTML. build.py writes the same bytes to
+// app.js (served) and tools/main.js (tested), so this reads the served one.
+let src = fs.readFileSync(require('path').join(__dirname,'..','app.js'),'utf8');
+
+/* Everything a browser is served, split by kind. Checks of the form "is this
+   in what we ship" used to read index.html alone, which was the whole site
+   when the whole site was one file. The bundle and the stylesheet are their
+   own files now, so those checks read from here instead and keep meaning what
+   they meant. */
+const SITE = (() => {
+  const P = require('path'), rd = n => fs.readFileSync(P.join(__dirname,'..',n),'utf8');
+  const html = rd('index.html'), js = rd('app.js'), css = rd('app.css');
+  return { html, js, css, all: html + '\n' + js + '\n' + css,
+           styles: css + '\n' + (html.match(/<style[^>]*>[\s\S]*?<\/style>/g) || []).join('\n') };
+})();
 src += "\n;globalThis.__api={h:h,V:V,unitCard:unitCard,projectArt:projectArt,projectMedia:projectMedia,projectCoverSrc:projectCoverSrc,chatRespond:chatRespond,offerText:offerText,money:money,num:num,cmpPrice:cmpPrice,planLine:planLine,projectOffer:projectOffer,bestNameMatch:bestNameMatch,unitDisplayName:unitDisplayName,PROJECTS:PROJECTS,UNITS:UNITS,DEVELOPERS:DEVELOPERS,TYPES:TYPES,lang:lang,filterUnits:filterUnits,defaultFilter:defaultFilter,normalizeUnitType:normalizeUnitType,reconcileFilter:reconcileFilter,filterToQuery:filterToQuery,filterFromQuery:filterFromQuery,areaFacets:areaFacets,devFacets:devFacets,typeFacets:typeFacets,bedFacets:bedFacets,floorFacets:floorFacets,usesFloorBands:usesFloorBands,recommendUnits:recommendUnits,scoreUnit:scoreUnit,relaxationPlan:relaxationPlan,matchHard:matchHard,hasSelection:hasSelection,selectionSummary:selectionSummary,chatRecommend:chatRecommend,chatBriefText:chatBriefText,projBySlug:projBySlug,unitCanon:unitCanon,setFilter:function(f){FILTER=f;},getFilter:function(){return FILTER;},searchAll:searchAll,arNorm:arNorm,buildSearchIndex:buildSearchIndex,setSearch:function(s){CUR.search=s;},paymentCalc:paymentCalc,printFactsheet:printFactsheet,projFloorplan:projFloorplan,installmentCount:installmentCount,projectCoverSrc:projectCoverSrc,printUnitFactsheet:printUnitFactsheet,openFactsheet:openFactsheet,closeFactsheet:closeFactsheet,track:track,render:render,parse:parse,buildPath:buildPath,navigateTo:navigateTo,getRoute:function(){return currentRoute;},searchLabel:searchLabel,saveCurrentSearch:saveCurrentSearch,savedSearches:savedSearches,removeSearch:removeSearch,leadSubmit:leadSubmit,leadArm:leadArm,leadReset:function(){LEAD.shown=0;LEAD.armed=false;LEAD.open=false;},leadState:function(){return LEAD;},isExternalLink:isExternalLink,CONFIG:CONFIG,devLogoSrc:devLogoSrc,projectLogoSrc:projectLogoSrc,devBadge:devBadge,devByKey:devByKey,DEV_LOGOS:DEV_LOGOS,DEV_GALLERY:DEV_GALLERY,DEV_PLANS:DEV_PLANS, vcSchedule:vcSchedule, vcToP:vcToP, vcPct:vcPct, vcTerms:vcTerms, vcSearchProjects:vcSearchProjects, vcGetProject:vcGetProject, vcSearchUnits:vcSearchUnits, vcCompareProjects:vcCompareProjects, vcCalculateInstallments:vcCalculateInstallments, vcRoute:vcRoute, vcNamedArea:vcNamedArea, vcRetrieve:vcRetrieve, vcCallTool:vcCallTool, vcProvider:vcProvider, vcProjectUrl:vcProjectUrl, vcResolveRef:vcResolveRef, vcRemember:vcRemember, vcReset:vcReset, vcProjsIn:vcProjsIn, vcBudgetIn:vcBudgetIn, vcSchedMsg:vcSchedMsg, vcCompareMsg:vcCompareMsg, vcCtx:function(){return VC_CTX;}, chatBuild:chatBuild, chatRefresh:chatRefresh, chatClear:chatClear, chatUserSend:chatUserSend, chatWelcome:chatWelcome, chatTools:chatTools, chatEls:function(){return chatEls;}, t:t,devGallery:devGallery,PROJECT_LOGOS:PROJECT_LOGOS,unitMasterplans:unitMasterplans,unitFloorplans:unitFloorplans,unitAmenities:unitAmenities,unitLocationImg:unitLocationImg,unitGallery:unitGallery,unitGalleryItems:unitGalleryItems,unitFeatureRow:unitFeatureRow,amenitiesSection:amenitiesSection,areaImageSrc:areaImageSrc,AMENITY_CAT:AMENITY_CAT,unitById:unitById,unitIsCommercial:unitIsCommercial,typeFamily:typeFamily,releaseBySlug:releaseBySlug,RELEASES:RELEASES,rotateByDev:rotateByDev,devRotationOffset:devRotationOffset,areaByKey:areaByKey,hasUnitImage:hasUnitImage,sortUnits:sortUnits,searchAll:searchAll,searchTypeOne:searchTypeOne,buildSearchIndex:buildSearchIndex,releaseMasterplan:releaseMasterplan,spreadByDev:spreadByDev,isNewLaunch:isNewLaunch,newLaunchProjects:newLaunchProjects,NEW_LAUNCH_SLUGS:NEW_LAUNCH_SLUGS,PROJECT_GROUPS:PROJECT_GROUPS,groupBySlug:groupBySlug,groupsByDev:groupsByDev,groupMembers:groupMembers,GROUPED_PROJECT:GROUPED_PROJECT,setCompare:function(a){compare.length=0;for(var i=0;i<a.length;i++)compare.push(a[i]);},getCompare:function(){return compare;},toggleCompare:toggleCompare,HERO_SLIDES:HERO_SLIDES,heroSrc:heroSrc,AREAS:AREAS,RESEARCH:RESEARCH,areaText:areaText,areaValue:areaValue,DEV_AMENITIES:DEV_AMENITIES,AMENITY_CAT:AMENITY_CAT,ICON:ICON,devAmenitiesSection:devAmenitiesSection,DEV_FEATURES:DEV_FEATURES,UNIT_GALLERY:UNIT_GALLERY,unitMasterplans:unitMasterplans,unitLocationImg:unitLocationImg,unitFloorplans:unitFloorplans,PROJECT_AMENITIES:PROJECT_AMENITIES,unitAmenities:unitAmenities,projectGalleryItems:projectGalleryItems,projFeatures:projFeatures,projectPlans:projectPlans,projectPlanSection:projectPlanSection,unitMedia:unitMedia,UNIT_IMAGES:UNIT_IMAGES,PROJECT_COVERS:PROJECT_COVERS,PROJECT_GALLERY:PROJECT_GALLERY,projectPhases:projectPhases,phaseOf:phaseOf,PROJECT_BROCHURE:PROJECT_BROCHURE,PROJECT_FEATURES:PROJECT_FEATURES,PROJECT_PLANS:PROJECT_PLANS,UNIT_EXTRA:UNIT_EXTRA,UNIT_MASTERPLANS:UNIT_MASTERPLANS,UNIT_FLOORPLANS:UNIT_FLOORPLANS,UNIT_LOCATIONS:UNIT_LOCATIONS,COMING_SOON_LAUNCHES:COMING_SOON_LAUNCHES,comingSoonFor:comingSoonFor,comingSoonForDev:comingSoonForDev,comingSoonCard:comingSoonCard,csHref:csHref,csTitle:csTitle,setLang:function(l){var p=lang;lang=l;return p;}};";
 
 /* A check passes on `true` and fails on a string, which is its own message.
@@ -1170,9 +1184,9 @@ try {
 
   // ---- Nav "Search" goes to the finder; the standalone palette pill is gone ----
   ck('nav: the header no longer renders the palette pill', (function(){
-    var raw=require('fs').readFileSync(require('path').join(__dirname,'..','index.html'),'utf8');
-    // the pill is gone from the markup, but the Ctrl/Cmd+K handler stays
-    return raw.indexOf('id="search-open"')===-1 && /metaKey|ctrlKey/.test(raw);
+    // The pill is gone from everything we ship, markup and bundle alike,
+    // but the Ctrl/Cmd+K handler stays -- and that handler lives in the bundle.
+    return SITE.all.indexOf('id="search-open"')===-1 && /metaKey|ctrlKey/.test(SITE.js);
   })(), 'ok');
   ck('finder: each filled facet group offers its own Reset', (function(){
     // V.units rebuilds FILTER from the query string, so drive it that way
@@ -2827,10 +2841,8 @@ try {
      brand cursor ever returns, and keeps the half of the old check that was
      never about branding — the shapes that tell you what a thing DOES. */
   ck('cursor: the pointer is the visitor’s own, and only doing-shapes are set', (function(){
-    var fsz = require('fs'), pathz = require('path');
-    var css = (fsz.readFileSync(pathz.join(__dirname,'..','index.html'),'utf8')
-                 .match(/<style[^>]*>[\s\S]*?<\/style>/g) || []).join('\n');
-    if(!css) return 'no stylesheet in index.html';
+    var css = SITE.styles;
+    if(!css) return 'no stylesheet found';
     var bad = [];
     // Nothing repaints the arrow: no image cursor anywhere, and no rule that
     // sets the cursor on the document root at all.
@@ -2843,7 +2855,7 @@ try {
     if(!/\.detail-media--gal\{cursor:zoom-in\}/.test(css)) bad.push('a zoomable picture lost its magnifier');
     if(!/\.dev-rail\.is-drag\{cursor:grabbing/.test(css)) bad.push('the rail lost its grab');
     // And the source no longer asks the build for an asset it will not use.
-    var build = fsz.readFileSync(pathz.join(__dirname,'build.py'),'utf8');
+    var build = require('fs').readFileSync(require('path').join(__dirname,'build.py'),'utf8');
     if(/replace\('__CURSOR_V__'/.test(build)) bad.push('the build still substitutes the mark');
     return bad.length === 0 || bad.join('; ');
   })(), true);
@@ -3935,10 +3947,8 @@ try {
     // The document here is a stub the script builds itself; index.html's own
     // <style> is never parsed into it, so reading the rule off `doc` read an
     // empty string and the rule could not be found however right it was.
-    var fsy = require('fs'), pathy = require('path');
-    var html = fsy.readFileSync(pathy.join(__dirname,'..','index.html'),'utf8');
-    var css = (html.match(/<style[^>]*>[\s\S]*?<\/style>/g)||[]).join('\n');
-    if(!css) return 'no stylesheet in index.html';
+    var css = SITE.styles;
+    if(!css) return 'no stylesheet found';
     var rule = /\.dev-feat\s*>\s*img\s*\{[^}]*aspect-ratio\s*:\s*3\s*\/\s*2[^}]*object-fit\s*:\s*cover[^}]*\}/;
     var solo = 0, total = 0;
     [api.DEV_FEATURES, api.PROJECT_FEATURES].forEach(function(m){

@@ -13232,7 +13232,9 @@ noW.appendChild(h('p',{class:'muted', style:'margin-top:4px'}, t('no_units_type'
 noSec.appendChild(noW); node.appendChild(noSec);
 }
 node.appendChild(ctaBand());
-var desc=uLabel+' — '+pnm+(lang==='ar'?'، ':', ')+L(area.name)+'. '+(u.price!=null?(t('conf_illustrative')+' '+money(u.price)+'. '):'')+t('finder_p');
+var sizeBit=av ? (' · '+av+' m²') : '';
+var idBit=(unitTitleTwin(u) || !av) ? (' · '+u.id) : '';
+var desc=uLabel+sizeBit+idBit+' — '+pnm+(lang==='ar'?'، ':', ')+L(area.name)+'. '+(u.price!=null?(t('conf_illustrative')+' '+money(u.price)+'. '):'')+t('finder_p');
 return {node:node, title:pageTitle+' — The Village Investment', desc:desc, indexable:true, ld:unitListingLD(u),
 crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_units'),path:buildPath('units')},{label:title}]};
 };

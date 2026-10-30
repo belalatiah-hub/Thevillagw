@@ -59,8 +59,36 @@
   <script>
   (function () {
     var ar = /^\/ar(\/|$)/.test(location.pathname);
+
+    /* The document is written lang="en" dir="ltr" because one file serves both
+       languages, and the app sets the real values — but it does that from the
+       bottom of a 1.6 MB bundle. Until then the browser is laying out an
+       English page: --sans resolves to Plus Jakarta Sans and --serif to
+       Fraunces, so it starts fetching 94 KB of Latin type that no Arabic page
+       ever renders a glyph in, competing with the Tajawal it does need.
+
+       This runs in <head>, before the stylesheet, and the language is already
+       known one line above. Setting it here means the Arabic cascade is live
+       from the first style resolution, so those two files are never requested
+       and the page never spends a frame laid out left-to-right. The app still
+       sets all three attributes on every route change; this only moves the
+       first one earlier. */
+    if (ar) {
+      var de = document.documentElement;
+      de.setAttribute('lang', 'ar');
+      de.setAttribute('dir', 'rtl');
+      de.setAttribute('data-lang', 'ar');
+    }
+
+    /* Arabic headings are font-weight:700 (see html[dir="rtl"] h1..h4), and
+       700 was not in this list: it was discovered only when the app laid the
+       headings out, landing at ~5.2s on a throttled phone. Every heading was
+       redrawn at that moment, the header reflowed, and the page below it
+       shifted — measured as CLS 0.205 against 0.0003 on the English page, with
+       LCP pushed to 5.3s against 0.55s. It is the single most visible piece of
+       type on the page; it belongs in the first fetch, not the last. */
     var faces = ar
-      ? ['tajawal-400-arabic', 'tajawal-500-arabic']
+      ? ['tajawal-400-arabic', 'tajawal-500-arabic', 'tajawal-700-arabic']
       : ['fraunces-latin', 'plus-jakarta-sans-latin'];
     for (var i = 0; i < faces.length; i++) {
       var l = document.createElement('link');

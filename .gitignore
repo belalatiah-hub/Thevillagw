@@ -1,0 +1,8 @@
+
+# Pre-rendered pages. tools/prerender.cjs writes one HTML file per URL in
+# sitemap.xml -- about 1,570 files and 220 MB, rewritten whole on every build.
+# They are derived from the data, never edited by hand, and reproducible in
+# about a hundred seconds, so they are generated on the deploy runner instead
+# of being carried in the history. See the pre-render step in deploy.yml.
+/en/
+/ar/

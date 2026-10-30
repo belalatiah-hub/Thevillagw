@@ -106,9 +106,9 @@ const sandbox = { document:doc, window:win, location:win.location, history:win.h
   console:console, encodeURIComponent:encodeURIComponent };
 sandbox.globalThis = sandbox; sandbox.self = sandbox;
 
-let src = fs.readFileSync(path.join(__dirname,'..','index.html'),'utf8');
-src = src.match(/<script>\s*"use strict"[\s\S]*?<\/script>/)[0]
-         .replace(/^<script>/,'').replace(/<\/script>$/,'');
+// The bundle is /app.js now, not an inline block -- the page had to shed it so
+// every URL could be pre-rendered into its own file. Same bytes, own request.
+let src = fs.readFileSync(path.join(__dirname,'..','app.js'),'utf8');
 src += "\n;globalThis.__api={parse:parse,render:render,buildPath:buildPath," +
        "PROJECTS:PROJECTS,UNITS:UNITS,DEVELOPERS:DEVELOPERS,AREAS:AREAS," +
        "RESEARCH:RESEARCH,RELEASES:RELEASES,PROJECT_GROUPS:PROJECT_GROUPS};";

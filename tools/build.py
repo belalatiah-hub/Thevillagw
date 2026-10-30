@@ -143,6 +143,64 @@ def apply_to_blocks(doc, tag, fn):
     return pat.sub(lambda m: m.group(1) + fn(m.group(2)) + m.group(3), doc)
 
 
+def externalise(doc):
+    """Move the app bundle and the stylesheet out of the document.
+
+    The page was one self-contained file on purpose, and for a single URL that
+    is the right shape: no extra round trip before the first paint. It stops
+    being the right shape the moment every URL needs its own HTML.
+
+    1,570 URLs currently serve the same 1.65 MB document, 90% of which is one
+    script. Writing a real file per URL with the bundle still inline would be
+    2.6 GB of near-identical bytes, so the bundle has to become a file. Once it
+    is, a visitor downloads it once and every later page is the shell alone,
+    which is faster than the single-file version was for anyone who opens more
+    than one page -- and that is most people.
+
+    The small <head> script stays inline: it sets dir and preloads the right
+    font before the stylesheet is read, and it cannot do that from a separate
+    request. JSON-LD blocks stay inline because they are per-page data.
+
+    Both files carry a content hash in the query string, so a deploy can never
+    serve a cached bundle against new markup, and the CSP already allows 'self'
+    for script and style.
+    """
+    out = {}
+
+    def digest(text):
+        return hashlib.sha256(text.encode('utf-8')).hexdigest()[:12]
+
+    # --- the app bundle: the one executable script with a body, not the head
+    #     shim and not the JSON-LD blocks ---
+    app = None
+    for m in re.finditer(r'<script\b([^>]*)>(.*?)</script>', doc, re.S):
+        attrs, body = m.group(1), m.group(2)
+        if 'type=' in attrs or 'src=' in attrs:
+            continue                                  # JSON-LD, or already external
+        if '"use strict"' in body[:40] or "'use strict'" in body[:40]:
+            app = m
+    if app is None:
+        raise SystemExit('build aborted: could not find the app bundle to externalise')
+    js = app.group(2)
+    out['app.js'] = js
+    doc = (doc[:app.start()]
+           + '<script src="/app.js?v=%s" defer></script>' % digest(js)
+           + doc[app.end():])
+
+    # --- the stylesheet: the largest <style>, which is tpl_style.html ---
+    styles = list(re.finditer(r'<style\b([^>]*)>(.*?)</style>', doc, re.S))
+    if not styles:
+        raise SystemExit('build aborted: no <style> block to externalise')
+    big = max(styles, key=lambda m: len(m.group(2)))
+    css = big.group(2)
+    out['app.css'] = css
+    doc = (doc[:big.start()]
+           + '<link rel="stylesheet" href="/app.css?v=%s" />' % digest(css)
+           + doc[big.end():])
+
+    return doc, out
+
+
 def pin_script_hashes(doc):
     """Swap script-src 'unsafe-inline' for the hash of every inline script.
 
@@ -300,6 +358,11 @@ def main():
         doc = apply_to_blocks(doc, 'style', minify_css)
     after = len(doc.encode('utf-8'))
 
+    doc, assets = externalise(doc)
+    for name, body in assets.items():
+        with open(os.path.join(ROOT, name), 'w', encoding='utf-8') as f:
+            f.write(body)
+
     doc = pin_script_hashes(doc)
 
     # The engineering banner lives at the END of the document: in <head> it
@@ -312,16 +375,20 @@ def main():
     with open(OUT, 'w', encoding='utf-8') as f:
         f.write(doc)
 
-    # main.js is the extracted app bundle that the DOM test suite executes.
-    scripts = re.findall(r'<script>(.*?)</script>', doc, re.S)
-    main_js = next(s for s in scripts if '"use strict"' in s)
+    # main.js is the app bundle the DOM test suite executes. It used to be cut
+    # back out of the document; since externalise() already holds it, that copy
+    # is the same bytes the browser is served, by construction rather than by a
+    # second regex that could drift from the first.
     with open(os.path.join(ROOT, 'tools', 'main.js'), 'w', encoding='utf-8') as f:
-        f.write(main_js)
+        f.write(assets['app.js'])
 
     saved = before - after
     note = '' if raw else ', minified: -%s KB, -%.0f%%' % (round(saved / 1024), 100.0 * saved / before)
-    print('index.html %s KB  (%d bilingual strings%s)'
-          % (round(after / 1024), keys, note))
+    # Report what is actually served, not the size of the document before the
+    # bundle was lifted out of it -- that number would only ever flatter.
+    kb = lambda n: round(os.path.getsize(os.path.join(ROOT, n)) / 1024)
+    print('index.html %s KB + app.js %s KB + app.css %s KB  (%d bilingual strings%s)'
+          % (kb('index.html'), kb('app.js'), kb('app.css'), keys, note))
 
 
 if __name__ == '__main__':

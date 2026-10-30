@@ -36,14 +36,62 @@ jobs:
           # so the first deploy doesn't require a manual Settings step.
           enablement: true
 
+      # ---- Pre-render ------------------------------------------------------
+      # Every URL gets its own HTML file here rather than in the repository.
+      # The output is roughly 200 MB over 1,570 files and is rewritten whole on
+      # every build, so committing it would add that much to the history each
+      # time for files that are derived, never edited, and reproducible from
+      # the data in one command. It is generated on the runner instead, after
+      # the build and before the upload, so the artifact carries it and the
+      # repository stays the source.
+      #
+      # Without this step the artifact is the single-page app: 1,570 URLs that
+      # all serve the same document, with the title, the content and the
+      # structured data written by JavaScript after load. Google runs that
+      # script eventually; most other engines and the AI crawlers do not run it
+      # at all. If this step is ever removed, that is what goes back.
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Build
+        run: python3 tools/build.py
+
+      - name: Install the pre-render browser
+        run: |
+          npm ci --no-audit --no-fund || npm install --no-audit --no-fund playwright
+          npx playwright install --with-deps chromium
+
+      - name: Pre-render every URL
+        run: |
+          python3 tools/serve.py 8099 &
+          for i in $(seq 1 30); do
+            curl -sf -o /dev/null http://127.0.0.1:8099/en/ && break
+            sleep 1
+          done
+          node tools/prerender.cjs --out .
+
+      # Reads the generated files as text, with no browser and no JavaScript,
+      # which is the position every engine that does not run scripts is in. It
+      # fails the deploy rather than publishing 1,570 URLs that share a title
+      # again -- the state this whole step exists to end.
+      - name: Check what a crawler will read
+        run: node tools/prerenderqa.cjs --dir .
+
       - name: Exclude internal-only folders from the published site
         # These must never be served. data-import-kit/ holds internal staff
         # templates; src/ and tools/ are the build inputs and the build itself,
         # and publishing them hands over the commented source and the tooling.
-        # index.html already contains every byte the page needs, so nothing at
-        # runtime misses them. Removing them from the runner checkout keeps them
-        # out of the Pages artifact; Cloudflare is handled by .assetsignore.
-        run: rm -rf data-import-kit src tools unrar-0.4-py3-none-any.whl
+        # Removing them from the runner checkout keeps them out of the Pages
+        # artifact; Cloudflare is handled by .assetsignore. This runs AFTER the
+        # pre-render, which needs tools/ to exist.
+        run: rm -rf data-import-kit src tools unrar-0.4-py3-none-any.whl node_modules
 
       - name: Upload site
         uses: actions/upload-pages-artifact@v3

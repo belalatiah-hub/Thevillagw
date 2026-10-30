@@ -88,5 +88,15 @@ class S(socketserver.ThreadingTCPServer):
 
 
 if __name__ == '__main__':
-    print('serving %s on http://127.0.0.1:%d' % (ROOT, PORT))
-    S(('127.0.0.1', PORT), H).serve_forever()
+    # The port was fixed at 8099, which the callers already passed as an
+    # argument and which was silently ignored -- so two QA runs could not share
+    # a machine, and the second one failed against the first one's server.
+    import sys
+    port = PORT
+    if len(sys.argv) > 1:
+        try:
+            port = int(sys.argv[1])
+        except ValueError:
+            raise SystemExit('usage: serve.py [port]')
+    print('serving %s on http://127.0.0.1:%d' % (ROOT, port))
+    S(('127.0.0.1', port), H).serve_forever()

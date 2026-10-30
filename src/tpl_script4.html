@@ -568,8 +568,18 @@
       noSec.appendChild(noW); node.appendChild(noSec);
     }
     node.appendChild(ctaBand());
+    /* The <title> was given a size suffix for the reason set out above, and the
+       description was left as type + project + area + price. Where a project
+       lists two units of the same type at the same price, that is the same
+       sentence twice: tm-bl-05 and tm-bl-07 differ only in being 125 m² and
+       120 m², and shipped one description between them, as did two more pairs.
+       A duplicate description is a duplicate-content signal on pages that are
+       not duplicates. The distinguishing part is taken from the same two values
+       the title uses, so the two cannot drift apart again. */
+    var sizeBit=av ? (' · '+av+' m²') : '';
+    var idBit=(unitTitleTwin(u) || !av) ? (' · '+u.id) : '';
     // Arabic separates with ، not , — the Latin comma reads as a typo in RTL.
-    var desc=uLabel+' — '+pnm+(lang==='ar'?'، ':', ')+L(area.name)+'. '+(u.price!=null?(t('conf_illustrative')+' '+money(u.price)+'. '):'')+t('finder_p');
+    var desc=uLabel+sizeBit+idBit+' — '+pnm+(lang==='ar'?'، ':', ')+L(area.name)+'. '+(u.price!=null?(t('conf_illustrative')+' '+money(u.price)+'. '):'')+t('finder_p');
     return {node:node, title:pageTitle+' — The Village Investment', desc:desc, indexable:true, ld:unitListingLD(u),
       crumbs:[{label:t('nav_home'),path:buildPath('home')},{label:t('nav_units'),path:buildPath('units')},{label:title}]};
   };
