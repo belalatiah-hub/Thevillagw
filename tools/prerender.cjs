@@ -97,6 +97,24 @@ const EXTRACT = () => {
      lost for a crawler either way: a CSS background is decoration, and the
      hero's text, heading and links are in the markup regardless. */
   d.querySelectorAll('.hero__slide').forEach(el => { el.style.backgroundImage = ''; });
+
+  /* Long lists are capped. The units index renders all 633 cards, which came
+     to 2.8 MB of HTML -- on Slow 4G that page did not finish loading inside a
+     90-second timeout, where the un-pre-rendered version had painted in under
+     a second. A page nobody can load ranks for nothing.
+
+     Nothing is lost by capping it. Every unit has its own URL, every one of
+     those URLs is in sitemap.xml and is itself pre-rendered, so none of them
+     depends on this page to be found; the app rebuilds the full list on boot,
+     so a visitor still sees all of them. What the cap removes is 580 copies of
+     a card template in a document that only had to prove what this page is. */
+  const CAP = 48;
+  const grids = new Set();
+  d.querySelectorAll('.card').forEach(el => { if(el.parentElement) grids.add(el.parentElement); });
+  grids.forEach(g => {
+    const cards = [...g.children].filter(c => c.classList && c.classList.contains('card'));
+    cards.slice(CAP).forEach(c => c.remove());
+  });
   const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
                             .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   const out = [];
